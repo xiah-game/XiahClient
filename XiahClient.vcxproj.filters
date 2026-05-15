@@ -1,0 +1,589 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="GlobalValue">
+      <UniqueIdentifier>{20757788-abd4-47ea-9de3-b7e8824c7477}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GlobalValue\CharacterInfo">
+      <UniqueIdentifier>{46edb888-91bf-42c9-b674-ac015aef6346}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GlobalValue\CharacterInfo\Sack">
+      <UniqueIdentifier>{4c384eef-e11d-49fc-a3d9-e1aeab90953c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GlobalValue\CharacterInfo\Mugong">
+      <UniqueIdentifier>{599c8a96-08d9-44fb-bb2d-f22311d761dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GlobalValue\CharacterInfo\Chat">
+      <UniqueIdentifier>{81b1100f-bde0-4da5-834b-884c0d224a89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GlobalValue\CharacterInfo\Slot">
+      <UniqueIdentifier>{70510280-6a7d-46e1-828e-b8cfd8736051}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GlobalValue\CharacterInfo\Relation">
+      <UniqueIdentifier>{834365eb-7b42-4dc4-952b-51d326cdd1ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GlobalValue\CharacterInfo\HoldItem">
+      <UniqueIdentifier>{72d80b26-eb25-41c8-bee8-38c43fc32c4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GlobalValue\CharacterInfo\Quest">
+      <UniqueIdentifier>{1e0bd00f-cae3-46a1-b908-aea45477823c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GlobalValue\CharacterInfo\Mail">
+      <UniqueIdentifier>{804e1712-2219-4595-a54d-9b3af1721002}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GlobalValue\CharacterInfo\Helper">
+      <UniqueIdentifier>{4ce3bebc-1697-4c04-af40-33fa8f67acbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{fbb17c4e-0cf9-4048-a007-7987d81cdae5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network\Socket">
+      <UniqueIdentifier>{e14a75d1-d62a-4781-8611-b7aada5aa388}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network\Protocol">
+      <UniqueIdentifier>{5fff7ab0-49c6-4570-b9e1-85c8524ae97d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainApp">
+      <UniqueIdentifier>{92e971c4-5df0-4562-b5f8-737c80b3e407}</UniqueIdentifier>
+      <Extensions>h,cpp</Extensions>
+    </Filter>
+    <Filter Include="ClientObject">
+      <UniqueIdentifier>{30ac202c-3bf1-4384-96fa-6255fffa971e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Map">
+      <UniqueIdentifier>{bc7c0c25-a3d0-4cb7-806a-dbe9b8582bab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External">
+      <UniqueIdentifier>{00e2107f-70ae-4a86-96f9-70a27c2b0442}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External\Interface">
+      <UniqueIdentifier>{f7e08638-bc8d-49c2-b29e-0e2caad73400}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External\Interface\Define">
+      <UniqueIdentifier>{a73d4e0f-e81f-4a32-83ac-a70bf6a95f92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External\Interface\Handler">
+      <UniqueIdentifier>{fee4942d-082d-4777-949b-273beca90e64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameMain">
+      <UniqueIdentifier>{23125c76-5713-443a-a58a-ad1fd777ed5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameMain\Intro">
+      <UniqueIdentifier>{7aa4c377-d7e5-444b-bb14-481ca69fd34a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameMain\Main">
+      <UniqueIdentifier>{7e957ba1-2b03-40ba-93cc-0b31dcfd30f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameMain\Main\XiahGame_Main_MainChar">
+      <UniqueIdentifier>{3a224e83-eec5-4a48-8af6-dbb80a538331}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameMain\Handler">
+      <UniqueIdentifier>{72ee0e1a-ea56-4898-a437-9653eaeaae41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="debug">
+      <UniqueIdentifier>{84402f81-6e56-4466-b2b4-63e4e6db8fa3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Jpeglib">
+      <UniqueIdentifier>{bf8afef1-581c-41a3-8393-ef795b532de6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="etc">
+      <UniqueIdentifier>{660b0d3c-aea7-43f8-b456-dabb0e9e1664}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Login">
+      <UniqueIdentifier>{1b64a5eb-2807-4144-b6f6-158d7d8bf41f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="list">
+      <UniqueIdentifier>{002d45d5-2fa2-42d0-a46b-55ddeaa7198e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CharSack.h">
+      <Filter>GlobalValue\CharacterInfo\Sack</Filter>
+    </ClInclude>
+    <ClInclude Include="EquipSack.h">
+      <Filter>GlobalValue\CharacterInfo\Sack</Filter>
+    </ClInclude>
+    <ClInclude Include="Sack.h">
+      <Filter>GlobalValue\CharacterInfo\Sack</Filter>
+    </ClInclude>
+    <ClInclude Include="Mugong.h">
+      <Filter>GlobalValue\CharacterInfo\Mugong</Filter>
+    </ClInclude>
+    <ClInclude Include="Chat.h">
+      <Filter>GlobalValue\CharacterInfo\Chat</Filter>
+    </ClInclude>
+    <ClInclude Include="CImageScrMsg.h">
+      <Filter>GlobalValue\CharacterInfo\Chat</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenMessage.h">
+      <Filter>GlobalValue\CharacterInfo\Chat</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillTime.h">
+      <Filter>GlobalValue\CharacterInfo\Slot</Filter>
+    </ClInclude>
+    <ClInclude Include="Slot.h">
+      <Filter>GlobalValue\CharacterInfo\Slot</Filter>
+    </ClInclude>
+    <ClInclude Include="Relation.h">
+      <Filter>GlobalValue\CharacterInfo\Relation</Filter>
+    </ClInclude>
+    <ClInclude Include="HoldItem.h">
+      <Filter>GlobalValue\CharacterInfo\HoldItem</Filter>
+    </ClInclude>
+    <ClInclude Include="Quest.h">
+      <Filter>GlobalValue\CharacterInfo\Quest</Filter>
+    </ClInclude>
+    <ClInclude Include="mail.h">
+      <Filter>GlobalValue\CharacterInfo\Mail</Filter>
+    </ClInclude>
+    <ClInclude Include="Helper.h">
+      <Filter>GlobalValue\CharacterInfo\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="XiahNetworkHandler.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="NetMsg.h">
+      <Filter>Network\Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="XiahSocket.h">
+      <Filter>Network\Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="csprotocol.h">
+      <Filter>Network\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="precompile.h">
+      <Filter>MainApp</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>MainApp</Filter>
+    </ClInclude>
+    <ClInclude Include="sysutil.h">
+      <Filter>MainApp</Filter>
+    </ClInclude>
+    <ClInclude Include="XiahObject.h">
+      <Filter>ClientObject</Filter>
+    </ClInclude>
+    <ClInclude Include="XiahMap.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="InterfaceHandler.h">
+      <Filter>External\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="frameDefine.h">
+      <Filter>External\Interface\Define</Filter>
+    </ClInclude>
+    <ClInclude Include="StringDefine.h">
+      <Filter>External\Interface\Define</Filter>
+    </ClInclude>
+    <ClInclude Include="Fade.h">
+      <Filter>GameMain</Filter>
+    </ClInclude>
+    <ClInclude Include="XiahBGMcore.h">
+      <Filter>GameMain</Filter>
+    </ClInclude>
+    <ClInclude Include="XiahCamera.h">
+      <Filter>GameMain</Filter>
+    </ClInclude>
+    <ClInclude Include="XiahCursor.h">
+      <Filter>GameMain</Filter>
+    </ClInclude>
+    <ClInclude Include="XiahGame_StepObject.h">
+      <Filter>GameMain</Filter>
+    </ClInclude>
+    <ClInclude Include="XiahGameMain.h">
+      <Filter>GameMain</Filter>
+    </ClInclude>
+    <ClInclude Include="XiahGameStartLoad.h">
+      <Filter>GameMain</Filter>
+    </ClInclude>
+    <ClInclude Include="XiahGame_Intro.h">
+      <Filter>GameMain\Intro</Filter>
+    </ClInclude>
+    <ClInclude Include="MunpaMark.h">
+      <Filter>GameMain\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="RebirthMark.h">
+      <Filter>GameMain\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="XiahGame_BGM.h">
+      <Filter>GameMain\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="XiahGame_Main.h">
+      <Filter>GameMain\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="XiahGame_Minimap.h">
+      <Filter>GameMain\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="XiahGame_Pet.h">
+      <Filter>GameMain\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="XiahGameObject.h">
+      <Filter>GameMain\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Jconfig.h">
+      <Filter>Jpeglib</Filter>
+    </ClInclude>
+    <ClInclude Include="jmorecfg.h">
+      <Filter>Jpeglib</Filter>
+    </ClInclude>
+    <ClInclude Include="jpeglib.h">
+      <Filter>Jpeglib</Filter>
+    </ClInclude>
+    <ClInclude Include="cEFFECT_SPOT.h">
+      <Filter>etc</Filter>
+    </ClInclude>
+    <ClInclude Include="CurseFilter.h">
+      <Filter>etc</Filter>
+    </ClInclude>
+    <ClInclude Include="CXiahGame_Login.h">
+      <Filter>Login</Filter>
+    </ClInclude>
+    <ClInclude Include="ListAbstractFactory.h">
+      <Filter>list</Filter>
+    </ClInclude>
+    <ClInclude Include="ListBoxBase.h">
+      <Filter>list</Filter>
+    </ClInclude>
+    <ClInclude Include="ListClient.h">
+      <Filter>list</Filter>
+    </ClInclude>
+    <ClInclude Include="MunpaBBSList.h">
+      <Filter>list</Filter>
+    </ClInclude>
+    <ClInclude Include="Spirit.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ArrayIndexData.cpp">
+      <Filter>GlobalValue</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterInfo.cpp">
+      <Filter>GlobalValue</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterInfo_RefreshFrame.cpp">
+      <Filter>GlobalValue</Filter>
+    </ClCompile>
+    <ClCompile Include="FunctionalNpcInfo.cpp">
+      <Filter>GlobalValue</Filter>
+    </ClCompile>
+    <ClCompile Include="GlobalValue.cpp">
+      <Filter>GlobalValue</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemInfo.cpp">
+      <Filter>GlobalValue</Filter>
+    </ClCompile>
+    <ClCompile Include="PCVisualInfo.cpp">
+      <Filter>GlobalValue</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahArrayIndex.cpp">
+      <Filter>GlobalValue</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahCharAniType.cpp">
+      <Filter>GlobalValue</Filter>
+    </ClCompile>
+    <ClCompile Include="CharSack.cpp">
+      <Filter>GlobalValue\CharacterInfo\Sack</Filter>
+    </ClCompile>
+    <ClCompile Include="EquipSack.cpp">
+      <Filter>GlobalValue\CharacterInfo\Sack</Filter>
+    </ClCompile>
+    <ClCompile Include="ProcessUnSelect.cpp">
+      <Filter>GlobalValue\CharacterInfo\Sack</Filter>
+    </ClCompile>
+    <ClCompile Include="Sack.cpp">
+      <Filter>GlobalValue\CharacterInfo\Sack</Filter>
+    </ClCompile>
+    <ClCompile Include="Mugong.cpp">
+      <Filter>GlobalValue\CharacterInfo\Mugong</Filter>
+    </ClCompile>
+    <ClCompile Include="Chat.cpp">
+      <Filter>GlobalValue\CharacterInfo\Chat</Filter>
+    </ClCompile>
+    <ClCompile Include="CImageScrMsg.cpp">
+      <Filter>GlobalValue\CharacterInfo\Chat</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenMessage.cpp">
+      <Filter>GlobalValue\CharacterInfo\Chat</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillTime.cpp">
+      <Filter>GlobalValue\CharacterInfo\Slot</Filter>
+    </ClCompile>
+    <ClCompile Include="Slot.cpp">
+      <Filter>GlobalValue\CharacterInfo\Slot</Filter>
+    </ClCompile>
+    <ClCompile Include="Relation.cpp">
+      <Filter>GlobalValue\CharacterInfo\Relation</Filter>
+    </ClCompile>
+    <ClCompile Include="Relation_Clan.cpp">
+      <Filter>GlobalValue\CharacterInfo\Relation</Filter>
+    </ClCompile>
+    <ClCompile Include="Relation_Dan.cpp">
+      <Filter>GlobalValue\CharacterInfo\Relation</Filter>
+    </ClCompile>
+    <ClCompile Include="Relation_Ship.cpp">
+      <Filter>GlobalValue\CharacterInfo\Relation</Filter>
+    </ClCompile>
+    <ClCompile Include="HoldItem.cpp">
+      <Filter>GlobalValue\CharacterInfo\HoldItem</Filter>
+    </ClCompile>
+    <ClCompile Include="Quest.cpp">
+      <Filter>GlobalValue\CharacterInfo\Quest</Filter>
+    </ClCompile>
+    <ClCompile Include="mail.cpp">
+      <Filter>GlobalValue\CharacterInfo\Mail</Filter>
+    </ClCompile>
+    <ClCompile Include="Helper.cpp">
+      <Filter>GlobalValue\CharacterInfo\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahNetworkHandler.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="NetMsg.cpp">
+      <Filter>Network\Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahSocket.cpp">
+      <Filter>Network\Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="MainWindow.cpp">
+      <Filter>MainApp</Filter>
+    </ClCompile>
+    <ClCompile Include="precompile.cpp">
+      <Filter>MainApp</Filter>
+    </ClCompile>
+    <ClCompile Include="sysutil.cpp">
+      <Filter>MainApp</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahObject.cpp">
+      <Filter>ClientObject</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahMap.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="InterfaceHandler.cpp">
+      <Filter>External\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="InterfaceHandle_Intro.cpp">
+      <Filter>External\Interface\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="InterfaceHandle_Main.cpp">
+      <Filter>External\Interface\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="InterfaceHandle_Manage.cpp">
+      <Filter>External\Interface\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="InterfaceHandle_Notice.cpp">
+      <Filter>External\Interface\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="InterfaceHandle_PopMenu.cpp">
+      <Filter>External\Interface\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="InterfaceHandle_Window.cpp">
+      <Filter>External\Interface\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="Fade.cpp">
+      <Filter>GameMain</Filter>
+    </ClCompile>
+    <ClCompile Include="ProcessChatCommand.cpp">
+      <Filter>GameMain</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahBGMCore.cpp">
+      <Filter>GameMain</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahCamera.cpp">
+      <Filter>GameMain</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahCursor.cpp">
+      <Filter>GameMain</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahGame_StepObject.cpp">
+      <Filter>GameMain</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahGameMain.cpp">
+      <Filter>GameMain</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahGameStartLoad.cpp">
+      <Filter>GameMain</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Intro.cpp">
+      <Filter>GameMain\Intro</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Intro_InitFrame.cpp">
+      <Filter>GameMain\Intro</Filter>
+    </ClCompile>
+    <ClCompile Include="MunpaMark.cpp">
+      <Filter>GameMain\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="RebirthMark.cpp">
+      <Filter>GameMain\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahGame_BGM.cpp">
+      <Filter>GameMain\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahGame_BGM_Data.cpp">
+      <Filter>GameMain\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Main.cpp">
+      <Filter>GameMain\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Main_MainChar.cpp">
+      <Filter>GameMain\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Minimap.cpp">
+      <Filter>GameMain\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Pet.cpp">
+      <Filter>GameMain\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahGame_PetAI.cpp">
+      <Filter>GameMain\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahGameObject.cpp">
+      <Filter>GameMain\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="CreateMainChar.cpp">
+      <Filter>GameMain\Main\XiahGame_Main_MainChar</Filter>
+    </ClCompile>
+    <ClCompile Include="InteractObject.cpp">
+      <Filter>GameMain\Main\XiahGame_Main_MainChar</Filter>
+    </ClCompile>
+    <ClCompile Include="ProcessAutoNavigation.cpp">
+      <Filter>GameMain\Main\XiahGame_Main_MainChar</Filter>
+    </ClCompile>
+    <ClCompile Include="ProcessCursor.cpp">
+      <Filter>GameMain\Main\XiahGame_Main_MainChar</Filter>
+    </ClCompile>
+    <ClCompile Include="ProcessMainChar.cpp">
+      <Filter>GameMain\Main\XiahGame_Main_MainChar</Filter>
+    </ClCompile>
+    <ClCompile Include="SetupPC_VisaulEquipment.cpp">
+      <Filter>GameMain\Main\XiahGame_Main_MainChar</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Handler_BT_Rcv.cpp">
+      <Filter>GameMain\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Handler_CD_Rcv.cpp">
+      <Filter>GameMain\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Handler_CH_Rcv.cpp">
+      <Filter>GameMain\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Handler_EC_Rcv.cpp">
+      <Filter>GameMain\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Handler_EV_Rcv.cpp">
+      <Filter>GameMain\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Handler_IF_Rcv.cpp">
+      <Filter>GameMain\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Handler_IM_Rcv.cpp">
+      <Filter>GameMain\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Handler_IT_Rcv.cpp">
+      <Filter>GameMain\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Handler_NC_Rcv.cpp">
+      <Filter>GameMain\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Handler_NV_Rcv.cpp">
+      <Filter>GameMain\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Handler_OP_Rcv.cpp">
+      <Filter>GameMain\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Handler_QS_Rcv.cpp">
+      <Filter>GameMain\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Handler_Receiver.cpp">
+      <Filter>GameMain\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Handler_RL_Rcv.cpp">
+      <Filter>GameMain\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Handler_Sender.cpp">
+      <Filter>GameMain\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Handler_SH_Rcv.cpp">
+      <Filter>GameMain\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Handler_WR_Rcv.cpp">
+      <Filter>GameMain\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="tracealloc.cpp">
+      <Filter>debug</Filter>
+    </ClCompile>
+    <ClCompile Include="cEFFECT_SPOT.cpp">
+      <Filter>etc</Filter>
+    </ClCompile>
+    <ClCompile Include="CurseFilter.cpp">
+      <Filter>etc</Filter>
+    </ClCompile>
+    <ClCompile Include="CXiahGame_Login.cpp">
+      <Filter>Login</Filter>
+    </ClCompile>
+    <ClCompile Include="ListAbstractFactory.cpp">
+      <Filter>list</Filter>
+    </ClCompile>
+    <ClCompile Include="ListBoxBase.cpp">
+      <Filter>list</Filter>
+    </ClCompile>
+    <ClCompile Include="ListClient.cpp">
+      <Filter>list</Filter>
+    </ClCompile>
+    <ClCompile Include="MunpaBBSList.cpp">
+      <Filter>list</Filter>
+    </ClCompile>
+    <ClCompile Include="Spirit.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="XiahClient.rc">
+      <Filter>MainApp</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="AppData.h">
+      <Filter>GlobalValue</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ArrayIndexData.h">
+      <Filter>GlobalValue</Filter>
+    </CustomBuild>
+    <CustomBuild Include="CharacterInfo.h">
+      <Filter>GlobalValue</Filter>
+    </CustomBuild>
+    <CustomBuild Include="FunctionalNpcInfo.h">
+      <Filter>GlobalValue</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ItemInfo.h">
+      <Filter>GlobalValue</Filter>
+    </CustomBuild>
+    <CustomBuild Include="PCVisualInfo.h">
+      <Filter>GlobalValue</Filter>
+    </CustomBuild>
+    <CustomBuild Include="XiahArrayIndex.h">
+      <Filter>GlobalValue</Filter>
+    </CustomBuild>
+    <CustomBuild Include="XiahCharAniType.h">
+      <Filter>GlobalValue</Filter>
+    </CustomBuild>
+    <CustomBuild Include="XiahEnvInfo.h">
+      <Filter>GlobalValue</Filter>
+    </CustomBuild>
+    <CustomBuild Include="XiahObjectType.h">
+      <Filter>GlobalValue</Filter>
+    </CustomBuild>
+    <CustomBuild Include="InterfaceDefine.h">
+      <Filter>External\Interface\Define</Filter>
+    </CustomBuild>
+    <CustomBuild Include="PopMenuDefine.h">
+      <Filter>External\Interface\Define</Filter>
+    </CustomBuild>
+    <CustomBuild Include="PositionDefine.h">
+      <Filter>External\Interface\Define</Filter>
+    </CustomBuild>
+    <CustomBuild Include="SoundDefine.h">
+      <Filter>External\Interface\Define</Filter>
+    </CustomBuild>
+    <CustomBuild Include="XiahGame_Handler_Sender.h">
+      <Filter>GameMain\Handler</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

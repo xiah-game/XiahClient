@@ -1,0 +1,3424 @@
+// CSProtocol.h: Define server/client message id
+//		Rev : 0.007
+//		Date : 07/25/2000
+//
+//////////////////////////////////////////////////////////////////////
+
+#ifndef _CSPROTOCOL_H_
+#define _CSPROTOCOL_H_
+
+#define OFFSET_CS							(0x3101)
+
+//HO_1001_07 : 프로토콜 바꾸어 보자 유저중 누군가가 장난을 치네 .... : 1001_07전에는 주석
+//#define OFFSET_CS_IT						(OFFSET_CS + 0x0000)
+//#define OFFSET_CS_NV						(OFFSET_CS + 0x0100)
+//#define OFFSET_CS_IM						(OFFSET_CS + 0x0200)
+//#define OFFSET_CS_EV						(OFFSET_CS + 0x0300)
+//#define OFFSET_CS_BT						(OFFSET_CS + 0x0400)
+//#define OFFSET_CS_CD						(OFFSET_CS + 0x0500)
+//#define OFFSET_CS_CH						(OFFSET_CS + 0x0600)
+//#define OFFSET_CS_EC						(OFFSET_CS + 0x0700)
+//#define OFFSET_CS_BD						(OFFSET_CS + 0x0800)
+//#define OFFSET_CS_IF						(OFFSET_CS + 0x0900)
+//#define OFFSET_CS_RL						(OFFSET_CS + 0x0A00)
+//#define OFFSET_CS_OP						(OFFSET_CS + 0x0B00)
+//#define OFFSET_CS_ER						(OFFSET_CS + 0x0C00)
+//#define OFFSET_CS_WR						(OFFSET_CS + 0x0D00)
+//#define OFFSET_CS_BB						(OFFSET_CS + 0x0E00)
+//#define OFFSET_CS_NC						(OFFSET_CS + 0x0F00)
+//#define OFFSET_CS_MN						(OFFSET_CS + 0x1000)
+//#define OFFSET_CS_GG						(OFFSET_CS + 0x1100)
+//#define OFFSET_CS_QS						(OFFSET_CS + 0x1200)
+//#define OFFSET_CS_SH						(OFFSET_CS + 0x1300)
+
+//HO_1001_07 : 프로토콜 바꾸어 보자 유저중 누군가가 장난을 치네 .... : 1001_07전에는 사용
+#define OFFSET_CS_IT						(OFFSET_CS + 0x1300)
+#define OFFSET_CS_NV						(OFFSET_CS + 0x1200)
+#define OFFSET_CS_IM						(OFFSET_CS + 0x1100)
+#define OFFSET_CS_EV						(OFFSET_CS + 0x1000)
+#define OFFSET_CS_BT						(OFFSET_CS + 0x0F00)
+#define OFFSET_CS_CD						(OFFSET_CS + 0x0E00)
+#define OFFSET_CS_CH						(OFFSET_CS + 0x0D00)
+#define OFFSET_CS_EC						(OFFSET_CS + 0x0C00)
+#define OFFSET_CS_BD						(OFFSET_CS + 0x0B00)
+#define OFFSET_CS_IF						(OFFSET_CS + 0x0A00)
+#define OFFSET_CS_RL						(OFFSET_CS + 0x0900)
+#define OFFSET_CS_OP						(OFFSET_CS + 0x0800)
+#define OFFSET_CS_ER						(OFFSET_CS + 0x0700)
+#define OFFSET_CS_WR						(OFFSET_CS + 0x0600)
+#define OFFSET_CS_BB						(OFFSET_CS + 0x0500)
+#define OFFSET_CS_NC						(OFFSET_CS + 0x0400)
+#define OFFSET_CS_MN						(OFFSET_CS + 0x0300)
+#define OFFSET_CS_GG						(OFFSET_CS + 0x0200)
+#define OFFSET_CS_QS						(OFFSET_CS + 0x0100)
+#define OFFSET_CS_SH						(OFFSET_CS + 0x0000)
+
+
+#define PROTOCOL_VERSION					(0x0150)
+
+#define CS_DATA_FIRST						(0x3100)
+#define CS_DATA_LAST						(0x4FFF)
+
+//////////////////////////////////////////////////////////////////////
+// Initialize message
+
+//NIGHT_0420 : LOGIN
+#define CS_IT_LOGIN_REQ						(OFFSET_CS_IT + 0)
+#define CS_IT_LOGIN_ACK						(OFFSET_CS_IT + 1)
+
+#define ERR_ITLOGIN_SUCCESS					((BYTE) 0)
+#define ERR_ITLOGIN_LOGINFAIL				((BYTE) 1)
+#define ERR_ITLOGIN_WRONGPASSWORD			((BYTE) 5)
+#define ERR_ITLOGIN_DUPLICATE				((BYTE) 6)
+#define ERR_ITLOGIN_NEEDGAMEPOP				((BYTE) 7)
+#define ERR_ITLOGIN_BLOCKACCOUNT			((BYTE) 8)
+#define ERR_ITLOGIN_MAPSVRCLOSED			((BYTE) 9)
+#define ERR_ITLOGIN_INVALIDKEY				((BYTE)10)
+#define ERR_ITLOGIN_LONGACCOUNT				((BYTE)11)
+#define ERR_ITLOGIN_WRONGVERSION			((BYTE)12)
+#define ERR_ITLOGIN_WRONGPROTOCOL			((BYTE)13)
+#define ERR_ITLOGIN_DBCLOSED				((BYTE)14)
+#define ERR_ITLOGIN_CHANGEPW				((BYTE)15)
+#define ERR_ITLOGIN_BEFOREAT				((BYTE)16)
+//#define ERR_ITLOGIN_AFTERAT					((BYTE)17)
+#define ERR_ITLOGIN_ERRORIP					((BYTE)20)
+
+
+#define CS_IT_WORLDLIST_REQ					(OFFSET_CS_IT + 2)
+#define CS_IT_WORLDLIST_ACK					(OFFSET_CS_IT + 3)
+
+//NIGHT_0420 : LOGIN
+#define CS_IT_WORLDSTATE_REQ				(OFFSET_CS_IT + 4)
+#define CS_IT_WORLDSTATE_ACK				(OFFSET_CS_IT + 5)
+
+//NIGHT_0420 : LOGIN
+#define CS_IT_LOGINCHECK_REQ				(OFFSET_CS_IT + 6)
+#define CS_IT_LOGINCHECK_ACK				(OFFSET_CS_IT + 7)
+
+#define CS_IT_CHARACTERLIST_REQ				(OFFSET_CS_IT + 8)
+#define CS_IT_CHARACTERLIST_ACK				(OFFSET_CS_IT + 9) 
+
+#define CS_IT_NEWCHARACTER_REQ				(OFFSET_CS_IT + 10) 
+#define CS_IT_NEWCHARACTER_ACK				(OFFSET_CS_IT + 11)
+
+#define ERR_ITNEWCHARACTER_SUCCESS			((BYTE)0)
+#define ERR_ITNEWCHARACTER_NOPARENTS		((BYTE)1)
+#define ERR_ITNEWCHARACTER_DUPLICATE		((BYTE)2)
+#define ERR_ITNEWCHARACTER_INVALIDPARAM		((BYTE)3)
+#define ERR_ITNEWCHARACTER_OBJECTID			((BYTE)4)
+#define ERR_ITNEWCHARACTER_INTERNAL			((BYTE)5)
+#define ERR_ITNEWCHARACTER_BADNAME			((BYTE)6)
+
+#define CS_IT_LOGOUT_REQ					(OFFSET_CS_IT + 12)
+#define CS_IT_LOGOUT_ACK					(OFFSET_CS_IT + 13)
+
+#define CS_IT_CHARINFO_REQ					(OFFSET_CS_IT + 14) 			
+#define CS_IT_CHARINFO_ACK					(OFFSET_CS_IT + 15) 
+
+#define CS_IT_CHARINFOLIST_REQ				(OFFSET_CS_IT + 16) 
+#define CS_IT_CHARINFOLIST_ACK				(OFFSET_CS_IT + 17) 
+
+#define CS_IT_CHARSTATUSINFO_REQ			(OFFSET_CS_IT + 18) 
+#define CS_IT_CHARSTATUSINFO_ACK			(OFFSET_CS_IT + 19) 
+
+#define CS_IT_SACKLIST_REQ					(OFFSET_CS_IT + 20)
+#define CS_IT_SACKLIST_ACK					(OFFSET_CS_IT + 21)
+
+#define CS_IT_ITEMLIST_REQ					(OFFSET_CS_IT + 22)
+#define CS_IT_ITEMLIST_ACK					(OFFSET_CS_IT + 23)
+
+#define CS_IT_MUGONGLIST_REQ				(OFFSET_CS_IT + 24)
+
+#define CS_IT_GENERALMUGONGLIST_ACK			(OFFSET_CS_IT + 25) 
+#define CS_IT_SPEEDMUGONGLIST_ACK			(OFFSET_CS_IT + 26) 
+#define CS_IT_PASSIVEMUGONGLIST_ACK			(OFFSET_CS_IT + 27)  
+#define CS_IT_ACTIVEMUGONGLIST_ACK			(OFFSET_CS_IT + 28)
+ 
+#define CS_IT_ANNOUNCEMENT_REQ				(OFFSET_CS_IT + 30)
+#define CS_IT_ANNOUNCEMENT_ACK				(OFFSET_CS_IT + 31)
+
+#define CS_IT_TERMINATED_ACK				(OFFSET_CS_IT + 33)
+
+#define TERMINATED_RELOGIN					((BYTE)0)
+#define TERMINATED_TIME_DIFF				((BYTE)1)
+
+#define CS_IT_OPENLOCATION_ACK				(OFFSET_CS_IT + 35)
+
+#define CS_IT_DELCHARACTER_REQ				(OFFSET_CS_IT + 36)
+#define CS_IT_DELCHARACTER_ACK				(OFFSET_CS_IT + 37)
+
+#define ERR_DELCHARACTER_SUCCESS			((BYTE)0)
+#define ERR_DELCHARACTER_FAIL				((BYTE)1)
+#define ERR_DELCHARACTER_PAYEDUSERONLY		((BYTE)2)
+
+#define CS_IT_TWLEFTPOINT_ACK				(OFFSET_CS_IT + 39)
+
+#define CS_IT_SPEEDHACK_REQ					(OFFSET_CS_IT + 40)
+
+#define CS_IT_SPEEDPING_REQ					(OFFSET_CS_IT + 42)
+
+#define CS_IT_CHARSLOT_REQ					(OFFSET_CS_IT + 44)
+#define CS_IT_CHARSLOT_ACK					(OFFSET_CS_IT + 45)
+
+// by aldeth
+#define CS_IT_NOTICE_REQ					(OFFSET_CS_IT + 46)
+#define CS_IT_NOTICE_ACK					(OFFSET_CS_IT + 47)
+
+#define CS_IT_SETSLOT_REQ					(OFFSET_CS_IT + 48)
+#define CS_IT_SETSLOT_ACK					(OFFSET_CS_IT + 49)
+
+#define CS_IT_NPCITEMLIST_REQ				(OFFSET_CS_IT + 50)
+#define CS_IT_NPCITEMLIST_ACK				(OFFSET_CS_IT + 51)
+
+#define CS_IT_IMREADY_REQ					(OFFSET_CS_IT + 52)
+#define CS_IT_IMREADY_ACK					(OFFSET_CS_IT + 53)
+
+#define CS_IT_MAPINFO_REQ					(OFFSET_CS_IT + 54)
+#define CS_IT_MAPINFO_ACK					(OFFSET_CS_IT + 55)
+
+#define CS_IT_SPACELIST_REQ					(OFFSET_CS_IT + 56)
+#define CS_IT_SPACELIST_ACK					(OFFSET_CS_IT + 57)
+
+#define CS_IT_SELECTSPACE_REQ				(OFFSET_CS_IT + 58)
+#define CS_IT_SELECTSPACE_ACK				(OFFSET_CS_IT + 59)
+
+//HO_0404_07 환배 시스템추가
+#define CS_IT_INSTANCE_ACK					(OFFSET_CS_IT + 61)
+#define ERR_IT_INSTANCE_FAIL					((BYTE) 0)
+#define ERR_IT_INSTANCE_INSERT					((BYTE) 1)
+#define ERR_IT_INSTANCE_DELETE					((BYTE) 2)
+#define ERR_IT_INSTANCE_ATTACK					((BYTE) 2)
+#define ERR_IT_INSTANCE_DEFENSE					((BYTE) 3)
+#define ERR_IT_INSTANCE_LIFE					((BYTE) 4)
+#define ERR_IT_INSTANCE_RESTRICTION				((BYTE) 254)
+#define ERR_IT_INSTANCE_ACTIVE					((BYTE) 255)
+
+//JK_1125 :  패스워드 분리
+#define CS_IT_CHANGEPW_REQ					(OFFSET_CS_IT + 62)
+#define CS_IT_CHANGEPW_ACK					(OFFSET_CS_IT + 63)
+
+#define ERR_ITCHANGEPW_SUCCESS					((BYTE) 0)
+#define ERR_ITCHANGEPW_WRONGPW					((BYTE) 1)
+#define	ERR_ITCHANGEPW_SAME						((BYTE) 2)
+#define	ERR_ITCHANGEPW_FAIL						((BYTE)	3)
+
+//////////////////////////////////////////////////////////////////////
+// Navigation message
+//NIGHT_0420 : LOGIN
+#define CS_NV_STARTGAME_REQ					(OFFSET_CS_NV + 0)
+#define CS_NV_STARTGAME_ACK					(OFFSET_CS_NV + 1)  
+
+#define ERR_NVSTARTGAME_SUCCESS				((BYTE)0)
+#define ERR_NVSTARTGAME_DBLOAD				((BYTE)1)
+#define ERR_NVSTARTGAME_UNREGISTERED		((BYTE)2)
+#define ERR_NVSTARTGAME_INVALIDCONNECT		((BYTE)3)
+#define ERR_NVSTARTGAME_INVALIDKEY			((BYTE)4)
+
+#define CS_NV_ENDGAME_REQ					(OFFSET_CS_NV + 2)
+#define CS_NV_ENDGAME_ACK					(OFFSET_CS_NV + 3)
+
+#define CS_NV_MAPENTER_REQ					(OFFSET_CS_NV + 4)
+#define CS_NV_MAPENTER_ACK					(OFFSET_CS_NV + 5)
+
+#define CS_NV_MAPMOVE_REQ					(OFFSET_CS_NV + 6) 
+#define CS_NV_MAPMOVE_ACK					(OFFSET_CS_NV + 7)
+	#define ERR_CANNOTENTER_DUNGEON				((BYTE)10)
+	#define ERR_CANNOTENTER_BATTLEZONE			((BYTE)11)
+	#define	ERR_CANNOTENTER_MABLOOD				((BYTE)12)    // 신규추가(갑자제한으로 이동불가)
+	#define	ERR_CANNOTMOVE_MABLOOD				((BYTE)13)    // 신구추가(이 지역에서 사용할 수 없습니다.)
+	#define ERR_CANNOTENTER_NOAUTHORITY			((BYTE)14)
+	#define ERR_CANNOTENTER_WARREADY			((BYTE)15)
+	#define ERR_CANNOTENTER_DEVILREADY			((BYTE)16)    //HO_0227_07 광명전,천황전 이벤트 추가(천황전 동신주)
+
+
+#define CS_NV_MAPLEAVE_REQ					(OFFSET_CS_NV + 8) 
+#define CS_NV_MAPLEAVE_ACK					(OFFSET_CS_NV + 9) 
+
+
+#define CS_NV_STARTMOVE_REQ					(OFFSET_CS_NV + 10) 
+#define CS_NV_STARTMOVE_ACK					(OFFSET_CS_NV + 11)
+
+#define CS_NV_SYNCMOVE_REQ					(OFFSET_CS_NV + 12)
+#define CS_NV_SYNCMOVE_ACK					(OFFSET_CS_NV + 13)
+
+#define CS_NV_ENDMOVE_REQ					(OFFSET_CS_NV + 14)
+#define CS_NV_ENDMOVE_ACK					(OFFSET_CS_NV + 15)
+
+#define CS_NV_MAPOBJECTLIST_REQ				(OFFSET_CS_NV + 16)
+#define CS_NV_MAPOBJECTLIST_ACK				(OFFSET_CS_NV + 17)
+
+#define CS_NV_PORTALMOVE_REQ				(OFFSET_CS_NV + 18)
+#define CS_NV_PORTALMOVE_ACK				(OFFSET_CS_NV + 19)
+
+#define CS_NV_SETPOSITION_REQ				(OFFSET_CS_NV + 20)
+#define CS_NV_SETPOSITION_ACK				(OFFSET_CS_NV + 21)
+
+
+
+//YS_0411 : EVENTITEM
+#define CS_NV_EVENTTIME_ACK					(OFFSET_CS_NV + 22)
+//EVENTTYPE_MAX
+//EVENTTYPE - { NOW, MAX }
+
+#define CS_NV_RUNEVENTINFO_ACK				(OFFSET_CS_NV + 23)
+//bRunEvent		- 현재 이벤트 수 
+//bEventKind	- 이벤트 종류 
+//dwEventCharID - 이벤트 개최자 캐릭터 아이디
+//dwEffectValue - 이벤트 효과 값 (단위 %)
+//strCharName   - 이벤트 개최자 이름 
+//bCanUser      - 이벤트 참가할 수 있느 유저 (0 = ALL, 1 = 해당유파, 2 = 문파만, 3 = 단 )
+//dwUserType    - 유파일경우 유파 종류, 문파일 경우 문파 아이디.
+//strMunpaName  - 문파일 경우 문파명;
+
+#define CS_NV_CHANGEEVENTINFO_ACK			(OFFSET_CS_NV + 24)
+//bEventStatus  - 0, EVENTSTATUS_START, 1, EVENTSTATUS_END
+//bEventKind	- 이벤트 종류 
+//if ( EVENTSTATUS_START )
+//dwEventCharID
+//dwEffectValue
+//strCharName
+//bCanUser
+//dwUserType
+//strMunpaName;
+
+// [6/3/2005] NPC 포탈 이동
+#define CS_NV_QUICKMOVE_REQ					(OFFSET_CS_NV + 25)
+#define CS_NV_QUICKMOVE_ACK					(OFFSET_CS_NV + 26)
+	#define ERR_QUICKMOVE_SUCCESS				((BYTE)0)
+	#define ERR_QUICKMOVE_NEEDMONEY				((BYTE)2)
+	#define ERR_QUICKMOVE_BADAREA				((BYTE)3)
+	#define ERR_QUICKMOVE_INTERNAL				((BYTE)255)
+
+//전용포털이동
+#define CS_NV_PRIVATEPORTAL_REQ				(OFFSET_CS_NV + 27)
+#define CS_NV_PRIVATEPORTAL_ACK				(OFFSET_CS_NV + 28)
+	#define ERR_MOVE_SUCCESS				((BYTE)0)
+	#define ERR_MOVE_WARPERIOD				((BYTE)1) // 전쟁기간
+	#define ERR_MOVE_NOTLORDMUNPA			((BYTE)2) // 우승문파원아님
+	#define ERR_MOVE_NOTINENTRY				((BYTE)3) // 관계 없는 사람 이동 불가
+	#define ERR_MOVE_NOTENOUGHLEVEL			((BYTE)4) // 갑자 미만
+	#define ERR_MOVE_NOTWARCHANNELID		((BYTE)5) // 2번 채널 아님
+	#define ERR_MOVE_NOTWAR					((BYTE)6) //HO_0906_07 문파대전 관리인 포탈기능 추가 : 마혈진 지역 //전쟁 중에는 마혈진 이동 포탈을 사용하실 수 없습니다.
+
+//HT_0122 : 기간제 프리미엄 아이템 추가
+#define CS_NV_CHARPREMIUM_REQ				(OFFSET_CS_NV + 31)
+#define CS_NV_CHARPREMIUM_ACK				(OFFSET_CS_NV + 32)
+	#define ERR_CHARPREMIUM_SUCCESS				((BYTE)0)	//성공
+	#define ERR_CHARPREMIUM_1					((BYTE)1)	//
+	#define ERR_CHARPREMIUM_2					((BYTE)2)	//
+	#define ERR_CHARPREMIUM_3					((BYTE)3)	//
+	#define ERR_CHARPREMIUM_INTERNAL			((BYTE)255)	//내부댄轎(관리자에 문의)
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+// Item message
+
+#define CS_IM_PICK_REQ						(OFFSET_CS_IM + 0)
+#define CS_IM_PICK_ACK						(OFFSET_CS_IM + 1)
+	#define ERR_PICK_FULLSACK				((BYTE)1)
+	#define ERR_PICK_OVERMONEY				((BYTE)2)//소지금액 초과
+	#define ERR_PICK_NOAUTHORITY			((BYTE)3)//획득권한없음	
+
+#define CS_IM_THROW_REQ						(OFFSET_CS_IM + 2)
+
+#define CS_IM_REMOVEFROMMAP_ACK				(OFFSET_CS_IM + 5)
+#define CS_IM_REMOVELISTFROMMAP_ACK			(OFFSET_CS_IM + 6)
+#define CS_IM_REMOVEFROMSACK_ACK			(OFFSET_CS_IM + 7)
+
+#define CS_IM_ADDONSACK_ACK					(OFFSET_CS_IM + 9)
+
+#define CS_IM_ADDONMAP_ACK					(OFFSET_CS_IM + 11)
+
+#define CS_IM_MOVE_REQ						(OFFSET_CS_IM + 12)
+#define CS_IM_MOVE_ACK						(OFFSET_CS_IM + 13)
+//YS_0411 : EVENTITEM
+	#define ERR_NOTMOVERUNEVENT				(BYTE)10
+	#define ERR_NOTMOVEOVERTIMEEVENT		(BYTE)11
+	#define ERR_NOTMOVESAMEEVENTRUN			(BYTE)12
+	#define ERR_NOTMOVEDONOTMUNPA			(BYTE)13
+	#define ERR_NOTMOVEINTERNALERROR		(BYTE)14
+	#define ERR_NOTMOVEOVERMAXEVENT			(BYTE)15
+	#define ERR_NOTMOVECHANGEEVENTITEM		(BYTE)16
+	// CG_2005/01/28 : 변종아이템기능추가
+	#define ERR_CITEM_NOTINSAMECHARTYPE		(BYTE)19	//변종 옷과 모자는 동일 계열 일 경우만 장착 가능함.
+	#define ERR_CITEM_NOTOUTSAMECHARTYPE	(BYTE)20	//변종 옷에 대하여 탈착 할 경우 변종 모자부터 탈착 해야 함.
+
+
+#define CS_IM_NEWITEM_REQ					(OFFSET_CS_IM + 14)
+
+#define CS_IM_MERGERES_REQ					(OFFSET_CS_IM + 16)
+
+#define CS_IM_SPLITRES_REQ					(OFFSET_CS_IM + 18)
+
+#define CS_IM_CHANGERES_ACK					(OFFSET_CS_IM + 21)
+
+#define CS_IM_UNLOCKSACK_ACK				(OFFSET_CS_IM + 23)
+
+#define CS_IM_USEITEM_REQ					(OFFSET_CS_IM + 24)
+
+#define CS_IM_GIVEITEM_REQ					(OFFSET_CS_IM + 26)
+#define CS_IM_GIVEITEM_ACK					(OFFSET_CS_IM + 27)
+	#define ERR_GIVEITEM_SUCCESS				((BYTE)0)
+	#define ERR_GIVEITEM_NOTFOUNDITEM			((BYTE)1)
+	#define ERR_GIVEITEM_NOTFOUNDTARGET			((BYTE)2)
+	#define ERR_GIVEITEM_INVALIDITEM			((BYTE)3)
+	#define ERR_GIVEITEM_FAIL					((BYTE)4)
+	#define ERR_GIVEITEM_NOTDECWILDRATE			((BYTE)5)	//YS_0216 : ITEMSPEC
+	#define ERR_GIVEITEM_NOTINCHP				((BYTE)6)	//YS_0216 : ITEMSPEC
+
+#define CS_IM_READRESULT_ACK				(OFFSET_CS_IM + 29)  
+
+#define ERR_READRESULT_SUCCESS				((BYTE)0)
+#define ERR_READRESULT_FAIL					((BYTE)1)
+#define ERR_READRESULT_NOTPROPER			((BYTE)2)//성향이 다를
+
+#define CS_IM_WANNARECEIVE_ACK				(OFFSET_CS_IM + 31)
+
+#define CS_IM_RECEIVE_REQ					(OFFSET_CS_IM + 32)
+
+#define CS_IM_DURABILITY_ACK				(OFFSET_CS_IM + 35)
+
+#define CS_IM_MERGEKEY_REQ					(OFFSET_CS_IM + 36)
+#define CS_IM_MERGEKEY_ACK					(OFFSET_CS_IM + 37)
+	#define ERR_MERGEKEY_SUCCESS				((BYTE)0)
+	#define ERR_MERGEKEY_OVERMAXKEYS			((BYTE)1)
+	#define ERR_MERGEKEY_FAIL					((BYTE)255)
+
+#define CS_IM_CHANGKEY_ACK					(OFFSET_CS_IM + 38)
+
+#define CS_IM_REPAIRITEM_REQ				(OFFSET_CS_IM + 39)
+#define CS_IM_REPAIRITEM_ACK				(OFFSET_CS_IM + 40)
+	#define ERR_REPARIITEM_SUCCESS				((BYTE)0)
+	#define ERR_REPARIITEM_NOTFOUNDITEM			((BYTE)1)
+	#define ERR_REPARIITEM_NOMONEY				((BYTE)2)
+	#define ERR_REPARIITEM_FULLDURABILITY		((BYTE)3)
+	#define ERR_REPARIITEM_DBOPEN				((BYTE)4)
+	#define	ERR_REPARIITEM_NOTREPAIR			((BYTE)5)
+	//IS_1103 : ADDCORD
+	#define	ERR_REPARIITEM_NOTREPAIRITEM		((BYTE)9)
+	#define ERR_REPARIITEM_FAIL					((BYTE)255)
+
+#define CS_IM_REMODELITEM_REQ				(OFFSET_CS_IM + 41)
+#define CS_IM_REMODELITEM_ACK				(OFFSET_CS_IM + 42)
+	#define ERR_REMODELITEM_SUCCESS				((BYTE)0)
+	#define ERR_REMODELITEM_NEEDSKILL			((BYTE)1)
+	#define ERR_REMODELITEM_NOTFOUNDITEM		((BYTE)2)
+	#define ERR_REMODELITEM_NOTFOUNDRES			((BYTE)3)
+	#define ERR_REMODELITEM_NOTJEWELRY			((BYTE)4)
+	#define ERR_REMODELITEM_NEEDBS				((BYTE)5)
+	#define ERR_REMODELITEM_READY				((BYTE)6)
+	#define ERR_REMODELITEM_NOMATCHTYPE			((BYTE)7)
+	#define ERR_REMODELITEM_FULL				((BYTE)8)
+	#define ERR_REMODELITEM_FAIL				((BYTE)255)
+
+#define CS_IM_ADDONEQUIPPOS_ACK				(OFFSET_CS_IM + 43)
+
+#define CS_IM_ITEMONMAP_REQ					(OFFSET_CS_IM + 44)
+
+#define CS_IM_ITEMDATACHANGE_REQ			(OFFSET_CS_IM + 46)
+#define CS_IM_ITEMDATACHANGE_ACK			(OFFSET_CS_IM + 47)
+
+#define CS_IM_ITEMAMOUNTCHANGE_REQ			(OFFSET_CS_IM + 48)
+#define CS_IM_ITEMAMOUNTCHANGE_ACK			(OFFSET_CS_IM + 49)
+
+#define CS_IM_PICKMONEY_REQ					(OFFSET_CS_IM + 50)
+
+#define CS_IM_THROWMONEY_REQ				(OFFSET_CS_IM + 52)
+
+#define CS_IM_MONEYONMAP_REQ				(OFFSET_CS_IM + 54)
+
+#define CS_IM_USEPORTION_REQ				(OFFSET_CS_IM + 56)
+#define CS_IM_USEPORTION_ACK				(OFFSET_CS_IM + 57)
+
+#define CS_IM_MAPITEMINFO_REQ				(OFFSET_CS_IM + 58)
+#define CS_IM_MAPITEMINFO_ACK				(OFFSET_CS_IM + 59)
+
+#define CS_IM_MAPITEMINFOLIST_REQ			(OFFSET_CS_IM + 60)
+#define CS_IM_MAPITEMINFOLIST_ACK			(OFFSET_CS_IM + 61)
+
+#define CS_IM_CHECKITEMPRICE_REQ			(OFFSET_CS_IM + 62)
+#define CS_IM_CHECKITEMPRICE_ACK			(OFFSET_CS_IM + 63)
+
+#define CS_IM_REBUILDITEMTERM_REQ			(OFFSET_CS_IM + 64)
+#define CS_IM_REBUILDITEMTERM_ACK			(OFFSET_CS_IM + 65)
+	#define ERR_REBUILDITEMTERM_SUCCESS			((BYTE)0)
+	#define ERR_REBUILDITEMTERM_NOTFOUNDITEM	((BYTE)1)
+	#define ERR_REBUILDITEMTREM_NOTBASICITEM	((BYTE)2)
+	#define ERR_REBUILDITEMTREM_NOTREBUILDITEM	((BYTE)3)
+#define CS_IM_REBUILDITEM_REQ				(OFFSET_CS_IM + 66)
+#define CS_IM_REBUILDITEM_ACK				(OFFSET_CS_IM + 67)
+	#define ERR_REBUILDITEM_SUCCESS				((BYTE)0)
+	#define ERR_REBUILDITEM_NOMONEY				((BYTE)1)
+	#define ERR_REBUILDITEM_NOTFOUNDITEM		((BYTE)2)
+	#define ERR_REBUILDITEM_NOTFOUNDRES			((BYTE)3)
+	#define ERR_REBUILDITEM_DBOPEN				((BYTE)4)
+	#define ERR_REBUILDITEM_FAIL				((BYTE)5)
+	#define ERR_REBUILDITEM_FULL				((BYTE)6)
+	#define ERR_REBUILDITEM_CANNOTTREBUILD		((BYTE)7)		//NIGHT_0512 : MELTING
+	#define ERR_MELTINGITEM_CANNOTTMELTING		((BYTE)11)		//NIGHT_0512 : MELTING
+	#define ERR_MELTINGITEM_NEEDEMPTYSACK		((BYTE)12)		//NIGHT_0512 : MELTING
+	#define ERR_MELTINGITEM_SUCCESS				((BYTE)13)		//NIGHT_0512 : MELTING
+	#define ERR_MELTINGITEM_FAIL				((BYTE)14)		//NIGHT_0512 : MELTING
+	#define ERR_REBUILDITEM_NOTSLOTITEM			((BYTE)15)  //기공(구멍)을 뚫을수 없는 아이템
+	#define ERR_REBUILDITEM_MAXSLOT				((BYTE)16)  //기공을 더이상 뚫을 수 없다.
+	#define ERR_REBUILDITEM_NOTFOUNDSLOT		((BYTE)17)  //기공이 없다
+	#define ERR_REBUILDITEM_FULLSLOTFIVEELM		((BYTE)18)  //비어있는 기공이 없다.
+	#define ERR_REBUILDITEM_NOTFOUNDFIVEELM		((BYTE)19)  //오행속성이 없다(오행속성제거시)
+	#define ERR_REBUILDITEM_MADESLOTFAIL		((BYTE)20)  //기공을 뚫기 실패(+,성,제한요구치 감소시킨다)
+	#define ERR_CHANGEITEM_SUCCESS				((BYTE)21)	// CG_2005/01/28 : 변종아이템기능추가
+	#define ERR_CHANGEITEM_CHANGED				((BYTE)22)	// CG_2005/01/28 : 변종아이템기능추가
+	#define ERR_CHANGEITEM_CANTCHANGE			((BYTE)23)	// CG_2005/01/28 : 변종아이템기능추가
+	#define ERR_CHANGEITEM_FAIL					((BYTE)24)	// CG_2005/01/28 : 변종아이템기능추가
+	#define ERR_CHANGEITEM_DONOTREBUILD			((BYTE)25)	//개조할 필요없슴(개조해봐야 효과 없다)
+	#define ERR_GUARANTEEITEM_SUCCESS			((BYTE)30)	// 보험 상품 등록 완료
+	#define ERR_REBIRTHITEM_OVERSOURCE			((BYTE)26)  //개조 자원은 1개만.. 
+	#define ERR_REBIRTHITEM_REMAKEFAIL			((BYTE)27)  //불사현단 사용시 오행기공만 있거나 각성기공이 비어 있을 경우
+
+#define CS_IM_ITEMINFO_REQ							(OFFSET_CS_IM + 68)
+#define CS_IM_ITEMINFO_ACK							(OFFSET_CS_IM + 69)
+//NIGHT_0318 : MALLITEM
+#define CS_IM_REPAIRWITHITEM_REQ					(OFFSET_CS_IM + 70)
+#define CS_IM_REPAIRWITHITEM_ACK					(OFFSET_CS_IM + 71)
+	#define ERR_REPAIRWITHITEM_SUCCESS				((BYTE)0)
+	#define ERR_REPAIRWITHITEM_NOTFOUND				((BYTE)1)
+	#define ERR_REPAIRWITHITEM_NOTFOUNDRES			((BYTE)2)
+	#define ERR_REPAIRWITHITEM_INVALIDRES			((BYTE)3)
+	#define ERR_REPAIRWITHITEM_NOMONEY				((BYTE)4)
+	#define ERR_REPAIRWITHITEM_FULLDURABILITY		((BYTE)5)
+	#define ERR_REPAIRWITHITEM_DBOPEN				((BYTE)6)
+	#define ERR_REPAIRWITHITEM_FAIL					((BYTE)7)
+	#define ERR_REPAIRWITHITEM_NOTREPAIR			((BYTE)8)
+	//IS_1103 : ADDCORD
+	#define	ERR_REPARIITEM_NOTREPAIRITEM			((BYTE)9)
+	// CG_2005/01/28 : 변종아이템기능추가
+	#define	ERR_REPARIITEM_NOTCITEM_INEQUIP			((BYTE)10)	//장착 중인 변종아이템은 수리 불가 
+	#define	ERR_REPARIITEM_REBACKITEM				((BYTE)11)	//변종아이템 수리가능 횟수 초과로 인하여 원아이템으로 복원 되었습니다
+	#define	ERR_REPARIITEM_BONGINITEM				((BYTE)12)	//HT_0410 : 신규 빙정류 추가
+#define CS_IM_REMARKITEM_REQ						(OFFSET_CS_IM + 72)
+	#define ACT_REMARKITEM_PORTAL					((BYTE)1)
+#define CS_IM_REMARKITEM_ACK						(OFFSET_CS_IM + 73)
+	#define ERR_REMARKITEM_SUCCESS					((BYTE)0)
+	#define ERR_REMARKITEM_NOTFOUND					((BYTE)1)
+	#define ERR_REMARKITEM_INVALIDITEM				((BYTE)2)
+	#define ERR_REMARKITEM_INVALIDPOSITION			((BYTE)3)
+	#define ERR_REMARKITEM_FAIL						((BYTE)4)
+//NIGHT_0513 : MOENYBAG 전낭
+#define CS_IM_MONEYBAG_REQ							(OFFSET_CS_IM + 74)
+	#define ACT_MONEYBAG_INPUT						((BYTE)1)
+	#define ACT_MONEYBAG_OUTPUT						((BYTE)2)
+/*
+	bAction
+	dwItemID
+	bSackID
+	bSackPos
+	dwMoney
+*/
+#define CS_IM_MONEYBAG_ACK							(OFFSET_CS_IM + 75)
+	#define ERR_MONEYBAG_SUCCESS					((BYTE)0)
+	#define ERR_MONEYBAG_NOTFOUND					((BYTE)1)
+	#define ERR_MONEYBAG_NOTBAG						((BYTE)2)
+	#define ERR_MONEYBAG_IN_LOWMONEY				((BYTE)3)
+	#define ERR_MONEYBAG_IN_OVERMONEY				((BYTE)4)
+	#define ERR_MONEYBAG_OUT_LOWMONEY				((BYTE)5)
+	#define ERR_MONEYBAG_OUT_OVERMONEY				((BYTE)6)
+	#define ERR_MONEYBAG_OUT_OVERDUR				((BYTE)7)
+	#define ERR_MONEYBAG_ERROR						((BYTE)8)
+	#define ERR_MONEYBAG_IN_OVERMONEY2				((BYTE)9)//HO_0918_07 초보자용 전낭 추가 : 전낭(소)
+//NIGHT_0525 : MEMO
+#define CS_IM_MEMOLIST_REQ							(OFFSET_CS_IM + 76)
+#define CS_IM_MEMOLIST_ACK							(OFFSET_CS_IM + 77)
+#define CS_IM_SENDMEMO_REQ							(OFFSET_CS_IM + 78)
+#define CS_IM_SENDMEMO_ACK							(OFFSET_CS_IM + 79)
+	#define ERR_SENDMEMO_SUCCESS					((BYTE)0)
+	#define ERR_SENDMEMO_FAULTNAME					((BYTE)1)
+	#define ERR_SENDMEMO_MEMOFULL					((BYTE)2)
+	#define ERR_SENDMEMO_ITEMERROR					((BYTE)3)
+	#define ERR_SENDMEMO_STRINGERROR				((BYTE)4)
+#define CS_IM_NEWMEMO_REQ							(OFFSET_CS_IM + 80)
+#define CS_IM_NEWMEMO_ACK							(OFFSET_CS_IM + 81)
+#define CS_IM_READMEMO_REQ							(OFFSET_CS_IM + 82)
+#define CS_IM_READMEMO_ACK							(OFFSET_CS_IM + 83)
+	#define ERR_READMEMO_SUCCESS					((BYTE)0)
+	#define ERR_READMEMO_FAIL						((BYTE)1)
+#define CS_IM_DELETEMEMO_REQ						(OFFSET_CS_IM + 84)
+#define CS_IM_DELETEMEMO_ACK						(OFFSET_CS_IM + 85)
+	#define ERR_DELETEMEMO_SUCCESS					((BYTE)0)
+	#define ERR_DELETEMEMO_ERROR					((BYTE)1)
+
+//HK_0630 : New Mugong : 투척무강으로 닳은 경우 내구력 보내줌
+#define CS_IM_DAMAGE_ACK							(OFFSET_CS_IM + 86)
+//		BYTE bSackPos
+//		WORD wDamageCur
+//		WORD wRemainDur
+
+//YS_0920 : AVATAPET
+#define CS_IM_PETITEMINFO_ACK						(OFFSET_CS_IM + 87)
+
+//IS_1013 : PUZZLE
+#define CS_IM_PUZZLEITEM_REQ				(OFFSET_CS_IM + 88)
+#define CS_IM_PUZZLEITEM_ACK				(OFFSET_CS_IM + 89)
+	#define ERR_PUZZLEITEM_SUCCESS				((BYTE)0)
+	#define ERR_PUZZLEITEM_NOTFOUNDITEM			((BYTE)1)
+	#define ERR_PUZZLEITEM_NOTFOUNDRES			((BYTE)2)
+	#define ERR_PUZZLEITEM_NEEDJOINITEM			((BYTE)3)	//조합이 모자를때
+	#define ERR_PUZZLEITEM_BADITEM				((BYTE)4)	//다른조합이 있을때
+	#define ERR_PUZZLEITEM_NOTJOINITEM			((BYTE)5)	//조합자원이 아니다
+	#define ERR_PUZZLEITEM_NOTPUZZLEITEM		((BYTE)6)	//조합아이템 아니다(bType != 19)
+	#define ERR_PUZZLEITEM_ALREADYJOIN			((BYTE)7)	//이미 조합아이템이 되었다
+	#define ERR_PUZZLEITEM_OVERFULLRES			((BYTE)8)	//자원이 넘칠때
+	#define ERR_PUZZLEITEM_INTERNALERROR		((BYTE)9)
+
+//IS_1019 : REJOIN
+#define CS_IM_REJOINITEM_REQ				(OFFSET_CS_IM + 90)
+#define CS_IM_REJOINITEM_ACK				(OFFSET_CS_IM + 91)
+	#define ERR_REJOINITEM_SUCCESS				((BYTE) 0)
+	#define ERR_REJOINITEM_FAIL					((BYTE) 1)
+	#define ERR_REJOINITEM_NOTFOUNDRES			((BYTE) 2)	//자원이 모자를때
+	#define ERR_REJOINITEM_OTHRERESOURCE		((BYTE) 3)	//서로다른 편분일때
+	#define ERR_REJOINITEM_BADRESOURCE			((BYTE) 4)	//조합 아이템이 아닐때
+	#define ERR_REJOINITEM_NOTEMPTYSACK			((BYTE) 5)	//행랑공간이 없다.
+	#define ERR_REJOINITEM_OVERFULLRES			((BYTE) 6)	//자원이 넘칠때
+	#define ERR_REJOINITEM_INTERNALERROR		((BYTE) 9)
+
+
+//IS_1019 : MINE
+#define CS_IM_GATHERITEM_REQ				(OFFSET_CS_IM + 92)
+#define CS_IM_GATHERITEM_ACK				(OFFSET_CS_IM + 93)
+	#define ERR_GATHERITEM_SUCCESS				((BYTE) 0)
+	#define ERR_GATHERITEM_FAIL					((BYTE) 1)
+	#define ERR_GATHERITEM_LIMITLEVEL			((BYTE) 2)
+	#define ERR_GATHERITEM_NOTFOUNDITEM			((BYTE) 3)	// 채집도구가 아니다.
+	#define ERR_GATHERITEM_NOTFOUNDOBJECT		((BYTE) 4)	// 채집을 할 수 없다.
+	#define ERR_GATHERITEM_INTERNALERROR		((BYTE) 9)
+
+//IS_0201 : NEWYEAR
+#define CS_IM_VARIENTITEM_REQ				(OFFSET_CS_IM + 94)
+#define CS_IM_VARIENTITEM_ACK				(OFFSET_CS_IM + 95)
+	#define ERR_VARIENTITEM_SUCCESS				((BYTE) 0)
+	#define ERR_VARIENTITEM_FAIL				((BYTE) 1)
+	#define ERR_VARIENTITEM_NOTFOUNDRES			((BYTE) 2)	//자원이 모자를때
+	#define ERR_VARIENTITEM_OVERFULLRES			((BYTE) 3)	//자원이 넘칠때
+	#define ERR_VARIENTITEM_OTHRERESOURCE		((BYTE) 4)	//조합 아이템이 아닐때
+	#define ERR_VARIENTITEM_BADRESOURCE			((BYTE) 5)	//종류가 다를때
+	#define ERR_VARIENTITEM_ALREADY				((BYTE) 6)	//이미조합된것(더이상 안됨)
+	
+	//HT_0707 흑보 변종개조
+	#define ERR_VARIENTITEM_MAX					((BYTE) 7)	//흑보 변종개조 최대값(더이상 안됨)
+	#define ERR_VARIENTITEM_ABILITYMAX			((BYTE) 8)	//흑보 변종개조 최대값(능력치 최대값일 경우)
+	#define ERR_VARIENTITEM_RATEMAX				((BYTE) 13)	//흑보 변종개조 최대값(추가 성공률 최대값일 경우)
+
+	#define ERR_VARIENTITEM_INTERNALERROR		((BYTE) 9)	//내부댄轎
+
+	//HT_0523 엠파스 이벤트 
+	#define ERR_VARIENTITEM_COUPON_SUCCESS		((BYTE) 10) // 쿠폰등록성공
+	#define ERR_VARIENTITEM_COUPON_TOOMANY		((BYTE) 11) // 1개씩 등록 가능합니다.(구성요소가 많은경우)
+	#define ERR_VARIENTITEM_COUPON_FAIL			((BYTE) 12) // 쿠폰등록실패
+
+//IS_0511 : 보험상품
+#define CS_IM_REWARDGUARANTEE_REQ			(OFFSET_CS_IM + 96)
+#define CS_IM_REWARDGUARANTEE_ACK			(OFFSET_CS_IM + 97)
+	#define ERR_REWARDGUARANTEE_SUCCESS			((BYTE) 0)//복구성공
+	#define ERR_REWARDGUARANTEE_DELETED			((BYTE) 1)//영구삭제되었습니다.
+	#define ERR_REWARDGUARANTEE_NOTFOUND		((BYTE) 2)//존재하지 않는 아이템
+	#define ERR_REWARDGUARANTEE_INSERTFAIL		((BYTE) 3)//자리가 부족
+	#define ERR_REWARDGUARANTEE_INTERNALERROR	((BYTE) 255)//시스템 댄轎(관리자에게 문의하십시오)
+
+#define CS_IM_EVENTPUZZLE_REQ				(OFFSET_CS_IM + 98)
+#define CS_IM_EVENTPUZZLE_ACK				(OFFSET_CS_IM + 99)
+	#define ERR_EVENTPUZZLE_SUCCESS				((BYTE) 0)
+	#define ERR_EVENTPUZZLE_FAIL				((BYTE) 1)
+
+#define CS_IM_MIXITEM_REQ					(OFFSET_CS_IM + 100)
+#define CS_IM_MIXITEM_ACK					(OFFSET_CS_IM + 101)
+
+//JK_1209 : 수집시스템
+#define CS_IM_MOVEINCOLLECTITEM_REQ			(OFFSET_CS_IM + 102)
+#define CS_IM_MOVEINCOLLECTITEM_ACK			(OFFSET_CS_IM + 103)
+	#define ERR_MOVEINCOLLECT_SUCCESS			((BYTE) 0)
+	#define ERR_MOVEINCOLLECT_NOTFINDSACK		((BYTE) 1)
+	#define ERR_MOVEINCOLLECT_NOTCOLLECTITEM	((BYTE) 2)
+	#define	ERR_MOVEINCOLLECT_FULLSACK			((BYTE) 3)
+	#define REE_MOVEINCOLLECT_INTERNALERROR		((BYTE) 4)
+	#define ERR_MOVEINCOLLECT_NOVALUE			((BYTE) 5)
+
+//JK_1209 : 수집시스템
+#define CS_IM_MOVEOUTCOLLECTITEM_REQ		(OFFSET_CS_IM + 104)
+#define CS_IM_MOVEOUTCOLLECTITEM_ACK		(OFFSET_CS_IM + 105)
+	#define ERR_MOVEOUTCOLLECT_SUCCESS			((BYTE) 0)
+	#define ERR_MOVEOUTCOLLECT_NOTFINDSACK		((BYTE) 1)
+	#define ERR_MOVEOUTCOLLECT_NOTEMPTYSACK		((BYTE) 2)
+	#define	ERR_MOVEOUTCOLLECT_FULLSACK			((BYTE) 3)
+	#define REE_MOVEOUTCOLLECT_INTERNALERROR	((BYTE) 4)
+
+//망치 조합
+#define CS_IM_MAKEREPAIRHAMMER_REQ		(OFFSET_CS_IM + 106)
+#define CS_IM_MAKEREPAIRHAMMER_ACK		(OFFSET_CS_IM + 107)
+	#define	ERR_MAKEREPAIRHAMMER_SUCCESS		((BYTE) 0)
+	#define ERR_MAKEREPAIRHAMMER_FAIL			((BYTE) 1)
+
+//HT_0829 : 프리미엄 퀘스트 
+#define CS_IM_QUESTROLL_ACK					(OFFSET_CS_IM + 112)
+	#define ERR_QUEST_CONDITION					((BYTE) 1)
+	#define	ERR_QUEST_HOLD						((BYTE) 2)
+	#define	ERR_QUEST_INTERNAL					((BYTE) 3)
+
+#define CS_IM_MAKEUNIONITEM_REQ				(OFFSET_CS_IM + 108)
+//dwShopID
+//bItemCount
+//bItemCount 만큼
+//{
+//	DWORD dwItemID
+//	BYTE  bSackID
+//	BYTE  bSackPos
+//}
+
+#define CS_IM_MAKEUNIONITEM_ACK				(OFFSET_CS_IM + 109)
+	#define ERR_MAKEUNIONITEM_SUCCESS			((BYTE) 0)	//생산 조합 성공.
+	#define ERR_MAKEUNIONITEM_FAIL				((BYTE) 1)	//생산 조합 실패.
+	#define ERR_MAKEUNIONITEM_CANT				((BYTE) 2)	//구성요소가 맞지 않습니다.
+	#define ERR_MAKEUNIONITEM_INTERNALERROR		((BYTE) 4)	//내부에러
+
+//각성제 사용
+#define CS_IM_REBIRTH_REQ					(OFFSET_CS_IM + 110)
+#define CS_IM_REBIRTH_ACK					(OFFSET_CS_IM + 111)
+	#define ERR_REBIRTH_SUCCESS					((BYTE) 0)
+	#define ERR_REBIRTH_LEVEL					((BYTE) 1)
+	#define ERR_REBIRTH_STEP					((BYTE) 2)
+	#define ERR_REBIRTH_SPACE					((BYTE) 3)
+	#define ERR_REBIRTH_INTERNAL				((BYTE) 4)
+	#define ERR_2TH_REBIRTH_SPACE				((BYTE) 6) //HO_0730_07 진각성 패킷추가
+
+//HT_1116 : 각성자 아이템 추가
+#define CS_IM_MAKEREBIRTHITEM_REQ			(OFFSET_CS_IM + 113)
+#define CS_IM_MAKEREBIRTHITEM_ACK			(OFFSET_CS_IM + 114)
+	#define ERR_REBIRTH_SUCCESS					((BYTE) 0)
+	#define ERR_REBIRTH_CANT					((BYTE) 1)
+	#define ERR_REBIRTH_FAIL					((BYTE) 2)
+	#define ERR_REBIRTH_OVERCREATE				((BYTE) 3)
+
+#define CS_IM_GIVEPOWERITEM_ACK				(OFFSET_CS_IM + 115) //HO_0427_07 영수환골신단 추가
+	#define ERR_GIVEPOWER_ATT					((BYTE) 1)
+	#define ERR_GIVEPOWER_DEF					((BYTE) 2)
+	#define ERR_GIVEPOWER_AGI					((BYTE) 3)
+	#define ERR_GIVEPOWER_LIFE					((BYTE) 4)
+	//HO_0913_07 영수 각성신단 추가	
+	#define ERR_PET_REBIRTH						((BYTE) 5)
+	#define ERR_MONSTER_NOTREBIRTH				((BYTE) 7)	
+
+
+#define CS_IM_GOLDBOX_ACK					(OFFSET_CS_IM + 116) //HO_0828_07 황금열쇠 추가
+	#define ERR_GOLDBOX_SUCCESS					((BYTE)0)	//성공 
+	#define ERR_GOLDBOX_NOTENOUGH				((BYTE)1)	//황금상자(5칸있어야됨) 
+	#define ERR_GOLDBOX_NOTKEY					((BYTE)2)	//황금열쇠가 부족함 
+//////////////////////////////////////////////////////////////////////
+// Environment message
+
+#define CS_EV_TIME_ACK						(OFFSET_CS_EV + 0)
+#define CS_EV_WEATHER_ACK					(OFFSET_CS_EV + 1)
+
+//////////////////////////////////////////////////////////////////////
+// Battle message
+
+#define CS_BT_CHANGEMODE_REQ				(OFFSET_CS_BT + 0) 
+#define CS_BT_CHANGEMODE_ACK				(OFFSET_CS_BT + 1)
+
+#define CS_BT_PREATTACK_REQ					(OFFSET_CS_BT + 2)  
+#define CS_BT_PREATTACK_ACK					(OFFSET_CS_BT + 3)  
+
+#define CS_BT_ATTACK_REQ					(OFFSET_CS_BT + 4)  
+#define CS_BT_ATTACK_ACK					(OFFSET_CS_BT + 5)
+
+#define CS_BT_PRESHOT_REQ					(OFFSET_CS_BT + 6)  
+#define CS_BT_PRESHOT_ACK					(OFFSET_CS_BT + 7) 
+
+#define CS_BT_SHOT_REQ						(OFFSET_CS_BT + 8)  
+#define CS_BT_SHOT_ACK						(OFFSET_CS_BT + 9) 
+
+#define CS_BT_NPCPREATTACK_REQ				(OFFSET_CS_BT + 10)
+#define CS_BT_NPCPREATTACK_ACK				(OFFSET_CS_BT + 11)
+
+#define CS_BT_NPCATTACK_REQ					(OFFSET_CS_BT + 12)
+#define CS_BT_NPCATTACK_ACK					(OFFSET_CS_BT + 13)
+
+#define CS_BT_NPCPRESHOT_REQ				(OFFSET_CS_BT + 14)
+#define CS_BT_NPCPRESHOT_ACK				(OFFSET_CS_BT + 15)
+
+#define CS_BT_NPCSHOT_REQ					(OFFSET_CS_BT + 16)
+#define CS_BT_NPCSHOT_ACK					(OFFSET_CS_BT + 17)
+
+#define CS_BT_MUGONGPREATTACK_REQ			(OFFSET_CS_BT + 18)
+#define CS_BT_MUGONGPREATTACK_ACK			(OFFSET_CS_BT + 19)
+
+#define CS_BT_MUGONGATTACK_REQ				(OFFSET_CS_BT + 20)
+#define CS_BT_MUGONGATTACK_ACK				(OFFSET_CS_BT + 21)
+
+
+#define CS_BT_SELMUGONG_REQ					(OFFSET_CS_BT + 22) 
+#define CS_BT_SELMUGONG_ACK					(OFFSET_CS_BT + 23) 
+
+#define CS_BT_SETMACRO_REQ					(OFFSET_CS_BT + 24)
+#define CS_BT_SETMACRO_ACK					(OFFSET_CS_BT + 25)
+
+#define ERR_SETMACRO_SUCCESS				((BYTE)0)
+#define ERR_SETMACRO_FAILED					((BYTE)1)
+
+#define CS_BT_SETPOWER_REQ					(OFFSET_CS_BT + 26)
+
+// 수련 결과 Error Code
+#define ERR_EXEC_SUCCESS			  ((BYTE)0)		// 성공
+#define ERR_EXEC_MAXLIMIT			  ((BYTE)1)		// 한계치까지 수련
+#define ERR_EXEC_MINLIMIT			  ((BYTE)2)		// 수련 요건이 안됨
+#define ERR_EXEC_SP					  ((BYTE)3)		// SP 부족
+#define ERR_EXEC_TP					  ((BYTE)4)		// TP 부족
+#define ERR_EXEC_INVALIDMUGONG		  ((BYTE)5)		// 해당되는 MUGONG 없음
+#define ERR_EXEC_FAIL				  ((BYTE)255)	// 실패
+
+#define CS_BT_EXECSP_REQ					(OFFSET_CS_BT + 28)
+#define CS_BT_EXECSP_ACK					(OFFSET_CS_BT + 29)  
+
+#define CS_BT_EXECTP_REQ					(OFFSET_CS_BT + 30) 
+#define CS_BT_EXECTP_ACK					(OFFSET_CS_BT + 31)  
+
+#define CS_BT_RECOVERY_REQ					(OFFSET_CS_BT + 32)
+
+#define CS_BT_LEARNMUGONG_REQ				(OFFSET_CS_BT + 34) 
+#define CS_BT_LEARNMUGONG_ACK				(OFFSET_CS_BT + 35) 
+
+#define CS_BT_UNABLEPK_ACK					(OFFSET_CS_BT + 41)
+
+#define CS_BT_KEEPUPMUGONGSTART_REQ			(OFFSET_CS_BT + 42)
+#define CS_BT_KEEPUPMUGONGSTART_ACK			(OFFSET_CS_BT + 43)
+
+#define CS_BT_KEEPUPMUGONGEND_REQ			(OFFSET_CS_BT + 44)
+#define CS_BT_KEEPUPMUGONGEND_ACK			(OFFSET_CS_BT + 45)
+
+#define CS_BT_KEEPUPMUGONGSTATUS_REQ		(OFFSET_CS_BT + 46)
+#define CS_BT_KEEPUPMUGONGSTATUS_ACK		(OFFSET_CS_BT + 47)
+
+#define CS_BT_KEEPUPMUGONGSTATUSLIST_REQ	(OFFSET_CS_BT + 48)
+#define CS_BT_KEEPUPMUGONGSTATUSLIST_ACK	(OFFSET_CS_BT + 49)
+
+#define CS_BT_KILLSUCCESS_REQ				(OFFSET_CS_BT + 50)
+#define CS_BT_KILLSUCCESS_ACK				(OFFSET_CS_BT + 51)
+
+#define CS_BT_LEVELUP_REQ					(OFFSET_CS_BT + 52)
+#define CS_BT_LEVELUP_ACK					(OFFSET_CS_BT + 53)
+
+//NIGHT_0422 : PARTYBATTLE
+#define CS_BT_ASKPARTYBATTLE_REQ			(OFFSET_CS_WR + 54)
+	#define ACT_ASKPARTYBATTLE_ASK				((BYTE)0)
+	#define ACT_ASKPARTYBATTLE_ACCEPT			((BYTE)1)
+	#define ACT_ASKPARTYBATTLE_CANCEL			((BYTE)2)
+	#define ACT_ASKPARTYBATTLE_MYMONEYSHORT		((BYTE)10)
+	#define ACT_ASKPARTYBATTLE_YOUMONEYSHORT	((BYTE)11)
+	#define ACT_ASKPARTYBATTLE_MONEYOVER		((BYTE)12)
+	#define ACT_ASKPARTYBATTLE_NOTFINDTARGET	((BYTE)13)
+	#define ACT_ASKPARTYBATTLE_OPTIONCLOSE		((BYTE)14)
+#define CS_BT_ASKPARTYBATTLE_ACK			(OFFSET_CS_WR + 55)
+
+#define CS_BT_STARTPARTYBATTLE_REQ			(OFFSET_CS_WR + 56)
+#define CS_BT_STARTPARTYBATTLE_ACK			(OFFSET_CS_WR + 57)
+
+#define CS_BT_ENDPARTYBATTLE_REQ			(OFFSET_CS_WR + 58)
+#define CS_BT_ENDPARTYBATTLE_ACK			(OFFSET_CS_WR + 59)
+//////////////////////////////////////////////////////////////////////
+// Character Data message
+
+#define CS_CD_CHARACTERTYPE_ACK				(OFFSET_CS_CD + 1)
+
+#define CS_CD_ACTION_REQ					(OFFSET_CS_CD + 2)
+#define CS_CD_ACTION_ACK					(OFFSET_CS_CD + 3) 
+
+#define ACTION_DANCE						((BYTE)0)
+#define ACTION_CLAP							((BYTE)1)
+#define ACTION_CHGHAIR						((BYTE)2)
+#define ACTION_BOW							((BYTE)3)
+#define ACTION_INEXEC						((BYTE)4)
+#define ACTION_MUGONG						((BYTE)5)
+#define ACTION_UPPER						((BYTE)6)
+#define ACTION_LOW							((BYTE)7)
+#define ACTION_BONE							((BYTE)8)
+#define ACTION_BREATH						((BYTE)9)
+#define ACTION_INSTUDY						((BYTE)10)
+#define ACTION_RECLAIM						((BYTE)11)
+#define ACTION_SEEDLING						((BYTE)12)
+#define ACTION_FARMING						((BYTE)13)
+#define ACTION_HARVEST						((BYTE)14)
+#define ACTION_FELLING						((BYTE)15)
+#define ACTION_GATHER						((BYTE)16)
+#define ACTION_MINING						((BYTE)17)
+#define ACTION_PRODUCTTYPE1					((BYTE)18)
+#define ACTION_PRODUCTTYPE2					((BYTE)19)
+#define ACTION_PRODUCTTYPE3					((BYTE)20)
+#define ACTION_BUTCHER						((BYTE)21)
+#define ACTION_PRODUCTTYPE4					((BYTE)22)
+#define ACTION_PRODUCTTYPE5					((BYTE)23)
+#define ACTION_PRODUCTTYPE6					((BYTE)24)
+#define ACTION_PRODUCTTYPE7					((BYTE)25)
+#define ACTION_PRODUCTTYPE8					((BYTE)26)
+#define ACTION_PRODUCTTYPE9					((BYTE)27)
+#define ACTION_PRODUCTTYPE10				((BYTE)28)
+#define ACTION_NOCKDOWN						((BYTE)29)
+#define ACTION_SLEEPING						((BYTE)30)
+#define ACTION_BODYHEAT_HOT					((BYTE)31)
+#define ACTION_BODYHEAT_COLD				((BYTE)32)
+#define ACTION_RISE							((BYTE)33)
+
+#define CS_CD_EQUIPMENT_REQ					(OFFSET_CS_CD + 4)
+#define CS_CD_EQUIPMENT_ACK					(OFFSET_CS_CD + 5)
+
+#define CS_CD_EQUIPMENTLIST_REQ				(OFFSET_CS_CD + 6)
+#define CS_CD_EQUIPMENTLIST_ACK				(OFFSET_CS_CD + 7)
+
+#define CS_CD_ADDEQUIPMENT_REQ				(OFFSET_CS_CD + 8)
+#define CS_CD_ADDEQUIPMENT_ACK				(OFFSET_CS_CD + 9)
+
+#define CS_CD_CHGEQUIPMENT_REQ				(OFFSET_CS_CD + 10)
+#define CS_CD_CHGEQUIPMENT_ACK				(OFFSET_CS_CD + 11)
+
+#define CS_CD_DELEQUIPMENT_REQ				(OFFSET_CS_CD + 12)
+#define CS_CD_DELEQUIPMENT_ACK				(OFFSET_CS_CD + 13)
+
+//NIGHT_0204 : CHARFAME
+#define CS_CD_CHARUPDATE_REQ				(OFFSET_CS_CD + 14)
+#define CS_CD_CHARUPDATE_ACK				(OFFSET_CS_CD + 15)
+	#define ACT_FAME						((BYTE)1)
+	#define ACT_SHOPCHANGE					((BYTE)2)
+	//YS_0310 : TRADEBUG
+	#define ACT_TRADEWARNING				((BYTE)3)
+	//HK_0422 : Semi PK
+	#define ACT_SEMIPK						((BYTE)4)
+	#define ACT_PARTYBATTLE					((BYTE)5)		//NIGHT_0422 : PARTYBATTLE
+
+	#define ACT_WARSTATUS					((BYTE)6)
+	//dwData1  -> bWarStatus : 0 - NONE, 1 - WAIT, 2 - DOWAR
+	//dwData2  -> dwEnemyMunpaID
+	//dwData3  -> dwEnemyStoneID
+	//strData1 -> strEnemyMunpaName
+	#define ACT_MINE						((BYTE)7)
+	#define ACT_FIVEELM						((BYTE)8)
+	// CG_2005/01/28 : 변종아이템기능추가
+	#define ACT_CHANGECOMPLE				((BYTE)9)  
+
+//////////////////////////////////////////////////////////////////////
+// Chatting message
+
+#define CS_CH_CHAT_REQ						(OFFSET_CS_CH + 0)
+//Arguments :
+//  BYTE    Type
+//  DWORD   Listener
+//	STRING	Message
+//Source :
+//	CLIENT
+//Target :
+//	UNITSVR
+//Remark :
+//  Type of chat is defined in Type.h
+//  Listener is valid only if Type is CT_WHISPER.
+//	In other cases, Listner should be zero.
+
+#define CS_CH_CHAT_ACK						(OFFSET_CS_CH + 1)
+//Arguments :
+//	DWORD	Speaker
+//  BYTE    Type
+//	STRING	Message
+//Source :
+//	UNITSVR
+//Target :
+//	CLIENT
+//Remark :
+
+#define CS_CH_BUDDYTALK_REQ					(OFFSET_CS_CH + 2)
+//Arguments :
+//  DWORD	Listener
+//	STRING	Message
+//Source :
+//	CLIENT
+//Target :
+//	UNITSVR
+//Remark :
+
+#define CS_CH_BUDDYTALKRET_ACK				(OFFSET_CS_CH + 3)
+//Arguments :
+//  BYTE    Result
+//Source :
+//	UNITSVR
+//Target :
+//  CLIENT
+//Remark ;
+
+#define ERR_BUDDYTALKRET_SUCCESS			((BYTE)0)		
+#define ERR_BUDDYTALKRET_FAIL				((BYTE)1)
+
+#define CS_CH_BUDDYTALK_ACK					(OFFSET_CS_CH + 4) // New 07-31
+//Arguments :
+//	STRING	Speaker
+//	STRING  Message
+//Source :
+//	UNITSVR
+//Target :
+//	CLIENT
+//Remark :
+
+#define CS_CH_WHISPERSET_REQ				(OFFSET_CS_CH + 5) 
+//Arguments :
+//	DWORD	Listener
+//Source	:
+//	CLIENT
+//Target	:
+//	UNITSVR
+//Remark	:
+
+#define CS_CH_WHISPERSET_ACK				(OFFSET_CS_CH + 6)
+//Arguments :
+//  BYTE	Result
+//Source	:
+//  UNITSVR
+//Target	:
+//	CLIENT
+//Remark	:
+#define ERR_WHISPERSET_SUCCESS				((BYTE)0)
+#define ERR_WHISPERSET_RANGE				((BYTE)1)
+#define ERR_WHISPERSET_NOSUCHCHAR			((BYTE)2)
+
+#define CS_CH_SYSTEMMESSAGE_ACK				(OFFSET_CS_CH + 7)
+
+//////////////////////////////////////////////////////////////////////
+// Economic message
+
+#define CS_EC_BUYITEM_REQ						(OFFSET_CS_EC + 47)
+#define CS_EC_BUYITEM_ACK						(OFFSET_CS_EC + 48)
+#define ERR_BUYITEM_SUCCESS						((BYTE)0)
+#define ERR_BUYITEM_NOSUCHITEM					((BYTE)1)
+#define	ERR_BUYITEM_NOTENOUGHMONEY				((BYTE)2)
+#define ERR_BUYITEM_FAIL						((BYTE)3)
+#define ERR_BUYITEM_PKMAN						((BYTE)4)
+
+#define CS_EC_SELLITEM_REQ						(OFFSET_CS_EC + 87)
+#define CS_EC_SELLITEM_ACK						(OFFSET_CS_EC + 88)
+#define ERR_SELLITEM_SUCCESS					((BYTE)0)
+#define ERR_SELLITEM_NOSUCHRES					((BYTE)1)
+#define ERR_SELLITEM_NONEED						((BYTE)2)
+#define ERR_SELLITEM_NOTENOUGHMONEY			    ((BYTE)3)
+#define ERR_SELLITEM_FAIL						((BYTE)4)
+#define ERR_SELLITEM_PKMAN						((BYTE)5)
+#define ERR_SELLITEM_NOTSALE					((BYTE)6)
+
+//NIGHT_0306 : MALLITEM
+#define CS_EC_ITEMLISTINMALL_REQ				(OFFSET_CS_EC + 89)
+#define CS_EC_ITEMLISTINMALL_ACK				(OFFSET_CS_EC + 90)
+#define CS_EC_DRAWOUTMALL_REQ					(OFFSET_CS_EC + 91)
+#define CS_EC_DRAWOUTMALL_ACK					(OFFSET_CS_EC + 92)
+	#define ERR_DRAWOUTMALL_SUCCESS				((BYTE)0)
+	#define ERR_DRAWOUTMALL_DONOTFIND			((BYTE)1)
+	#define ERR_DRAWOUTMALL_NOTEMPTYSACK		((BYTE)2)
+	#define ERR_DRAWOUTMALL_FULLSACK			((BYTE)3)
+	#define ERR_DRAWOUTMALL_DONOTDEL			((BYTE)4)
+	#define ERR_DRAWOUTMALL_DONOTADDSACK		((BYTE)5)
+#define CS_EC_DRAWMOVEMALL_REQ					(OFFSET_CS_EC + 93)
+#define CS_EC_DRAWMOVEMALL_ACK					(OFFSET_CS_EC + 94)
+	#define ERR_DRAWMOVEMALL_SUCCESS			((BYTE)0)
+	#define ERR_DRAWMOVEMALL_DONOTFIND			((BYTE)1)
+	#define ERR_DRAWMOVEMALL_NOTEMPTY			((BYTE)2)
+#define CS_EC_ADDONMALL_REQ						(OFFSET_CS_EC + 95)
+#define CS_EC_ADDONMALL_ACK						(OFFSET_CS_EC + 96)
+#define CS_EC_REMOVEFROMMALL_REQ				(OFFSET_CS_EC + 97)
+#define CS_EC_REMOVEFROMMALL_ACK				(OFFSET_CS_EC + 98)
+
+#define CS_EC_ASKTRADE_REQ						(OFFSET_CS_EC + 144)
+#define CS_EC_ASKTRADE_ACK						(OFFSET_CS_EC + 145)
+#define CS_EC_TRADEOPENSACK_REQ					(OFFSET_CS_EC + 146)
+#define CS_EC_TRADEOPENSACK_ACK					(OFFSET_CS_EC + 147)
+#define CS_EC_TRADESACKONITEM_REQ				(OFFSET_CS_EC + 148)
+#define CS_EC_TRADESACKONITEM_ACK				(OFFSET_CS_EC + 149)
+#define CS_EC_TRADESACKOFFITEM_REQ				(OFFSET_CS_EC + 150)
+#define CS_EC_TRADESACKOFFITEM_ACK				(OFFSET_CS_EC + 151)
+#define CS_EC_TRADEITEM_REQ						(OFFSET_CS_EC + 152)
+#define CS_EC_TRADEITEM_ACK						(OFFSET_CS_EC + 153)
+#define CS_EC_TRADECOMPLETE_REQ					(OFFSET_CS_EC + 154)
+#define CS_EC_TRADECOMPLETE_ACK					(OFFSET_CS_EC + 155)
+
+#define CS_EC_ITEMLISTINBANK_REQ				(OFFSET_CS_EC + 156)
+#define CS_EC_ITEMLISTINBANK_ACK				(OFFSET_CS_EC + 157)
+	#define ACT_ITEMLISTINBANK_NORMALOPEN		((BYTE)1)
+	#define ACT_ITEMLISTINBANK_ITEMOPEN			((BYTE)2)
+	#define TYPE_ITEMLISTINBANK_ING				((BYTE)0)
+	#define TYPE_ITEMLISTINBANK_END				((BYTE)1)
+#define CS_EC_ADDONBANK_REQ						(OFFSET_CS_EC + 158)
+#define CS_EC_ADDONBANK_ACK						(OFFSET_CS_EC + 159)
+	#define ACT_ADDONBANK_ITEMINSERT			((BYTE)1)
+	#define ACT_ADDONBANK_ITEMMOVE				((BYTE)2)
+#define CS_EC_REMOVEFROMBANK_REQ				(OFFSET_CS_EC + 160)
+#define CS_EC_REMOVEFROMBANK_ACK				(OFFSET_CS_EC + 161)
+#define CS_EC_DRAWINBANK_REQ					(OFFSET_CS_EC + 162)
+#define CS_EC_DRAWINBANK_ACK					(OFFSET_CS_EC + 163)
+	#define ERR_DRAWINBANK_SUCCESS				((BYTE)0)
+	#define ERR_DRAWINBANK_DONOTFINDSACK		((BYTE)1)
+	#define	ERR_DRAWINBANK_NOTEMPTYBANK			((BYTE)2)
+	#define ERR_DRAWINBANK_FULLBANK				((BYTE)3)
+	#define ERR_DRAWINBANK_DONOTADDBANK			((BYTE)4)
+	#define ERR_DRAWINBANK_DONOTDELSACK			((BYTE)5)
+#define CS_EC_DRAWOUTBANK_REQ					(OFFSET_CS_EC + 164)
+#define CS_EC_DRAWOUTBANK_ACK					(OFFSET_CS_EC + 165)
+	#define ERR_DRAWOUTBANK_SUCCESS				((BYTE)0)
+	#define ERR_DRAWOUTBANK_DONOTFINDBANK		((BYTE)1)
+	#define ERR_DRAWOUTBANK_NOTEMPTYSACK		((BYTE)2)
+	#define ERR_DRAWOUTBANK_FULLSACK			((BYTE)3)
+	#define ERR_DRAWOUTBANK_DONOTDELBANK		((BYTE)4)
+	#define ERR_DRAWOUTBANK_DONOTADDSACK		((BYTE)5)
+#define CS_EC_DRAWMOVEBANK_REQ					(OFFSET_CS_EC + 166)
+#define CS_EC_DRAWMOVEBANK_ACK					(OFFSET_CS_EC + 167)
+	#define ERR_DRAWMOVEBANK_SUCCESS			((BYTE)0)
+	#define ERR_DRAWMOVEBANK_NOTFINDFIRST		((BYTE)1)
+	#define ERR_DRAWMOVEBANK_NOTFINDSECOND		((BYTE)2)
+	#define ERR_DRAWMOVEBANK_CHANGE				((BYTE)3)
+	#define ERR_DRAWMOVEBANK_NOTEMPTY			((BYTE)4)
+
+#define CS_EC_TRADESACKONMONEY_REQ				(OFFSET_CS_EC + 168)
+#define CS_EC_TRADESACKONMONEY_ACK				(OFFSET_CS_EC + 169)
+
+#define CS_EC_TRADESACKOFFMONEY_REQ				(OFFSET_CS_EC + 170)
+#define CS_EC_TRADESACKOFFMONEY_ACK				(OFFSET_CS_EC + 171)
+
+//-----------------------------------------------------------------
+//IS_0909 : LOTTOEVENT
+#define CS_EC_BUYLOTTO_REQ						(OFFSET_CS_EC + 172)
+#define CS_EC_BUYLOTTO_ACK						(OFFSET_CS_EC + 173)
+	#define ERR_BUYLOTTO_SUCCESS				((BYTE)0)
+	#define ERR_BUYLOTTO_NOERROR				((BYTE)1)
+	#define ERR_BUYLOTTO_LESSMONEY				((BYTE)2)	
+	#define ERR_BUYLOTTO_NOTSALE				((BYTE)3)
+	#define ERR_BUYLOTTO_NOTEMPTYSACK			((BYTE)4)
+	#define ERR_BUYLOTTO_INTERNALERROR			((BYTE)5)
+
+#define CS_EC_LOTTOSALEINFO_REQ					(OFFSET_CS_EC + 174)
+#define CS_EC_LOTTOSALEINFO_ACK					(OFFSET_CS_EC + 175)
+	#define ERR_LOTTOSALEINFO_SUCCESS			((BYTE)0)
+	#define ERR_LOTTOSALEINFO_INTERNALERROR		((BYTE)1)
+
+#define CS_EC_PRIZELOTTOINFO_REQ				(OFFSET_CS_EC + 176)
+#define CS_EC_PRIZELOTTOINFO_ACK				(OFFSET_CS_EC + 177)
+	#define ERR_PRIZELOTTOINFO_SUCCESS			((BYTE)0)
+	#define ERR_PRIZELOTTOINFO_NOTINFO			((BYTE)1)
+
+#define CS_EC_CHECKLOTTO_REQ					(OFFSET_CS_EC + 178)
+#define CS_EC_CHECKLOTTO_ACK					(OFFSET_CS_EC + 179)
+	#define ERR_CHECKLOTTO_SUCCESS				((BYTE)0)
+	#define ERR_CHECKLOTTO_NOTFINDITEM			((BYTE)1)
+	#define ERR_CHECKLOTTO_NOTLOTTERY			((BYTE)2)
+	#define ERR_CHECKLOTTO_ALREADYCHECK			((BYTE)3)	
+	#define ERR_CHECKLOTTO_INTERROR				((BYTE)4)
+	#define ERR_CHECKLOTTO_NOTJUDGE				((BYTE)5)
+
+#define CS_EC_GETLOTTOMONEY_REQ					(OFFSET_CS_EC + 180)
+#define CS_EC_GETLOTTOMONEY_ACK					(OFFSET_CS_EC + 181)
+	#define ERR_GETLOTTOMONEY_SUCCESS				((BYTE)0)
+	#define ERR_GETLOTTOMONEY_NOTFINDITEM			((BYTE)1)	
+	#define ERR_GETLOTTOMONEY_NOTLOTTERY			((BYTE)2)
+	#define ERR_GETLOTTOMONEY_NOTCHECK				((BYTE)3)
+	#define ERR_GETLOTTOMONEY_OVERMONEY				((BYTE)4)
+	#define ERR_GETLOTTOMONEY_OVERPRIZEMONEY		((BYTE)5)
+	#define ERR_GETLOTTOMONEY_INTERNALERROR			((BYTE)6)
+
+#define CS_EC_LOTTONOTICE_ACK					(OFFSET_CS_EC + 182)
+	#define LOTTONOTICE_NONE					((BYTE)0)
+	#define LOTTONOTICE_ENDSALE					((BYTE)1)
+	#define LOTTONOTICE_LOTTERYEND				((BYTE)2)
+	#define LOTTONOTICE_LOTTERYNOTICE			((BYTE)3)
+	#define LOTTONOTICE_STARTSALE				((BYTE)4)
+//-----------------------------------------------------------------
+
+#define CS_EC_GUARANTEELIST_REQ					(OFFSET_CS_EC + 183)
+#define CS_EC_GUARANTEELIST_ACK					(OFFSET_CS_EC + 184)
+
+#define CS_EC_QUICKMART_REQ						(OFFSET_CS_EC + 185)
+#define CS_EC_QUICKMART_ACK						(OFFSET_CS_EC + 186)
+
+/////////////////////////////////////////////////////////////
+// Building message
+
+#define CS_BD_REGTEMPLATE_REQ				(OFFSET_CS_BD + 0)
+//Arguments :
+//	BYTE	SizeX
+//	BYTE	SizeY
+//	BYTE	Level
+//	BYTE	Type
+//	WORD	NumCellData
+//	BYTE	NumPortals
+//	{
+//	BYTE	NumData
+//	WORD	CellData(bLayerIndex:HIBYTE, bType:LOBYTE)
+//	} Repeat by NumCellData
+//	{
+//	BYTE	PortalType
+//	BYTE	Cell1
+//	BYTE	Level1
+//	BYTE	Cell2
+//	BYTE	Level2
+//	} Repeat by NumPortals
+//Source :
+//	CLIENT
+//Target :
+//	UNITSVR
+//Remark :
+
+#define CS_BD_REGTEMPLATE_ACK				(OFFSET_CS_BD + 1)
+//Arguments :
+//	DWORD	TemplateID
+//	BYTE	Result
+//Source :
+//	UNITSVR
+//Target :
+//	CLIENT
+//Remark :
+#define ERR_REGTEMPLATE_SUCCESS				((BYTE)0)
+#define ERR_REGTEMPLATE_FAIL				((BYTE)1)
+#define ERR_REGTEMPLATE_FREEUSER			((BYTE)2)
+
+#define CS_BD_BUILD_REQ						(OFFSET_CS_BD + 2)
+//Arguments :
+//	WORD	PosX
+//	WORD	PosY
+//	BYTE	Height
+//	DWORD	TemplateID
+//  STRING	BuildingName
+//  BYTE    NumRes
+//  {
+//		DWORD   ItemID
+//		BYTE	SackPos
+//  }
+//Source :
+//	CLIENT
+//Target :
+//	UNITSVR
+//Remark :
+
+#define CS_BD_BUILD_ACK						(OFFSET_CS_BD + 3)
+//Arguments :
+//	BYTE	Result
+//  DWORD   dwTemplateID
+//  DWORD   BuildingID
+//  STRING  Name
+//	BYTE	BuildingType
+//Source :
+//	UNITSVR
+//Target :
+//	CLIENT
+//Remark :
+#define ERR_BUILD_SUCCESS					((BYTE)0)
+#define ERR_BUILD_NOTINLOT					((BYTE)1)	// 사용자의 Lot 범위 안에 있지 않음
+#define ERR_BUILD_TEMPLATE					((BYTE)2)	// 없는 Template
+#define	ERR_BUILD_INVALIDLOT				((BYTE)3)	// 집을 지을 수 없는 Lot 또는 없는 Lot
+#define ERR_BUILD_NOTPLAIN                  ((BYTE)4)   
+#define ERR_BUILD_NOTENOUGHMONEY            ((BYTE)5)
+#define ERR_BUILD_TOOYOUNG					((BYTE)6)
+#define ERR_BUILD_NOTENOUGHRES				((BYTE)7)
+#define ERR_BUILD_FREEUSER					((BYTE)8)
+#define ERR_BUILD_INVALIDTEMPLATE			((BYTE)9)   // TEMPLATE 논리 댄轎
+#define ERR_BUILD_INTERNALERROR				((BYTE)255)   
+
+#define CS_BD_TEMPLATEINFO_REQ				(OFFSET_CS_BD + 4)
+//Arguments :
+//	DWORD	TemplateID
+//Source :
+//	CLIENT
+//Target :
+//	UNITSVR
+//Remark :
+
+#define CS_BD_TEMPLATEINFO_ACK				(OFFSET_CS_BD + 5)
+//Arguments :
+//	BYTE	Result
+//	DWORD	TemplateID
+//	BYTE	SizeX
+//	BYTE	SizeY
+//	BYTE	Level
+//	BYTE	Type
+//	WORD	NumCellData
+//	BYTE	NumPortals
+//	{
+//	BYTE	NumData
+//	WORD	CellData(bLayerIndex:HIBYTE, bType:LOBYTE)
+//	} Repeat by NumCellData
+//	{
+//	BYTE	PortalType
+//	BYTE	Cell1
+//	BYTE	Level1
+//	BYTE	Cell2
+//	BYTE	Level2
+//	} Repeat by NumPortals
+//Source :
+//	UNITSVR
+//Target :
+//	CLIENT
+//Remark :
+//	if result is not success, template data is not sent
+#define ERR_TEMPLATEINFO_SUCCESS			((BYTE)0)
+#define ERR_TEMPLATEINFO_NOTEXIST			((BYTE)1)
+
+#define CS_BD_SETPORTALSTATUS_REQ			(OFFSET_CS_BD + 6)
+//Arguments :
+//	DWORD	PortalID
+//	BYTE	Status
+//Source :
+//	CLIENT
+//Target :
+//	UNITSVR
+//Remark :
+
+#define CS_BD_BUILDPRICE_REQ				(OFFSET_CS_BD + 7)
+//Arguments :
+//	DWORD	BuildingID
+//Source :
+//	CLIENT
+//Target :
+//	UNITSVR
+//Remark :
+
+
+#define CS_BD_BUILDPRICE_ACK				(OFFSET_CS_BD + 8)
+//Arguments :
+//	DWORD	BuildingID
+//	DWORD   Price
+//  BYTE    Result
+//Source :
+//	UNITSVR
+//Target :
+//	CLIENT
+//Remark :
+#define ERR_BUILDPRICE_SUCCESS				((BYTE)0)
+#define ERR_BUILDPRICE_NOSUCHTEMPLATE		((BYTE)1)
+
+#define CS_BD_DELETEBUILDING_REQ			(OFFSET_CS_BD + 9)
+//Arguments :
+//	DWORD   ObjectID
+//Source :
+//Target :
+//Remark :
+
+#define CS_BD_DELETEBUILDING_ACK			(OFFSET_CS_BD + 10)
+//Arguments :
+//	BYTE    Result
+//Source :
+//Target :
+//Remark :
+#define ERR_DELETEBUILDING_SUCCESS			((BYTE)0)
+#define ERR_DELETEBUILDING_FAIL				((BYTE)1)
+
+#define CS_BD_REMOVEBUILDINGFROMMAP_ACK		(OFFSET_CS_BD + 11)
+//Arguments :
+//  DWORD   ObjectID
+//Source :
+//	UNITSVR
+//Target :
+//  CLIENT
+//Remark :
+
+#define CS_BD_REMOVEPORTALFROMMAP_ACK		(OFFSET_CS_BD + 12)
+//Arguments :
+//	BYTE	SectionID
+//	DWORD   BuidingID
+//	BYTE	Type
+//	BYTE	PortalIndex
+//Source :
+//	UNITSVR
+//Target :
+//  CLIENT
+//Remark :
+
+
+//////////////////////////////////////////////////////////////////////
+// Infomation message
+
+#define CS_IF_CHARINFO_REQ					(OFFSET_CS_IF + 0)
+//Arguments :
+//	DWORD	CharID
+//Source :
+//	CLIENT
+//Target :
+//	UNITSVR
+//Remark :
+
+#define CS_IF_CHARINFO_ACK					(OFFSET_CS_IF + 1) 
+//Arguments :
+//	STRING	NickName
+//	DWORD	Birthday
+//	BYTE	Cradit
+//	BYTE	Age
+//	STRING	Organization
+//	STRING	Order
+//	STRING	Father
+//	STRING	Mother
+//	STRING	Teacher
+//	WORD	Level
+//Source :
+//	UNITSVR
+//Target :
+//	CLIENT
+//Remark :
+
+#define CS_IF_CHARRELATION_REQ				(OFFSET_CS_IF + 2)
+//Arguments :
+//	DWORD	CharID
+//Source :
+//	CLIENT
+//Target :
+//	UNITSVR
+//Remark :
+
+#define CS_IF_CHARRELATION_ACK				(OFFSET_CS_IF + 3)
+//Arguments :
+//	DWORD	HostCharID
+//	BYTE	RelationCount
+//	{
+//	DWORD	CharID
+//	STRING	CharName
+//	BYTE	RelationCode
+//	}
+//Source :
+//	UNITSVR
+//Target :
+//	CLIENT
+//Remark :
+
+#define CS_IF_ADDGENERALMUGONG_ACK			(OFFSET_CS_IF + 7)  
+//Arguments :
+//Source :
+//	UNITSVR
+//Target :
+//	CLIENT
+//Remark :
+
+#define CS_IF_ADDKYUNGGONG_ACK				(OFFSET_CS_IF + 9) 
+//Arguments :
+//	DWORD	MugongID
+//  STRING  Name
+//	BYTE	IncrSpeed			속도증가 : X
+//  BYTE    JumpLevel
+//	WORD	DecIpOnRun			내공소모 : X
+//  WORD    DecIpOnJump
+//Source :
+//	UNITSVR
+//Target :
+//	CLIENT
+//Remark :
+
+#define CS_IF_EXPGENERALMUGONG_ACK			(OFFSET_CS_IF + 11) 
+//Arguments :
+//  DWORD	MugongID
+//  WORD	Skill			숙련도: x
+//  WORD    Exp				경험치: x
+//Source :
+//  UNITSVR
+//Target :
+//  CLIENT
+//Remark :
+
+#define CS_IF_CHARHP_ACK					(OFFSET_CS_IF + 12) 
+//Arguments :
+//	WORD   HpMax
+//  WORD   HpCurMax
+//  WORD   HpCur
+//Source :
+//	UNITSVR
+//Target :
+//	CLIENT
+//Remark :
+
+#define CS_IF_CHARPWR_ACK					(OFFSET_CS_IF + 13) 
+//Arguments :
+//	DWORD	AtkPower		공격력
+//	DWORD	DefPower		방어력
+//	WORD	HValue			현묘율
+//  BYTE    Permanent		레벨업 효과
+//	WORD	Level
+//Source :
+//	UNITSVR
+//Target :
+//	CLIENT
+//Remark :
+
+#define CS_IF_CHARBASIC_ACK					(OFFSET_CS_IF + 14) //xx
+//Arguments :
+//Source :
+//	UNITSVR
+//Target :
+//	CLIENT
+//Remark :
+
+#define CS_IF_CHAREXP_ACK				(OFFSET_CS_IF + 15)
+//Arguments :
+//Source :
+//	UNITSVR
+//Target :
+//	CLIENT
+//Remark :
+
+#define CS_IF_CHARHEALTH_ACK				(OFFSET_CS_IF + 16)
+//Arguments :
+//Source :
+//	UNITSVR
+//Target :
+//	CLIENT
+//Remark :
+
+#define CS_IF_CHARINNERPWR_ACK				(OFFSET_CS_IF + 17)
+//Arguments :
+//	BYTE	BodyHeat
+//Source :
+//	UNITSVR
+//Target :
+//	CLIENT
+//Remark :
+
+#define CS_IF_CHARMONEY_ACK					(OFFSET_CS_IF + 18)
+//Arguments :
+//	DWORD	Money
+//	BYTE	bFreeUser
+//Source :
+//	UNITSVR
+//Target :
+//	CLIENT
+//Remark :
+
+#define CS_IF_CHARSPEED_ACK                 (OFFSET_CS_IF + 19)
+//Arguments :
+//Source :
+//  UNITSVR
+//Target :
+//  CLIENT
+//Remark :
+
+#define CS_IF_FAMEINFO_REQ					(OFFSET_CS_IT + 20)
+
+#define CS_IF_FAMEINFO_ACK					(OFFSET_CS_IT + 21)
+
+#define CS_IF_LOOKUPDIC_REQ					(OFFSET_CS_IF + 26) 
+//Arguments :
+//  STRING Keyword
+//Source :
+//  CLIENT
+//Target :
+//  UNITSVR
+//Remark :
+//  
+
+
+#define CS_IF_LOOKUPDIC_ACK					(OFFSET_CS_IF + 27)
+//Arguments :
+//  STRING Comment
+//Source :
+//  UNITSVR
+//Target :
+//  CLIENT
+//Remark :
+
+#define CS_IF_PETLIST_REQ					(OFFSET_CS_IF + 30)
+#define CS_IF_PETLIST_ACK					(OFFSET_CS_IF + 31)
+
+#define CS_IF_CASTLEINFO_REQ				(OFFSET_CS_IF + 48)
+#define CS_IF_CASTLEINFO_ACK				(OFFSET_CS_IF + 49)
+
+#define CS_IF_FAMILYLIST_REQ				(OFFSET_CS_IF + 50) 
+#define CS_IF_FAMILYLIST_ACK				(OFFSET_CS_IF + 51) 
+
+#define CS_IF_SCHOOLLIST_REQ				(OFFSET_CS_IF + 52) 
+#define CS_IF_SCHOOLLIST_ACK				(OFFSET_CS_IF + 53)
+
+#define CS_IF_CHGFURNITURENAME_REQ			(OFFSET_CS_IF + 54)
+#define CS_IF_CHGFURNITURENAME_ACK			(OFFSET_CS_IF + 55)
+
+#define CS_IF_CHANGEHAIRCOLOR_ACK			(OFFSET_CS_IF + 56)
+
+#define CS_IF_WARNINGCHARDIE_ACK				(OFFSET_CS_IF + 59)
+//Arguments :
+//	BYTE	WarningType		0 : 1년마다  1 : 10일마다
+//	WORD	LifeLengh
+//Source :
+//	UNITSVR
+//Target :
+//	CLIENT
+//Remark :
+#define WARNINGDIETYPE_YEAR						((BYTE)0)
+#define WARNINGDIETYPE_DAY						((BYTE)1)
+
+#define CS_IF_CHARDIE_ACK						(OFFSET_CS_IF + 60)
+//Arguments :
+//Source :
+//	UNITSVR
+//Target :
+//	CLIENT
+//Remark :
+
+//NIGHT_0204 : CHARFAME
+#define CS_IF_HELPMESSAGE_ACK					(OFFSET_CS_IF + 62)  
+	#define	HM_PICKITEM							((WORD)1)
+	#define HM_BOSSKILL							((WORD)2)
+	#define	HM_PKDROP							((WORD)3)
+	#define	HM_PARTYBATTLEMONEY					((WORD)4)			//NIGHT_0422 : PARTYBATTLE
+	#define HM_BLOODDEVIL						((WORD)7)			//HO_0313_07 광명전 업데이트로 인한 추가
+
+#define CS_IF_LAYERMSG_ACK						(OFFSET_CS_IF + 63)
+//Argument :
+//	BYTE	bDungeon
+//	BYTE	bLevel
+//Source :
+//	UNITSVR
+//Target :
+//	CLIENT
+//Remark :
+
+#define CS_IF_EXECMSG_ACK						(OFFSET_CS_IF + 64)
+//Argument :
+//	BYTE	bDungeon
+//	BYTE	bLevel
+//Source :
+//	UNITSVR
+//Target :
+//	CLIENT
+//Remark :
+
+#define CS_IF_CHGBUILDINGNAME_REQ				(OFFSET_CS_IF + 65)
+//Argument :
+//	DWORD	 BuildingID
+//	STRING   Name
+//Source :
+//	CLIENT
+//Target :
+//	UNITSVR
+//Remark :
+
+#define CS_IF_CHGBUILDINGNAME_ACK				(OFFSET_CS_IF + 66)
+//Argument :
+//	DWORD	BuildingID
+//  STRING  Name
+//Source :
+//	UNITSVR
+//Target :
+//	CLIENT
+//Remark :
+
+#define CS_IF_CHANGEINCRBASIC_ACK				(OFFSET_CS_IF + 67)
+//Argument :
+//	BYTE	IncrStr
+//	BYTE	IncrSus
+//  BYTE	IncrDex
+//	BYTE	IncrVit
+//Source :
+//	UNITSVR
+//Target :
+//	CLIENT
+//Remark :
+
+#define CS_IF_PKMAN_ACK						(OFFSET_CS_IF + 68)
+//Argument :
+//	DWORD	CharID
+//	BYTE	IsPkMan		0:not PK Man 1:PK Man
+//Source :
+//	UNITSVR
+//Target :
+//	CLIENT
+//Remark :
+
+#define CS_IF_ASKPARTY_REQ					(OFFSET_CS_IF + 69)
+#define CS_IF_ASKPARTY_ACK					(OFFSET_CS_IF + 70)
+
+#define CS_IF_CREATEPARTY_REQ				(OFFSET_CS_IF + 71)
+#define CS_IF_CREATEPARTY_ACK				(OFFSET_CS_IF + 72)
+
+#define CS_IF_INVITEPARTY_REQ				(OFFSET_CS_IF + 73)
+#define CS_IF_INVITEPARTY_ACK				(OFFSET_CS_IF + 74)
+
+#define CS_IF_ENTERPARTY_REQ				(OFFSET_CS_IF + 75)
+#define CS_IF_ENTERPARTY_ACK				(OFFSET_CS_IF + 76)
+
+#define CS_IF_LEAVEPARTY_REQ				(OFFSET_CS_IF + 77)
+#define CS_IF_LEAVEPARTY_ACK				(OFFSET_CS_IF + 78)
+
+#define CS_IF_DESTROYPARTY_REQ				(OFFSET_CS_IF + 79)
+#define CS_IF_DESTROYPARTY_ACK				(OFFSET_CS_IF + 80)
+
+#define CS_IF_BANISHPARTY_REQ				(OFFSET_CS_IF + 81)
+#define CS_IF_BANISHPARTY_ACK				(OFFSET_CS_IF + 82)
+
+#define CS_IF_PARTYPOSITION_REQ				(OFFSET_CS_IF + 83)
+#define CS_IF_PARTYPOSITION_ACK				(OFFSET_CS_IF + 84)
+
+#define CS_IF_PARTYLIST_REQ					(OFFSET_CS_IF + 85)
+#define CS_IF_PARTYLIST_ACK					(OFFSET_CS_IF + 86)
+
+#define CS_IF_CHANGEPARTYLEADER_REQ			(OFFSET_CS_IF + 87)
+#define CS_IF_CHANGEPARTYLEADER_ACK			(OFFSET_CS_IF + 88)
+//HO_0420_07 패킷추가
+	#define ERR_CHANGEPARTYLEADER_SUCCESS		((BYTE)0)
+	#define ERR_CHANGEPARTYLEADER_FAIL			((BYTE)1)
+
+#define CS_IF_MUGONGUPSTART_ACK				(OFFSET_CS_IF + 89)
+#define CS_IF_MUGONGUPEND_ACK				(OFFSET_CS_IF + 90)
+
+#define CS_IF_ASKADDBUDDY_REQ				(OFFSET_CS_IF + 91) 
+#define CS_IF_ASKADDBUDDY_ACK				(OFFSET_CS_IF + 92)
+
+#define CS_IF_ADDBUDDY_REQ					(OFFSET_CS_IF + 93) 
+#define CS_IF_ADDBUDDY_ACK					(OFFSET_CS_IF + 94)
+	#define ERR_ADDBUDDY_SUCCESS			((BYTE)0)
+	#define ERR_ADDBUDDY_DUPLICATION		((BYTE)1)
+	#define ERR_ADDBUDDY_NOTCONNECT			((BYTE)2)
+	#define ERR_ADDBUDDY_BUDDYISFULL		((BYTE)3)
+	#define ERR_ADDBUDDY_FAIL				((BYTE)255)
+
+#define CS_IF_BUDDYLIST_REQ					(OFFSET_CS_IF + 95) 
+#define CS_IF_BUDDYLIST_ACK					(OFFSET_CS_IF + 96)
+
+#define CS_IF_DELBUDDY_REQ					(OFFSET_CS_IF + 97)
+#define CS_IF_DELBUDDY_ACK					(OFFSET_CS_IF + 98)
+	#define ERR_DELBUDDY_SUCCESS			((BYTE)0)
+	#define ERR_DELBUDDY_NOTEXIST			((BYTE)1)
+	#define ERR_DELBUDDY_REVIVAL			((BYTE)2)
+	#define ERR_DELBUDDY_FAIL				((BYTE)255)	
+
+#define CS_IF_CHANGEBUDDYCONNECT_ACK		(OFFSET_CS_IF + 99)
+
+#define ERR_BUDDY_INTERNALERROR			((BYTE)255)				
+
+#define CS_IF_SENDBUDDYMSG_REQ				(OFFSET_CS_IF + 100) 
+#define CS_IF_SENDBUDDYMSG_ACK				(OFFSET_CS_IF + 101) 
+
+#define CS_IF_RECEIVEBUDDYMSG_ACK			(OFFSET_CS_IF + 102) 
+#define CS_IF_RESPONSEBUDDYMSG_REQ			(OFFSET_CS_IF + 103) 
+
+#define CS_IF_BUDDYMSGLIST_REQ				(OFFSET_CS_IF + 104) 
+#define CS_IF_BUDDYMSGLIST_ACK				(OFFSET_CS_IF + 105) 
+
+#define CS_IF_VIEWBUDDYMSG_REQ				(OFFSET_CS_IF + 106)
+	#define ERR_BUDDYMESSAGE_SUCCESS		((BYTE)0)
+	#define ERR_BUDDYMESSAGE_NOTBUDDY		((BYTE)1)
+	#define ERR_BUDDYMESSAGE_ISFULL			((BYTE)2)
+	#define ERR_BUDDYMESSAGE_FAIL			((BYTE)255)
+
+#define CS_IF_BUDDYPOSITION_REQ				(OFFSET_CS_IF + 107) 
+#define CS_IF_BUDDYPOSITION_ACK				(OFFSET_CS_IF + 108)
+
+// used in quest : reward
+#define CS_IF_CHARTPSP_ACK					(OFFSET_CS_IF + 109)
+
+//HK_0421 : Semi PK
+#define CS_IF_CHARCHANGESTATUS_ACK			(OFFSET_CS_IF + 110)
+
+//IS_1129 : FIVEELM
+#define CS_IF_EXECFIVEELM_REQ				(OFFSET_CS_IF + 111) 
+#define CS_IF_EXECFIVEELM_ACK				(OFFSET_CS_IF + 112)
+	#define ERR_EXECFIVEELM_SUCCESS					((BYTE)0)
+	#define ERR_EXECFIVEELM_NEEDPOINT				((BYTE)1)
+	#define ERR_EXECFIVEELM_NOTFINDCHAR				((BYTE)2)
+
+//IS_1129 : FIVEELM
+#define CS_IF_CHANGEFIVEELM_REQ				(OFFSET_CS_IF + 113) 
+#define CS_IF_CHANGEFIVEELM_ACK				(OFFSET_CS_IF + 114)
+	#define ERR_CHANGEFIVEELM_SUCCESS				((BYTE)0)
+	#define ERR_CHANGEFIVEELM_ONAIR					((BYTE)1)
+
+// [6/1/2005] 단 경험치 분배
+#define CS_IF_PARTYSHARE_REQ				(OFFSET_CS_IF + 115)
+#define CS_IF_PARTYSHARE_ACK				(OFFSET_CS_IF + 116)
+
+//IS_0812 : 인스턴스
+#define CS_IF_STAMINA_REQ					(OFFSET_CS_IF + 117)
+#define CS_IF_STAMINA_ACK					(OFFSET_CS_IF + 118)
+
+//IS_0812 : 인스턴스
+#define CS_IF_EXECSTAMINA_REQ				(OFFSET_CS_IF + 119)
+#define CS_IF_EXECSTAMINA_ACK				(OFFSET_CS_IF + 120)
+	#define ERR_EXECSTAMINA_SUCCESS				((BYTE)0)
+	#define ERR_EXECSTAMINA_NEEDSTAMINA			((BYTE)1)//기 부족
+
+//HT_0720 : 오행 개선 사항
+#define CS_IF_ENDFIVEELM_REQ				(OFFSET_CS_IF + 121)
+//////////////////////////////////////////////////////////////////////
+//  Relation Message
+#define CS_RL_NEWFAMILY_REQ					(OFFSET_CS_RL + 0)
+//Arguments :
+//  DWORD ApplicantID
+//  DWORD TargetID
+//  BYTE TypeOfRelation
+//Source :
+//  CLIENT
+//Target :
+//  UNITSVR
+//Remark :
+//  1. The type of relation is defined in type.h
+
+
+#define CS_RL_NEWFAMILY_ACK					(OFFSET_CS_RL + 1)
+//Arguments :
+//  DWORD ApplicantID
+//  STRING ApplicantNickName
+//  BYTE TypeOfRelation
+//Source :
+//  UNITSVR
+//Target :
+//  CLIENT
+//Remark :
+
+#define CS_RL_REPLYNEWFAMILY_REQ			(OFFSET_CS_RL + 2)
+//Arguments :
+//  DWORD ReplierID
+//  D\ORD TargetID
+//  BYTE TypeOfRelation
+//  BYTE YesOrNo
+//Source :
+//  CLIENT
+//Target :
+//  UNITSVR
+//Remark :
+
+#define CS_RL_REPLYNEWFAMILY_ACK          (OFFSET_CS_RL + 3) 
+//Arguments :
+//  BYTE Applicant		
+//  DWORD OppositeID
+//  STRING OppositeName
+//  BYTE TypeOfRelation
+//  BYTE YesOrNo
+//  BYTE ResultCode
+//Source :
+//  UNITSVR
+//Target :
+//  CLIENT
+//Remark :
+
+#define ERR_NEWFAMILY_SUCCESS				((BYTE)0)
+#define ERR_NEWFAMILY_USERREQUEST			((BYTE)1)
+#define ERR_NEWFAMILY_UTOOYOUNG				((BYTE)2)
+#define ERR_NEWFAMILY_OTOOYOUNG				((BYTE)3)
+#define ERR_NEWFAMILY_TABOO					((BYTE)4)
+#define ERR_NEWFAMILY_SAMEGENDER			((BYTE)6)
+#define ERR_NEWFAMILY_UPUPILS				((BYTE)7)
+#define ERR_NEWFAMILY_OPUPILS				((BYTE)8)
+#define ERR_NEWFAMILY_NOSUCHUSER			((BYTE)9)
+#define ERR_NEWFAMILY_NORESERVATION			((BYTE)10)
+#define ERR_NEWFAMILY_UMARRIED				((BYTE)11)
+#define ERR_NEWFAMILY_OMARRIED				((BYTE)12)
+#define ERR_NEWFAMILY_UHAVEPARENT			((BYTE)13)
+#define ERR_NEWFAMILY_OHAVEPARENT			((BYTE)14)
+#define ERR_NEWFAMILY_USINGLE				((BYTE)15)
+#define ERR_NEWFAMILY_OSINGLE				((BYTE)16)
+#define ERR_NEWFAMILY_UHAVEADDRESS			((BYTE)17)
+#define ERR_NEWFAMILY_OHAVEADDRESS			((BYTE)18)
+#define ERR_NEWFAMILY_FREEUSER				((BYTE)19)
+#define ERR_NEWFAMILY_OTOOOLD				((BYTE)20)
+#define ERR_NEWFAMILY_UTOOOLD				((BYTE)21)
+#define ERR_NEWFAMILY_OMARRIEDADOPTFAIL		((BYTE)22)
+#define ERR_NEWFAMILY_UMARRIEDADOPTFAIL		((BYTE)23)
+#define ERR_NEWFAMILY_INTERNALERROR			((BYTE)255)
+
+#define CS_RL_ENDFAMILY_REQ					(OFFSET_CS_RL + 4)
+//Arguments :
+//  DWORD ApplicantID
+//  DWORD TargetID
+//  BYTE TypeOfRelation
+//Source :
+//  CLIENT
+//Target :
+//  UNITSVR
+//Remark :
+
+#define CS_RL_ENDFAMILY_ACK					(OFFSET_CS_RL + 7) 
+//Arguments :
+//  BYTE Applicant
+//  DWORD OppositeID
+//  STRING OppositeNickName
+//  BYTE TypeOfRelation
+//  BYTE ResultCode
+//Source :
+//  UNITSVR
+//Target :
+//  CLIENT
+//Remark :
+
+#define ERR_ENDFAMILY_SUCCESS				((BYTE)0)
+#define ERR_ENDFAMILY_USERREQUEST			((BYTE)1)
+#define ERR_ENDFAMILY_NOSUCHUSER			((BYTE)2)
+#define ERR_ENDFAMILY_NOSUCHPRIVILEGE		((BYTE)3)
+#define ERR_ENDFAMILY_NEEDTIME				((BYTE)4)
+#define ERR_ENDFAMILY_INTERNALERROR			((BYTE)255)
+
+
+#define CS_RL_FAMILYMEMBERCHANGE_ACK		(OFFSET_CS_RL + 12)
+//Arguments :
+//	DWORD dwCharID
+//  BYTE bRelativeFamilyCode;
+//Source :
+//	UNITSVR
+//Target :
+//  CLIENT
+//Remark :
+
+#define CS_RL_NEWTEACHER_REQ				(OFFSET_CS_RL + 13)
+//Arguments :
+//  DWORD TargetID
+//Source :
+//  CLIENT
+//Target :
+//  UNITSVR
+//Remark :
+
+#define CS_RL_NEWTEACHER_ACK				(OFFSET_CS_RL + 14)
+//Arguments :
+//  DWORD ApplicantID
+//  STRING ApplicantNickName
+//Source :
+//  UNITSVR
+//Target :
+//  CLIENT
+//Remark :
+
+#define CS_RL_REPLYNEWTEACHER_REQ			(OFFSET_CS_RL + 15)
+//Arguments:
+//  DWORD TargetID
+//  BYTE Answer
+//Source :
+//  CLIENT
+//Target :
+//  UNITSVR
+//Remark:
+
+#define CS_RL_REPLYNEWTEACHER_ACK			(OFFSET_CS_RL + 16)
+//Arguments:
+//  BYTE Applicant
+//  DWORD OppositeID
+//  STRING OppositeNickName
+//  BYTE Answer
+//  BYTE Result
+//Source :
+//  UNITSVR
+//Target :
+//  CLIENT
+//Remark :
+
+#define ERR_REPLYNEWTEACHER_SUCCESS				((BYTE)0)
+#define ERR_REPLYNEWTEACHER_NOSUCHUSER			((BYTE)1)
+#define ERR_REPLYNEWTEACHER_TEACHERTOOYOUNG		((BYTE)2)
+#define ERR_REPLYNEWTEACHER_STUDENTHASSCHOOL	((BYTE)3)
+#define ERR_REPLYNEWTEACHER_USERREQUEST			((BYTE)4)
+#define ERR_REPLYNEWTEACHER_FREEUSER			((BYTE)5)
+#define ERR_REPLYNEWTEACHER_INTERNALERROR		((BYTE)255)
+
+
+#define CS_RL_ENDPUPIL_REQ					(OFFSET_CS_RL + 17)
+//Arguments:
+//  DWORD TargetID
+//Source :
+//  CLIENT
+//Target :
+//  UNITSVR
+//Remark :
+
+#define CS_RL_ENDPUPIL_ACK					(OFFSET_CS_RL + 18)
+//Arguments :
+//  BYTE Result
+//Source :
+//  CLIENT
+//Target :
+//  UNITSVR
+//Remark :
+
+#define ERR_ENDPUPIL_SUCCESS				((BYTE)0)
+#define ERR_ENDPUPIL_NOSUCHUSER				((BYTE)1)
+#define ERR_ENDPUPIL_YOUNOTTEACHER			((BYTE)2)
+#define ERR_ENDPUPIL_NEEDTIME				((BYTE)3)
+#define ERR_ENDPUPIL_INTERNALERROR			((BYTE)255)
+
+#define CS_RL_INTOSCHOOL_ACK				(OFFSET_CS_RL + 19)
+//Arguments :
+//  DWORD SchoolID
+//  DWORD Order
+//  DWORD Depth
+//Source :
+//  UNITSVR
+//Target :
+//  CLIENT
+//Remark:
+
+#define CS_RL_OUTFROMSCHOOL_ACK				(OFFSET_CS_RL + 20)
+//Arguments :
+//  BYTE Reason
+//Source :
+//  UNITSVR
+//Target :
+//  CLIENT
+//Remark :
+#define OUTFROMSCHOOL_BY_TEACHER			((BYTE)0)
+#define OUTFROMSCHOOL_BY_SCHOOLERASE        ((BYTE)1)
+
+#define CS_RL_NEARCHARSCHOOLCHANGE_ACK		(OFFSET_CS_RL + 21)
+//Arguments :
+//  DWORD dwCharID
+//  BYTE  RelationCode
+//Source :
+//	UNITSVR
+//Target :
+//  CLIENT
+
+#define CS_RL_PUPILCOUNT_REQ				(OFFSET_CS_RL + 22) 
+//Arguments :
+//Source :
+//  CLIENT
+//Target :
+//  UNITSVR
+//Remark :
+
+#define CS_RL_PUPILCOUNT_ACK				(OFFSET_CS_RL + 23) 
+//Arguments :
+//	DWORD	dwCount
+//	BYTE	nResult
+//Source :
+//  UNITSVR
+//Target :
+//  CLIENT
+//Remark :
+#define	ERR_CAN_CREATE_MUNPA				((BYTE) 0)
+#define ERR_YOU_ARE_NOT_SAJO				((BYTE) 1)
+#define ERR_NOT_ENOUGH_PUPIL				((BYTE) 2)
+
+#define CS_RL_CREATEMUNPA_REQ				(OFFSET_CS_RL + 24)
+//Arguments :
+//	STRING	strName
+//Source :
+//  CLIENT
+//Target :
+//  UNITSVR
+//Remark :
+
+#define CS_RL_CREATEMUNPA_ACK				(OFFSET_CS_RL + 25) 
+//Arguments :
+//	BYTE	nResult
+//Source :
+//  UNITSVR
+//Target :
+//  CLIENT
+//Remark :
+#define ERR_CREATEMUNPA_SUCC				((BYTE) 0)
+#define ERR_CREATEMUNPA_FAIL				((BYTE) 1)
+#define ERR_YOU_CANNOT_CREATEMUNPA			((BYTE) 2)
+#define ERR_DUPLICATE_MUNPANAME				((BYTE) 3)
+#define ERR_YOU_NOT_LEVEL					((BYTE) 4)
+#define ERR_YOU_NOT_MONEY					((BYTE) 5)
+#define ERR_YOU_NOT_SKILLPOINT				((BYTE) 6)
+
+#define CS_RL_DELETEMUNPA_REQ				(OFFSET_CS_RL + 26) 
+//Arguments :
+//Source :
+//  CLIENT
+//Target :
+//  UNITSVR
+//Remark :
+
+#define CS_RL_DELETEMUNPA_ACK				(OFFSET_CS_RL + 27)
+//Arguments :
+//	BYTE	nResult
+//Source :
+//  UNITSVR
+//Target :
+//  CLIENT
+//Remark :
+#define ERR_DELETEMUNPA_SUCC				((BYTE) 0)
+#define ERR_DELETEMUNPA_NOMUNPA				((BYTE) 1)
+#define ERR_DELETEMUNPA_NOPOWER				((BYTE) 2)
+#define ERR_DELETEMUNPA_HASMUNWON			((BYTE) 3)
+#define ERR_DELETEMUNPA_FAIL				((BYTE) 4)
+#define ERR_DELETEMUNPA_ISWAR				((BYTE) 5)
+
+#define CS_RL_MUNPAORDERLIST_REQ			(OFFSET_CS_RL + 29) 
+//Arguments :
+//Source :
+//  CLIENT
+//Target :
+//  UNITSVR
+//Remark :
+
+#define CS_RL_MUNPAORDERLIST_ACK			(OFFSET_CS_RL + 30) 
+//Arguments :
+//	BYTE	nResult
+//	DWORD	dwCount
+//	{
+//	DWORD	dwOrderID
+//	STRING	strOrderName
+//	STRING	strNickName
+//	}
+//Source :
+//  UNITSVR
+//Target :
+//  CLIENT
+//Remark :
+#define ERR_MUNPAORDERLIST_SUCC				((BYTE) 0)
+#define ERR_YOU_ARE_NOT_BOSS				((BYTE) 1)
+
+
+#define CS_RL_CHGMUNPAORDER_REQ				(OFFSET_CS_RL + 31) 
+//Arguments :
+//	DWORD	dwOrderID
+//	STRING	strOrderName
+//	STRING	strNickName
+//Source :
+//  CLIENT
+//Target :
+//  UNITSVR
+//Remark :
+
+#define CS_RL_CHGMUNPAORDER_ACK				(OFFSET_CS_RL + 32)
+//Arguments :
+//	BYTE	nResult
+//	DWORD	dwOrderID
+//	STRING	strOrderName
+//	STRING	strNickName
+//Source :
+//  UNITSVR
+//Target :
+//  CLIENT
+//Remark :
+#define ERR_CHGMUNPAORDER_SUCC				((BYTE) 0)
+#define ERR_CHGMUNPAORDER_FAIL				((BYTE) 1)
+#define ERR_NOT_EXIST_CHAR					((BYTE) 2)
+
+
+#define CS_RL_DELMUNPAORDER_REQ				(OFFSET_CS_RL + 33)
+//Arguments :
+//	DWORD	bOrderID
+//Source :
+//  CLIENT
+//Target :
+//  UNITSVR
+//Remark :
+
+#define CS_RL_DELMUNPAORDER_ACK				(OFFSET_CS_RL + 34)
+//Arguments :
+//	BYTE	nResult
+//	DWORD	bOrderID
+//	STRING	strOrderName
+//	STRING	strNickName
+//Source :
+//  UNITSVR
+//Target :
+//  CLIENT
+//Remark :
+#define ERR_DELMUNPAORDER_SUCC				((BYTE) 0)
+#define ERR_DELMUNPAORDER_FAIL				((BYTE) 1)
+#define ERR_NOT_EXIST_ORDER					((BYTE) 2)
+
+#define CS_RL_ENDRELATION_REQ				(OFFSET_CS_RL + 35)  
+//Arguments :
+//	DWORD    TargetID
+//  BYTE     TypeOfRelation
+//Source :
+//  CLIENT
+//Target :
+//  UNITSVR
+//Remark :
+
+#define CS_RL_ENDRELATION_ACK				(OFFSET_CS_RL + 36)
+//Arguments :
+//  BYTE	Result
+//  BYTE    TypeOfRelation
+//Source :
+//	UNITSVR
+//Target :
+//	CLIENT
+//Remark :
+
+#define ERR_ENDRELATION_SUCCESS				((BYTE)0)
+#define ERR_ENDRELATION_NOSUCHTARGET		((BYTE)1)
+#define ERR_ENDRELATION_NORELATION			((BYTE)2)/*Target과 관계없슴*/
+#define ERR_ENDRELATION_CANTENDREL			((BYTE)3)
+#define ERR_ENDRELATION_NEEDTIME			((BYTE)4)
+#define ERR_ENDRELATION_INTERNALERROR		((BYTE)255)
+
+#define CS_RL_KICKOUTMEMBER_REQ				(OFFSET_CS_RL + 37)
+//Arguments :
+//	STRING	strNickName
+//Source :
+//  CLIENT
+//Target :
+//  UNITSVR
+//Remark :
+
+#define CS_RL_KICKOUTMEMBER_ACK				(OFFSET_CS_RL + 38)
+//Arguments :
+//  BYTE	Result
+//Source :
+//	UNITSVR
+//Target :
+//	CLIENT
+//Remark :
+#define ERR_KICKOUTMEMBER_SUCCESS			((BYTE) 0)
+#define ERR_KICKOUTMEMBER_YOUARENOTBOSS		((BYTE) 1)
+#define ERR_KICKOUTMEMBER_CANNOTFIND		((BYTE) 2)
+#define ERR_KICKOUTMEMBER_CANNOTKICKBOSS	((BYTE) 3)
+#define ERR_KICKOUTMEMBER_FAILED			((BYTE) 255)
+
+#define CS_RL_REFUSERELATION_REQ			(OFFSET_CS_RL + 39)
+//Arguments :
+//	BYTE	Type
+//	DWORD	TargetID
+//Source :
+//  CLIENT
+//Target :
+//  UNITSVR
+//Remark :
+
+#define CS_RL_REFUSERELATION_ACK			(OFFSET_CS_RL + 40)
+//Arguments :
+//  BYTE	Type
+//Source :
+//	UNITSVR
+//Target :
+//	CLIENT
+//Remark :
+
+#define CS_RL_ASKMUNWON_REQ					(OFFSET_CS_RL + 41)
+	#define ACT_ASKMUNWON_REQUEST				((BYTE) 1)
+	#define ACT_ASKMUNWON_OK					((BYTE) 2)
+	#define ACT_ASKMUNWON_CANCEL				((BYTE) 3)
+	#define ACT_ASKSTONE_REQUEST				((BYTE) 4)
+#define CS_RL_ASKMUNWON_ACK					(OFFSET_CS_RL + 42)
+	#define ACT_ASKMUNWON_REQUEST				((BYTE) 1)
+	#define ACT_ASKMUNWON_OK					((BYTE) 2)
+	#define ACT_ASKMUNWON_CANCEL				((BYTE) 3)
+	#define ERR_ASKMUNWON_YOUHASMUNPA			((BYTE) 4)	
+	#define ERR_ASKMUNWON_HASNOTMUNPA			((BYTE) 5)
+	#define ACT_ASKMUNWONSTONE_REQUEST			((BYTE) 6)
+#define CS_RL_ADDMUNWON_REQ					(OFFSET_CS_RL + 43)
+#define CS_RL_ADDMUNWON_ACK					(OFFSET_CS_RL + 44)
+	#define ERR_ADDMUNWON_SUCCESS				((BYTE) 0)
+	#define ERR_ADDMUNWON_YOU_HAVENOT_MUNPA		((BYTE) 1)
+	#define ERR_ADDMUNWON_YOU_HAVENOT_POWER		((BYTE) 2)
+	#define ERR_ADDMUNWON_DUPLICATION			((BYTE) 3)
+	#define ERR_ADDMUNWON_DONOT_FIND			((BYTE) 4)
+	#define ERR_ADDMUNWON_MAX					((BYTE) 5)
+	#define ERR_ADDMUNWON_ERROR					((BYTE) 6)
+	#define ERR_ADDMUNWON_PENALTY				((BYTE) 7)//HO_0507_07 문파 패킷 추가 : 탈퇴한지 1주일이 안지남
+	
+#define CS_RL_DELMUNWON_REQ					(OFFSET_CS_RL + 45)
+#define CS_RL_DELMUNWON_ACK					(OFFSET_CS_RL + 46)
+	#define ERR_DELMUNWON_SUCCESS				((BYTE) 0)
+	#define ERR_DELMUNWON_YOU_HAVENOT_MUNPA		((BYTE) 1)
+	#define ERR_DELMUNWON_YOU_HAVENOT_POWER		((BYTE) 2)
+	#define ERR_DELMUNWON_DONOT_FIND			((BYTE) 3)
+	#define ERR_DELMUNWON_ERROR					((BYTE) 4)
+	#define ERR_DELMUNWON_DELETED				((BYTE) 5)
+	#define ERR_DELMUNWON_WARENTRY				((BYTE) 6)
+#define CS_RL_CHANGEMUNWONORDER_REQ			(OFFSET_CS_RL + 47)
+#define CS_RL_CHANGEMUNWONORDER_ACK			(OFFSET_CS_RL + 48)
+	#define ERR_CHANGEORDER_SUCCESS				((BYTE) 0)
+	#define ERR_CHANGEORDER_YOU_HAVENOT_MUNPA	((BYTE) 1)
+	#define ERR_CHANGEORDER_YOU_HAVENOT_POWER	((BYTE) 2)
+	#define ERR_CHANGEORDER_NOTFIND_MUNWON		((BYTE) 3)
+	#define ERR_CHANGEORDER_FULLORDER			((BYTE) 4)
+	#define ERR_CHANGEORDER_ERROR				((BYTE) 5)
+	#define ERR_CHANGEORDER_IN_LOWMONEY			((BYTE) 6)
+#define CS_RL_MUNPALIST_REQ					(OFFSET_CS_RL + 49)
+#define CS_RL_MUNPALIST_ACK					(OFFSET_CS_RL + 50)
+#define CS_RL_MUNWONLIST_REQ				(OFFSET_CS_RL + 51)
+#define CS_RL_MUNWONLIST_ACK				(OFFSET_CS_RL + 52)
+#define CS_RL_MUNWONINFO_REQ				(OFFSET_CS_RL + 53)
+#define CS_RL_MUNWONINFO_ACK				(OFFSET_CS_RL + 54)
+#define CS_RL_MUNPACHAT_REQ					(OFFSET_CS_RL + 55)
+#define CS_RL_MUNPACHAT_ACK					(OFFSET_CS_RL + 56)
+#define CS_RL_MUNPAINFO_REQ					(OFFSET_CS_RL + 57)
+#define CS_RL_MUNPAINFO_ACK					(OFFSET_CS_RL + 58)
+#define CS_RL_MUNPANICK_REQ					(OFFSET_CS_RL + 59)
+#define CS_RL_MUNPANICK_ACK					(OFFSET_CS_RL + 60)
+	#define ERR_MUNPANICK_SUCCESS				((BYTE) 0)
+	#define ERR_MUNPANICK_YOU_HAVENOT_MUNPA		((BYTE) 1)
+	#define ERR_MUNPANICK_YOU_HAVENOT_POWER		((BYTE) 2)
+	#define ERR_MUNPANICK_NOTFIND_MUNWON		((BYTE) 3)
+	#define ERR_MUNPANICK_ERROR					((BYTE) 5)
+#define CS_RL_MUNWONINFO2_REQ				(OFFSET_CS_RL + 61)
+#define CS_RL_MUNWONINFO2_ACK				(OFFSET_CS_RL + 62)
+
+// 04.05.25
+//HK_0512 : NEW-REL
+#define CS_RL_ASKRELATION_REQ				(OFFSET_CS_RL + 63)
+#define CS_RL_ASKRELATION_ACK				(OFFSET_CS_RL + 64)
+#define CS_RL_BREAKRELATION_REQ				(OFFSET_CS_RL + 65)
+#define CS_RL_BREAKRELATION_ACK				(OFFSET_CS_RL + 66)
+	// 1) 인연 종류 코드 (bRelType)
+	#define RELATION_TYPE_NONE			((BYTE) 0)		// (해당없음)
+	#define RELATION_TYPE_LOVER			((BYTE) 10)		// 연인
+	#define RELATION_TYPE_MARRIED		((BYTE) 11)		// 부부
+	#define RELATION_TYPE_TEACHER		((BYTE) 20)		// 스승
+	#define RELATION_TYPE_MASTER		((BYTE) 21)		// 전수자
+	#define RELATION_TYPE_STUDENT		((BYTE) 30)		// 제자
+	#define RELATION_TYPE_SLAVE			((BYTE) 31)		// 전승자
+	#define RELATION_TYPE_BUDDY			((BYTE) 40)		// 친구
+	// 2) 진행 단계 코드 (bRelStep)
+	#define RELATION_ERR_INTERNAL		((BYTE) 0)		// 내부 댄轎
+	#define RELATION_ERR_SAMESEX		((BYTE) 1)		// 성별이 같아서 연인이 될수 없음
+	#define RELATION_ERR_DIFFTYPE		((BYTE) 2)		// 유파가 달라서 스승/제자가 될수 없음
+	#define RELATION_ERR_ASKHAVE		((BYTE) 3)		// 신청자에게 해당 관계자가 있음
+	#define RELATION_ERR_ANSHAVE		((BYTE) 4)		// 승락자에게 해당 관계자가 있음
+	#define RELATION_ERR_NOTFOUND		((BYTE) 5)		// 상대방이 로그아웃
+	#define RELATION_ERR_NOTIMPLEMENTED	((BYTE) 6)		// 아직 지원 않는 기능
+	#define RELATION_ERR_CLOSEOPTION	((BYTE) 7)		// 관계 옵션 닫힘
+	#define RELATION_STEP_DONE			((BYTE) 10)		// 완료
+	#define RELATION_STEP_ASK			((BYTE) 11)		// 신청 (생성/절교)
+	#define RELATION_STEP_ACCEPT		((BYTE) 12)		// 승락 (생성/절교)
+	#define RELATION_STEP_DECLINE		((BYTE) 13)		// 거부 (생성/절교)
+	#define RELATION_STEP_NOTLOGIN		((BYTE) 14)		// 상대방이 로그인 안한 상태(인데, 강행하겠느냐)
+	#define RELATION_STEP_CONFIRM		((BYTE) 15)		// 절교 강행 횅땍
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//YS_0524 : MUNPAWAR
+
+#define CS_RL_DONATE_REQ					(OFFSET_CS_RL + 67)
+//Client -> UnitSvr
+//dwMunpaID, dwReqFame, dwDonateMoney
+
+#define CS_RL_DONATE_ACK					(OFFSET_CS_RL + 68)
+//UnitSvr -> Client
+//bResult : 
+#define ERR_DONATE_SUCCESS			(BYTE) 0
+#define ERR_DONATE_ONLYMUNJU		(BYTE) 1
+#define ERR_DONATE_LESSMONEY		(BYTE) 2
+#define ERR_DONATE_500_OVERFAME		(BYTE) 3
+#define ERR_DONATE_INTERNALERROR	(BYTE) 4
+
+#define CS_RL_GAINSTONE_REQ					(OFFSET_CS_RL + 69)
+//Client -> UnitSvr
+//dwMunpaID, dwStoneID	
+
+#define CS_RL_GAINSTONE_ACK					(OFFSET_CS_RL + 70)
+//UnitSvr -> Client
+//bResult : 
+#define ERR_GAINSTONE_SUCCESS			(BYTE) 0
+#define ERR_GAINSTONE_LESSMONEY			(BYTE) 1
+#define ERR_GAINSTONE_OTHERHAVESTONE	(BYTE) 2
+#define ERR_GAINSTONE_INTERNALERROR		(BYTE) 3
+#define ERR_GAINSTONE_ONLYMUNJU			(BYTE) 4
+#define ERR_GAINSTONE_YOUHAVESTONE		(BYTE) 5
+#define ERR_GAINSTONE_LESSFAME			(BYTE) 6
+
+#define CS_RL_MUNPABBSLIST_REQ				(OFFSET_CS_RL + 71)
+//Client -> UnitSvr
+//dwMunpaID
+
+#define CS_RL_MUNPABBSLIST_ACK				(OFFSET_CS_RL + 72)
+//UnitSvr -> Client
+//bResult : if 0 = bBBSCount, dwBBSID, dwRecordTime, strTitle(50),
+#define ERR_MUNPABBSLIST_SUCCESS		(BYTE) 0
+#define ERR_MUNPABBSLIST_LESSMUNPALEVEL	(BYTE) 1
+#define ERR_MUNPABBSLIST_INTERNALERROR	(BYTE) 2
+
+#define CS_RL_MUNPABBSREAD_REQ				(OFFSET_CS_RL + 73)
+//Client -> UnitSvr
+//dwMunpaID, dwBBSID
+
+#define CS_RL_MUNPABBSREAD_ACK				(OFFSET_CS_RL + 74)
+//UnitSvr -> Client
+//bResult : if 0 = dwBBSID, strBBSContents (500) 
+#define ERR_MUNPABBSREAD_SUCCESS		(BYTE) 0
+#define ERR_MUNPABBSREAD_BBSDELETE		(BYTE) 1
+#define ERR_MUNPABBSREAD_INTERNALERROR	(BYTE) 2
+
+#define CS_RL_MUNPABBSWRITE_REQ				(OFFSET_CS_RL + 75)
+//Client -> UnitSvr
+//dwMunpaID, strTitle, strContents
+
+#define CS_RL_MUNPABBSWRITE_ACK				(OFFSET_CS_RL + 76)
+//UnitSvr -> Client
+//bResult : if 0 -> MUNPABBSLIST_ACK
+#define ERR_MUNPABBSWRITE_SUCCESS		(BYTE) 0
+#define ERR_MUNPABBSWRITE_DONOTPOWER	(BYTE) 1
+#define ERR_MUNPABBSWRITE_OVERLENGTH	(BYTE) 2	
+#define ERR_MUNPABBSWRITE_OVERBBSNUM	(BYTE) 3	
+#define ERR_MUNPABBSWRITE_INTERNALERROR	(BYTE) 5	
+
+#define CS_RL_MUNPABBSDEL_REQ				(OFFSET_CS_RL + 77)
+//Client -> UnitSvr
+//dwMunpaID, dwBBSID,
+
+#define CS_RL_MUNPABBSDEL_ACK				(OFFSET_CS_RL + 78)
+//UnitSvr -> Client
+//bResult : if 0 -> MUNPABBSLIST_ACK
+	#define ERR_MUNPABBSDEL_SUCCESS			(BYTE) 0
+	#define ERR_MUNPABBSDEL_DONOTPOWER		(BYTE) 1
+	#define ERR_MUNPABBSDEL_INTERNALERROR	(BYTE) 2		
+
+
+#define CS_RL_STONEDELETE_REQ				(OFFSET_CS_RL + 79)
+//Client -> UnitSvr
+//dwMunpaID, dwStoneID
+
+#define CS_RL_STONEDELETE_ACK				(OFFSET_CS_RL + 80)
+//UnitSvr -> Client
+//bResult : if 0 -> MUNPABBSLIST_ACK
+	#define ERR_STONEDELETE_SUCCESS			(BYTE) 0
+	#define ERR_STONEDELETE_ISWAR			(BYTE) 1
+	#define ERR_STONEDELETE_ONLYMUNJU		(BYTE) 2		
+	#define ERR_STONEDELETE_INTERNALERROR	(BYTE) 3	
+
+#define CS_RL_PREDONATE_REQ					(OFFSET_CS_RL + 81)
+//Client -> UnitSvr
+//dwMunpaID, dwReqFame
+
+#define CS_RL_PREDONATE_ACK					(OFFSET_CS_RL + 82)
+//UnitSvr -> Client
+//bResult, dwDonateMoney
+	#define ERR_PREDONATE_SUCCESS			(BYTE) 0	
+	#define ERR_PREDONATE_ONLYMUNJU			(BYTE) 1
+	#define ERR_PREDONATE_INTERNALERROR		(BYTE) 2
+
+#define CS_RL_CHANGEMUNPAFAME_ACK			(OFFSET_CS_RL + 83)
+//UnitSvr -> Client
+//CString strMunpaName, DWORD dwFame, BYTE bLevel )
+
+//..MUNPAWAR
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//NIGHT_0529 : NEW-REL
+#define CS_RL_RELATIONLIST_REQ				(OFFSET_CS_RL + 84)
+#define CS_RL_RELATIONLIST_ACK				(OFFSET_CS_RL + 85)
+
+#define CS_RL_ADDRELATION_REQ				(OFFSET_CS_RL + 86)
+#define CS_RL_ADDRELATION_ACK				(OFFSET_CS_RL + 87)
+
+#define CS_RL_DELRELATION_REQ				(OFFSET_CS_RL + 88)
+#define CS_RL_DELRELATION_ACK				(OFFSET_CS_RL + 89)
+
+#define CS_RL_CHGRELATION_REQ				(OFFSET_CS_RL + 90)
+#define CS_RL_CHGRELATION_ACK				(OFFSET_CS_RL + 91)
+
+
+#define CS_RL_MUNPANOTICE_REQ				(OFFSET_CS_RL + 92)
+#define CS_RL_MUNPANOTICE_ACK				(OFFSET_CS_RL + 93)
+	#define ERR_MUNPANOTICE_SUCCESS			(BYTE)0
+	#define ERR_MUNPANOTICE_LESSFAME		(BYTE)1
+	#define ERR_MUNPANOTICE_ONLYMUNJU		(BYTE)2
+	#define ERR_MUNPANOTICE_NOTICEOVER		(BYTE)3
+	#define ERR_MUNPANOTICE_INTERNALERROR	(BYTE)4
+
+#define CS_RL_MUNPAMARKREG_REQ				(OFFSET_CS_RL + 94)
+#define CS_RL_MUNPAMARKREG_ACK				(OFFSET_CS_RL + 95)
+	#define ERR_MUNPAMARKREG_SUCCESS		(BYTE)0
+	#define ERR_MUNPAMARKREG_NEEDSTONE		(BYTE)1
+	#define ERR_MUNPAMARKREG_LESSMONEY		(BYTE)2
+	#define ERR_MUNPAMARKREG_ONLYMUNJU		(BYTE)3
+	#define ERR_MUNPAMARKREG_NOTFINDMARK	(BYTE)4
+	#define ERR_MARKREG_ALREADYREG			(BYTE)5
+	#define ERR_MARKREG_OVERIMAGESIZE		(BYTE)6
+	#define ERR_MARKREG_INTERNALERROR		(BYTE)7
+
+#define CS_RL_MUNPAMARK_ACK					(OFFSET_CS_RL + 96)
+
+#define CS_RL_GAINMARKIMAGE_REQ				(OFFSET_CS_RL + 97)
+#define CS_RL_GAINMARKIMAGE_ACK				(OFFSET_CS_RL + 98)
+	#define ERR_GAINMARKIMAGE_SUCCESS		(BYTE)0
+	#define ERR_GAINMARKIMAGE_NOTFINDMARK	(BYTE)1
+
+#define CS_RL_GETMUNPAMONEY_REQ				(OFFSET_CS_RL + 99)
+#define CS_RL_GETMUNPAMONEY_ACK				(OFFSET_CS_RL + 100)
+	#define ERR_GETMONEY_SUCCESS			(BYTE)0
+	#define ERR_GETMONEY_ONLYMUNJU			(BYTE)1
+	#define ERR_GETMONEY_ISWARFAIL			(BYTE)2
+	#define ERR_GETMONEY_NOTSAMEMONEY		(BYTE)3
+	#define ERR_GETMONEY_OVERMONEY			(BYTE)4
+	#define ERR_GETMONEY_INTERNALERROR		(BYTE)5
+
+//IS_0512 : 절연패
+#define CS_RL_BREAKRELATIONITEM_REQ			(OFFSET_CS_RL + 101)
+#define CS_RL_BREAKRELATIONITEM_ACK			(OFFSET_CS_RL + 102)
+	#define ERR_BREAKRELATIONITEM_SUCCESS		(BYTE)0	//성공
+	#define ERR_BREAKRELATIONITEM_NOTFOUND		(BYTE)1	//아이템을 찾을 수 없슴
+	#define ERR_BREAKRELATIONITEM_ONTRADE		(BYTE)2	//거래중인 아이템은 사용할 수 없습니다.
+	#define ERR_BREAKRELATIONITEM_NOTUSE		(BYTE)3	//사용할수 없는 아이템
+	#define ERR_BREAKRELATIONITEM_INTERNALERROR	(BYTE)255//내부댄轎(관리자에게 문의)
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////
+// Game Option Message
+#define CS_OP_SETOPTION_REQ					(OFFSET_CS_OP + 0)
+#define CS_OP_SETOPTION_ACK					(OFFSET_CS_OP + 1)
+#define ERR_SETOPTION_SUCCESS				((BYTE)0)
+#define ERR_SETOPTION_FAIL					((BYTE)1)
+
+#define CS_OP_OPTIONLIST_REQ				(OFFSET_CS_OP + 2)
+#define CS_OP_OPTIONLIST_ACK				(OFFSET_CS_OP + 3)
+
+//////////////////////////////////////////////////////////////////////
+//  문파전쟁 Message
+#define CS_WR_MUNPABATTLENOTICE_REQ			(OFFSET_CS_WR + 0)
+#define CS_WR_MUNPABATTLENOTICE_ACK			(OFFSET_CS_WR + 1)
+
+#define CS_WR_MUNPABATTLESTART_REQ			(OFFSET_CS_WR + 2)
+#define CS_WR_MUNPABATTLESTART_ACK			(OFFSET_CS_WR + 3)
+
+#define CS_WR_MUNPABATTLEEND_REQ			(OFFSET_CS_WR + 4)
+#define CS_WR_MUNPABATTLEEND_ACK			(OFFSET_CS_WR + 5)
+
+#define CS_WR_MUNPABATTLETIME_REQ			(OFFSET_CS_WR + 6)
+#define CS_WR_MUNPABATTLETIME_ACK			(OFFSET_CS_WR + 7)
+
+#define CS_WR_MUNPABATTLEGIVEUP_REQ			(OFFSET_CS_WR + 8)
+#define CS_WR_MUNPABATTLEGIVEUP_ACK			(OFFSET_CS_WR + 9)
+
+#define CS_WR_REMAINPC_REQ					(OFFSET_CS_WR + 10)
+#define CS_WR_REMAINPC_ACK					(OFFSET_CS_WR + 11)
+
+#define CS_WR_REMAINPET_REQ					(OFFSET_CS_WR + 12)
+#define CS_WR_REMAINPET_ACK					(OFFSET_CS_WR + 13)
+
+#define CS_WR_ASKMUNPABATTLE_REQ			(OFFSET_CS_WR + 14)
+#define CS_WR_ASKMUNPABATTLE_ACK			(OFFSET_CS_WR + 15)
+
+#define CS_WR_MUNPABATTLEMUNWONLIST_REQ		(OFFSET_CS_WR + 16)
+#define CS_WR_MUNPABATTLEMUNWONLIST_ACK		(OFFSET_CS_WR + 17)
+
+#define CS_WR_MUNPABATTLECOUNT_REQ			(OFFSET_CS_WR + 18)
+#define CS_WR_MUNPABATTLECOUNT_ACK			(OFFSET_CS_WR + 19)
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//YS_0524 : MUNPAWAR
+#define CS_WR_MUNPASTONELIST_ACK			(OFFSET_CS_WR + 20)
+#define CS_WR_STONESTATUSCHANGE_ACK			(OFFSET_CS_WR + 21)
+
+#define CS_WR_PRECHALLENGEWAR_REQ			(OFFSET_CS_WR + 22)
+//Client -> UnitSvr
+//dwMunpaID
+
+#define CS_WR_PRECHALLENGEWAR_ACK			(OFFSET_CS_WR + 23)
+//UnitSvr -> Client
+//bResult : 0 -> dwMunpaID, dwDamageMoney, wChallengeTimeNum ( dwGameTime, dwRealTime )
+	#define ERR_PRECHALLENGEWAR_SUCCESS			(BYTE) 0
+	#define ERR_PRECHALLENGEWAR_ISWAR			(BYTE) 1
+	#define ERR_PRECHALLENGEWAR_LESSFAME		(BYTE) 2
+	#define ERR_PRECHALLENGEWAR_INTERNALERROR	(BYTE) 3
+	#define ERR_PRECHALLENGEWAR_PEACETIME		(BYTE) 4
+	#define ERR_PRECHALLENGEWAR_ONLYMUNJU		(BYTE) 5
+	#define ERR_PRECHALLENGEWAR_LESSMONEY		(BYTE) 6
+	#define ERR_PRECHALLENGEWAR_ONLYSAMECHANNEL (BYTE) 7
+	#define ERR_PRECHALLENGEWAR_ONLYOTHERMUNPA	(BYTE) 8
+
+#define CS_WR_CHALLENGEWAR_REQ				(OFFSET_CS_WR + 24)
+//Client -> UnitSvr
+//dwMunpaID, dwGameTime, bStealStone
+
+#define CS_WR_CHALLENGEWAR_ACK				(OFFSET_CS_WR + 25)
+//UnitSvr -> Client
+//bResult 
+	#define ERR_CHALLENGEWAR_SUCCESS			(BYTE) 0
+	#define ERR_CHALLENGEWAR_INTERNALERROR		(BYTE) 1
+
+#define CS_WR_WARSTATUS_ACK					(OFFSET_CS_WR + 26)
+//UnitSvr -> Client
+//bStatus - 0 : 선포, 1: 시작, 2 : 종료 
+//bWarResult : if ( bStatus == 2 ) 0 - Draw, 1 - ChallengeMunpa Win, 2 - ChallengeMunpa Loss
+//strChallengeMunpaName,
+//strMunpaName,
+
+//문파전신청
+#define CS_WR_APPLYWAR_REQ				(OFFSET_CS_WR + 27)
+#define CS_WR_APPLYWAR_ACK				(OFFSET_CS_WR + 28)
+	#define ERR_APPLYWAR_SUCCESS				((BYTE)0)	
+	#define ERR_APPLYWAR_WRONGTERM				((BYTE)1) //신청기간아님
+	#define ERR_APPLYWAR_NOTMUNJU				((BYTE)2) //문주만신청가능(문주아님)
+	#define ERR_APPLYWAR_NOTENOUGHMONEY			((BYTE)3) //신청금부족
+	#define ERR_APPLYWAR_NOTENOUGHMUNWON		((BYTE)4) //문파원부족
+	#define ERR_APPLYWAR_ALREADY				((BYTE)5) //이미신청했음
+	#define ERR_APPLYWAR_EXCESSMUNPA			((BYTE)6) //신청문파수초과(50개 문파만가능)
+	#define ERR_APPLYWAR_STRAIGHTWIN			((BYTE)7) //HT_0911 : 지문전 개선사항 (3연속우승으로 신청 불가)
+
+// 전쟁 상태 변할때마다...(신청시작,신청끝, 준비, 전쟁시작, 전쟁끝....)
+#define CS_WR_WORLDWARMESSAGE_REQ			(OFFSET_CS_WR + 29) // (미사용)
+#define CS_WR_WORLDWARMESSAGE_ACK			(OFFSET_CS_WR + 30)
+	#define WWM_PREPARESTART					((BYTE) 0)	//문파대전 참여신청 시작
+	#define WWM_PREPAREEND						((BYTE) 1)	//문파대전 참여신청 마감
+	#define WWM_READY							((BYTE) 2)	//잠시후 문파대전 시작됨 알림
+	#define WWM_WARSTART						((BYTE) 3)	//문파대전 시작
+	#define WWM_WAREND_READY					((BYTE) 4)	//곧 문파대전 종료를 알림
+	#define	WWM_WAREND							((BYTE) 5)	//문파대전 승문파 알림
+	#define	WWM_APLLYWAR						((BYTE) 6)	//참여신청한 문파 전서버(채널)에 공지
+	#define WWM_WARTIME							((BYTE) 7)	//전쟁중 접속회원에게 문파진행중임을 알림
+	#define WWM_STONECOMING						((BYTE) 8)	//HT_0911 : 지문전 개선사항 ( 극진마혈석 나온다.)
+
+// 전쟁중 전쟁 Point ( 일정 시간 간격으로...)
+#define CS_WR_WORLDWARPOINT_REQ				(OFFSET_CS_WR + 31) // (미사용)
+#define CS_WR_WORLDWARPOINT_ACK				(OFFSET_CS_WR + 32)
+
+#define CS_WR_LORDMUNPA_REQ					(OFFSET_CS_WR + 33) // (미사용)
+#define CS_WR_LORDMUNPA_ACK					(OFFSET_CS_WR + 34)
+
+// 문파전 보상(상금수령)
+#define CS_WR_REWARD_REQ					(OFFSET_CS_WR + 35)
+#define CS_WR_REWARD_ACK					(OFFSET_CS_WR + 36)
+	#define ERR_REWARD_SUCCESS					((BYTE)0)
+	#define ERR_REWARD_NOPRIZE					((BYTE)1)
+	#define ERR_REWARD_NOTHAVEAUTHORITY			((BYTE)2)
+	#define ERR_REWARD_MONEYLIMIT				((BYTE)3)
+	#define ERR_REWARD_ALREADYGET				((BYTE)4)
+
+//..MUNPAWAR
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////
+//BBS Message
+#define CS_BB_MSGALARM_ACK						(OFFSET_CS_BB + 0)
+//Arguments :
+//	WORD	MessageCnt
+//	WORD	CounselCnt
+//Source :
+//	UNITSVR
+//Target :
+//	CLIENT
+//Remark :
+
+#define CS_BB_BOARDLIST_REQ						(OFFSET_CS_BB + 1)
+//Arguments :
+//	BYTE	BoardID
+//	BYTE	SearchID		0: BoardSearch 1:게시자검색 2:제목검색
+//	String	SearchString
+//	BYTE	PageType		0: Start 1:Prev 2:Next
+//	DWORD	SearchTextID
+//Source :
+//	CLIENT
+//Target :
+//	UNITSVR
+//Remark :
+
+#define CS_BB_BOARDLIST_ACK						(OFFSET_CS_BB + 2)
+//Arguments :
+//	DWORD	CharID
+//	BYTE	BoardID
+//	DWORD	TotalPageCnt
+//	BYTE	Count
+//	{
+//		DWORD	TextID
+//		String	WriterName
+//		String	Title
+//		DWORD	WriteTime
+//		BYTE	Read
+//	}
+//Source :
+//	UNITSVR
+//Target :
+//	CLIENT
+//Remark :
+
+#define CS_BB_VIEWTEXT_REQ						(OFFSET_CS_BB + 3)
+//Arguments :
+//	BYTE	BoardID
+//	DWORD	TextID
+//Source :
+//	CLIENT
+//Target :
+//	UNITSVR
+//Remark :
+
+#define CS_BB_VIEWTEXT_ACK						(OFFSET_CS_BB + 4)
+//Arguments :
+//	BYTE	BoardID
+//	DWORD	TextID
+//	String	Title
+//	String	WriteText
+//	String	AnswerText
+//Source :
+//	UNITSVR
+//Target :
+//	CLIENT
+//Remark :
+
+#define CS_BB_ADDTEXT_REQ						(OFFSET_CS_BB + 5)
+//Arguments :
+//	BYTE	BoardID
+//	String	Title
+//	String	WriteText
+//Source :
+//	CLIENT
+//Target :
+//	UNITSVR
+//Remark :
+
+#define CS_BB_ADDTEXT_ACK						(OFFSET_CS_BB + 6)
+//Arguments :
+//	BYTE	Result
+//Source :
+//	UNITSVR
+//Target :
+//	CLIENT
+//Remark :
+#define ERR_ADDTEXT_SUCCESS						((BYTE)0)
+#define ERR_ADDTEXT_NOTOPERATOR					((BYTE)1)
+#define ERR_ADDTEXT_NOTITLE						((BYTE)2)
+#define ERR_ADDTEXT_FAIL						((BYTE)255)
+
+#define CS_BB_DELETETEXT_REQ					(OFFSET_CS_BB + 7)
+//Arguments :
+//	BYTE	BoardID
+//	DWORD	TextID
+//Source :
+//	CLIENT
+//Target :
+//	UNITSVR
+//Remark :
+
+#define CS_BB_DELETETEXT_ACK					(OFFSET_CS_BB + 8)
+//Arguments :
+//	BYTE	Result
+//Source :
+//	UNITSVR
+//Target :
+//	CLIENT
+//Remark :
+#define ERR_DELETETEXT_SUCCESS					((BYTE)0)
+#define ERR_DELETETEXT_ONLYWRITER				((BYTE)1)
+#define ERR_DELETETEXT_FAIL						((BYTE)255)
+
+#define CS_BB_SENDMAIL_REQ						(OFFSET_CS_BB + 9)
+//Arguments :
+//	BYTE	BoardID
+//	String	ReceiverName
+//	String	Title
+//	String	Text
+//Source :
+//	CLIENT
+//Target :
+//	UNITSVR
+//Remark :
+
+#define CS_BB_SENDMAIL_ACK						(OFFSET_CS_BB + 10)
+//Arguments :
+//	BYTE	Result
+//Source :
+//	CLIENT
+//Target :
+//	UNITSVR
+//Remark :
+#define ERR_SENDMAIL_SUCCESS					((BYTE)0)
+#define ERR_SENDMAIL_SENDOPERATOR				((BYTE)1)
+#define ERR_SENDMAIL_NOTITLE					((BYTE)2)
+#define ERR_SENDMAIL_NOSEARCHTARGET				((BYTE)3)
+#define ERR_SENDMAIL_FAIL						((BYTE)255)
+
+//////////////////////////////////////////////////////////////////////
+#define CS_NC_MAPENTER_REQ						(OFFSET_CS_NC + 0)
+#define CS_NC_MAPENTER_ACK						(OFFSET_CS_NC + 1)
+
+#define CS_NC_MAPMOVE_REQ						(OFFSET_CS_NC + 2)
+#define CS_NC_MAPMOVE_ACK						(OFFSET_CS_NC + 3)
+
+#define CS_NC_MAPLEAVE_REQ						(OFFSET_CS_NC + 4)
+#define CS_NC_MAPLEAVE_ACK						(OFFSET_CS_NC + 5)
+
+#define CS_NC_STARTMOVE_REQ						(OFFSET_CS_NC + 6) 
+#define CS_NC_STARTMOVE_ACK						(OFFSET_CS_NC + 7) 
+
+#define CS_NC_SYNCMOVE_REQ						(OFFSET_CS_NC + 8)
+#define CS_NC_SYNCMOVE_ACK						(OFFSET_CS_NC + 9)
+
+#define CS_NC_ENDMOVE_REQ						(OFFSET_CS_NC + 10)
+#define CS_NC_ENDMOVE_ACK						(OFFSET_CS_NC + 11)
+
+#define CS_NC_ACTION_REQ						(OFFSET_CS_NC + 12)
+#define CS_NC_ACTION_ACK						(OFFSET_CS_NC + 13)
+
+#define CS_NC_STATUSCHANGE_REQ					(OFFSET_CS_NC + 14)
+#define CS_NC_STATUSCHANGE_ACK					(OFFSET_CS_NC + 15)
+
+#define CS_NC_TAMING_REQ						(OFFSET_CS_NC + 16)
+#define CS_NC_TAMING_ACK						(OFFSET_CS_NC + 17)
+
+#define ERR_TAMING_SUCCESS						((BYTE)0)
+#define ERR_TAMING_HASOWNER						((BYTE)1)
+#define ERR_TAMING_NEEDSTAMINA					((BYTE)2)
+#define ERR_TAMING_MAXPET						((BYTE)3)
+#define ERR_TAMING_TARGETNOTFOUND				((BYTE)4)
+#define ERR_TAMING_NEEDPOWER					((BYTE)5)
+#define ERR_TAMING_INTERNAL						((BYTE)255)
+
+#define CS_NC_SETFREE_REQ						(OFFSET_CS_NC + 18)
+#define CS_NC_SETFREE_ACK						(OFFSET_CS_NC + 19)
+
+#define ERR_SETFREE_SUCCESS						((BYTE)0)
+#define ERR_SETFREE_NOTOWN						((BYTE)1)
+#define ERR_SETFREE_WRONGPLACE					((BYTE)2)
+#define ERR_SETFREE_INTERNAL					((BYTE)255)
+
+#define CS_NC_FEED_REQ							(OFFSET_CS_NC + 20)
+#define CS_NC_FEED_ACK							(OFFSET_CS_NC + 21)
+
+#define ERR_FEED_SUCCESS						((BYTE)0)
+#define ERR_FEED_CANNOTEAT						((BYTE)1)
+#define ERR_FEED_INTERNAL						((BYTE)255)
+	
+#define CS_NC_RIDE_REQ							(OFFSET_CS_NC + 22)
+#define CS_NC_RIDE_ACK							(OFFSET_CS_NC + 23)
+
+#define CS_NC_GETOFF_REQ						(OFFSET_CS_NC + 24)
+#define CS_NC_GETOFF_ACK						(OFFSET_CS_NC + 15)
+
+#define CS_NC_RENAME_REQ						(OFFSET_CS_NC + 26)
+#define CS_NC_RENAME_ACK						(OFFSET_CS_NC + 27)
+
+#define CS_NC_CHGOWNER_REQ						(OFFSET_CS_NC + 28)
+#define CS_NC_CHGOWNER_ACK						(OFFSET_CS_NC + 29)
+
+#define CS_NC_DECPETHP_ACK						(OFFSET_CS_NC + 31)
+
+#define CS_NC_RIDETOGETHER_REQ					(OFFSET_CS_NC + 32)
+#define CS_NC_RIDETOGETHER_ACK					(OFFSET_CS_NC + 33)
+
+#define CS_NC_GETOFFTOGETHER_REQ				(OFFSET_CS_NC + 34)
+#define CS_NC_GETOFFTOGETHER_ACK				(OFFSET_CS_NC + 35)
+
+#define CS_NC_WAITNPC_REQ						(OFFSET_CS_NC + 36)
+#define CS_NC_WAITNPC_ACK						(OFFSET_CS_NC + 37)
+
+#define ERR_WAITNPC_SUCCESS						((BYTE)0)
+#define ERR_WAITNPC_FAIL						((BYTE)1)
+
+#define CS_NC_FOLLOWNPC_REQ						(OFFSET_CS_NC + 38)
+#define CS_NC_FOLLOWNPC_ACK						(OFFSET_CS_NC + 39)
+
+#define ERR_FOLLOWNPC_SUCCESS					((BYTE)0)
+#define ERR_FOLLOWNPC_FAIL						((BYTE)1)
+	
+#define CS_NC_TOGETHER_REQ						(OFFSET_CS_NC + 40)
+#define CS_NC_TOGETHER_ACK						(OFFSET_CS_NC + 41)
+
+#define CS_NC_NPCINFO_REQ						(OFFSET_CS_NC + 42)
+#define CS_NC_NPCINFO_ACK						(OFFSET_CS_NC + 43)
+
+#define CS_NC_NPCINFOLIST_REQ					(OFFSET_CS_NC + 44)
+#define CS_NC_NPCINFOLIST_ACK					(OFFSET_CS_NC + 45)
+
+#define CS_NC_FUNCTIONALNPCINFO_REQ				(OFFSET_CS_NC + 46)
+#define CS_NC_FUNCTIONALNPCINFO_ACK				(OFFSET_CS_NC + 47)
+
+#define CS_NC_FUNCTIONALNPCINFOLIST_REQ			(OFFSET_CS_NC + 48)
+#define CS_NC_FUNCTIONALNPCINFOLIST_ACK			(OFFSET_CS_NC + 49)
+
+#define CS_NC_FUNCTIONALNPCITEMLIST_REQ			(OFFSET_CS_NC + 50)
+#define CS_NC_FUNCTIONALNPCITEMLIST_ACK			(OFFSET_CS_NC + 51)
+
+#define CS_NC_NPCHP_REQ							(OFFSET_CS_NC + 52)
+#define CS_NC_NPCHP_ACK							(OFFSET_CS_NC + 53)
+
+#define CS_NC_PETINFO_REQ						(OFFSET_CS_NC + 54)
+#define CS_NC_PETINFO_ACK						(OFFSET_CS_NC + 55)
+
+#define CS_NC_NPCDETAIL_REQ						(OFFSET_CS_NC + 56)
+#define CS_NC_NPCDETAIL_ACK						(OFFSET_CS_NC + 57)
+
+#define CS_NC_PETINFOLIST_REQ					(OFFSET_CS_NC + 58)
+#define CS_NC_PETINFOLIST_ACK					(OFFSET_CS_NC + 59)
+
+#define CS_NC_PETDETAILINFO_REQ					(OFFSET_CS_NC + 60)
+#define CS_NC_PETDETAILINFO_ACK					(OFFSET_CS_NC + 61)
+
+#define CS_NC_PETRENAME_REQ						(OFFSET_CS_NC + 62)
+#define CS_NC_PETRENAME_ACK						(OFFSET_CS_NC + 63)
+
+#define CS_NC_PETLEVELUP_REQ					(OFFSET_CS_NC + 64)
+#define CS_NC_PETLEVELUP_ACK					(OFFSET_CS_NC + 65)
+
+#define CS_NC_PETEXP_REQ						(OFFSET_CS_NC + 66)
+#define CS_NC_PETEXP_ACK						(OFFSET_CS_NC + 67)
+
+#define CS_NC_PETHP_REQ							(OFFSET_CS_NC + 68)
+#define CS_NC_PETHP_ACK							(OFFSET_CS_NC + 69)
+
+#define CS_NC_PETBONGIN_REQ						(OFFSET_CS_NC + 70)
+#define CS_NC_PETBONGIN_ACK						(OFFSET_CS_NC + 71)
+	#define ERR_PETBONGIN_SUCCESS					((BYTE)0)
+	#define ERR_PETBONGIN_NOTFINDPET				((BYTE)1)
+	#define ERR_PETBONGIN_NOTFINDITEM				((BYTE)2)
+	#define ERR_PETBONGIN_HASITEM					((BYTE)3)
+	#define ERR_PETBONGIN_LEVELGAP					((BYTE)4)
+	#define ERR_PETBONGIN_INVALIDITEM				((BYTE)5)
+	#define ERR_PETBONGIN_LIMITLEVEL				((BYTE)6)//갑자	 제한
+	#define ERR_PETBONGIN_LIMITCOUNT				((BYTE)7)//봉인회수 제한
+#define CS_NC_PETBONGOUT_REQ					(OFFSET_CS_NC + 72)
+#define CS_NC_PETBONGOUT_ACK					(OFFSET_CS_NC + 73)
+
+#define CS_NC_PETWILDRATE_REQ					(OFFSET_CS_NC + 74)
+#define CS_NC_PETWILDRATE_ACK					(OFFSET_CS_NC + 75)
+#define CS_NC_PETREVOLUTION_REQ					(OFFSET_CS_NC + 76)
+#define CS_NC_PETREVOLUTION_ACK					(OFFSET_CS_NC + 77)
+#define CS_NC_PETITEMPUT_REQ					(OFFSET_CS_NC + 78)
+#define CS_NC_PETITEMPUT_ACK					(OFFSET_CS_NC + 79)
+	#define ERR_PETITEMPUT_SUCCESS					((BYTE)0)
+	#define ERR_PETITEMPUT_NOTFINDITEM				((BYTE)1)
+	#define ERR_PETITEMPUT_NOTFINDPET				((BYTE)2)
+	#define ERR_PETITEMPUT_CANNOTEQUIPMENT			((BYTE)3)
+	#define ERR_PETITEMPUT_NOTACTIVE				((BYTE)4)
+	#define ERR_PETITEMPUT_NOTEMPTY					((BYTE)5)
+	#define ERR_PETITEMPUT_DBERROR					((BYTE)6)
+	#define ERR_PETITEMPUT_NOTBAGLEVEL				((BYTE)7)
+	#define ERR_PETITEMPUT_NOTRIDINGLEVEL			((BYTE)8)
+#define CS_NC_PETITEMOUT_REQ					(OFFSET_CS_NC + 80)
+#define CS_NC_PETITEMOUT_ACK					(OFFSET_CS_NC + 81)
+	#define ERR_PETITEMOUT_SUCCESS					((BYTE)0)
+	#define ERR_PETITEMOUT_NOTFINDPET				((BYTE)1)
+	#define ERR_PETITEMOUT_NOTFINDITEM				((BYTE)2)
+	#define ERR_PETITEMOUT_NOTEMPTY					((BYTE)3)
+	#define ERR_PETITEMOUT_DBERROR					((BYTE)4)
+	#define ERR_PETITEMOUT_HASITEM					((BYTE)5)
+#define CS_NC_PETITEMMOVE_REQ					(OFFSET_CS_NC + 82)
+#define CS_NC_PETITEMMOVE_ACK					(OFFSET_CS_NC + 83)
+	#define ERR_PETITEMMOVE_SUCCESS					((BYTE)0)
+	#define ERR_PETITEMMOVE_NOTFINDPET				((BYTE)1)
+	#define ERR_PETITEMMOVE_NOTFINDITEM				((BYTE)2)
+	#define ERR_PETITEMMOVE_CANNOTMOVE				((BYTE)3)
+	#define ERR_PETITEMMOVE_CANNOTEQUIPMENT			((BYTE)4)
+	#define ERR_PETITEMMOVE_NOTEMPTYSACK			((BYTE)5)
+	#define ERR_PETITEMMOVE_NOTACTIVE				((BYTE)6)
+	#define ERR_PETITEMMOVE_DBERROR					((BYTE)7)
+#define CS_NC_PETITEMADD_REQ					(OFFSET_CS_NC + 84)
+#define CS_NC_PETITEMADD_ACK					(OFFSET_CS_NC + 85)
+#define CS_NC_PETITEMDEL_REQ					(OFFSET_CS_NC + 86)
+#define CS_NC_PETITEMDEL_ACK					(OFFSET_CS_NC + 87)
+#define CS_NC_PETPICKITEM_REQ					(OFFSET_CS_NC + 88)
+#define CS_NC_PETPICKITEM_ACK					(OFFSET_CS_NC + 89)
+#define CS_NC_PETTHROWITEM_REQ					(OFFSET_CS_NC + 90)
+#define CS_NC_PETTHROWITEM_ACK					(OFFSET_CS_NC + 91)
+	#define ERR_PETTHROWITEM_SUCCESS				((BYTE)0)
+	#define ERR_PETTHROWITEM_NOTFINDPET				((BYTE)1)
+	#define ERR_PETTHROWITEM_NOTFINDITEM			((BYTE)2)
+	#define ERR_PETTHROWITEM_DBERROR				((BYTE)3)
+#define CS_NC_PETSACKLIST_REQ					(OFFSET_CS_NC + 92)
+#define CS_NC_PETSACKLIST_ACK					(OFFSET_CS_NC + 93)
+
+#define CS_NC_PETNEWMAKE_REQ					(OFFSET_CS_NC + 94)
+#define CS_NC_PETNEWMAKE_ACK					(OFFSET_CS_NC + 95)
+
+//IS_0619 : PET2ND
+#define CS_NC_PETRESTORELIST_ACK				(OFFSET_CS_NC + 96)
+
+//IS_0619 : PET2ND
+#define CS_NC_PETRESTORE_REQ					(OFFSET_CS_NC + 97)
+#define CS_NC_PETRESTORE_ACK					(OFFSET_CS_NC + 98)
+	#define ERR_PETRESTORE_SUCCESS					((BYTE) 0)
+	#define ERR_PETRESTORE_HASMAXPET				((BYTE) 1)
+	#define ERR_PETRESTORE_NOTFITITEM				((BYTE) 2)
+	#define ERR_PETRESTORE_INTERNALERROR			((BYTE) 3)
+	#define ERR_PETRESTORE_NOTFINDPET				((BYTE) 4)
+
+//IS_0622 : PET2ND
+#define CS_NC_PREPETTRADE_REQ					(OFFSET_CS_NC + 99)
+#define CS_NC_PREPETTRADE_ACK					(OFFSET_CS_NC + 100)
+
+//IS_0622 : PET2ND
+#define CS_NC_PETTRADEINFO_ACK					(OFFSET_CS_NC + 101)
+//IS_0622 : PET2ND
+#define CS_NC_PETTRADE_REQ						(OFFSET_CS_NC + 102)
+#define CS_NC_PETTRADE_ACK						(OFFSET_CS_NC + 103)
+	#define ERR_PETTRADE_SUCCESS					((BYTE) 0)//펫 거래 신청(사용하지 않음)
+	#define ERR_PETTRADE_OKTRADE					((BYTE) 1)//펫 거래 승락(사용하지 않음)
+	#define ERR_PETTRADE_NOTHASPET					((BYTE) 2)
+	#define ERR_PETTRADE_HASPET						((BYTE) 3)
+	#define ERR_PETTRADE_TRADEOTHER					((BYTE) 4)
+	#define ERR_PETTRADE_BONGIN						((BYTE) 5)
+	#define ERR_PETTRADE_NOTMONEYENOUGH				((BYTE) 6)
+	#define ERR_PETTRADE_REFUSETRADE				((BYTE) 9)//펫 거래 거부(사용하지 않음)
+	#define ERR_PETTRADE_INTERNAL					((BYTE) 10)
+	#define ERR_PETTRADE_COMPLATE					((BYTE) 11)//거래 성공
+	//IS_0218 : OVERMONEY -- 21억 제한
+	#define ERR_PETTRADE_OVERMONEY					((BYTE) 12)//소지금 초과
+
+//////////////////////////////////////////////////////////////////////
+//  Error Message
+
+
+
+////////////////////////////////////////////////////////////////
+/////MAP Server - Npc Server
+////////////////////////////////////////////////////////////////
+#define CS_MN_LOGINNPC_REQ						(OFFSET_CS_MN + 0)
+#define CS_MN_LOGINNPC_ACK						(OFFSET_CS_MN + 1)
+#define CS_MN_ENTERNPC_REQ						(OFFSET_CS_MN + 2)
+#define CS_MN_ENTERNPC_ACK						(OFFSET_CS_MN + 3)
+#define CS_MN_MOVEPOSNPC_REQ					(OFFSET_CS_MN + 4)
+#define CS_MN_MOVEPOSNPC_ACK					(OFFSET_CS_MN + 5)
+#define CS_MN_TARGETMOVENPC_REQ					(OFFSET_CS_MN + 6)
+#define CS_MN_TARGETMOVENPC_ACK					(OFFSET_CS_MN + 7)
+
+#define CS_MN_POSITIONNPC_REQ					(OFFSET_CS_MN + 8)
+#define CS_MN_POSITIONNPC_ACK					(OFFSET_CS_MN + 9)
+#define CS_MN_STATUSCHANGENPC_REQ				(OFFSET_CS_MN + 10)
+#define CS_MN_STATUSCHANGENPC_ACK				(OFFSET_CS_MN + 11)
+#define CS_MN_REMOVENPC_REQ						(OFFSET_CS_MN + 12)
+#define CS_MN_REMOVENPC_ACK						(OFFSET_CS_MN + 13)
+#define CS_MN_DELETENPC_REQ						(OFFSET_CS_MN + 14)
+#define CS_MN_DELETENPC_ACK						(OFFSET_CS_MN + 15)
+#define CS_MN_MAPSESSION_REQ					(OFFSET_CS_MN + 16)
+#define CS_MN_MAPSESSION_ACK					(OFFSET_CS_MN + 17)
+#define CS_MN_ADDNPC_REQ						(OFFSET_CS_MN + 18)
+#define CS_MN_ADDNPC_ACK						(OFFSET_CS_MN + 19)
+
+
+
+//////////////////////////////////////////////////////////////////
+// GG Server
+//////////////////////////////////////////////////////////////////
+#define CS_CHANNEL_ENTERCHANNEL_REQ				(OFFSET_CS_GG + 1)
+#define CS_CHANNEL_ENTERCHANNEL_ACK				(OFFSET_CS_GG + 2)
+#define CS_CHANNEL_LEAVECHANNEL_REQ				(OFFSET_CS_GG + 3)
+#define CS_CHANNEL_LEAVECHANNEL_ACK				(OFFSET_CS_GG + 4)
+#define CS_CHANNEL_CHARLIST_REQ					(OFFSET_CS_GG + 5)
+#define CS_CHANNEL_CHARLIST_ACK					(OFFSET_CS_GG + 6)
+#define CS_CHANNEL_CHARINFO_REQ					(OFFSET_CS_GG + 7)
+#define CS_CHANNEL_CHARINFO_ACK					(OFFSET_CS_GG + 8)
+#define CS_CHANNEL_ROOMLIST_REQ					(OFFSET_CS_GG + 9)
+#define CS_CHANNEL_ROOMLIST_ACK					(OFFSET_CS_GG + 10)
+#define CS_CHANNEL_ROOMINFO_REQ					(OFFSET_CS_GG + 11)
+#define CS_CHANNEL_ROOMINFO_ACK					(OFFSET_CS_GG + 12)
+#define CS_CHANNEL_MAPINFO_REQ					(OFFSET_CS_GG + 13)
+#define CS_CHANNEL_MAPINFO_ACK					(OFFSET_CS_GG + 14)
+#define CS_CHANNEL_RANKINGLIST_REQ				(OFFSET_CS_GG + 15)
+#define CS_CHANNEL_RANKINGLIST_ACK				(OFFSET_CS_GG + 16)
+#define CS_CHANNEL_CHATTINGMSG_REQ				(OFFSET_CS_GG + 17)
+#define CS_CHANNEL_CHATTINGMSG_ACK				(OFFSET_CS_GG + 18)
+#define CS_CHANNEL_CREATEROOM_REQ				(OFFSET_CS_GG + 19)
+#define CS_CHANNEL_CREATEROOM_ACK				(OFFSET_CS_GG + 20)
+#define CS_CHANNEL_DELETEROOM_REQ				(OFFSET_CS_GG + 21)
+#define CS_CHANNEL_DELETEROOM_ACK				(OFFSET_CS_GG + 22)
+#define	CS_CHANNEL_ENTERCHAR_REQ				(OFFSET_CS_GG + 23)
+#define CS_CHANNEL_ENTERCHAR_ACK				(OFFSET_CS_GG + 24)
+#define CS_CHANNEL_LEAVECHAR_REQ				(OFFSET_CS_GG + 25)
+#define CS_CHANNEL_LEAVECHAR_ACK				(OFFSET_CS_GG + 26)
+#define CS_NV_CONNECTCHANNEL_REQ				(OFFSET_CS_GG + 27)
+#define CS_NV_CONNECTCHANNEL_ACK				(OFFSET_CS_GG + 28)
+#define CS_NV_GIGSVRDISCONNECTED_REQ			(OFFSET_CS_GG + 29)
+#define CS_NV_GIGSVRDISCONNECTED_ACK			(OFFSET_CS_GG + 30)
+
+#define CS_ROOM_ENTERROOM_REQ					(OFFSET_CS_GG + 51)
+#define CS_ROOM_ENTERROOM_ACK					(OFFSET_CS_GG + 52)
+#define CS_ROOM_LEAVEROOM_REQ					(OFFSET_CS_GG + 53)
+#define CS_ROOM_LEAVEROOM_ACK					(OFFSET_CS_GG + 54)
+#define CS_ROOM_ENTERCHAR_REQ					(OFFSET_CS_GG + 55)
+#define CS_ROOM_ENTERCHAR_ACK					(OFFSET_CS_GG + 56)
+#define CS_ROOM_LEAVECHAR_REQ					(OFFSET_CS_GG + 57)
+#define CS_ROOM_LEAVECHAR_ACK					(OFFSET_CS_GG + 58)
+#define CS_ROOM_ROOMTIME_REQ					(OFFSET_CS_GG + 59)
+#define CS_ROOM_ROOMTIME_ACK					(OFFSET_CS_GG + 60)
+#define CS_ROOM_CHARLIST_REQ					(OFFSET_CS_GG + 61)
+#define CS_ROOM_CHARLIST_ACK					(OFFSET_CS_GG + 62)
+#define CS_ROOM_SELECTTEAM_REQ					(OFFSET_CS_GG + 63)
+#define CS_ROOM_SELECTTEAM_ACK					(OFFSET_CS_GG + 64)
+#define CS_ROOM_CHATTINGMSG_REQ					(OFFSET_CS_GG + 65)
+#define CS_ROOM_CHATTINGMSG_ACK					(OFFSET_CS_GG + 66)
+#define CS_ROOM_SELECTMAP_REQ					(OFFSET_CS_GG + 67)
+#define CS_ROOM_SELECTMAP_ACK					(OFFSET_CS_GG + 68)
+#define CS_ROOM_CHANGEMONEY_REQ					(OFFSET_CS_GG + 69)
+#define CS_ROOM_CHANGEMONEY_ACK					(OFFSET_CS_GG + 70)
+#define CS_ROOM_STARTGAME_REQ					(OFFSET_CS_GG + 71)
+#define CS_ROOM_STARTGAME_ACK					(OFFSET_CS_GG + 72)
+#define CS_ROOM_MAPLIST_REQ						(OFFSET_CS_GG + 73)
+#define CS_ROOM_MAPLIST_ACK						(OFFSET_CS_GG + 74)
+#define CS_ROOM_CHANGEBOSS_REQ					(OFFSET_CS_GG + 75)
+#define CS_ROOM_CHANGEBOSS_ACK					(OFFSET_CS_GG + 76)
+
+#define CS_GAME_READY_REQ						(OFFSET_CS_GG + 100)
+#define CS_GAME_READY_ACK						(OFFSET_CS_GG + 101)
+#define CS_GAME_RELEASE_REQ						(OFFSET_CS_GG + 102)
+#define CS_GAME_RELEASE_ACK						(OFFSET_CS_GG + 103)
+#define CS_GAME_READYCHAR_REQ					(OFFSET_CS_GG + 104)
+#define CS_GAME_READYCHAR_ACK					(OFFSET_CS_GG + 105)
+#define CS_GAME_RELEASECHAR_REQ					(OFFSET_CS_GG + 106)
+#define CS_GAME_RELEASECHAR_ACK					(OFFSET_CS_GG + 107)
+#define CS_GAME_STARTGAME_REQ					(OFFSET_CS_GG + 108)
+#define CS_GAME_STARTGAME_ACK					(OFFSET_CS_GG + 109)
+#define CS_GAME_ENDGAME_REQ						(OFFSET_CS_GG + 110)
+#define CS_GAME_ENDGAME_ACK						(OFFSET_CS_GG + 111)
+#define CS_GAME_GAMERESULT_REQ					(OFFSET_CS_GG + 112)
+#define CS_GAME_GAMERESULT_ACK					(OFFSET_CS_GG + 113)
+#define CS_GAME_GAMETIME_REQ					(OFFSET_CS_GG + 114)
+#define CS_GAME_GAMETIME_ACK					(OFFSET_CS_GG + 115)
+#define CS_GAME_MOVESTART_REQ					(OFFSET_CS_GG + 116)
+#define CS_GAME_MOVESTART_ACK					(OFFSET_CS_GG + 117)
+#define CS_GAME_MOVESYNC_REQ					(OFFSET_CS_GG + 118)
+#define CS_GAME_MOVESYNC_ACK					(OFFSET_CS_GG + 119)
+#define CS_GAME_MOVEEND_REQ						(OFFSET_CS_GG + 120)
+#define CS_GAME_MOVEEND_ACK						(OFFSET_CS_GG + 121)
+
+//////////////////////////////////////////////////////////////////////
+// QUEST Messages
+//#define OFFSET_CS_QS						(OFFSET_CS + 0x1200)
+
+// 새로운 퀘스트 추가 / 기존 퀘스트 변경
+#define CS_QS_CHANGE_REQ							(OFFSET_CS_QS + 0)	// 안씀
+#define CS_QS_CHANGE_ACK							(OFFSET_CS_QS + 1)
+//	SVR -> CLT
+//		DWORD dwFame
+//		DWORD dwQuestID
+//		CString szQuestName
+//		CString szDescription
+//		BYTE bCount;
+//		BYTE bProcessNum;
+//		BYTE bResultNum;
+//		{
+//			Cstring szProcesName;
+//			DWORD dwProcessCurrAmount;
+//			DWORD dwProcessTotalAmount;
+//		}
+//		{
+//			Cstring szResultName;
+//			DWORD dwResultAmount;
+//		}
+
+// 퀘스트 목록 표시
+#define CS_QS_LIST_REQ							(OFFSET_CS_QS + 2)
+//	CLT -> SVR
+#define CS_QS_LIST_ACK							(OFFSET_CS_QS + 3)
+//	SVR -> CLT
+//		DWORD dwFame
+//		BYTE bNumQuest
+//		{
+//			DWORD dwQuestID
+//			BYTE bStatus
+//			CString szQuestName
+//			CString szDescription
+//			BYTE bCount;
+//			BYTE bProcessNum;
+//			BYTE bResultNum;
+//			{
+//				Cstring szProcesName;
+//				DWORD dwProcessCurrAmount;
+//				DWORD dwProcessTotalAmount;
+//			}
+//			{
+//				Cstring szResultName;
+//				DWORD dwResultAmount;
+//			}
+//		}
+
+//HK_0325 : Quest Start/Stop/Delete 기능 추가
+#	define QUEST_STATUS_NEW						((BYTE)0)		// 신규
+#	define QUEST_STATUS_STOPPED					((BYTE)1)		// 중지
+#	define QUEST_STATUS_STARTED					((BYTE)2)		// 진행
+#	define QUEST_STATUS_DELETED					((BYTE)3)		// 삭제 : 화면에 안보인다.
+#	define QUEST_STATUS_SUCCESS					((BYTE)4)		// 완료
+#	define QUEST_STATUS_SUCCESSDEL				((BYTE)5)		// 완료후 삭제됨
+/* 기존 값
+#	define QUEST_STATUS_NEW						((BYTE)0)
+#	define QUEST_STATUS_START					((BYTE)1)		// START = 기존 모든 진행중은 1
+#	define QUEST_STATUS_PAUSE					((BYTE)2)		// PAUSE
+#	define QUEST_STATUS_EXPIRE					((BYTE)3)		// EXPIRE
+#	define QUEST_STATUS_SUCCESS					((BYTE)4)
+*/
+
+#	define QUESTRESULT_OK						((BYTE)0)
+#	define QUESTRESULT_CANT_NEW					((BYTE)1)		// 발생 조건 만족 못함
+#	define QUESTRESULT_CANT_START				((BYTE)2)		// 수행 조건 만족 못함
+#	define QUESTRESULT_CANT_STOP				((BYTE)3)		// 중지 불가능
+#	define QUESTRESULT_CANT_DONE				((BYTE)4)		// 완수 조건 만족 못함
+#	define QUESTRESULT_CANT_REWARD				((BYTE)5)		// 보상 내역 지급 못함
+#	define QUESTRESULT_REWARD_DROP				((BYTE)6)		// 가방이 꽉 차서, 보상 아이템이 땅으로 떨어짐
+#	define QUESTRESULT_CANT_DELETE				((BYTE)7)		// 삭제할수 없음
+#	define QUESTRESULT_PARTIAL					((BYTE)8)		// 일부 단계만 클리어
+#	define QUESTRESULT_ERR_INTERNAL				((BYTE)9)		// 내부 에러
+// 서버 밖으로 나가지 않는 값
+#	define QUESTRESULT_CHANGED					((BYTE)10)		// 퀘스트 정보 변경됨
+
+// 퀘스트 시작 요청
+#define CS_QS_START_REQ							(OFFSET_CS_QS + 4)
+//	CLT -> SVR
+//		DWORD dwQuestID
+#define CS_QS_START_ACK							(OFFSET_CS_QS + 5)
+//	SVR -> CLT
+//		BYTE bResult		: QUESTRESULT_xxx in above
+//		DWORD dwQuestID
+
+// 퀘스트 중지 요청
+#define CS_QS_STOP_REQ							(OFFSET_CS_QS + 6)
+//	CLT -> SVR
+//		DWORD dwQuestID
+#define CS_QS_STOP_ACK							(OFFSET_CS_QS + 7)
+//	SVR -> CLT
+//		BYTE bResult
+//		DWORD dwQuestID
+
+// 퀘스트 삭제 요청
+#define CS_QS_DELETE_REQ						(OFFSET_CS_QS + 8)
+//	CLT -> SVR
+//		DWORD dwQuestID
+#define CS_QS_DELETE_ACK						(OFFSET_CS_QS + 9)
+//	SVR -> CLT
+//		BYTE bResult
+//		DWORD dwQuestID
+
+////////////////////////////////////////////////////////////////////////////////////////
+// YS_0304 : SHOP - 개인상점 구현을 위해서 추가되는 프로토콜
+// OFFSET_CS_SH
+////////////////////////////////////////////////////////////////////////////////////////
+#define CS_SH_SHOPINFO_ACK						(OFFSET_CS_SH + 0)
+//..UNITSVR->CLIENT
+//bResult
+//dwCharID
+//bKind
+//strName
+//StrDescription
+//dwShopMoney
+//wRemainShop						//남은 상점용 아이템 내구력 
+//bItemCnt
+//bSackPos
+//GetItemData()
+//dwItemMoney
+
+//RETURNCODE : bResult
+#define	SHOPINFO_SUCCESS							(BYTE(0))
+#define	SHOPINFO_INTERNALERROR						(BYTE(1))
+#define	SHOPINFO_LOADFAIL							(BYTE(2))
+
+#define CS_SH_SETSHOP_REQ						(OFFSET_CS_SH + 1)
+//..CLIENT->UNITSVR
+//strName
+//strDescription
+
+#define CS_SH_SETSHOP_ACK						(OFFSET_CS_SH + 2)
+//..UNITSVR->CLIENT
+//bResult
+#define	SETSHOP_SUCCESS								(BYTE(0))
+#define	SETSHOP_INTERNALERROR						(BYTE(1))
+#define	SETSHOP_SIZEOVER							(BYTE(2))
+
+#define CS_SH_MOVESHOP_REQ						(OFFSET_CS_SH + 3)
+//..CLIENT->UNITSVR
+//bSrcSackpos
+//dwSrcItemID
+//bDesSackPos
+//dwDesItemID
+
+#define CS_SH_MOVESHOP_ACK						(OFFSET_CS_SH + 4)
+//..UNITSVR->CLIENT
+//bResult
+#define	MOVESHOP_SUCCESS							(BYTE(0))
+#define	MOVESHOP_NOTFINDITEM						(BYTE(1))
+#define	MOVESHOP_NOTEMPTY							(BYTE(2))
+#define	MOVESHOP_INTERNALERROR						(BYTE(3))
+
+
+#define CS_SH_REGSHOP_REQ						(OFFSET_CS_SH + 5)
+//..CLIENT->UNITSVR
+//bSackID
+//bSackPos
+//dwItemID
+//bShopSackPos
+//dwPrice
+
+#define CS_SH_REGSHOP_ACK						(OFFSET_CS_SH + 6)
+//..UNITSVR->CLIENT
+//bResult,  -- 0 : SUCCESS -- 1 : 실패  
+//dwMoney
+#define	REGSHOP_SUCCESS								(BYTE(0))
+#define	REGSHOP_INTERNALERROR						(BYTE(1))
+#define	REGSHOP_NOTFINDSACK							(BYTE(2))
+#define	REGSHOP_FULLSACK							(BYTE(3))
+#define	REGSHOP_DONOTSELLITEM						(BYTE(4))
+
+
+#define CS_SH_DELSHOP_REQ						(OFFSET_CS_SH + 7)
+//..CLIENT->UNITSVR
+//bShopSackPos
+//dwItemID
+//bSackID
+//bSackPos
+
+#define CS_SH_DELSHOP_ACK						(OFFSET_CS_SH + 8)
+//..UNITSVR->CLIENT
+//bResult
+#define	DELSHOP_SUCCESS								(BYTE(0))
+#define	DELSHOP_INTERNALERROR						(BYTE(1))
+#define	DELSHOP_NOTFINDITEM							(BYTE(2))
+#define	DELSHOP_FULLSACK							(BYTE(3))
+#define	DELSHOP_NOTEMPTYSACK						(BYTE(4))
+#define	DELSHOP_NOTDELSHOP							(BYTE(5))
+
+#define CS_SH_STATUSCHANGE_REQ					(OFFSET_CS_SH + 9)
+//..CLIENT->UNITSVR
+//bStatus	1 시작 -> 0 종료 
+
+#define CS_SH_STATUSCHANGE_ACK					(OFFSET_CS_SH + 10)
+//..UNITSVR->CLIENT
+//bResult	-- 0 : 성공      , -- 1 : 개점용 아이템 존재하지 않음.
+//bStatus	-- 상점 상태 
+#define	STATUSCHANGE_SUCCESS						(BYTE(0))
+#define	STATUSCHANGE_INTERNALERROR					(BYTE(1))
+#define	STATUSCHANGE_PREVSAME						(BYTE(2)) //이전상태와 동일 
+#define	STATUSCHANGE_NOTFINDSHOPRUNITEM				(BYTE(3)) //SHOP 운영할 아이템 찾지 못함.
+#define	STATUSCHANGE_NOTEMPTYSACK					(BYTE(4))
+#define	STATUSCHANGE_NOTDELSHOP						(BYTE(5))
+
+
+#define CS_SH_GETMONEY_REQ						(OFFSET_CS_SH + 11)
+//..CLIENT->UNITSVR
+//dwMoney
+
+#define CS_SH_GETMONEY_ACK						(OFFSET_CS_SH + 12)
+//..UNITSVR->CLIENT
+//bResult -- 0 : 성공, 그 외 실패 
+//dwMoney - 회수되는 돈 
+	#define	GETMONEY_SUCCESS						(BYTE(0))
+	#define	GETMONEY_BADSHOPID						(BYTE(1)) //SHOPID 동일하지 않음.
+	#define	GETMONEY_BADMONEY						(BYTE(2)) //서버와 금액이 맞지 않음.
+	#define	GETMONEY_INTERNALERROR					(BYTE(3)) //내부 댄轎 발생
+	#define	GETMONEY_OVERMONEY						(BYTE(4)) //행랑 소지금 초과
+
+
+#define CS_SH_GETSHOPINFO_REQ					(OFFSET_CS_SH + 13)
+//..CLIENT->UNITSVR
+//dwCharID
+
+#define CS_SH_GETSHOPINFO_ACK					(OFFSET_CS_SH + 14)
+//..UNITSVR->CLIENT
+//bResult
+//dwCharID
+//bItemCnt
+//bSackPos
+//GetItemData()
+//dwItemMoney
+//bResult - RETURN CODE
+#define	GETSHOPINFO_SUCCESS						(BYTE(0))
+#define	GETSHOPINFO_NOTFIND						(BYTE(1))
+
+#define CS_SH_BUYPCSHOP_REQ						(OFFSET_CS_SH + 15)
+//..CLIENT->UNITSVR
+//dwCharID
+//bSrcSackPos
+//dwItemID
+//bSackID
+//bSackPos
+//dwPrice
+
+#define CS_SH_BUYPCSHOP_ACK						(OFFSET_CS_SH + 16)
+//..UNITSVR->CLIENT
+//bResult -- 0 : 성공, 그외 실패 
+//RETURNCODE
+#define BUYPCSHOP_SUCCESS						(BYTE(0))
+#define	BUYPCSHOP_NOTFINDCHAR					(BYTE(1))
+#define	BUYPCSHOP_NOTFINDITEM					(BYTE(2))
+#define	BUYPCSHOP_FULLSACK						(BYTE(3))
+#define	BUYPCSHOP_NOTEMPTYSACK					(BYTE(4))
+#define	BUYPCSHOP_NOTMONEY						(BYTE(5))
+#define	BUYPCSHOP_INTERNALERROR					(BYTE(6))
+
+
+#define CS_SH_ADDONSHOP_ACK						(OFFSET_CS_SH + 17)
+//..UNITSVR->Client
+//bAction  - ADDONBANK와 동일 2
+//bSackPos 
+//dwPrice
+//Item 정보..
+
+#define CS_SH_REMOVEFROMSHOP_ACK				(OFFSET_CS_SH + 18)
+//..UNITSVR->CLIENT
+//bSackPos
+//dwItemID
+//dwAmount
+
+#define CS_SH_SHOPINFOCHANGE_ACK				(OFFSET_CS_SH + 19)
+//..UNITSVR->CLIENT
+//dwMoney										//현재 SHOP에 저장되어 있는 금액 
+//wRemainShop									//현재 SHOP을 위해 사용되는 아이템의 내구력
+
+//주변 캐릭터의 상태 변경
+//CS_CD_CHARUPDATE_ACK - bType : ACT_FAME		- dwData1 만 유효
+//					   -       : ACT_SHOPCHANGE - dwData1(bShopStatus), //0 판매종료, //1.판매시작 
+//												- strData1(상점명), strData2(호객문구)
+//#define ACT_SHOPCHANGE					((BYTE)2)
+
+//맵에 진행시 노점 상태인 PC가 존재 할 경우 
+// CS_IT_CHARINFO_ACK, // CS_IT_CHARINFOLIST_ACK
+/*
+// dwFame				-- 기존 
+-- bShopStatus			-- 신규 
+-- strShopName			-- 신규 
+-- strShopDescription	-- 신규 
+// dwMunpaID			-- 기존 
+*/
+
+//HO_0227_07 광명전,천황전 이벤트 추가
+//광명전(비밀의 방) 시스템 메세지
+#define CS_WR_CHAMBEROFSECRETMESSAGE_REQ		(OFFSET_CS_WR + 37)//(미사용)
+#define CS_WR_CHAMBEROFSECRETMESSAGE_ACK		(OFFSET_CS_WR + 38)
+	#define WWM_SECRETPREPAREREADY					((BYTE) 0)	//이벤트 신청 10분 전
+	#define WWM_SECRETPREPARESTART					((BYTE) 1)	//이벤트 신청 시작
+	#define WWM_SECRETPREPAREEND					((BYTE) 2)	//이벤트 신청 끝
+	#define	WWM_APPLYSECRET							((BYTE) 3)	//누가신청했다 시스템메시지
+	#define WWM_SECRETSTARTREADY					((BYTE) 4)	//이벤트 시작 5분 전
+	#define WWM_SECRETSTART							((BYTE) 5)	//이벤트 시작
+	#define WWM_SECRETENDREADY						((BYTE) 6)	//이벤트 종료 5분전
+	#define	WWM_SECRETEND							((BYTE) 7)	//이벤트 종료
+	#define WWM_SECRETTIME							((BYTE) 8)	//이벤트 진행중이다.
+
+//광명전(비밀의 방) 참여 신청 버튼 클릭시
+#define CS_WR_APPLYSECRETREADY_REQ				(OFFSET_CS_WR + 39)			
+#define CS_WR_APPLYSECRETREADY_ACK				(OFFSET_CS_WR + 40)	
+
+//광명전(비밀의 방) 신청
+#define CS_WR_APPLYSECRET_REQ					(OFFSET_CS_WR + 41)			
+#define CS_WR_APPLYSECRET_ACK					(OFFSET_CS_WR + 42)
+	#define ERR_APPLYSECRET_SUCCESS					((BYTE)0)	//성공	
+	#define ERR_APPLYSECRET_WRONGTERM				((BYTE)1)	//기간아님
+	#define ERR_APPLYSECRET_NOTLEVEL				((BYTE)2)	//레벨제한
+	#define ERR_APPLYSECRET_NOTENOUGHMONEY			((BYTE)3)	//금전부족
+	#define ERR_APPLYSECRET_ALREADY					((BYTE)4)	//이미신청	
+	#define ERR_APPLYSECRET_EXCESSCHAR				((BYTE)5)	//인원제한
+	#define ERR_APPLYSECRET_SACK					((BYTE)6)	//행낭부족
+
+//광명전(비밀의 방) 입장
+#define CS_NV_SECRETADVENTURE_REQ				(OFFSET_CS_NV + 33)
+#define CS_NV_SECRETADVENTURE_ACK				(OFFSET_CS_NV + 34)
+	#define ERR_SECRETMOVE_SUCCESS					((BYTE)0)	//성공
+	#define ERR_SECRETMOVE_PERIOD					((BYTE)1)	//기간아님
+	#define ERR_SECRETMOVE_NOTCHANNELID				((BYTE)2)	//다른채널에서 신청함
+	#define ERR_SECRETMOVE_NOTINENTRY				((BYTE)3)	//신청아니함
+	#define ERR_SECRETMOVE_NOTENOUGHLEVEL			((BYTE)4)	//레벨제한
+	#define ERR_SECRETMOVE_INTERNAL					((BYTE)5)	//내부에러
+
+//--------------------------------------------------------------------------------------------------------------------------------------
+// 0 : NONE, 1 : WAR,  2 : Prepare, 3 : War_Ready,  4 : Prepare_Ready	5 : WarEnd_Ready
+#define BLOODDEVIL_STATUS_NONE				((BYTE) 0)
+#define BLOODDEVIL_STATUS_WAR				((BYTE) 1)
+#define BLOODDEVIL_STATUS_PREPARE			((BYTE) 2)
+#define BLOODDEVIL_STATUS_READY				((BYTE) 3)
+#define BLOODDEVIL_STATUS_PREPAREREADY		((BYTE) 4)
+#define BLOODDEVIL_STATUS_ENDREADY			((BYTE) 5)
+
+//천황전(마혈천황의 방) 시스템 메세지
+#define CS_WR_BLOODDEVILMESSAGE_REQ				(OFFSET_CS_WR + 43)//(미사용)
+#define CS_WR_BLOODDEVILMESSAGE_ACK				(OFFSET_CS_WR + 44)
+	#define WWM_DEVILPREPAREREADY					((BYTE) 0)	//이벤트 신청 10분 전
+	#define WWM_DEVILPREPARESTART					((BYTE) 1)	//이벤트 신청 시작
+	#define WWM_DEVILPREPAREEND						((BYTE) 2)	//이벤트 신청 끝
+	#define	WWM_APPLYDEVIL							((BYTE) 3)	//누가신청했다 시스템메시지
+	#define WWM_DEVILSTARTREADY						((BYTE) 4)	//이벤트 시작 15분 전
+	#define WWM_DEVILSTART							((BYTE) 5)	//이벤트 시작
+	#define WWM_DEVILENDREADY						((BYTE) 6)	//이벤트 종료 5분전
+	#define	WWM_DEVILEND							((BYTE) 7)	//이벤트 종료
+	#define WWM_DEVILTIME							((BYTE) 8)	//이벤트 진행중이다
+
+//천황전(마혈천황의 방) 참여 신청 버튼 클릭시
+#define CS_WR_APPLYDEVILREADY_REQ				(OFFSET_CS_WR + 45)			
+#define CS_WR_APPLYDEVILREADY_ACK				(OFFSET_CS_WR + 46)
+
+//천황전(마혈천황의 방) 신청
+#define CS_WR_APPLYDEVIL_REQ					(OFFSET_CS_WR + 47)			
+#define CS_WR_APPLYDEVIL_ACK					(OFFSET_CS_WR + 48)
+	#define ERR_APPLYDEVIL_SUCCESS					((BYTE)0)	//성공	
+	#define ERR_APPLYDEVIL_WRONGTERM				((BYTE)1)	//기간아님
+	#define ERR_APPLYDEVIL_NOTLEVEL					((BYTE)2)	//레벨제한
+	#define ERR_APPLYDEVIL_HAVENOTITEM				((BYTE)3)	//마교천패없음
+	#define ERR_APPLYDEVIL_ALREADY					((BYTE)4)	//이미신청
+	#define ERR_APPLYDEVIL_EXCESSCHAR				((BYTE)5)	//인원제한
+
+//천황전(마혈천황의 방) 입장
+#define CS_NV_DEVILADVENTURE_REQ				(OFFSET_CS_NV + 35)
+#define CS_NV_DEVILADVENTURE_ACK				(OFFSET_CS_NV + 36)
+	#define ERR_DEVILMOVE_SUCCESS					((BYTE)0)
+	#define ERR_DEVILMOVE_PERIOD					((BYTE)1)
+	#define ERR_DEVILMOVE_NOTCHANNELID				((BYTE)2)
+	#define ERR_DEVILMOVE_NOTINENTRY				((BYTE)3)
+	#define ERR_DEVILMOVE_NOTENOUGHLEVEL			((BYTE)4)
+	#define ERR_DEVILMOVE_INTERNAL					((BYTE)5)
+
+#endif//_CSPROTOCOL_H_

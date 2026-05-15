@@ -1,0 +1,52 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XiahClient", "XiahClient.vcproj", "{010C68EF-D928-4E9C-ACE0-D20F67F3BBA5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5822FDFB-45ED-48C8-ABAC-CFFBEA532281} = {5822FDFB-45ED-48C8-ABAC-CFFBEA532281}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XiahGameEngine", "..\XiahGameEngine\XiahGameEngine.vcproj", "{5822FDFB-45ED-48C8-ABAC-CFFBEA532281}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 3
+		SccLocalPath0 = .
+		CanCheckoutShared = false
+		SolutionUniqueID = {C431C988-E500-439A-9F90-F351DE275747}
+		SccProjectUniqueName1 = XiahClient.vcproj
+		SccLocalPath1 = .
+		CanCheckoutShared = false
+		SccProjectUniqueName2 = ..\\XiahGameEngine\\XiahGameEngine.vcproj
+		SccProjectName2 = \u0022$/XIAH_KOREA/XIAH_CLIENT/KOR_05/XiahGameEngine\u0022,\u0020XEKAAAAA
+		SccLocalPath2 = ..\\XiahGameEngine
+		CanCheckoutShared = false
+	EndGlobalSection
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		MASTER = MASTER
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{010C68EF-D928-4E9C-ACE0-D20F67F3BBA5}.Debug.ActiveCfg = Debug|Win32
+		{010C68EF-D928-4E9C-ACE0-D20F67F3BBA5}.Debug.Build.0 = Debug|Win32
+		{010C68EF-D928-4E9C-ACE0-D20F67F3BBA5}.MASTER.ActiveCfg = MASTER|Win32
+		{010C68EF-D928-4E9C-ACE0-D20F67F3BBA5}.MASTER.Build.0 = MASTER|Win32
+		{010C68EF-D928-4E9C-ACE0-D20F67F3BBA5}.Release.ActiveCfg = Release|Win32
+		{010C68EF-D928-4E9C-ACE0-D20F67F3BBA5}.Release.Build.0 = Release|Win32
+		{5822FDFB-45ED-48C8-ABAC-CFFBEA532281}.Debug.ActiveCfg = Debug|Win32
+		{5822FDFB-45ED-48C8-ABAC-CFFBEA532281}.Debug.Build.0 = Debug|Win32
+		{5822FDFB-45ED-48C8-ABAC-CFFBEA532281}.MASTER.ActiveCfg = MASTER|Win32
+		{5822FDFB-45ED-48C8-ABAC-CFFBEA532281}.MASTER.Build.0 = MASTER|Win32
+		{5822FDFB-45ED-48C8-ABAC-CFFBEA532281}.Release.ActiveCfg = Release|Win32
+		{5822FDFB-45ED-48C8-ABAC-CFFBEA532281}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+	GlobalSection(DevPartner) = postSolution
+	EndGlobalSection
+EndGlobal

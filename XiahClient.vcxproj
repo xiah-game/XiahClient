@@ -1,0 +1,665 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MASTER|Win32">
+      <Configuration>MASTER</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>18.0</VCProjectVersion>
+    <ProjectName>XiahClient_win</ProjectName>
+    <ProjectGuid>{010C68EF-D928-4E9C-ACE0-D20F67F3BBA5}</ProjectGuid>
+    <SccProjectName>SAK</SccProjectName>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccProvider>SAK</SccProvider>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>18.0.11512.103</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\Exe\</OutDir>
+    <IntDir>Debug\</IntDir>
+    <TargetName>XiahClientd</TargetName>
+    <LinkIncremental>true</LinkIncremental>
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules />
+    <CodeAnalysisRuleAssemblies />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\Exe\</OutDir>
+    <IntDir>Release\</IntDir>
+    <TargetName>XiahClient</TargetName>
+    <LinkIncremental>false</LinkIncremental>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules />
+    <CodeAnalysisRuleAssemblies />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">
+    <OutDir>..\Exe\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+    <TargetName>XiahClient_master</TargetName>
+    <IgnoreImportLibrary>false</IgnoreImportLibrary>
+    <LinkIncremental>false</LinkIncremental>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules />
+    <CodeAnalysisRuleAssemblies />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../FMOD\inc;../XiahGameEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_DEBUG_2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>precompile.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <OutputFile>..\Exe\XiahClientd.exe</OutputFile>
+      <AdditionalLibraryDirectories>../XiahGameEngine\JPEGLIB;..\fmod\lib;../XiahGameEngine/Lib;../lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>libcmtd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)XiahClient.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/source-charset:.949 /GL /opt:nowin98  /GA %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
+      <AdditionalIncludeDirectories>../FMOD\inc;../XiahGameEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_DEBUG_2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>precompile.h</PrecompiledHeaderFile>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions>/source-charset:.949 /ignore:4078 /RELEASE /LTCG:NOSTATUS %(AdditionalOptions)</AdditionalOptions>
+      <OutputFile>..\Exe\XiahClient.exe</OutputFile>
+      <AdditionalLibraryDirectories>..\fmod\lib;..\lib;../XiahGameEngine\JPEGLIB;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>..\Exe\XiahClient.pdb</ProgramDatabaseFile>
+      <GenerateMapFile>false</GenerateMapFile>
+      <MapExports>false</MapExports>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">
+    <ClCompile>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
+      <AdditionalIncludeDirectories>../FMOD\inc;../XiahGameEngine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;MASTER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>precompile.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat />
+      <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <OutputFile>..\Exe\XiahClient_master.exe</OutputFile>
+      <AdditionalLibraryDirectories>..\fmod\lib;../XiahGameEngine/Lib;../lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <ProgramDatabaseFile>..\Exe\XiahClient.pdb</ProgramDatabaseFile>
+      <GenerateMapFile>true</GenerateMapFile>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Message>실행디렉토리로 실행파일 복사</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="AppData.h" />
+    <CustomBuild Include="ArrayIndexData.h" />
+    <ClInclude Include="cEFFECT_SPOT.h" />
+    <CustomBuild Include="CharacterInfo.h" />
+    <ClInclude Include="CharSack.h" />
+    <ClInclude Include="Chat.h" />
+    <ClInclude Include="CImageScrMsg.h" />
+    <ClInclude Include="csprotocol.h" />
+    <ClInclude Include="CurseFilter.h" />
+    <ClInclude Include="CXiahGame_Login.h" />
+    <ClInclude Include="EquipSack.h" />
+    <ClInclude Include="Fade.h" />
+    <ClInclude Include="frameDefine.h" />
+    <CustomBuild Include="FunctionalNpcInfo.h" />
+    <ClInclude Include="Helper.h" />
+    <ClInclude Include="HoldItem.h" />
+    <CustomBuild Include="InterfaceDefine.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuild>
+    <ClInclude Include="InterfaceHandler.h" />
+    <CustomBuild Include="ItemInfo.h" />
+    <ClInclude Include="Jconfig.h" />
+    <ClInclude Include="jmorecfg.h" />
+    <ClInclude Include="jpeglib.h" />
+    <ClInclude Include="ListAbstractFactory.h" />
+    <ClInclude Include="ListBoxBase.h" />
+    <ClInclude Include="ListClient.h" />
+    <ClInclude Include="mail.h" />
+    <ClInclude Include="Mugong.h" />
+    <ClInclude Include="MunpaBBSList.h" />
+    <ClInclude Include="MunpaMark.h" />
+    <ClInclude Include="NetMsg.h" />
+    <CustomBuild Include="PCVisualInfo.h" />
+    <CustomBuild Include="PopMenuDefine.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </CustomBuild>
+    <CustomBuild Include="PositionDefine.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuild>
+    <ClInclude Include="precompile.h" />
+    <ClInclude Include="Quest.h" />
+    <ClInclude Include="RebirthMark.h" />
+    <ClInclude Include="Relation.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Sack.h" />
+    <ClInclude Include="ScreenMessage.h" />
+    <ClInclude Include="SkillTime.h" />
+    <ClInclude Include="Slot.h" />
+    <CustomBuild Include="SoundDefine.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuild>
+    <ClInclude Include="Spirit.h" />
+    <ClInclude Include="StringDefine.h" />
+    <ClInclude Include="sysutil.h" />
+    <CustomBuild Include="XiahArrayIndex.h" />
+    <ClInclude Include="XiahBGMcore.h" />
+    <ClInclude Include="XiahCamera.h" />
+    <CustomBuild Include="XiahCharAniType.h" />
+    <ClInclude Include="XiahCursor.h" />
+    <CustomBuild Include="XiahEnvInfo.h" />
+    <ClInclude Include="XiahGameMain.h" />
+    <ClInclude Include="XiahGameObject.h" />
+    <ClInclude Include="XiahGameStartLoad.h" />
+    <ClInclude Include="XiahGame_BGM.h" />
+    <CustomBuild Include="XiahGame_Handler_Sender.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuild>
+    <ClInclude Include="XiahGame_Intro.h" />
+    <ClInclude Include="XiahGame_Main.h" />
+    <ClInclude Include="XiahGame_Minimap.h" />
+    <ClInclude Include="XiahGame_Pet.h" />
+    <ClInclude Include="XiahGame_StepObject.h" />
+    <ClInclude Include="XiahMap.h" />
+    <ClInclude Include="XiahNetworkHandler.h" />
+    <ClInclude Include="XiahObject.h" />
+    <CustomBuild Include="XiahObjectType.h" />
+    <ClInclude Include="XiahSocket.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ArrayIndexData.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="cEFFECT_SPOT.cpp" />
+    <ClCompile Include="CharacterInfo.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="CharacterInfo_RefreshFrame.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">
+      </PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="CharSack.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Chat.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="CImageScrMsg.cpp" />
+    <ClCompile Include="CreateMainChar.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">
+      </PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="CurseFilter.cpp" />
+    <ClCompile Include="CXiahGame_Login.cpp" />
+    <ClCompile Include="EquipSack.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Fade.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="FunctionalNpcInfo.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="GlobalValue.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Helper.cpp" />
+    <ClCompile Include="HoldItem.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="InteractObject.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">
+      </PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="InterfaceHandler.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="InterfaceHandle_Intro.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="InterfaceHandle_Main.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">
+      </PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="InterfaceHandle_Manage.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">
+      </PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="InterfaceHandle_Notice.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">
+      </PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="InterfaceHandle_PopMenu.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">
+      </PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="InterfaceHandle_Window.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">
+      </PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="ItemInfo.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="ListAbstractFactory.cpp" />
+    <ClCompile Include="ListBoxBase.cpp" />
+    <ClCompile Include="ListClient.cpp" />
+    <ClCompile Include="mail.cpp" />
+    <ClCompile Include="MainWindow.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Mugong.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="MunpaBBSList.cpp" />
+    <ClCompile Include="MunpaMark.cpp" />
+    <ClCompile Include="NetMsg.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="PCVisualInfo.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="precompile.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="ProcessAutoNavigation.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">
+      </PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="ProcessChatCommand.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="ProcessCursor.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">
+      </PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="ProcessMainChar.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="ProcessUnSelect.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">
+      </PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Quest.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="RebirthMark.cpp" />
+    <ClCompile Include="Relation.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Relation_Clan.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">
+      </PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Relation_Dan.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">
+      </PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Relation_Ship.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">
+      </PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Sack.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="ScreenMessage.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="SetupPC_VisaulEquipment.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">
+      </PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="SkillTime.cpp" />
+    <ClCompile Include="Slot.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Spirit.cpp" />
+    <ClCompile Include="sysutil.cpp" />
+    <ClCompile Include="tracealloc.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="XiahArrayIndex.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="XiahBGMCore.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="XiahCamera.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="XiahCharAniType.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="XiahCursor.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="XiahGameMain.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="XiahGameObject.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="XiahGameStartLoad.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="XiahGame_BGM.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="XiahGame_BGM_Data.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">
+      </PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Handler_BT_Rcv.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">
+      </PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Handler_CD_Rcv.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">
+      </PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Handler_CH_Rcv.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">
+      </PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Handler_EC_Rcv.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">
+      </PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Handler_EV_Rcv.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">
+      </PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Handler_IF_Rcv.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">
+      </PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Handler_IM_Rcv.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">
+      </PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Handler_IT_Rcv.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">
+      </PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Handler_NC_Rcv.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">
+      </PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Handler_NV_Rcv.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">
+      </PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Handler_OP_Rcv.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">
+      </PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Handler_QS_Rcv.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">
+      </PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Handler_Receiver.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Handler_RL_Rcv.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">
+      </PrecompiledHeader>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Handler_Sender.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Handler_SH_Rcv.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Handler_WR_Rcv.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">true</ExcludedFromBuild>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+      <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Intro.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Intro_InitFrame.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Main.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Main_MainChar.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Minimap.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="XiahGame_Pet.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="XiahGame_PetAI.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="XiahGame_StepObject.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="XiahMap.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="XiahNetworkHandler.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="XiahObject.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="XiahSocket.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="XiahClient.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XiahGameEngine\XiahGameEngine.vcxproj">
+      <Project>{5822fdfb-45ed-48c8-abac-cffbea532281}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

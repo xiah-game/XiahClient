@@ -1,0 +1,435 @@
+int OnCS_IT_CHARINFOLIST_ACK(CMsg &msg)
+{
+	BYTE   bResult		=	0;
+	
+	msg
+		>> bResult;
+
+	if ( bResult != 0 )
+		return TRUE;
+    
+	DWORD  dwMapID		=	0;
+	WORD   wObjectNum	=	0;
+	bool   bPartyExist  = false;
+	
+	msg
+		>> dwMapID
+		>> wObjectNum;
+
+	for(int i = 0; i < wObjectNum; ++i)
+	{
+		WORD	wPosX				= 0;
+		WORD	wPosY				= 0;
+		WORD	wDesPosX			= 0;
+		WORD	wDesPosY			= 0;
+		WORD	wDirection			= 0;
+
+		BYTE	bWalkSpeed			= 0;
+		BYTE	bHeight				= 0;
+		BYTE	bDesHeight			= 0;		
+		BYTE	bState				= 0;
+		BYTE	bCharType			= 0;
+		BYTE	bShopStatus			= 0;
+		BYTE	bWarStatus			= 0;
+		BYTE	bCurFiveElm			= 0;	// ��ㅽ��
+		BYTE	bFELevel			= 0;	// ��ㅽ��
+		BYTE	bSemiPKStatus		= 0;
+		// CG_2005/01/28 : 蹂�醫������댄��湲곕�μ��媛�
+		BYTE	bChangeItemSet		= 0; //(異�媛�) �����쇰��醫� �����댄����� 紐⑤�� ��μ갑���怨� ������ 寃쎌�� - 怨듦꺽��� 25% ������ : 1 ������ 0 : 誘몄�����
+		BYTE	bPotionEndKeepup	= 0; // ��ㅼ�밸�⑥��
+		BYTE	bSpirit				=0;
+
+		BYTE	bInstanceCnt		=0;
+		
+		DWORD   dwObjectID			= 0;
+		DWORD	dwFame				= 0;
+		DWORD   dwMunpaID			= 0;
+		DWORD	dwMunpaMarkID		= 0;		
+		DWORD   dwMunpaOrder		= 0;
+		DWORD	dwPartyID			= 0;
+		DWORD	dwPartyLeaderID		= 0;
+		DWORD	dwEnemyPartyID		= 0;
+		DWORD	dwEnemyMunpaID		= 0;
+		DWORD	dwEnemyStoneID		= 0;
+		BYTE	bRebirth			= 0;
+		BYTE	bPoisonUnderCover = 0;
+		
+		sString szName;
+		sString szMunpaName;
+		sString szMunpaNickName;
+		sString strShopName;
+		sString strShopDescription;
+		sString strEnemyMunpaName;
+
+		WORD	wVisualID[ 9];
+		BYTE	bRarity[ 9];
+		BYTE	bStxType[ 9];
+		// CG_2005/01/28 : 蹂�醫������댄��湲곕�μ��媛�
+		BYTE	bNeedCharType[ 9 ];		// 蹂�醫������댄����� 寃쎌�� - 蹂�醫������댄�� 醫�瑜� 援щ�� 
+		// 251 : 寃����蹂�醫� , 252 : ��곕��蹂�醫�, 253 : 臾댄�щ��醫�, 254 : ��쇱감蹂�醫�
+
+		DWORD	bwGMMark;
+		ZeroMemory( wVisualID,		sizeof(WORD) * 9);
+		ZeroMemory( bRarity,		sizeof(BYTE) * 9);
+		ZeroMemory( bStxType,		sizeof(BYTE) * 9);
+		// CG_2005/01/28 : 蹂�醫������댄��湲곕�μ��媛�
+		ZeroMemory( bNeedCharType,	sizeof(BYTE) * 9);
+
+		msg
+			>> dwObjectID // 0
+			>> wPosX
+			>> wPosY
+			>> bHeight
+			>> wDesPosX
+			>> wDesPosY
+			>> bDesHeight
+			>> bWalkSpeed
+			>> wDirection
+			>> bState
+			>> bCharType
+			>> szName	
+			>> dwFame
+			>> bShopStatus
+			>> strShopName
+			>> strShopDescription
+			>> bSemiPKStatus
+			>> bCurFiveElm
+			>> bFELevel
+			>> bInstanceCnt;
+
+		for(int i=0; i < bInstanceCnt; ++i)
+		{
+			BYTE bInstanceType =0;
+
+			msg
+				>> bInstanceType;
+
+			switch(bInstanceType)
+			{
+			case 0:	// ��ㅼ�밸�⑥��
+				bPotionEndKeepup = 1;	break;
+			case 1:	// 湲�
+				bSpirit			 = 1;	break;
+			default:
+				break;
+			}
+		}
+
+		msg
+			>> bChangeItemSet		// CG_2005/01/28 : 蹂�醫������댄�� ������ 泥댄��
+			>> dwMunpaID;
+
+		if(dwMunpaID)
+		{
+			msg
+				>> szMunpaName
+				>> dwMunpaOrder
+				>> szMunpaNickName
+				>> dwMunpaMarkID
+				>> bWarStatus;
+
+			// 臾명�����
+			switch(bWarStatus)
+			{
+			case 1:	// ���湲�
+			case 2:	// ������
+				{
+					msg
+						>> dwEnemyMunpaID
+						>> strEnemyMunpaName
+						>> dwEnemyStoneID;
+				}
+				break;
+			} // switch(bWarStatus)
+		} // if(dwMunpaID)
+
+		msg
+			>> dwPartyID;
+
+		if(dwPartyID)
+		{
+			bPartyExist = true;
+
+			msg
+				>> dwPartyLeaderID
+				>> dwEnemyPartyID;
+		}
+
+		// CG_2005/01/28 : 蹂�醫������댄��湲곕�μ��媛�
+		msg
+			>> wVisualID[ 0 ]
+			>> bRarity[ 0 ]
+			>> bStxType[ 0 ]
+			>> bNeedCharType[ 0 ]
+			>> wVisualID[ 1 ]
+			>> bRarity[ 1 ]
+			>> bStxType[ 1 ]
+			>> bNeedCharType[ 1 ]
+			>> wVisualID[ 2 ]
+			>> bRarity[ 2 ]
+			>> bStxType[ 2 ]
+			>> bNeedCharType[ 2 ]
+			>> wVisualID[ 3 ]
+			>> bRarity[ 3 ]
+			>> bStxType[ 3 ]
+			>> bNeedCharType[ 3 ]
+			>> wVisualID[ 4 ]
+			>> bRarity[ 4 ]
+			>> bStxType[ 4 ]
+			>> bNeedCharType[ 4 ]
+			>> wVisualID[ 5 ]
+			>> bRarity[ 5 ]
+			>> bStxType[ 5 ]
+			>> bNeedCharType[ 5 ]
+			>> wVisualID[ 6 ]
+			>> bRarity[ 6 ]
+			>> bStxType[ 6 ]
+			>> bNeedCharType[ 6 ]
+			>> wVisualID[ 7 ]
+			>> bRarity[ 7 ]
+			>> bStxType[ 7 ]
+			>> bNeedCharType[ 7 ]
+			>> wVisualID[ 8 ]
+			>> bRarity[ 8 ]
+			>> bStxType[ 8 ]
+			>> bNeedCharType[ 8 ]
+            >> bRebirth
+			>> bPoisonUnderCover
+			>> bwGMMark;					//HT_1023 : ��댁����� 留���� 異�媛�
+
+		if( dwObjectID == 0 || dwMapID > 15 || wPosX > 2047 || wPosY > 2047 )
+			continue;
+		
+		// ���濡���� 罹�由���곕㈃ 泥⑤����� �����깊��吏�留�, 議댁�ы����� 嫄곕�쇰㈃ ��곗�댄��瑜� 諛�轅�以����.
+		bool bCreateChar = true;
+
+		XiahObject::CXiahObject* pXiahObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, dwObjectID,OBJTYPE_PC) );
+
+		if( pXiahObject != NULL ) // 罹�由���� ��곗�댄��媛� �����쇰㈃ new ���吏� ���怨� ��곗�댄��留� 諛�轅�以����.
+			bCreateChar = false;
+
+		sArrayData *pData = XiahArrayIndex::g_MainCharType.GetData( bCharType, 0);
+		if( pData == NULL)
+			continue;
+
+		CXiahCharObject* pObject = NULL;
+		if( bCreateChar )
+		{
+			pObject = (CXiahCharObject *)XiahObject::g_XiahCharPool.GetChar(); //new CXiahCharObject;
+
+			if ( NULL == pObject )
+			{
+				pObject = new CXiahCharObject;			
+			}
+		}
+		else if ( pXiahObject->m_pObject )
+		{
+			pObject = reinterpret_cast<CXiahCharObject*>(pXiahObject->m_pObject);
+
+			//YS_0811 : BUGFIX
+			if ( !pObject )
+				continue;
+		}
+		else
+		{
+			continue;
+		}
+
+		int nCharID		 = pData->GetInt( 2);
+		int nMeshType	 = pData->GetInt( 3);
+		int nTextureType = pData->GetInt( 4);
+
+		if( bCreateChar )
+		{
+			pObject->Create( nCharID, nMeshType, nTextureType, 103);
+			pObject->m_szObjectName = szName;
+
+			XiahObject::g_XiahObjectManager.CreateXiahObject( dwObjectID, OBJTYPE_PC, pObject);
+
+			pObject->m_pAniType = XiahAniType::GetAniType( OBJTYPE_PC, 0);
+
+			pObject->SetPosition( wPosX, wPosY);
+			pObject->SetAngle( wDirection);
+			pObject->m_bObjType = OBJTYPE_PC;
+
+			pObject->m_bSubObjType = bCharType;
+
+			// PC留� 移� 沅ㅼ�� ��댄����몃�� �����깊�����.
+			pObject->m_SwordTrace.Init();
+
+			// ��쇱감��� ��쇱�� 移� 沅ㅼ����� ������.
+			if( pObject->m_bSubObjType == 4 )
+				pObject->m_SwordTrace2.Init();
+
+			SetupPC_VisualEquipement( pObject, wVisualID, bRarity, bStxType );
+
+			// 梨�吏� ��� ������ ������濡�... (��� ������������ ��������� ������濡� ��ㅼ�����)
+			if(ACT_MINE == bState)
+				pObject->SetAnimation(XiahAniType::eLAT_Collect, 0);
+			else
+				pObject->SetAnimation( XiahAniType::eLAT_Spawn, XiahAniType::eLAT_Stand, 0, 0);			
+
+			sPCVisualInfo* pVisualInfo = new sPCVisualInfo;
+
+			memcpy( pVisualInfo->wVisualID, wVisualID, sizeof( WORD) * 9);
+			memcpy( pVisualInfo->bRarity, bRarity, sizeof( BYTE) * 9);
+			memcpy( pVisualInfo->bStxType, bStxType, sizeof( BYTE) * 9);
+
+			pObject->m_pPrivateData = (DWORD)pVisualInfo;
+			pObject->m_PrivateDataDestoryer = ReleasePCVisualnfo;
+		}
+		else	// ��닿구 鍮쇰㉨������ ^^;
+		{
+			// PC留� 移� 沅ㅼ�� ��댄����몃�� �����깊�����.
+			pObject->m_SwordTrace.Init();
+
+			// ��쇱감��� ��쇱�� 移� 沅ㅼ����� ������.
+			if( pObject->m_bSubObjType == 4 )
+				pObject->m_SwordTrace2.Init();
+
+			SetupPC_VisualEquipement( pObject, wVisualID, bRarity, bStxType );
+
+			sPCVisualInfo* pVisualInfo = (sPCVisualInfo*)pObject->m_pPrivateData;
+
+			//YS_0811 : BUGFIX
+			if (!pVisualInfo )
+			{
+				pVisualInfo = new sPCVisualInfo;
+			}
+
+			memcpy( pVisualInfo->wVisualID, wVisualID, sizeof( WORD) * 9);
+			memcpy( pVisualInfo->bRarity, bRarity, sizeof( BYTE) * 9);
+			memcpy( pVisualInfo->bStxType, bStxType, sizeof( BYTE) * 9);
+		}
+
+		// ��� 二쇱����� ��ㅻⅨ 罹�由���곌�� ��ы��濡� ��대����댁�� ��ㅼ�댁�ㅻ㈃ 洹� 罹�由���곌�� 臾닿났 吏���� ��댄����멸�� ������吏� 寃����.
+
+		bool bRelation = false;
+
+		// 罹�由���곗�대����� ������ ���������
+		if( g_MainCharInfo.m_pRelation->FindDanInfoByID( dwObjectID))
+		{
+			pObject->m_cNameColor = D3DCOLOR_XRGB( 200, 255, 255);
+			bRelation = true;
+		}
+		else if( g_MainCharInfo.m_pRelation->FindShipInfoByID( dwObjectID))
+		{
+			pObject->m_cNameColor = D3DCOLOR_XRGB( 255, 200, 255);
+			bRelation = true;
+		}
+		else if( g_MainCharInfo.m_pRelation->FindClanInfoByID( dwObjectID))
+		{
+			pObject->m_cNameColor = D3DCOLOR_XRGB( 200, 255, 200);
+			bRelation = true;
+		}
+
+		// 紐���깆��
+		pObject->m_dwFame = dwFame;
+
+		pObject->m_dwPartyID = dwPartyID;
+		pObject->m_dwPartyLeaderID = dwPartyLeaderID;
+		pObject->m_dwEnemyPartyID = dwEnemyPartyID;
+
+		// ������ ������
+		if(bShopStatus == 0)
+		{
+			pObject->m_bTradeSell = false;
+		}
+		else if(bShopStatus == 1)
+		{
+			pObject->m_bTradeSell = true;
+
+			pObject->m_strShopName = strShopName;
+			pObject->m_strShopDescription = strShopDescription;
+		}
+		else
+		{
+			DBG_Put(_T("OnCS_IT_CHARINFOLIST_ACK 媛���몃�몄�� ������ 鍮������� 寃곌낵 %d"),bShopStatus);
+			// 鍮������� ��곗�댄��
+		}
+
+		if(dwFame >= 127 && bRelation)
+		{
+		}
+		else
+		{
+			pObject->RefreshFameColor();
+		}
+
+		if( dwMunpaID)
+		{
+			pObject->m_dwMunpaID		= dwMunpaID;
+			pObject->m_szMunpaName		= szMunpaName;
+			pObject->m_szMunpaNickName	= szMunpaNickName;
+			pObject->m_dwMunpaOrder		= dwMunpaOrder;
+			pObject->m_dwMunpaMarkID	= dwMunpaMarkID;
+
+			if(bWarStatus)
+			{
+				pObject->m_bWarStatus		= bWarStatus;
+				pObject->m_dwEnemyMunpaID	= dwEnemyMunpaID;
+				pObject->m_dwEnemyStoneID	= dwEnemyStoneID;
+				pObject->m_strEnemyMunpaName = strEnemyMunpaName;
+			}
+		}
+
+		// Semi PK ������瑜� ��ㅼ��
+		pObject->m_bSemiPKStatus = bSemiPKStatus;
+
+		// CG_2005/01/28 : 蹂�醫������댄��湲곕�μ��媛�
+		pObject->m_bChangeItemSet = bChangeItemSet;
+
+		// 湲�
+		pObject->m_bSpirit = bSpirit;
+
+		// ��ㅼ�밸�⑥��
+		pObject->m_bPotionEndKeepup = bPotionEndKeepup;
+
+		// ������ ���
+		pObject->m_bRebirth = bRebirth;
+		pObject->m_bGameMasterMark = (BYTE)bwGMMark;//HT_1023 : ��댁����� 留���� 異�媛�
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		// ��ㅽ��
+		pObject->m_bFECur   = bCurFiveElm;
+		pObject->m_bFELevel = bFELevel;
+
+		DWORD dwMugongID = static_cast<DWORD>(bCurFiveElm) + FIVEELEMENT_FIRE - 1;
+		DWORD dwTime =0;
+
+		sArrayData* pMugongList = XiahArrayIndex::g_MugongList.GetData(dwMugongID, bFELevel);					
+
+		if(pMugongList)
+			dwTime = pMugongList->GetInt(9);
+
+		pObject->m_KeepUpMugongList.Add(dwMugongID, bFELevel, dwTime);
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+
+		if(bPotionEndKeepup == 0)
+		{
+			if(pObject->m_pEventItemEffectPP)
+			{
+				g_EffectManager.DeqEffectPackagePair(pObject->m_pEventItemEffectPP);
+				pObject->m_pEventItemEffectPP = NULL;
+			}
+		}		
+
+		if(bSpirit == 0)
+		{
+			if(pObject->m_pSpiritEffectPP)
+			{
+				g_EffectManager.DeqEffectPackagePair(pObject->m_pSpiritEffectPP);
+				pObject->m_pSpiritEffectPP = NULL;
+			}
+		}
+
+		if(bPoisonUnderCover)
+			pObject->m_bRenderOK = false;
+		else
+			pObject->m_bRenderOK = true;
+			
+	}
+
+	return TRUE;
+}

@@ -1,0 +1,114 @@
+int OnCS_NV_MAPOBJECTLIST_ACK( CMsg &msg)
+{
+	BYTE	bResult		=0;
+	WORD	wNumObject	=0;
+	
+	msg
+		>> bResult
+		>> wNumObject;
+
+	DBG_Put(_T("CS_NV_MAPOBJECTLIST_ACK : %d"), wNumObject);
+
+	DWORD dwMapID = XiahMap::g_XiahMap.m_MapInfo.m_dwMapID;
+
+#define CHAR_LIST			0
+#define NPC_LIST			1
+#define ITEM_LIST			2
+#define FUNCNPC_LIST		3
+#define PET_LIST			4
+#define OBJECT_LIST_COUNT	5
+
+#define ADD_OBJECT_LIST( a, b)	ObjectList[ a].push_back( b)
+
+	typedef std::vector<DWORD> SERVER_ID_LIST;
+
+	SERVER_ID_LIST ObjectList[ OBJECT_LIST_COUNT];
+	int	MsgList[ OBJECT_LIST_COUNT]	=
+	{
+		CS_IT_CHARINFOLIST_REQ,
+		CS_NC_NPCINFOLIST_REQ,
+		CS_IM_MAPITEMINFOLIST_REQ,
+		CS_NC_FUNCTIONALNPCINFOLIST_REQ,
+		CS_NC_PETINFOLIST_REQ
+	};
+
+	for(int i = 0; i < wNumObject; ++i)
+	{
+		DWORD dwObjectID	=0;		
+		WORD  wPosX			=0;
+		WORD  wPosY			=0;
+		BYTE  bObjectType	=0;
+		BYTE  bHeight		=0;
+
+		msg
+			>> dwObjectID
+			>> bObjectType
+			>> wPosX
+			>> wPosY
+			>> bHeight;
+
+		if(wPosX < 0 || wPosX > 2047 || wPosY < 0 || wPosY > 2047)
+		{
+			DBG_LogFile("Invalid Position in OnCS_NV_MAPOBJECTLIST_ACK %d %d %d %d %d",dwObjectID,bObjectType,wPosX,wPosY,bHeight);
+
+			continue;
+		}
+
+		// 기존에 정보를 가지고 있는 애들이면 SKIP
+		if( XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, dwObjectID,OBJTYPE_PC)) != NULL)
+		{
+			//DBG_Put("기존에 가지고있는애들이라 무시(total:%d)",wNumObject);
+			continue;
+		}
+
+		switch(bObjectType) 
+		{
+			case OBJTYPE_PC:
+				ADD_OBJECT_LIST( CHAR_LIST, dwObjectID);
+				break;
+			case OBJTYPE_NPC:
+				ADD_OBJECT_LIST( NPC_LIST, dwObjectID);
+				break;
+			case OBJTYPE_ITEM:
+				ADD_OBJECT_LIST( ITEM_LIST, dwObjectID);
+				break;
+			case OBJTYPE_FUNCTIONALNPC:
+				ADD_OBJECT_LIST( FUNCNPC_LIST, dwObjectID);
+				break;
+			case OBJTYPE_PET:
+				ADD_OBJECT_LIST( PET_LIST, dwObjectID);
+				break;
+		}
+	}
+
+	for(int i = 0; i < OBJECT_LIST_COUNT; ++i)
+	{
+		SERVER_ID_LIST &list = ObjectList[ i];
+
+		while( list.size() > 0)
+		{
+			CMsg msg;
+
+			msg.ID( MsgList[ i]);
+			msg
+				<< dwMapID;
+
+			if( list.size() > 16)
+				msg << (WORD)16;
+			else
+				msg << (WORD)list.size();
+
+			for(int j = 0; j < list.size() && j < 16; ++j)
+			{
+				msg
+					<< list.back();
+
+				list.pop_back();
+			}
+
+			XiahNetwork::SendNetMsg( msg);
+		}
+	}
+
+	return TRUE;
+}
