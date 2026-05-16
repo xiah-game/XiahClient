@@ -669,8 +669,8 @@ int OnCS_NV_MAPLEAVE_ACK(CMsg &msg)
 	if(g_pMainChar == NULL || dwObjectID == g_pMainChar->m_dwServerID)
 		return TRUE;
 
-	// 이형부, 동신주를 쓸때 주위 사람들이 이펙트를 볼 수 있도록 한다.
-	XiahObject::CXiahObject *pXiahObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, dwObjectID, OBJTYPE_PC) );
+	// Use bObjectType from packet to support both PC and NPC object cleanup
+	XiahObject::CXiahObject *pXiahObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, dwObjectID, bObjectType) );
 	if( !pXiahObject || !pXiahObject->m_pObject ) return FALSE;
 
     CXiahCharObject *pCharObject = reinterpret_cast<CXiahCharObject*>(pXiahObject->m_pObject);
@@ -693,7 +693,15 @@ int OnCS_NV_MAPLEAVE_ACK(CMsg &msg)
 		break;
 	};// switch
 
-	XiahObject::g_XiahObjectManager.ReleaseXiahObject( MAKEOBJECTID( 0, dwObjectID, OBJTYPE_PC));
+	// Clean up effects before releasing NPC objects to prevent dangling pointers
+	if(bObjectType == OBJTYPE_NPC)
+	{
+		pCharObject->m_CharRender.ClearMeshEffect();
+		pCharObject->ClearMugongEffect();
+		pCharObject->m_KeepUpMugongList.clear();
+	}
+
+	XiahObject::g_XiahObjectManager.ReleaseXiahObject( MAKEOBJECTID( 0, dwObjectID, bObjectType));
 
 	return TRUE;
 }

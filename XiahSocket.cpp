@@ -243,6 +243,15 @@ BOOL CXiahSocket::ProcessMessage()
 	if(	!IsConnected())
 		return FALSE;
 
+	// Send keepalive heartbeat every 3 seconds to prevent NAT/firewall idle timeout
+	static DWORD s_dwLastKeepAlive = 0;
+	DWORD dwNow = GetTickCount();
+	if (dwNow - s_dwLastKeepAlive > 3000) {
+		s_dwLastKeepAlive = dwNow;
+		char keepAlive[6] = {0, 0, 0, 0, 0, 0};
+		send(m_hSocket, keepAlive, 6, 0);
+	}
+
 	timeval t;
 	fd_set fdr;
 
