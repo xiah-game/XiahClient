@@ -1,4 +1,4 @@
-#include "Helper.h"  //HO_0410_07 상서령 가이드 업데이트 g_Helper를 사용하기 위하여 삽입
+﻿#include "Helper.h"  //HO_0410_07 상서령 가이드 업데이트 g_Helper를 사용하기 위하여 삽입
 
 void ProcessEnterForChat()
 // 프레임창을 다음단계로 펼침

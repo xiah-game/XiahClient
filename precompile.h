@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 // Windows Default Header
 //#define _WIN32_WINDOWS 0x0410

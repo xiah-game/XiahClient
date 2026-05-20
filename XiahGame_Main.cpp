@@ -162,7 +162,7 @@ BOOL CXiahGame_Main::Update()
 	//m_nTestCount = 0;
 	for(int i=0; i < 8; ++i)
 	{
-		g_tHelp[i].SetText(0,0, _T(" "), GetFont("±¼¸²", 14), D3DCOLOR_XRGB( 0, 255, 255), 15);
+		g_tHelp[i].SetText(0,0, _T(" "), GetFont("å®‹ä½“", 14), D3DCOLOR_XRGB( 0, 255, 255), 15);
 	}
 
 #ifndef MASTER
@@ -178,35 +178,35 @@ BOOL CXiahGame_Main::Update()
 	int sec = g_playtime - min*60 - hour*3600;
 
 	str.printf( "PlayTime %d½Ã°£%dºÐ%dÃÊ",hour,min,sec);
-	g_tHelp[0].SetText( 400,25 ,str, GetFont("±¼¸²", 12), D3DCOLOR_XRGB( 255, 255, 255), 15);
+	g_tHelp[0].SetText( 400,25 ,str, GetFont("å®‹ä½“", 12), D3DCOLOR_XRGB( 255, 255, 255), 15);
 
 	//////////////////////////////////////////////////////////////////////////
 
 	// FPS
 	//str.printf( "FPS : %d, Last(T) %dms, %d ms",XiahGameEngine::GetFrameTimer(), g_AppData.dwTime, g_AppData.dwTime2);
 	str.printf( "FPS : %d",XiahGameEngine::GetFrameTimer());
-	g_tHelp[1].SetText( 300,25 ,str, GetFont("±¼¸²", 12), D3DCOLOR_XRGB( 255, 255, 255), 15);
+	g_tHelp[1].SetText( 300,25 ,str, GetFont("å®‹ä½“", 12), D3DCOLOR_XRGB( 255, 255, 255), 15);
 
 	if(g_bCheat)
 	{
 		//str.printf( "FPS : %d",XiahGameEngine::GetFrameTimer());
-		g_tHelp[2].SetText( 300,10 ,"1", GetFont("±¼¸²", 10), D3DCOLOR_XRGB( 255, 255, 255), 15);
+		g_tHelp[2].SetText( 300,10 ,"1", GetFont("å®‹ä½“", 10), D3DCOLOR_XRGB( 255, 255, 255), 15);
 	}
 	else
 	{
-		g_tHelp[2].SetText( 300,10 ,"", GetFont("±¼¸²", 10), D3DCOLOR_XRGB( 255, 255, 255), 15);
+		g_tHelp[2].SetText( 300,10 ,"", GetFont("å®‹ä½“", 10), D3DCOLOR_XRGB( 255, 255, 255), 15);
 	}
 
 	if(g_bCheatEtc)
 	{
-		g_tHelp[3].SetText( 330,10 ,"2", GetFont("±¼¸²", 10), D3DCOLOR_XRGB( 255, 255, 255), 15);
+		g_tHelp[3].SetText( 330,10 ,"2", GetFont("å®‹ä½“", 10), D3DCOLOR_XRGB( 255, 255, 255), 15);
 		str.printf( "< %d s >", g_MainCharInfo.m_byCheatTime);
-		g_tHelp[4].SetText( 350,10 ,str, GetFont("±¼¸²", 13), D3DCOLOR_XRGB( 255, 255, 255), 15);
+		g_tHelp[4].SetText( 350,10 ,str, GetFont("å®‹ä½“", 13), D3DCOLOR_XRGB( 255, 255, 255), 15);
 	}
 	else
 	{
-		g_tHelp[3].SetText( 330,10 ,"", GetFont("±¼¸²", 10), D3DCOLOR_XRGB( 255, 255, 255), 15);
-		g_tHelp[4].SetText( 350,10 ,"", GetFont("±¼¸²", 13), D3DCOLOR_XRGB( 255, 255, 255), 15);
+		g_tHelp[3].SetText( 330,10 ,"", GetFont("å®‹ä½“", 10), D3DCOLOR_XRGB( 255, 255, 255), 15);
+		g_tHelp[4].SetText( 350,10 ,"", GetFont("å®‹ä½“", 13), D3DCOLOR_XRGB( 255, 255, 255), 15);
 	}
 
 
@@ -810,7 +810,7 @@ BOOL CXiahGame_Main::UpdateObject()
 	/*
 	sString str;
 	str.printf( "VideoMemory: %d", g_pDirect3DDevice->GetAvailableTextureMem());
-	g_tHelp[ 0].SetText( 0, 16, str, GetFont("±¼¸²", 14), D3DCOLOR_XRGB( 255, 255, 255), 0);
+	g_tHelp[ 0].SetText( 0, 16, str, GetFont("å®‹ä½“", 14), D3DCOLOR_XRGB( 255, 255, 255), 0);
 */
 /*
 #if TEST_PERFORMANCE
@@ -824,7 +824,7 @@ BOOL CXiahGame_Main::UpdateObject()
 		g_pUIManager->IsMouseOnFrame(),
 		g_XiahEnvInfo.m_fFogDensity
 		);
-	g_tHelp[ 5].SetText( 0, 32 + 5 * 16,str, GetFont("±¼¸²", 14), D3DCOLOR_XRGB( 255, 255, 255), 15);
+	g_tHelp[ 5].SetText( 0, 32 + 5 * 16,str, GetFont("å®‹ä½“", 14), D3DCOLOR_XRGB( 255, 255, 255), 15);
 
 	str.printf("Position : %d - %d -- Vertex %d Tri %d", 
 		(int)g_XiahCamera.m_vAt.x, 
@@ -832,7 +832,7 @@ BOOL CXiahGame_Main::UpdateObject()
 		g_EngineInfo.m_nRenderedVertex,
 		g_EngineInfo.m_nRenderedFace
 		);
-	g_tHelp[ 6].SetText( 0, 32 + 6 * 16,str, GetFont("±¼¸²", 14), D3DCOLOR_XRGB( 255, 255, 255), 15);
+	g_tHelp[ 6].SetText( 0, 32 + 6 * 16,str, GetFont("å®‹ä½“", 14), D3DCOLOR_XRGB( 255, 255, 255), 15);
 
 	// effect
 	str.printf( "PP:%d, ER:%d, PPpool:%d, Ppool:%d, ERpool:%d, PRpool:%d, ELRpool:%d, VRpool:%d, Vc:%d, Fc;%d",
@@ -847,7 +847,7 @@ BOOL CXiahGame_Main::UpdateObject()
 		g_EffectManager.GetTotalRenderedVertex(),
 		g_EffectManager.GetTotalRenderedFace()
 		);
-	g_tHelp[ 7].SetText( 0, 32 + 7 * 16,str, GetFont("±¼¸²", 14), D3DCOLOR_XRGB( 255, 255, 255), 15);
+	g_tHelp[ 7].SetText( 0, 32 + 7 * 16,str, GetFont("å®‹ä½“", 14), D3DCOLOR_XRGB( 255, 255, 255), 15);
 #endif
 
 
@@ -865,7 +865,7 @@ BOOL CXiahGame_Main::UpdateObject()
 		g_EffectManager.GetTotalRenderedVertex(),
 		g_EffectManager.GetTotalRenderedFace()
 		);
-	g_tHelp[ 7].SetText( 0, 32 + 7 * 16,str, GetFont("±¼¸²", 14), D3DCOLOR_XRGB( 255, 255, 255), 15);
+	g_tHelp[ 7].SetText( 0, 32 + 7 * 16,str, GetFont("å®‹ä½“", 14), D3DCOLOR_XRGB( 255, 255, 255), 15);
 */
 	return TRUE;
 }

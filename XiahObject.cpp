@@ -282,7 +282,7 @@ BOOL CXiahObjectManager::ChangeToClientObject(CXiahObject *pObject)
 	iterator it = find( pObject->m_ddwObjectID);
 
 	DBG_Assert( it != end());
-	if(it != end()) erase( it);	// 일단 지워�\xd6고
+	if(it != end()) erase( it);	// 일단 지워주고
 
 	// ID를 다시 만들어 준다
 	pObject->m_dwServerID = 0;

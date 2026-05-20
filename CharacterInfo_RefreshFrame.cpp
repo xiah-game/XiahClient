@@ -1,4 +1,4 @@
-extern sString MoneyCommaStr(INT64 nMoney);
+﻿extern sString MoneyCommaStr(INT64 nMoney);
 extern LPCTSTR GetMapName(DWORD dwMapID);
 
 //////////////////////////////////////////////////////////

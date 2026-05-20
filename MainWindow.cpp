@@ -1,4 +1,4 @@
-#include "precompile.h"
+﻿#include "precompile.h"
 #include "resource.h"
 #include "io.h"
 #include "AppData.h"
@@ -331,14 +331,8 @@ int GetSetttingInfo(void)
 // 또하나가 이미 실행중이면 FALSE를 리턴한다
 BOOL CheckInstance(LPCSTR App)
 {
-	HANDLE hSem = CreateSemaphore(NULL, 0 , 1, App);
-
-	if( hSem != NULL && GetLastError()==ERROR_ALREADY_EXISTS)
-	{
-		CloseHandle( hSem);
-		return FALSE;
-	}
-
+	// 允许客户端多开：跳过单实例信号量检查
+	(void)App;
 	return TRUE;
 }
 

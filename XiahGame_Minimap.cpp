@@ -306,7 +306,7 @@ namespace Minimap
 #ifdef _DEBUG_CHEAT
 		CXiahGame_Main *pGameMainStep = (CXiahGame_Main*)g_GameStep[ 3];			
 		g_bCheat = FALSE;
-		pGameMainStep->g_tHelp[6].SetText( 200,80 , "ÁßÁö", GetFont("±¼¸²", 14), D3DCOLOR_XRGB( 0, 255, 255), 15);
+		pGameMainStep->g_tHelp[6].SetText( 200,80 , "ÁßÁö", GetFont("å®‹ä½“", 14), D3DCOLOR_XRGB( 0, 255, 255), 15);
 #endif
 
 #ifdef TRACE_LOG
@@ -694,12 +694,12 @@ namespace Minimap
 				if(nCount == 0)
 				{
 					g_bCheat = TRUE;
-					pGameMainStep->g_tHelp[6].SetText( 200,80 , "»ç³É", GetFont("±¼¸²", 14), D3DCOLOR_XRGB( 0, 255, 255), 15);
+					pGameMainStep->g_tHelp[6].SetText( 200,80 , "»ç³É", GetFont("å®‹ä½“", 14), D3DCOLOR_XRGB( 0, 255, 255), 15);
 				}
 				else
 				{
 					g_bCheat = FALSE;
-					pGameMainStep->g_tHelp[6].SetText( 200,80 , "»ç¶÷ÀÖ´Ù", GetFont("±¼¸²", 14), D3DCOLOR_XRGB( 0, 255, 255), 15);
+					pGameMainStep->g_tHelp[6].SetText( 200,80 , "»ç¶÷ÀÖ´Ù", GetFont("å®‹ä½“", 14), D3DCOLOR_XRGB( 0, 255, 255), 15);
 				}
 #endif
 			}

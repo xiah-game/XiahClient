@@ -377,25 +377,53 @@ int OnCS_NV_SYNCMOVE_ACK( CMsg &msg)
 	CXiahCharObject *pObject = reinterpret_cast<CXiahCharObject*>(pXiahObject->m_pObject);
 	if(pObject == NULL) return TRUE;
 
-	if( pObject->GetDistance( wPosX, wPosY) > ADJUST_SYNCMOVE_THRESOLD)
-	{
-		pObject->SetPosition( wPosX, wPosY);
-		pObject->SetTargetMove( wDesPosX, wDesPosY, eLBP_CharNavigation, 0);
-		float fSpeed = (float)bSpeed / 9.0f;
-		if( fSpeed > 2.0f)
-			fSpeed = 2.0f;
-		pObject->m_CharRender.SetAnimationSpeed( fSpeed);
+	// === Smooth Sync Fix: always update direction + target, never teleport ===
+	float fBaseSpeed = (float)bSpeed / 9.0f;
+	if( fBaseSpeed < 0.1f) fBaseSpeed = 1.0f;
+	if( fBaseSpeed > 2.0f) fBaseSpeed = 2.0f;
 
-//		float fScale = pObject->GetSyncMoveScale( wPosX, wPosY);
-//		pObject->m_CharRender.SetAnimationSpeed( fScale);
+	float fError = pObject->GetDistance( wPosX, wPosY);
+
+	if( fError > 30.0f)
+	{
+		// Extreme desync (server teleport) - hard snap
+		pObject->SetPosition( wPosX, wPosY);
+		pObject->SetAngle( wDirection);
+		pObject->Update();
+		pObject->SetTargetMove( wDesPosX, wDesPosY, eLBP_CharNavigation, 0);
+		pObject->m_CharRender.SetAnimationSpeed( fBaseSpeed);
 	}
 	else
 	{
-		float fSpeed = (float)bSpeed / 9.0f;
-		/*if( fSpeed > 2.0f)
-			fSpeed = 2.0f;
-		*/
-		pObject->m_CharRender.SetAnimationSpeed( fSpeed);
+		// Normal sync: update direction + target, speed-correct the error
+		// 1. Always update destination and direction (fixes stale-direction bug)
+		pObject->m_TargetPosition.x = (float)wDesPosX;
+		pObject->m_TargetPosition.y = pObject->m_Position.y;
+		pObject->m_TargetPosition.z = -(float)wDesPosY;
+		pObject->m_TargetStartPosition = pObject->m_Position;
+		pObject->m_bTargetMove = TRUE;
+
+		// 2. Update facing angle
+		pObject->SetAngle( wDirection);
+		pObject->Update();
+
+		// 3. Ensure Run animation is playing (avoid resetting if already running)
+		if( pObject->m_nCurMotionType != XiahAniType::eLAT_Run)
+		{
+			pObject->SetAnimation( XiahAniType::eLAT_Run, 1);
+		}
+
+		// 4. Speed correction: behind = speed up, close = normal speed
+		if( fError > 3.0f)
+		{
+			float fCorrectionFactor = 1.0f + (fError - 3.0f) * 0.03f;
+			if( fCorrectionFactor > 1.6f) fCorrectionFactor = 1.6f;
+			pObject->m_CharRender.SetAnimationSpeed( fBaseSpeed * fCorrectionFactor);
+		}
+		else
+		{
+			pObject->m_CharRender.SetAnimationSpeed( fBaseSpeed);
+		}
 	}
 
 	if(pObject->m_bTradeSell)
@@ -457,13 +485,26 @@ int OnCS_NV_ENDMOVE_ACK( CMsg &msg)
 	CXiahCharObject *pObject = reinterpret_cast<CXiahCharObject*>(pXiahObject->m_pObject);
 	if(pObject == NULL) return TRUE;
 
-	if( pObject->GetDistance( wPosX, wPosY) > ADJUST_SYNCMOVE_THRESOLD)
+	// === Smooth EndMove: walk to final position instead of teleporting ===
+	if( pObject->GetDistance( wPosX, wPosY) > 30.0f)
 	{
+		// Extreme: hard snap
 		pObject->SetPosition( wPosX, wPosY);
 		pObject->Update();
+		pObject->SetAnimation( XiahAniType::eLAT_Stand, 0);
 	}
-
-	pObject->SetAnimation( XiahAniType::eLAT_Stand, 0);
+	else if( pObject->GetDistance( wPosX, wPosY) > 1.5f)
+	{
+		// Walk smoothly to final position; arrival detection auto-triggers Stand
+		pObject->SetTargetMove( wPosX, wPosY, eLBP_CharNavigation, 0);
+		pObject->m_CharRender.SetAnimationSpeed( 1.5f);
+	}
+	else
+	{
+		// Already close enough, just stop
+		pObject->SetPosition( wPosX, wPosY);
+		pObject->SetAnimation( XiahAniType::eLAT_Stand, 0);
+	}
 
 	return TRUE;
 }
