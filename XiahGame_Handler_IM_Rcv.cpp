@@ -3,10 +3,10 @@
 
 
 /**
- * @brief °¢¼º ¾ÆÀÌÅÛ »ó½Ã ÀÌÆåÆ® °­Á¦·Î ¿¬°á ÇÔ¼ö
- * \param bItemType ¾ÆÀÌÅÛ Å¸ÀÔ
- * \param wVisualID ºñÁÖ¾ó ID
- * \param pObject ¿ÀºêÁ§Æ® Æ÷ÀÎÅÍ
+ * @brief ê°ì„± ì•„ì´í…œ ìƒì‹œ ì´í™íŠ¸ ê°•ì œë¡œ ì—°ê²° í•¨ìˆ˜
+ * \param bItemType ì•„ì´í…œ íƒ€ì…
+ * \param wVisualID ë¹„ì£¼ì–¼ ID
+ * \param pObject ì˜¤ë¸Œì íŠ¸ í¬ì¸í„°
  */
 void SetRebirthEffect(BYTE bItemType, WORD wVisualID, CXiahCharObject* pObject)
 {
@@ -16,22 +16,22 @@ void SetRebirthEffect(BYTE bItemType, WORD wVisualID, CXiahCharObject* pObject)
 
 		switch(wVisualID)
 		{
-		case 8650:	// ±â¸°¼®
+		case 8650:	// ê¸°ë¦°ì„
 			effectType = eRebirthItem1;
 			break;
-		case 8651:	// ºÀÈ²¼®
+		case 8651:	// ë´‰í™©ì„
 			effectType = eRebirthItem2;
 			break;
-		case 8652:	// Çö¹«¼®
+		case 8652:	// í˜„ë¬´ì„
 			effectType = eRebirthItem3;
 			break;
-		case 8653:	// Ã»·æ¼®
+		case 8653:	// ì²­ë£¡ì„
 			effectType = eRebirthItem4;
 			break;
-		case 8654:	// °Ç°ï¼®
+		case 8654:	// ê±´ê³¤ì„
 			effectType = eRebirthItem5;
 			break;
-		case 8655:	// À½¾ç¼®
+		case 8655:	// ìŒì–‘ì„
 			effectType = eRebirthItem6;
 			break;
 		default:
@@ -39,7 +39,7 @@ void SetRebirthEffect(BYTE bItemType, WORD wVisualID, CXiahCharObject* pObject)
 			break;
 		}
 
-		// ¹Ì¸® ¾Õ¿¡¼­ ³ë°¡´Ù·Î ¿¹¾àÇØµĞ ÀÌÆåÆ®¸¦ °¡Á®¿Í¼­ ¿¬°á ½ÃÄÑ ÁÖÀÚ
+		// ë¯¸ë¦¬ ì•ì—ì„œ ë…¸ê°€ë‹¤ë¡œ ì˜ˆì•½í•´ë‘” ì´í™íŠ¸ë¥¼ ê°€ì ¸ì™€ì„œ ì—°ê²° ì‹œì¼œ ì£¼ì
 		_EFFECTPACKAGE* pPackage = g_EffectManager.EnqAppearEffectImmediately(effectType);
 
 		if(pPackage)
@@ -74,7 +74,7 @@ int OnCS_IM_MAPITEMINFOLIST_ACK(CMsg &msg)
 		DWORD   dwItemID	=0;
 		DWORD	dwAmount	=0;
 		sString	szName;
-		// CG_2005/01/28 : º¯Á¾¾ÆÀÌÅÛ±â´ÉÃß°¡
+		// CG_2005/01/28 : ë³€ì¢…ì•„ì´í…œê¸°ëŠ¥ì¶”ê°€
 		BYTE	bChangeItem = 0; 
 		
 		msg
@@ -87,13 +87,13 @@ int OnCS_IM_MAPITEMINFOLIST_ACK(CMsg &msg)
 			>> szName
 			>> dwItemID
 			>> dwAmount
-			// CG_2005/01/28 : º¯Á¾¾ÆÀÌÅÛ±â´ÉÃß°¡
+			// CG_2005/01/28 : ë³€ì¢…ì•„ì´í…œê¸°ëŠ¥ì¶”ê°€
 			>> bChangeItem;
 
 		if( dwObjectID == 0)
 			continue;
 
-		// »õ·Î¿î Ä³¸¯ÅÍ¸é Ã·ºÎÅÍ »ı¼ºÇÏÁö¸¸, Á¸ÀçÇÏ´Â °Å¶ó¸é µ¥ÀÌÅ¸¸¦ ¹Ù²ãÁØ´Ù.
+		// ìƒˆë¡œìš´ ìºë¦­í„°ë©´ ì²¨ë¶€í„° ìƒì„±í•˜ì§€ë§Œ, ì¡´ì¬í•˜ëŠ” ê±°ë¼ë©´ ë°ì´íƒ€ë¥¼ ë°”ê¿”ì¤€ë‹¤.
 		bool bCreateChar = true;
 
 		XiahObject::CXiahObject* pXiahObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, dwObjectID,OBJTYPE_ITEM) );
@@ -122,32 +122,33 @@ int OnCS_IM_MAPITEMINFOLIST_ACK(CMsg &msg)
 		pItemInfo->m_dwAmount		= dwAmount;
 		pItemInfo->m_dwItemID		= dwItemID;
 
-		XiahItem::SetItemVisualData( pItemInfo);
+		BOOL bVisualOk = XiahItem::SetItemVisualData( pItemInfo);
+		CRes_Character* pChar = NULL;
+		Res_Mesh* pMesh = NULL;
+		Res_CharTexture* pTexture = NULL;
+
+		if (bVisualOk)
+		{
+			pChar = GetCharacter( pItemInfo->m_nMapCharID);
+			if (pChar) pMesh = pChar->GetMesh( pItemInfo->m_nMapMeshType);
+			if (pMesh) pTexture = pMesh->GetTexture( pItemInfo->m_nMapTextureType);
+		}
+
+		if (pChar == NULL || pMesh == NULL || pTexture == NULL)
+		{
+			pItemInfo->m_wVisualID = 10050; // Fallback to safe money pouch visual ID
+			XiahItem::SetItemVisualData( pItemInfo);
+			pChar = GetCharacter( pItemInfo->m_nMapCharID);
+			pMesh = pChar ? pChar->GetMesh( pItemInfo->m_nMapMeshType) : NULL;
+			pTexture = pMesh ? pMesh->GetTexture( pItemInfo->m_nMapTextureType) : NULL;
+		}
 
 		if( bCreateChar )
 		{
-			CRes_Character* pChar = GetCharacter( pItemInfo->m_nMapCharID);
-			if( pChar == NULL)
+			if ( pChar == NULL || pMesh == NULL || pTexture == NULL )
 			{
 				delete pItemInfo;
 				pItemInfo = NULL;
-				return TRUE;
-			}
-
-			Res_Mesh* pMesh = pChar->GetMesh( pItemInfo->m_nMapMeshType);
-			if( pMesh == NULL)
-			{
-				delete pItemInfo;
-				pItemInfo = NULL;
-				return TRUE;
-			}
-
-			Res_CharTexture* pTexture = pMesh->GetTexture( pItemInfo->m_nMapTextureType);
-			if( pTexture == NULL)
-			{
-				delete pItemInfo;
-				pItemInfo = NULL;
-
 				return TRUE;
 			}
 		}// if
@@ -169,8 +170,8 @@ int OnCS_IM_MAPITEMINFOLIST_ACK(CMsg &msg)
 		pObject->Create( pItemInfo->m_nMapCharID, pItemInfo->m_nMapMeshType, pItemInfo->m_nMapTextureType, -1);
 
 		pObject->m_pPrivateData = (DWORD)pItemInfo;
-		pObject->m_PrivateDataDestoryer = XiahItem::ReleaseItemInfo; // ¾Ñ½Î
-		// CG_2005/01/28 : º¯Á¾¾ÆÀÌÅÛ±â´ÉÃß°¡
+		pObject->m_PrivateDataDestoryer = XiahItem::ReleaseItemInfo; // ì•—ì‹¸
+		// CG_2005/01/28 : ë³€ì¢…ì•„ì´í…œê¸°ëŠ¥ì¶”ê°€
 		pObject->m_bChangeItemSet = bChangeItem;
 
 		pObject->SetPosition( wPosX, wPosY);
@@ -196,7 +197,7 @@ int OnCS_IM_MAPITEMINFOLIST_ACK(CMsg &msg)
 		}
 
 		pObject->m_bObjType = OBJTYPE_ITEM;	
-		pObject->m_bCreateItemGroundEffect = true;	// ¹Ù´Ú ¾ÆÀÌÅÛ ÀÌÆåÆ® »ı¼º.
+		pObject->m_bCreateItemGroundEffect = true;	// ë°”ë‹¥ ì•„ì´í…œ ì´í™íŠ¸ ìƒì„±.
 
 		if( bCreateChar )
 			XiahObject::g_XiahObjectManager.CreateXiahObject( dwObjectID, OBJTYPE_ITEM, pObject);
@@ -228,17 +229,17 @@ int OnCS_IM_ADDONMAP_ACK(CMsg& msg)
 		DWORD	dwMapID		=0;
 		DWORD	dwItemID	=0;
 		DWORD	dwAmount	=0;
-		DWORD	dwOwnerID	=0;		// ÁÖ¾îµµ µÇ´Â »ç¶÷ÀÇ ID
+		DWORD	dwOwnerID	=0;		// ì£¼ì–´ë„ ë˜ëŠ” ì‚¬ëŒì˜ ID
 		WORD	wPosX		=0;
 		WORD	wPosY		=0;
 		WORD	wVisualID	=0;
 		BYTE	bHeight		=0;	
 		BYTE	bItemType	=0;				
-		BYTE	bType		=0;		// PC °¡ ¶³¾îÆ®·È³ª? ¾Æ´Ï¸é PET ?
-		BYTE	bFESocket	=0;		// ¼ÒÄÏ ¾ÆÀÌÅÛÀÎÁö
+		BYTE	bType		=0;		// PC ê°€ ë–¨ì–´íŠ¸ë ¸ë‚˜? ì•„ë‹ˆë©´ PET ?
+		BYTE	bFESocket	=0;		// ì†Œì¼“ ì•„ì´í…œì¸ì§€
 
-		// CG_2005/01/28 : º¯Á¾¾ÆÀÌÅÛ±â´ÉÃß°¡
-		BYTE	bChangeItem = 0;			// º¯Á¾¼ÂÆ®¸¦ ´Ù Â÷°íÀÖ³Ä?
+		// CG_2005/01/28 : ë³€ì¢…ì•„ì´í…œê¸°ëŠ¥ì¶”ê°€
+		BYTE	bChangeItem = 0;			// ë³€ì¢…ì…‹íŠ¸ë¥¼ ë‹¤ ì°¨ê³ ìˆëƒ?
 
 		sString	szName;
 
@@ -256,7 +257,7 @@ int OnCS_IM_ADDONMAP_ACK(CMsg& msg)
 			>> dwOwnerID
 			>> bType
 			>> bFESocket
-			// CG_2005/01/28 : º¯Á¾¾ÆÀÌÅÛ±â´ÉÃß°¡
+			// CG_2005/01/28 : ë³€ì¢…ì•„ì´í…œê¸°ëŠ¥ì¶”ê°€
 			>> bChangeItem;
 
 		XiahItem::sItemInfo *pItemInfo = new XiahItem::sItemInfo;
@@ -268,29 +269,28 @@ int OnCS_IM_ADDONMAP_ACK(CMsg& msg)
 		pItemInfo->m_dwItemID		= dwItemID;
 		pItemInfo->m_szName			= szName;
 
-		XiahItem::SetItemVisualData( pItemInfo);
+		BOOL bVisualOk = XiahItem::SetItemVisualData( pItemInfo);
+		CRes_Character* pChar = NULL;
+		Res_Mesh* pMesh = NULL;
+		Res_CharTexture* pTexture = NULL;
 
-		CRes_Character* pChar = GetCharacter( pItemInfo->m_nMapCharID);
-
-		if( pChar == NULL)
+		if (bVisualOk)
 		{
-			delete pItemInfo;
-			pItemInfo = NULL;
-			return TRUE;
+			pChar = GetCharacter( pItemInfo->m_nMapCharID);
+			if (pChar) pMesh = pChar->GetMesh( pItemInfo->m_nMapMeshType);
+			if (pMesh) pTexture = pMesh->GetTexture( pItemInfo->m_nMapTextureType);
 		}
 
-		Res_Mesh* pMesh = pChar->GetMesh( pItemInfo->m_nMapMeshType);
-
-		if( pMesh == NULL)
+		if (pChar == NULL || pMesh == NULL || pTexture == NULL)
 		{
-			delete pItemInfo;
-			pItemInfo = NULL;
-			return TRUE;
+			pItemInfo->m_wVisualID = 10050; // Fallback to safe money pouch visual ID
+			XiahItem::SetItemVisualData( pItemInfo);
+			pChar = GetCharacter( pItemInfo->m_nMapCharID);
+			pMesh = pChar ? pChar->GetMesh( pItemInfo->m_nMapMeshType) : NULL;
+			pTexture = pMesh ? pMesh->GetTexture( pItemInfo->m_nMapTextureType) : NULL;
 		}
 
-		Res_CharTexture* pTexture = pMesh->GetTexture( pItemInfo->m_nMapTextureType);
-
-		if( pTexture == NULL)
+		if (pChar == NULL || pMesh == NULL || pTexture == NULL)
 		{
 			delete pItemInfo;
 			pItemInfo = NULL;
@@ -301,12 +301,12 @@ int OnCS_IM_ADDONMAP_ACK(CMsg& msg)
 		
 		pObject->Create( pItemInfo->m_nMapCharID, pItemInfo->m_nMapMeshType, pItemInfo->m_nMapTextureType, -1);
 
-		// ¾ÆÀÌÅÛ¿¡µµ ÀÌÆåÆ®°¡ ÀÖ±º. ÂÁ.. 
+		// ì•„ì´í…œì—ë„ ì´í™íŠ¸ê°€ ìˆêµ°. ì©.. 
 		pObject->m_CharRender.MakeMeshEffect();
 
 		pObject->m_pPrivateData = (DWORD)pItemInfo;
-		pObject->m_PrivateDataDestoryer = XiahItem::ReleaseItemInfo; // ¾Ñ½Î
-		// CG_2005/01/28 : º¯Á¾¾ÆÀÌÅÛ±â´ÉÃß°¡
+		pObject->m_PrivateDataDestoryer = XiahItem::ReleaseItemInfo; // ì•—ì‹¸
+		// CG_2005/01/28 : ë³€ì¢…ì•„ì´í…œê¸°ëŠ¥ì¶”ê°€
 		pObject->m_bChangeItemSet = bChangeItem;
 
 		pObject->SetPosition( wPosX, wPosY);
@@ -332,23 +332,23 @@ int OnCS_IM_ADDONMAP_ACK(CMsg& msg)
 		}
 
 		pObject->m_bObjType = OBJTYPE_ITEM;
-		pObject->m_bCreateItemGroundEffect = true;	// ¹Ù´Ú ¾ÆÀÌÅÛ ÀÌÆåÆ® »ı¼º.
+		pObject->m_bCreateItemGroundEffect = true;	// ë°”ë‹¥ ì•„ì´í…œ ì´í™íŠ¸ ìƒì„±.
 
 	
 
-		// PETÀÌ ¶³¾î¶ß¸²
+		// PETì´ ë–¨ì–´ëœ¨ë¦¼
 		if(bType == OBJTYPE_PET)
 		{
 			sPetInfo* pet = g_PetList.GetCurrentPet();
 			if(pet) pObject->m_dwOwnerID	= pet->dwOwnID;
 		}
 		else
-		if(bType == OBJTYPE_PC)		// PC°¡ ¶³¾î¶ß¸²
+		if(bType == OBJTYPE_PC)		// PCê°€ ë–¨ì–´ëœ¨ë¦¼
 		{
 			pObject->m_dwOwnerID	= dwOwnerID;
 		}
 
-		// ¼ÒÄÏ ¾ÆÀÌÅÛ
+		// ì†Œì¼“ ì•„ì´í…œ
 		if(bFESocket)
 			pObject->m_cNameColor = D3DCOLOR_XRGB(100, 255, 255);
 
@@ -359,58 +359,58 @@ int OnCS_IM_ADDONMAP_ACK(CMsg& msg)
 		// Drop Item sound
 		switch(bItemType)
 		{
-			case 1:	// ¹«±â
-			case 2:	// ¿Ê
-			case 3:	// ¸ğÀÚ
-			case 4:	// ½Å¹ß
+			case 1:	// ë¬´ê¸°
+			case 2:	// ì˜·
+			case 3:	// ëª¨ì
+			case 4:	// ì‹ ë°œ
 				{
 					g_MainCharInfo.PlayInterfaceSoundWithVol(WEAPON_ITEM_SOUND,sPos);
 				}
 				break;
-			case 6:	// ¹İÁö
-			case 7:	// ¸ñ°ÉÀÌ
+			case 6:	// ë°˜ì§€
+			case 7:	// ëª©ê±¸ì´
 				{
 					g_MainCharInfo.PlayInterfaceSoundWithVol(RING_ITEM_SOUND,sPos);
 				}
 				break;
 
-			case 21:	// Ã¥
+			case 21:	// ì±…
 				{
 					g_MainCharInfo.PlayInterfaceSoundWithVol(BOOK_ITEM_SOUND,sPos);
 				}
 				break;
 
-			case 24:	// µ·
+			case 24:	// ëˆ
 				{
 					g_MainCharInfo.PlayInterfaceSoundWithVol(MONEY_ITEM_SOUND,sPos);
 				}
 				break;
 
-			case 25:	// °³Á¶Àç¿ø (Èæ,¼Ò,Ç÷Á¤)
+			case 25:	// ê°œì¡°ì¬ì› (í‘,ì†Œ,í˜ˆì •)
 				{
-					// Á¦·Ã ÀÚ¿ø¿ë »ç¿îµå
+					// ì œë ¨ ìì›ìš© ì‚¬ìš´ë“œ
 					if(pItemInfo->m_bItemKind >= 4 && pItemInfo->m_bItemKind <= 6)
 					{
 						g_MainCharInfo.PlayInterfaceSoundWithVol(FE_ITEM_SOUND, sPos);
 					}
 					else
 					{
-						// ÀÏ¹İ °³Á¶ÀÚ¿ø
+						// ì¼ë°˜ ê°œì¡°ìì›
 						g_MainCharInfo.PlayInterfaceSoundWithVol(REBUILD_ITEM_SOUND, sPos);
 					}
 				}
 				break;
 
-			default:	// ³ª¸ÓÁö °Íµé
+			default:	// ë‚˜ë¨¸ì§€ ê²ƒë“¤
 				{
-					// Å¸ÀÔÀÌ °ãÃÄ¼­ µû·Î Ã³¸®
-					if(19 == bItemType)	// ÀÌº¥Æ® ¾ÆÀÌÅÛ Å¸ÀÔ
+					// íƒ€ì…ì´ ê²¹ì³ì„œ ë”°ë¡œ ì²˜ë¦¬
+					if(19 == bItemType)	// ì´ë²¤íŠ¸ ì•„ì´í…œ íƒ€ì…
 					{						
-						if(wVisualID >= 400 && wVisualID <= 408)		// Áß¿øÃµµµ
+						if(wVisualID >= 400 && wVisualID <= 408)		// ì¤‘ì›ì²œë„
 						{
 							g_MainCharInfo.PlayInterfaceSoundWithVol(BOOK_ITEM_SOUND,sPos);
 						}
-						else if(wVisualID >= 410 && wVisualID <= 416)	// ¸¶³ë¼¼Æ®
+						else if(wVisualID >= 410 && wVisualID <= 416)	// ë§ˆë…¸ì„¸íŠ¸
 						{
 							g_MainCharInfo.PlayInterfaceSoundWithVol(REBUILD_ITEM_SOUND,sPos);
 						}
@@ -477,7 +477,7 @@ int OnCS_IM_MAPITEMINFO_ACK(CMsg &msg)
 	DWORD	dwMapID		=0;	
 	DWORD   dwItemID	=0;
 	DWORD	dwAmount	=0;
-	// CG_2005/01/28 : º¯Á¾¾ÆÀÌÅÛ±â´ÉÃß°¡
+	// CG_2005/01/28 : ë³€ì¢…ì•„ì´í…œê¸°ëŠ¥ì¶”ê°€
 	BYTE	bChangeItem	=0;
 
 	sString	szName;
@@ -494,13 +494,13 @@ int OnCS_IM_MAPITEMINFO_ACK(CMsg &msg)
 		>> szName
 		>> dwItemID
 		>> dwAmount
-		// CG_2005/01/28 : º¯Á¾¾ÆÀÌÅÛ±â´ÉÃß°¡
+		// CG_2005/01/28 : ë³€ì¢…ì•„ì´í…œê¸°ëŠ¥ì¶”ê°€
 		>> bChangeItem;
 
 	if( dwObjectID == 0)
 		return TRUE;
 
-	// »õ·Î¿î Ä³¸¯ÅÍ¸é Ã·ºÎÅÍ »ı¼ºÇÏÁö¸¸, Á¸ÀçÇÏ´Â °Å¶ó¸é µ¥ÀÌÅ¸¸¦ ¹Ù²ãÁØ´Ù.
+	// ìƒˆë¡œìš´ ìºë¦­í„°ë©´ ì²¨ë¶€í„° ìƒì„±í•˜ì§€ë§Œ, ì¡´ì¬í•˜ëŠ” ê±°ë¼ë©´ ë°ì´íƒ€ë¥¼ ë°”ê¿”ì¤€ë‹¤.
 	bool bCreateChar = true;
 
     XiahObject::CXiahObject* pXiahObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, dwObjectID,OBJTYPE_ITEM) );
@@ -527,28 +527,30 @@ int OnCS_IM_MAPITEMINFO_ACK(CMsg &msg)
 	pItemInfo->m_dwAmount		= dwAmount;
 	pItemInfo->m_dwItemID		= dwItemID;
 
-	XiahItem::SetItemVisualData( pItemInfo);
+	BOOL bVisualOk = XiahItem::SetItemVisualData( pItemInfo);
+	CRes_Character* pChar = NULL;
+	Res_Mesh* pMesh = NULL;
+	Res_CharTexture* pTexture = NULL;
+
+	if (bVisualOk)
+	{
+		pChar = GetCharacter( pItemInfo->m_nMapCharID);
+		if (pChar) pMesh = pChar->GetMesh( pItemInfo->m_nMapMeshType);
+		if (pMesh) pTexture = pMesh->GetTexture( pItemInfo->m_nMapTextureType);
+	}
+
+	if (pChar == NULL || pMesh == NULL || pTexture == NULL)
+	{
+		pItemInfo->m_wVisualID = 10050; // Fallback to safe money pouch visual ID
+		XiahItem::SetItemVisualData( pItemInfo);
+		pChar = GetCharacter( pItemInfo->m_nMapCharID);
+		pMesh = pChar ? pChar->GetMesh( pItemInfo->m_nMapMeshType) : NULL;
+		pTexture = pMesh ? pMesh->GetTexture( pItemInfo->m_nMapTextureType) : NULL;
+	}
 
 	if( bCreateChar )
 	{
-		CRes_Character* pChar = GetCharacter( pItemInfo->m_nMapCharID);
-		if( pChar == NULL)
-		{
-			delete pItemInfo;
-			pItemInfo = NULL;
-			return TRUE;
-		}
-
-		Res_Mesh* pMesh = pChar->GetMesh( pItemInfo->m_nMapMeshType);
-		if( pMesh == NULL)
-		{
-			delete pItemInfo;
-			pItemInfo = NULL;
-			return TRUE;
-		}
-
-		Res_CharTexture* pTexture = pMesh->GetTexture( pItemInfo->m_nMapTextureType);
-		if( pTexture == NULL)
+		if ( pChar == NULL || pMesh == NULL || pTexture == NULL )
 		{
 			delete pItemInfo;
 			pItemInfo = NULL;
@@ -573,8 +575,8 @@ int OnCS_IM_MAPITEMINFO_ACK(CMsg &msg)
 	pObject->Create( pItemInfo->m_nMapCharID, pItemInfo->m_nMapMeshType, pItemInfo->m_nMapTextureType, -1);
 
 	pObject->m_pPrivateData = (DWORD)pItemInfo;
-	pObject->m_PrivateDataDestoryer = XiahItem::ReleaseItemInfo; // ¾Ñ½Î
-	// CG_2005/01/28 : º¯Á¾¾ÆÀÌÅÛ±â´ÉÃß°¡
+	pObject->m_PrivateDataDestoryer = XiahItem::ReleaseItemInfo; // ì•—ì‹¸
+	// CG_2005/01/28 : ë³€ì¢…ì•„ì´í…œê¸°ëŠ¥ì¶”ê°€
 	pObject->m_bChangeItemSet = bChangeItem;
 
 	pObject->SetPosition( wPosX, wPosY);
@@ -598,7 +600,7 @@ int OnCS_IM_MAPITEMINFO_ACK(CMsg &msg)
 }
 
 /**
- * Çà³¶¿¡¼­ Á¦°Å
+ * í–‰ë‚­ì—ì„œ ì œê±°
  * \param &msg 
  * \return 
  */
@@ -619,7 +621,7 @@ int OnCS_IM_REMOVEFROMSACK_ACK(CMsg &msg)
 	}
 	else if( bSackID == SACKTYPE__DEFAULT || bSackID == SACKTYPE__DEFAULT2)
 	{		
-		// ´©¼ö ¼öÁ¤
+		// ëˆ„ìˆ˜ ìˆ˜ì •
 		g_MainCharInfo.m_pMySack[ bSackID -1]->DeleteItem( bSackPos, true);
 	}
 	else if( bSackID == SACKTYPE__EQUIPMENT)
@@ -631,39 +633,39 @@ int OnCS_IM_REMOVEFROMSACK_ACK(CMsg &msg)
 			if(pItemInfo->m_bItemType == ITEMTYPE_SOCKET)
 				g_MainCharInfo.m_bPortalMove = true;
 
-			// ´©¼ö ¼öÁ¤
+			// ëˆ„ìˆ˜ ìˆ˜ì •
 			g_MainCharInfo.m_pEquipSack->DeleteItem( bSackPos, true);
 		}		
 	}
 	else if(bSackID == SACKTYPE_COLLECTION)
 	{
-		// ´©¼ö ¼öÁ¤
+		// ëˆ„ìˆ˜ ìˆ˜ì •
 		g_MainCharInfo.m_pCollection->DeleteItem(bSackPos, true);
 	}
 
 	switch(bReson)
 	{
-	case 7:		// ³»±¸µµ ¼Ò½Ç±úÁü
+	case 7:		// ë‚´êµ¬ë„ ì†Œì‹¤ê¹¨ì§
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_ITEM_DESTRYCTION_1, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case 13:	// ÅõÃ´¹«°­¿¡ ÀÇÇØ ±úÁü
+	case 13:	// íˆ¬ì²™ë¬´ê°•ì— ì˜í•´ ê¹¨ì§
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_ITEM_DESTRYCTION_2, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case 15:	// º¸Çè°¡ÀÔÁßÀÎ ¾ÆÀÌÅÛ ±úÁü
+	case 15:	// ë³´í—˜ê°€ì…ì¤‘ì¸ ì•„ì´í…œ ê¹¨ì§
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_ITEM_DESTRYCTION_3, TEXTEFFECT_COLOR_WARNING);
 		}
 	    break;
-	case 20:	//HT_0914 : ±â¿¬Ã¢ ¹× ³¶ ¾ÆÀÌÅÛ °³¼± »çÇ× (³¶ ¾ÆÀÌÅÛ ÆÄ¼Õ)
+	case 20:	//HT_0914 : ê¸°ì—°ì°½ ë° ë‚­ ì•„ì´í…œ ê°œì„  ì‚¬í•­ (ë‚­ ì•„ì´í…œ íŒŒì†)
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_ITEM_DESTRYCTION_4, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case 21:	//HT_0410 : ½Å±Ô ºùÁ¤·ù Ãß°¡ (ºùÁ¤·ù ÆÄ¼Õ)
+	case 21:	//HT_0410 : ì‹ ê·œ ë¹™ì •ë¥˜ ì¶”ê°€ (ë¹™ì •ë¥˜ íŒŒì†)
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_ITEM_DESTRYCTION_5, TEXTEFFECT_COLOR_WARNING);
 		}
@@ -687,7 +689,7 @@ int OnCS_IM_ADDONSACK_ACK(CMsg &msg)
 		>> bSackPos;
 	XiahItem::GetItemData( pItem, msg);
 	
-	//HT_1116 : °¢¼ºÀÚ ¾ÆÀÌÅÛ Ãß°¡
+	//HT_1116 : ê°ì„±ì ì•„ì´í…œ ì¶”ê°€
 	msg
 		>> pItem->m_wRebuithValue;
 
@@ -725,21 +727,21 @@ int OnCS_IM_MOVE_ACK( CMsg &msg)
 		>> bDesSackID
 		>> bDesSackPos;
 
-	// ½ÇÆĞ ¶³¾îÁö¸é
+	// ì‹¤íŒ¨ ë–¨ì–´ì§€ë©´
 	if(bResult != 0) 
 	{
 		switch( bResult)
 		{
-		case 1:	// ÇØ´ç ¾ÆÀÌÅÛ ¾øÀ½
+		case 1:	// í•´ë‹¹ ì•„ì´í…œ ì—†ìŒ
 			g_MainCharInfo.ShowHelpMessage( IDS_NO_SUCH_ITEM, TEXTEFFECT_COLOR_WARNING);
 			break;
-		case 2:	// ÀÌµ¿ °¡´É °ø°£ ¾øÀ½
+		case 2:	// ì´ë™ ê°€ëŠ¥ ê³µê°„ ì—†ìŒ
 			g_MainCharInfo.ShowHelpMessage( IDS_NO_MOVEABLE_SPACE, TEXTEFFECT_COLOR_WARNING);
 			break;
-		case 3:	// ´É·Â ºÎÁ·
+		case 3:	// ëŠ¥ë ¥ ë¶€ì¡±
 			g_MainCharInfo.ShowHelpMessage( IDS_SHORT_ABLE, TEXTEFFECT_COLOR_WARNING);
 			break;
-		case 4:	// µğºñ ´íÎó
+		case 4:	// ë””ë¹„ ëŒ„è½
 			g_MainCharInfo.ShowHelpMessage(IDS_REL_ERR_INTERNAL, TEXTEFFECT_COLOR_WARNING);
 			break;
 		case 10:
@@ -763,17 +765,17 @@ int OnCS_IM_MOVE_ACK( CMsg &msg)
 		case 16:
 			g_MainCharInfo.ShowHelpMessage(IDS_NOTMOVECHANGEEVENTITEM);
 			break;
-		case 17:	// °Å·¡ÁßÀÎ ¾ÆÀÌÅÛÀº ÀÌµ¿ÇÒ¼ö ¾ø½À´Ï´Ù.
+		case 17:	// ê±°ë˜ì¤‘ì¸ ì•„ì´í…œì€ ì´ë™í• ìˆ˜ ì—†ìŠµë‹ˆë‹¤.
 			g_MainCharInfo.ShowHelpMessage(IDS_NOTMOVE_TRADETITEM, TEXTEFFECT_COLOR_WARNING);
 			break;
-			// CG_2005/01/28 : º¯Á¾¾ÆÀÌÅÛ±â´ÉÃß°¡
-		case ERR_CITEM_NOTINSAMECHARTYPE:	//º¯Á¾ ¿Ê°ú ¸ğÀÚ´Â µ¿ÀÏ °è¿­ ÀÏ °æ¿ì¸¸ ÀåÂø °¡´ÉÇÔ.
+			// CG_2005/01/28 : ë³€ì¢…ì•„ì´í…œê¸°ëŠ¥ì¶”ê°€
+		case ERR_CITEM_NOTINSAMECHARTYPE:	//ë³€ì¢… ì˜·ê³¼ ëª¨ìëŠ” ë™ì¼ ê³„ì—´ ì¼ ê²½ìš°ë§Œ ì¥ì°© ê°€ëŠ¥í•¨.
 			g_MainCharInfo.ShowHelpMessage( IDS_NOTINSAMECHARTYPE, TEXTEFFECT_COLOR_WARNING);
 			break;
-		case ERR_CITEM_NOTOUTSAMECHARTYPE:	//º¯Á¾ ¿Ê¿¡ ´ëÇÏ¿© Å»Âø ÇÒ °æ¿ì º¯Á¾ ¸ğÀÚºÎÅÍ Å»Âø ÇØ¾ß ÇÔ.
+		case ERR_CITEM_NOTOUTSAMECHARTYPE:	//ë³€ì¢… ì˜·ì— ëŒ€í•˜ì—¬ íƒˆì°© í•  ê²½ìš° ë³€ì¢… ëª¨ìë¶€í„° íƒˆì°© í•´ì•¼ í•¨.
 			g_MainCharInfo.ShowHelpMessage( IDS_NOTOUTSAMECHARTYPE, TEXTEFFECT_COLOR_WARNING);
 			break;
-		case 21:	//±¤¸íÀü & ÃµÈ²Àü Âø¿ë ±İÁö 
+		case 21:	//ê´‘ëª…ì „ & ì²œí™©ì „ ì°©ìš© ê¸ˆì§€ 
 			g_MainCharInfo.ShowHelpMessage( IDS_SECRETNOTUSE, TEXTEFFECT_COLOR_WARNING);
 			break;
 		}
@@ -786,8 +788,8 @@ int OnCS_IM_MOVE_ACK( CMsg &msg)
 	}
 	else
 	{
-		// ¼º°ø ÇÏ¸é
-		// client¿¡¼­´Â µÎ°³¸¦ °°Àº Å¸ÀÔÀ¸·Î ÀÎ½Ä½ÃÄÑ¾ßÇÑ´Ù.
+		// ì„±ê³µ í•˜ë©´
+		// clientì—ì„œëŠ” ë‘ê°œë¥¼ ê°™ì€ íƒ€ì…ìœ¼ë¡œ ì¸ì‹ì‹œì¼œì•¼í•œë‹¤.
 		if( bSrcSackID == SACKTYPE__DEFAULT2)
 			bSrcSackID = SACKTYPE__DEFAULT;
 		if( bDesSackID == SACKTYPE__DEFAULT2)
@@ -806,7 +808,7 @@ int OnCS_IM_MOVE_ACK( CMsg &msg)
 
 		XiahItem::sItemInfo* pHoldItem = g_MainCharInfo.m_pHoldItem->GetHoldItemItem();
 
-		// À½.. ¿©±â¼­ holditem¾øÀ¸¸é ¾ÈµÇ´Âµ¥ -_-¤»
+		// ìŒ.. ì—¬ê¸°ì„œ holditemì—†ìœ¼ë©´ ì•ˆë˜ëŠ”ë° -_-ã…‹
 		if( !pHoldItem)
 			return FALSE;
 
@@ -890,7 +892,7 @@ int OnCS_IM_MOVE_ACK( CMsg &msg)
 }
 
 /**
- * ¹«°ø¼­ ÀĞ±â
+ * ë¬´ê³µì„œ ì½ê¸°
  * \param &msg 
  * \return 
  */
@@ -935,13 +937,13 @@ int OnCS_IM_READRESULT_ACK( CMsg &msg)
 	case 10:
 		g_MainCharInfo.ShowHelpMessage(IDS_FIVEELEMENT_EXPLACK, TEXTEFFECT_COLOR_WARNING);		
 		break;
-	case 11:	// ¾Ç¸íµî±ŞÀÌ 5 °¨¼Ò
+	case 11:	// ì•…ëª…ë“±ê¸‰ì´ 5 ê°ì†Œ
 		g_MainCharInfo.ShowHelpMessage(IDS_FAME_DIMINUTION);		
 		break;
-	case 12:	// ¸í¼ºµî±Ş »ç¿ë ºÒ°¡
+	case 12:	// ëª…ì„±ë“±ê¸‰ ì‚¬ìš© ë¶ˆê°€
 		g_MainCharInfo.ShowHelpMessage(IDS_FAME_NOT, TEXTEFFECT_COLOR_WARNING);		
 		break;
-	case 13:	// ¼ºÀÎ¼­¹ö¿¡¼­¸¸ »ç¿ë°¡´É
+	case 13:	// ì„±ì¸ì„œë²„ì—ì„œë§Œ ì‚¬ìš©ê°€ëŠ¥
 		g_MainCharInfo.ShowHelpMessage(IDS_ADULT_ITEM, TEXTEFFECT_COLOR_WARNING);		
 		break;
 	case 14:
@@ -955,16 +957,16 @@ int OnCS_IM_READRESULT_ACK( CMsg &msg)
 		g_MainCharInfo.ShowHelpMessage( IDS_REBIRTH_MUGONG_BOOK_04, TEXTEFFECT_COLOR_WARNING);
 		g_MainCharInfo.ShowHelpMessage( IDS_REBIRTH_MUGONG_BOOK_05, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case 17: // ¹«°ø ·¹º§ÀÌ 0 ÀÏ¶§ Áß¼­³ª °í¼­¸¦ ÀÍÈú·Á±¸ ÇÒ °æ¿ì
+	case 17: // ë¬´ê³µ ë ˆë²¨ì´ 0 ì¼ë•Œ ì¤‘ì„œë‚˜ ê³ ì„œë¥¼ ìµíë ¤êµ¬ í•  ê²½ìš°
 		g_MainCharInfo.ShowHelpMessage( IDS_NO_MUGONGLEVEL, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case 18: // Áø°¢¼ºÀÚ¸¸ ÀÍÈú ¼ö ÀÖ´Ù.
+	case 18: // ì§„ê°ì„±ìë§Œ ìµí ìˆ˜ ìˆë‹¤.
 		g_MainCharInfo.ShowHelpMessage( IDS_2TH_REBIRTH_MUGONG_BOOK, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case 19: // Áø°¢¼º Â÷¼ö°¡ ¸ğÀÚ¸¦ °æ¿ì
+	case 19: // ì§„ê°ì„± ì°¨ìˆ˜ê°€ ëª¨ìë¥¼ ê²½ìš°
 		g_MainCharInfo.ShowHelpMessage( IDS_2TH_REBIRTH_MUGONG_SHORT, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case 20: // Èì¼º ½Å°øÀ» 2°³ ÀÌ»ó ¹è¿üÀ» °æ¿ì
+	case 20: // í ì„± ì‹ ê³µì„ 2ê°œ ì´ìƒ ë°°ì› ì„ ê²½ìš°
 		g_MainCharInfo.ShowHelpMessage( IDS_2TH_REBIRTH_MUGONG_MORE, TEXTEFFECT_COLOR_WARNING);
 		break;
     }
@@ -987,13 +989,13 @@ int OnCS_IM_CHANGERES_ACK( CMsg &msg)
 		>> dwObjectID
 		>> wAmount;
 
-	// ^^ º¸·ù
+	// ^^ ë³´ë¥˜
 	//if( g_MainCharInfo.m_pHoldItem->IsHoldingItemItem())
 	//	g_MainCharInfo.m_pHoldItem->SetItemBackToSack();
 
 	if( g_MainCharInfo.m_pMySack[ bSackID-1])
 	{
-		// desItemÀÇ amount º¯°æ
+		// desItemì˜ amount ë³€ê²½
 		XiahItem::sItemInfo* pInfo = g_MainCharInfo.m_pMySack[ bSackID-1]->FindSackItemByPos( bSackPos);
 		if( pInfo)
 			pInfo->m_dwAmount = wAmount;
@@ -1070,7 +1072,7 @@ int OnCS_IM_DURABILITY_ACK( CMsg &msg)
 }
 
 /**
- * ¾ÆÀÌÅÛ¼ö¸®
+ * ì•„ì´í…œìˆ˜ë¦¬
  * \param &msg 
  * \return 
  */
@@ -1085,7 +1087,7 @@ int OnCS_IM_REPAIRITEM_ACK( CMsg &msg)
 
 	switch(bResult)
 	{
-		case 0:	// ¼º°ø
+		case 0:	// ì„±ê³µ
 			{
 				TCHAR content[50] = {0,};
 				_stprintf(content, IDS_REPAIR_COMPLETE_PAY, dwMoney);
@@ -1139,14 +1141,14 @@ int OnCS_IM_REPAIRITEM_ACK( CMsg &msg)
 				g_MainCharInfo.ShowHelpMessage(IDS_REPARIITEM_NOTREPAIRITEM, TEXTEFFECT_COLOR_WARNING);			
 			}			
 			break;
-			// CG_2005/01/28 : º¯Á¾¾ÆÀÌÅÛ±â´ÉÃß°¡
-		case ERR_REPARIITEM_NOTCITEM_INEQUIP:	//ÀåÂø ÁßÀÎ º¯Á¾¾ÆÀÌÅÛÀº ¼ö¸® ºÒ°¡ 
+			// CG_2005/01/28 : ë³€ì¢…ì•„ì´í…œê¸°ëŠ¥ì¶”ê°€
+		case ERR_REPARIITEM_NOTCITEM_INEQUIP:	//ì¥ì°© ì¤‘ì¸ ë³€ì¢…ì•„ì´í…œì€ ìˆ˜ë¦¬ ë¶ˆê°€ 
 			g_MainCharInfo.ShowHelpMessage( IDS_REPARIITEM_NOTCITEM_INEQUIP, TEXTEFFECT_COLOR_WARNING ); 
 			break;
-		case ERR_REPARIITEM_REBACKITEM:			//º¯Á¾¾ÆÀÌÅÛ ¼ö¸®°¡´É È½¼ö ÃÊ°ú·Î ÀÎÇÏ¿© ¿ø¾ÆÀÌÅÛÀ¸·Î º¹¿ø µÇ¾ú½À´Ï´Ù
+		case ERR_REPARIITEM_REBACKITEM:			//ë³€ì¢…ì•„ì´í…œ ìˆ˜ë¦¬ê°€ëŠ¥ íšŸìˆ˜ ì´ˆê³¼ë¡œ ì¸í•˜ì—¬ ì›ì•„ì´í…œìœ¼ë¡œ ë³µì› ë˜ì—ˆìŠµë‹ˆë‹¤
 			g_MainCharInfo.ShowHelpMessage( IDS_REPARIITEM_REBACKITEM, TEXTEFFECT_COLOR_WARNING ); 
 			break;	
-		case ERR_REPARIITEM_BONGINITEM:			//HT_0410 : ½Å±Ô ºùÁ¤·ù Ãß°¡
+		case ERR_REPARIITEM_BONGINITEM:			//HT_0410 : ì‹ ê·œ ë¹™ì •ë¥˜ ì¶”ê°€
 			g_MainCharInfo.ShowHelpMessage( IDS_REPARIITEM_NOTREPAIRITEM, TEXTEFFECT_COLOR_WARNING ); 
 			break;	
 
@@ -1174,7 +1176,7 @@ int OnCS_IM_REPAIRWITHITEM_ACK(CMsg &msg)
 				g_MainCharInfo.ShowHelpMessage( content);
 				g_MainCharInfo.PlayInterfaceSound(ITEM_REPAIR_SOUND);
 
-				// [3/19/2004] ÀåÂø ¾ÆÀÌÅÛÀº ³ªÁß¿¡ ÇØÁÖÀÚ
+				// [3/19/2004] ì¥ì°© ì•„ì´í…œì€ ë‚˜ì¤‘ì— í•´ì£¼ì
 			}
 			break;
 		case ERR_REPAIRWITHITEM_NOTFOUND:
@@ -1200,14 +1202,14 @@ int OnCS_IM_REPAIRWITHITEM_ACK(CMsg &msg)
 		case ERR_REPARIITEM_NOTREPAIRITEM:
 			g_MainCharInfo.ShowHelpMessage(IDS_REPARIITEM_NOTREPAIRITEM, TEXTEFFECT_COLOR_WARNING);
 			break;
-			// CG_2005/01/28 : º¯Á¾¾ÆÀÌÅÛ±â´ÉÃß°¡
-		case ERR_REPARIITEM_NOTCITEM_INEQUIP:	//ÀåÂø ÁßÀÎ º¯Á¾¾ÆÀÌÅÛÀº ¼ö¸® ºÒ°¡ 
+			// CG_2005/01/28 : ë³€ì¢…ì•„ì´í…œê¸°ëŠ¥ì¶”ê°€
+		case ERR_REPARIITEM_NOTCITEM_INEQUIP:	//ì¥ì°© ì¤‘ì¸ ë³€ì¢…ì•„ì´í…œì€ ìˆ˜ë¦¬ ë¶ˆê°€ 
 			g_MainCharInfo.ShowHelpMessage( IDS_REPARIITEM_NOTCITEM_INEQUIP, TEXTEFFECT_COLOR_WARNING); 
 			break;
-		case ERR_REPARIITEM_REBACKITEM:			//º¯Á¾¾ÆÀÌÅÛ ¼ö¸®°¡´É È½¼ö ÃÊ°ú·Î ÀÎÇÏ¿© ¿ø¾ÆÀÌÅÛÀ¸·Î º¹¿ø µÇ¾ú½À´Ï´Ù
+		case ERR_REPARIITEM_REBACKITEM:			//ë³€ì¢…ì•„ì´í…œ ìˆ˜ë¦¬ê°€ëŠ¥ íšŸìˆ˜ ì´ˆê³¼ë¡œ ì¸í•˜ì—¬ ì›ì•„ì´í…œìœ¼ë¡œ ë³µì› ë˜ì—ˆìŠµë‹ˆë‹¤
 			g_MainCharInfo.ShowHelpMessage( IDS_REPARIITEM_REBACKITEM, TEXTEFFECT_COLOR_WARNING); 
 			break;
-		case ERR_REPARIITEM_BONGINITEM:			//HT_0410 : ½Å±Ô ºùÁ¤·ù Ãß°¡
+		case ERR_REPARIITEM_BONGINITEM:			//HT_0410 : ì‹ ê·œ ë¹™ì •ë¥˜ ì¶”ê°€
 			g_MainCharInfo.ShowHelpMessage( IDS_REPARIITEM_NOTREPAIRITEM, TEXTEFFECT_COLOR_WARNING ); 
 			break;	
 	}
@@ -1245,7 +1247,7 @@ int OnCS_IM_REMARKITEM_ACK(CMsg &msg)
 }
 
 /**
- * ¾ÆÀÌÅÛ °³Á¶/Á¦·Ã
+ * ì•„ì´í…œ ê°œì¡°/ì œë ¨
  * \param &msg 
  * \return 
  */
@@ -1285,7 +1287,7 @@ int OnCS_IM_REBUILDITEMTERM_ACK( CMsg &msg)
 	{
 		if( g_MainCharInfo.m_pHoldItem->IsHoldingItemItem())
 		{
-			// ¹º°¡°¡ ÀÖÀ¸¸é ¿ø·¡ À§Ä¡·Î µ¹·ÁÁÖ°í
+			// ë­”ê°€ê°€ ìˆìœ¼ë©´ ì›ë˜ ìœ„ì¹˜ë¡œ ëŒë ¤ì£¼ê³ 
 			XiahItem::sItemInfo* pItem = g_MainCharInfo.m_pModifySack->FindSackItemByPos( 0);
 			if(pItem)
 			{
@@ -1305,7 +1307,7 @@ int OnCS_IM_REBUILDITEMTERM_ACK( CMsg &msg)
 				}				
 			}
 
-			// È¦µå¾ÆÀÌÅÛ ³Ö¾îÁÖ±â
+			// í™€ë“œì•„ì´í…œ ë„£ì–´ì£¼ê¸°
 			g_MainCharInfo.m_pHoldItem->GetHoldItemItem()->m_bSackID = SACKTYPE__MODIFY;
 			g_MainCharInfo.m_pHoldItem->GetHoldItemItem()->m_bSackIDPrev = g_MainCharInfo.m_pHoldItem->GetHoldItemItem()->m_bSackCount;
 			g_MainCharInfo.m_pHoldItem->GetHoldItemItem()->m_bSackPosPrev = g_MainCharInfo.m_pHoldItem->GetHoldItemItem()->m_bSackPos;
@@ -1332,7 +1334,7 @@ int OnCS_IM_REBUILDITEMTERM_ACK( CMsg &msg)
 }
 
 /**
- * °³Á¶/Á¦·Ã
+ * ê°œì¡°/ì œë ¨
  * \param &msg 
  * \return 
  */
@@ -1356,7 +1358,7 @@ int OnCS_IM_REBUILDITEM_ACK(CMsg &msg)
 
 	switch(bResult)
 	{	
-	case ERR_REBUILDITEM_SUCCESS:				// °³Á¶ ¼º°ø
+	case ERR_REBUILDITEM_SUCCESS:				// ê°œì¡° ì„±ê³µ
 		{
 			if(bFEShow)
 				g_MainCharInfo.ShowHelpMessage(IDS_FE_ITEMCONVERT_COMPLETE);
@@ -1497,7 +1499,7 @@ int OnCS_IM_REBUILDITEM_ACK(CMsg &msg)
 		}
 		break;
 
-	case ERR_REBUILDITEM_CANNOTTREBUILD:		//°³Á¶ºÒ°¡
+	case ERR_REBUILDITEM_CANNOTTREBUILD:		//ê°œì¡°ë¶ˆê°€
 		{
 			if(bFEShow)
 				g_MainCharInfo.ShowHelpMessage(IDS_FE_NO_CONVERT, TEXTEFFECT_COLOR_WARNING);
@@ -1506,19 +1508,19 @@ int OnCS_IM_REBUILDITEM_ACK(CMsg &msg)
 		}
 		break;
 
-	case ERR_MELTINGITEM_CANNOTTMELTING:		//NIGHT_0512 : MELTING  ÃßÃâºÒ°¡¾ÆÀÌÅÛ
+	case ERR_MELTINGITEM_CANNOTTMELTING:		//NIGHT_0512 : MELTING  ì¶”ì¶œë¶ˆê°€ì•„ì´í…œ
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_CANNOTTMELTING);
 		}
 		break;
 
-	case ERR_MELTINGITEM_NEEDEMPTYSACK:			//NIGHT_0512 : MELTING	Çà³¶°ø°£ºÎÁ·
+	case ERR_MELTINGITEM_NEEDEMPTYSACK:			//NIGHT_0512 : MELTING	í–‰ë‚­ê³µê°„ë¶€ì¡±
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_FULL_SACK);
 		}
 		break;
 
-	case ERR_MELTINGITEM_SUCCESS:				//NIGHT_0512 : MELTING	ÃßÃâ¼º°ø
+	case ERR_MELTINGITEM_SUCCESS:				//NIGHT_0512 : MELTING	ì¶”ì¶œì„±ê³µ
 		{
 			TCHAR str[50] = {0,};
 			_stprintf( str, IDS_MELTING_REPORT, szItemname.data(), bItemnum);
@@ -1527,43 +1529,43 @@ int OnCS_IM_REBUILDITEM_ACK(CMsg &msg)
 		}
 		break;
 
-	case ERR_MELTINGITEM_FAIL:					//NIGHT_0512 : MELTING	ÃßÃâ½ÇÆĞ
+	case ERR_MELTINGITEM_FAIL:					//NIGHT_0512 : MELTING	ì¶”ì¶œì‹¤íŒ¨
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_MELTINGITEM_FAIL);
 		}
 		break;
-	case ERR_REBUILDITEM_NOTSLOTITEM:		//±â°ø(±¸¸Û)À» ¶ÕÀ»¼ö ¾ø´Â ¾ÆÀÌÅÛ
+	case ERR_REBUILDITEM_NOTSLOTITEM:		//ê¸°ê³µ(êµ¬ë©)ì„ ëš«ì„ìˆ˜ ì—†ëŠ” ì•„ì´í…œ
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_REBUILDITEM_NOTSLOTITEM, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case ERR_REBUILDITEM_MAXSLOT:			//±â°øÀ» ´õÀÌ»ó ¶ÕÀ» ¼ö ¾ø´Ù.
+	case ERR_REBUILDITEM_MAXSLOT:			//ê¸°ê³µì„ ë”ì´ìƒ ëš«ì„ ìˆ˜ ì—†ë‹¤.
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_REBUILDITEM_MAXSLOT, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case ERR_REBUILDITEM_NOTFOUNDSLOT:		//±â°øÀÌ ¾ø´Ù
+	case ERR_REBUILDITEM_NOTFOUNDSLOT:		//ê¸°ê³µì´ ì—†ë‹¤
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_REBUILDITEM_NOTFOUNDSLOT, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case ERR_REBUILDITEM_FULLSLOTFIVEELM:	//ºñ¾îÀÖ´Â ±â°øÀÌ ¾ø´Ù.
+	case ERR_REBUILDITEM_FULLSLOTFIVEELM:	//ë¹„ì–´ìˆëŠ” ê¸°ê³µì´ ì—†ë‹¤.
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_REBUILDITEM_FULLSLOTFIVEELM, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case ERR_REBUILDITEM_NOTFOUNDFIVEELM:	//¿ÀÇà¼Ó¼ºÀÌ ¾ø´Ù(¿ÀÇà¼Ó¼ºÁ¦°Å½Ã)
+	case ERR_REBUILDITEM_NOTFOUNDFIVEELM:	//ì˜¤í–‰ì†ì„±ì´ ì—†ë‹¤(ì˜¤í–‰ì†ì„±ì œê±°ì‹œ)
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_REBUILDITEM_NOTFOUNDFIVEELM, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case ERR_REBUILDITEM_MADESLOTFAIL:		//±â°øÀ» ¶Õ±â ½ÇÆĞ(+,¼º,Á¦ÇÑ¿ä±¸Ä¡ °¨¼Ò½ÃÅ²´Ù)
+	case ERR_REBUILDITEM_MADESLOTFAIL:		//ê¸°ê³µì„ ëš«ê¸° ì‹¤íŒ¨(+,ì„±,ì œí•œìš”êµ¬ì¹˜ ê°ì†Œì‹œí‚¨ë‹¤)
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_REBUILDITEM_MADESLOTFAIL, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
 
-		// CG_2005/01/28 : º¯Á¾¾ÆÀÌÅÛ±â´ÉÃß°¡
+		// CG_2005/01/28 : ë³€ì¢…ì•„ì´í…œê¸°ëŠ¥ì¶”ê°€
 	case ERR_CHANGEITEM_SUCCESS:
 		{
 			g_MainCharInfo.ShowHelpMessage( IDS_CHANGEITEM_SUCCESS );
@@ -1595,19 +1597,19 @@ int OnCS_IM_REBUILDITEM_ACK(CMsg &msg)
 
 		}
 		break;
-	case ERR_GUARANTEEITEM_SUCCESS:		// ¾ÆÀÌÅÛ º¸Çè
+	case ERR_GUARANTEEITEM_SUCCESS:		// ì•„ì´í…œ ë³´í—˜
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_ITEMCONVERT_COMPLETE);
 			g_MainCharInfo.ShowHelpMessage(IDS_GUARANTEEITEM_SUCCESS);
 			g_MainCharInfo.HideSack(SACKTYPE__MODIFY, TRUE);
 		}
 		break;
-	case ERR_REBIRTHITEM_OVERSOURCE:	//HT_1116 : °¢¼ºÀÚ ¾ÆÀÌÅÛ Ãß°¡
+	case ERR_REBIRTHITEM_OVERSOURCE:	//HT_1116 : ê°ì„±ì ì•„ì´í…œ ì¶”ê°€
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_REBIRTHITEM_OVERSOURCE, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case ERR_REBIRTHITEM_REMAKEFAIL:	//HT_1116 : °¢¼ºÀÚ ¾ÆÀÌÅÛ Ãß°¡
+	case ERR_REBIRTHITEM_REMAKEFAIL:	//HT_1116 : ê°ì„±ì ì•„ì´í…œ ì¶”ê°€
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_REBIRTHITEM_REMAKEFAIL, TEXTEFFECT_COLOR_WARNING);
 		}
@@ -1668,7 +1670,7 @@ int OnCS_IM_ITEMINFO_ACK( CMsg &msg)
 			XiahItem::GetItemData( g_MainCharInfo.m_pHoldItem->GetHoldItemItem(), msg);
 		}
 	}
-	//HT_1116 : °¢¼ºÀÚ ¾ÆÀÌÅÛ Ãß°¡
+	//HT_1116 : ê°ì„±ì ì•„ì´í…œ ì¶”ê°€
 	msg
 		>> pItem->m_wRebuithValue;
 
@@ -1711,13 +1713,13 @@ int OnCS_IM_PICK_ACK( CMsg &msg)
 			g_MainCharInfo.PlayInterfaceSound( ISOUND_WARNING);
 		}		
 		break;
-	case ERR_PICK_OVERMONEY:	// ¼ÒÁö±İ¾× ÃÊ°ú
+	case ERR_PICK_OVERMONEY:	// ì†Œì§€ê¸ˆì•¡ ì´ˆê³¼
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_PETTRADE_OVERMONEY, TEXTEFFECT_COLOR_WARNING);			
 			g_MainCharInfo.PlayInterfaceSound( ISOUND_WARNING);
 		}
 		break;
-	case ERR_PICK_NOAUTHORITY:	// È¹µæ ±ÇÇÑ ¾øÀ½
+	case ERR_PICK_NOAUTHORITY:	// íšë“ ê¶Œí•œ ì—†ìŒ
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_PICK_NOAUTHORITY, TEXTEFFECT_COLOR_WARNING);
 		}
@@ -1783,7 +1785,7 @@ int OnCS_IM_GIVEITEM_ACK( CMsg &msg)
 	return 0;
 }
 
-// Àü³¶ ACK
+// ì „ë‚­ ACK
 int OnCS_IM_MONEYBAG_ACK(CMsg &msg)
 {
 	BYTE bResult	= -1;
@@ -1837,7 +1839,7 @@ int OnCS_IM_MONEYBAG_ACK(CMsg &msg)
 	case ERR_MONEYBAG_ERROR:
 		g_MainCharInfo.ShowHelpMessage(IDS_ERROR1, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case ERR_MONEYBAG_IN_OVERMONEY2://HO_0918_07 ÃÊº¸ÀÚ¿ë Àü³¶ Ãß°¡ : Àü³¶(¼Ò)
+	case ERR_MONEYBAG_IN_OVERMONEY2://HO_0918_07 ì´ˆë³´ììš© ì „ë‚­ ì¶”ê°€ : ì „ë‚­(ì†Œ)
 		g_MainCharInfo.ShowHelpMessage(IDS_PURSE_IN_OVERMONEY2, TEXTEFFECT_COLOR_WARNING);
 		break;
 	default:
@@ -1849,9 +1851,9 @@ int OnCS_IM_MONEYBAG_ACK(CMsg &msg)
 }
 
 
-////////////////////////////////////////////////////////////////////////// Àü¼­±¸
+////////////////////////////////////////////////////////////////////////// ì „ì„œêµ¬
 
-// Àü¼­±¸ ¸®½ºÆ® ¹Ş±â
+// ì „ì„œêµ¬ ë¦¬ìŠ¤íŠ¸ ë°›ê¸°
 int OnCS_IM_MEMOLIST_ACK(CMsg &msg)
 {
 	BYTE bCount =0;	
@@ -1888,7 +1890,7 @@ int OnCS_IM_MEMOLIST_ACK(CMsg &msg)
 	return 0;		   
 }
 
-// Àü¼­±¸ º¸³»±â
+// ì „ì„œêµ¬ ë³´ë‚´ê¸°
 int OnCS_IM_SENDMEMO_ACK(CMsg &msg)
 {
 	BYTE	bResult	=0;
@@ -1904,7 +1906,7 @@ int OnCS_IM_SENDMEMO_ACK(CMsg &msg)
 }
 
 
-// »õ·Î¿î Àü¼­ µµÂø
+// ìƒˆë¡œìš´ ì „ì„œ ë„ì°©
 int OnCS_IM_NEWMEMO_ACK(CMsg &msg)
 {
 	DWORD		dwMemoID	=0;	
@@ -1930,7 +1932,7 @@ int OnCS_IM_NEWMEMO_ACK(CMsg &msg)
 	return 0;
 }
 
-// ÇØ´ç Àü¼­¸¦ ÀĞÀÚ!
+// í•´ë‹¹ ì „ì„œë¥¼ ì½ì!
 int OnCS_IM_READMEMO_ACK(CMsg &msg)
 {
 	BYTE	bResult		=0;
@@ -1959,7 +1961,7 @@ int OnCS_IM_READMEMO_ACK(CMsg &msg)
 	return 0;
 }
 
-// ÇØ´ç Àü¼­ Áö¿öÁü
+// í•´ë‹¹ ì „ì„œ ì§€ì›Œì§
 int OnCS_IM_DELETEMEMO_ACK(CMsg &msg)
 {
 	BYTE	bResult;
@@ -1985,7 +1987,7 @@ int OnCS_IM_DELETEMEMO_ACK(CMsg &msg)
 
 
 /**
-* ÀåÂø ¾ÆÀÌÅÛ µ¥¹ÌÁö/³²Àº ³»±¸·Â
+* ì¥ì°© ì•„ì´í…œ ë°ë¯¸ì§€/ë‚¨ì€ ë‚´êµ¬ë ¥
 * \param &msg 
 * \return 
 */
@@ -2016,7 +2018,7 @@ int OnCS_IM_DAMAGE_ACK(CMsg &msg)
 
 
 /**
- * pet ÀåÂø¿ë ¾ÆÀÌÅÛ ³»±¸·Â °¨¼ÒÇÒ °æ¿ì
+ * pet ì¥ì°©ìš© ì•„ì´í…œ ë‚´êµ¬ë ¥ ê°ì†Œí•  ê²½ìš°
  * \param &msg 
  * \return 
  */
@@ -2073,7 +2075,7 @@ int OnCS_IM_PETITEMINFO_ACK(CMsg &msg)
 }
 
 /**
- * 9°³Áöµµ, 7°³ º¸¼® Á¶ÇÕ ÆĞÅ¶
+ * 9ê°œì§€ë„, 7ê°œ ë³´ì„ ì¡°í•© íŒ¨í‚·
  * \param &msg 
  * \return 
  */
@@ -2149,42 +2151,42 @@ int OnCS_IM_PUZZLEITEM_ACK(CMsg &msg)
 				g_MainCharInfo.ShowHelpMessage(IDS_MIXTURE_NOTFOUNDRES, TEXTEFFECT_COLOR_WARNING);
 			}
 			break;
-		case ERR_PUZZLEITEM_NEEDJOINITEM:	//Á¶ÇÕÀÌ ¸ğÀÚ¸¦¶§
+		case ERR_PUZZLEITEM_NEEDJOINITEM:	//ì¡°í•©ì´ ëª¨ìë¥¼ë•Œ
 			{
 				g_MainCharInfo.ShowHelpMessage(IDS_MIXTURE_NOTFOUNDRES, TEXTEFFECT_COLOR_WARNING);
 			}
 			break;
-		case ERR_PUZZLEITEM_BADITEM:		//´Ù¸¥Á¶ÇÕÀÌ ÀÖÀ»¶§
+		case ERR_PUZZLEITEM_BADITEM:		//ë‹¤ë¥¸ì¡°í•©ì´ ìˆì„ë•Œ
 			{
 				g_MainCharInfo.ShowHelpMessage(IDS_MIXTURE_BADITEM, TEXTEFFECT_COLOR_WARNING);				
 				g_MainCharInfo.HideSack(SACKTYPE__SMELT);
 			}
 			break;
-		case ERR_PUZZLEITEM_NOTJOINITEM:	//Á¶ÇÕÀÚ¿øÀÌ ¾Æ´Ï´Ù
+		case ERR_PUZZLEITEM_NOTJOINITEM:	//ì¡°í•©ìì›ì´ ì•„ë‹ˆë‹¤
 			{
 				g_MainCharInfo.ShowHelpMessage(IDS_MIXTURE_BADRESOURCE, TEXTEFFECT_COLOR_WARNING);
 				g_MainCharInfo.HideSack(SACKTYPE__SMELT);
 			}
 			break;
-		case ERR_PUZZLEITEM_NOTPUZZLEITEM:	//Á¶ÇÕ¾ÆÀÌÅÛ ¾Æ´Ï´Ù(bType != 19)
+		case ERR_PUZZLEITEM_NOTPUZZLEITEM:	//ì¡°í•©ì•„ì´í…œ ì•„ë‹ˆë‹¤(bType != 19)
 			{
 				g_MainCharInfo.ShowHelpMessage(IDS_MIXTURE_BADRESOURCE, TEXTEFFECT_COLOR_WARNING);
 				g_MainCharInfo.HideSack(SACKTYPE__SMELT);
 			}
 			break;
-		case ERR_PUZZLEITEM_ALREADYJOIN:	//ÀÌ¹Ì Á¶ÇÕ¾ÆÀÌÅÛÀÌ µÇ¾ú´Ù
+		case ERR_PUZZLEITEM_ALREADYJOIN:	//ì´ë¯¸ ì¡°í•©ì•„ì´í…œì´ ë˜ì—ˆë‹¤
 			{
 				g_MainCharInfo.ShowHelpMessage(IDS_MIXTURE_ALREADYJOIN, TEXTEFFECT_COLOR_WARNING);				
 				g_MainCharInfo.HideSack(SACKTYPE__SMELT);
 			}
 			break;
-		case ERR_PUZZLEITEM_OVERFULLRES:	//ÀÚ¿øÀÌ ³ÑÄ¥¶§
+		case ERR_PUZZLEITEM_OVERFULLRES:	//ìì›ì´ ë„˜ì¹ ë•Œ
 			{
 				g_MainCharInfo.ShowHelpMessage(IDS_MIXTURE_OVERFULLRES, TEXTEFFECT_COLOR_WARNING);
 				g_MainCharInfo.HideSack(SACKTYPE__SMELT);
 			}
 			break;
-		case ERR_PUZZLEITEM_INTERNALERROR:	// ³»ºÎ¿¡·¯
+		case ERR_PUZZLEITEM_INTERNALERROR:	// ë‚´ë¶€ì—ëŸ¬
 			{
 				g_MainCharInfo.ShowHelpMessage(IDS_REL_ERR_INTERNAL, TEXTEFFECT_COLOR_WARNING);
 				g_MainCharInfo.HideSack(SACKTYPE__SMELT);				
@@ -2198,7 +2200,7 @@ int OnCS_IM_PUZZLEITEM_ACK(CMsg &msg)
 }
 
 /**
- * 12°³ ÆíºĞ Á¶ÇÕ ÆĞÅ¶
+ * 12ê°œ í¸ë¶„ ì¡°í•© íŒ¨í‚·
  * \param &msg 
  * \return 
  */
@@ -2223,37 +2225,37 @@ int OnCS_IM_REJOINITEM_ACK(CMsg &msg)
 				g_MainCharInfo.HideSack(SACKTYPE__SMELT);
 			}
 			break;
-		case ERR_REJOINITEM_NOTFOUNDRES:	//ÀÚ¿øÀÌ ¸ğÀÚ¸¦¶§
+		case ERR_REJOINITEM_NOTFOUNDRES:	//ìì›ì´ ëª¨ìë¥¼ë•Œ
 			{
 				g_MainCharInfo.ShowHelpMessage(IDS_MIXTURE_NOTFOUNDRES, TEXTEFFECT_COLOR_WARNING);
 				g_MainCharInfo.HideSack(SACKTYPE__SMELT);
 			}
 			break;
-		case ERR_REJOINITEM_OTHRERESOURCE:	//¼­·Î´Ù¸¥ ÆíºĞÀÏ¶§
+		case ERR_REJOINITEM_OTHRERESOURCE:	//ì„œë¡œë‹¤ë¥¸ í¸ë¶„ì¼ë•Œ
 			{
 				g_MainCharInfo.ShowHelpMessage(IDS_MIXTURE_OTHRERESOURCE, TEXTEFFECT_COLOR_WARNING);
 				g_MainCharInfo.HideSack(SACKTYPE__SMELT);
 			}
 			break;
-		case ERR_REJOINITEM_BADRESOURCE:	//Á¶ÇÕ ¾ÆÀÌÅÛÀÌ ¾Æ´Ò¶§
+		case ERR_REJOINITEM_BADRESOURCE:	//ì¡°í•© ì•„ì´í…œì´ ì•„ë‹ë•Œ
 			{
 				g_MainCharInfo.ShowHelpMessage(IDS_MIXTURE_BADRESOURCE, TEXTEFFECT_COLOR_WARNING);
 				g_MainCharInfo.HideSack(SACKTYPE__SMELT);				
 			}
 			break;
-		case ERR_REJOINITEM_NOTEMPTYSACK:	//Çà¶û°ø°£ÀÌ ¾ø´Ù.
+		case ERR_REJOINITEM_NOTEMPTYSACK:	//í–‰ë‘ê³µê°„ì´ ì—†ë‹¤.
 			{
 				g_MainCharInfo.ShowHelpMessage(IDS_FULL_SACK, TEXTEFFECT_COLOR_WARNING);
 				g_MainCharInfo.HideSack(SACKTYPE__SMELT);
 			}
 			break;
-		case ERR_REJOINITEM_OVERFULLRES:	//ÀÚ¿øÀÌ ³ÑÄ¥¶§
+		case ERR_REJOINITEM_OVERFULLRES:	//ìì›ì´ ë„˜ì¹ ë•Œ
 			{
 				g_MainCharInfo.ShowHelpMessage(IDS_MIXTURE_OVERFULLRES, TEXTEFFECT_COLOR_WARNING);
 				g_MainCharInfo.HideSack(SACKTYPE__SMELT);
 			}
 			break;
-		case ERR_REJOINITEM_INTERNALERROR:	// ³»ºÎ ¿¡·¯
+		case ERR_REJOINITEM_INTERNALERROR:	// ë‚´ë¶€ ì—ëŸ¬
 			{
 				g_MainCharInfo.ShowHelpMessage(IDS_REL_ERR_INTERNAL, TEXTEFFECT_COLOR_WARNING);
 				g_MainCharInfo.HideSack(SACKTYPE__SMELT);
@@ -2267,7 +2269,7 @@ int OnCS_IM_REJOINITEM_ACK(CMsg &msg)
 }
 
 /**
- * Ã¤ÁıÆĞÅ¶
+ * ì±„ì§‘íŒ¨í‚·
  * \param &msg 
  * \return 
  */
@@ -2289,22 +2291,22 @@ int OnCS_IM_GATHERITEM_ACK(CMsg &msg)
 			break;
 		case ERR_GATHERITEM_FAIL:
 			break;
-		case ERR_GATHERITEM_LIMITLEVEL:		// ´É·ÂÄ¡ ºÎÁ· (10°©ÀÚÀÌ»ó¸¸)
+		case ERR_GATHERITEM_LIMITLEVEL:		// ëŠ¥ë ¥ì¹˜ ë¶€ì¡± (10ê°‘ìì´ìƒë§Œ)
 			{
 				g_MainCharInfo.ShowHelpMessage(IDS_GATHERITEM_LIMITLEVEL, TEXTEFFECT_COLOR_WARNING);				
 			}
 			break;
-		case ERR_GATHERITEM_NOTFOUNDITEM:	// Ã¤Áıµµ±¸°¡ ¾Æ´Ï´Ù.
+		case ERR_GATHERITEM_NOTFOUNDITEM:	// ì±„ì§‘ë„êµ¬ê°€ ì•„ë‹ˆë‹¤.
 			{
 				g_MainCharInfo.ShowHelpMessage(IDS_GATHERITEM_NOTFOUNDITEM, TEXTEFFECT_COLOR_WARNING);
 			}
 			break;
-		case ERR_GATHERITEM_NOTFOUNDOBJECT:	// Ã¤ÁıÀ» ÇÒ ¼ö ¾ø´Ù.
+		case ERR_GATHERITEM_NOTFOUNDOBJECT:	// ì±„ì§‘ì„ í•  ìˆ˜ ì—†ë‹¤.
 			{
 				g_MainCharInfo.ShowHelpMessage(IDS_GATHERITEM_NOTFOUNDOBJECT, TEXTEFFECT_COLOR_WARNING);
 			}
 			break;
-		case ERR_GATHERITEM_INTERNALERROR:	// ³»ºÎ ¿¡·¯
+		case ERR_GATHERITEM_INTERNALERROR:	// ë‚´ë¶€ ì—ëŸ¬
 			{
 				g_MainCharInfo.ShowHelpMessage(IDS_REL_ERR_INTERNAL, TEXTEFFECT_COLOR_WARNING);
 			}
@@ -2317,7 +2319,7 @@ int OnCS_IM_GATHERITEM_ACK(CMsg &msg)
 }
 
 /**
- * °¡·¡¶±/º¯Á¾¾ÆÀÌÅÛ
+ * ê°€ë˜ë–¡/ë³€ì¢…ì•„ì´í…œ
  * \param &msg 
  * \return 
  */
@@ -2343,48 +2345,48 @@ int OnCS_IM_VARIENTITEM_ACK(CMsg &msg)
 			g_MainCharInfo.HideSack(SACKTYPE__SMELT);
 		}
 		break;
-	case ERR_VARIENTITEM_NOTFOUNDRES:		//ÀÚ¿øÀÌ ¸ğÀÚ¸¦¶§
+	case ERR_VARIENTITEM_NOTFOUNDRES:		//ìì›ì´ ëª¨ìë¥¼ë•Œ
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_MIXTURE_NOTFOUNDRES, TEXTEFFECT_COLOR_WARNING);
 			g_MainCharInfo.HideSack(SACKTYPE__SMELT);
 		}
 		break;
-	case ERR_VARIENTITEM_OVERFULLRES:		//ÀÚ¿øÀÌ ³ÑÄ¥¶§
+	case ERR_VARIENTITEM_OVERFULLRES:		//ìì›ì´ ë„˜ì¹ ë•Œ
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_MIXTURE_OVERFULLRES, TEXTEFFECT_COLOR_WARNING);
 			g_MainCharInfo.HideSack(SACKTYPE__SMELT);
 		}
 		break;
 
-	case ERR_VARIENTITEM_OTHRERESOURCE:		//Á¶ÇÕ ¾ÆÀÌÅÛÀÌ ¾Æ´Ò¶§
+	case ERR_VARIENTITEM_OTHRERESOURCE:		//ì¡°í•© ì•„ì´í…œì´ ì•„ë‹ë•Œ
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_MIXTURE_BADRESOURCE, TEXTEFFECT_COLOR_WARNING);
 			g_MainCharInfo.HideSack(SACKTYPE__SMELT);	
 		}
 		break;
 
-	case ERR_VARIENTITEM_BADRESOURCE:		//Á¾·ù°¡ ´Ù¸¦¶§
+	case ERR_VARIENTITEM_BADRESOURCE:		//ì¢…ë¥˜ê°€ ë‹¤ë¥¼ë•Œ
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_MIXTURE_BADITEM, TEXTEFFECT_COLOR_WARNING);
 			g_MainCharInfo.HideSack(SACKTYPE__SMELT);
 		}
 		break;
 
-	case ERR_VARIENTITEM_ALREADY:			// ÀÌ¹ÌÁ¶ÇÕµÈ°Í(´õÀÌ»ó ¾ÈµÊ)
+	case ERR_VARIENTITEM_ALREADY:			// ì´ë¯¸ì¡°í•©ëœê²ƒ(ë”ì´ìƒ ì•ˆë¨)
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_VARIENTITEM_ALREADY, TEXTEFFECT_COLOR_WARNING);
 			g_MainCharInfo.HideSack(SACKTYPE__SMELT);
 		}
 		break;
 
-	case ERR_VARIENTITEM_MAX:				//Èæº¸ º¯Á¾°³Á¶ ÃÖ´ë°ª(´õÀÌ»ó ¾ÈµÊ)
+	case ERR_VARIENTITEM_MAX:				//í‘ë³´ ë³€ì¢…ê°œì¡° ìµœëŒ€ê°’(ë”ì´ìƒ ì•ˆë¨)
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_VARIENTITEM_MAX, TEXTEFFECT_COLOR_WARNING);
 			g_MainCharInfo.HideSack(SACKTYPE__SMELT);
 		}
 		break;
 
-	case ERR_VARIENTITEM_ABILITYMAX:		//Èæº¸ º¯Á¾°³Á¶ ÃÖ´ë°ª(´É·ÂÄ¡ ÃÖ´ë°ªÀÏ °æ¿ì)
+	case ERR_VARIENTITEM_ABILITYMAX:		//í‘ë³´ ë³€ì¢…ê°œì¡° ìµœëŒ€ê°’(ëŠ¥ë ¥ì¹˜ ìµœëŒ€ê°’ì¼ ê²½ìš°)
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_MIXTURE_SUCCESS);
 			g_MainCharInfo.ShowHelpMessage(IDS_VARIENTITEM_ABILITYMAX);
@@ -2392,7 +2394,7 @@ int OnCS_IM_VARIENTITEM_ACK(CMsg &msg)
 		}
 		break;
 
-	case ERR_VARIENTITEM_RATEMAX:		//Èæº¸ º¯Á¾°³Á¶ ÃÖ´ë°ª(Ãß°¡ ¼º°ø·ü ÃÖ´ë°ªÀÏ °æ¿ì)
+	case ERR_VARIENTITEM_RATEMAX:		//í‘ë³´ ë³€ì¢…ê°œì¡° ìµœëŒ€ê°’(ì¶”ê°€ ì„±ê³µë¥  ìµœëŒ€ê°’ì¼ ê²½ìš°)
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_MIXTURE_SUCCESS);
 			g_MainCharInfo.ShowHelpMessage(IDS_VARIENTITEM_RATEMAX);
@@ -2400,21 +2402,21 @@ int OnCS_IM_VARIENTITEM_ACK(CMsg &msg)
 		}
 		break;
 
-	case ERR_VARIENTITEM_INTERNALERROR:		//³»ºÎ´íÎó
+	case ERR_VARIENTITEM_INTERNALERROR:		//ë‚´ë¶€ëŒ„è½
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_REL_ERR_INTERNAL, TEXTEFFECT_COLOR_WARNING);
 			g_MainCharInfo.HideSack(SACKTYPE__SMELT);	
 		}
 		break;
 
-	case ERR_VARIENTITEM_COUPON_SUCCESS:		//HT_0523 ÄíÆùµî·Ï¼º°ø 
+	case ERR_VARIENTITEM_COUPON_SUCCESS:		//HT_0523 ì¿ í°ë“±ë¡ì„±ê³µ 
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_COUPON_SUCCESS);
 			g_MainCharInfo.HideSack(SACKTYPE__SMELT);	
 		}
 		break;
 
-	case ERR_VARIENTITEM_COUPON_TOOMANY:		//ÄíÆùµî·Ï½ÇÆĞ(2°³ ÀÌ»óÀÏ °æ¿ì)
+	case ERR_VARIENTITEM_COUPON_TOOMANY:		//ì¿ í°ë“±ë¡ì‹¤íŒ¨(2ê°œ ì´ìƒì¼ ê²½ìš°)
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_COUPON_OVERFULLRES, TEXTEFFECT_COLOR_WARNING);
 			g_MainCharInfo.HideSack(SACKTYPE__SMELT);	
@@ -2423,7 +2425,7 @@ int OnCS_IM_VARIENTITEM_ACK(CMsg &msg)
 
 	case ERR_VARIENTITEM_COUPON_FAIL:
 		{
-			g_MainCharInfo.ShowHelpMessage(_T("ÄíÆùµî·Ï½ÇÆĞ"), TEXTEFFECT_COLOR_WARNING);
+			g_MainCharInfo.ShowHelpMessage(_T("ì¿ í°ë“±ë¡ì‹¤íŒ¨"), TEXTEFFECT_COLOR_WARNING);
 			g_MainCharInfo.HideSack(SACKTYPE__SMELT);	
 		}
 		break;
@@ -2435,7 +2437,7 @@ int OnCS_IM_VARIENTITEM_ACK(CMsg &msg)
 }
 
 /**
- * º¸Çè ¾ÆÀÌÅÛ º¹±¸,¼Ò¸ê
+ * ë³´í—˜ ì•„ì´í…œ ë³µêµ¬,ì†Œë©¸
  * \param &msg 
  * \return 
  */
@@ -2448,27 +2450,27 @@ int OnCS_IM_REWARDGUARANTEE_ACK(CMsg &msg)
 
 	switch(bResult)
 	{
-	case ERR_REWARDGUARANTEE_SUCCESS:		//º¹±¸¼º°ø
+	case ERR_REWARDGUARANTEE_SUCCESS:		//ë³µêµ¬ì„±ê³µ
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_REWARDGUARANTEE_SUCCESS);
 		}
 		break;
-	case ERR_REWARDGUARANTEE_DELETED:		//¿µ±¸»èÁ¦µÇ¾ú½À´Ï´Ù.
+	case ERR_REWARDGUARANTEE_DELETED:		//ì˜êµ¬ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_REWARDGUARANTEE_DELETED);
 		}
 		break;
-	case ERR_REWARDGUARANTEE_NOTFOUND:		//Á¸ÀçÇÏÁö ¾Ê´Â ¾ÆÀÌÅÛ
+	case ERR_REWARDGUARANTEE_NOTFOUND:		//ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ì•„ì´í…œ
 		{
 			g_MainCharInfo.ShowHelpMessage(IM_N_ITEM, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case ERR_REWARDGUARANTEE_INSERTFAIL:	//ÀÚ¸®°¡ ºÎÁ·
+	case ERR_REWARDGUARANTEE_INSERTFAIL:	//ìë¦¬ê°€ ë¶€ì¡±
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_REWARDGUARANTEE_INSERTFAIL, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case ERR_REWARDGUARANTEE_INTERNALERROR:	//½Ã½ºÅÛ ´íÎó(°ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇÏ½Ê½Ã¿À)
+	case ERR_REWARDGUARANTEE_INTERNALERROR:	//ì‹œìŠ¤í…œ ëŒ„è½(ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜í•˜ì‹­ì‹œì˜¤)
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_REL_ERR_INTERNAL, TEXTEFFECT_COLOR_WARNING);
 		}
@@ -2481,7 +2483,7 @@ int OnCS_IM_REWARDGUARANTEE_ACK(CMsg &msg)
 }
 
 /**
- * ÀÌ¹ÌÁö Á¶ÇÕ
+ * ì´ë¯¸ì§€ ì¡°í•©
  * \param &msg 
  * \return 
  */
@@ -2515,7 +2517,7 @@ int OnCS_IM_EVENTPUZZLE_ACK(CMsg &msg)
 }
 
 /**
-* Á¶ÇÕ
+* ì¡°í•©
 * \param &msg 
 * \return 
 */
@@ -2528,19 +2530,19 @@ int OnCS_IM_MIXITEM_ACK(CMsg &msg)
 
 	switch(bResult)
 	{
-	case 0: //¼º°ø
+	case 0: //ì„±ê³µ
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_MIXTURE_SUCCESS);
 			g_MainCharInfo.HideSack(SACKTYPE__SMELT);
 		}
 		break;
-	case 1: // Á¶ÇÕ °³¼ö ÃÊ°ú
+	case 1: // ì¡°í•© ê°œìˆ˜ ì´ˆê³¼
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_MIXTURE_OVERFULLRES);
 			g_MainCharInfo.HideSack(SACKTYPE__SMELT);
 		}
 		break;
-	case 2: // Á¶ÇÕ ±¸¼º ¿ä¼Ò ÀÌ»ó
+	case 2: // ì¡°í•© êµ¬ì„± ìš”ì†Œ ì´ìƒ
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_MIXTURE_BADITEM);
 			g_MainCharInfo.HideSack(SACKTYPE__SMELT);
@@ -2554,7 +2556,7 @@ int OnCS_IM_MIXITEM_ACK(CMsg &msg)
 }
 
 /**
-* ¼öÁı
+* ìˆ˜ì§‘
 * \param &msg 
 * \return 
 */
@@ -2611,16 +2613,16 @@ int OnCS_IM_MOVEINCOLLECTITEM_ACK(CMsg &msg)
 			return 0;
 		}
 		break;
-	case ERR_MOVEINCOLLECT_NOTFINDSACK:		// Çà³¶¿¡ ¸øÃ£´Â´Ù
+	case ERR_MOVEINCOLLECT_NOTFINDSACK:		// í–‰ë‚­ì— ëª»ì°¾ëŠ”ë‹¤
 		g_MainCharInfo.ShowHelpMessage(IDS_ITEM_NOTFIND, TEXTEFFECT_COLOR_WARNING);				
 		break;
-	case ERR_MOVEINCOLLECT_NOTCOLLECTITEM:	// ¼öÁı¾ÆÀÌÅÛ x
+	case ERR_MOVEINCOLLECT_NOTCOLLECTITEM:	// ìˆ˜ì§‘ì•„ì´í…œ x
 		g_MainCharInfo.ShowHelpMessage(IDS_MOVEIN_NOTCOLLECTITEM_1, TEXTEFFECT_COLOR_WARNING);		
 		break;
-	case ERR_MOVEINCOLLECT_FULLSACK:		// °¡µæ
+	case ERR_MOVEINCOLLECT_FULLSACK:		// ê°€ë“
 		g_MainCharInfo.ShowHelpMessage(IDS_FULL_SACK, TEXTEFFECT_COLOR_WARNING);		
 		break;
-	case REE_MOVEINCOLLECT_INTERNALERROR:	// ³»ºÎ¿¡¼­ ÀÌ»óÇÑ ÁşÀ» ÇÑ´Ù
+	case REE_MOVEINCOLLECT_INTERNALERROR:	// ë‚´ë¶€ì—ì„œ ì´ìƒí•œ ì§“ì„ í•œë‹¤
 		g_MainCharInfo.ShowHelpMessage(IDS_REL_ERR_INTERNAL, TEXTEFFECT_COLOR_WARNING);
 		break;
 	case ERR_MOVEINCOLLECT_NOVALUE:			// d
@@ -2638,7 +2640,7 @@ int OnCS_IM_MOVEINCOLLECTITEM_ACK(CMsg &msg)
 }
 
 /**
-* ¼öÁı
+* ìˆ˜ì§‘
 * \param &msg 
 * \return 
 */
@@ -2718,7 +2720,7 @@ int OnCS_IM_MOVEOUTCOLLECTITEM_ACK(CMsg &msg)
 }
 
 /**
- * ¸ÁÄ¡ Á¶ÇÕ
+ * ë§ì¹˜ ì¡°í•©
  * \param &msg 
  * \return 
  */
@@ -2731,13 +2733,13 @@ int OnCS_IM_MAKEREPAIRHAMMER_ACK(CMsg &msg)
 
 	switch(bResult)
 	{
-	case 0: //¼º°ø
+	case 0: //ì„±ê³µ
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_MIXTURE_SUCCESS);
 			g_MainCharInfo.HideSack(SACKTYPE__SMELT);
 		}
 		break;
-	case 1: // Á¶ÇÕ °³¼ö ÃÊ°ú
+	case 1: // ì¡°í•© ê°œìˆ˜ ì´ˆê³¼
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_EVENTPUZZLE_FAIL, TEXTEFFECT_COLOR_WARNING);
 			g_MainCharInfo.HideSack(SACKTYPE__SMELT);
@@ -2751,7 +2753,7 @@ int OnCS_IM_MAKEREPAIRHAMMER_ACK(CMsg &msg)
 }
 
 /**
- * »ç½Å¼Â Á¶ÇÕ
+ * ì‚¬ì‹ ì…‹ ì¡°í•©
  * \param &msg 
  * \return 
  */
@@ -2764,25 +2766,25 @@ int OnCS_IM_MAKEUNIONITEM_ACK(CMsg &msg)
 
 	switch(bResult)
 	{
-	case ERR_MAKEUNIONITEM_SUCCESS:		//¾ÆÀÌÅÛ »ı¼º Á¶ÇÕ ¼º°ø.
+	case ERR_MAKEUNIONITEM_SUCCESS:		//ì•„ì´í…œ ìƒì„± ì¡°í•© ì„±ê³µ.
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_MIXTURE_SUCCESS);
 			g_MainCharInfo.HideSack(SACKTYPE__SMELT);
 		}
 		break;
-	case ERR_MAKEUNIONITEM_FAIL:		//¾ÆÀÌÅÛ »ı¼º Á¶ÇÕ ½ÇÆĞ.
+	case ERR_MAKEUNIONITEM_FAIL:		//ì•„ì´í…œ ìƒì„± ì¡°í•© ì‹¤íŒ¨.
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_MIXTURE_FAIL, TEXTEFFECT_COLOR_WARNING);
 			g_MainCharInfo.HideSack(SACKTYPE__SMELT);
 		}
 		break;
-	case ERR_MAKEUNIONITEM_CANT:		//±¸¼º¿ä¼Ò°¡ ¸ÂÁö ¾Ê½À´Ï´Ù.
+	case ERR_MAKEUNIONITEM_CANT:		//êµ¬ì„±ìš”ì†Œê°€ ë§ì§€ ì•ŠìŠµë‹ˆë‹¤.
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_MIXTURE_CANT, TEXTEFFECT_COLOR_WARNING);
 			g_MainCharInfo.HideSack(SACKTYPE__SMELT);
 		}
 		break;
-	case ERR_MAKEUNIONITEM_INTERNALERROR:	//½Ã½ºÅÛ ´íÎó(°ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇÏ½Ê½Ã¿À)
+	case ERR_MAKEUNIONITEM_INTERNALERROR:	//ì‹œìŠ¤í…œ ëŒ„è½(ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜í•˜ì‹­ì‹œì˜¤)
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_REL_ERR_INTERNAL, TEXTEFFECT_COLOR_WARNING);
 			g_MainCharInfo.HideSack(SACKTYPE__SMELT);
@@ -2797,7 +2799,7 @@ int OnCS_IM_MAKEUNIONITEM_ACK(CMsg &msg)
 
 
 /**
- * //HT_0829 : ÇÁ¸®¹Ì¾ö Äù½ºÆ® 
+ * //HT_0829 : í”„ë¦¬ë¯¸ì—„ í€˜ìŠ¤íŠ¸ 
  * \param &msg 
  * \return 
  */
@@ -2810,17 +2812,17 @@ int OnCS_IM_QUESTROLL_ACK(CMsg &msg)
 
 	switch(bResult)
 	{
-	case ERR_QUEST_CONDITION:			//Á¶°Ç ºÎÁ·À¸·Î »ç¿ë ºÒ°¡
+	case ERR_QUEST_CONDITION:			//ì¡°ê±´ ë¶€ì¡±ìœ¼ë¡œ ì‚¬ìš© ë¶ˆê°€
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_QUEST_CONDITION, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case ERR_QUEST_HOLD:				//µ¿ÀÏÇÑ ±â¿¬ÀÌ Á¸ÀçÇÏ¿© »ç¿ë ºÒ°¡
+	case ERR_QUEST_HOLD:				//ë™ì¼í•œ ê¸°ì—°ì´ ì¡´ì¬í•˜ì—¬ ì‚¬ìš© ë¶ˆê°€
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_QUEST_HOLD, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case ERR_QUEST_INTERNAL:			//³»ºÎ ¿¡·¯
+	case ERR_QUEST_INTERNAL:			//ë‚´ë¶€ ì—ëŸ¬
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_INTERNAL_ERROR, TEXTEFFECT_COLOR_WARNING);
 		}
@@ -2995,7 +2997,7 @@ int OnCS_NV_RUNEVENTINFO_ACK(CMsg &msg)
 		case 0:
 			g_MainCharInfo.m_pImageScrMsg->AddToolTip(bEventKind, IDS_E_ALL);
 			break;
-		case 1:// 1 : °Ë¿µ, 2 : ¿¬¶û, 3 : ¹«Åõ
+		case 1:// 1 : ê²€ì˜, 2 : ì—°ë‘, 3 : ë¬´íˆ¬
 			{
 				switch(dwUserType)
 				{
@@ -3037,13 +3039,13 @@ int OnCS_NV_RUNEVENTINFO_ACK(CMsg &msg)
 
 
 /*
-		// ÀÌº¥Æ® ¾ÆÀÌÅÛ ÀÌÆåÆ®
+		// ì´ë²¤íŠ¸ ì•„ì´í…œ ì´í™íŠ¸
 		XiahObject::CXiahObject* pXiahObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, dwEventCharID,OBJTYPE_PC) );
 		if( pXiahObject && pXiahObject->m_pObject )
 		{
 			CXiahCharObject *pCharObject = reinterpret_cast<CXiahCharObject*>(pXiahObject->m_pObject);
 
-			// 0: °ø°İ°è, 1: ¼ºÀå°è, 2: ¸ó½ºÅÍ°è, 3: °æÁ¦°è
+			// 0: ê³µê²©ê³„, 1: ì„±ì¥ê³„, 2: ëª¬ìŠ¤í„°ê³„, 3: ê²½ì œê³„
 			int nEffectType = 0;
 
 			if( bEventKind >= 0 && bEventKind <= 4 )
@@ -3058,10 +3060,10 @@ int OnCS_NV_RUNEVENTINFO_ACK(CMsg &msg)
 			if( bEventKind >= 10 && bEventKind <= 11 )
 				nEffectType = 3;
 
-			// ¹ßµ¿ ÀÌÆåÆ®´Â ÇÊ¿ä ¾ø´Ù. ÁøÇàÁßÀÎ°Í¸¸ ÀÖÀ¸¸é µÇ´Ï±ñ.
+			// ë°œë™ ì´í™íŠ¸ëŠ” í•„ìš” ì—†ë‹¤. ì§„í–‰ì¤‘ì¸ê²ƒë§Œ ìˆìœ¼ë©´ ë˜ë‹ˆê¹.
 
-			// Áö¼Ó ÀÌÆåÆ®
-			// °°Àº Á¾·ùÀÇ ¾ÆÀÌÅÛÀ» ¹ú½á ¾²°í ÀÖÀ¸¸é ÀÌÆåÆ®°¡ ÀÖ´Â »óÅÂ´Ù.
+			// ì§€ì† ì´í™íŠ¸
+			// ê°™ì€ ì¢…ë¥˜ì˜ ì•„ì´í…œì„ ë²Œì¨ ì“°ê³  ìˆìœ¼ë©´ ì´í™íŠ¸ê°€ ìˆëŠ” ìƒíƒœë‹¤.
 			if( NULL == pCharObject->m_pEventItemEffectPP[nEffectType] )
 			{
 				_EFFECTPACKAGE* pEffectPackage2 = g_EffectManager.EnqOutGongPersistEffectImmediately( eAttackKindItem_keepup + nEffectType );
@@ -3082,14 +3084,14 @@ int OnCS_NV_RUNEVENTINFO_ACK(CMsg &msg)
 
 	return 0;
 }
-//bRunEvent		- ÇöÀç ÀÌº¥Æ® ¼ö 
-//bEventKind	- ÀÌº¥Æ® Á¾·ù 
-//dwEventCharID - ÀÌº¥Æ® °³ÃÖÀÚ Ä³¸¯ÅÍ ¾ÆÀÌµğ
-//dwEffectValue - ÀÌº¥Æ® È¿°ú °ª (´ÜÀ§ %)
-//strCharName   - ÀÌº¥Æ® °³ÃÖÀÚ ÀÌ¸§ 
-//bCanUser      - ÀÌº¥Æ® Âü°¡ÇÒ ¼ö ÀÖ´À À¯Àú (0 = ALL, 1 = ÇØ´çÀ¯ÆÄ, 2 = ¹®ÆÄ¸¸, 3 = ´Ü )
-//dwUserType    - À¯ÆÄÀÏ°æ¿ì À¯ÆÄ Á¾·ù, ¹®ÆÄÀÏ °æ¿ì ¹®ÆÄ ¾ÆÀÌµğ.
-//strMunpaName  - ¹®ÆÄÀÏ °æ¿ì ¹®ÆÄ¸í;
+//bRunEvent		- í˜„ì¬ ì´ë²¤íŠ¸ ìˆ˜ 
+//bEventKind	- ì´ë²¤íŠ¸ ì¢…ë¥˜ 
+//dwEventCharID - ì´ë²¤íŠ¸ ê°œìµœì ìºë¦­í„° ì•„ì´ë””
+//dwEffectValue - ì´ë²¤íŠ¸ íš¨ê³¼ ê°’ (ë‹¨ìœ„ %)
+//strCharName   - ì´ë²¤íŠ¸ ê°œìµœì ì´ë¦„ 
+//bCanUser      - ì´ë²¤íŠ¸ ì°¸ê°€í•  ìˆ˜ ìˆëŠ ìœ ì € (0 = ALL, 1 = í•´ë‹¹ìœ íŒŒ, 2 = ë¬¸íŒŒë§Œ, 3 = ë‹¨ )
+//dwUserType    - ìœ íŒŒì¼ê²½ìš° ìœ íŒŒ ì¢…ë¥˜, ë¬¸íŒŒì¼ ê²½ìš° ë¬¸íŒŒ ì•„ì´ë””.
+//strMunpaName  - ë¬¸íŒŒì¼ ê²½ìš° ë¬¸íŒŒëª…;
 
 int OnCS_NV_CHANGEEVENTINFO_ACK(CMsg &msg)
 {
@@ -3186,7 +3188,7 @@ int OnCS_NV_CHANGEEVENTINFO_ACK(CMsg &msg)
 		case 0:
 			g_MainCharInfo.m_pImageScrMsg->AddToolTip(bEventKind, IDS_E_ALL);
 			break;
-		case 1:// 1 : °Ë¿µ, 2 : ¿¬¶û, 3 : ¹«Åõ
+		case 1:// 1 : ê²€ì˜, 2 : ì—°ë‘, 3 : ë¬´íˆ¬
 			{
 				switch(dwUserType)
 				{
@@ -3226,8 +3228,8 @@ int OnCS_NV_CHANGEEVENTINFO_ACK(CMsg &msg)
 
 		g_MainCharInfo.m_pImageScrMsg->Show(bEventKind);
 
-		// ¾êµµ »ç¿îµå°¡ ÀÖ³×.
-		// 0: °ø°İ°è, 1: ¼ºÀå°è, 2: ¸ó½ºÅÍ°è, 3: °æÁ¦°è
+		// ì–˜ë„ ì‚¬ìš´ë“œê°€ ìˆë„¤.
+		// 0: ê³µê²©ê³„, 1: ì„±ì¥ê³„, 2: ëª¬ìŠ¤í„°ê³„, 3: ê²½ì œê³„
 		int nEventType = 0;
 		if( bEventKind >= 0 && bEventKind <= 4 )
 			nEventType = 0;
@@ -3253,19 +3255,19 @@ int OnCS_NV_CHANGEEVENTINFO_ACK(CMsg &msg)
 
 /*
 		// 2004_04_19 Changth : EVENT
-		// ÀÌº¥Æ® ¾ÆÀÌÅÛÀÇ ÀÌÆåÆ®¸¦ È£ÃâÇÏ±â À§ÇØ¼­´Â µÎ±ºµ¥¿¡ ÄÚµùÀ» ÇÑ´Ù.
-		// ÇÏ³ª´Â Àåºñ¸¦ ÀåÂøÇÒ¶§ È·¶¨ÇÏ´Â °ÍÀÌ°í, ¶Ç ÇÏ³ª´Â ChangeEventInfo_ack°¡ ¿Ã¶§ ÀÌ´Ù.
-		// ÀÌÀ¯´Â, ÀÌÆåÆ®ÀÇ ½ÃÀÛÀº ChangeEventInfo_ack¿¡¼­ ¾Ë¼ö ÀÖ´Âµ¥, Àåºñ¸¦ ÀåÂøÇÏ°í ³ª¼­
-		// ÀÌ ÆĞÅ¶ÀÌ ¿À±â¶§¹®¿¡ Á¤ÀÛ ÀåÂøÇÒ¶§ ÀÌº¥Æ®°¡ ½ÃÀÛÀÎÁö ¾Ë¼ö°¡ ¾ø´Ù.
-		// ÀÌº¥Æ® ½ÃÀÛÀÌ´Ù.
+		// ì´ë²¤íŠ¸ ì•„ì´í…œì˜ ì´í™íŠ¸ë¥¼ í˜¸ì¶œí•˜ê¸° ìœ„í•´ì„œëŠ” ë‘êµ°ë°ì— ì½”ë”©ì„ í•œë‹¤.
+		// í•˜ë‚˜ëŠ” ì¥ë¹„ë¥¼ ì¥ì°©í• ë•Œ íš…ë•í•˜ëŠ” ê²ƒì´ê³ , ë˜ í•˜ë‚˜ëŠ” ChangeEventInfo_ackê°€ ì˜¬ë•Œ ì´ë‹¤.
+		// ì´ìœ ëŠ”, ì´í™íŠ¸ì˜ ì‹œì‘ì€ ChangeEventInfo_ackì—ì„œ ì•Œìˆ˜ ìˆëŠ”ë°, ì¥ë¹„ë¥¼ ì¥ì°©í•˜ê³  ë‚˜ì„œ
+		// ì´ íŒ¨í‚·ì´ ì˜¤ê¸°ë•Œë¬¸ì— ì •ì‘ ì¥ì°©í• ë•Œ ì´ë²¤íŠ¸ê°€ ì‹œì‘ì¸ì§€ ì•Œìˆ˜ê°€ ì—†ë‹¤.
+		// ì´ë²¤íŠ¸ ì‹œì‘ì´ë‹¤.
 
-		// ÀÌº¥Æ® ¾ÆÀÌÅÛ ÀÌÆåÆ®
+		// ì´ë²¤íŠ¸ ì•„ì´í…œ ì´í™íŠ¸
 		XiahObject::CXiahObject* pXiahObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, dwEventCharID,OBJTYPE_PC) );
 		if( pXiahObject && pXiahObject->m_pObject )
 		{
 			CXiahCharObject *pCharObject = reinterpret_cast<CXiahCharObject*>(pXiahObject->m_pObject);
 
-			// 0: °ø°İ°è, 1: ¼ºÀå°è, 2: ¸ó½ºÅÍ°è, 3: °æÁ¦°è
+			// 0: ê³µê²©ê³„, 1: ì„±ì¥ê³„, 2: ëª¬ìŠ¤í„°ê³„, 3: ê²½ì œê³„
 			int nEffectType = 0;
 
 			if( bEventKind >= 0 && bEventKind <= 4 )
@@ -3280,19 +3282,19 @@ int OnCS_NV_CHANGEEVENTINFO_ACK(CMsg &msg)
 			if( bEventKind >= 10 && bEventKind <= 11 )
 				nEffectType = 3;
 
-			// ¹ßµ¿ ÀÌÆåÆ®
+			// ë°œë™ ì´í™íŠ¸
 			_EFFECTPACKAGE* pEffectPackage1 = g_EffectManager.EnqAppearEffectImmediately( eAttackKindItem_start + nEffectType );
 
 			if( pEffectPackage1 && pEffectPackage1->pEffectRender && pEffectPackage1->pEffectRender->pPackagePair )
 			{
                 pEffectPackage1->pEffectRender->pPackagePair->pWorldMatrix = (MATRIX*)pCharObject->m_CharRender.GetCharTM();
 
-				// ÀÌÄÉÇØ¾ß Ä³¸¯ÅÍ°¡ ¾ø¾îÁú¶§ ÀÌÆåÆ®µµ °°ÀÌ ¾ø¾îÁø´Ù.
+				// ì´ì¼€í•´ì•¼ ìºë¦­í„°ê°€ ì—†ì–´ì§ˆë•Œ ì´í™íŠ¸ë„ ê°™ì´ ì—†ì–´ì§„ë‹¤.
 				pCharObject->m_EffectPPList.push_back( pEffectPackage1->pEffectRender->pPackagePair );
 			}
 
-			// Áö¼Ó ÀÌÆåÆ®
-			// °°Àº Á¾·ùÀÇ ¾ÆÀÌÅÛÀ» ¹ú½á ¾²°í ÀÖÀ¸¸é ÀÌÆåÆ®°¡ ÀÖ´Â »óÅÂ´Ù.
+			// ì§€ì† ì´í™íŠ¸
+			// ê°™ì€ ì¢…ë¥˜ì˜ ì•„ì´í…œì„ ë²Œì¨ ì“°ê³  ìˆìœ¼ë©´ ì´í™íŠ¸ê°€ ìˆëŠ” ìƒíƒœë‹¤.
 			if( NULL == pCharObject->m_pEventItemEffectPP )
 			{
 				_EFFECTPACKAGE* pEffectPackage2 = g_EffectManager.EnqOutGongPersistEffectImmediately( eAttackKindItem_keepup + nEffectType );
@@ -3314,7 +3316,7 @@ int OnCS_NV_CHANGEEVENTINFO_ACK(CMsg &msg)
 		g_MainCharInfo.m_pImageScrMsg->Hide(bEventKind);
 
 /*
-		// ½Ã°£ÀÌ ´Ù µÆ´Ù. ÀÌº¥Æ® ¾ÆÀÌÅÛÀÇ ÀÌÆåÆ®¸¦ Áö¿öÁØ´Ù.
+		// ì‹œê°„ì´ ë‹¤ ëë‹¤. ì´ë²¤íŠ¸ ì•„ì´í…œì˜ ì´í™íŠ¸ë¥¼ ì§€ì›Œì¤€ë‹¤.
 		XiahObject::CXiahObject* pXiahObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, dwEventCharID,OBJTYPE_PC) );
 		if( pXiahObject && pXiahObject->m_pObject )
 		{
@@ -3333,13 +3335,13 @@ int OnCS_NV_CHANGEEVENTINFO_ACK(CMsg &msg)
 	return 0;
 }
 //bEventStatus  - 0, EVENTSTATUS_START, 1, EVENTSTATUS_END
-//bEventKind	- ÀÌº¥Æ® Á¾·ù 
+//bEventKind	- ì´ë²¤íŠ¸ ì¢…ë¥˜ 
 //if ( EVENTSTATUS_START )
 
 
 
 /**
- * @brief °¢¼ºÁ¦ »ç¿ë (°¢¼º)
+ * @brief ê°ì„±ì œ ì‚¬ìš© (ê°ì„±)
  * \param &msg 
  * \return 
  */
@@ -3355,7 +3357,7 @@ int OnCS_IM_REBIRTH_ACK(CMsg &msg)
 
     switch(bResult)
 	{
-	case ERR_REBIRTH_SUCCESS:	//°¢¼ºÁ¦ »ç¿ë Á¶°Ç ÃæÁ· ¼º°ø
+	case ERR_REBIRTH_SUCCESS:	//ê°ì„±ì œ ì‚¬ìš© ì¡°ê±´ ì¶©ì¡± ì„±ê³µ
 		{
 			DWORD dwCharID = 0;
 			BYTE  bRebirth = 0;
@@ -3395,23 +3397,23 @@ int OnCS_IM_REBIRTH_ACK(CMsg &msg)
 			return 0;
 		}
 		break;
-	case ERR_REBIRTH_LEVEL:		//¿ä±¸Á¶°Ç ºÎÁ·(·¹º§)
+	case ERR_REBIRTH_LEVEL:		//ìš”êµ¬ì¡°ê±´ ë¶€ì¡±(ë ˆë²¨)
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_REBIRTH_LEVEL, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case ERR_REBIRTH_STEP:		//¿ä±¸Á¶°Ç ºÎÁ·(½ºÅÜ)
+	case ERR_REBIRTH_STEP:		//ìš”êµ¬ì¡°ê±´ ë¶€ì¡±(ìŠ¤í…)
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_REBIRTH_STEP, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case ERR_REBIRTH_SPACE:		//¿ä±¸Á¶°Ç ºÎÁ·(Çà³¶ ¿©À¯°ø°£ ºÎÁ·)
+	case ERR_REBIRTH_SPACE:		//ìš”êµ¬ì¡°ê±´ ë¶€ì¡±(í–‰ë‚­ ì—¬ìœ ê³µê°„ ë¶€ì¡±)
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_REBIRTH_SPACE_01, TEXTEFFECT_COLOR_WARNING);
 			g_MainCharInfo.ShowHelpMessage(IDS_REBIRTH_SPACE_02, TEXTEFFECT_COLOR_WARNING);
 		}
 		break; 
-	case ERR_REBIRTH_INTERNAL:	//³»ºÎ¿¡·¯
+	case ERR_REBIRTH_INTERNAL:	//ë‚´ë¶€ì—ëŸ¬
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_INTERNAL_ERROR, TEXTEFFECT_COLOR_WARNING);
 		}
@@ -3421,7 +3423,7 @@ int OnCS_IM_REBIRTH_ACK(CMsg &msg)
 			g_MainCharInfo.ShowHelpMessage(IDS_LEVEL_ERROR, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case ERR_2TH_REBIRTH_SPACE: //HO_0730_07 Áø°¢¼º ÆĞÅ¶Ãß°¡ : ¿ä±¸Á¶°Ç ºÎÁ·(Çà³¶ ¿©À¯°ø°£ ºÎÁ·)
+	case ERR_2TH_REBIRTH_SPACE: //HO_0730_07 ì§„ê°ì„± íŒ¨í‚·ì¶”ê°€ : ìš”êµ¬ì¡°ê±´ ë¶€ì¡±(í–‰ë‚­ ì—¬ìœ ê³µê°„ ë¶€ì¡±)
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_2TH_REBIRTH_SPACE, TEXTEFFECT_COLOR_WARNING);
 		}
@@ -3431,15 +3433,15 @@ int OnCS_IM_REBIRTH_ACK(CMsg &msg)
 		break;
 	}
 
-	// °¢¼º ½ÇÆĞ½Ã
+	// ê°ì„± ì‹¤íŒ¨ì‹œ
 //	g_MainCharInfo.m_bRebirthItem_Use = false;
 
 	return 1;
 }
 
-//HT_1116 : °¢¼ºÀÚ ¾ÆÀÌÅÛ Ãß°¡
+//HT_1116 : ê°ì„±ì ì•„ì´í…œ ì¶”ê°€
 /**
- * @brief °¢¼ºÀÚ ¾ÆÀÌÅÛ 
+ * @brief ê°ì„±ì ì•„ì´í…œ 
  * \param &msg 
  * \return 
  */
@@ -3526,7 +3528,7 @@ int OnCS_IM_MAKEREBIRTHITEM_ACK(CMsg &msg)
 	return 1;
 }
 
-int OnCS_IM_GIVEPOWERITEM_ACK(CMsg &msg) //HO_0427_07 ¿µ¼öÈ¯°ñ½Å´Ü
+int OnCS_IM_GIVEPOWERITEM_ACK(CMsg &msg) //HO_0427_07 ì˜ìˆ˜í™˜ê³¨ì‹ ë‹¨
 {
 	BYTE bResult = 0;	
 
@@ -3536,7 +3538,7 @@ int OnCS_IM_GIVEPOWERITEM_ACK(CMsg &msg) //HO_0427_07 ¿µ¼öÈ¯°ñ½Å´Ü
 	{
 		BYTE bFactor = 0;
 		BYTE bValue = 0;
-		DWORD dwPetID		=0;//HO_0427_07 ¿µ¼öÈ¯°ñ½Å´Ü : Ãß°¡ÇÔ
+		DWORD dwPetID		=0;//HO_0427_07 ì˜ìˆ˜í™˜ê³¨ì‹ ë‹¨ : ì¶”ê°€í•¨
 		TCHAR szTip [64] = {0,};
 	
 	msg
@@ -3572,12 +3574,12 @@ int OnCS_IM_GIVEPOWERITEM_ACK(CMsg &msg) //HO_0427_07 ¿µ¼öÈ¯°ñ½Å´Ü
 				g_MainCharInfo.ShowHelpMessage(szTip, TEXTEFFECT_COLOR_GAIN);				
 			}
 			break;
-		case ERR_PET_REBIRTH:	//HO_0913_07 ¿µ¼ö °¢¼º½Å´Ü Ãß°¡
+		case ERR_PET_REBIRTH:	//HO_0913_07 ì˜ìˆ˜ ê°ì„±ì‹ ë‹¨ ì¶”ê°€
 			{
 				_stprintf( szTip, IDS_MONSTER_REBIRTH);				
 				g_MainCharInfo.ShowHelpMessage(szTip, TEXTEFFECT_COLOR_GAIN);				
 
-				//HO_0913_07 ¿µ¼ö °¢¼º½Å´Ü Ãß°¡
+				//HO_0913_07 ì˜ìˆ˜ ê°ì„±ì‹ ë‹¨ ì¶”ê°€
 				XiahObject::CXiahObject* pObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, dwPetID, OBJTYPE_PET));
 				
 				CXiahCharObject* pCharObject = reinterpret_cast<CXiahCharObject*>(pObject->m_pObject);
@@ -3585,7 +3587,7 @@ int OnCS_IM_GIVEPOWERITEM_ACK(CMsg &msg) //HO_0427_07 ¿µ¼öÈ¯°ñ½Å´Ü
 				if( NULL == pCharObject )
 						return FALSE;	
 
-				_EFFECTPACKAGE* pEffectPackage = g_EffectManager.EnqAppearEffectImmediately( eAttackKindItem_start, 0, 0, 10, 0 );//HO_0913_07 ¿µ¼ö °¢¼º½Å´Ü Ãß°¡
+				_EFFECTPACKAGE* pEffectPackage = g_EffectManager.EnqAppearEffectImmediately( eAttackKindItem_start, 0, 0, 10, 0 );//HO_0913_07 ì˜ìˆ˜ ê°ì„±ì‹ ë‹¨ ì¶”ê°€
 
 				if( pEffectPackage && pEffectPackage->pEffectRender && pEffectPackage->pEffectRender->pPackagePair )
 				{
@@ -3593,7 +3595,7 @@ int OnCS_IM_GIVEPOWERITEM_ACK(CMsg &msg) //HO_0427_07 ¿µ¼öÈ¯°ñ½Å´Ü
 				}			
 			}
 			break;
-		case ERR_MONSTER_NOTREBIRTH: //HO_0913_07 ¿µ¼ö °¢¼º½Å´Ü Ãß°¡
+		case ERR_MONSTER_NOTREBIRTH: //HO_0913_07 ì˜ìˆ˜ ê°ì„±ì‹ ë‹¨ ì¶”ê°€
 		{			
 			g_MainCharInfo.ShowHelpMessage(IDS_MONSTER_NOTREBIRTH,TEXTEFFECT_COLOR_WARNING);
 			g_MainCharInfo.m_pHoldItem->SetItemBackToSack();
@@ -3609,7 +3611,7 @@ int OnCS_IM_GIVEPOWERITEM_ACK(CMsg &msg) //HO_0427_07 ¿µ¼öÈ¯°ñ½Å´Ü
 	return 0;
 }
 
-int OnCS_IM_GOLDBOX_ACK(CMsg &msg) //HO_0828_07 È²±İ¿­¼è Ãß°¡
+int OnCS_IM_GOLDBOX_ACK(CMsg &msg) //HO_0828_07 í™©ê¸ˆì—´ì‡  ì¶”ê°€
 {
 	BYTE bResult = 0;	
 	msg

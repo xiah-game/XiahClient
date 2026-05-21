@@ -1052,9 +1052,6 @@ void CXiahCharObject::PersistEffect(_EFFECTPACKAGEPAIR** ppEffect, DWORD dwMugon
 
 			_EFFECTPACKAGE* pEffectPackage = g_EffectManager.EnqOutGongPersistEffectImmediately( nType );
 			// matrix
-			// 엔진에 있는 포인터가 클라이언트의 데이타를 가리키면 제대로 작동하지 않음.
-			// 그래서 엔진의 포인터가 엔진의 데이타를 가리키도록 하면 됨.
-			// 왜냐하면 엔진은 DLL이니깐.
 			if( pEffectPackage )
 			{
 				*ppEffect = g_EffectManager.GetCurEffectPackagePair();
@@ -1069,22 +1066,30 @@ void CXiahCharObject::PersistEffect(_EFFECTPACKAGEPAIR** ppEffect, DWORD dwMugon
 
 				pEffect->dwElapsedTime = 0;
 			}
+			else
+			{
+				g_EffectManager.DeqEffectPackagePair( g_EffectManager.GetCurEffectPackagePair() );
+				*ppEffect = (_EFFECTPACKAGEPAIR*)1;
+			}
 
 			g_EffectManager.OffSharedPackagePair();
 		}
-		else	// 이펙트가 있으면 지속 시간 계산.
+		else	// 
 		{
 			_EFFECTPACKAGEPAIR* pEffect = *ppEffect;
-
-			pEffect->dwElapsedTime += fLocalFrameScale;
-			pEffect->bIsVisible = true;
+			if( pEffect != (_EFFECTPACKAGEPAIR*)1 )
+			{
+				pEffect->dwElapsedTime += fLocalFrameScale;
+				pEffect->bIsVisible = true;
+			}
 		}
 	}
-	else	// 없으면 이펙트를 지운다.
+	else	// 
 	{
 		if( *ppEffect )
 		{
-			g_EffectManager.DeqEffectPackagePair( *ppEffect );
+			if( *ppEffect != (_EFFECTPACKAGEPAIR*)1 )
+				g_EffectManager.DeqEffectPackagePair( *ppEffect );
 			*ppEffect = NULL;
 		}
 	}
@@ -1623,47 +1628,56 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 			
 			
 			// 이제 경공이다.
-			if( !m_pGyungGongEffectPP && 
-				( m_KeepUpMugongList.IsExist(OUTGONGID_ILYUIDOGANG ) ||
-				m_KeepUpMugongList.IsExist(OUTGONGID_YUESUSINYUNG) ||
-				m_KeepUpMugongList.IsExist(OUTGONGID_JILPUNGBO)    ||
-				m_KeepUpMugongList.IsExist(OUTGONGID_CHOSANGBI) )    )
+						bool hasGyungGong = ( m_KeepUpMugongList.IsExist(OUTGONGID_ILYUIDOGANG ) ||
+								  m_KeepUpMugongList.IsExist(OUTGONGID_YUESUSINYUNG) ||
+								  m_KeepUpMugongList.IsExist(OUTGONGID_JILPUNGBO)    ||
+								  m_KeepUpMugongList.IsExist(OUTGONGID_CHOSANGBI) );
+			if( hasGyungGong )
 			{
-				int nEffectType = eIlyuidogang;
-
-				if( m_KeepUpMugongList.IsExist(OUTGONGID_ILYUIDOGANG) )
-					nEffectType = eIlyuidogang;
-				else if( m_KeepUpMugongList.IsExist(OUTGONGID_YUESUSINYUNG) )
-					nEffectType = eYuesusinyung;
-				else if( m_KeepUpMugongList.IsExist(OUTGONGID_JILPUNGBO) )
-					nEffectType = eJilpungbo;
-				else if( m_KeepUpMugongList.IsExist(OUTGONGID_CHOSANGBI) )
-					nEffectType = eChosangbi;
-
-				//
-				g_EffectManager.MakeSharedPackagePair( 0, 0, 0 );
-
-				_EFFECTPACKAGE* pEffectPackage = g_EffectManager.EnqOutGongPersistEffectImmediately( nEffectType );
-				// matrix
-				if( pEffectPackage )
+				if( !m_pGyungGongEffectPP )
 				{
-					m_pGyungGongEffectPP = g_EffectManager.GetCurEffectPackagePair();
-					m_pGyungGongEffectPP->pWorldMatrix = (MATRIX*)m_CharRender.GetCharTM();
-				}
+					int nEffectType = eIlyuidogang;
 
-				g_EffectManager.OffSharedPackagePair();
+					if( m_KeepUpMugongList.IsExist(OUTGONGID_ILYUIDOGANG) )
+						nEffectType = eIlyuidogang;
+					else if( m_KeepUpMugongList.IsExist(OUTGONGID_YUESUSINYUNG) )
+						nEffectType = eYuesusinyung;
+					else if( m_KeepUpMugongList.IsExist(OUTGONGID_JILPUNGBO) )
+						nEffectType = eJilpungbo;
+					else if( m_KeepUpMugongList.IsExist(OUTGONGID_CHOSANGBI) )
+						nEffectType = eChosangbi;
+
+					g_EffectManager.MakeSharedPackagePair( 0, 0, 0 );
+
+					_EFFECTPACKAGE* pEffectPackage = g_EffectManager.EnqOutGongPersistEffectImmediately( nEffectType );
+					if( pEffectPackage )
+					{
+						m_pGyungGongEffectPP = g_EffectManager.GetCurEffectPackagePair();
+						m_pGyungGongEffectPP->pWorldMatrix = (MATRIX*)m_CharRender.GetCharTM();
+					}
+					else
+					{
+						g_EffectManager.DeqEffectPackagePair( g_EffectManager.GetCurEffectPackagePair() );
+						m_pGyungGongEffectPP = (_EFFECTPACKAGEPAIR*)1;
+					}
+
+					g_EffectManager.OffSharedPackagePair();
+				}
 			}
-			else if( m_pGyungGongEffectPP )
+			else
 			{
-				g_EffectManager.DeqEffectPackagePair( m_pGyungGongEffectPP );
-				m_pGyungGongEffectPP = NULL;
+				if( m_pGyungGongEffectPP )
+				{
+					if( m_pGyungGongEffectPP != (_EFFECTPACKAGEPAIR*)1 )
+						g_EffectManager.DeqEffectPackagePair( m_pGyungGongEffectPP );
+					m_pGyungGongEffectPP = NULL;
+				}
 			}
 			
-			/////////////////////////////////////////////////////////////////////////////////////////////////////
-			// 오행
-			if(m_KeepUpMugongList.IsExist(FIVEELEMENT_FIRE) || m_KeepUpMugongList.IsExist(FIVEELEMENT_WATER)
-				|| m_KeepUpMugongList.IsExist(FIVEELEMENT_TREE) || m_KeepUpMugongList.IsExist(FIVEELEMENT_METAL)
-				|| m_KeepUpMugongList.IsExist(FIVEELEMENT_EARTH))
+			bool hasFE = (m_KeepUpMugongList.IsExist(FIVEELEMENT_FIRE) || m_KeepUpMugongList.IsExist(FIVEELEMENT_WATER)
+						|| m_KeepUpMugongList.IsExist(FIVEELEMENT_TREE) || m_KeepUpMugongList.IsExist(FIVEELEMENT_METAL)
+						|| m_KeepUpMugongList.IsExist(FIVEELEMENT_EARTH));
+			if( hasFE )
 			{
 				if(!m_pFEEffectPP)
 				{
@@ -1682,7 +1696,6 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 					nEffectType += (m_bFELevel * 5);					
 
 					_EFFECTPACKAGE* pEffectPackage = g_EffectManager.EnqOutGongPersistEffectImmediately(nEffectType);
-					// matrix
 					if( pEffectPackage )
 					{
 						m_pFEEffectPP = g_EffectManager.GetCurEffectPackagePair();
@@ -1691,27 +1704,30 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 						m_pFEEffectPP->dwTotalTime	= m_KeepUpMugongList.GetTime(FIVEELEMENT_FIRE);
 						m_pFEEffectPP->dwElapsedTime = 0;
 					}
+					else
+					{
+						g_EffectManager.DeqEffectPackagePair( g_EffectManager.GetCurEffectPackagePair() );
+						m_pFEEffectPP = (_EFFECTPACKAGEPAIR*)1;
+					}
 
 					g_EffectManager.OffSharedPackagePair();
 				}
-				else	// 이펙트가 있으면 지속 시간 계산.
+				else if( m_pFEEffectPP != (_EFFECTPACKAGEPAIR*)1 )
 				{
 					m_pFEEffectPP->dwElapsedTime += fLocalFrameScale;
 					m_pFEEffectPP->bIsVisible = true;
 				}
 			}
-			else	// 없으면 이펙트를 지운다.
+			else
 			{
 				if( m_pFEEffectPP )
 				{
-					g_EffectManager.DeqEffectPackagePair( m_pFEEffectPP );
+					if( m_pFEEffectPP != (_EFFECTPACKAGEPAIR*)1 )
+						g_EffectManager.DeqEffectPackagePair( m_pFEEffectPP );
 					m_pFEEffectPP = NULL;
 				}
-			}// 
+			}
 
-			/////////////////////////////////////////////////////////////////////////////////////////////////////
-
-			// 설승단약
 			if(m_bPotionEndKeepup == 1)
 			{
 				if(!m_pEventItemEffectPP)
@@ -1719,7 +1735,6 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 					g_EffectManager.MakeSharedPackagePair(0, 0, 0 );					
 
 					_EFFECTPACKAGE* pEffectPackage = g_EffectManager.EnqOutGongPersistEffectImmediately(ePotion);
-					// matrix
 					if( pEffectPackage )
 					{
 						m_pEventItemEffectPP = g_EffectManager.GetCurEffectPackagePair();
@@ -1728,10 +1743,15 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 						m_pEventItemEffectPP->dwTotalTime	= 1000;
 						m_pEventItemEffectPP->dwElapsedTime = 0;
 					}
+					else
+					{
+						g_EffectManager.DeqEffectPackagePair( g_EffectManager.GetCurEffectPackagePair() );
+						m_pEventItemEffectPP = (_EFFECTPACKAGEPAIR*)1;
+					}
 
 					g_EffectManager.OffSharedPackagePair();
 				}
-				else	// 이펙트가 있으면 지속 시간 계산.
+				else if( m_pEventItemEffectPP != (_EFFECTPACKAGEPAIR*)1 )
 				{
 					m_pEventItemEffectPP->dwElapsedTime += fLocalFrameScale;
 					m_pEventItemEffectPP->bIsVisible	= true;
@@ -1741,12 +1761,12 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 			{
 				if( m_pEventItemEffectPP )
 				{
-					g_EffectManager.DeqEffectPackagePair( m_pEventItemEffectPP );
+					if( m_pEventItemEffectPP != (_EFFECTPACKAGEPAIR*)1 )
+						g_EffectManager.DeqEffectPackagePair( m_pEventItemEffectPP );
 					m_pEventItemEffectPP = NULL;
 				}
 			}
 
-			// 기
 			if(m_bSpirit == 1)
 			{
 				if(!m_pSpiritEffectPP)
@@ -1754,7 +1774,6 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 					g_EffectManager.MakeSharedPackagePair(0, 0, 0 );					
 
 					_EFFECTPACKAGE* pEffectPackage = g_EffectManager.EnqOutGongPersistEffectImmediately(eSpirit);
-					// matrix
 					if( pEffectPackage )
 					{
 						m_pSpiritEffectPP = g_EffectManager.GetCurEffectPackagePair();
@@ -1763,10 +1782,15 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 						m_pSpiritEffectPP->dwTotalTime	 = 1000;
 						m_pSpiritEffectPP->dwElapsedTime = 0;
 					}
+					else
+					{
+						g_EffectManager.DeqEffectPackagePair( g_EffectManager.GetCurEffectPackagePair() );
+						m_pSpiritEffectPP = (_EFFECTPACKAGEPAIR*)1;
+					}
 
 					g_EffectManager.OffSharedPackagePair();
 				}
-				else
+				else if( m_pSpiritEffectPP != (_EFFECTPACKAGEPAIR*)1 )
 				{
 					m_pSpiritEffectPP->dwElapsedTime += (33.0f * g_fFrameScale);
 					m_pSpiritEffectPP->bIsVisible	= true;
@@ -1776,94 +1800,36 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 			{
 				if(m_pSpiritEffectPP)
 				{
-					g_EffectManager.DeqEffectPackagePair(m_pSpiritEffectPP);
+					if( m_pSpiritEffectPP != (_EFFECTPACKAGEPAIR*)1 )
+						g_EffectManager.DeqEffectPackagePair(m_pSpiritEffectPP);
 					m_pSpiritEffectPP = NULL;
 				}
 			}
-		}// if( OBJTYPE_PC )
 
-		if( m_bObjType == OBJTYPE_PET   )	// PET에만 붙는 무공 지속 이펙트
-		{
-			// 연우영.
-			PersistEffect(&m_pYuenoyuengEffectPP, OUTGONGID_YUNOYUNG, eYuenoyueng, fLocalFrameScale);
-
-			// 교감수.
-			PersistEffect(&m_pKyugamsuEffectPP, OUTGONGID_KYOKANSU, eKyugamsu, fLocalFrameScale);
-
-			//HT_0711 : 진각성 무공
-			PersistEffect(&m_pKyugamsingongEffectPP, REBRITH_KYOKANSINGONG, eKyugamsu, fLocalFrameScale);
-
-		}// if( OBJTYPE_PET )
-
-		if( m_bObjType == OBJTYPE_NPC   )	// NPC에만 붙는 무공 지속 이펙트
-		{
-			// 파천소.
-			PersistEffect(&m_pPachunsoEffectPP, OUTGONGID_PACHUNSO, ePachunso_recv, fLocalFrameScale);
-
-			// 쌍도수
-			PersistEffect(&m_pSsangdosuEffectPP, OUTGONGID_SSANGDOSU, eSsangdosu, fLocalFrameScale);
-		}// if( OBJTYPE_NPC )
-
-		if( m_bObjType == OBJTYPE_PC  || 
-			m_bObjType == OBJTYPE_NPC || 
-			m_bObjType == OBJTYPE_PET   )	// PC, NPC, Pet에 붙는 무공 지속 이펙트.
-		{
-			// 마령각.
-			PersistEffect(&m_pMarulkakEffectPP, OUTGONGID_MARYULKAK, eMarulkak_recv, fLocalFrameScale);
-			
-			// 암흑무.
-			PersistEffect(&m_pAmhukmuEffectPP, OUTGONGID_AMHUKMU, eAmhukmu_recv, fLocalFrameScale);
-
-			// 탈백인.
-			PersistEffect(&m_pTalbacinEffectPP, OUTGONGID_TALBAKIN, eTalbacin_recv, fLocalFrameScale);
-
-			// 금나수.
-			PersistEffect(&m_pKumnasuEffectPP, OUTGONGID_KUMNASU, eKumnasu_recv, fLocalFrameScale);
-
-			// 오독침
-			PersistEffect(&m_pOdokchimEffectPP, OUTGONGID_ODOKCHIM, eOdokchim, fLocalFrameScale);
-
-			// 독혈공
-			PersistEffect(&m_pDokhyulgongEffectPP, OUTGONGID_DOKHYULGONG, eDokhyulgong, fLocalFrameScale);
-			
-			// 독내공
-			PersistEffect(&m_pDoknaegongEffectPP, OUTGONGID_DOKNAEGONG, eDoknaegong, fLocalFrameScale);
-			
-			// 독무
-			PersistEffect(&m_pDokmuEffectPP, OUTGONGID_DOKMU, eDokmu, fLocalFrameScale, 5000);
-
-			//HT_0711 : 진각성 무공
-			// 흡성 신공 금나신공
-			PersistEffect(&m_pKumnasingongEffectPP, REBRITH_KUMNASINGONG, eKumnasu_recv, fLocalFrameScale);
-
-			// 흡성 신공 마령신공
-			PersistEffect(&m_pMarulsingongEffectPP, REBRITH_MARYUNGSINGONG, eMarulkak_recv, fLocalFrameScale);
-
-			// 흡성 신공 독혈신공
-			PersistEffect(&m_pDokhyulsingongEffectPP, REBRITH_DOKHYULSINGONG, eDokhyulgong, fLocalFrameScale);
-
-
-			//HT_0530 각성 외공 무공
-			if( m_KeepUpMugongList.IsExist(WHA_DRAGONSINJANG) || m_KeepUpMugongList.IsExist(WHA_DRAGONSUNGCHEON) )	//각성 화룡 무공
+			if( m_KeepUpMugongList.IsExist(WHA_DRAGONSINJANG) || m_KeepUpMugongList.IsExist(WHA_DRAGONSUNGCHEON) )
 			{
 				if( !m_pWha_DragonPP )
 				{
 					g_EffectManager.MakeSharedPackagePair( 0, 0, 0 );
 
 					_EFFECTPACKAGE* pEffectPackage = g_EffectManager.EnqOutGongPersistEffectImmediately( eWha_Dragon );
-					// matrix
 					if( pEffectPackage )
 					{
 						m_pWha_DragonPP = g_EffectManager.GetCurEffectPackagePair();
 
 						m_pWha_DragonPP->pWorldMatrix = (MATRIX*)m_CharRender.GetCharTM();
-						m_pWha_DragonPP->dwTotalTime = 3000;//m_KeepUpMugongList.GetTime( OUTGONGID_DOKMU );
+						m_pWha_DragonPP->dwTotalTime = 3000;
 						m_pWha_DragonPP->dwElapsedTime = 0;
+					}
+					else
+					{
+						g_EffectManager.DeqEffectPackagePair( g_EffectManager.GetCurEffectPackagePair() );
+						m_pWha_DragonPP = (_EFFECTPACKAGEPAIR*)1;
 					}
 
 					g_EffectManager.OffSharedPackagePair();
 				}
-				else	// 이펙트가 있으면 지속 시간 계산.
+				else if( m_pWha_DragonPP != (_EFFECTPACKAGEPAIR*)1 )
 				{
 					if(m_pWha_DragonPP->dwElapsedTime >= m_pWha_DragonPP->dwTotalTime)
 					{
@@ -1883,131 +1849,171 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 					}
 				}
 			}
-			else	// 없으면 이펙트를 지운다.
+			else
 			{
 				if( m_pWha_DragonPP )
 				{
-					g_EffectManager.DeqEffectPackagePair( m_pWha_DragonPP );
+					if( m_pWha_DragonPP != (_EFFECTPACKAGEPAIR*)1 )
+						g_EffectManager.DeqEffectPackagePair( m_pWha_DragonPP );
 					m_pWha_DragonPP = NULL;
 				}
-			}//각성 화룡 무공
+			}
 
-			if( m_KeepUpMugongList.IsExist(BING_DRAGONSINJANG ) || m_KeepUpMugongList.IsExist(BING_DRAGONSUNGCHEON ) )	//각성 빙룡 무공
+			if( m_KeepUpMugongList.IsExist(BING_DRAGONSINJANG ) || m_KeepUpMugongList.IsExist(BING_DRAGONSUNGCHEON ) )
 			{
 				if( !m_pBing_DragonPP )
 				{
 					g_EffectManager.MakeSharedPackagePair( 0, 0, 0 );
 
 					_EFFECTPACKAGE* pEffectPackage = g_EffectManager.EnqOutGongPersistEffectImmediately( eBing_Dragon );
-					// matrix
 					if( pEffectPackage )
 					{
 						m_pBing_DragonPP = g_EffectManager.GetCurEffectPackagePair();
 
 						m_pBing_DragonPP->pWorldMatrix = (MATRIX*)m_CharRender.GetCharTM();
-						
-						if(m_KeepUpMugongList.IsExist(BING_DRAGONSINJANG ))
-							m_pBing_DragonPP->dwTotalTime = m_KeepUpMugongList.GetTime(BING_DRAGONSINJANG);
-
-						if(m_KeepUpMugongList.IsExist(BING_DRAGONSUNGCHEON ))
-							m_pBing_DragonPP->dwTotalTime = m_KeepUpMugongList.GetTime(BING_DRAGONSUNGCHEON);
-
+						m_pBing_DragonPP->dwTotalTime = 3000;
 						m_pBing_DragonPP->dwElapsedTime = 0;
+					}
+					else
+					{
+						g_EffectManager.DeqEffectPackagePair( g_EffectManager.GetCurEffectPackagePair() );
+						m_pBing_DragonPP = (_EFFECTPACKAGEPAIR*)1;
 					}
 
 					g_EffectManager.OffSharedPackagePair();
 				}
-				else	// 이펙트가 있으면 지속 시간 계산.
+				else if( m_pBing_DragonPP != (_EFFECTPACKAGEPAIR*)1 )
 				{
-					m_pBing_DragonPP->dwElapsedTime += fLocalFrameScale;
-					m_pBing_DragonPP->bIsVisible = true;
+					if(m_pBing_DragonPP->dwElapsedTime >= m_pBing_DragonPP->dwTotalTime)
+					{
+						if( m_KeepUpMugongList.IsExist(BING_DRAGONSINJANG))
+							m_KeepUpMugongList.Delete( BING_DRAGONSINJANG);
+						
+						if( m_KeepUpMugongList.IsExist(BING_DRAGONSUNGCHEON))
+							m_KeepUpMugongList.Delete( BING_DRAGONSUNGCHEON);
+
+						g_EffectManager.DeqEffectPackagePair( m_pBing_DragonPP );
+						m_pBing_DragonPP = NULL;
+					}
+					else
+					{
+						m_pBing_DragonPP->dwElapsedTime += fLocalFrameScale;
+						m_pBing_DragonPP->bIsVisible = true;
+					}
 				}
 			}
-			else	// 없으면 이펙트를 지운다.
+			else
 			{
 				if( m_pBing_DragonPP )
 				{
-					g_EffectManager.DeqEffectPackagePair( m_pBing_DragonPP );
+					if( m_pBing_DragonPP != (_EFFECTPACKAGEPAIR*)1 )
+						g_EffectManager.DeqEffectPackagePair( m_pBing_DragonPP );
 					m_pBing_DragonPP = NULL;
 				}
-			}//각성 빙룡 무공
+			}
 
-			if( m_KeepUpMugongList.IsExist(DOK_DRAGONSINJANG ) || m_KeepUpMugongList.IsExist(DOK_DRAGONSUNGCHEON ) )	//각성 독룡 무공
+			if( m_KeepUpMugongList.IsExist(DOK_DRAGONSINJANG ) || m_KeepUpMugongList.IsExist(DOK_DRAGONSUNGCHEON ) )
 			{
 				if( !m_pDok_DragonPP )
 				{
 					g_EffectManager.MakeSharedPackagePair( 0, 0, 0 );
 
 					_EFFECTPACKAGE* pEffectPackage = g_EffectManager.EnqOutGongPersistEffectImmediately( eDok_Dragon );
-					// matrix
 					if( pEffectPackage )
 					{
 						m_pDok_DragonPP = g_EffectManager.GetCurEffectPackagePair();
 
 						m_pDok_DragonPP->pWorldMatrix = (MATRIX*)m_CharRender.GetCharTM();
-
-						if(m_KeepUpMugongList.IsExist(DOK_DRAGONSINJANG ))
-							m_pDok_DragonPP->dwTotalTime = m_KeepUpMugongList.GetTime(DOK_DRAGONSINJANG);
-
-						if(m_KeepUpMugongList.IsExist(DOK_DRAGONSUNGCHEON ))
-							m_pDok_DragonPP->dwTotalTime = m_KeepUpMugongList.GetTime(DOK_DRAGONSUNGCHEON);
-
+						m_pDok_DragonPP->dwTotalTime = 3000;
 						m_pDok_DragonPP->dwElapsedTime = 0;
+					}
+					else
+					{
+						g_EffectManager.DeqEffectPackagePair( g_EffectManager.GetCurEffectPackagePair() );
+						m_pDok_DragonPP = (_EFFECTPACKAGEPAIR*)1;
 					}
 
 					g_EffectManager.OffSharedPackagePair();
 				}
-				else	// 이펙트가 있으면 지속 시간 계산.
+				else if( m_pDok_DragonPP != (_EFFECTPACKAGEPAIR*)1 )
 				{
-					m_pDok_DragonPP->dwElapsedTime += fLocalFrameScale;
-					m_pDok_DragonPP->bIsVisible = true;
+					if(m_pDok_DragonPP->dwElapsedTime >= m_pDok_DragonPP->dwTotalTime)
+					{
+						if( m_KeepUpMugongList.IsExist(DOK_DRAGONSINJANG))
+							m_KeepUpMugongList.Delete( DOK_DRAGONSINJANG);
+						
+						if( m_KeepUpMugongList.IsExist(DOK_DRAGONSUNGCHEON))
+							m_KeepUpMugongList.Delete( DOK_DRAGONSUNGCHEON);
+
+						g_EffectManager.DeqEffectPackagePair( m_pDok_DragonPP );
+						m_pDok_DragonPP = NULL;
+					}
+					else
+					{
+						m_pDok_DragonPP->dwElapsedTime += fLocalFrameScale;
+						m_pDok_DragonPP->bIsVisible = true;
+					}
 				}
 			}
-			else	// 없으면 이펙트를 지운다.
+			else
 			{
 				if( m_pDok_DragonPP )
 				{
-					g_EffectManager.DeqEffectPackagePair( m_pDok_DragonPP );
+					if( m_pDok_DragonPP != (_EFFECTPACKAGEPAIR*)1 )
+						g_EffectManager.DeqEffectPackagePair( m_pDok_DragonPP );
 					m_pDok_DragonPP = NULL;
 				}
-			}//각성 독룡 무공
+			}
 
-			if( m_KeepUpMugongList.IsExist(NOI_DRAGONSINJANG) || m_KeepUpMugongList.IsExist(NOI_DRAGONSUNGCHEON ) )	//각성 뇌룡 무공
+			if( m_KeepUpMugongList.IsExist(NOI_DRAGONSINJANG) || m_KeepUpMugongList.IsExist(NOI_DRAGONSUNGCHEON ) )
 			{
 				if( !m_pNoi_DragonPP )
 				{
 					g_EffectManager.MakeSharedPackagePair( 0, 0, 0 );
 
 					_EFFECTPACKAGE* pEffectPackage = g_EffectManager.EnqOutGongPersistEffectImmediately( eNoi_Dragon );
-					// matrix
 					if( pEffectPackage )
 					{
 						m_pNoi_DragonPP = g_EffectManager.GetCurEffectPackagePair();
 
 						m_pNoi_DragonPP->pWorldMatrix = (MATRIX*)m_CharRender.GetCharTM();
-						
-						if(m_KeepUpMugongList.IsExist(NOI_DRAGONSINJANG ))
-							m_pNoi_DragonPP->dwTotalTime = m_KeepUpMugongList.GetTime(NOI_DRAGONSINJANG);
-
-						if(m_KeepUpMugongList.IsExist(NOI_DRAGONSUNGCHEON ))
-							m_pNoi_DragonPP->dwTotalTime = m_KeepUpMugongList.GetTime(NOI_DRAGONSUNGCHEON);
-
+						m_pNoi_DragonPP->dwTotalTime = 3000;
 						m_pNoi_DragonPP->dwElapsedTime = 0;
+					}
+					else
+					{
+						g_EffectManager.DeqEffectPackagePair( g_EffectManager.GetCurEffectPackagePair() );
+						m_pNoi_DragonPP = (_EFFECTPACKAGEPAIR*)1;
 					}
 
 					g_EffectManager.OffSharedPackagePair();
 				}
-				else	// 이펙트가 있으면 지속 시간 계산.
+				else if( m_pNoi_DragonPP != (_EFFECTPACKAGEPAIR*)1 )
 				{
-					m_pNoi_DragonPP->dwElapsedTime += fLocalFrameScale;
-					m_pNoi_DragonPP->bIsVisible = true;
+					if(m_pNoi_DragonPP->dwElapsedTime >= m_pNoi_DragonPP->dwTotalTime)
+					{
+						if( m_KeepUpMugongList.IsExist(NOI_DRAGONSINJANG))
+							m_KeepUpMugongList.Delete( NOI_DRAGONSINJANG);
+						
+						if( m_KeepUpMugongList.IsExist(NOI_DRAGONSUNGCHEON))
+							m_KeepUpMugongList.Delete( NOI_DRAGONSUNGCHEON);
+
+						g_EffectManager.DeqEffectPackagePair( m_pNoi_DragonPP );
+						m_pNoi_DragonPP = NULL;
+					}
+					else
+					{
+						m_pNoi_DragonPP->dwElapsedTime += fLocalFrameScale;
+						m_pNoi_DragonPP->bIsVisible = true;
+					}
 				}
 			}
-			else	// 없으면 이펙트를 지운다.
+			else
 			{
 				if( m_pNoi_DragonPP )
 				{
-					g_EffectManager.DeqEffectPackagePair( m_pNoi_DragonPP );
+					if( m_pNoi_DragonPP != (_EFFECTPACKAGEPAIR*)1 )
+						g_EffectManager.DeqEffectPackagePair( m_pNoi_DragonPP );
 					m_pNoi_DragonPP = NULL;
 				}
 			}//각성 뇌룡 무공

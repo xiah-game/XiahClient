@@ -1,4 +1,4 @@
-﻿#include "mail.h"
+#include "mail.h"
 
 
 
@@ -122,32 +122,33 @@ int OnCS_IM_MAPITEMINFOLIST_ACK(CMsg &msg)
 		pItemInfo->m_dwAmount		= dwAmount;
 		pItemInfo->m_dwItemID		= dwItemID;
 
-		XiahItem::SetItemVisualData( pItemInfo);
+		BOOL bVisualOk = XiahItem::SetItemVisualData( pItemInfo);
+		CRes_Character* pChar = NULL;
+		Res_Mesh* pMesh = NULL;
+		Res_CharTexture* pTexture = NULL;
+
+		if (bVisualOk)
+		{
+			pChar = GetCharacter( pItemInfo->m_nMapCharID);
+			if (pChar) pMesh = pChar->GetMesh( pItemInfo->m_nMapMeshType);
+			if (pMesh) pTexture = pMesh->GetTexture( pItemInfo->m_nMapTextureType);
+		}
+
+		if (pChar == NULL || pMesh == NULL || pTexture == NULL)
+		{
+			pItemInfo->m_wVisualID = 10050; // Fallback to safe money pouch visual ID
+			XiahItem::SetItemVisualData( pItemInfo);
+			pChar = GetCharacter( pItemInfo->m_nMapCharID);
+			pMesh = pChar ? pChar->GetMesh( pItemInfo->m_nMapMeshType) : NULL;
+			pTexture = pMesh ? pMesh->GetTexture( pItemInfo->m_nMapTextureType) : NULL;
+		}
 
 		if( bCreateChar )
 		{
-			CRes_Character* pChar = GetCharacter( pItemInfo->m_nMapCharID);
-			if( pChar == NULL)
+			if ( pChar == NULL || pMesh == NULL || pTexture == NULL )
 			{
 				delete pItemInfo;
 				pItemInfo = NULL;
-				return TRUE;
-			}
-
-			Res_Mesh* pMesh = pChar->GetMesh( pItemInfo->m_nMapMeshType);
-			if( pMesh == NULL)
-			{
-				delete pItemInfo;
-				pItemInfo = NULL;
-				return TRUE;
-			}
-
-			Res_CharTexture* pTexture = pMesh->GetTexture( pItemInfo->m_nMapTextureType);
-			if( pTexture == NULL)
-			{
-				delete pItemInfo;
-				pItemInfo = NULL;
-
 				return TRUE;
 			}
 		}// if
@@ -268,29 +269,28 @@ int OnCS_IM_ADDONMAP_ACK(CMsg& msg)
 		pItemInfo->m_dwItemID		= dwItemID;
 		pItemInfo->m_szName			= szName;
 
-		XiahItem::SetItemVisualData( pItemInfo);
+		BOOL bVisualOk = XiahItem::SetItemVisualData( pItemInfo);
+		CRes_Character* pChar = NULL;
+		Res_Mesh* pMesh = NULL;
+		Res_CharTexture* pTexture = NULL;
 
-		CRes_Character* pChar = GetCharacter( pItemInfo->m_nMapCharID);
-
-		if( pChar == NULL)
+		if (bVisualOk)
 		{
-			delete pItemInfo;
-			pItemInfo = NULL;
-			return TRUE;
+			pChar = GetCharacter( pItemInfo->m_nMapCharID);
+			if (pChar) pMesh = pChar->GetMesh( pItemInfo->m_nMapMeshType);
+			if (pMesh) pTexture = pMesh->GetTexture( pItemInfo->m_nMapTextureType);
 		}
 
-		Res_Mesh* pMesh = pChar->GetMesh( pItemInfo->m_nMapMeshType);
-
-		if( pMesh == NULL)
+		if (pChar == NULL || pMesh == NULL || pTexture == NULL)
 		{
-			delete pItemInfo;
-			pItemInfo = NULL;
-			return TRUE;
+			pItemInfo->m_wVisualID = 10050; // Fallback to safe money pouch visual ID
+			XiahItem::SetItemVisualData( pItemInfo);
+			pChar = GetCharacter( pItemInfo->m_nMapCharID);
+			pMesh = pChar ? pChar->GetMesh( pItemInfo->m_nMapMeshType) : NULL;
+			pTexture = pMesh ? pMesh->GetTexture( pItemInfo->m_nMapTextureType) : NULL;
 		}
 
-		Res_CharTexture* pTexture = pMesh->GetTexture( pItemInfo->m_nMapTextureType);
-
-		if( pTexture == NULL)
+		if (pChar == NULL || pMesh == NULL || pTexture == NULL)
 		{
 			delete pItemInfo;
 			pItemInfo = NULL;
@@ -527,28 +527,30 @@ int OnCS_IM_MAPITEMINFO_ACK(CMsg &msg)
 	pItemInfo->m_dwAmount		= dwAmount;
 	pItemInfo->m_dwItemID		= dwItemID;
 
-	XiahItem::SetItemVisualData( pItemInfo);
+	BOOL bVisualOk = XiahItem::SetItemVisualData( pItemInfo);
+	CRes_Character* pChar = NULL;
+	Res_Mesh* pMesh = NULL;
+	Res_CharTexture* pTexture = NULL;
+
+	if (bVisualOk)
+	{
+		pChar = GetCharacter( pItemInfo->m_nMapCharID);
+		if (pChar) pMesh = pChar->GetMesh( pItemInfo->m_nMapMeshType);
+		if (pMesh) pTexture = pMesh->GetTexture( pItemInfo->m_nMapTextureType);
+	}
+
+	if (pChar == NULL || pMesh == NULL || pTexture == NULL)
+	{
+		pItemInfo->m_wVisualID = 10050; // Fallback to safe money pouch visual ID
+		XiahItem::SetItemVisualData( pItemInfo);
+		pChar = GetCharacter( pItemInfo->m_nMapCharID);
+		pMesh = pChar ? pChar->GetMesh( pItemInfo->m_nMapMeshType) : NULL;
+		pTexture = pMesh ? pMesh->GetTexture( pItemInfo->m_nMapTextureType) : NULL;
+	}
 
 	if( bCreateChar )
 	{
-		CRes_Character* pChar = GetCharacter( pItemInfo->m_nMapCharID);
-		if( pChar == NULL)
-		{
-			delete pItemInfo;
-			pItemInfo = NULL;
-			return TRUE;
-		}
-
-		Res_Mesh* pMesh = pChar->GetMesh( pItemInfo->m_nMapMeshType);
-		if( pMesh == NULL)
-		{
-			delete pItemInfo;
-			pItemInfo = NULL;
-			return TRUE;
-		}
-
-		Res_CharTexture* pTexture = pMesh->GetTexture( pItemInfo->m_nMapTextureType);
-		if( pTexture == NULL)
+		if ( pChar == NULL || pMesh == NULL || pTexture == NULL )
 		{
 			delete pItemInfo;
 			pItemInfo = NULL;

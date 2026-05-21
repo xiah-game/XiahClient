@@ -1,4 +1,4 @@
-﻿#include "cjoystic.h"
+#include "cjoystic.h"
 #include "XiahEnvInfo.h"
 //#include "SkillTime.h"
 
@@ -1800,6 +1800,75 @@ int OnCS_BT_MUGONGPREATTACK_ACK( CMsg &msg)
 	{
 		DBG_LogFile( _T("OnCS_BT_MUGONGPREATTACK_ACK "));
 		return TRUE;
+	}
+
+	// [Client-side Buff Animation & Attack Lock Bypass Patch]
+	{
+		bool isBuffSkill = dwMugongID == OUTGONGID_UNKIHAENG || dwMugongID == OUTGONGID_MUSUHON || 
+						   dwMugongID == OUTGONGID_ILYUIDOGANG || dwMugongID == OUTGONGID_POKSAHON || 
+						   dwMugongID == OUTGONGID_KUMKANGLUK || dwMugongID == OUTGONGID_BUSIN || 
+						   dwMugongID == OUTGONGID_JOSIKSUL || dwMugongID == OUTGONGID_JUNYUUM || 
+						   dwMugongID == OUTGONGID_YUESUSINYUNG || dwMugongID == OUTGONGID_KYOKANSU || 
+						   dwMugongID == OUTGONGID_W0NKISINKANG || dwMugongID == OUTGONGID_WHANSUYUO || 
+						   dwMugongID == OUTGONGID_KIYOESUL || dwMugongID == OUTGONGID_JILPUNGBO || 
+						   dwMugongID == OUTGONGID_AMHUKMU || dwMugongID == OUTGONGID_TALBAKIN || 
+						   dwMugongID == OUTGONGID_JUKUNKANGKI || dwMugongID == OUTGONGID_KUMNASU || 
+						   dwMugongID == OUTGONGID_BANTANKANGKI || dwMugongID == OUTGONGID_ODOKCHIM || 
+						   dwMugongID == OUTGONGID_CHOSANGBI || dwMugongID == OUTGONGID_DOKNAEGONG || 
+						   dwMugongID == OUTGONGID_DOKHYULGONG || dwMugongID == OUTGONGID_DOKMU || 
+						   dwMugongID == OUTGONGID_MANDOKBULJIN || dwMugongID == OUTGONGID_GYUISIKDAEBUB || 
+						   dwMugongID == OUTGONGID_GWANGMADOKGONG || 
+						   (dwMugongID >= 150 && dwMugongID <= 154);
+		if (isBuffSkill)
+		{
+			pAttackerCharObject->SetAngleTarget( wTargetPosX, wTargetPosY);
+			
+			// Play the correct casting animation for the buff skill
+			if (dwMugongID == OUTGONGID_ILYUIDOGANG || dwMugongID == OUTGONGID_YUESUSINYUNG || 
+				dwMugongID == OUTGONGID_JILPUNGBO || dwMugongID == OUTGONGID_CHOSANGBI)
+			{
+				sArrayData* pData = XiahArrayIndex::g_MugongTemplate.GetData(dwMugongID);
+				if (pData != NULL)
+				{
+					int ani_index = pData->GetInt(2);
+					g_MainCharInfo.m_nFastIndex = ani_index;
+					if (!pAttackerCharObject->m_KeepUpMugongList.IsExist(dwMugongID))
+					{
+						pAttackerCharObject->SetAnimation(XiahAniType::eLAT_Mugong, XiahAniType::eLAT_Stand, 12, -1, 1.0f);
+					}
+				}
+			}
+			else
+			{
+				sArrayData* pData = XiahArrayIndex::g_MugongTemplate.GetData(dwMugongID);
+				if (pData == NULL)
+				{
+					pData = XiahArrayIndex::g_RebirthMugong_List.GetData(dwMugongID);
+				}
+				if (pData != NULL)
+				{
+					int ani_index = (dwMugongID >= 161 && dwMugongID <= 179) ? pData->GetInt(3) : pData->GetInt(2);
+					pAttackerCharObject->SetAnimation(XiahAniType::eLAT_Mugong, XiahAniType::eLAT_Stand, ani_index, -1, 1.0f);
+				}
+			}
+
+			// Send MugongAttackReq to complete the client-server action cycle
+			if (g_pMainChar == pAttacker)
+			{
+				SendCS_BT_MUGONGATTACK_REQ(dwMugongID, 
+											bAttackType, 
+											dwAttackID, 
+											wAttackPosX, 
+											wAttackPosY, 
+											bAttackHeight, 
+											bDefenseType, 
+											dwDefenseID, 
+											wTargetPosX, 
+											wTargetPosY, 
+											bTargetHeight);
+			}
+			return TRUE; // Return immediately to completely skip attack lock (m_bAttack = TRUE) sequence!
+		}
 	}
 
 	switch( bAttackType)
