@@ -1,6 +1,8 @@
-﻿#include "precompile.h"
+#include "precompile.h"
 #include "xiahsocket.h"
 #include "CharacterInfo.h"
+#include "AppData.h"
+#include <ctime>
 
 #pragma comment(lib,"ws2_32.lib")
 
@@ -181,9 +183,33 @@ BOOL CXiahSocket::Close()
 	return TRUE;
 }
 
+static uint64_t CalculateFNV1aHMAC(const BYTE* data, size_t len, DWORD key) {
+    uint64_t hash = 14695981039346656037ULL;
+    hash ^= key;
+    hash *= 1099511628211ULL;
+    for (size_t i = 0; i < len; ++i) {
+        hash ^= data[i];
+        hash *= 1099511628211ULL;
+    }
+    return hash;
+}
+
 //----------------------------------------------------------------------------------------------------------------------
 BOOL CXiahSocket::Send(CMsg &msg)
 {
+    if (msg.ID() != 0) {
+        static uint32_t s_clientSeq = 1;
+        uint32_t seq = s_clientSeq++;
+        uint32_t timestamp = (uint32_t)time(nullptr);
+
+        msg << (DWORD)seq;
+        msg << (DWORD)timestamp;
+
+        // FNV-1a HMAC calculated over header + payload up to current size
+        uint64_t hmac = CalculateFNV1aHMAC((const BYTE*)msg.GetBuf(), msg.GetSize(), g_AppData.m_dwKey);
+        msg << (INT64)hmac;
+    }
+
 	msg.Encrypt( m_bKey);
 
 	int r = send(m_hSocket, (char *)msg.GetBuf(),msg.GetSize(), 0);

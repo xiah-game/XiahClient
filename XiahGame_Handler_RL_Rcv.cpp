@@ -53,7 +53,7 @@ int OnCS_RL_CREATEMUNPA_ACK( CMsg &msg)
 }
 
 /**
- * ¹®ÆÄÆó¼â
+ * ë¬¸íŒŒíì‡„
  * \param &msg 
  * \return 
  */
@@ -94,10 +94,10 @@ int OnCS_RL_DELETEMUNPA_ACK( CMsg &msg)
 			g_MainCharInfo.ShowHelpMessage(str,TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case 5:	// ÀüÀïÁß
+	case 5:	// ì „ìŸì¤‘
 		g_MainCharInfo.ShowHelpMessage(IDS_MUNPADEL_WARFAIL, TEXTEFFECT_COLOR_WARNING);		
 		break;
-	case 6:	// ºñ¼®¼ÒÀ¯
+	case 6:	// ë¹„ì„ì†Œìœ 
 		g_MainCharInfo.ShowHelpMessage(IDS_MUNPADEL_STONE, TEXTEFFECT_COLOR_WARNING);		
 		break;
 	}
@@ -106,7 +106,7 @@ int OnCS_RL_DELETEMUNPA_ACK( CMsg &msg)
 }
 
 /**
- * ¹®ÆÄ¿ø°¡ÀÔ
+ * ë¬¸íŒŒì›ê°€ìž…
  * \param &msg 
  * \return 
  */
@@ -133,7 +133,7 @@ int OnCS_RL_ASKMUNWON_ACK( CMsg &msg)
 			_stprintf( szText, IDS_D_ASK_CLAN, (LPCTSTR)g_MainCharInfo.FindNameByID( dwAskID));
 			if( !g_pUIManager->ShowNotice( szText, NOTICE_FRAME_OKCANCEL, NOTICE_FRAME_CLAN))
 			{
-				// °ÅÀý
+				// ê±°ì ˆ
 				SendCS_RL_ASKMUNWON_REQ( ACT_ASKMUNWON_CANCEL, g_MainCharInfo.m_dwAskID, g_MainCharInfo.m_dwObjectID);
 			}
 		}
@@ -168,16 +168,16 @@ int OnCS_RL_ASKMUNWON_ACK( CMsg &msg)
 				_stprintf( szText, IDS_D_ASK_CLAN, (LPCTSTR)strName);
 				if(!g_pUIManager->ShowNotice( szText, NOTICE_FRAME_OKCANCEL, NOTICE_FRAME_CLAN))
 				{
-					// °ÅÀý
+					// ê±°ì ˆ
 					SendCS_RL_ASKMUNWON_REQ( ACT_ASKMUNWON_CANCEL, g_MainCharInfo.m_dwAskID, g_MainCharInfo.m_dwObjectID);
 				}
 			}
 		}
 		break;
-	case 7:		// ÇöÀç ¹Ì Á¢¼Ó
+	case 7:		// í˜„ìž¬ ë¯¸ ì ‘ì†
 		g_MainCharInfo.ShowHelpMessage(IDS_MUNPA_MUNJU_DONOT, TEXTEFFECT_COLOR_WARNING);	
 		break;
-	case 8:		// ¿É¼ÇÀ¸·Î °ü°è °ÅÀý
+	case 8:		// ì˜µì…˜ìœ¼ë¡œ ê´€ê³„ ê±°ì ˆ
 		g_MainCharInfo.ShowHelpMessage(IDS_MUNPA_JOIN_OPTION_NO, TEXTEFFECT_COLOR_WARNING);		
 		break;
 	}
@@ -186,7 +186,7 @@ int OnCS_RL_ASKMUNWON_ACK( CMsg &msg)
 }
 
 /**
- * ¹®¿øÃß°¡
+ * ë¬¸ì›ì¶”ê°€
  * \param &msg 
  * \return 
  */
@@ -216,10 +216,10 @@ int OnCS_RL_ADDMUNWON_ACK(CMsg &msg)
 		case ERR_ADDMUNWON_ERROR:
 			g_MainCharInfo.ShowHelpMessage(IDS_ERROR1, TEXTEFFECT_COLOR_WARNING);
 			break;
-		case ERR_ADDMUNWON_MAX:	// ¹®¿ø¼ö ¸¹À»¶§
+		case ERR_ADDMUNWON_MAX:	// ë¬¸ì›ìˆ˜ ë§Žì„ë•Œ
 			g_MainCharInfo.ShowHelpMessage(IDS_ADDMUNWON_MAX, TEXTEFFECT_COLOR_WARNING);
 			break;
-		case ERR_ADDMUNWON_PENALTY:	//HO_0507_07 ¹®ÆÄ ÆÐÅ¶ Ãß°¡ : Å»ÅðÇÑÁö 1ÁÖÀÏÀÌ ¾ÈÁö³²
+		case ERR_ADDMUNWON_PENALTY:	//HO_0507_07 ë¬¸íŒŒ íŒ¨í‚· ì¶”ê°€ : íƒˆí‡´í•œì§€ 1ì£¼ì¼ì´ ì•ˆì§€ë‚¨
 			g_MainCharInfo.ShowHelpMessage(IDS_ADDMUNWON_PENALTY, TEXTEFFECT_COLOR_WARNING);
 			break;
 		} // switch( bResult)
@@ -244,7 +244,7 @@ int OnCS_RL_ADDMUNWON_ACK(CMsg &msg)
 	{
 		g_MainCharInfo.m_pRelation->InsertClan( dwOrderID, szOrderName, dwCharID, szCharName, _T(""), 0, 1, 99);
 
-		// Àü¼­±¸ (¹®ÆÄ Ãß°¡) ³ª¸¦ Á¦¿ÜÇÏ°í ³ÖÀÚ
+		// ì „ì„œêµ¬ (ë¬¸íŒŒ ì¶”ê°€) ë‚˜ë¥¼ ì œì™¸í•˜ê³  ë„£ìž
 		if( dwCharID != g_MainCharInfo.m_dwObjectID)
 			g_Mail.Add_SendList(dwCharID,szCharName,MAIL_MUNPA,(BYTE)dwOrderID);
 
@@ -328,7 +328,7 @@ int OnCS_RL_DELMUNWON_ACK( CMsg &msg)
 		g_MainCharInfo.m_pRelation->DeleteClan( dwCharID);
 		//g_MainCharInfo.ShowHelpMessage( IDS_CLAN_TALTE);
 
-		// Àü¼­±¸ ¸®½ºÆ®¿¡¼­ »«´Ù
+		// ì „ì„œêµ¬ ë¦¬ìŠ¤íŠ¸ì—ì„œ ëº€ë‹¤
 		g_Mail.Delete_SendMailList(dwCharID);
 	}
 
@@ -370,7 +370,7 @@ int OnCS_RL_MUNWONINFO_ACK( CMsg &msg)
 		pInfo->m_wCharLev		= wCharLev;
 		pInfo->m_szMunpaNickName = szMunpaNickName;
 		pInfo->m_bState			= bState;
-		pInfo->m_bCharType		= bCharType;		// À¯ÆÄ
+		pInfo->m_bCharType		= bCharType;		// ìœ íŒŒ
 	}
 
 	g_MainCharInfo.m_pRelation->RefreshClanContent();
@@ -470,7 +470,7 @@ int OnCS_RL_MUNWONLIST_ACK( CMsg &msg)
 
 		g_MainCharInfo.m_pRelation->InsertClan( dwOrderID, szOrderName, dwCharID, szCharName, szMunpaNickName, 0, bState, bCharType);
 
-		// Àü¼­±¸ (¹®ÆÄ Ãß°¡) ³ª¸¦ Á¦¿ÜÇÏ°í ³ÖÀÚ
+		// ì „ì„œêµ¬ (ë¬¸íŒŒ ì¶”ê°€) ë‚˜ë¥¼ ì œì™¸í•˜ê³  ë„£ìž
 		if( dwCharID != g_MainCharInfo.m_dwObjectID)
 			g_Mail.Add_SendList(dwCharID,szCharName,MAIL_MUNPA,(BYTE)dwOrderID);
 
@@ -481,11 +481,16 @@ int OnCS_RL_MUNWONLIST_ACK( CMsg &msg)
 
 			if( pCharObject)
 			{
-				// ¸í¼º µî±Þ °Ë»ç
+				// ëª…ì„± ë“±ê¸‰ ê²€ì‚¬
 				if(pCharObject->m_dwFame >= 127)
+				{
 					pCharObject->m_cNameColor = D3DCOLOR_XRGB( 200, 255, 200);
-				else
 					pCharObject->RefreshFameColor();
+				}
+				else
+				{
+					pCharObject->RefreshFameColor();
+				}
 				
 				pCharObject->m_dwMunpaID = dwMunpaID;
 				pCharObject->m_szMunpaName = szMunpaName;
@@ -498,7 +503,7 @@ int OnCS_RL_MUNWONLIST_ACK( CMsg &msg)
 }
 
 /**
- * Á÷À§ºÎ¿©
+ * ì§ìœ„ë¶€ì—¬
  * \param &msg 
  * \return 
  */
@@ -556,16 +561,16 @@ int OnCS_RL_CHANGEMUNWONORDER_ACK( CMsg &msg)
 			g_MainCharInfo.ShowHelpMessage(str,TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case 6:	// ¹®ÆÄ¸í¼º 100 ÀÌÇÏ
+	case 6:	// ë¬¸íŒŒëª…ì„± 100 ì´í•˜
 		g_MainCharInfo.ShowHelpMessage(IDS_MUNPA_FAME_LOW, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case 7:	// ´ë»óÀÚ °©ÀÚ 30ÀÌÇÏ½Ã
+	case 7:	// ëŒ€ìƒìž ê°‘ìž 30ì´í•˜ì‹œ
 		g_MainCharInfo.ShowHelpMessage(IDS_TARGET_LEVEL_LOW, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case 8:	// ´ë»óÀÚ ¸í¼º 10ÀÌÇÏ½Ã
+	case 8:	// ëŒ€ìƒìž ëª…ì„± 10ì´í•˜ì‹œ
 		g_MainCharInfo.ShowHelpMessage(IDS_TARGET_FAME_LOW, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case 9: // ÀÌ¾ç¼¼ ºÎÁ·
+	case 9: // ì´ì–‘ì„¸ ë¶€ì¡±
 		g_MainCharInfo.ShowHelpMessage(IDS_PURSE_IN_LOWMONEY, TEXTEFFECT_COLOR_WARNING);
 		break;
 	}
@@ -575,7 +580,7 @@ int OnCS_RL_CHANGEMUNWONORDER_ACK( CMsg &msg)
 
 
 /**
- * ¹®ÆÄÁ¤º¸
+ * ë¬¸íŒŒì •ë³´
  * \param &msg 
  * \return 
  */
@@ -655,15 +660,15 @@ int OnCS_RL_MUNPAINFO_ACK( CMsg &msg)
 
 	g_MainCharInfo.OpenFrame(WINDOW_MUNPA_BBS_TOP);
 
-	// ¹®ÆÄ¸í
+	// ë¬¸íŒŒëª…
 	g_pUIManager->SetString(WINDOW_MUNPA_BBS_TOP, munpa_bbs_top_dummy_02, szMunpaName, 5);
 
-	//¹®ÁÖ¸í
+	//ë¬¸ì£¼ëª…
 	g_pUIManager->SetString(WINDOW_MUNPA_BBS_TOP, munpa_bbs_top_dummy_04, strMunjuName, 5);
 
 	TCHAR strText[256] = {0,};
 
-	// ¹®¿ø¼ö
+	// ë¬¸ì›ìˆ˜
 	_stprintf(strText, IDS_M_BBS_NUMBER, dwMunwonNum);
 	g_pUIManager->SetString(WINDOW_MUNPA_BBS_TOP, munpa_bbs_top_dummy_06, strText, 5);
 
@@ -709,14 +714,14 @@ int OnCS_RL_MUNPAINFO_ACK( CMsg &msg)
 	else if(dwMunpaFame >= 1000)
 		nRate = 1;
 
-	// µî±Þ
+	// ë“±ê¸‰
 	_stprintf(strText, IDS_RATE, nRate);
 	g_pUIManager->SetString(WINDOW_MUNPA_BBS_TOP, munpa_bbs_top_dummy_08, strText, 5);
-	// ¸í¼º
+	// ëª…ì„±
 	g_pUIManager->SetString(WINDOW_MUNPA_BBS_TOP, munpa_bbs_top_dummy_10, dwMunpaFame, 1);
 
-	// ¼øÀ§
-	if(dwRanking == 0)		// µî¿Ü
+	// ìˆœìœ„
+	if(dwRanking == 0)		// ë“±ì™¸
 		g_pUIManager->SetString(WINDOW_MUNPA_BBS_TOP, munpa_bbs_top_dummy_12, IDS_M_BBS_RANK_UNDER, 5);
 	else
 	{
@@ -724,7 +729,7 @@ int OnCS_RL_MUNPAINFO_ACK( CMsg &msg)
 		g_pUIManager->SetString(WINDOW_MUNPA_BBS_TOP, munpa_bbs_top_dummy_12, strText, 5);
 	}
 
-	// ÀüÀû
+	// ì „ì 
 	_stprintf(strText, IDS_M_BBS_RECORD	, dwTotalWar, dwWinWar, dwDrawWar, dwLossWar);
 	g_pUIManager->SetString(WINDOW_MUNPA_BBS_TOP, munpa_bbs_top_dummy_14, strText, 5);
 
@@ -739,12 +744,12 @@ int OnCS_RL_MUNPAINFO_ACK( CMsg &msg)
 		nTime -= 12;
 	}
 
-	// ¼ÒÀ¯±â°£
+	// ì†Œìœ ê¸°ê°„
 	_stprintf(strText, IDS_M_BBS_WAR_DAY, GETMONTH(dwCanBattleTime)+1, GETDAY(dwCanBattleTime)+1,
 		lpstrTemp, nTime);
 	g_pUIManager->SetString(WINDOW_MUNPA_BBS_TOP, munpa_bbs_top_dummy_16, strText, 5);
 
-	// ¿¹Á¤ÀÏ½Ã
+	// ì˜ˆì •ì¼ì‹œ
 	nTime = GETHOUR(dwBattleTime);
 
 	if(nTime <= 11)
@@ -766,10 +771,10 @@ int OnCS_RL_MUNPAINFO_ACK( CMsg &msg)
 	_stprintf(strText, IDS_M_BBS_WAR_DAY, nMonth, nDay,	lpstrTemp, nTime);
 	g_pUIManager->SetString(WINDOW_MUNPA_BBS_TOP, munpa_bbs_top_dummy_18, strText, 5);
 
-	// »ó´ëÆí ¹®ÆÄ
+	// ìƒëŒ€íŽ¸ ë¬¸íŒŒ
 	g_pUIManager->SetString(WINDOW_MUNPA_BBS_TOP, munpa_bbs_top_dummy_20, strEnemyMunpaName, 5);
 
-	// ¹®ÆÄÀÚ±Ý(¼¼±Ý)
+	// ë¬¸íŒŒìžê¸ˆ(ì„¸ê¸ˆ)
 	g_MainCharInfo.m_dwTaxMunpaMoney = dwTaxMunpaMoney;
 	_stprintf(strText, IDS_MONEY, MoneyCommaStr(dwTaxMunpaMoney).data());
 	g_pUIManager->SetString(WINDOW_MUNPA_BBS_TOP, munpa_bbs_top_dummy_22, strText, 4);
@@ -781,7 +786,7 @@ int OnCS_RL_MUNPAINFO_ACK( CMsg &msg)
 
 		if(pClanWon)
 		{
-			if((pClanWon->m_dwOrderID == 1 || pClanWon->m_dwOrderID == 2) && g_MainCharInfo.m_dwMunpaFame >= 200)  // °Ô½ÃÆÇ ±â´É
+			if((pClanWon->m_dwOrderID == 1 || pClanWon->m_dwOrderID == 2) && g_MainCharInfo.m_dwMunpaFame >= 200)  // ê²Œì‹œíŒ ê¸°ëŠ¥
 			{
 				g_pUIManager->SetData(WINDOW_MUNPA_BBS_TOP, munpa_bbs_top_button_02, CURRENT_INDEX, -1);
 				g_pUIManager->SetData(WINDOW_MUNPA_BBS_TOP, munpa_bbs_top_button_03, CURRENT_INDEX, -1);
@@ -794,7 +799,7 @@ int OnCS_RL_MUNPAINFO_ACK( CMsg &msg)
 				g_pUIManager->SetData(WINDOW_MUNPA_BBS_LIST, munpa_bbs_list_button_02, CURRENT_INDEX, -1);
 				g_pUIManager->SetData(WINDOW_MUNPA_BBS_LIST, munpa_bbs_list_button_03, CURRENT_INDEX, -1);
 				g_pUIManager->SetData(WINDOW_MUNPA_BBS_LIST, munpa_bbs_list_button_04, CURRENT_INDEX, -1);
-			} // if((pClanWon->m_dwOrderID == 1 || pClanWon->m_dwOrderID == 2) && g_MainCharInfo.m_dwMunpaFame >= 200)  // °Ô½ÃÆÇ ±â´É
+			} // if((pClanWon->m_dwOrderID == 1 || pClanWon->m_dwOrderID == 2) && g_MainCharInfo.m_dwMunpaFame >= 200)  // ê²Œì‹œíŒ ê¸°ëŠ¥
 			else
 			{
 				if(g_MainCharInfo.m_dwMunpaFame >= 200)
@@ -840,7 +845,7 @@ int OnCS_RL_MUNPAINFO_ACK( CMsg &msg)
 }
 
 /**
- * ¹®ÆÄÃ¤ÆÃ
+ * ë¬¸íŒŒì±„íŒ…
  * \param &msg 
  * \return 
  */
@@ -859,7 +864,7 @@ int OnCS_RL_MUNPACHAT_ACK( CMsg &msg)
 		>> bType
 		>> content;
 
-	if(bType == 8)	// ¹®ÁÖÀÌ¾ç 
+	if(bType == 8)	// ë¬¸ì£¼ì´ì–‘ 
 	{
 		TCHAR strTemp[128] = {0,};
 		if(g_pMainChar)
@@ -878,8 +883,8 @@ int OnCS_RL_MUNPACHAT_ACK( CMsg &msg)
 		}
 
 		return 0;
-	} // if(bType == 8)	// ¹®ÁÖÀÌ¾ç
-	else if(bType == 9) // ¹®ÁÖ°øÁö
+	} // if(bType == 8)	// ë¬¸ì£¼ì´ì–‘
+	else if(bType == 9) // ë¬¸ì£¼ê³µì§€
 	{
 		TCHAR strTemp[128] = {0,};
 		if(g_pMainChar)
@@ -900,7 +905,7 @@ int OnCS_RL_MUNPACHAT_ACK( CMsg &msg)
 		return 0;
 	}
 
-	// ¿å¼³ ¹æÁö
+	// ìš•ì„¤ ë°©ì§€
 	TCHAR strTemp[128] = {0,};	
 	memcpy(strTemp, content.data(), strlen(content.data()));
 	content.printf("%s", ConvertString(strTemp, 128));
@@ -911,7 +916,7 @@ int OnCS_RL_MUNPACHAT_ACK( CMsg &msg)
 }
 
 /**
- * ¹®ÆÄ ¹®¿ø ´Ð³×ÀÓ ÁöÁ¤
+ * ë¬¸íŒŒ ë¬¸ì› ë‹‰ë„¤ìž„ ì§€ì •
  * \param &msg 
  * \return 
  */
@@ -973,7 +978,7 @@ int OnCS_RL_MUNPANICK_ACK( CMsg &msg)
 }
 
 /**
- * °ü°è
+ * ê´€ê³„
  * \param &msg 
  * \return 
  */
@@ -1022,8 +1027,8 @@ int OnCS_RL_ASKRELATION_ACK(CMsg &msg)
 		g_MainCharInfo.ShowHelpMessage(IDS_REL_ERR_CLOSEOPTION,TEXTEFFECT_COLOR_WARNING);
 		break;
 
-		// Àý¿¬ºÎ
-	case 9:		// ´Ù¸¥ »ç¶÷°ú °Å·¡Áß
+		// ì ˆì—°ë¶€
+	case 9:		// ë‹¤ë¥¸ ì‚¬ëžŒê³¼ ê±°ëž˜ì¤‘
 		g_MainCharInfo.ShowHelpMessage(IDS_PETTRADE_TRADEOTHER, TEXTEFFECT_COLOR_WARNING);
 		break;
 
@@ -1034,7 +1039,7 @@ int OnCS_RL_ASKRELATION_ACK(CMsg &msg)
 		}
 		break;
 	case RELATION_STEP_ASK:
-		// »ó´ë¹æÀÌ ¾î¶»ÇÒ²¨³Ä±¸ ¹°¾îº¸´Â°Å´Ï±ñ ÀÎÅÍÆäÀÌ½º Ãß°¡µÊ.
+		// ìƒëŒ€ë°©ì´ ì–´ë–»í• êº¼ëƒêµ¬ ë¬¼ì–´ë³´ëŠ”ê±°ë‹ˆê¹ ì¸í„°íŽ˜ì´ìŠ¤ ì¶”ê°€ë¨.
 		g_MainCharInfo.m_dwAskID = dwAskCharID;
 		g_MainCharInfo.m_byRelationType = bRelType;
  
@@ -1053,7 +1058,7 @@ int OnCS_RL_ASKRELATION_ACK(CMsg &msg)
 
 		if( !g_pUIManager->ShowNotice( szText, NOTICE_FRAME_OKCANCEL, NOTICE_FRAME_ASKRELATION) )
 		{
-			// °ÅÀý
+			// ê±°ì ˆ
 			SendCS_RL_ASKRELATION_REQ(bRelType, RELATION_STEP_DECLINE, dwAskCharID, dwAnsCharID);
 		}
 		break;
@@ -1101,7 +1106,7 @@ int OnCS_RL_BREAKRELATION_ACK(CMsg &msg)
 
 	switch( bRelStep )
 	{
-	case RELATION_STEP_ASK:		// »ó´ë¹æÀÌ ¹°¾îº¸´Â±º.
+	case RELATION_STEP_ASK:		// ìƒëŒ€ë°©ì´ ë¬¼ì–´ë³´ëŠ”êµ°.
 		TCHAR szText[100];
 		szText[0] = 0;
 
@@ -1118,7 +1123,7 @@ int OnCS_RL_BREAKRELATION_ACK(CMsg &msg)
 
 		if( !g_pUIManager->ShowNotice( szText, NOTICE_FRAME_OKCANCEL, NOTICE_FRAME_ASKRELATION) )
 		{
-			// °ÅÀý
+			// ê±°ì ˆ
 			SendCS_RL_BREAKRELATION_REQ(bRelType, RELATION_STEP_DECLINE, dwAskCharID, dwAnsCharID);
 		}
 		break;
@@ -1138,7 +1143,7 @@ int OnCS_RL_BREAKRELATION_ACK(CMsg &msg)
 */
 		}
 		break;
-	case RELATION_STEP_DECLINE:	// »ó´ë¹æÀÌ ÇöÀç °ÅÀý»óÅÂÀÎµ¥ °è¼Ó ÁøÇàÇÒ²¸?
+	case RELATION_STEP_DECLINE:	// ìƒëŒ€ë°©ì´ í˜„ìž¬ ê±°ì ˆìƒíƒœì¸ë° ê³„ì† ì§„í–‰í• ê»´?
 		{
 			g_MainCharInfo.m_byRelationStep = 3;
 
@@ -1153,7 +1158,7 @@ int OnCS_RL_BREAKRELATION_ACK(CMsg &msg)
 			g_pUIManager->ShowNotice(IDS_REL_BREAK_CONFIRM_DECLINE, NOTICE_FRAME_OKCANCEL, NOTICE_FRAME_ASKRELATION);
 		}
 		break;
-	case RELATION_STEP_NOTLOGIN: // »ó´ë¹æÀÌ ÇöÀç ¾ø´Âµ¥ °è¼Ó ÁøÇàÇÒ²¸?
+	case RELATION_STEP_NOTLOGIN: // ìƒëŒ€ë°©ì´ í˜„ìž¬ ì—†ëŠ”ë° ê³„ì† ì§„í–‰í• ê»´?
 		{
 			g_MainCharInfo.m_byRelationStep = 3;
 
@@ -1185,7 +1190,7 @@ int OnCS_RL_BREAKRELATION_ACK(CMsg &msg)
 		}
 		break;
 
-	case 8:	// ´ÜÁß¿¡´Â ²÷À»¼ö ¾øÀ½.
+	case 8:	// ë‹¨ì¤‘ì—ëŠ” ëŠì„ìˆ˜ ì—†ìŒ.
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_DAN_CUT_RELATION, TEXTEFFECT_COLOR_WARNING);			
 
@@ -1225,12 +1230,12 @@ int OnCS_RL_RELATIONLIST_ACK(CMsg &msg)
                 g_MainCharInfo.m_pRelation->InsertShip( bType, dwCharID, szNickName, bWorldID, dwMapID, 0, 0, (BOOL)bIsConnected);
 		}
 
-		// Àü¼­±¸
-		// bTypeÀº csProtocol ÂüÁ¶
+		// ì „ì„œêµ¬
+		// bTypeì€ csProtocol ì°¸ì¡°
 		if(bType == RELATION_TYPE_BUDDY)
-			g_Mail.Add_SendList(dwCharID,szNickName,MAIL_BUDDY,bType);		// Ä£±¸µé
+			g_Mail.Add_SendList(dwCharID,szNickName,MAIL_BUDDY,bType);		// ì¹œêµ¬ë“¤
 		else	
-			g_Mail.Add_SendList(dwCharID,szNickName,MAIL_RELATION,bType);	// Ä£±¸¸¦ Á¦¿ÜÇÑ ÀÎ¿¬
+			g_Mail.Add_SendList(dwCharID,szNickName,MAIL_RELATION,bType);	// ì¹œêµ¬ë¥¼ ì œì™¸í•œ ì¸ì—°
 	}
 
 	return 0;
@@ -1261,7 +1266,7 @@ int OnCS_RL_ADDRELATION_ACK(CMsg &msg)
 			g_MainCharInfo.m_pRelation->InsertShip( RELATION_TYPE_LOVER, dwCharID, szNickName, 0, 0, 0, 0, TRUE);
 			g_MainCharInfo.m_pRelation->RefreshShipContent();
 
-			g_Mail.Add_SendList(dwCharID,szNickName,MAIL_RELATION,bType);	// Ä£±¸¸¦ Á¦¿ÜÇÑ ÀÎ¿¬
+			g_Mail.Add_SendList(dwCharID,szNickName,MAIL_RELATION,bType);	// ì¹œêµ¬ë¥¼ ì œì™¸í•œ ì¸ì—°
 		}
 		break;
 	case RELATION_TYPE_TEACHER:
@@ -1273,7 +1278,7 @@ int OnCS_RL_ADDRELATION_ACK(CMsg &msg)
 			g_MainCharInfo.m_pRelation->InsertShip( bType, dwCharID, szNickName, 0, 0, 0, 0, TRUE);
 			g_MainCharInfo.m_pRelation->RefreshShipContent();
 
-			g_Mail.Add_SendList(dwCharID,szNickName,MAIL_RELATION,bType);	// Ä£±¸¸¦ Á¦¿ÜÇÑ ÀÎ¿¬
+			g_Mail.Add_SendList(dwCharID,szNickName,MAIL_RELATION,bType);	// ì¹œêµ¬ë¥¼ ì œì™¸í•œ ì¸ì—°
 		}
 		break;
 	case RELATION_TYPE_BUDDY:
@@ -1284,7 +1289,7 @@ int OnCS_RL_ADDRELATION_ACK(CMsg &msg)
 			g_MainCharInfo.m_pRelation->InsertShip( RELATION_TYPE_BUDDY, dwCharID, szNickName, 0, 0, 0, 0, TRUE);
 			g_MainCharInfo.m_pRelation->RefreshShipContent();
 
-			g_Mail.Add_SendList(dwCharID,szNickName,MAIL_BUDDY,bType);		// Ä£±¸µé
+			g_Mail.Add_SendList(dwCharID,szNickName,MAIL_BUDDY,bType);		// ì¹œêµ¬ë“¤
 		}
 		break;
 	default:
@@ -1309,7 +1314,7 @@ int OnCS_RL_DELRELATION_ACK(CMsg &msg)
 
 	g_MainCharInfo.ShowHelpMessage( IDS_CUT_SHIP );
 
-	// Àü¼­ ¸®½ºÆ®¿¡¼­µµ »èÁ¦ÇÑ´Ù.
+	// ì „ì„œ ë¦¬ìŠ¤íŠ¸ì—ì„œë„ ì‚­ì œí•œë‹¤.
 	g_Mail.Delete_SendMailList(dwCharID );
 
 	return 0;
@@ -1334,9 +1339,9 @@ int OnCS_RL_CHGRELATION_ACK(CMsg &msg)
 	return 0;
 }
 
-// [5/18/2004] ¹®ÆÄÀü
+// [5/18/2004] ë¬¸íŒŒì „
 /**
- * ¹®ÆÄ µ· ±âºÎ
+ * ë¬¸íŒŒ ëˆ ê¸°ë¶€
  * \param &msg 
  * \return 
  */
@@ -1349,18 +1354,18 @@ int OnCS_RL_DONATE_ACK(CMsg &msg)
 
 	switch(bResult)
 	{
-	case 0:	// ¼º°ø
+	case 0:	// ì„±ê³µ
 		break;
-	case 1:	// ¹®ÁÖ¸¸ °¡´É
+	case 1:	// ë¬¸ì£¼ë§Œ ê°€ëŠ¥
 		g_MainCharInfo.ShowHelpMessage(IDS_ONLY_MUNJU, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case 2:	// µ· ºÎÁ·
+	case 2:	// ëˆ ë¶€ì¡±
 		g_MainCharInfo.ShowHelpMessage(IDS_PURSE_IN_LOWMONEY, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case 3:	// Á¦ÇÑ 500 ±îÁö¸¸ °¡´É
+	case 3:	// ì œí•œ 500 ê¹Œì§€ë§Œ ê°€ëŠ¥
 		g_MainCharInfo.ShowHelpMessage(IDS_MUNPA_FAME_500, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case 4:	// ½Ã½ºÅÛ ´íÎó
+	case 4:	// ì‹œìŠ¤í…œ ëŒ„è½Ž
 		g_MainCharInfo.ShowHelpMessage(IDS_INTERNAL_ERROR);
 		break;
 
@@ -1372,7 +1377,7 @@ int OnCS_RL_DONATE_ACK(CMsg &msg)
 }
 
 /**
- * ±âºÎ±Ý È·¶¨
+ * ê¸°ë¶€ê¸ˆ íš…ë•
  * \param &msg 
  * \return 
  */
@@ -1396,7 +1401,7 @@ int OnCS_RL_PREDONATE_ACK(CMsg &msg)
 			g_pUIManager->SetData(WINDOW_MUNPA_DONATE, munpa_donate_button_01, CURRENT_INDEX, -1);
 		}
 		break;
-	case ERR_PREDONATE_ONLYMUNJU:		// ¹®ÁÖ¸¸ °¡´É
+	case ERR_PREDONATE_ONLYMUNJU:		// ë¬¸ì£¼ë§Œ ê°€ëŠ¥
 		g_MainCharInfo.ShowHelpMessage(IDS_ONLY_MUNJU, TEXTEFFECT_COLOR_WARNING);
 		break;
 	case ERR_PREDONATE_INTERNALERROR:
@@ -1413,7 +1418,7 @@ int OnCS_RL_PREDONATE_ACK(CMsg &msg)
 }
 
 /**
- * ±âºÎ±Ý ³³ºÎ½Ã Ã¤³Î ¸ðµç»ç¶÷¿¡°Ô »Ñ¸®±â
+ * ê¸°ë¶€ê¸ˆ ë‚©ë¶€ì‹œ ì±„ë„ ëª¨ë“ ì‚¬ëžŒì—ê²Œ ë¿Œë¦¬ê¸°
  * \param &msg 
  * \return 
  */
@@ -1437,7 +1442,7 @@ int OnCS_RL_CHANGEMUNPAFAME_ACK(CMsg &msg)
 }
 
 /**
- *	¹®ÆÄ ºñ¼® ¾ò±â
+ *	ë¬¸íŒŒ ë¹„ì„ ì–»ê¸°
  * \param &msg 
  * \return 
  */
@@ -1450,25 +1455,25 @@ int OnCS_RL_GAINSTONE_ACK(CMsg &msg)
 
 	switch(bResult)
 	{
-	case 0:	// ¼º°ø
+	case 0:	// ì„±ê³µ
 		g_MainCharInfo.ShowHelpMessage(IDS_STONE_POSSESSION);		
 		break;
-	case 1:	// µ· ºÎÁ·
+	case 1:	// ëˆ ë¶€ì¡±
 		g_MainCharInfo.ShowHelpMessage(IDS_PURSE_IN_LOWMONEY, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case 2:	// ÀÌ¹Ì ´Ù¸¥ ¹®ÆÄ ¼ÒÀ¯
+	case 2:	// ì´ë¯¸ ë‹¤ë¥¸ ë¬¸íŒŒ ì†Œìœ 
 		g_MainCharInfo.ShowHelpMessage(IDS_STONE_OTHER_POSSESSION, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case 3:	// ½Ã½ºÅÛ ´íÎó
+	case 3:	// ì‹œìŠ¤í…œ ëŒ„è½Ž
 		g_MainCharInfo.ShowHelpMessage(IDS_INTERNAL_ERROR);
 		break;
-	case 4:	// ¹®ÁÖ¸¸ °¡´É
+	case 4:	// ë¬¸ì£¼ë§Œ ê°€ëŠ¥
 		g_MainCharInfo.ShowHelpMessage(IDS_ONLY_MUNJU, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case 5:	// ÀÌÁß ¼ÒÀ¯ ±ÝÁö
+	case 5:	// ì´ì¤‘ ì†Œìœ  ê¸ˆì§€
 		g_MainCharInfo.ShowHelpMessage(IDS_STONE_DOUBLE_POSSESSION, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case 6:	// ÀÚ°Ý ¹Ì´Þ (¸í¼ºµî±Þ)
+	case 6:	// ìžê²© ë¯¸ë‹¬ (ëª…ì„±ë“±ê¸‰)
 		g_MainCharInfo.ShowHelpMessage(IDS_MUNPA_FAME_LOW, TEXTEFFECT_COLOR_WARNING);
 		break;
 
@@ -1480,7 +1485,7 @@ int OnCS_RL_GAINSTONE_ACK(CMsg &msg)
 }
 
 /**
- *	¹®ÆÄ °Ô½ÃÆÇ ¸®½ºÆ®
+ *	ë¬¸íŒŒ ê²Œì‹œíŒ ë¦¬ìŠ¤íŠ¸
  * \param &msg 
  * \return 
  */
@@ -1522,11 +1527,11 @@ int OnCS_RL_MUNPABBSLIST_ACK(CMsg &msg)
 		}
 		break;
 
-	case 1:	// ¹®ÆÄ ÀÚ°Ý ¹Ì´Þ (¸í¼ºµî±Þ 200 ÀÌ»ó¸¸ °¡´É)
+	case 1:	// ë¬¸íŒŒ ìžê²© ë¯¸ë‹¬ (ëª…ì„±ë“±ê¸‰ 200 ì´ìƒë§Œ ê°€ëŠ¥)
 		g_MainCharInfo.ShowHelpMessage(IDS_MUNPA_FAME_LOW, TEXTEFFECT_COLOR_WARNING);
 		break;
 
-	case 2:	// ½Ã½ºÅÛ ´íÎó
+	case 2:	// ì‹œìŠ¤í…œ ëŒ„è½Ž
 		g_MainCharInfo.ShowHelpMessage(IDS_INTERNAL_ERROR);
 		break;
 
@@ -1537,7 +1542,7 @@ int OnCS_RL_MUNPABBSLIST_ACK(CMsg &msg)
 }
 
 /**
- * ¹®ÆÄ °Ô½ÃÆÇ ÀÐ±â
+ * ë¬¸íŒŒ ê²Œì‹œíŒ ì½ê¸°
  * \param &msg 
  * \return 
  */
@@ -1606,10 +1611,10 @@ int OnCS_RL_MUNPABBSREAD_ACK(CMsg &msg)
 		}
 		break;
 
-	case 1:	// ÀÌ¹Ì »èÁ¦
+	case 1:	// ì´ë¯¸ ì‚­ì œ
 		g_MainCharInfo.ShowHelpMessage(IDS_M_BBS_ALREADY_DEL, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case 2: // ½Ã½ºÅÛ ´íÎó
+	case 2: // ì‹œìŠ¤í…œ ëŒ„è½Ž
 		g_MainCharInfo.ShowHelpMessage(IDS_INTERNAL_ERROR);
 		break;
 	default:
@@ -1619,7 +1624,7 @@ int OnCS_RL_MUNPABBSREAD_ACK(CMsg &msg)
 }
 
 /**
- * ¹®ÆÄ °Ô½ÃÆÇ ¾²±â
+ * ë¬¸íŒŒ ê²Œì‹œíŒ ì“°ê¸°
  * \param &msg 
  * \return 
  */
@@ -1632,19 +1637,19 @@ int OnCS_RL_MUNPABBSWRITE_ACK(CMsg &msg)
 	
 	switch(bResult)
 	{
-	case 0:	// ¼º°ø
+	case 0:	// ì„±ê³µ
 		g_MainCharInfo.ShowHelpMessage(IDS_M_BBS_WRITE_SUCCESS);
 		break;
-	case 1: // ±ÇÇÑ ¾øÀ½
+	case 1: // ê¶Œí•œ ì—†ìŒ
 		g_MainCharInfo.ShowHelpMessage(IDS_NO_AUTH, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case 2:	// ±Û ±æÀÌ ÃÊ°ú
+	case 2:	// ê¸€ ê¸¸ì´ ì´ˆê³¼
 		g_MainCharInfo.ShowHelpMessage(IDS_M_BBS_WRITING_MANY, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case 3:	// °Ô½ÃÆÇ »ç¿ë °³¼ö ÃÊ°ú (5°³)
+	case 3:	// ê²Œì‹œíŒ ì‚¬ìš© ê°œìˆ˜ ì´ˆê³¼ (5ê°œ)
 		g_MainCharInfo.ShowHelpMessage(IDS_M_BBS_COUNT_OVER, TEXTEFFECT_COLOR_WARNING);		
 		break;
-	case 4:	// ½Ã½ºÅÛ ´íÎó
+	case 4:	// ì‹œìŠ¤í…œ ëŒ„è½Ž
 		g_MainCharInfo.ShowHelpMessage(IDS_INTERNAL_ERROR);
 		break;
 	default:
@@ -1655,7 +1660,7 @@ int OnCS_RL_MUNPABBSWRITE_ACK(CMsg &msg)
 }
 
 /**
- * ¹®ÆÄ °Ô½ÃÆÇ »èÁ¦
+ * ë¬¸íŒŒ ê²Œì‹œíŒ ì‚­ì œ
  * \param &msg 
  * \return 
  */
@@ -1668,13 +1673,13 @@ int OnCS_RL_MUNPABBSDEL_ACK(CMsg &msg)
 
 	switch(bResult)
 	{
-	case 0: // ¼º°ø
+	case 0: // ì„±ê³µ
 		g_MainCharInfo.ShowHelpMessage(IDS_DELETED);		
 		break;
-	case 1: // ±ÇÇÑ ¾øÀ½
+	case 1: // ê¶Œí•œ ì—†ìŒ
 		g_MainCharInfo.ShowHelpMessage(IDS_NO_AUTH, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case 2: // ½Ã½ºÅÛ ´íÎó
+	case 2: // ì‹œìŠ¤í…œ ëŒ„è½Ž
 		g_MainCharInfo.ShowHelpMessage(IDS_INTERNAL_ERROR);
 		break;
 	default:
@@ -1685,7 +1690,7 @@ int OnCS_RL_MUNPABBSDEL_ACK(CMsg &msg)
 }
 
 /**
-* ¹®ÆÄºñ¼® Á¦°Å
+* ë¬¸íŒŒë¹„ì„ ì œê±°
 * \param &msg 
 * \return 
 */
@@ -1698,19 +1703,19 @@ int OnCS_RL_STONEDELETE_ACK(CMsg &msg)
 
 	switch(bResult)
 	{
-	case 0:	// ¼º°ø
+	case 0:	// ì„±ê³µ
 		g_MainCharInfo.ShowHelpMessage(IDS_STONE_DELETE_SUCCESS);
 		break;
-	case 1:	// ÀüÀïÁß
+	case 1:	// ì „ìŸì¤‘
 		g_MainCharInfo.ShowHelpMessage(IDS_STONE_DELETE_WAR, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case 2:	// ¹®ÁÖ¸¸ °¡´É
+	case 2:	// ë¬¸ì£¼ë§Œ ê°€ëŠ¥
 		g_MainCharInfo.ShowHelpMessage(IDS_STONE_DELETE_MUNJU, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case 3:	// ½Ã½ºÅÛ ´íÎó
+	case 3:	// ì‹œìŠ¤í…œ ëŒ„è½Ž
 		g_MainCharInfo.ShowHelpMessage(IDS_INTERNAL_ERROR);
 		break;
-	case 4:	// ÇØ´ç ¹®ÆÄ¸¸ Æ÷±â °¡´É
+	case 4:	// í•´ë‹¹ ë¬¸íŒŒë§Œ í¬ê¸° ê°€ëŠ¥
 		g_MainCharInfo.ShowHelpMessage(IDS_STONE_DELETE_ONLY, TEXTEFFECT_COLOR_WARNING);		
 		break;
 
@@ -1723,7 +1728,7 @@ int OnCS_RL_STONEDELETE_ACK(CMsg &msg)
 
 
 /**
- * ¹®ÆÄ°øÁö
+ * ë¬¸íŒŒê³µì§€
  * \param &msg 
  * \return 
  */
@@ -1739,16 +1744,16 @@ int OnCS_RL_MUNPANOTICE_ACK(CMsg &msg)
 	case ERR_MUNPANOTICE_SUCCESS:
 		g_MainCharInfo.ShowHelpMessage(IDS_M_BBS_WRITE_SUCCESS);
 		break;
-	case ERR_MUNPANOTICE_LESSFAME:		// ¹®ÆÄ¸í¼º 80ÀÌÇÏ
+	case ERR_MUNPANOTICE_LESSFAME:		// ë¬¸íŒŒëª…ì„± 80ì´í•˜
 		g_MainCharInfo.ShowHelpMessage(IDS_MUNPA_FAME_LOW, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case ERR_MUNPANOTICE_ONLYMUNJU:		// ¹®ÁÖ¸¸»ç¿ë°¡´É
+	case ERR_MUNPANOTICE_ONLYMUNJU:		// ë¬¸ì£¼ë§Œì‚¬ìš©ê°€ëŠ¥
 		g_MainCharInfo.ShowHelpMessage(IDS_ONLY_MUNJU_USE, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case ERR_MUNPANOTICE_NOTICEOVER:	// °øÁö»çÇ× ÃÊ°ú
+	case ERR_MUNPANOTICE_NOTICEOVER:	// ê³µì§€ì‚¬í•­ ì´ˆê³¼
 		g_MainCharInfo.ShowHelpMessage(IDS_MUNPA_NOTICEOVER, TEXTEFFECT_COLOR_WARNING);		
 		break;
-	case ERR_MUNPANOTICE_INTERNALERROR:	// ³»ºÎ´íÎó
+	case ERR_MUNPANOTICE_INTERNALERROR:	// ë‚´ë¶€ëŒ„è½Ž
 		g_MainCharInfo.ShowHelpMessage(IDS_INTERNAL_ERROR, TEXTEFFECT_COLOR_WARNING);
 		break;
 	default:
@@ -1759,7 +1764,7 @@ int OnCS_RL_MUNPANOTICE_ACK(CMsg &msg)
 }
 
 /**
- * ¹®ÆÄ¹®Àå µî·Ï
+ * ë¬¸íŒŒë¬¸ìž¥ ë“±ë¡
  * \param &msg 
  * \return 
  */
@@ -1774,37 +1779,37 @@ int OnCS_RL_MUNPAMARKREG_ACK(CMsg &msg)
 
 	switch(bResult)
 	{
-	case ERR_MUNPAMARKREG_SUCCESS:		// ¼º°ø
+	case ERR_MUNPAMARKREG_SUCCESS:		// ì„±ê³µ
 		{
-			if(bType == 0)	// µî·Ï
+			if(bType == 0)	// ë“±ë¡
 			{
 				g_MainCharInfo.ShowHelpMessage(IDS_MUNPAMARKREG);
 			}
-			else if(bType == 1)	// »èÁ¦
+			else if(bType == 1)	// ì‚­ì œ
 			{
 				g_MainCharInfo.ShowHelpMessage(IDS_MUNPAMARKDEL);
 			}
 		}
 		break;
-	case ERR_MUNPAMARKREG_NEEDSTONE:	// ºñ¼®¾øÀ½
+	case ERR_MUNPAMARKREG_NEEDSTONE:	// ë¹„ì„ì—†ìŒ
 		g_MainCharInfo.ShowHelpMessage(IDS_NOT_MUNPASTONE, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case ERR_MUNPAMARKREG_LESSMONEY:	// µ·¾øÀ½
+	case ERR_MUNPAMARKREG_LESSMONEY:	// ëˆì—†ìŒ
 		g_MainCharInfo.ShowHelpMessage(IDS_PURSE_IN_LOWMONEY, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case ERR_MUNPAMARKREG_ONLYMUNJU:	// ¹®ÁÖ¸¸
+	case ERR_MUNPAMARKREG_ONLYMUNJU:	// ë¬¸ì£¼ë§Œ
 		g_MainCharInfo.ShowHelpMessage(IDS_STONE_ONLY_MUNJU, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case ERR_MUNPAMARKREG_NOTFINDMARK:	// µî·ÏµÈ ¸¶Å© ¾ø¾î¼­ »èÁ¦ ºÒ°¡
+	case ERR_MUNPAMARKREG_NOTFINDMARK:	// ë“±ë¡ëœ ë§ˆí¬ ì—†ì–´ì„œ ì‚­ì œ ë¶ˆê°€
 		g_MainCharInfo.ShowHelpMessage(IDS_NOTFINDMARK, TEXTEFFECT_COLOR_WARNING);		
 		break;
-	case ERR_MARKREG_ALREADYREG:		// ÀÌ¹Ì µî·ÏµÇ¾úÀ½
+	case ERR_MARKREG_ALREADYREG:		// ì´ë¯¸ ë“±ë¡ë˜ì—ˆìŒ
 		g_MainCharInfo.ShowHelpMessage(IDS_MUNPAMARK_ALREADYREG, TEXTEFFECT_COLOR_WARNING);		
 		break;
-	case ERR_MARKREG_OVERIMAGESIZE:		// ÀÌ¹ÌÁö Å©±â°¡ Æ²¸±¶§
+	case ERR_MARKREG_OVERIMAGESIZE:		// ì´ë¯¸ì§€ í¬ê¸°ê°€ í‹€ë¦´ë•Œ
 		g_MainCharInfo.ShowHelpMessage(IDS_MUNPAMARK_MISTAKEN, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case ERR_MARKREG_INTERNALERROR:		// ³»ºÎ´íÎó
+	case ERR_MARKREG_INTERNALERROR:		// ë‚´ë¶€ëŒ„è½Ž
 		g_MainCharInfo.ShowHelpMessage(IDS_INTERNAL_ERROR, TEXTEFFECT_COLOR_WARNING);
 		break;
 
@@ -1816,7 +1821,7 @@ int OnCS_RL_MUNPAMARKREG_ACK(CMsg &msg)
 }
 
 /**
- * ¹®ÆÄ¸¶Å© ÀÌ¹ÌÁö ¹Þ±â
+ * ë¬¸íŒŒë§ˆí¬ ì´ë¯¸ì§€ ë°›ê¸°
  * \param &msg 
  * \return 
  */
@@ -1837,7 +1842,7 @@ int OnCS_RL_MUNPAMARK_ACK(CMsg &msg)
 }
 
 /**
- * ¹®ÆÄ¸¶Å© ¹Þ±â
+ * ë¬¸íŒŒë§ˆí¬ ë°›ê¸°
  * \param &msg 
  * \return 
  */
@@ -1862,9 +1867,9 @@ int OnCS_RL_GAINMARKIMAGE_ACK(CMsg &msg)
 			g_MunpaMark.SaveMarkFile(dwMarkID, strImage.data());
 		}
 		break;
-	case ERR_GAINMARKIMAGE_NOTFINDMARK:	// Ã£À»¼ö ¾øÀ½
+	case ERR_GAINMARKIMAGE_NOTFINDMARK:	// ì°¾ì„ìˆ˜ ì—†ìŒ
 		{
-			// TODO: ¹®±¸¿Í ¸¶Å© Ã³¸®
+			// TODO: ë¬¸êµ¬ì™€ ë§ˆí¬ ì²˜ë¦¬
 		}
 		break;
 	default:
@@ -1875,7 +1880,7 @@ int OnCS_RL_GAINMARKIMAGE_ACK(CMsg &msg)
 }
 
 /**
- * ºñ¼® ¼¼±Ý È¸¼ö
+ * ë¹„ì„ ì„¸ê¸ˆ íšŒìˆ˜
  * \param &msg 
  * \return 
  */
@@ -1888,7 +1893,7 @@ int OnCS_RL_GETMUNPAMONEY_ACK(CMsg &msg)
 
 	switch(bResult)
 	{
-	case ERR_GETMONEY_SUCCESS:		// ¼º°ø
+	case ERR_GETMONEY_SUCCESS:		// ì„±ê³µ
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_GETMUNPAMONEY);
 
@@ -1897,19 +1902,19 @@ int OnCS_RL_GETMUNPAMONEY_ACK(CMsg &msg)
 			g_pUIManager->SetString(WINDOW_MUNPA_BBS_TOP, munpa_bbs_top_dummy_22, strText, 4);
 		}
 		break;
-	case ERR_GETMONEY_ONLYMUNJU:	// ¹®ÁÖ¸¸ °¡´É
+	case ERR_GETMONEY_ONLYMUNJU:	// ë¬¸ì£¼ë§Œ ê°€ëŠ¥
 		g_MainCharInfo.ShowHelpMessage(IDS_STONE_ONLY_MUNJU, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case ERR_GETMONEY_ISWARFAIL:	// ÀüÀïÁß¿¡´Â È¸¼ö ºÒ°¡
+	case ERR_GETMONEY_ISWARFAIL:	// ì „ìŸì¤‘ì—ëŠ” íšŒìˆ˜ ë¶ˆê°€
 		g_MainCharInfo.ShowHelpMessage(IDS_GETMUNPAMONEY_WARFAIL, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case ERR_GETMONEY_NOTSAMEMONEY:	// ±Ý¾×ÀÌ Æ²¸²
+	case ERR_GETMONEY_NOTSAMEMONEY:	// ê¸ˆì•¡ì´ í‹€ë¦¼
 		g_MainCharInfo.ShowHelpMessage(IDS_GETMUNPAMONEY_NOTSAMEMONEY, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case ERR_GETMONEY_OVERMONEY:	// Çà³¶±Ý¾×ÃÊ°ú
+	case ERR_GETMONEY_OVERMONEY:	// í–‰ë‚­ê¸ˆì•¡ì´ˆê³¼
 		g_MainCharInfo.ShowHelpMessage(IDS_PURSE_OUT_OVERMONEY, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case ERR_GETMONEY_INTERNALERROR: // ³»ºÎ´íÎó
+	case ERR_GETMONEY_INTERNALERROR: // ë‚´ë¶€ëŒ„è½Ž
 		g_MainCharInfo.ShowHelpMessage(IDS_INTERNAL_ERROR, TEXTEFFECT_COLOR_WARNING);
 		break;
 
@@ -1921,7 +1926,7 @@ int OnCS_RL_GETMUNPAMONEY_ACK(CMsg &msg)
 }
 
 /**
- * Àý¿¬ºÎ
+ * ì ˆì—°ë¶€
  * \param &msg 
  * \return 
  */
@@ -1934,32 +1939,32 @@ int OnCS_RL_BREAKRELATIONITEM_ACK(CMsg &msg)
 
 	switch(bResult)
 	{
-	case ERR_BREAKRELATIONITEM_SUCCESS:		// ¼º°ø
+	case ERR_BREAKRELATIONITEM_SUCCESS:		// ì„±ê³µ
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_BREAKRELATIONITEM_SUCCESS);
 		}
 		break;
-	case ERR_BREAKRELATIONITEM_NOTFOUND:	// ¾ÆÀÌÅÛÀ» Ã£À»¼ö ¾øÀ½
+	case ERR_BREAKRELATIONITEM_NOTFOUND:	// ì•„ì´í…œì„ ì°¾ì„ìˆ˜ ì—†ìŒ
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_ITEM_NOTFIND, TEXTEFFECT_COLOR_WARNING);
 		}		
 		break;
-	case ERR_BREAKRELATIONITEM_ONTRADE:		// °Å·¡ÁßÀÎ ¾ÆÀÌÅÛÀº »ç¿ëÇÒ¼ö ¾øÀ½
+	case ERR_BREAKRELATIONITEM_ONTRADE:		// ê±°ëž˜ì¤‘ì¸ ì•„ì´í…œì€ ì‚¬ìš©í• ìˆ˜ ì—†ìŒ
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_BREAKRELATIONITEM_ONTRADE, TEXTEFFECT_COLOR_WARNING);
 		}
 	    break;
-	case ERR_BREAKRELATIONITEM_NOTUSE:		// »ç¿ëÇÒ¼ö ¾ø´Â ¾ÆÀÌÅÛ
+	case ERR_BREAKRELATIONITEM_NOTUSE:		// ì‚¬ìš©í• ìˆ˜ ì—†ëŠ” ì•„ì´í…œ
 		{
 			g_MainCharInfo.ShowHelpMessage(IM_N_WHO, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case 16:								// °ü°è ¾øÀ½
+	case 16:								// ê´€ê³„ ì—†ìŒ
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_REL_NOT, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case ERR_BREAKRELATIONITEM_INTERNALERROR:	// ´íÎó
+	case ERR_BREAKRELATIONITEM_INTERNALERROR:	// ëŒ„è½Ž
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_INTERNAL_ERROR, TEXTEFFECT_COLOR_WARNING);
 		}

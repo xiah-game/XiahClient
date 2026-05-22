@@ -112,7 +112,7 @@ BOOL CXiah3DObject::SetPosition(WORD wPosX,WORD wPosY)
 
 BOOL CXiah3DObject::UpdateTM()
 {
-	// ÂÁ È­»ìÀÏ¶§´Â ObjectTMÀ» ³»°¡ Á÷Á¢ ¸¸Á® ÁÖ°Ú´Ù
+	// ì©?í™”ì‚´ì¼ë•ŒëŠ?ObjectTMì?ë‚´ê°€ ì§ì ‘ ë§Œì ¸ ì£¼ê² ë‹?
 
 	if( m_bTargetMove && m_nTargetMoveType == eLBP_Arrow)
 	{
@@ -129,7 +129,7 @@ BOOL CXiah3DObject::UpdateTM()
 		m_ObjectTM.t = m_Position;
 	}
 
-	// ÃÊ´ç 90µµ¾¿
+	// ì´ˆë‹¹ 90ë„ì”©
 
 	if( m_LocalAngle != 0)
 	{
@@ -371,6 +371,11 @@ CXiahCharObject::CXiahCharObject() : m_bTradeSell(false), m_bFECur(0), m_bFELeve
 	m_bShowGage = FALSE;
 	m_bShowManaGage = FALSE;
 
+	m_TitleEffect.m_bLoaded = FALSE;
+	m_TitleEffect.m_nCurrentFrame = 0;
+	m_TitleEffect.m_dwLastTime = 0;
+	m_nActiveTitleID = -1;
+
 	m_pUpdateTargetDecal = NULL;
 //	m_SwordTrace.Init();
 	m_fWeaponLength = 0.5f;
@@ -403,22 +408,22 @@ CXiahCharObject::CXiahCharObject() : m_bTradeSell(false), m_bFECur(0), m_bFELeve
 	m_pFEEffectPP			= NULL;
 
 	m_pEventItemEffectPP	= NULL;
-	m_pSpiritEffectPP		= NULL;	// ±â
+	m_pSpiritEffectPP		= NULL;	// ê¸?
 
 	m_pWha_DragonPP			= NULL;
 	m_pBing_DragonPP		= NULL;
 	m_pDok_DragonPP			= NULL;
 	m_pNoi_DragonPP			= NULL;
 
-	//HT_0711 : Áø°¢¼º ¹«°ø
-	m_pKuymgangsingongEffectPP	= NULL;		// Èí¼º ½Å°ø ±İ°­½Å°ø
-	//m_pBunsinsingongEffectPP	= NULL;		// Èí¼º ½Å°ø ºĞ½Å½Å°ø
-	m_pWonkisingongEffectPP		= NULL;		// Èí¼º ½Å°ø ¿ø±â½Å°ø
-	m_pKyugamsingongEffectPP	= NULL;		// Èí¼º ½Å°ø ±³°¨½Å°ø
-	m_pKumnasingongEffectPP		= NULL;		// Èí¼º ½Å°ø ±İ³ª½Å°ø
-	m_pMarulsingongEffectPP		= NULL;		// Èí¼º ½Å°ø ¸¶·É½Å°ø
-	//m_pGwangmasingongEffectPP	= NULL;		// Èí¼º ½Å°ø ±¤¸¶½Å°ø
-	m_pDokhyulsingongEffectPP	= NULL;		// Èí¼º ½Å°ø µ¶Ç÷½Å°ø
+	//HT_0711 : ì§„ê°ì„?ë¬´ê³µ
+	m_pKuymgangsingongEffectPP	= NULL;		// í¡ì„± ì‹ ê³µ ê¸ˆê°•ì‹ ê³µ
+	//m_pBunsinsingongEffectPP	= NULL;		// í¡ì„± ì‹ ê³µ ë¶„ì‹ ì‹ ê³µ
+	m_pWonkisingongEffectPP		= NULL;		// í¡ì„± ì‹ ê³µ ì›ê¸°ì‹ ê³µ
+	m_pKyugamsingongEffectPP	= NULL;		// í¡ì„± ì‹ ê³µ êµê°ì‹ ê³µ
+	m_pKumnasingongEffectPP		= NULL;		// í¡ì„± ì‹ ê³µ ê¸ˆë‚˜ì‹ ê³µ
+	m_pMarulsingongEffectPP		= NULL;		// í¡ì„± ì‹ ê³µ ë§ˆë ¹ì‹ ê³µ
+	//m_pGwangmasingongEffectPP	= NULL;		// í¡ì„± ì‹ ê³µ ê´‘ë§ˆì‹ ê³µ
+	m_pDokhyulsingongEffectPP	= NULL;		// í¡ì„± ì‹ ê³µ ë…í˜ˆì‹ ê³µ
 
 	m_EffectPPList.clear();
 
@@ -438,7 +443,7 @@ CXiahCharObject::CXiahCharObject() : m_bTradeSell(false), m_bFECur(0), m_bFELeve
 	m_szMunpaName = _T("");
 	m_szMunpaNickName = _T("");
 
-	// °ø°İ½ÃÀÇ Sound Effect °ü·Ã
+	// ê³µê²©ì‹œì˜ Sound Effect ê´€ë ?
 	m_dwEnemyType = 0; 
 	m_dwOwnerID = 0;
 
@@ -451,10 +456,10 @@ CXiahCharObject::CXiahCharObject() : m_bTradeSell(false), m_bFECur(0), m_bFELeve
 
 	m_dwMunpaMarkID	=0;
 
-	// ¼³½Â´Ü¾à
+	// ì„¤ìŠ¹ë‹¨ì•½
 	m_bPotionEndKeepup = 0;
 
-	// ±â
+	// ê¸?
 	m_bSpirit = 0;
 	m_wLevel  = 0;
 	m_bRebirth = 0;
@@ -467,7 +472,7 @@ CXiahCharObject::CXiahCharObject() : m_bTradeSell(false), m_bFECur(0), m_bFELeve
 	m_pHojungkangkiEffectPP = NULL;
 	m_pSusinkikangEffectPP = NULL;
 
-	m_bGameMasterMark = 0;//HT_1023 : ¿î¿µÀÚ ¸¶Å© Ãß°¡
+	m_bGameMasterMark = 0;//HT_1023 : ìš´ì˜ì?ë§ˆí¬ ì¶”ê°€
 }
 
 CXiahCharObject::~CXiahCharObject()
@@ -536,16 +541,16 @@ void CXiahCharObject::InitClass()
 	m_fWeaponLength		= 0.5f;
 	m_bGray				= false;
 
-	// ¹«°ø Áö¼Ó ÀÌÆåÆ®
-	// °Ë¿µ
+	// ë¬´ê³µ ì§€ì†?ì´í™íŠ?
+	// ê²€ì˜?
 	m_pMusuhonEffectPP		= NULL;
 	m_pPoksahonEffectPP		= NULL;
 	m_pKuymgangrukEffectPP	= NULL;
-	// ¿¬¶û
+	// ì—°ë‘
 	m_pYuenoyuengEffectPP	= NULL;
 	m_pKyugamsuEffectPP		= NULL;
 	m_pWonkisingangEffectPP	= NULL;
-	// ¹«Åõ.
+	// ë¬´íˆ¬.
 	m_pPachunsoEffectPP		= NULL;
 	m_pMarulkakEffectPP		= NULL;
 	m_pAmhukmuEffectPP		= NULL;
@@ -554,21 +559,21 @@ void CXiahCharObject::InitClass()
 	m_pKumnasuEffectPP		= NULL;
 	m_pBantankangkiEffectPP	= NULL;
 
-	//HT_0530 °¢¼º ¹«°ø 
+	//HT_0530 ê°ì„± ë¬´ê³µ 
 	m_pWha_DragonPP			= NULL;
 	m_pBing_DragonPP		= NULL;
 	m_pDok_DragonPP			= NULL;
 	m_pNoi_DragonPP			= NULL;
 
-	//HT_0711 : Áø°¢¼º ¹«°ø
-	m_pKuymgangsingongEffectPP	= NULL;		// Èí¼º ½Å°ø ±İ°­½Å°ø
-//	m_pBunsinsingongEffectPP	= NULL;		// Èí¼º ½Å°ø ºĞ½Å½Å°ø
-	m_pWonkisingongEffectPP		= NULL;		// Èí¼º ½Å°ø ¿ø±â½Å°ø
-	m_pKyugamsingongEffectPP	= NULL;		// Èí¼º ½Å°ø ±³°¨½Å°ø
-	m_pKumnasingongEffectPP		= NULL;		// Èí¼º ½Å°ø ±İ³ª½Å°ø
-	m_pMarulsingongEffectPP		= NULL;		// Èí¼º ½Å°ø ¸¶·É½Å°ø
-//	m_pGwangmasingongEffectPP	= NULL;		// Èí¼º ½Å°ø ±¤¸¶½Å°ø
-	m_pDokhyulsingongEffectPP	= NULL;		// Èí¼º ½Å°ø µ¶Ç÷½Å°ø
+	//HT_0711 : ì§„ê°ì„?ë¬´ê³µ
+	m_pKuymgangsingongEffectPP	= NULL;		// í¡ì„± ì‹ ê³µ ê¸ˆê°•ì‹ ê³µ
+//	m_pBunsinsingongEffectPP	= NULL;		// í¡ì„± ì‹ ê³µ ë¶„ì‹ ì‹ ê³µ
+	m_pWonkisingongEffectPP		= NULL;		// í¡ì„± ì‹ ê³µ ì›ê¸°ì‹ ê³µ
+	m_pKyugamsingongEffectPP	= NULL;		// í¡ì„± ì‹ ê³µ êµê°ì‹ ê³µ
+	m_pKumnasingongEffectPP		= NULL;		// í¡ì„± ì‹ ê³µ ê¸ˆë‚˜ì‹ ê³µ
+	m_pMarulsingongEffectPP		= NULL;		// í¡ì„± ì‹ ê³µ ë§ˆë ¹ì‹ ê³µ
+//	m_pGwangmasingongEffectPP	= NULL;		// í¡ì„± ì‹ ê³µ ê´‘ë§ˆì‹ ê³µ
+	m_pDokhyulsingongEffectPP	= NULL;		// í¡ì„± ì‹ ê³µ ë…í˜ˆì‹ ê³µ
 
 	m_rcObjectScreenPos		= sRect(0,0,0,0);
 	m_rcObjectScreenPos2	= sRect(0,0,0,0);
@@ -601,12 +606,12 @@ void CXiahCharObject::InitClass()
 	m_pLineParticle			= NULL;
 	m_fWeaponLength			= 0;
 	m_bGlowEnable			= 0;
-	m_bShowGage				= 0;	// ¿¡³ÊÁö °ÔÀÌÁö
+	m_bShowGage				= 0;	// ì—ë„ˆì§€ ê²Œì´ì§€
 	m_bShowManaGage			= 0;
 	m_bGray					= false;
 	m_dwOwnerID				= 0;
 	m_bSemiPKStatus			= 0;
-	// CG_2005/01/28 : º¯Á¾¾ÆÀÌÅÛ±â´ÉÃß°¡
+	// CG_2005/01/28 : ë³€ì¢…ì•„ì´í…œê¸°ëŠ¥ì¶”ê°€
 	m_bChangeItemSet		= 0;
 
 	m_dwTimeInterval		= 0;
@@ -620,7 +625,7 @@ void CXiahCharObject::InitClass()
 	m_ShotAttackInfo.wLifeTime	=	0;	
 
 	m_SwordTrace.Release();
-	// 2D Text ¸±¸®Áî ÇÏ¸é ¹ÌÃâ·Â
+	// 2D Text ë¦´ë¦¬ì¦?í•˜ë©´ ë¯¸ì¶œë ?
 	//m_text2DForChatBox.Release();
 	m_Shadow.Release();
 
@@ -640,14 +645,14 @@ void CXiahCharObject::InitClass()
 
 	m_dwMunpaMarkID			= 0;
 
-	// ¿ÀÇà ÀÌÆåÆ®
+	// ì˜¤í–‰ ì´í™íŠ?
 	m_bFECur = m_bFELevel = 0;
 	m_bOrderID = 255;
 
-	// ¼³½Â´Ü¾à
+	// ì„¤ìŠ¹ë‹¨ì•½
 	m_bPotionEndKeepup = 0;
 
-	// ±â
+	// ê¸?
 	m_bSpirit = 0;
 	m_wLevel  = 0;
 	m_bRebirth = 0;
@@ -664,6 +669,8 @@ void CXiahCharObject::InitClass()
 
 BOOL CXiahCharObject::Release()
 {
+	ClearTitle();
+
 	for(int i = 0; i < LOGICAL_BONE_POS_COUNT; i++)
 	{
 		if( m_ChildChar[ i].IsValid())
@@ -677,7 +684,7 @@ BOOL CXiahCharObject::Release()
 
 	m_bGlowEnable = FALSE;
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
-	/* À§·Î ÀÌµ¿
+	/* ìœ„ë¡œ ì´ë™
 	TRIGGER_LIST::iterator it;
 
 	for(it = m_TriggerList.begin(); it != m_TriggerList.end(); it++)
@@ -716,7 +723,7 @@ BOOL CXiahCharObject::Release()
 		m_pSpiritEffectPP = NULL;
 	}
 
-	if( m_pItemGroundEffectPP )	// ÀÌ ÀÌÆåÆ®´Â ¹İº¹ ÀÌÆåÆ® ÀÌ¹Ç·Î ¹Ù´Ú ¾ÆÀÌÅÛÀÌ ¾ø¾îÁö¸é ÀÌÆåÆ®µµ °°ÀÌ »èÁ¦.
+	if( m_pItemGroundEffectPP )	// ì?ì´í™íŠ¸ëŠ” ë°˜ë³µ ì´í™íŠ?ì´ë¯€ë¡?ë°”ë‹¥ ì•„ì´í…œì´ ì—†ì–´ì§€ë©?ì´í™íŠ¸ë„ ê°™ì´ ì‚­ì œ.
 	{
 		g_EffectManager.DeqEffectPackagePair( m_pItemGroundEffectPP );
 		m_pItemGroundEffectPP = NULL;
@@ -897,7 +904,7 @@ BOOL CXiahCharObject::ClearMugongEffect()
 		m_pSusinkikangEffectPP = NULL;
 	}
 
-	//HT_0711 : Áø°¢¼º ¹«°ø
+	//HT_0711 : ì§„ê°ì„?ë¬´ê³µ
 	if(m_pKuymgangsingongEffectPP)
 	{
 		g_EffectManager.DeqEffectPackagePair(m_pKuymgangsingongEffectPP);
@@ -946,7 +953,7 @@ BOOL CXiahCharObject::ClearMugongEffect()
 		m_pDokhyulsingongEffectPP = NULL;
 	}
 
-	// ¿¬°áµÈ ÀÌÆåÆ®µµ °°ÀÌ Áö¿öÁØ´Ù.
+	// ì—°ê²°ë?ì´í™íŠ¸ë„ ê°™ì´ ì§€ì›Œì¤€ë‹?
 	EFFECTPACKAGEPAIRLIST::iterator eppit;
 	for(eppit=m_EffectPPList.begin(); eppit!=m_EffectPPList.end(); eppit++)
 	{
@@ -966,7 +973,7 @@ BOOL CXiahCharObject::UpdateTargetMove()
 
 	if( !m_bTargetMove)
 	{
-		// È­»ì ±ËÀû
+		// í™”ì‚´ ê¶¤ì 
 		if( m_pLineParticle )
 		{
 			m_pLineParticle->Update( fLocalFrameScale, m_Position );
@@ -979,7 +986,7 @@ BOOL CXiahCharObject::UpdateTargetMove()
 		return TRUE;
 	}
 
-	// TargetPositionÀÌ ½Ç½Ã°£À¸·Î º¯ÇÑ´Ù, ¿ÀºêÁ§Æ® °¡ ÀÖ´Ù¸é
+	// TargetPositionì?ì‹¤ì‹œê°„ìœ¼ë¡?ë³€í•œë‹¤, ì˜¤ë¸Œì íŠ¸ ê°€ ìˆë‹¤ë©?
 	if( m_TargetObjectID != 0)
 	{
 		XiahObject::CXiahObject *pTargetObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, m_TargetObjectID, m_TargetObjectType));
@@ -1010,7 +1017,7 @@ BOOL CXiahCharObject::UpdateTargetMove()
 
 //			SetAngleTarget( m_TargetPosition);
 
-			// È­»ì ±ËÀû
+			// í™”ì‚´ ê¶¤ì 
 			if( m_pLineParticle )
 			{
 				m_pLineParticle->Update( fLocalFrameScale, m_Position );
@@ -1023,7 +1030,7 @@ BOOL CXiahCharObject::UpdateTargetMove()
 			m_bRenderOK = false;
 //			m_bDeleteME = TRUE;
 
-			// È­»ì ±ËÀû
+			// í™”ì‚´ ê¶¤ì 
 			if( m_pLineParticle )
 			{
 				m_pLineParticle->End();
@@ -1032,8 +1039,8 @@ BOOL CXiahCharObject::UpdateTargetMove()
 		}
 
 		break;
-	case eLBP_CharNavigation:	// ÀÌµû½­Àº ºñµî¼Ó ¿îµ¿ÀÎµ¥ ¤Ñ,,¤Ñ
-		// ¿©±â¼± ¾Æ¹«°Íµµ ÇÒ¼ö ¾ø°Ú´Ù
+	case eLBP_CharNavigation:	// ì´ë”°ì‰­ì€ ë¹„ë“±ì†?ìš´ë™ì¸ë° ã…?,ã…?
+		// ì—¬ê¸°ì„?ì•„ë¬´ê²ƒë„ í• ìˆ˜ ì—†ê² ë‹?
 
 		break;
 	}
@@ -1102,32 +1109,32 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 
 	float fLocalFrameScale = 33.0f * g_fFrameScale;
 
-	// ¾ÆÀÌÅÛ È¸Àü
+	// ì•„ì´í…?íšŒì „
 	if(m_bObjType == OBJTYPE_ITEM)
 	{
 		long _f = g_dwCurTime;
 		SetAngle( _f / 5 );
 	}
 
-//  È­»ì ÀÌÆåÆ®¸¦ À§ÇØ¼­ ÀÌ·¸°Ô ÇßÀ½.
+//  í™”ì‚´ ì´í™íŠ¸ë¥¼ ìœ„í•´ì„?ì´ë ‡ê²?í–ˆìŒ.
 //	if( m_bTargetMove)
 //	{
 		UpdateTargetMove();
 //	}
 
-	// ¾ßÂ÷ÀÇ ±¤¸¶µ¶°ø, »çÀÌÁî°¡ Ä¿Áø´Ù.
+	// ì•¼ì°¨ì?ê´‘ë§ˆë…ê³µ, ì‚¬ì´ì¦ˆê°€ ì»¤ì§„ë‹?
 	if( m_bObjType == OBJTYPE_PC && m_bSubObjType == 4 )
 	{
 		if( m_bNowGwangmadokgong )
 		{
-			// ¸ñÇ¥ °ªº¸´Ù ÀÛÀ¸¸é Á¡Á¡ Å°¿öÁØ´Ù.
+			// ëª©í‘œ ê°’ë³´ë‹?ì‘ìœ¼ë©?ì ì  í‚¤ì›Œì¤€ë‹?
 			if( m_fLocalScaleForGwangmadokgong < GWANGMADOKGONG_CHARSCALE )
 			{
 				m_fLocalScaleForGwangmadokgong += (GWANGMADOKGONG_CHARSCALE-1.0f) * (fLocalFrameScale) / 1500.0f;
 
 				m_CharRender.SetLocalScale( Vector3(m_fLocalScaleForGwangmadokgong, m_fLocalScaleForGwangmadokgong, m_fLocalScaleForGwangmadokgong) );
 			}
-			else	// ±×¸®°í °íÁ¤
+			else	// ê·¸ë¦¬ê³?ê³ ì •
 			if( m_fLocalScaleForGwangmadokgong != GWANGMADOKGONG_CHARSCALE )
 			{
 				m_fLocalScaleForGwangmadokgong = GWANGMADOKGONG_CHARSCALE;
@@ -1137,7 +1144,7 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 		}
 		else
 		{
-			// ÀÌÁ¦ ´Ù½Ã ÁÙ¿©ÁØ´Ù.
+			// ì´ì œ ë‹¤ì‹œ ì¤„ì—¬ì¤€ë‹?
 			if( m_fLocalScaleForGwangmadokgong > 1.0f )
 			{
 				m_fLocalScaleForGwangmadokgong -= (GWANGMADOKGONG_CHARSCALE-1.0f) * (fLocalFrameScale) / 1500.0f;
@@ -1153,19 +1160,19 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 			}
 		}
 	}
-	//HT_0711 : Áø°¢¼º ¹«°ø(±¤¸¶½Å°ø)
+	//HT_0711 : ì§„ê°ì„?ë¬´ê³µ(ê´‘ë§ˆì‹ ê³µ)
 	else if( m_bObjType == OBJTYPE_PC && m_bRebirth > 6 )
 	{
 		if( m_bNowGwangmadokgong )
 		{
-			// ¸ñÇ¥ °ªº¸´Ù ÀÛÀ¸¸é Á¡Á¡ Å°¿öÁØ´Ù.
+			// ëª©í‘œ ê°’ë³´ë‹?ì‘ìœ¼ë©?ì ì  í‚¤ì›Œì¤€ë‹?
 			if( m_fLocalScaleForGwangmadokgong < GWANGMADOKGONG_CHARSCALE )
 			{
 				m_fLocalScaleForGwangmadokgong += (GWANGMADOKGONG_CHARSCALE-1.0f) * (fLocalFrameScale) / 1500.0f;
 
 				m_CharRender.SetLocalScale( Vector3(m_fLocalScaleForGwangmadokgong, m_fLocalScaleForGwangmadokgong, m_fLocalScaleForGwangmadokgong) );
 			}
-			else	// ±×¸®°í °íÁ¤
+			else	// ê·¸ë¦¬ê³?ê³ ì •
 			if( m_fLocalScaleForGwangmadokgong != GWANGMADOKGONG_CHARSCALE )
 			{
 				m_fLocalScaleForGwangmadokgong = GWANGMADOKGONG_CHARSCALE;
@@ -1175,7 +1182,7 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 		}
 		else
 		{
-			// ÀÌÁ¦ ´Ù½Ã ÁÙ¿©ÁØ´Ù.
+			// ì´ì œ ë‹¤ì‹œ ì¤„ì—¬ì¤€ë‹?
 			if( m_fLocalScaleForGwangmadokgong > 1.0f )
 			{
 				m_fLocalScaleForGwangmadokgong -= (GWANGMADOKGONG_CHARSCALE-1.0f) * (fLocalFrameScale) / 1500.0f;
@@ -1195,11 +1202,11 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 	//
 	UpdateTM();
 
-	// Ä³¸¯ÅÍ°¡ È­¸é¿¡ ¾Èº¸ÀÌ¸é Update¸¸ÇÏ°í Render´Â ¾ÈÇÑ´Ù. ÀÌ¶§ ¿¬°áµÈ ÀÌÆåÆ®µµ °°ÀÌ ÇØÁà¾ßÇÔ.
-	// ¿©±â¼­´Â ¸ŞÀÎ ¿ÀºêÁ§Æ®¿Í ºÎÂøµÈ ¿ÀºêÁ§Æ®ÀÇ Mesh ÀÌÆåÆ®¸¸ ÇØÁÖ¸é µÇ°í 
-	// ¸ŞÀÎ ¿ÀºêÁ§Æ®ÀÇ ¾Ö´Ï¸ŞÀÌ¼Ç ÀÌÆåÆ®´Â CCharRender::PrepareRender ¿¡¼­ ÇÑ´Ù. 
-	// Mesh ÀÌÆåÆ®. º¸ÀÌ´ø ¿ÀºêÁ§Æ®°¡ ¾Èº¸ÀÌ¸é CXiahCharObject¿¡¼­ UpdateÇÒ¶§ Visible = FALSE¸¦ ÇÏ´Âµ¥
-	// ÀÌ¶§ ¾ê°¡ °¡Áö°í ÀÖ´Â Mesh ÀÌÆåÆ®µµ °°ÀÌ ¾Èº¸ÀÌµµ·Ï ÇØÁà¾ß ÇÑ´Ù.Ä³¸¯ÅÍ¿Í ÀÌÆåÆ®°¡ µû·Î ·»´õ¸µµÇ±â ¶§¹®.
+	// ìºë¦­í„°ê°€ í™”ë©´ì—?ì•ˆë³´ì´ë©´ Updateë§Œí•˜ê³?RenderëŠ?ì•ˆí•œë‹? ì´ë•Œ ì—°ê²°ë?ì´í™íŠ¸ë„ ê°™ì´ í•´ì¤˜ì•¼í•¨.
+	// ì—¬ê¸°ì„œëŠ” ë©”ì¸ ì˜¤ë¸Œì íŠ¸ì™€ ë¶€ì°©ëœ ì˜¤ë¸Œì íŠ¸ì?Mesh ì´í™íŠ¸ë§Œ í•´ì£¼ë©?ë˜ê³  
+	// ë©”ì¸ ì˜¤ë¸Œì íŠ¸ì?ì• ë‹ˆë©”ì´ì…?ì´í™íŠ¸ëŠ” CCharRender::PrepareRender ì—ì„œ í•œë‹¤. 
+	// Mesh ì´í™íŠ? ë³´ì´ë?ì˜¤ë¸Œì íŠ¸ê°€ ì•ˆë³´ì´ë©´ CXiahCharObjectì—ì„œ Updateí• ë•Œ Visible = FALSEë¥?í•˜ëŠ”ë?
+	// ì´ë•Œ ì–˜ê°€ ê°€ì§€ê³?ìˆëŠ” Mesh ì´í™íŠ¸ë„ ê°™ì´ ì•ˆë³´ì´ë„ë¡?í•´ì¤˜ì•?í•œë‹¤.ìºë¦­í„°ì™€ ì´í™íŠ¸ê°€ ë”°ë¡œ ë Œë”ë§ë˜ê¸?ë•Œë¬¸.
 	if( bVisible )
 	{
 		if( m_CharRender.m_pMeshEffectPackagePair )
@@ -1235,7 +1242,7 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 			m_pRebirthItemEffectPP->bIsVisible = false;
 	}// if
 
-	// ¼û¾î ÀÖ´Â ¾Ö°¡ Mesh Effect°¡ ÀÖÀ¸¸é ÀÌ°Íµµ Åë°ú
+	// ìˆ¨ì–´ ìˆëŠ” ì• ê°€ Mesh Effectê°€ ìˆìœ¼ë©?ì´ê²ƒë?í†µê³¼
 	if( m_bObjStatus == NPCSTATUS_HIDE )
 	{
 		if( m_CharRender.m_pMeshEffectPackagePair )
@@ -1246,7 +1253,7 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 	m_CharRender.SetPosition( &m_ObjectTM);
 	m_CharRender.SetLocalAngle( m_LocalAngle);
 
-	// ¹Ù´Ú ¾ÆÀÌÅÛÀÏ °æ¿ì, Ã·¿¡ ÇÑ¹ø ½ÇÇà. ÀÌÆåÆ® »ı¼º.
+	// ë°”ë‹¥ ì•„ì´í…œì¼ ê²½ìš°, ì²¨ì— í•œë²ˆ ì‹¤í–‰. ì´í™íŠ?ìƒì„±.
 	if( m_bCreateItemGroundEffect && !m_pItemGroundEffectPP )
 	{
 		_EFFECTPACKAGE* pPackage = g_EffectManager.EnqAppearEffectImmediately( eItemGround );
@@ -1266,7 +1273,7 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 	{
 		float terrain_height = GetHeight( m_Position.x, m_Position.z);
 
-		// ºñµî¼ÓÀÌ ÀÏ¾î³­´Ù
+		// ë¹„ë“±ì†ì´ ì¼ì–´ë‚œë‹¤
 		if(m_bObjType == OBJTYPE_PC)
 		{
 			unsigned char ground_type = 0;
@@ -1281,21 +1288,21 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 		}
 
 		/*
-		// ÀÇ¹®ÀÇ ÄÚµå! PC´Â m_bCollide°¡ TRUEÀÎµ¥ ±×·¯¸é YÁÂÇ¥º¸Á¤Àº?? ÀÌ·¸°Ô ÇÏ´Ï±î ºüÁö°í ¿Ã¶ó°¡´Â Çö»ó³ªÅ¸³².
+		// ì˜ë¬¸ì?ì½”ë“œ! PCëŠ?m_bCollideê°€ TRUEì¸ë° ê·¸ëŸ¬ë©?Yì¢Œí‘œë³´ì •ì€?? ì´ë ‡ê²?í•˜ë‹ˆê¹?ë¹ ì§€ê³?ì˜¬ë¼ê°€ëŠ?í˜„ìƒë‚˜íƒ€ë‚?
 		if( m_ObjectTM.t.y > terrain_height && m_bCollide == FALSE)
 			m_ObjectTM.t.y -= GRAVITY_PER_FRAME * g_fFrameScale;
 		if( m_ObjectTM.t.y < terrain_height && m_bCollide == FALSE)
 			m_ObjectTM.t.y = terrain_height;
 		*/
-		// ±×¸®ÇÏ¿©, ¹Ù¿îµù¹Ú½º À§¿¡ ¿Ã¶ó°¥ ¶§¸¦ Á¦¿ÜÇÏ°í¼­´Â º¸Á¤ÇØÁØ´Ù
+		// ê·¸ë¦¬í•˜ì—¬, ë°”ìš´ë”©ë°•ìŠ?ìœ„ì— ì˜¬ë¼ê°?ë•Œë¥¼ ì œì™¸í•˜ê³ ì„œëŠ” ë³´ì •í•´ì¤€ë‹?
 		if( m_ObjectTM.t.y > terrain_height && m_bRide == FALSE)
 			m_ObjectTM.t.y -= GRAVITY_PER_FRAME * g_fFrameScale;
 
 		if( m_ObjectTM.t.y < terrain_height && m_bRide == FALSE)
 			m_ObjectTM.t.y = terrain_height;
 
-		// ¿Ã¶ó°¡ ÀÖÀ¸¸é ¿©±â¼­ º¸Á¤!
-		if(m_bRide == TRUE) m_ObjectTM.t.y = m_fColHeight;	// ÀÓ½ÃÀúÀå ¹Ù¿îµù ³ôÀÌ
+		// ì˜¬ë¼ê°€ ìˆìœ¼ë©?ì—¬ê¸°ì„?ë³´ì •!
+		if(m_bRide == TRUE) m_ObjectTM.t.y = m_fColHeight;	// ì„ì‹œì €ì?ë°”ìš´ë”?ë†’ì´
 
 	}
 	else
@@ -1315,32 +1322,32 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 		{
 			if( m_ChildChar[ i].IsValid())
 			{
-				m_ChildChar[ i].PrepareRender( bVisible == FALSE);	// ÀÌ³ÑµéÀº Æ¯º°È÷ ÇÒ°Ô ¾ø´Âµí
+				m_ChildChar[ i].PrepareRender( bVisible == FALSE);	// ì´ë„˜ë“¤ì€ íŠ¹ë³„í?í• ê²Œ ì—†ëŠ”ë“?
 			}
 		}
 	}
 
-	// ¼û¾îÀÖ´Â ¾ÖµéÀº ±×¸²ÀÚ Åë°ú
+	// ìˆ¨ì–´ìˆëŠ” ì• ë“¤ì€ ê·¸ë¦¼ì?í†µê³¼
 	if( bVisible && m_bObjStatus != NPCSTATUS_HIDE)
 	{
 		Vector3 size = m_LocalBound.Size();
 		size.y = 0;
 		float fSize = 1.1f;
 
-		// 2004_04_26 Changth : ´Ü ºñ¹«¿¡¼­´Â ±×¸²ÀÚ°¡ ¹Ù²ï´Ù.
+		// 2004_04_26 Changth : ë‹?ë¹„ë¬´ì—ì„œëŠ?ê·¸ë¦¼ìê°€ ë°”ë€ë‹¤.
 
-		// ÀÏ¹İ ±×¸²ÀÚ, ´Ü ºñ¹«¿¡¼­ ³ª¿À´Â Æ¯º°ÇÑ ±×¸²ÀÚ¸¦ ±¸ºĞ
-		// 0 : ÀÏ¹İ ±×¸²ÀÚ.
-		// 1 : ´Ü ºñ¹«¿¡¼­ ´ÜÁÖ
-		// 2 : ´Ü ºñ¹«¿¡¼­ ´Ü¿ø
-		// 3 : ¹®ÁÖ
+		// ì¼ë°˜ ê·¸ë¦¼ì? ë‹?ë¹„ë¬´ì—ì„œ ë‚˜ì˜¤ëŠ?íŠ¹ë³„í•?ê·¸ë¦¼ìë¥¼ êµ¬ë¶„
+		// 0 : ì¼ë°˜ ê·¸ë¦¼ì?
+		// 1 : ë‹?ë¹„ë¬´ì—ì„œ ë‹¨ì£¼
+		// 2 : ë‹?ë¹„ë¬´ì—ì„œ ë‹¨ì›
+		// 3 : ë¬¸ì£¼
 		BYTE byRenderType = 0;
 
 		DWORD dwResIDAry[4];
-		dwResIDAry[0] = 50000786;	// ÀÏ¹İ ±×¸²ÀÚ.
-		dwResIDAry[1] = 50001584;	// ´ÜÁÖ - À°°¢Çü
-		dwResIDAry[2] = 50001583;	// ´Ü¿ø - ¿øÇü
-		dwResIDAry[3] = 50002012;	// ¹®ÁÖ
+		dwResIDAry[0] = 50000786;	// ì¼ë°˜ ê·¸ë¦¼ì?
+		dwResIDAry[1] = 50001584;	// ë‹¨ì£¼ - ìœ¡ê°í˜?
+		dwResIDAry[2] = 50001583;	// ë‹¨ì› - ì›í˜•
+		dwResIDAry[3] = 50002012;	// ë¬¸ì£¼
 
 		DWORD dwResID = dwResIDAry[0];
 
@@ -1349,29 +1356,29 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 		cColorAry[1] = D3DCOLOR_XRGB(  16, 128, 255 );	// Blue
 		cColorAry[2] = D3DCOLOR_XRGB( 255,  67,  16 );	// Red
 		cColorAry[3] = D3DCOLOR_XRGB( 255, 211, 117 );	// Yellow
-		cColorAry[4] = D3DCOLOR_XRGB(   0, 255, 128 );	// BlackÀÌ ÃÊ·Ï»öÀ¸·ç ¹Ù²ñ.
+		cColorAry[4] = D3DCOLOR_XRGB(   0, 255, 128 );	// Blackì?ì´ˆë¡ìƒ‰ìœ¼ë£?ë°”ë€?
 
 		D3DCOLOR cColor = cColorAry[0];
 
 		if(m_bObjType == OBJTYPE_PC)
 		{
-			if(m_dwPartyID)	// ´Ü Ä³¸¯ÅÍ
+			if(m_dwPartyID)	// ë‹?ìºë¦­í„?
 			{
 				CXiahCharObject* pMainCharObject = (CXiahCharObject*)g_pMainChar->m_pObject;
 
-				// server id¸¦ Å¬¶óÀÌ¾ğÆ®°¡ °¡Áö°í ÀÖ´Â id·Î ¹Ù²Û´Ù.
+				// server idë¥?í´ë¼ì´ì–¸íŠ¸ê°€ ê°€ì§€ê³?ìˆëŠ” idë¡?ë°”ê¾¼ë‹?
 				DWORD dwPartyLeaderID = MAKEOBJECTID( 0, m_dwPartyLeaderID, OBJTYPE_PC );
 
-				if( m_dwEnemyPartyID )	// ´Ü ºñ¹« ÁßÀÎ Ä³¸¯ÅÍ´Ù.
+				if( m_dwEnemyPartyID )	// ë‹?ë¹„ë¬´ ì¤‘ì¸ ìºë¦­í„°ë‹¤.
 				{
-					if( pMainCharObject == this ) // ÀÌ°Ô ³ª¾ß?
+					if( pMainCharObject == this ) // ì´ê²Œ ë‚˜ì•¼?
 					{
-						// ´Ü ºñ¹«ÀÏ¶§¿¡´Â Æ÷Å» ºÒ°¡´É
+						// ë‹?ë¹„ë¬´ì¼ë•Œì—ëŠ” í¬íƒˆ ë¶ˆê°€ëŠ?
 						g_MainCharInfo.m_bPortalMove = false;
 
 						cColor = cColorAry[1];
 
-						// ³»°¡ ´ÜÁÖÀÎ°¡?
+						// ë‚´ê°€ ë‹¨ì£¼ì¸ê°€?
 						if( g_MainCharInfo.m_dwObjectID == m_dwPartyLeaderID )
 						{
 							dwResID = dwResIDAry[1];
@@ -1383,13 +1390,13 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 							byRenderType = 2;
 						}
 					}
-					else	// ³»°¡ ¾Æ´Ñ ´Ù¸¥ Ä³¸¯ÅÍÀÏ¶§
+					else	// ë‚´ê°€ ì•„ë‹Œ ë‹¤ë¥¸ ìºë¦­í„°ì¼ë•?
 					{
-						if( m_dwPartyID == pMainCharObject->m_dwPartyID )	// ¾Æ±ºÀÌ³×
+						if( m_dwPartyID == pMainCharObject->m_dwPartyID )	// ì•„êµ°ì´ë„¤
 						{
 							cColor = cColorAry[1];
 
-							// ÀÌ³à¼®ÀÌ ´ÜÁÖÀÎ°¡?
+							// ì´ë…€ì„ì´ ë‹¨ì£¼ì¸ê°€?
 							if( dwPartyLeaderID == m_dwXiahObjectID )
 							{
 								dwResID = dwResIDAry[1];
@@ -1401,11 +1408,11 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 								byRenderType = 2;
 							}
 						}
-						else if( m_dwPartyID == pMainCharObject->m_dwEnemyPartyID )	// Àû±ºÀÌ³×
+						else if( m_dwPartyID == pMainCharObject->m_dwEnemyPartyID )	// ì êµ°ì´ë„¤
 						{
 							cColor = cColorAry[2];
 
-							// ÀÌ³à¼®ÀÌ ´ÜÁÖÀÎ°¡?
+							// ì´ë…€ì„ì´ ë‹¨ì£¼ì¸ê°€?
 							if( dwPartyLeaderID == m_dwXiahObjectID )
 							{
 								dwResID = dwResIDAry[1];
@@ -1417,11 +1424,11 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 								byRenderType = 2;
 							}
 						}
-						else	// Á¦3ÀÇ ´ÜÀÌ·Î±¸³ª.
+						else	// ì ?ì?ë‹¨ì´ë¡œêµ¬ë‚?
 						{
 							cColor = cColorAry[3];
 
-							// ÀÌ³à¼®ÀÌ ´ÜÁÖÀÎ°¡?
+							// ì´ë…€ì„ì´ ë‹¨ì£¼ì¸ê°€?
 							if( dwPartyLeaderID == m_dwXiahObjectID )
 							{
 								dwResID = dwResIDAry[1];
@@ -1435,12 +1442,12 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 						}
 					}
 				}	// if( m_dwEnemyPartyID )
-				else	// ´ÜÀº ÀÖ°í ´Ü ºñ¹«´Â ¾ÈÇÏ°í ÀÖ´Ù.
+				else	// ë‹¨ì€ ìˆê³  ë‹?ë¹„ë¬´ëŠ?ì•ˆí•˜ê³?ìˆë‹¤.
 				{
 					cColor = cColorAry[4];
 					byRenderType = 0;
 
-					// ÀÌ³à¼®ÀÌ ´ÜÁÖÀÎ°¡?
+					// ì´ë…€ì„ì´ ë‹¨ì£¼ì¸ê°€?
 					if( dwPartyLeaderID == m_dwXiahObjectID )
 					{
 						dwResID = dwResIDAry[1];
@@ -1454,12 +1461,12 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 				byRenderType = 3;
 
 				fSize = 1.5f;
-				// ¹®ÁÖ ±×¸²ÀÚ ±³Ã¼
+				// ë¬¸ì£¼ ê·¸ë¦¼ì?êµì²´
 			} // if(m_dwMunpaOrder && !m_dwPartyID)
 
-			// ÀÌ¹ø¿£ ¹®ÆÄÀüÀÌ´Ù.
-			// ¹®ÆÄÀüÀÏ¶§, ¾Æ±ºÀº ÆÄ¶õ»ö, ÀûÀº »¡°£»öÀÌ´Ù.
-			// ÁÖÀÎ°øÀÎ ¸ŞÀÎ Ä³¸¯ÅÍ°¡ ¹®ÆÄÀüÀ» ÇÒ¶§¿¡¸¸ Àû¿ëµÈ´Ù.
+			// ì´ë²ˆì—?ë¬¸íŒŒì „ì´ë‹?
+			// ë¬¸íŒŒì „ì¼ë•? ì•„êµ°ì€ íŒŒë€ìƒ? ì ì€ ë¹¨ê°„ìƒ‰ì´ë‹?
+			// ì£¼ì¸ê³µì¸ ë©”ì¸ ìºë¦­í„°ê°€ ë¬¸íŒŒì „ì„ í• ë•Œì—ë§Œ ì ìš©ëœë‹¤.
 			if( g_pMainChar )
 			{			
 				CXiahCharObject* pMainCharObject = (CXiahCharObject*)g_pMainChar->m_pObject;
@@ -1496,7 +1503,7 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 
 		bool bShadowCreate = false;
 
-		// ¸ŞÀÎ Ä³¸¯ÅÍ°¡ ¾ÏÈæ¹«¿¡ °É¸®¸é ¸ŞÀÎ Ä³¸¯ÅÍ ±×¸²ÀÚ¸¸ ±×¸°´Ù.
+		// ë©”ì¸ ìºë¦­í„°ê°€ ì•”í‘ë¬´ì— ê±¸ë¦¬ë©?ë©”ì¸ ìºë¦­í„?ê·¸ë¦¼ìë§Œ ê·¸ë¦°ë‹?
 		if( !g_XiahEnvInfo.m_bAmhukmuFog )
 		{
             m_Shadow.Create( XiahPak::GetTexture(dwResID, true), m_Position.x,m_Position.z , size.GetLength() * fSize, cColor, TRUE, byRenderType );
@@ -1523,7 +1530,7 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 		}
 	}
 
-	// Ä® ±ËÀû.
+	// ì¹?ê¶¤ì .
 	if( m_SwordTrace.IsStart() )
 	{
 		Matrix4x4 *pBoneMatrix = m_CharRender.GetChildBoneMatrix( eLBP_RightHand);
@@ -1532,13 +1539,13 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 		{
 			Vector3 vStart,vEnd;
 
-			// ¹«Åõ²¨´Â µÎ°³°¡ º¯ÇÑ´Ù.
+			// ë¬´íˆ¬êº¼ëŠ” ë‘ê°œê°€ ë³€í•œë‹¤.
 			Vector3 vV;
 			int nCharID = m_CharRender.GetCharID();
 			if( nCharID != 891 )
-				vV = Vector3( 0, 0, -m_fWeaponLength );		// °Ë¿µ, ¿¬¶û.
+				vV = Vector3( 0, 0, -m_fWeaponLength );		// ê²€ì˜? ì—°ë‘.
 			else
-				vV = Vector3( 0, 0.7f, -m_fWeaponLength );	// ¹«Åõ
+				vV = Vector3( 0, 0.7f, -m_fWeaponLength );	// ë¬´íˆ¬
 
 			vEnd = vStart + vV;
 
@@ -1550,7 +1557,7 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 		}
 	}// if
 
-	// ¾ßÂ÷ÀÇ ¿Ş¼Õ Ä® ±ËÀû
+	// ì•¼ì°¨ì?ì™¼ì† ì¹?ê¶¤ì 
 	if( m_bSubObjType == 4 && m_SwordTrace2.IsStart() )
 	{
 		Matrix4x4 *pBoneMatrix = m_CharRender.GetChildBoneMatrix( eLBP_LeftHand );
@@ -1572,62 +1579,62 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 		}
 	}// if
 
-	// ¹«°ø Áö¼Ó ÀÌÆåÆ®, Æ÷Å»·Î ³¯¶ó¿Â Ä³¸¯ÅÍ ¹®Á¦·Î ¿©±â¼­ ÀÌÆåÆ®¸¦ ¸¸µé°í ¾÷µ¥ÀÌÆ®¸¦ ÇØÁØ´Ù.
+	// ë¬´ê³µ ì§€ì†?ì´í™íŠ? í¬íƒˆë¡?ë‚ ë¼ì˜?ìºë¦­í„?ë¬¸ì œë¡?ì—¬ê¸°ì„?ì´í™íŠ¸ë¥¼ ë§Œë“¤ê³?ì—…ë°ì´íŠ¸ë¥?í•´ì¤€ë‹?
 	if( bVisible )
 	{
-		if( m_bObjType == OBJTYPE_PC )		// PC¿¡¸¸ ºÙ´Â ¹«°ø Áö¼Ó ÀÌÆåÆ®.
+		if( m_bObjType == OBJTYPE_PC )		// PCì—ë§Œ ë¶™ëŠ” ë¬´ê³µ ì§€ì†?ì´í™íŠ?
 		{
-			// ¹«¼öÈ¥
+			// ë¬´ìˆ˜í˜?
 			PersistEffect(&m_pMusuhonEffectPP, OUTGONGID_MUSUHON, eMusuhon, fLocalFrameScale);
 
-			// Æø»çÈ¥
+			// í­ì‚¬í˜?
 			PersistEffect(&m_pPoksahonEffectPP, OUTGONGID_POKSAHON, ePoksahon, fLocalFrameScale);
 
-			// ±İ°­·Â
+			// ê¸ˆê°•ë ?
 			PersistEffect(&m_pKuymgangrukEffectPP, OUTGONGID_KUMKANGLUK, eKuymgangruk, fLocalFrameScale);
 
-			// ¿ø±â½Å°­.
+			// ì›ê¸°ì‹ ê°•.
 			PersistEffect(&m_pWonkisingangEffectPP, OUTGONGID_W0NKISINKANG, eWonkisingang, fLocalFrameScale);
 
-			// ¹İÅº°­±â.
+			// ë°˜íƒ„ê°•ê¸°.
 			PersistEffect(&m_pBantankangkiEffectPP, OUTGONGID_BANTANKANGKI, eBantankangki, fLocalFrameScale);
 
-			// Àû¿î°­±â.
+			// ì ìš´ê°•ê¸°.
 			PersistEffect(&m_pJukwonkangkiEffectPP, OUTGONGID_JUKUNKANGKI, eJukwonkangki, fLocalFrameScale);
 
-			// ¸¸µ¶ºÒÁø.
+			// ë§Œë…ë¶ˆì§„.
 			PersistEffect(&m_pMandokbuljinEffectPP, OUTGONGID_MANDOKBULJIN, eMandokbuljin, fLocalFrameScale);
 
-			// ¿¬¶û »çÀå½Å°øÁö¼Ó
+			// ì—°ë‘ ì‚¬ì¥ì‹ ê³µì§€ì†?
 			PersistEffect(&m_pSajangsingongEffectPP, YUN_SAJANGSINGONG, eYunSajangsingong, fLocalFrameScale);
 
-			// ¹«Åõ ±âÈí°­±â
+			// ë¬´íˆ¬ ê¸°í¡ê°•ê¸°
 			PersistEffect(&m_pKihubkangkiEffectPP, MU_KIHUBKANGKI, eMuKihubkangki, fLocalFrameScale);
 
-			// ¾ßÂ÷ È£Á¤°­±â
+			// ì•¼ì°¨ í˜¸ì •ê°•ê¸°
 			PersistEffect(&m_pHojungkangkiEffectPP, YA_HOJUNGKANGKI, eYaHojungkangki, fLocalFrameScale);
 
-			// ¾ßÂ÷ Àº½Å¼ú
+			// ì•¼ì°¨ ì€ì‹ ìˆ 
 			PersistEffect(&m_pEunsinsulEffectPP, YA_EUNSINSUL, eYaEunsinsul, fLocalFrameScale);
 
-			// ¿¬¶û ¼ö½Å±â°­
+			// ì—°ë‘ ìˆ˜ì‹ ê¸°ê°•
 			PersistEffect(&m_pSusinkikangEffectPP, YUN_SUSINKIKANG, eYunrangSpecial, fLocalFrameScale);
 
-			////HT_0711 : Áø°¢¼º ¹«°ø
-			// Èí¼º ½Å°ø ±İ°­½Å°ø
+			////HT_0711 : ì§„ê°ì„?ë¬´ê³µ
+			// í¡ì„± ì‹ ê³µ ê¸ˆê°•ì‹ ê³µ
 			PersistEffect(&m_pKuymgangsingongEffectPP, REBRITH_KUMKANGSINGONG, eKuymgangruk, fLocalFrameScale);
 
-			// Èí¼º ½Å°ø ºĞ½Å½Å°ø
+			// í¡ì„± ì‹ ê³µ ë¶„ì‹ ì‹ ê³µ
 			//PersistEffect(&m_pBunsinsingongEffectPP, REBRITH_BUSNSINGONG, eKuymgangruk, fLocalFrameScale);
 			
-			// Èí¼º ½Å°ø ¿ø±â½Å°ø
+			// í¡ì„± ì‹ ê³µ ì›ê¸°ì‹ ê³µ
 			PersistEffect(&m_pWonkisingongEffectPP, REBRITH_W0NKISINGONG, eWonkisingang, fLocalFrameScale);
 			
-			// Èí¼º ½Å°ø ±¤¸¶½Å°ø
+			// í¡ì„± ì‹ ê³µ ê´‘ë§ˆì‹ ê³µ
 			//PersistEffect(&m_pGwangmasingongEffectPP, REBRITH_GWANGMASINGONG, eKuymgangruk, fLocalFrameScale);
 			
 			
-			// ÀÌÁ¦ °æ°øÀÌ´Ù.
+			// ì´ì œ ê²½ê³µì´ë‹¤.
 						bool hasGyungGong = ( m_KeepUpMugongList.IsExist(OUTGONGID_ILYUIDOGANG ) ||
 								  m_KeepUpMugongList.IsExist(OUTGONGID_YUESUSINYUNG) ||
 								  m_KeepUpMugongList.IsExist(OUTGONGID_JILPUNGBO)    ||
@@ -2016,12 +2023,12 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 						g_EffectManager.DeqEffectPackagePair( m_pNoi_DragonPP );
 					m_pNoi_DragonPP = NULL;
 				}
-			}//°¢¼º ³ú·æ ¹«°ø
+			}//ê°ì„± ë‡Œë£¡ ë¬´ê³µ
 
 		}// if( OBJTYPE_PC || OBJTYPE_NPC || OBJTYPE_PET )
 	}// if( bVisible )
 	else
-	{	// ½Ã°£ °è»êÀº °è¼ÓÇÏ°í º¸ÀÌÁö ¾Êµµ·Ï ÇÑ´Ù.
+	{	// ì‹œê°„ ê³„ì‚°ì€ ê³„ì†í•˜ê³  ë³´ì´ì§€ ì•Šë„ë¡?í•œë‹¤.
 		EffectTimeUpdate(m_pMusuhonEffectPP, fLocalFrameScale);
 
 		EffectTimeUpdate(m_pPoksahonEffectPP, fLocalFrameScale);
@@ -2082,7 +2089,7 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 
 		EffectTimeUpdate(m_pSusinkikangEffectPP, fLocalFrameScale);
 
-		EffectTimeUpdate(m_pKuymgangsingongEffectPP, fLocalFrameScale); //HT_0711 : Áø°¢¼º ¹«°ø
+		EffectTimeUpdate(m_pKuymgangsingongEffectPP, fLocalFrameScale); //HT_0711 : ì§„ê°ì„?ë¬´ê³µ
 
 		//EffectTimeUpdate(m_pBunsinsingongEffectPP, fLocalFrameScale);
 
@@ -2100,7 +2107,7 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 
 	}// if( bVisible )
 
-	// Ä³¸¯ÅÍ¿¡ ¿¬°áµÈ ÀÌÆåÆ®. ¿©±â¼± ¸®½ºÆ® °ü¸®¸¸ ÇÏ¸é µÊ. »ç¿ëÇÏ°í ÀÖ´Â °Í¸¸ °¡Áö°í ÀÖ´Â´Ù.
+	// ìºë¦­í„°ì— ì—°ê²°ë?ì´í™íŠ? ì—¬ê¸°ì„?ë¦¬ìŠ¤íŠ?ê´€ë¦¬ë§Œ í•˜ë©´ ë? ì‚¬ìš©í•˜ê³  ìˆëŠ” ê²ƒë§Œ ê°€ì§€ê³?ìˆëŠ”ë‹?
 	EFFECTPACKAGEPAIRLIST NowUseingList;
 
 	EFFECTPACKAGEPAIRLIST::iterator eppit;
@@ -2133,7 +2140,7 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 /*
 BOOL CXiahCharObject::ShadowRender()
 {
-	// ÀÏ´Ü PC, NPC, FUNCNPC ¸¸ Real Shadow
+	// ì¼ë‹¨ PC, NPC, FUNCNPC ë§?Real Shadow
 	if(m_bObjType != OBJTYPE_PC || m_bObjType != OBJTYPE_NPC || m_bObjType != OBJTYPE_FUNCTIONALNPC) return FALSE;
 
 	// CCharRender Class
@@ -2143,12 +2150,12 @@ BOOL CXiahCharObject::ShadowRender()
 */
 
 
-// XIAH CHARACTER OBJECT¸¦ ·»´õ¸µ
+// XIAH CHARACTER OBJECTë¥?ë Œë”ë§?
 BOOL CXiahCharObject::Render()
 {
 	if( !m_bRenderOK ) 
 	{
-		// È­»ì ±ËÀû.
+		// í™”ì‚´ ê¶¤ì .
 		if( m_pLineParticle )
 			m_pLineParticle->Render();
 
@@ -2158,7 +2165,7 @@ BOOL CXiahCharObject::Render()
 	if( !m_CharRender.IsValid()) return TRUE;
 
 	BOOL bYaChaGwangmadokgong = FALSE;
-	// ¾ßÂ÷ ±¤¸¶µ¶°øÀº ÇæÅ©°¡ µÇ¾î¾ß ÇÑ´Ù.
+	// ì•¼ì°¨ ê´‘ë§ˆë…ê³µì€ í—í¬ê°€ ë˜ì–´ì•?í•œë‹¤.
 	if( m_bObjType == OBJTYPE_PC && m_bSubObjType == 4 )
 	{
 		if( m_bNowGwangmadokgong )
@@ -2169,7 +2176,7 @@ BOOL CXiahCharObject::Render()
 		else
 			m_CharRender.SetMaterialDiffuseColor( FALSE, 1, 1, 1 );
 	}
-	//HT_0711 : Áø°¢¼º ¹«°ø(±¤¸¶½Å°ø)
+	//HT_0711 : ì§„ê°ì„?ë¬´ê³µ(ê´‘ë§ˆì‹ ê³µ)
 	else if( m_bObjType == OBJTYPE_PC && m_bRebirth > 6 )
 	{
 		if( m_bNowGwangmadokgong )
@@ -2189,7 +2196,7 @@ BOOL CXiahCharObject::Render()
 		{
 			if( m_ChildChar[ i].IsValid())
 			{
-				// ¾ßÂ÷ ±¤¸¶µ¶°øÀº ¸ğÀÚ±îÁö ÇæÅ©°¡ µÇ¾î¾ß ÇÑ´Ù.
+				// ì•¼ì°¨ ê´‘ë§ˆë…ê³µì€ ëª¨ìê¹Œì§€ í—í¬ê°€ ë˜ì–´ì•?í•œë‹¤.
 				if( i == eLBP_Head )
 				if( bYaChaGwangmadokgong )
 					m_ChildChar[ i].SetMaterialDiffuseColor( TRUE, GWANGMADOKGONG_MATERIAL_R, GWANGMADOKGONG_MATERIAL_G, GWANGMADOKGONG_MATERIAL_B );
@@ -2203,7 +2210,7 @@ BOOL CXiahCharObject::Render()
 
 	g_pDirect3DDevice->SetRenderState( D3DRS_CULLMODE, D3DCULL_CCW);
 
-	// ¿¡³ÊÁö °ÔÀÌÁö
+	// ì—ë„ˆì§€ ê²Œì´ì§€
 	if( m_bShowGage)
 	{
 		if( g_pCurrentCamera)
@@ -2216,7 +2223,7 @@ BOOL CXiahCharObject::Render()
 		
 		if( m_bShowManaGage)
 		{
-			// ±â
+			// ê¸?
 			RenderEnergyGauge( m_rcObjectScreenPos.left - 40, m_rcObjectScreenPos.top - 13, 80, g_MainCharInfo.m_bStaminaCnt, 5, D3DCOLOR_XRGB(255, 204, 153), D3DCOLOR_XRGB(0, 0, 0), 5);
 
 			RenderEnergyGauge( m_rcObjectScreenPos.left - 40, m_rcObjectScreenPos.top - 8, 80, g_MainCharInfo.m_dwHpCur, g_MainCharInfo.m_dwHpMax, m_cGageColor, D3DCOLOR_XRGB(0, 0, 0), 5);
@@ -2227,7 +2234,7 @@ BOOL CXiahCharObject::Render()
 			RenderEnergyGauge( m_rcObjectScreenPos.left - 40, m_rcObjectScreenPos.top - 5, 80, m_dwCurHP, m_dwMaxHP, m_cGageColor, D3DCOLOR_XRGB(0, 0, 0), 5);
 		}
 
-		m_bShowObjectName = TRUE;	// À½.. ÀÌ°Ç XiahGame_Main.cpp¸¦ ´Ù¸¥ »ç¶÷ÀÌ ¾²°í ÀÖ¾î¼­ ±×³É ³Ö¾úÀ½, ³ªÁß¿¡ °íÃÄ¾ßµÊ
+		m_bShowObjectName = TRUE;	// ì?. ì´ê±´ XiahGame_Main.cppë¥?ë‹¤ë¥¸ ì‚¬ëŒì?ì“°ê³  ìˆì–´ì„?ê·¸ëƒ¥ ë„£ì—ˆì? ë‚˜ì¤‘ì—?ê³ ì³ì•¼ë¨
 	}
 
 	if(m_bShowObjectName || m_bSemiPKStatus == 2)
@@ -2252,8 +2259,8 @@ BOOL CXiahCharObject::Render()
 					cTradeName	 = D3DCOLOR_XRGB(183, 46, 247);
 					cTradeDea	 = D3DCOLOR_XRGB(183, 46, 247);
 				}
-				// CG_2005/01/28 : º¯Á¾¾ÆÀÌÅÛ±â´ÉÃß°¡
-				// º¯Á¾¾ÆÀÌÅÛ ¼ÂÆ®·Î ÀÔ¾úÀ»			
+				// CG_2005/01/28 : ë³€ì¢…ì•„ì´í…œê¸°ëŠ¥ì¶”ê°€
+				// ë³€ì¢…ì•„ì´í…œ ì…‹íŠ¸ë¡?ì…ì—ˆì?		
 				else if(m_bChangeItemSet == 1)
 				{
 					m_cNameColor = D3DCOLOR_XRGB( 0, 255, 0 );
@@ -2286,7 +2293,7 @@ BOOL CXiahCharObject::Render()
 
 						if((m_dwMunpaID != 0) && (g_MainCharInfo.m_dwLordMunpaID == m_dwMunpaID))
 						{
-							// ¿ì½Â ¹®ÆÄ¸íÀ» ÇÏ´Ã»öÀ¸·Î ¹Ù²ãÁÜ.							
+							// ìš°ìŠ¹ ë¬¸íŒŒëª…ì„ í•˜ëŠ˜ìƒ‰ìœ¼ë¡?ë°”ê¿”ì¤?							
 							m_tObjectName.SetText( 0, 0, strTemp, GetFont(IDS_GULIM, 12), D3DCOLOR_XRGB( 102, 204, 255 ), 8, 1, m_cNameColor);
 						}
 						else
@@ -2385,11 +2392,11 @@ BOOL CXiahCharObject::Render()
 				}
 				else if(!m_bChangeItemSet && g_bScreenShot)
 				{
-					m_cNameColor = D3DCOLOR_XRGB( 255, 255, 200);//HO_0509_07 ¿ÀÅä´ëÃ³¹æ¾È : ½º¼¦À¸·Î »ö»óÀ» ¾Ë¾Æ³»Áö ¸øÇÏµµ·Ï »ö»óÀ» º¯°æ
+					m_cNameColor = D3DCOLOR_XRGB( 255, 255, 200);//HO_0509_07 ì˜¤í† ëŒ€ì²˜ë°©ì•?: ìŠ¤ìƒ·ìœ¼ë¡œ ìƒ‰ìƒì?ì•Œì•„ë‚´ì§€ ëª»í•˜ë„ë¡ ìƒ‰ìƒì?ë³€ê²?
 				}
 				else
 				{
-					m_cNameColor = D3DCOLOR_XRGB( 240, 240, 190 );//HO_0509_07 ¿ÀÅä´ëÃ³¹æ¾È : ¾ÆÀÌÅÛÀ» ¾ÆÀÌÅÛ ¸íÀÇ »ö»óÀ¸·Î °Ë»öÇÏ±â¿¡ »ö»óÀ» º¯°æ..... ±âÁ¸»ö»ó( 255, 255, 200)					
+					m_cNameColor = D3DCOLOR_XRGB( 240, 240, 190 );//HO_0509_07 ì˜¤í† ëŒ€ì²˜ë°©ì•?: ì•„ì´í…œì„ ì•„ì´í…?ëª…ì˜ ìƒ‰ìƒìœ¼ë¡œ ê²€ìƒ‰í•˜ê¸°ì— ìƒ‰ìƒì?ë³€ê²?.... ê¸°ì¡´ìƒ‰ìƒ( 255, 255, 200)					
 				}
 
 				m_tObjectName.SetText(0, 0, (LPCTSTR)m_szObjectName, GetFont(IDS_GULIM, 12), m_cNameColor, 8);
@@ -2397,7 +2404,7 @@ BOOL CXiahCharObject::Render()
 				m_rcObjectScreenPos.left -= m_tObjectName.GetSize().cx / 2;
 			}
 		    break;		
-		//case OBJTYPE_ITEM: //HO_0525_07 ¿ÀÅä´ëÃ³¹æ¾È : ±âÁ¸ÄÚµå
+		//case OBJTYPE_ITEM: //HO_0525_07 ì˜¤í† ëŒ€ì²˜ë°©ì•?: ê¸°ì¡´ì½”ë“œ
 		//	{
 		//		if(m_bChangeItemSet)
 		//		{
@@ -2421,7 +2428,7 @@ BOOL CXiahCharObject::Render()
 				{
 					if((pInfo->m_dwOwnID != 0) && (g_MainCharInfo.m_dwLordMunpaID == pInfo->m_dwOwnID))
 					{
-						// ¿ì½Â ¹®ÆÄ¸íÀ» ÇÏ´Ã»öÀ¸·Î ¹Ù²ãÁÜ.							
+						// ìš°ìŠ¹ ë¬¸íŒŒëª…ì„ í•˜ëŠ˜ìƒ‰ìœ¼ë¡?ë°”ê¿”ì¤?							
 						m_tObjectName.SetText(0, 0, (LPCTSTR)m_szObjectName, GetFont(IDS_GULIM, 12), D3DCOLOR_XRGB( 102, 204, 255 ), 8);
 					}
 					else
@@ -2456,23 +2463,23 @@ BOOL CXiahCharObject::Render()
 			break;
 		}
 
-		// ¿©±â¼­ ¾È±×¸°´Ù.
+		// ì—¬ê¸°ì„?ì•ˆê·¸ë¦°ë‹¤.
 //		m_tObjectName.Render();
 	} // if( m_bShowObjectName)
 
-	// È­»ì ±ËÀû.
+	// í™”ì‚´ ê¶¤ì .
 	if( m_pLineParticle )
         m_pLineParticle->Render();
 
-	// Ä® ±ËÀû.
+	// ì¹?ê¶¤ì .
 	if( m_SwordTrace.IsStart() )
 		m_SwordTrace.Render();
 
-	// ¾ßÂ÷ ¿Ş¼Õ Ä® ±ËÀû
+	// ì•¼ì°¨ ì™¼ì† ì¹?ê¶¤ì 
 	if( m_bSubObjType == 4 && m_SwordTrace2.IsStart() )
 		m_SwordTrace2.Render();
 
-	// Ã¤ÆÃ ¹Ú½º
+	// ì±„íŒ… ë°•ìŠ¤
 	//ShowChatBox();	
 
 	return TRUE;
@@ -2514,17 +2521,17 @@ void CXiahCharObject::ShowChatBox()
 		{
 			Vector3 scPos = g_pCurrentCamera->WorldToScreen( m_Position + Vector3( 0, m_LocalBound.m_vMax.y + 1, 0));
 
-			if( m_bShowObjectName || m_bSemiPKStatus == 2)	// SEMI PKÀÇ ±ôºı»óÅÂÀÏ °æ¿ì
+			if( m_bShowObjectName || m_bSemiPKStatus == 2)	// SEMI PKì?ê¹œë¹¡ìƒíƒœì?ê²½ìš°
 			{
 				if(m_bTradeSell)
 				{
-					// °³ÀÎ »óÁ¡ °³¼³ÀÚ
+					// ê°œì¸ ìƒì  ê°œì„¤ì?
 					m_rcObjectScreenPos2.left = scPos.x - (m_ChatMsg.size()*2 + 6);
 					m_rcObjectScreenPos2.top = m_rcObjectScreenPos.top + 32;
 				}
 				else
 				{
-					// ÀÏ¹İ »ç¿ëÀÚ
+					// ì¼ë°˜ ì‚¬ìš©ì?
 					if(m_dwMunpaID)
 					{
 						m_rcObjectScreenPos2.left = m_rcObjectScreenPos.left + m_tObjectName.GetSize(1).cx + 6;
@@ -2539,7 +2546,7 @@ void CXiahCharObject::ShowChatBox()
 			} // if( m_bShowObjectName)
 			else
 			{
-				// ÀÌ°Íµµ Àú°Íµµ ¾Æ´Ñ»ç¶÷
+				// ì´ê²ƒë?ì €ê²ƒë„ ì•„ë‹Œì‚¬ëŒ
 				m_rcObjectScreenPos2.left = scPos.x - m_ChatMsg.size()*2;
 				m_rcObjectScreenPos2.top = scPos.y;
 			}
@@ -2561,7 +2568,7 @@ BOOL CXiahCharObject::Create(int nCharID,int nMeshType,int nTextureType,int nAni
 	{
 		if(m_CharRender.SetAnimation( nAniType) == FALSE)
 		{
-			// ¿©±â¼­ RETURN ÇÏ¸é BOUNDBOX ¼³Á¤ ½ÇÆĞ´å
+			// ì—¬ê¸°ì„?RETURN í•˜ë©´ BOUNDBOX ì„¤ì • ì‹¤íŒ¨ë‹?
 			//return FALSE;	
 		}
 	}
@@ -2586,6 +2593,12 @@ BOOL CXiahCharObject::Create(int nCharID,int nMeshType,int nTextureType,int nAni
 	}
 
 	ZeroMemory( m_pParentTrigger, sizeof(CTrigger*) * eXCT_Count);
+
+	// Load fame title dynamically based on player's fame
+	if (m_bObjType == OBJTYPE_PC)
+	{
+		RefreshFameColor();
+	}
 
 	return TRUE;
 }
@@ -2617,7 +2630,7 @@ BOOL CXiahCharObject::SetAnimation(int nCurMotionType,int nNextMotionType,int nC
 	m_CharRender.SetAnimation( m_nCurAniType, fAnimationSpeed);
 
 	BOOL bSwordTrace = FALSE;
-	// Ä® ±ËÀû
+	// ì¹?ê¶¤ì 
 	if( m_bObjType == OBJTYPE_PC && (m_nCurMotionType == XiahAniType::eLAT_NormalAttack || m_nCurMotionType == XiahAniType::eLAT_Mugong))
 	{
 		bSwordTrace = TRUE;
@@ -2629,13 +2642,13 @@ BOOL CXiahCharObject::SetAnimation(int nCurMotionType,int nNextMotionType,int nC
 		{
 			Vector3 vStart,vEnd;
 
-			// ¹«Åõ²¨´Â µÎ°³°¡ º¯ÇÑ´Ù.
+			// ë¬´íˆ¬êº¼ëŠ” ë‘ê°œê°€ ë³€í•œë‹¤.
 			Vector3 vV;
 			int nCharID = m_CharRender.GetCharID();
 			if( nCharID != 891 )
-				vV = Vector3( 0, 0, -m_fWeaponLength );		// °Ë¿µ, ¿¬¶û.
+				vV = Vector3( 0, 0, -m_fWeaponLength );		// ê²€ì˜? ì—°ë‘.
 			else
-				vV = Vector3( 0, 0.7f, -m_fWeaponLength );	// ¹«Åõ
+				vV = Vector3( 0, 0.7f, -m_fWeaponLength );	// ë¬´íˆ¬
 
 			vEnd = vStart + vV;
 
@@ -2646,7 +2659,7 @@ BOOL CXiahCharObject::SetAnimation(int nCurMotionType,int nNextMotionType,int nC
 		}
 		else
 		{
-			DBG_LogFile( _T("CXiahCharObject::SetAnimation ½ÇÆĞ"));
+			DBG_LogFile( _T("CXiahCharObject::SetAnimation ì‹¤íŒ¨"));
 //			return false;
 		}
 	}
@@ -2656,7 +2669,7 @@ BOOL CXiahCharObject::SetAnimation(int nCurMotionType,int nNextMotionType,int nC
 		m_SwordTrace.End();
 	}
 
-	// ¾ßÂ÷ ¿Ş¼Õ Ä® ±ËÀû
+	// ì•¼ì°¨ ì™¼ì† ì¹?ê¶¤ì 
 	if( bSwordTrace && m_bSubObjType == 4 )
 	{
 		Matrix4x4 *pBoneMatrix = m_CharRender.GetChildBoneMatrix( eLBP_LeftHand);
@@ -2677,7 +2690,7 @@ BOOL CXiahCharObject::SetAnimation(int nCurMotionType,int nNextMotionType,int nC
 		}
 		else
 		{
-			DBG_LogFile( _T("CXiahCharObject::SetAnimation ½ÇÆĞ"));
+			DBG_LogFile( _T("CXiahCharObject::SetAnimation ì‹¤íŒ¨"));
 		}
 	}
 
@@ -2711,7 +2724,7 @@ BOOL CXiahCharObject::SetAnimation(int nMotionType,int nIndex,float fAnimationSp
 	}
 
 	BOOL bSwordTrace = FALSE;
-	// Ä® ±ËÀû
+	// ì¹?ê¶¤ì 
 	if( m_bObjType == OBJTYPE_PC && (m_nCurMotionType == XiahAniType::eLAT_NormalAttack || m_nCurMotionType == XiahAniType::eLAT_Mugong))
 	{
 		bSwordTrace = TRUE;
@@ -2723,13 +2736,13 @@ BOOL CXiahCharObject::SetAnimation(int nMotionType,int nIndex,float fAnimationSp
 		{
 			Vector3 vStart,vEnd;
 
-			// ¹«Åõ²¨´Â µÎ°³°¡ º¯ÇÑ´Ù.
+			// ë¬´íˆ¬êº¼ëŠ” ë‘ê°œê°€ ë³€í•œë‹¤.
 			Vector3 vV;
 			int nCharID = m_CharRender.GetCharID();
 			if( nCharID != 891 )
-				vV = Vector3( 0, 0, -m_fWeaponLength );		// °Ë¿µ, ¿¬¶û.
+				vV = Vector3( 0, 0, -m_fWeaponLength );		// ê²€ì˜? ì—°ë‘.
 			else
-				vV = Vector3( 0, 0.7f, -m_fWeaponLength );	// ¹«Åõ
+				vV = Vector3( 0, 0.7f, -m_fWeaponLength );	// ë¬´íˆ¬
 
 			vEnd = vStart + vV;
 
@@ -2745,7 +2758,7 @@ BOOL CXiahCharObject::SetAnimation(int nMotionType,int nIndex,float fAnimationSp
 		m_SwordTrace.End();
 	}
 
-	// ¾ßÂ÷ ¿Ş¼Õ Ä® ±ËÀû
+	// ì•¼ì°¨ ì™¼ì† ì¹?ê¶¤ì 
 	if( bSwordTrace && m_bSubObjType == 4 )
 	{
 		Matrix4x4 *pBoneMatrix = m_CharRender.GetChildBoneMatrix( eLBP_LeftHand);
@@ -2766,7 +2779,7 @@ BOOL CXiahCharObject::SetAnimation(int nMotionType,int nIndex,float fAnimationSp
 		}
 		else
 		{
-			DBG_LogFile( _T("CXiahCharObject::SetAnimation ½ÇÆĞ"));
+			DBG_LogFile( _T("CXiahCharObject::SetAnimation ì‹¤íŒ¨"));
 		}
 	}
 	if( !bSwordTrace && m_bSubObjType == 4 )
@@ -2779,7 +2792,7 @@ BOOL CXiahCharObject::SetAnimation(int nMotionType,int nIndex,float fAnimationSp
 }
 
 /**
- * ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ ³¡³¯¶§
+ * ì• ë‹ˆë©”ì´ì…˜ì´ ëë‚ ë•?
  * \param param 
  * \return 
  */
@@ -2788,7 +2801,7 @@ int CXiahCharObject::OnEndAnimation(unsigned long param)
 	m_bMoveable = TRUE;
 	m_bAttack = FALSE;
 
-	// Ä® ±ËÀû Effect Disable
+	// ì¹?ê¶¤ì  Effect Disable
 	if( m_nCurAniType != m_nNextAniType)
 	{
 		m_SwordTrace.End();
@@ -2817,12 +2830,12 @@ int CXiahCharObject::OnEndAnimation(unsigned long param)
 			{
 				float fAlphaEffectSpeed = 1.0f;
 
-				// ¾î¶² NPC´Â ´õ ºü¸£°Ô »ç¶óÁø´Ù.
+				// ì–´ë–¤ NPCëŠ?ë?ë¹ ë¥´ê²?ì‚¬ë¼ì§„ë‹¤.
 				if( m_bObjType == OBJTYPE_NPC )
 				{
 					switch( m_bSubObjType )
 					{
-					case 184:	// ½ÅÁ¶
+					case 184:	// ì‹ ì¡°
 						fAlphaEffectSpeed = 4.0f;
 						break;
 					};
@@ -2834,7 +2847,7 @@ int CXiahCharObject::OnEndAnimation(unsigned long param)
 			m_SwordTrace.End();
 			m_SwordTrace2.End();
 		}
-		else if( m_nCurAniIndex == -1)	// ·£´ı ¹İº¹ÀÌ¶ó¼­ ¸® ¤Ñ,,¤Ñ
+		else if( m_nCurAniIndex == -1)	// ëœë¤ ë°˜ë³µì´ë¼ì„?ë¦?ã…?,ã…?
 		{
 			m_SwordTrace.End();
 			m_SwordTrace2.End();
@@ -2843,7 +2856,7 @@ int CXiahCharObject::OnEndAnimation(unsigned long param)
 
 			return 1;
 		}
-		// Ã¤Áı¾Ö´Ï ³¡³¯¶§ ¶Ç ÀÌÆåÆ® ºÙ¿©ÁÖ±â
+		// ì±„ì§‘ì• ë‹ˆ ëë‚ ë•?ë˜?ì´í™íŠ?ë¶™ì—¬ì£¼ê¸°
 		else if(XiahAniType::eLAT_Collect == m_nCurMotionType)
 		{
 			m_CharRender.StopEffect();
@@ -2863,7 +2876,7 @@ int CXiahCharObject::OnEndAlphaEffect(unsigned long param)
 
 BOOL CXiahCharObject::AttachChildCharRender(int nLogicalPos,int nCharID,int nMeshType,int nTextureType, int nEffectIndex)
 {
-	// ½Å¹ßÀº ¿¹¿Ü Ã³¸®
+	// ì‹ ë°œì€ ì˜ˆì™¸ ì²˜ë¦¬
 	if( nLogicalPos == eLBP_Shoe)
 	{
 		CRes_Character* pChar = GetCharacter( nCharID);
@@ -2890,7 +2903,7 @@ BOOL CXiahCharObject::AttachChildCharRender(int nLogicalPos,int nCharID,int nMes
 	}
 
 
-	if( nLogicalPos == eLBP_Protector) // ¿Ê
+	if( nLogicalPos == eLBP_Protector) // ì˜?
 	{
 		CRes_Character* pChar = GetCharacter( nCharID);
 
@@ -2906,50 +2919,50 @@ BOOL CXiahCharObject::AttachChildCharRender(int nLogicalPos,int nCharID,int nMes
 
 		//if( pTexture->texture_sub_count < 4)	return TRUE;
 				
-		// °°Àº Ä³¸¯ÅÍ¸é MeshType¸¸ ¹Ù²ã ÁØ´Ù
-		// ÄÚµå ¸ÚÁö±º
+		// ê°™ì€ ìºë¦­í„°ë©´ MeshTypeë§?ë°”ê¿” ì¤€ë‹?
+		// ì½”ë“œ ë©‹ì§€êµ?
 		if( m_CharRender.GetCharID() == nCharID && m_CharRender.GetMeshType() == nMeshType)
 		{
 			m_CharRender.ChangeTexture( 0, pTexture->texture_sub_ptr[ 0].texture_id);
 			m_CharRender.ChangeTexture( 3, pTexture->texture_sub_ptr[ 0].texture_id);
 
-			// ¹«ÅõÀÇ 4´Ü°è´Â ³¯°³ÀÇ ÅØ½ºÃÄ°¡ ¸ö°ú ´Ù¸¥°É ¾´´Ù. ³¯°³´Â MeshBlock 4¹øÂ°´Ù.
-			// º¯Á¾ ³Ö¾î°¡Áö°í ¹ö±×¸¸ »ı±â°Ô ÇÏ°í..
+			// ë¬´íˆ¬ì?4ë‹¨ê³„ëŠ?ë‚ ê°œì?í…ìŠ¤ì³ê°€ ëª¸ê³¼ ë‹¤ë¥¸ê±?ì“´ë‹¤. ë‚ ê°œëŠ?MeshBlock 4ë²ˆì§¸ë‹?
+			// ë³€ì¢?ë„£ì–´ê°€ì§€ê³?ë²„ê·¸ë§?ìƒê¸°ê²?í•˜ê³ ..
 			if( nCharID == 891/*m_bSubObjType == 3*/ && nMeshType >= 3 )
 			{
 				 m_CharRender.ChangeTexture( 3, pTexture->texture_sub_ptr[ 3].texture_id);
 			}
-			// ¾ßÂ÷ÀÇ 2´Ü°è ºÎÅÍ´Â ¸ÁÅä°¡ ¸ö°ú ´Ù¸¥ ÅØ½ºÃÄ¸¦ ¾´´Ù. ¸ÁÅä´Â MeshBlock 4¹øÂ°´Ù.
-			// º¯Á¾ ³Ö¾î°¡Áö°í ¹ö±×¸¸ »ı±â°Ô ÇÏ°í..
+			// ì•¼ì°¨ì?2ë‹¨ê³„ ë¶€í„°ëŠ” ë§í† ê°€ ëª¸ê³¼ ë‹¤ë¥¸ í…ìŠ¤ì³ë¥¼ ì“´ë‹¤. ë§í† ëŠ?MeshBlock 4ë²ˆì§¸ë‹?
+			// ë³€ì¢?ë„£ì–´ê°€ì§€ê³?ë²„ê·¸ë§?ìƒê¸°ê²?í•˜ê³ ..
 			else if( nCharID == 906 /*m_bSubObjType == 4*/ && nMeshType > 0 )
 			{
 				 m_CharRender.ChangeTexture( 3, pTexture->texture_sub_ptr[ 3].texture_id);
 			}
-			else if(nCharID == 867 && (nMeshType == 4 || nMeshType == 5 || nMeshType == 6)) //HT_1116 : °¢¼ºÀÚ ¾ÆÀÌÅÛ Ãß°¡
+			else if(nCharID == 867 && (nMeshType == 4 || nMeshType == 5 || nMeshType == 6)) //HT_1116 : ê°ì„±ì?ì•„ì´í…?ì¶”ê°€
 			{
 				m_CharRender.ChangeTexture(3, pTexture->texture_sub_ptr[ 3].texture_id);
 			}
 		}
-		else// Ä³¸¯ÅÍ°¡ ´Ù¸£¸é ´Ù½Ã ¸¸µé¾î ÁØ´Ù ²ÙÀ¡!!
+		else// ìºë¦­í„°ê°€ ë‹¤ë¥´ë©?ë‹¤ì‹œ ë§Œë“¤ì–?ì¤€ë‹?ê¾¸ì›©!!
 		{
-			// ÀÏ´Ü Ä³¸¯ÅÍ¸¦ ¸¸µé°í
+			// ì¼ë‹¨ ìºë¦­í„°ë¥¼ ë§Œë“¤ê³?
 			m_CharRender.Clear();
 			m_CharRender.SetChar( nCharID);
 			m_CharRender.SetMesh( nMeshType, nTextureType);
 			
-			// ÀÌºÎºĞ¿¡¼­ IntroÀÇ Aninmation °áÁ¤!
+			// ì´ë¶€ë¶„ì—ì„?Introì?Aninmation ê²°ì •!
 
 			if( m_pAniType == NULL)
 			{
 				switch(m_bSubObjType)
 				{
-					case 1 : // °Ë¿µ
+					case 1 : // ê²€ì˜?
 						m_CharRender.SetAnimation( 201);
 					break;
 
-					case 2 :	// ¿¬¶û
-					case 3 :	// ¹«Åõ
-					case 4 :	// ¾ßÂ÷
+					case 2 :	// ì—°ë‘
+					case 3 :	// ë¬´íˆ¬
+					case 4 :	// ì•¼ì°¨
 						m_CharRender.SetAnimation( 103);
 					break;
 				}
@@ -2958,7 +2971,7 @@ BOOL CXiahCharObject::AttachChildCharRender(int nLogicalPos,int nCharID,int nMes
 				SetAnimation( XiahAniType::eLAT_Stand, 0);
 
 
-			// ÀåÂø °ü·Ã BoneÁ¤º¸¸¦ ´Ù½Ã ¼¼ÆÃÇØÁØ´Ù
+			// ì¥ì°© ê´€ë ?Boneì •ë³´ë¥?ë‹¤ì‹œ ì„¸íŒ…í•´ì¤€ë‹?
 			for(int i = 0; i < LOGICAL_BONE_POS_COUNT; i++)
 			{
 				if( m_ChildChar[ i].IsValid())
@@ -2998,7 +3011,7 @@ BOOL CXiahCharObject::AttachChildCharRender(int nLogicalPos,int nCharID,int nMes
 	//m_ChildChar[ nLogicalPos].SetLocalCenter(Matrix4x4());
 	DBG_Assert( m_ChildChar[ nLogicalPos].IsValid());
 
-	// ¹«±âÀÏ¶§ ÀÌÆåÆ®°¡ ºÙ´Â´Ù.
+	// ë¬´ê¸°ì¼ë•Œ ì´í™íŠ¸ê°€ ë¶™ëŠ”ë‹?
 	if( nEffectIndex >= 0 )
 	{
 		m_ChildChar[ nLogicalPos].MakeMeshEffect( nEffectIndex );
@@ -3008,7 +3021,7 @@ BOOL CXiahCharObject::AttachChildCharRender(int nLogicalPos,int nCharID,int nMes
 	Matrix4x4 *pBoneMatrix = m_CharRender.GetChildBoneMatrix( nLogicalPos);
 
 	m_ChildChar[ nLogicalPos].SetPosition( pBoneMatrix);
-	++m_nChildChar;	// ¾Æ±¸°¡ ¸ÂÀ»·Á³ª?
+	++m_nChildChar;	// ì•„êµ¬ê°€ ë§ì„ë ¤ë‚˜?
 
 	return TRUE;
 }
@@ -3016,7 +3029,7 @@ BOOL CXiahCharObject::AttachChildCharRender(int nLogicalPos,int nCharID,int nMes
 // test code
 bool CXiahCharObject::AttachPetChildChar(int nLogicalPos, int nCharID, int nMeshType, int nTextureType)
 {
-	// ½Å¹ßÀº ¿¹¿Ü Ã³¸®
+	// ì‹ ë°œì€ ì˜ˆì™¸ ì²˜ë¦¬
 	if(nLogicalPos == eLBP_Shoe)
 	{
 		CRes_Character* pChar = GetCharacter( nCharID);
@@ -3038,7 +3051,7 @@ bool CXiahCharObject::AttachPetChildChar(int nLogicalPos, int nCharID, int nMesh
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
-	if(nLogicalPos == eLBP_Protector) // ¿Ê
+	if(nLogicalPos == eLBP_Protector) // ì˜?
 	{
 		CRes_Character* pChar = GetCharacter( nCharID);
 
@@ -3054,15 +3067,15 @@ bool CXiahCharObject::AttachPetChildChar(int nLogicalPos, int nCharID, int nMesh
 
 		//if( pTexture->texture_sub_count < 4)	return TRUE;
 
-		// °°Àº Ä³¸¯ÅÍ¸é MeshType¸¸ ¹Ù²ã ÁØ´Ù
+		// ê°™ì€ ìºë¦­í„°ë©´ MeshTypeë§?ë°”ê¿” ì¤€ë‹?
 		if( m_CharRender.GetCharID() == nCharID && m_CharRender.GetMeshType() == nMeshType)
 		{
 			m_CharRender.ChangeTexture( 0, pTexture->texture_sub_ptr[ 0].texture_id);
 			m_CharRender.ChangeTexture( 3, pTexture->texture_sub_ptr[ 0].texture_id);
 		}
-		else// Ä³¸¯ÅÍ°¡ ´Ù¸£¸é ´Ù½Ã ¸¸µé¾î ÁØ´Ù ²ÙÀ¡!!
+		else// ìºë¦­í„°ê°€ ë‹¤ë¥´ë©?ë‹¤ì‹œ ë§Œë“¤ì–?ì¤€ë‹?ê¾¸ì›©!!
 		{
-			// ÀÏ´Ü Ä³¸¯ÅÍ¸¦ ¸¸µé°í
+			// ì¼ë‹¨ ìºë¦­í„°ë¥¼ ë§Œë“¤ê³?
 			m_CharRender.Clear();
 			m_CharRender.SetChar( nCharID);
 			m_CharRender.SetMesh( nMeshType, nTextureType);
@@ -3070,7 +3083,7 @@ bool CXiahCharObject::AttachPetChildChar(int nLogicalPos, int nCharID, int nMesh
 			SetAnimation( XiahAniType::eLAT_Stand, 0);
 
 
-			// ÀåÂø °ü·Ã BoneÁ¤º¸¸¦ ´Ù½Ã ¼¼ÆÃÇØÁØ´Ù
+			// ì¥ì°© ê´€ë ?Boneì •ë³´ë¥?ë‹¤ì‹œ ì„¸íŒ…í•´ì¤€ë‹?
 			for(int i = 0; i < LOGICAL_BONE_POS_COUNT; ++i)
 			{
 				if( m_ChildChar[ i].IsValid())
@@ -3085,7 +3098,7 @@ bool CXiahCharObject::AttachPetChildChar(int nLogicalPos, int nCharID, int nMesh
 		}
 
 		return true; 
-	} // if(nLogicalPos == eLBP_Protector) // ¿Ê
+	} // if(nLogicalPos == eLBP_Protector) // ì˜?
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 	RemoveChildCharRender(nLogicalPos);
@@ -3118,7 +3131,7 @@ bool CXiahCharObject::AttachPetChildChar(int nLogicalPos, int nCharID, int nMesh
 	assert(pBoneMatrix);
 
 	m_ChildChar[ nLogicalPos].SetPosition( pBoneMatrix);
-	++m_nChildChar;	// ¾Æ±¸°¡ ¸ÂÀ»·Á³ª?
+	++m_nChildChar;	// ì•„êµ¬ê°€ ë§ì„ë ¤ë‚˜?
 
 
 	return true;
@@ -3129,7 +3142,7 @@ BOOL CXiahCharObject::RemoveChildCharRender(int nLogicalPos)
 	if( m_ChildChar[ nLogicalPos].IsValid())
 	{
 		m_ChildChar[ nLogicalPos].Clear();
-		--m_nChildChar;	// ¾Æ±¸°¡ ¸ÂÀ»·Á³ª?
+		--m_nChildChar;	// ì•„êµ¬ê°€ ë§ì„ë ¤ë‚˜?
 	}
 
 	return TRUE;
@@ -3160,7 +3173,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 		pFrameDelta->t.z = 0;
 		return 0;
 	}
-	// È­»ìÀÌ ¾Æ´Ñ ³Ñµé¿¡ ÇÑÇØ¼­ TargetMove¸¦ ¿©±â´Ù°¡ »ìÂ¦ ³Ö¾îÁØ´Ù
+	// í™”ì‚´ì?ì•„ë‹Œ ë„˜ë“¤ì—?í•œí•´ì„?TargetMoveë¥?ì—¬ê¸°ë‹¤ê°€ ì‚´ì§ ë„£ì–´ì¤€ë‹?
 	
 	Matrix4x4 future_tm = *pFrameDelta * m_ObjectTM;
 	future_tm.t.y -= 0.5f;
@@ -3177,15 +3190,15 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 		vDir2.Normalize();
 
 		float bt = sqrt((m_TargetPosition.x - m_Position.x)*(m_TargetPosition.x - m_Position.x) + (m_TargetPosition.z - m_Position.z)*(m_TargetPosition.z - m_Position.z));
-		// bt´Â ÀÌµ¿Áß¿¡ ÇöÀç PCÀÇ ¹ß¹Ù´ÚÀ» ÂïÀ»°æ¿ì m_TargetPosition°ú m_TargetStartPosition´Â °»½ÅµÇÁö¸¸
-		// °è»ê»óÀÇ ´íÎó·Î pFrameDelta°¡ ºñÁ¤»óÀûÀ¸·Î ³ª¿À´Â °æ¿ì ¹«ÇÑ ´Ş¸®±â¸¦ ÇÑ´Ù. ÀÌ¸¦ ¸·±âÀ§ÇÏ¿© Ãß°¡
-		// 1.5f´Â °æÇè»óÀÇ ¼öÄ¡·Î Å¬¸¯½Ã ¸ñÀûÁö¿Í ÇöÀçÀÇ À§Ä¡°¡ 1.5fÁ¤µµ¸¸Å­ ÀÌÇÏ·Î ³ª¿À¸é ¸ØÃß°Ô ÇÑ´Ù. 1.5 Á¤µµ¸é ÀßÀÛµ¿ÇÑ´Ù.
+		// btëŠ?ì´ë™ì¤‘ì— í˜„ì¬ PCì?ë°œë°”ë‹¥ì„ ì°ì„ê²½ìš° m_TargetPositionê³?m_TargetStartPositionëŠ?ê°±ì‹ ë˜ì§€ë§?
+		// ê³„ì‚°ìƒì˜ ëŒ„è½ë¡?pFrameDeltaê°€ ë¹„ì •ìƒì ìœ¼ë¡œ ë‚˜ì˜¤ëŠ?ê²½ìš° ë¬´í•œ ë‹¬ë¦¬ê¸°ë¥¼ í•œë‹¤. ì´ë¥¼ ë§‰ê¸°ìœ„í•˜ì—?ì¶”ê°€
+		// 1.5fëŠ?ê²½í—˜ìƒì˜ ìˆ˜ì¹˜ë¡?í´ë¦­ì‹?ëª©ì ì§€ì™€ í˜„ì¬ì?ìœ„ì¹˜ê°€ 1.5fì •ë„ë§Œí¼ ì´í•˜ë¡?ë‚˜ì˜¤ë©?ë©ˆì¶”ê²?í•œë‹¤. 1.5 ì •ë„ë©?ì˜ì‘ë™í•œë‹?
 
 		if( vDir.Dot( vDir2) < 0 || bt < 1.5f)
 		{
-			m_bTargetMove = FALSE; // ´Ù¿Ô´Ù
+			m_bTargetMove = FALSE; // ë‹¤ì™”ë‹?
 
-			// ÀÓ½Ã ÇÏµå ÄÚµù Ä³¸¯ÅÍ´Â -1ÁÖ¸é ¾ÊµÊ
+			// ì„ì‹œ í•˜ë“œ ì½”ë”© ìºë¦­í„°ëŠ” -1ì£¼ë©´ ì•Šë¨
 			SetAnimation( XiahAniType::eLAT_Stand, m_bObjType != OBJTYPE_PC ? -1 : 0);
 
 			if( m_pParentTrigger[ eXCT_OnEndTargetMove] != NULL)
@@ -3199,7 +3212,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 		return 0;
 
 	//////////////////////////////////////////////////////////////////////////
-	// MAP ¼Ó¼ºÃ³¸®
+	// MAP ì†ì„±ì²˜ë¦¬
 
 	int att_x,att_y;
 	unsigned char	att_res;
@@ -3222,7 +3235,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 
 
 	//////////////////////////////////////////////////////////////////////////
-	// ¼¼»óÀÇ ³¡?
+	// ì„¸ìƒì?ë?
 	if( future_tm.t.x < 5 || -future_tm.t.z < 5 || future_tm.t.x > 2043 || -future_tm.t.z > 2043)
 	{
 		pFrameDelta->t = Vector3();
@@ -3233,7 +3246,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 	}
 	
 	//////////////////////////////////////////////////////////////////////////
-	// °æ»ç¸é Ã³¸® ¸ø¿Ã¶ó°¡±â
+	// ê²½ì‚¬ë©?ì²˜ë¦¬ ëª»ì˜¬ë¼ê°€ê¸?
 	float t_h = Map::g_MapRes.GetHeight(future_tm.t.x,future_tm.t.z);
 /*
 	sString str;
@@ -3248,25 +3261,25 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 		return 0;
 	}
 /*
-	// ¹Ù¿îµù ¹Ú½º ¹«½Ã
+	// ë°”ìš´ë”?ë°•ìŠ¤ ë¬´ì‹œ
 	if( GetAsyncKeyState( VK_SPACE) < 0)
 		return 0;
 */
 
 
-	// ¹è°æÀ¸·Î ºÎÅÍ object list¸¦ ¾ò¾î ¿Â´Ù
-	// 2004_04_12 changth : Ä³¸¯ÅÍ°¡ ¿òÁ÷ÀÏ¶§ ¼ÓÇØ ÀÖ´Â ¸Ê¼¿ÀÇ ¿ÀºêÁ§Æ®¸¸ Ãæµ¹ °Ë»ç¸¦ ÇÏ´Âµ¥,
-	// ÀÌ¶§ ¹®Á¦°¡ ¹ß»ıÇÔ. ¸Ê¼¿ »çÀÌ¿¡ ³¢¾î ÀÖ´Â ¿ÀºêÁ§Æ®ÀÇ °æ¿ì, ¸Ê ¿¡µğÅÍ¿¡¼­ ÀúÀåµÉ¶§ 
-	// ¾î¶² ¸Ê¼¿¿¡ ÀúÀåµÇ´ÂÁö ¾Ë¼ö°¡ ¾ø´Ù. ±×·¡¼­ Ä³¸¯ÅÍ°¡ ¼ÓÇØÀÖ´Â ¸Ê¼¿ÀÇ °æ°è ºÎºĞ¿¡ ÀÖÀ¸¸é 
-	// ÀÎÁ¢ÇÑ ¸Ê¼¿ÀÇ ¿ÀºêÁ§Æ®±îÁö Ãæµ¹ °Ë»ç¸¦ ÇÑ´Ù. ±×·¡¾ß Á¤È®ÇÏ´Ù.
+	// ë°°ê²½ìœ¼ë¡œ ë¶€í„?object listë¥?ì–»ì–´ ì˜¨ë‹¤
+	// 2004_04_12 changth : ìºë¦­í„°ê°€ ì›€ì§ì¼ë•?ì†í•´ ìˆëŠ” ë§µì…€ì?ì˜¤ë¸Œì íŠ¸ë§?ì¶©ëŒ ê²€ì‚¬ë¥¼ í•˜ëŠ”ë?
+	// ì´ë•Œ ë¬¸ì œê°€ ë°œìƒí•? ë§µì…€ ì‚¬ì´ì—?ë¼ì–´ ìˆëŠ” ì˜¤ë¸Œì íŠ¸ì?ê²½ìš°, ë§?ì—ë””í„°ì—ì„?ì €ì¥ë ë•?
+	// ì–´ë–¤ ë§µì…€ì—?ì €ì¥ë˜ëŠ”ì§€ ì•Œìˆ˜ê°€ ì—†ë‹¤. ê·¸ë˜ì„?ìºë¦­í„°ê°€ ì†í•´ìˆëŠ” ë§µì…€ì?ê²½ê³„ ë¶€ë¶„ì— ìˆìœ¼ë©?
+	// ì¸ì ‘í•?ë§µì…€ì?ì˜¤ë¸Œì íŠ¸ê¹Œì§€ ì¶©ëŒ ê²€ì‚¬ë¥¼ í•œë‹¤. ê·¸ë˜ì•?ì •í™•í•˜ë‹¤.
 
-	// ÀÏ´Ü Ä³¸¯ÅÍ°¡ ¸Ê¼¿ÀÇ °¡¿îµ¥ ºÎºĞ¿¡ ÀÖ´ÂÁö, °æ°è ºÎºĞ¿¡ ÀÖ´ÂÁö °Ë»çÇÏ¿©
-	// °Ë»çÇÒ ¸Ê ¼¿ÀÇ °³¼ö¸¦ ¾Ë¾Æ ³½´Ù. Âü°í·Î, ¸Ê¼¿ÀÇ Å©±â´Â 256x256ÀÌ´Ù.
+	// ì¼ë‹¨ ìºë¦­í„°ê°€ ë§µì…€ì?ê°€ìš´ë° ë¶€ë¶„ì— ìˆëŠ”ì§€, ê²½ê³„ ë¶€ë¶„ì— ìˆëŠ”ì§€ ê²€ì‚¬í•˜ì—?
+	// ê²€ì‚¬í•  ë§?ì…€ì?ê°œìˆ˜ë¥?ì•Œì•„ ë‚¸ë‹¤. ì°¸ê³ ë¡? ë§µì…€ì?í¬ê¸°ëŠ?256x256ì´ë‹¤.
 	int nMapCellCount = 1;
-	WORD wXAry[4];	// ÃÖ´ë´Â 4°³´Ù. ÇöÀç ÀÖ´Â °÷À» Æ÷ÇÔÇÏ¿©
+	WORD wXAry[4];	// ìµœëŒ€ëŠ?4ê°œë‹¤. í˜„ì¬ ìˆëŠ” ê³³ì„ í¬í•¨í•˜ì—¬
 	WORD wZAry[4];
 
-	// ÇöÀç ¼ÓÇØ ÀÖ´Â °÷.
+	// í˜„ì¬ ì†í•´ ìˆëŠ” ê³?
 	wXAry[0] = (WORD)future_tm.t.x;
 	wZAry[0] = (WORD)(-future_tm.t.z);
 
@@ -3274,19 +3287,19 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 	int nRemnantZ = wZAry[0] % 256;
 
 	int nSearchGap = 50;
-	if( nRemnantX < nSearchGap )	// ¿ŞÂÊ¿¡ ÀÖ´Â ¸Ê¼¿ÀÌ Ãß°¡µÈ´Ù.
+	if( nRemnantX < nSearchGap )	// ì™¼ìª½ì—?ìˆëŠ” ë§µì…€ì?ì¶”ê°€ëœë‹¤.
 	{
 		nMapCellCount++;
 
 		wXAry[1] = (WORD)(future_tm.t.x - nRemnantX - 2);
 		wZAry[1] = (WORD)(-future_tm.t.z);
 
-		if( nRemnantZ >= nSearchGap && nRemnantZ <= 256-nSearchGap )	// À§, ¾Æ·¡´Â °Ë»ç°¡ ÇÊ¿ä ¾ø´Ù.
+		if( nRemnantZ >= nSearchGap && nRemnantZ <= 256-nSearchGap )	// ìœ? ì•„ë˜ëŠ?ê²€ì‚¬ê°€ í•„ìš” ì—†ë‹¤.
 		{
 		}
 		else
 		{
-			if( nRemnantZ < nSearchGap )	// À§ÀÇ ¸Ê¼¿ÀÌ Ãß°¡µÈ´Ù.
+			if( nRemnantZ < nSearchGap )	// ìœ„ì˜ ë§µì…€ì?ì¶”ê°€ëœë‹¤.
 			{
 				nMapCellCount++;
 
@@ -3294,7 +3307,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 				wZAry[2] = (WORD)(-future_tm.t.z - nRemnantZ - 2);
 			}
 			else
-			if( nRemnantZ > 256-nSearchGap )	// ¾Æ·¡ÀÇ ¸Ê¼¿ÀÌ Ãß°¡µÈ´Ù.
+			if( nRemnantZ > 256-nSearchGap )	// ì•„ë˜ì?ë§µì…€ì?ì¶”ê°€ëœë‹¤.
 			{
 				nMapCellCount++;
 
@@ -3305,7 +3318,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 			}
 		}
 
-		if( nMapCellCount == 3 )	// ´ë°¢¼±ÂÊÀ¸·Îµµ Ãß°¡ÇÑ´Ù.
+		if( nMapCellCount == 3 )	// ëŒ€ê°ì„ ìª½ìœ¼ë¡œë„ ì¶”ê°€í•œë‹¤.
 		{
 			nMapCellCount++;
 
@@ -3314,7 +3327,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 		}
 	}// if
 	else
-	if( nRemnantX > 256-nSearchGap )	// ¿À¸¥ÂÊ¿¡ ÀÖ´Â ¸Ê¼¿ÀÌ Ãß°¡µÈ´Ù.
+	if( nRemnantX > 256-nSearchGap )	// ì˜¤ë¥¸ìª½ì— ìˆëŠ” ë§µì…€ì?ì¶”ê°€ëœë‹¤.
 	{
 		nMapCellCount++;
 
@@ -3323,12 +3336,12 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 		wXAry[1] = (WORD)(future_tm.t.x + nX + 2);
 		wZAry[1] = (WORD)(-future_tm.t.z);
 
-		if( nRemnantZ >= nSearchGap && nRemnantZ <= 256-nSearchGap )	// À§, ¾Æ·¡´Â °Ë»ç°¡ ÇÊ¿ä ¾ø´Ù.
+		if( nRemnantZ >= nSearchGap && nRemnantZ <= 256-nSearchGap )	// ìœ? ì•„ë˜ëŠ?ê²€ì‚¬ê°€ í•„ìš” ì—†ë‹¤.
 		{
 		}
 		else
 		{
-			if( nRemnantZ < nSearchGap )	// À§ÀÇ ¸Ê¼¿ÀÌ Ãß°¡µÈ´Ù.
+			if( nRemnantZ < nSearchGap )	// ìœ„ì˜ ë§µì…€ì?ì¶”ê°€ëœë‹¤.
 			{
 				nMapCellCount++;
 
@@ -3336,7 +3349,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 				wZAry[2] = (WORD)(-future_tm.t.z - nRemnantZ - 2);
 			}
 			else
-			if( nRemnantZ > 256-nSearchGap )	// ¾Æ·¡ÀÇ ¸Ê¼¿ÀÌ Ãß°¡µÈ´Ù.
+			if( nRemnantZ > 256-nSearchGap )	// ì•„ë˜ì?ë§µì…€ì?ì¶”ê°€ëœë‹¤.
 			{
 				nMapCellCount++;
 
@@ -3347,7 +3360,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 			}
 		}
 
-		if( nMapCellCount == 3 )	// ´ë°¢¼±ÂÊÀ¸·Îµµ Ãß°¡ÇÑ´Ù.
+		if( nMapCellCount == 3 )	// ëŒ€ê°ì„ ìª½ìœ¼ë¡œë„ ì¶”ê°€í•œë‹¤.
 		{
 			nMapCellCount++;
 
@@ -3356,8 +3369,8 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 		}
 	}// if
 
-	// Z Ãàµµ °Ë»ç. ÀÌ ³à¼®Àº À§, ¾Æ·¡¸¸ °Ë»çÇÏ¸é µÈ´Ù.
-	if( nMapCellCount == 1 && nRemnantZ < nSearchGap )	// À§ÀÇ ¸Ê¼¿ÀÌ Ãß°¡µÈ´Ù.
+	// Z ì¶•ë„ ê²€ì‚? ì?ë…€ì„ì€ ìœ? ì•„ë˜ë§?ê²€ì‚¬í•˜ë©?ëœë‹¤.
+	if( nMapCellCount == 1 && nRemnantZ < nSearchGap )	// ìœ„ì˜ ë§µì…€ì?ì¶”ê°€ëœë‹¤.
 	{
 		nMapCellCount++;
 
@@ -3365,7 +3378,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 		wZAry[1] = (WORD)(-future_tm.t.z - nRemnantZ - 2);
 	}
 	else
-	if( nMapCellCount == 1 && nRemnantZ > 256-nSearchGap )	// ¾Æ·¡ÀÇ ¸Ê¼¿ÀÌ Ãß°¡µÈ´Ù.
+	if( nMapCellCount == 1 && nRemnantZ > 256-nSearchGap )	// ì•„ë˜ì?ë§µì…€ì?ì¶”ê°€ëœë‹¤.
 	{
 		nMapCellCount++;
 
@@ -3375,7 +3388,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 		wZAry[1] = (WORD)(-future_tm.t.z + nZ + 2);
 	}
 
-	// ÀÌÁ¦ ¸®½ºÆ®¿¡ µé¾î ÀÖ´Â ¸Ê¼¿ÀÇ ¿ÀºêÁ§Æ®¿Í Ãæµ¹ °Ë»ç¸¦ ÇÑ´Ù.
+	// ì´ì œ ë¦¬ìŠ¤íŠ¸ì— ë“¤ì–´ ìˆëŠ” ë§µì…€ì?ì˜¤ë¸Œì íŠ¸ì™€ ì¶©ëŒ ê²€ì‚¬ë¥¼ í•œë‹¤.
 	for(int i=0; i<nMapCellCount; i++)
 	{
 		XiahGameEngine::Map::MAPRENDER_MAPOBJECTLIST *pObjectList;
@@ -3406,15 +3419,15 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 			{
 				BBoxOBB3* map_object_bound = box_list + i;
 
-				// ¿ø·¡ ÄÚµå°¡ ÀÌ·¨´Âµ¥..
+				// ì›ë˜ ì½”ë“œê°€ ì´ë¬ëŠ”ë°..
 				if( !map_object_bound->m_BBoxAABB.Intersect( future_bound.m_BBoxAABB))
 					continue;
 
-				// ¿ø·¡ ÄÚµå°¡ ÀÌ°Íµµ Ã¼Å©¸¦ ÇÏ´Âµ¥, ÇöÀç´Â ÀÌ°Ô ¾ø¾îµµ µÊ.
+				// ì›ë˜ ì½”ë“œê°€ ì´ê²ƒë?ì²´í¬ë¥?í•˜ëŠ”ë? í˜„ì¬ëŠ?ì´ê²Œ ì—†ì–´ë?ë?
 //				if( !map_object_bound->IsIntersect( &future_bound))
 //					continue;
 
-				// ´Ù¸® ÁÖÀ§¿¡ ÀÖÀ»¶§¿¡´Â µÎ°³ÀÇ ¿ÀºêÁ§Æ®¸¦ °Ë»çÇØ¾ß ÇÏ¹Ç·Î ÇÑ¹ø ´õ °Ë»çÇÑ´Ù.
+				// ë‹¤ë¦¬ ì£¼ìœ„ì—?ìˆì„ë•Œì—ëŠ?ë‘ê°œì?ì˜¤ë¸Œì íŠ¸ë¥?ê²€ì‚¬í•´ì•?í•˜ë¯€ë¡?í•œë²ˆ ë?ê²€ì‚¬í•œë‹?
 				if( !bFirstCollide )
 					bCollide = TRUE;
 
@@ -3426,37 +3439,37 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 			}// for
 		}
 
-		if( collide_height != 0.0f ) // ÇÑ¹ø °Ë»ç ÇßÀ»¶§µµ ¿ª½Ã Ãæµ¹ µÈ »óÅÂ´Ù.
+		if( collide_height != 0.0f ) // í•œë²ˆ ê²€ì‚?í–ˆì„ë•Œë„ ì—­ì‹œ ì¶©ëŒ ë?ìƒíƒœë‹?
 			bCollide = TRUE;
 
 		m_bCollide = bCollide;
 
-		// Ãæµ¹!
+		// ì¶©ëŒ!
 		if( bCollide)
 		{
-			// Ãæµ¹µÇ¾ú´Âµ¥ Ãæµ¹µÈ¾êº¸´Ù ´õ À§¿¡ ¼­ÀÖ´Â°æ¿ì -_-;;
+			// ì¶©ëŒë˜ì—ˆëŠ”ë° ì¶©ëŒëœì–˜ë³´ë‹¤ ë?ìœ„ì— ì„œìˆëŠ”ê²½ìš?-_-;;
 			if( future_tm.t.y > collide_height)
 			{
-				// ÀÌ °æ¿ì¿¡ ³»·Á°¡¾ß ÇÑ´Ù.
+				// ì?ê²½ìš°ì—?ë‚´ë ¤ê°€ì•?í•œë‹¤.
 				m_ObjectTM.y = collide_height;
 				m_fColHeight = collide_height;
 				m_bRide = TRUE;
 			}
 			else 
-			if( future_tm.t.y < collide_height)		// ¹Ù¿îµù ¹Ú½º heightº¸´Ù ÇöÀç À§Ä¡°¡ ÀÛÀº°¡?
+			if( future_tm.t.y < collide_height)		// ë°”ìš´ë”?ë°•ìŠ¤ heightë³´ë‹¤ í˜„ì¬ ìœ„ì¹˜ê°€ ì‘ì€ê°€?
 			{
 				if( abs( future_tm.t.y - collide_height) < 4)
 				{
-					// ¿Ã¶ó°¡ ¹ö¸²
+					// ì˜¬ë¼ê°€ ë²„ë¦¼
 					m_ObjectTM.y = collide_height;
-					m_fColHeight = collide_height;	// ÀÓ½ÃÀúÀå ¹Ù¿îµù ³ôÀÌ
+					m_fColHeight = collide_height;	// ì„ì‹œì €ì?ë°”ìš´ë”?ë†’ì´
 					m_bRide = TRUE;
 				}
 				else
 				{
 					//				m_bRide = FALSE;
 					pFrameDelta->t = Vector3();
-					// ´õÀÌ»ó °¥ ¼ö ¾øÀ½À» ¾Ë·Á ÁØ´Ù
+					// ë”ì´ìƒ?ê°?ìˆ?ì—†ìŒì?ì•Œë ¤ ì¤€ë‹?
 					if( m_pParentTrigger[ eXCT_OnCollision] != NULL)
 						return m_pParentTrigger[ eXCT_OnCollision]->Invoke();
 				}
@@ -3473,7 +3486,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 
 
 	// 2004_06_01 Changth
-	// ¹®ÆÄ ºñ¼®°ú Ãæµ¹ Ã³¸®¸¦ ³Ö¾îÁØ´Ù.
+	// ë¬¸íŒŒ ë¹„ì„ê³?ì¶©ëŒ ì²˜ë¦¬ë¥?ë„£ì–´ì¤€ë‹?
 	BBoxOBB3 StoneBound;
 
 	DWORDLIST::iterator dit;
@@ -3507,7 +3520,7 @@ int CXiahCharObject::OnTimer(unsigned long type)
 		return m_pParentTrigger[ eXCT_OnTimer]->Invoke();
 	}
 
-	// ¾Æ~~ °á±¹ ÇÏµåÄÚµùÀÌ±¸³ª
+	// ì•„~~ ê²°êµ­ í•˜ë“œì½”ë”©ì´êµ¬ë‚?
 	if( m_bObjType == OBJTYPE_NPC)
 	{
 		if( type == 0)
@@ -3528,7 +3541,7 @@ int CXiahCharObject::OnTimer(unsigned long type)
 #ifdef TRACE_LOG
 				if(pTM == NULL || pObject == NULL)
 				{
-					DBG_LogFile( _T("CXiahCharObject::OnTimer ½ÇÆĞ"));
+					DBG_LogFile( _T("CXiahCharObject::OnTimer ì‹¤íŒ¨"));
 				}
 #endif
 				pObject->Create( 837, 0, 0, 0);
@@ -3548,10 +3561,10 @@ int CXiahCharObject::OnTimer(unsigned long type)
 				//pObject->m_CharRender.SetLocalCenter(Matrix4x4());
 				RemoveChildCharRender( eLBP_RightHand);
 			
-				// È­»ìÀ» ½ğ´Ù
+				// í™”ì‚´ì?ìœë‹¤
 				XiahObject::g_XiahObjectManager.CreateXiahObject( 0, 0, pObject);
 
-				// È­»ì ±ËÀû
+				// í™”ì‚´ ê¶¤ì 
 				if( pObject->m_pLineParticle == NULL )
 				{
 					pObject->m_pLineParticle = new CLineParticle;
@@ -3559,7 +3572,7 @@ int CXiahCharObject::OnTimer(unsigned long type)
 #ifdef TRACE_LOG
 					if(pObject->m_pLineParticle == NULL)
 					{
-						DBG_LogFile( _T("CXiahCharObject::OnTimer ½ÇÆĞ"));
+						DBG_LogFile( _T("CXiahCharObject::OnTimer ì‹¤íŒ¨"));
 					}
 #endif
 					pObject->m_pLineParticle->Init();
@@ -3614,36 +3627,45 @@ void CXiahCharObject::RefreshFameColor(DWORD dwFame)
 		m_dwFame = dwFame;
 
 	if(m_dwFame >= 127)
-	{   // ³ë¶ô»ö °è¿­
-		if(m_dwFame >= 133 && m_dwFame <= 226) // ¼±ÀÎ 2´Ü°è
+	{   // ë…¸ë½ìƒ?ê³„ì—´
+		if(m_dwFame >= 133 && m_dwFame <= 226) // ì„ ì¸ 2ë‹¨ê³„
 		{
 			m_cNameColor = D3DCOLOR_XRGB( 255, 255, 120);
 		}
-		else if(m_dwFame >= 227) // ¼±ÀÎ 3´Ü°è
+		else if(m_dwFame >= 227) // ì„ ì¸ 3ë‹¨ê³„
 		{
 			m_cNameColor = D3DCOLOR_XRGB( 255, 255, 0);
 		}
-		else  // ¼±ÀÎ 1´Ü°è
+		else  // ì„ ì¸ 1ë‹¨ê³„
 		{
 			m_cNameColor = D3DCOLOR_XRGB( 255, 255, 200);
 		}
 	} // if(dwFame >= 127)
 	else
 	{
-		// »¡°£»ö °è¿­
-		if(m_dwFame <= 121 && m_dwFame >= 28) // ¾ÇÀÎ 2´Ü°è
+		// ë¹¨ê°„ìƒ?ê³„ì—´
+		if(m_dwFame <= 121 && m_dwFame >= 28) // ì•…ì¸ 2ë‹¨ê³„
 		{
 			m_cNameColor = D3DCOLOR_XRGB( 255, 75, 75);
 		}
-		else if(m_dwFame <= 27) // ¾ÇÀÎ 3´Ü°è
+		else if(m_dwFame <= 27) // ì•…ì¸ 3ë‹¨ê³„
 		{
 			m_cNameColor = D3DCOLOR_XRGB( 255, 0, 0);
 		}
-		else  // ¾ÇÀÎ 1´Ü°è
+		else  // ì•…ì¸ 1ë‹¨ê³„
 		{
 			m_cNameColor = D3DCOLOR_XRGB( 255, 150, 150);
 		}
 	}
+
+	// Update active dynamic title when fame changes
+	int nNewTitleID = GetTitleIDByFame(m_dwFame);
+	if (nNewTitleID != m_nActiveTitleID)
+	{
+		m_nActiveTitleID = nNewTitleID;
+		LoadLegendTitle(nNewTitleID);
+	}
+	
 }
 
 BOOL CheckServerInteractionDistance(WORD wPosX,WORD wPosY)
@@ -3677,7 +3699,7 @@ BOOL ValidateObject(BYTE bObjType,DWORD ObjID,WORD wPosX,WORD wPosY)
 	case OBJTYPE_PC:
 		SendCS_IT_CHARINFO_REQ( ObjID);
 		break;
-	case OBJTYPE_NPC:	// NPC°¡ NPC¸¦ ‹š·Á?
+	case OBJTYPE_NPC:	// NPCê°€ NPCë¥?ë–„ë ¤?
 		SendCS_NC_NPCINFO_REQ( ObjID);
 		break;
 	case OBJTYPE_PET:
@@ -3689,4 +3711,162 @@ BOOL ValidateObject(BYTE bObjType,DWORD ObjID,WORD wPosX,WORD wPosY)
 	}
 
 	return TRUE;
+}
+
+
+void CXiahCharObject::ClearTitle()
+{
+	for (size_t i = 0; i < m_TitleEffect.m_vecFrames.size(); i++)
+	{
+		if (m_TitleEffect.m_vecFrames[i].pTexture)
+		{
+			m_TitleEffect.m_vecFrames[i].pTexture->Release();
+			m_TitleEffect.m_vecFrames[i].pTexture = NULL;
+		}
+	}
+	m_TitleEffect.m_vecFrames.clear();
+	m_TitleEffect.m_bLoaded = FALSE;
+}
+
+BOOL CXiahCharObject::LoadLegendTitle(int nTitleID)
+{
+	ClearTitle();
+
+	m_TitleEffect.m_nCurrentFrame = 0;
+	m_TitleEffect.m_dwLastTime = GetTickCount();
+
+	int nFrameIdx = 0;
+	while (TRUE)
+	{
+		char szImgPath[MAX_PATH];
+		char szTxtPath[MAX_PATH];
+		
+		sprintf(szImgPath, "fame\\%d\\%06d.png", nTitleID, nFrameIdx);
+		sprintf(szTxtPath, "fame\\%d\\Placements\\%06d.txt", nTitleID, nFrameIdx);
+
+		// Try loading texture
+		LPDIRECT3DTEXTURE9 pTexture = NULL;
+		HRESULT hr = D3DXCreateTextureFromFileExA(
+			g_pDirect3DDevice, 
+			szImgPath, 
+			D3DX_DEFAULT, D3DX_DEFAULT, 1, 0, 
+			D3DFMT_A8R8G8B8, D3DPOOL_MANAGED, 
+			D3DX_FILTER_NONE, D3DX_FILTER_NONE, 
+			0, NULL, NULL, &pTexture
+		);
+
+		if (FAILED(hr) || pTexture == NULL)
+		{
+			break;
+		}
+
+		// Read placements
+		int nOffX = 0;
+		int nOffY = 0;
+		FILE* fp = fopen(szTxtPath, "r");
+		if (fp)
+		{
+			if (fscanf(fp, "%d\n%d", &nOffX, &nOffY) != 2)
+			{
+				nOffX = 0;
+				nOffY = 0;
+			}
+			fclose(fp);
+		}
+
+		sTitleFrame newFrame;
+		newFrame.pTexture = pTexture;
+		newFrame.nOffsetX = nOffX;
+		newFrame.nOffsetY = nOffY;
+
+		m_TitleEffect.m_vecFrames.push_back(newFrame);
+		nFrameIdx++;
+	}
+
+	if (m_TitleEffect.m_vecFrames.size() > 0)
+	{
+		m_TitleEffect.m_bLoaded = TRUE;
+		return TRUE;
+	}
+	
+	return FALSE;
+}
+
+void CXiahCharObject::RenderLegendTitle(int nNameX, int nNameY)
+{
+	if (!m_TitleEffect.m_bLoaded || m_TitleEffect.m_vecFrames.empty())
+		return;
+
+	DWORD dwCurTime = GetTickCount();
+	if (dwCurTime - m_TitleEffect.m_dwLastTime >= 100)
+	{
+		m_TitleEffect.m_nCurrentFrame = (m_TitleEffect.m_nCurrentFrame + 1) % m_TitleEffect.m_vecFrames.size();
+		m_TitleEffect.m_dwLastTime = dwCurTime;
+	}
+
+	sTitleFrame& curFrame = m_TitleEffect.m_vecFrames[m_TitleEffect.m_nCurrentFrame];
+	LPDIRECT3DTEXTURE9 pTexture = curFrame.pTexture;
+	if (!pTexture) return;
+
+	D3DSURFACE_DESC desc;
+	pTexture->GetLevelDesc(0, &desc);
+	float fWidth  = (float)desc.Width;
+	float fHeight = (float)desc.Height;
+
+	float fX = (float)nNameX + (float)curFrame.nOffsetX - 0.5f;
+	float fY = (float)nNameY + (float)curFrame.nOffsetY - 0.5f;
+
+	VT_TLVertex Vertex[4];
+	
+	Vertex[0].pos = Vector4(fX,           fY,           0.0f, 1.0f); Vertex[0].tex = Vector2(0.0f, 0.0f);
+	Vertex[1].pos = Vector4(fX + fWidth,  fY,           0.0f, 1.0f); Vertex[1].tex = Vector2(1.0f, 0.0f);
+	Vertex[2].pos = Vector4(fX,           fY + fHeight, 0.0f, 1.0f); Vertex[2].tex = Vector2(0.0f, 1.0f);
+	Vertex[3].pos = Vector4(fX + fWidth,  fY + fHeight, 0.0f, 1.0f); Vertex[3].tex = Vector2(1.0f, 1.0f);
+
+	D3DCOLOR d3dColor = D3DCOLOR_ARGB(255, 255, 255, 255);
+	Vertex[0].diffuse = Vertex[1].diffuse = Vertex[2].diffuse = Vertex[3].diffuse = d3dColor;
+
+	g_pDirect3DDevice->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
+	g_pDirect3DDevice->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_NOTEQUAL);
+	g_pDirect3DDevice->SetRenderState(D3DRS_ALPHAREF, 0);
+
+	g_Device.SetTexture(0, pTexture);
+	g_Device.SetFVF(D3DFVF_TLVERTEX);
+	
+	g_pDirect3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, Vertex, sizeof(VT_TLVertex));
+}
+
+
+int CXiahCharObject::GetTitleIDByFame(DWORD dwFame)
+{
+	if (dwFame == 127)
+	{
+		return 19; // Neutral
+	}
+	else if (dwFame > 127)
+	{
+		// Good (Hero) grades: 20 to 28
+		if (dwFame >= 128 && dwFame <= 132) return 20;
+		if (dwFame >= 133 && dwFame <= 150) return 21;
+		if (dwFame >= 151 && dwFame <= 170) return 22;
+		if (dwFame >= 171 && dwFame <= 190) return 23;
+		if (dwFame >= 191 && dwFame <= 210) return 24;
+		if (dwFame >= 211 && dwFame <= 226) return 25;
+		if (dwFame >= 227 && dwFame <= 500) return 26;
+		if (dwFame >= 501 && dwFame <= 1000) return 27;
+		return 28; // >= 1001
+	}
+	else
+	{
+		// Evil (Villain) grades: 10 to 18
+		if (dwFame >= 122 && dwFame <= 126) return 18;
+		if (dwFame >= 100 && dwFame <= 121) return 17;
+		if (dwFame >= 80 && dwFame <= 99) return 16;
+		if (dwFame >= 60 && dwFame <= 79) return 15;
+		if (dwFame >= 45 && dwFame <= 59) return 14;
+		if (dwFame >= 28 && dwFame <= 44) return 13;
+		if (dwFame >= 15 && dwFame <= 27) return 12;
+		if (dwFame >= 5 && dwFame <= 14) return 11;
+		return 10; // <= 4
+	}
 }

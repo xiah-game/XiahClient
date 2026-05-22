@@ -1168,6 +1168,13 @@ BOOL CXiahGame_Main::RenderCharName()
 			{
 				pXiahCharObject->ShowChatBox();
 			}
+			if (pXiahCharObject->m_TitleEffect.m_bLoaded)
+			{
+				sSize NameSize = pXiahCharObject->m_tObjectName.GetSize();
+				int nCenterX = pXiahCharObject->m_rcObjectScreenPos.left + NameSize.cx / 2;
+				int nNameTopY = pXiahCharObject->m_rcObjectScreenPos.top;
+				pXiahCharObject->RenderLegendTitle(nCenterX, nNameTopY);
+			}
 
 			// 단 가입시
 			if(g_MainCharInfo.m_pRelation->Am_I_InDan())

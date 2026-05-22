@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include "XiahObject.h"
 
 #include "XiahCharAniType.h"
@@ -45,7 +46,7 @@ public:
 	BOOL		m_bTargetMove;
 	Vector3		m_TargetPosition;
 	Vector3		m_TargetStartPosition;
-	DWORD		m_TargetObjectID;		// À¯µµ È­»ì?
+	DWORD		m_TargetObjectID;		// ìœ ë„ í™”ì‚´?
 	DWORD		m_TargetObjectType;
 	int			m_nTargetMoveType;
 	float		m_fTargetMoveSpeed;
@@ -61,22 +62,22 @@ public:
 
 	//---------------
 	BOOL		m_bShowObjectName;
-	sRect		m_rcObjectScreenPos;	// °´Ã¼ÀÇ È­¸é À§Ä¡
-	sRect		m_rcObjectScreenPos2;	// chatboxÀÇ È­¸é À§Ä¡
+	sRect		m_rcObjectScreenPos;	// ê°ì²´ì˜ í™”ë©´ ìœ„ì¹˜
+	sRect		m_rcObjectScreenPos2;	// chatboxì˜ í™”ë©´ ìœ„ì¹˜
 
 	DWORD		m_LastNavigationTime;
 
 	//--------------
-	BOOL		m_CollisionEnable;	// Ãæµ¹Ã³¸®¸¦ ÇØÁà¾ß ÇÏ´Â ³ÑÀÎ°¡?
+	BOOL		m_CollisionEnable;	// ì¶©ëŒì²˜ë¦¬ë¥¼ í•´ì¤˜ì•¼ í•˜ëŠ” ë„˜ì¸ê°€?
 	BOOL		m_bCollide;
-	BOOL		m_bRide;			// ÇöÀç ¹Ù¿îµù ¹Ú½º À§¿¡ ¿Ã¶ó°¡ ÀÖ³ª?
-	float		m_fColHeight;		// ¹Ù¿îµù ¹Ú½ºÀÇ ³ôÀÌ
+	BOOL		m_bRide;			// í˜„ì¬ ë°”ìš´ë”© ë°•ìŠ¤ ìœ„ì— ì˜¬ë¼ê°€ ìˆë‚˜?
+	float		m_fColHeight;		// ë°”ìš´ë”© ë°•ìŠ¤ì˜ ë†’ì´
 
 	//--------------
 	BOOL		m_bGravityEnable;
 
 public:
-	// ¼­¹ö InteractionÀ» À§ÇÑ ÇÔ¼öµé
+	// ì„œë²„ Interactionì„ ìœ„í•œ í•¨ìˆ˜ë“¤
 	virtual BOOL SetAngle(WORD angle);
 	virtual BOOL SetAngleTarget(Vector3 position);
 	virtual BOOL SetAngleTarget(WORD wPosX,WORD wPosY);
@@ -87,14 +88,14 @@ public:
 	
 	virtual BOOL GetPosition(WORD &wPosX,WORD &wPosY);
 	virtual BOOL GetAngle(WORD &angle);
-	virtual Vector3 GetAngle_Vector();	// ÇöÀç °¢µµ¸¦ ¹æÇâ º¤ÅÍ·Î ¹Ù²ãÁØ´Ù
+	virtual Vector3 GetAngle_Vector();	// í˜„ì¬ ê°ë„ë¥¼ ë°©í–¥ ë²¡í„°ë¡œ ë°”ê¿”ì¤€ë‹¤
 
-	// ÇöÀç À§Ä¡¿Í Æ¯Á¤ À§Ä¡¿ÍÀÇ °Å¸® -> Ç×»ó ¾ç¼ö
+	// í˜„ì¬ ìœ„ì¹˜ì™€ íŠ¹ì • ìœ„ì¹˜ì™€ì˜ ê±°ë¦¬ -> í•­ìƒ ì–‘ìˆ˜
 	virtual float GetDistance(WORD wPosX,WORD wPosY);
-	virtual float GetDistance(Vector3 pos); // 3d»óÀÇ °Å¸® y°ª »ı°¢¾ÊÇÔ
-	// ÁøÇà ¹æÇâ»ó¿¡¼­ ÇöÀç À§Ä¡º¸´Ù µÚ¿¡ ÀÖÀ»°æ¿ì¿£´Â À½¼ö ¸®ÅÏ
+	virtual float GetDistance(Vector3 pos); // 3dìƒì˜ ê±°ë¦¬ yê°’ ìƒê°ì•Ší•¨
+	// ì§„í–‰ ë°©í–¥ìƒì—ì„œ í˜„ì¬ ìœ„ì¹˜ë³´ë‹¤ ë’¤ì— ìˆì„ê²½ìš°ì—”ëŠ” ìŒìˆ˜ ë¦¬í„´
 	virtual float GetDistance_Normal(WORD wPosX,WORD wPosY);
-	// Sync Move À§Ä¡°ªÀ» ³Ö¾î¼­, ÇöÀç ¼Óµµ¸¦ ¾ó¸¶³ª ´õ ºü¸£°Ô ÇØ¾ß µÇ´ÂÁö¸¦ ¾Ë¾Æ³¿
+	// Sync Move ìœ„ì¹˜ê°’ì„ ë„£ì–´ì„œ, í˜„ì¬ ì†ë„ë¥¼ ì–¼ë§ˆë‚˜ ë” ë¹ ë¥´ê²Œ í•´ì•¼ ë˜ëŠ”ì§€ë¥¼ ì•Œì•„ëƒ„
 	virtual float GetSyncMoveScale(WORD wPosX,WORD wPosY);
 	//
 	virtual WORD GetTargetAngle(Vector3 pos);
@@ -103,14 +104,14 @@ public:
 	virtual BOOL UpdateTargetMove(){ return TRUE;}
 	virtual float GetHeight(float x,float z);
 
-	// Æ¯Á¤ À§Ä¡±îÁö¸¸ ÀÌµ¿
+	// íŠ¹ì • ìœ„ì¹˜ê¹Œì§€ë§Œ ì´ë™
 
 };
 
 //------------------------------------------------------------------------------
 //
 
-// 2004_06_17 Changth ¿Ü°ø ¾ÆÀÌµğ¸¦ Å¬¶óÀÌ¾ğÆ®µµ ÀúÀåÇÏ°í ÀÖÀÚ.
+// 2004_06_17 Changth ì™¸ê³µ ì•„ì´ë””ë¥¼ í´ë¼ì´ì–¸íŠ¸ë„ ì €ì¥í•˜ê³  ìˆì.
 #define OUTGONGID_MUSUHON			32
 #define OUTGONGID_POKSAHON			36
 #define OUTGONGID_KUMKANGLUK		39
@@ -146,19 +147,19 @@ public:
 #define	OUTGONGID_GYUISIKDAEBUB		130
 #define	OUTGONGID_GWANGMADOKGONG	131
 
-// ¿ÀÇà
+// ì˜¤í–‰
 #define FIVEELEMENT_FIRE			150
 #define FIVEELEMENT_WATER			151
 #define FIVEELEMENT_TREE			152
 #define FIVEELEMENT_METAL			153
 #define FIVEELEMENT_EARTH			154
 
-// °¢¼º 
+// ê°ì„± 
 #define SUNSINGONG					161
 #define SUNMUSUL					162
 #define SUNGAPSUL					163
 
-// °¢¼º ¿Ü°ø
+// ê°ì„± ì™¸ê³µ
 #define WHA_DRAGONSINJANG			164
 #define BING_DRAGONSINJANG			165
 #define DOK_DRAGONSINJANG			166
@@ -170,7 +171,7 @@ public:
 #define NOI_DRAGONSUNGCHEON			171
 
 
-// °¢¼º À¯ÆÄ Æ¯È­ ¿Ü°ø
+// ê°ì„± ìœ íŒŒ íŠ¹í™” ì™¸ê³µ
 #define GUM_ILKICHAM				172
 #define GUM_JINBUNSIN				173
 #define YUN_SAJANGSINGONG			174
@@ -181,11 +182,11 @@ public:
 #define YA_HOJUNGKANGKI				179
 
 
-// HT_0525 °¢¼º ¹«°ø ¿Ü°ø ID »ç¿ë¾ÈÇÔ. È·¶¨ÈÄ Áö¿ìÀÚ 
+// HT_0525 ê°ì„± ë¬´ê³µ ì™¸ê³µ ID ì‚¬ìš©ì•ˆí•¨. íš…ë•í›„ ì§€ìš°ì 
 #define OUTGONGID_DRAGONSINJANG		180
 #define OUTGONGID_DRAGONSUNGCHEON	181
 
-//HT_0711 : Áø°¢¼º ¹«°ø
+//HT_0711 : ì§„ê°ì„± ë¬´ê³µ
 #define REBRITH_KUMKANGSINGONG		191
 #define REBRITH_BUSNSINGONG			192
 
@@ -207,20 +208,20 @@ public:
 #define	GWANGMADOKGONG_MATERIAL_G		0.5f
 #define	GWANGMADOKGONG_MATERIAL_B		0.25f
 
-// HT_0525 °¢¼º ¹«°ø ´ë»ó ÀÌÆåÆ® »ç¿ë ¾ÈÇÔ. ³ªÁß¿¡ È®Á¤µÇ¸é Áö¿î´Ù.
-#define WHA_DRAGON_MATERIAL_R		1.0f	//ºÓÀº»ö
+// HT_0525 ê°ì„± ë¬´ê³µ ëŒ€ìƒ ì´í™íŠ¸ ì‚¬ìš© ì•ˆí•¨. ë‚˜ì¤‘ì— í™•ì •ë˜ë©´ ì§€ìš´ë‹¤.
+#define WHA_DRAGON_MATERIAL_R		1.0f	//ë¶‰ì€ìƒ‰
 #define WHA_DRAGON_MATERIAL_G		0.5f
 #define WHA_DRAGON_MATERIAL_B		0.0f
 
-#define BING_DRAGON_MATERIAL_R		0.5f	//ÆÄ¶õ»ö
+#define BING_DRAGON_MATERIAL_R		0.5f	//íŒŒë€ìƒ‰
 #define BING_DRAGON_MATERIAL_G		0.75f
 #define BING_DRAGON_MATERIAL_B		1.0f
 
-#define DOK_DRAGON_MATERIAL_R		0.25f	//¿¬µÎ»ö
+#define DOK_DRAGON_MATERIAL_R		0.25f	//ì—°ë‘ìƒ‰
 #define DOK_DRAGON_MATERIAL_G		0.75f
 #define DOK_DRAGON_MATERIAL_B		0.25f
 
-#define NOI_DRAGOND_MATERIAL_R	0.5f	//¿¬º¸¶ó»ö
+#define NOI_DRAGOND_MATERIAL_R	0.5f	//ì—°ë³´ë¼ìƒ‰
 #define NOI_DRAGOND_MATERIAL_G	0.5f	
 #define NOI_DRAGOND_MATERIAL_B	1.0f	
 
@@ -336,14 +337,14 @@ public:
 	virtual BOOL SetAnimation(int nCurMotionType,int nNextMotionType,int nCurIndex,int nNextIndex,float fAnimationSpeed = 1.0f);
 	virtual BOOL SetAnimation(int nMotionType,int nIndex,float fAnimationSpeed = 1.0f);
 
-	// ¹İµå½Ã m_CharRender°¡ CreateµÈ ÈÄ¿¡ »ç¿ëÇÒ°Í
+	// ë°˜ë“œì‹œ m_CharRenderê°€ Createëœ í›„ì— ì‚¬ìš©í• ê²ƒ
 	virtual BOOL AttachChildCharRender(int nLogicalPos,int nCharID,int nMeshType,int nTextureType, int nEffectIndex=-1);
 	virtual bool AttachPetChildChar(int nLogicalPos, int nCharID, int nMeshType, int nTextureType);
 	virtual BOOL RemoveChildCharRender(int nLogicalPos);
 
 	virtual BOOL UpdateTargetMove();
 
-	virtual float GetInteractionDistance(Vector3 pos);	// º°°Í ¾øÀ½ MeshSize´õÇØÁÜ
+	virtual float GetInteractionDistance(Vector3 pos);	// ë³„ê²ƒ ì—†ìŒ MeshSizeë”í•´ì¤Œ
 	BOOL	EnableGlowEffect(BOOL bTrue,D3DCOLOR color = D3DCOLOR_XRGB( 255, 255, 128));
 
 	void RefreshFameColor(DWORD dwFame = -99);
@@ -352,9 +353,31 @@ public:
 	void ShowChatBox();
 
 public:
+	struct sTitleFrame {
+		LPDIRECT3DTEXTURE9  pTexture;
+		int                 nOffsetX;
+		int                 nOffsetY;
+	};
 
-	// Æ®¸®°Å ÇÏÀ§ CCharRender¿¡ ´ëÀÀÇÏ´Â Æ®¸®°Å
-	virtual int OnEndAnimation(unsigned long);	// AnimationÀÌ ³¡³µ´Ù
+	struct sTitleEffect {
+		std::vector<sTitleFrame> m_vecFrames;
+		DWORD                    m_dwLastTime;
+		int                      m_nCurrentFrame;
+		BOOL                     m_bLoaded;
+	};
+
+	sTitleEffect m_TitleEffect;
+
+	void ClearTitle();
+	BOOL LoadLegendTitle(int nTitleID);
+	void RenderLegendTitle(int nNameX, int nNameY);
+	int  m_nActiveTitleID;
+	int  GetTitleIDByFame(DWORD dwFame);
+
+public:
+
+	// íŠ¸ë¦¬ê±° í•˜ìœ„ CCharRenderì— ëŒ€ì‘í•˜ëŠ” íŠ¸ë¦¬ê±°
+	virtual int OnEndAnimation(unsigned long);	// Animationì´ ëë‚¬ë‹¤
 	virtual int OnEndAlphaEffect(unsigned long);
 	virtual int OnTMUpdate(unsigned long);
 	virtual int OnTimer(unsigned long);
@@ -373,10 +396,10 @@ public:
 	int	m_nCurAniIndex;
 	int m_nNextAniIndex;
 
-	BOOL	m_bRotatable;	// È¸Àü°¡´ÉÇÑ OBJECTÀÎ°¡?? (ÆÄ±« Äù½ºÆ®¿ë NPC´Â ¸Â¾Æµµ È¸ÀüÇÏÁö ¾Ê´Â´Ù.)
-	BOOL	m_bMoveable;	// ¿òÁ÷ÀÓÀÌ °¡´ÉÇÑ°¡?
-	BOOL	m_bAttack;		// °ø°İ µ¿ÀÛÁßÀÎ°¡?
-	BYTE	m_bAttackType;	// ¾î¶² °ø°İÀÎ°¡? ¹«°ø? ÀÏ¹İ
+	BOOL	m_bRotatable;	// íšŒì „ê°€ëŠ¥í•œ OBJECTì¸ê°€?? (íŒŒê´´ í€˜ìŠ¤íŠ¸ìš© NPCëŠ” ë§ì•„ë„ íšŒì „í•˜ì§€ ì•ŠëŠ”ë‹¤.)
+	BOOL	m_bMoveable;	// ì›€ì§ì„ì´ ê°€ëŠ¥í•œê°€?
+	BOOL	m_bAttack;		// ê³µê²© ë™ì‘ì¤‘ì¸ê°€?
+	BYTE	m_bAttackType;	// ì–´ë–¤ ê³µê²©ì¸ê°€? ë¬´ê³µ? ì¼ë°˜
 
 	bool	m_bRenderOK;
 	bool	m_bCallRelease;
@@ -385,27 +408,27 @@ public:
 	D3DCOLOR	m_cNameColor;
 
 	int			 m_nChildChar;
-	CCharRender  m_ChildChar[ LOGICAL_BONE_POS_COUNT];	// Á¨Àå Æ÷ÀÎÅÍ·Î µ¿ÀûÇÒ´ç ÇÒ·Á°í ÇŞ´Âµ¥ DLL¶§¹®ÀÎ°¡?? ¾ÊµÇ³× T_T
+	CCharRender  m_ChildChar[ LOGICAL_BONE_POS_COUNT];	// ì  ì¥ í¬ì¸í„°ë¡œ ë™ì í• ë‹¹ í• ë ¤ê³  í–‡ëŠ”ë° DLLë•Œë¬¸ì¸ê°€?? ì•Šë˜ë„¤ T_T
 
 	XiahGameEngine::Map::CMapDecal	m_Shadow;
-	sShotAttackInfo	m_ShotAttackInfo;	// ÀÏ´Ü NPC¿ëÀÌ´å
+	sShotAttackInfo	m_ShotAttackInfo;	// ì¼ë‹¨ NPCìš©ì´ë‹·
 
-	// È¿°ú¸¦ À§ÇØ
+	// íš¨ê³¼ë¥¼ ìœ„í•´
 	CKeepupMugongList	m_KeepUpMugongList;
 
-	// ¹«°ø Áö¼Ó ÀÌÆåÆ®
-	// °Ë¿µ
+	// ë¬´ê³µ ì§€ì† ì´í™íŠ¸
+	// ê²€ì˜
 	_EFFECTPACKAGEPAIR*		m_pMusuhonEffectPP;
 	_EFFECTPACKAGEPAIR*		m_pPoksahonEffectPP;
 	_EFFECTPACKAGEPAIR*		m_pKuymgangrukEffectPP;
-	// ¿¬¶û
+	// ì—°ë‘
 	_EFFECTPACKAGEPAIR*		m_pYuenoyuengEffectPP;
 	_EFFECTPACKAGEPAIR*		m_pKyugamsuEffectPP;
 	_EFFECTPACKAGEPAIR*		m_pWonkisingangEffectPP;
 	_EFFECTPACKAGEPAIR*		m_pSajangsingongEffectPP;
 	_EFFECTPACKAGEPAIR*		m_pSusinkikangEffectPP;
 
-	// ¹«Åõ.
+	// ë¬´íˆ¬.
 	_EFFECTPACKAGEPAIR*		m_pPachunsoEffectPP;
 	_EFFECTPACKAGEPAIR*		m_pMarulkakEffectPP;
 	_EFFECTPACKAGEPAIR*		m_pAmhukmuEffectPP;
@@ -414,7 +437,7 @@ public:
 	_EFFECTPACKAGEPAIR*		m_pKumnasuEffectPP;
 	_EFFECTPACKAGEPAIR*		m_pBantankangkiEffectPP;
 	_EFFECTPACKAGEPAIR*		m_pKihubkangkiEffectPP;
-	// ¾ßÂ÷
+	// ì•¼ì°¨
 	_EFFECTPACKAGEPAIR*		m_pOdokchimEffectPP;
 	_EFFECTPACKAGEPAIR*		m_pDokhyulgongEffectPP;
 	_EFFECTPACKAGEPAIR*		m_pDoknaegongEffectPP;
@@ -426,122 +449,122 @@ public:
 
     _EFFECTPACKAGEPAIR*		m_pGyungGongEffectPP;
 
-	// °¢¼º Áö¼Ó ÀÌÆåÆ®
+	// ê°ì„± ì§€ì† ì´í™íŠ¸
 	_EFFECTPACKAGEPAIR*		m_pWha_DragonPP;
 	_EFFECTPACKAGEPAIR*		m_pBing_DragonPP;
 	_EFFECTPACKAGEPAIR*		m_pDok_DragonPP;
 	_EFFECTPACKAGEPAIR*		m_pNoi_DragonPP;
 
-	//HT_0711 : Áø°¢¼º ¹«°ø
-	_EFFECTPACKAGEPAIR*		m_pKuymgangsingongEffectPP;		// Èí¼º ½Å°ø ±İ°­½Å°ø
-//	_EFFECTPACKAGEPAIR*		m_pBunsinsingongEffectPP;		// Èí¼º ½Å°ø ºĞ½Å½Å°ø
-	_EFFECTPACKAGEPAIR*		m_pWonkisingongEffectPP;		// Èí¼º ½Å°ø ¿ø±â½Å°ø
-	_EFFECTPACKAGEPAIR*		m_pKyugamsingongEffectPP;		// Èí¼º ½Å°ø ±³°¨½Å°ø	
-	_EFFECTPACKAGEPAIR*		m_pKumnasingongEffectPP;		// Èí¼º ½Å°ø ±İ³ª½Å°ø
-	_EFFECTPACKAGEPAIR*		m_pMarulsingongEffectPP;		// Èí¼º ½Å°ø ¸¶·É½Å°ø
-//	_EFFECTPACKAGEPAIR*		m_pGwangmasingongEffectPP;		// Èí¼º ½Å°ø ±¤¸¶½Å°ø
-	_EFFECTPACKAGEPAIR*		m_pDokhyulsingongEffectPP;		// Èí¼º ½Å°ø µ¶Ç÷½Å°ø
+	//HT_0711 : ì§„ê°ì„± ë¬´ê³µ
+	_EFFECTPACKAGEPAIR*		m_pKuymgangsingongEffectPP;		// í¡ì„± ì‹ ê³µ ê¸ˆê°•ì‹ ê³µ
+//	_EFFECTPACKAGEPAIR*		m_pBunsinsingongEffectPP;		// í¡ì„± ì‹ ê³µ ë¶„ì‹ ì‹ ê³µ
+	_EFFECTPACKAGEPAIR*		m_pWonkisingongEffectPP;		// í¡ì„± ì‹ ê³µ ì›ê¸°ì‹ ê³µ
+	_EFFECTPACKAGEPAIR*		m_pKyugamsingongEffectPP;		// í¡ì„± ì‹ ê³µ êµê°ì‹ ê³µ	
+	_EFFECTPACKAGEPAIR*		m_pKumnasingongEffectPP;		// í¡ì„± ì‹ ê³µ ê¸ˆë‚˜ì‹ ê³µ
+	_EFFECTPACKAGEPAIR*		m_pMarulsingongEffectPP;		// í¡ì„± ì‹ ê³µ ë§ˆë ¹ì‹ ê³µ
+//	_EFFECTPACKAGEPAIR*		m_pGwangmasingongEffectPP;		// í¡ì„± ì‹ ê³µ ê´‘ë§ˆì‹ ê³µ
+	_EFFECTPACKAGEPAIR*		m_pDokhyulsingongEffectPP;		// í¡ì„± ì‹ ê³µ ë…í˜ˆì‹ ê³µ
 
-	// ¿ÀÇà ÀÌÆåÆ®
+	// ì˜¤í–‰ ì´í™íŠ¸
 	_EFFECTPACKAGEPAIR*		m_pFEEffectPP;
 
-	// ÀÌº¥Æ® ¾ÆÀÌÅÛ ÀÌÆåÆ®
+	// ì´ë²¤íŠ¸ ì•„ì´í…œ ì´í™íŠ¸
 	_EFFECTPACKAGEPAIR*		m_pEventItemEffectPP;
 
-	// ±â
+	// ê¸°
 	_EFFECTPACKAGEPAIR*		m_pSpiritEffectPP;
 
-	// Ä³¸¯ÅÍ¿¡ °íÁ¤µÇ´Â ÀÌÆåÆ®·Î, Ä³¸¯ÅÍ°¡ ¾ø¾îÁö¸é °°ÀÌ ¾ø¾ÖÁà¾ßÇÏ´Â ÀÌÆåÆ®.
+	// ìºë¦­í„°ì— ê³ ì •ë˜ëŠ” ì´í™íŠ¸ë¡œ, ìºë¦­í„°ê°€ ì—†ì–´ì§€ë©´ ê°™ì´ ì—†ì• ì¤˜ì•¼í•˜ëŠ” ì´í™íŠ¸.
 	EFFECTPACKAGEPAIRLIST		m_EffectPPList;
 
-	// ÀÚ½ÅÀÌ ¹Ù´Ú¿¡ ÀÖ´Â ¾ÆÀÌÅÛÀÌ¸é ÀÌÆåÆ® È£Ãâ.
+	// ìì‹ ì´ ë°”ë‹¥ì— ìˆëŠ” ì•„ì´í…œì´ë©´ ì´í™íŠ¸ í˜¸ì¶œ.
 	_EFFECTPACKAGEPAIR*		m_pItemGroundEffectPP;
 	bool	m_bCreateItemGroundEffect;
 
-	// ÀÚ½ÅÀÌ ¹Ù´Ú¿¡ ÀÖ´Â ¾ÆÀÌÅÛÀÌ¸é¼­ °¢¼º¾ÆÀÌÅÛÀÎ °æ¿ì ÀÌÆåÆ®
+	// ìì‹ ì´ ë°”ë‹¥ì— ìˆëŠ” ì•„ì´í…œì´ë©´ì„œ ê°ì„±ì•„ì´í…œì¸ ê²½ìš° ì´í™íŠ¸
 	_EFFECTPACKAGEPAIR*		m_pRebirthItemEffectPP;
 	
-	// È­»ì ±ËÀû ÀÌÆåÆ®
+	// í™”ì‚´ ê¶¤ì  ì´í™íŠ¸
 	CLineParticle*	m_pLineParticle;
 
-	// Ä® ±ËÀû.
-	CSwordTrace		m_SwordTrace;	// ´ëºÎºĞÀÇ Ä³¸¯ÅÍ¸¦ À§ÇÑ ¿À¸¥¼Õ Ä® ±ËÀû
-	CSwordTrace		m_SwordTrace2;	// ¾ßÂ÷¸¦ À§ÇÑ ¿Ş¼Õ Ä® ±ËÀû
+	// ì¹¼ ê¶¤ì .
+	CSwordTrace		m_SwordTrace;	// ëŒ€ë¶€ë¶„ì˜ ìºë¦­í„°ë¥¼ ìœ„í•œ ì˜¤ë¥¸ì† ì¹¼ ê¶¤ì 
+	CSwordTrace		m_SwordTrace2;	// ì•¼ì°¨ë¥¼ ìœ„í•œ ì™¼ì† ì¹¼ ê¶¤ì 
 	float			m_fWeaponLength;
-	float			m_fWeaponBackLength;	// ¾ßÂ÷ÀÇ ºñ´Â ¼ÕÀâÀÌ µÚ·Î ±æ°Ô ³ª¿Í ÀÖ´Ù.
+	float			m_fWeaponBackLength;	// ì•¼ì°¨ì˜ ë¹„ëŠ” ì†ì¡ì´ ë’¤ë¡œ ê¸¸ê²Œ ë‚˜ì™€ ìˆë‹¤.
 
 	BOOL			m_bGlowEnable;
-	BOOL			m_bShowGage;	// ¿¡³ÊÁö °ÔÀÌÁö
+	BOOL			m_bShowGage;	// ì—ë„ˆì§€ ê²Œì´ì§€
 	BOOL			m_bShowManaGage;
 	D3DCOLOR		m_GlowColor;
 	bool			m_bGray;
 
-	// ¾ßÂ÷ÀÇ ±¤¸¶µ¶°øÀ» À§ÇØ¼­.
+	// ì•¼ì°¨ì˜ ê´‘ë§ˆë…ê³µì„ ìœ„í•´ì„œ.
 	bool			m_bNowGwangmadokgong;
 	float			m_fLocalScaleForGwangmadokgong;
 
 	// 2004.08.03 Changth
-	// ¾ßÂ÷ ±Í½Ä´ë¹ı
+	// ì•¼ì°¨ ê·€ì‹ëŒ€ë²•
 	bool			m_bNowGyuisikdaebub;
 
-	// °ø°İ½Ã SOUND FX¸¦ ¾î¶²°ÍÀ» ³¾°ÍÀÎ°¡?
-	DWORD			m_dwEnemyType;	// ¶§¸°³ğÀÇ TYPEÀº??
+	// ê³µê²©ì‹œ SOUND FXë¥¼ ì–´ë–¤ê²ƒì„ ë‚¼ê²ƒì¸ê°€?
+	DWORD			m_dwEnemyType;	// ë•Œë¦°ë†ˆì˜ TYPEì€??
 
-	// ¹®ÆÄ¿¡ ´ëÇÑ Á¤º¸
+	// ë¬¸íŒŒì— ëŒ€í•œ ì •ë³´
 	DWORD			m_dwMunpaID;
 	sString			m_szMunpaName;
 	sString			m_szMunpaNickName;
 	DWORD			m_dwMunpaOrder;
-	DWORD			m_dwMunpaMarkID;		// ¹®ÆÄ ¸¶Å©
+	DWORD			m_dwMunpaMarkID;		// ë¬¸íŒŒ ë§ˆí¬
 
-	// ¹®ÆÄÀü
+	// ë¬¸íŒŒì „
 	BYTE			m_bWarStatus;
 	DWORD			m_dwEnemyMunpaID;
 	DWORD			m_dwEnemyStoneID;
 	sString			m_strEnemyMunpaName;	
 
-	// STILL ¹æÁö
+	// STILL ë°©ì§€
 	DWORD			m_dwOwnerID;
 	// SEMI PK SYSTEM
 	BYTE			m_bSemiPKStatus;
 
-	// CG_2005/01/28 : º¯Á¾¾ÆÀÌÅÛ±â´ÉÃß°¡
+	// CG_2005/01/28 : ë³€ì¢…ì•„ì´í…œê¸°ëŠ¥ì¶”ê°€
 	BYTE			m_bChangeItemSet;
 
 	DWORD			m_dwPartyID;
 	DWORD			m_dwPartyLeaderID;
 	DWORD			m_dwEnemyPartyID;
 
-	// °³ÀÎ»óÁ¡
-	sString			m_strShopName;        // °³ÀÎ »óÁ¡¸í
-	sString			m_strShopDescription; // °³ÀÎ »óÁ¡¹®±¸
-	bool			m_bTradeSell;         // ÆÇ¸Å¿©ºÎ
+	// ê°œì¸ìƒì 
+	sString			m_strShopName;        // ê°œì¸ ìƒì ëª…
+	sString			m_strShopDescription; // ê°œì¸ ìƒì ë¬¸êµ¬
+	bool			m_bTradeSell;         // íŒë§¤ì—¬ë¶€
 
 
-	// Ã¤ÆÃ¹Ú½º
+	// ì±„íŒ…ë°•ìŠ¤
 	sString			m_ChatMsg;
 	D3DCOLOR		m_ChatColor;
 	CText2D			m_text2DForChatBox;
 	DWORD			m_dwTimeInterval;
 
-	// ¿ÀÇà
+	// ì˜¤í–‰
 	BYTE			m_bFECur;
 	BYTE			m_bFELevel;
 
-	// ¼ºÀÎ¼­¹ö NPC¶§¹®¿¡
+	// ì„±ì¸ì„œë²„ NPCë•Œë¬¸ì—
 	BYTE			m_bOrderID;
 
-	// ¼³½Â´Ü¾à
+	// ì„¤ìŠ¹ë‹¨ì•½
 	BYTE			m_bPotionEndKeepup;
 
-	// ±â
+	// ê¸°
 	BYTE			m_bSpirit;
 
 	WORD			m_wLevel;
 
 	BYTE			m_bRebirth;
 
-	//HT_1023 : ¿î¿µÀÚ ¸¶Å© Ãß°¡
+	//HT_1023 : ìš´ì˜ì ë§ˆí¬ ì¶”ê°€
 	BYTE			m_bGameMasterMark;
 
 	int (*m_pUpdateTargetDecal)(unsigned long);
@@ -557,7 +580,7 @@ protected:
 
 	TRIGGER_LIST m_TriggerList;
 
-// »óÀ§ ·¹º§¿¡ ´ëÇÑ Æ®¸®°Å
+// ìƒìœ„ ë ˆë²¨ì— ëŒ€í•œ íŠ¸ë¦¬ê±°
 public:
 	CTrigger*	m_pParentTrigger[ eXCT_Count];
 };
@@ -571,11 +594,11 @@ inline void CXiahCharObject::EffectTimeUpdate(_EFFECTPACKAGEPAIR* pEffect, float
 	}
 }
 
-// ¼­¹ö¿¡¼­ º¸³»ÁØ Æ¯Á¤ ¿ÀºêÁ§Æ®ÀÇ ¾×¼Ç»óÀÇ À§Ä¡¸¦ Ã¼Å©ÇÑ´Ù
-// ¸®ÅÏ°ªÀÌ TRUEÀÏ¶§¸¸ Charinfo³ª npcinfo±âÅ¸ µîµîÀ» ¿äÃ»ÇÑ´Ù
+// ì„œë²„ì—ì„œ ë³´ë‚´ì¤€ íŠ¹ì • ì˜¤ë¸Œì íŠ¸ì˜ ì•¡ì…˜ìƒì˜ ìœ„ì¹˜ë¥¼ ì²´í¬í•œë‹¤
+// ë¦¬í„´ê°’ì´ TRUEì¼ë•Œë§Œ Charinfoë‚˜ npcinfoê¸°íƒ€ ë“±ë“±ì„ ìš”ì²­í•œë‹¤
 
 #define SERVER_INTERACTION_DISTANCE 150
 
-extern BOOL g_bScreenShot;//HO_0509_07 ¿ÀÅä´ëÃ³¹æ¾È : ½º¼¦À¸·Î »ö»óÀ» ¾Ë¾Æ³»Áö ¸øÇÏµµ·Ï »ö»óÀ» º¯°æ
+extern BOOL g_bScreenShot;//HO_0509_07 ì˜¤í† ëŒ€ì²˜ë°©ì•ˆ : ìŠ¤ìƒ·ìœ¼ë¡œ ìƒ‰ìƒì„ ì•Œì•„ë‚´ì§€ ëª»í•˜ë„ë¡ ìƒ‰ìƒì„ ë³€ê²½
 extern BOOL CheckServerInteractionDistance(WORD wPosX,WORD wPosY);
 extern BOOL ValidateObject(BYTE bObjType,DWORD ObjID,WORD wPosX,WORD wPosY);
