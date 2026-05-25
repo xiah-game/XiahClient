@@ -21,7 +21,7 @@
 
 #include ".\spirit.h"
 
-/*#include "SkillTime.h"*/
+#include "SkillTime.h"
 
 
 // SUPPORT FMOD LIB
@@ -596,9 +596,9 @@ void CharacterInfo::Render()
 		m_pMugong->DrawKeepUpMugongIcon();
 
 
-//	g_SkillTime.UpDate(timeGetTime());
-//	if(m_pSlot)
-//		m_pSlot->UpDateRender();
+	g_SkillTime.UpDate(timeGetTime());
+	if(m_pSlot)
+		m_pSlot->UpDateRender();
 }
 
 inline void CharacterInfo::RenderScreen()

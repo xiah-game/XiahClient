@@ -62,7 +62,7 @@ private:
 	void ArrayText(sArrayData* pData, int nIndex, int nFrameID, int nControlID);
 	void SetMugongGUI(DWORD dwMugongID, BYTE bType, BYTE bLevel);
 
-private:
+public:
 	MugongMap	m_mapMugong;			// level이 1이상인 무공을 담는다	
 	
 	//HT_0403 : 지속형 무공 시전 아이콘

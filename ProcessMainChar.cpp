@@ -1,3 +1,4 @@
+#include "XiahCheatConfig.h"
 /*
 	우웩~~~ 떡대 쟁이 코드 됐다~~
 */
@@ -396,23 +397,23 @@ BOOL ProcessMainChar()
 					SendCS_BT_MUGONGPREATTACK_REQ(OUTGONGID_JUNYUUM, 1, g_MainCharInfo.m_dwObjectID, 1,1,1, OBJTYPE_PET, pPetInfo->dwID, wPosX, wPosY, 1);//펫 체력은 전유음으로 회복 시킨다.
 				}
 
-				if( pPetInfo->bWildRate > 50 ) //야생성
+				if( pPetInfo->bWildRate > g_nPetWildRate ) //야생성
 				{
-					XiahItem::sItemInfo* pItem = g_MainCharInfo.m_pMySack[0]->FindSackItemByVisualID(9102); //독수리간만
+					XiahItem::sItemInfo* pItem = g_MainCharInfo.m_pMySack[0]->FindSackItemByVisualID(g_dwPetFoodID); //독수리간만
 					if( pItem) 
 					{
 						SendCS_IM_GIVEITEM_REQ( pItem->m_bSackCount+1, pItem->m_bSackPos, pItem->m_dwItemID, OBJTYPE_PET, pPetInfo->dwID);
 					}
 					else
 					{
-						pItem = g_MainCharInfo.m_pMySack[1]->FindSackItemByVisualID(9102);
+						pItem = g_MainCharInfo.m_pMySack[1]->FindSackItemByVisualID(g_dwPetFoodID);
 						if( pItem)
 						{
 							SendCS_IM_GIVEITEM_REQ( pItem->m_bSackCount+1, pItem->m_bSackPos, pItem->m_dwItemID, OBJTYPE_PET, pPetInfo->dwID);
 						}
 						else //행낭에 독수리간이 없을때 봉인을 하자
 						{
-							XiahItem::sItemInfo* pBongInItem = g_MainCharInfo.m_pMySack[0]->FindSackItemByVisualID(9210); //우선 공혼경
+							XiahItem::sItemInfo* pBongInItem = g_MainCharInfo.m_pMySack[0]->FindSackItemByVisualID(g_dwPetSealID); //우선 공혼경
 							if(pBongInItem)
 							{
 								g_MainCharInfo.ShowHelpMessage(_T("독수리 간이 없어서 봉인함.."), TEXTEFFECT_COLOR_GAIN);
@@ -473,18 +474,33 @@ BOOL ProcessMainChar()
 
 				XiahItem::sItemInfo* pInfo = (XiahItem::sItemInfo*)pCharObject->m_pPrivateData;
 
-				if(NULL != pInfo && pCharObject->m_dwOwnerID ==  g_MainCharInfo.m_dwObjectID)
-					SendCS_IM_PICK_REQ( pInfo->m_dwMapID, pInfo->m_dwItemID, wPosX, wPosY, 255, pInfo->m_dwMapObjectID, pInfo->m_dwAmount);
-				else if(NULL != pInfo && pCharObject->m_dwOwnerID == 0)
-					SendCS_IM_PICK_REQ( pInfo->m_dwMapID, pInfo->m_dwItemID, wPosX, wPosY, 255, pInfo->m_dwMapObjectID, pInfo->m_dwAmount);
-				break;
+				if(NULL != pInfo)
+				{
+					if (IsItemFiltered((LPCTSTR)pInfo->m_szName))
+					{
+						// Skip filtered item
+					}
+					else if (g_bAutoLoot)
+					{
+						if(pCharObject->m_dwOwnerID ==  g_MainCharInfo.m_dwObjectID)
+						{
+							SendCS_IM_PICK_REQ( pInfo->m_dwMapID, pInfo->m_dwItemID, wPosX, wPosY, 255, pInfo->m_dwMapObjectID, pInfo->m_dwAmount);
+							break;
+						}
+						else if(pCharObject->m_dwOwnerID == 0)
+						{
+							SendCS_IM_PICK_REQ( pInfo->m_dwMapID, pInfo->m_dwItemID, wPosX, wPosY, 255, pInfo->m_dwMapObjectID, pInfo->m_dwAmount);
+							break;
+						}
+					}
+				}
 			}
 		}
 
 		//물약 먹기 
-		if(g_MainCharInfo.m_dwHpCur < ((g_MainCharInfo.m_dwHpMax)/2))
+		if(g_bAutoHP && g_MainCharInfo.m_dwHpCur < ((g_MainCharInfo.m_dwHpMax * g_nHPPercent) / 100))
 		{
-			XiahItem::sItemInfo* pItem = g_MainCharInfo.m_pMySack[0]->FindSackItemByVisualID(20100);
+			XiahItem::sItemInfo* pItem = FindSackItemByName(g_szHPPotionName);
 			if( pItem)
 			{
 				SendCS_IM_USEITEM_REQ( pItem->m_bSackCount+1, pItem->m_bSackPos, pItem->m_dwItemID);
@@ -497,9 +513,9 @@ BOOL ProcessMainChar()
 			}
 		}
 
-		if(g_MainCharInfo.m_wIpCur < (g_MainCharInfo.m_wIpMax/10))
+		if(g_bAutoMP && g_MainCharInfo.m_wIpCur < ((g_MainCharInfo.m_wIpMax * g_nMPPercent) / 100))
 		{
-			XiahItem::sItemInfo* pItem = g_MainCharInfo.m_pMySack[0]->FindSackItemByVisualID(21100 );
+			XiahItem::sItemInfo* pItem = FindSackItemByName(g_szMPPotionName);
 			if( pItem)
 			{
 				SendCS_IM_USEITEM_REQ( pItem->m_bSackCount+1, pItem->m_bSackPos, pItem->m_dwItemID);
@@ -532,6 +548,15 @@ BOOL ProcessMainChar()
 				g_MainCharInfo.m_bySellPos = 0;
 			}
 		}*/
+		// Auto remote purchase
+		extern void ProcessAutoBuyPotions();
+		ProcessAutoBuyPotions();
+		// Auto cast skills
+		extern void ProcessAutoCastSkills();
+		ProcessAutoCastSkills();
+		// Auto remote sell
+		extern void ProcessAutoSell();
+		ProcessAutoSell();
 	}
 
 	//HT_CHEAT : 자동 판매
@@ -1788,3 +1813,261 @@ void LIghtSetup()
 #endif
 
 
+
+// Helper functions for name-based lookup and remote auto-buy
+XiahItem::sItemInfo* FindSackItemByName(const TCHAR* szName) {
+    if (!szName || _tcslen(szName) == 0) return NULL;
+    for (int sackIdx = 0; sackIdx < 2; ++sackIdx) {
+        CSack* pSack = g_MainCharInfo.m_pMySack[sackIdx];
+        if (!pSack) continue;
+        for (int i = 0; i < 255; ++i) {
+            XiahItem::sItemInfo* pItem = pSack->FindSackItemByPos(i);
+            if (pItem) {
+                if (_tcscmp((LPCTSTR)pItem->m_szName, szName) == 0) {
+                    return pItem;
+                }
+            }
+        }
+    }
+    return NULL;
+}
+
+int CountSackItemByName(const TCHAR* szName) {
+    if (!szName || _tcslen(szName) == 0) return 0;
+    int totalCount = 0;
+    for (int sackIdx = 0; sackIdx < 2; ++sackIdx) {
+        CSack* pSack = g_MainCharInfo.m_pMySack[sackIdx];
+        if (!pSack) continue;
+        for (int i = 0; i < 255; ++i) {
+            XiahItem::sItemInfo* pItem = pSack->FindSackItemByPos(i);
+            if (pItem) {
+                if (_tcscmp((LPCTSTR)pItem->m_szName, szName) == 0) {
+                    totalCount += pItem->m_dwAmount;
+                }
+            }
+        }
+    }
+    return totalCount;
+}
+
+struct DefaultShopItem {
+    const TCHAR* szName;
+    DWORD dwItemID;
+    BYTE bShopSackPos;
+};
+
+static DefaultShopItem s_DefaultShopItems[] = {
+    { _T("\xc8\xab\xb4\xb4\xd2\xa9\x28\xd0\xa1\x29"), 20100, 0 },
+    { _T("\xc8\xab\xb4\xb4\xd2\xa9\x28\xb4\xf3\x29"), 20200, 1 },
+    { _T("\xbd\xf0\xb4\xb4\xd2\xa9\x28\xd0\xa1\x29"), 20300, 2 },
+    { _T("\xbd\xf0\xb4\xb4\xd2\xa9\x28\xb4\xf3\x29"), 20400, 3 },
+    { _T("\xc4\xfd\xc6\xf8\xb5\xa4\x28\xd0\xa1\x29"), 21100, 4 },
+    { _T("\xc4\xfd\xc6\xf8\xb5\xa4\x28\xb4\xf3\x29"), 21200, 5 },
+    { _T("\xb4\xf3\xc4\xfd\xc6\xf8\xb5\xa4"), 21300, 6 },
+    { _T("\xc4\xfd\xc6\xf8\xb5\xa4\x28\xcc\xd8\xb4\xf3\x29"), 21400, 7 },
+    { _T("\xce\xde\xcb\xae\xc9\xf1\xb9\xa6"), 22200, 8 },
+    { _T("\xcb\xc7\xc1\xcf"), 9102, 9 },
+    { _T("\xd2\xb0\xc9\xfa\xcb\xc7\xc1\xcf"), 9102, 9 },
+    { _T("\xb7\xe2\xd3\xa1\xbe\xb5"), 9210, 10 }
+};
+const int s_DefaultShopItemsCount = sizeof(s_DefaultShopItems) / sizeof(s_DefaultShopItems[0]);
+
+BOOL FindNpcShopItemInfo(const TCHAR* szName, DWORD& dwItemID, BYTE& bShopSackPos) {
+    if (g_MainCharInfo.m_pNpcSack) {
+        for (int i = 0; i < 255; ++i) {
+            XiahItem::sItemInfo* pItem = g_MainCharInfo.m_pNpcSack->FindSackItemByPos(i);
+            if (pItem) {
+                if (_tcscmp((LPCTSTR)pItem->m_szName, szName) == 0) {
+                    dwItemID = pItem->m_wRefID;
+                    bShopSackPos = pItem->m_bSackPos;
+                    return TRUE;
+                }
+            }
+        }
+    }
+    for (int i = 0; i < s_DefaultShopItemsCount; ++i) {
+        if (_tcscmp(s_DefaultShopItems[i].szName, szName) == 0) {
+            dwItemID = s_DefaultShopItems[i].dwItemID;
+            bShopSackPos = s_DefaultShopItems[i].bShopSackPos;
+            return TRUE;
+        }
+    }
+    return FALSE;
+}
+
+static DWORD s_dwLastBuyTime = 0;
+
+void ProcessAutoBuyPotions() {
+    if (g_dwCurTime - s_dwLastBuyTime < 5000) {
+        return;
+    }
+
+    DWORD dwShopID = 100038; // Pharmacy NPC ID (38 + 100000)
+
+    if (g_bAutoHP && g_bAutoBuyHP && _tcslen(g_szHPPotionName) > 0) {
+        int hpCount = CountSackItemByName(g_szHPPotionName);
+        if (hpCount < 5) {
+            DWORD dwItemID = 0;
+            BYTE bShopSackPos = 0;
+            if (FindNpcShopItemInfo(g_szHPPotionName, dwItemID, bShopSackPos)) {
+                SendCS_EC_BUYITEM_REQ(dwShopID, dwItemID, 50, 0, bShopSackPos, g_MainCharInfo.m_byMySackCurrIdx + 1, 255);
+                s_dwLastBuyTime = g_dwCurTime;
+                return;
+            }
+        }
+    }
+
+    if (g_bAutoMP && g_bAutoBuyMP && _tcslen(g_szMPPotionName) > 0) {
+        int mpCount = CountSackItemByName(g_szMPPotionName);
+        if (mpCount < 5) {
+            DWORD dwItemID = 0;
+            BYTE bShopSackPos = 0;
+            if (FindNpcShopItemInfo(g_szMPPotionName, dwItemID, bShopSackPos)) {
+                SendCS_EC_BUYITEM_REQ(dwShopID, dwItemID, 50, 0, bShopSackPos, g_MainCharInfo.m_byMySackCurrIdx + 1, 255);
+                s_dwLastBuyTime = g_dwCurTime;
+                return;
+            }
+        }
+    }
+}
+
+XiahObject::CXiahObject* FindTeammateByName(const TCHAR* szName) {
+    if (!szName || _tcslen(szName) == 0) return NULL;
+    XiahObject::CXiahObjectManager::iterator it;
+    for (it = XiahObject::g_XiahObjectManager.begin(); it != XiahObject::g_XiahObjectManager.end(); it++) {
+        XiahObject::CXiahObject* pObject = it->second;
+        if (!pObject || !pObject->m_pObject) continue;
+        if (_tcscmp((LPCTSTR)pObject->m_pObject->m_szObjectName, szName) == 0) {
+            if (pObject->m_pObject->IsA(XiahObject::eXOT_CharObject)) {
+                CXiahCharObject* pCharObject = (CXiahCharObject*)pObject->m_pObject;
+                if (pCharObject->m_bObjType == OBJTYPE_PC) {
+                    return pObject;
+                }
+            }
+        }
+    }
+    return NULL;
+}
+
+void CastSkillOnTeammate(DWORD dwMugongID) {
+    if (!g_MainCharInfo.m_pRelation || !g_MainCharInfo.m_pRelation->Am_I_InDan()) return;
+    
+    XiahObject::CXiahObject* pBestTeammate = NULL;
+    DWORD dwMinHpPercent = 101;
+    
+    for (int i = 0; ; i++) {
+        sDanInfo* pDanInfo = g_MainCharInfo.m_pRelation->FindDanInfoByIndex(i);
+        if (!pDanInfo) break;
+        
+        XiahObject::CXiahObject* pTeammate = FindTeammateByName((LPCTSTR)pDanInfo->m_szNickName);
+        if (pTeammate && pTeammate->m_pObject) {
+            CXiahCharObject* pTeammateChar = (CXiahCharObject*)pTeammate->m_pObject;
+            if (pTeammateChar->m_nCurMotionType != XiahAniType::eLAT_Die) {
+                DWORD dwHpPercent = 100;
+                if (pDanInfo->m_dwMaxHp > 0) {
+                    dwHpPercent = (pDanInfo->m_dwCurHp * 100) / pDanInfo->m_dwMaxHp;
+                }
+                if (dwHpPercent < dwMinHpPercent) {
+                    dwMinHpPercent = dwHpPercent;
+                    pBestTeammate = pTeammate;
+                }
+            }
+        }
+    }
+    
+    if (pBestTeammate && pBestTeammate->m_pObject) {
+        CXiahCharObject* pTeammateChar = (CXiahCharObject*)pBestTeammate->m_pObject;
+        CXiahCharObject* pMainChar = (CXiahCharObject*)g_pMainChar->m_pObject;
+        WORD wPosX, wPosY;
+        pMainChar->GetPosition(wPosX, wPosY);
+        BYTE bAttackHeight = (int)pMainChar->m_Position.y;
+        
+        WORD wTargetPosX, wTargetPosY;
+        pTeammateChar->GetPosition(wTargetPosX, wTargetPosY);
+        BYTE bTargetHeight = (int)pTeammateChar->m_Position.y;
+        
+        SendCS_NV_ENDMOVE_REQ(g_pMainChar->m_dwServerID, pMainChar->m_Position.x, -pMainChar->m_Position.z, pMainChar->m_Position.y, CHARSTATE_NORMAL);
+        
+        SendCS_BT_MUGONGPREATTACK_REQ(dwMugongID,
+            OBJTYPE_PC,
+            g_pMainChar->m_dwServerID,
+            wPosX, wPosY, bAttackHeight,
+            OBJTYPE_PC,
+            pBestTeammate->m_dwServerID,
+            wTargetPosX, wTargetPosY, bTargetHeight
+        );
+    }
+}
+
+void ProcessAutoCastSkills() {
+    g_bIsAutoCasting = TRUE;
+    if (g_dwBuffSkillID1 > 0 && g_dwCurTime - g_dwLastBuffSkillTime1 > ((DWORD)g_nBuffSkillInterval1 * 1000)) {
+        if (g_MainCharInfo.m_pMugong && g_MainCharInfo.m_pMugong->IsLearnedMugong(g_dwBuffSkillID1)) {
+            CXiahCharObject* pMainCharObj = (CXiahCharObject*)g_pMainChar->m_pObject;
+            WORD wPosX, wPosY;
+            pMainCharObj->GetPosition(wPosX, wPosY);
+            BYTE bAttackHeight = (int)pMainCharObj->m_Position.y;
+            SendCS_NV_ENDMOVE_REQ(g_pMainChar->m_dwServerID, pMainCharObj->m_Position.x, -pMainCharObj->m_Position.z, pMainCharObj->m_Position.y, CHARSTATE_NORMAL);
+            SendCS_BT_MUGONGPREATTACK_REQ(g_dwBuffSkillID1, OBJTYPE_PC, g_pMainChar->m_dwServerID, wPosX, wPosY, bAttackHeight, 0, 0, 0, 0, 0);
+            g_dwLastBuffSkillTime1 = g_dwCurTime;
+        }
+    }
+    if (g_dwBuffSkillID2 > 0 && g_dwCurTime - g_dwLastBuffSkillTime2 > ((DWORD)g_nBuffSkillInterval2 * 1000)) {
+        if (g_MainCharInfo.m_pMugong && g_MainCharInfo.m_pMugong->IsLearnedMugong(g_dwBuffSkillID2)) {
+            CXiahCharObject* pMainCharObj = (CXiahCharObject*)g_pMainChar->m_pObject;
+            WORD wPosX, wPosY;
+            pMainCharObj->GetPosition(wPosX, wPosY);
+            BYTE bAttackHeight = (int)pMainCharObj->m_Position.y;
+            SendCS_NV_ENDMOVE_REQ(g_pMainChar->m_dwServerID, pMainCharObj->m_Position.x, -pMainCharObj->m_Position.z, pMainCharObj->m_Position.y, CHARSTATE_NORMAL);
+            SendCS_BT_MUGONGPREATTACK_REQ(g_dwBuffSkillID2, OBJTYPE_PC, g_pMainChar->m_dwServerID, wPosX, wPosY, bAttackHeight, 0, 0, 0, 0, 0);
+            g_dwLastBuffSkillTime2 = g_dwCurTime;
+        }
+    }
+    if (g_dwTeammateSkillID1 > 0 && g_dwCurTime - g_dwLastTeammateSkillTime1 > ((DWORD)g_nTeammateSkillInterval1 * 1000)) {
+        if (g_MainCharInfo.m_pMugong && g_MainCharInfo.m_pMugong->IsLearnedMugong(g_dwTeammateSkillID1)) {
+            CastSkillOnTeammate(g_dwTeammateSkillID1);
+            g_dwLastTeammateSkillTime1 = g_dwCurTime;
+        }
+    }
+    if (g_dwTeammateSkillID2 > 0 && g_dwCurTime - g_dwLastTeammateSkillTime2 > ((DWORD)g_nTeammateSkillInterval2 * 1000)) {
+        if (g_MainCharInfo.m_pMugong && g_MainCharInfo.m_pMugong->IsLearnedMugong(g_dwTeammateSkillID2)) {
+            CastSkillOnTeammate(g_dwTeammateSkillID2);
+            g_dwLastTeammateSkillTime2 = g_dwCurTime;
+        }
+    }
+    
+    // Auto attack skill casting
+    if (g_dwAttackSkillID > 0 && dwSelObjectID > 0 && g_dwCurTime - g_dwLastAttackSkillTime > ((DWORD)g_nAttackSkillInterval * 1000)) {
+        if (g_MainCharInfo.m_pMugong && g_MainCharInfo.m_pMugong->IsLearnedMugong(g_dwAttackSkillID)) {
+            CXiahCharObject* pMainCharObj = (CXiahCharObject*)g_pMainChar->m_pObject;
+            WORD wPosX, wPosY;
+            pMainCharObj->GetPosition(wPosX, wPosY);
+            BYTE bAttackHeight = (int)pMainCharObj->m_Position.y;
+            
+            WORD wTargetPosX = 0, wTargetPosY = 0;
+            BYTE bTargetHeight = 0;
+            CXiahCharObject* pSelCharObject = NULL;
+            XiahObject::CXiahObject* pSelObject = XiahObject::g_XiahObjectManager.FindXiahObject(MAKEOBJECTID(0, dwSelObjectID, dwSelObjectType));
+            if (pSelObject && pSelObject->m_pObject && pSelObject->m_pObject->IsA(XiahObject::eXOT_CharObject)) {
+                pSelCharObject = (CXiahCharObject*)pSelObject->m_pObject;
+                pSelCharObject->GetPosition(wTargetPosX, wTargetPosY);
+                bTargetHeight = (int)pSelCharObject->m_Position.y;
+            }
+            
+            SendCS_NV_ENDMOVE_REQ(g_pMainChar->m_dwServerID, pMainCharObj->m_Position.x, -pMainCharObj->m_Position.z, pMainCharObj->m_Position.y, CHARSTATE_NORMAL);
+            
+            SendCS_BT_MUGONGPREATTACK_REQ(g_dwAttackSkillID,
+                OBJTYPE_PC,
+                g_pMainChar->m_dwServerID,
+                wPosX, wPosY, bAttackHeight,
+                dwSelObjectType,
+                dwSelObjectID,
+                wTargetPosX, wTargetPosY, bTargetHeight
+            );
+            g_dwLastAttackSkillTime = g_dwCurTime;
+        }
+    }
+    g_bIsAutoCasting = FALSE;
+}
+
+#include "XiahCheatConfig.cpp"

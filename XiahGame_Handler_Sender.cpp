@@ -1,4 +1,18 @@
 #include "precompile.h"
+#include "SkillTime.h"
+
+BOOL IsSkillOnCD(DWORD dwMugongID) {
+    SkillTime::SkillList& list = g_SkillTime.GetSkillList();
+    SkillTime::SkillList::iterator iter = list.find(dwMugongID);
+    if (iter != list.end()) {
+        if (!iter->second.bEnd) {
+            return TRUE;
+        }
+    }
+    return FALSE;
+}
+
+#include "XiahCheatConfig.h"
 #include "AppData.h"
 #include "XiahSocket.h"
 
@@ -987,7 +1001,15 @@ void SendCS_BT_MUGONGPREATTACK_REQ(DWORD dwMugongID,BYTE bAttackType,DWORD dwAtt
 		<< wTargetPosX
 		<< wTargetPosY
 		<< bTargetHeight;
+	if (!g_bIsAutoCasting && IsSkillOnCD(dwMugongID)) {
+		return;
+	}
+
 	XiahNetwork::SendNetMsg( msg);
+	DWORD dwCD = GetSkillCD(dwMugongID);
+	if (dwCD > 0) {
+		g_SkillTime.AddSkill(dwMugongID, timeGetTime(), dwCD);
+	}
 }
 
 void SendCS_BT_MUGONGATTACK_REQ(DWORD dwMugongID,BYTE bAtkType,DWORD dwAtkID,WORD wAtkPosX,WORD wAtkPosY,BYTE bAtkHeight,BYTE bDefObjType,DWORD dwDefObjID,WORD wTargetPosX,WORD wTargetPosY,BYTE bTargetHeight)

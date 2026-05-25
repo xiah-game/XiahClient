@@ -741,7 +741,10 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 				//	}					
 				//	break;
 				case VK_F9:
-					g_bCheat = !g_bCheat;	
+					{
+						extern void ShowCheatConfigWindow(HWND hwndParent);
+						ShowCheatConfigWindow(g_AppData.m_hWnd);
+					}
 					break;
 
 				case VK_F10:
@@ -1047,7 +1050,10 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 				break;
 
 			case VK_F9:
-				g_bCheat = !g_bCheat;	
+				{
+					extern void ShowCheatConfigWindow(HWND hwndParent);
+					ShowCheatConfigWindow(g_AppData.m_hWnd);
+				}
 				break;
 
 			case VK_F11://VK_F10

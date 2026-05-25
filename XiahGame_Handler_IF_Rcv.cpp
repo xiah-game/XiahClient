@@ -352,8 +352,8 @@ int OnCS_IF_HELPMESSAGE_ACK( CMsg &msg)
 				_stprintf( szContent, IDS_D_OBTAIN_ITEM, (LPCTSTR)szName);
 
 			//HT_CHEAT : 자동 판매
-			if(g_bCheat)
-				AutoSell();
+			//if(g_bCheat)
+				//AutoSell();
 
 			if(g_MainCharInfo.m_bAutoSell)
 			{

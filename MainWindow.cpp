@@ -1,4 +1,5 @@
 ﻿#include "precompile.h"
+#include "XiahCheatConfig.h"
 #include "resource.h"
 #include "io.h"
 #include "AppData.h"
@@ -321,6 +322,8 @@ int GetSetttingInfo(void)
 #endif
 
 	g_info.m_version = GetPrivateProfileInt("CONFIG", "VERSION", 1080, szIniFile);
+
+	LoadCheatConfig();
 
 	return 0;
 }

@@ -1,3 +1,4 @@
+#include "XiahCheatConfig.h"
 #include "cEFFECT_SPOT.h"
 
 #define BOOM_FXSOUND1	50001470
@@ -3532,7 +3533,7 @@ int OnCS_NC_PETWILDRATE_ACK(CMsg &msg)
 			g_MainCharInfo.RefreshPetInfo();
 		}
 
-		if( bWildRate > 60)
+		if( bWildRate > g_nPetWildRate)
 		{
 			TCHAR temp[50];
 			_stprintf( temp, IDS_WARN_FIELD, bWildRate);
@@ -3540,21 +3541,21 @@ int OnCS_NC_PETWILDRATE_ACK(CMsg &msg)
 			g_MainCharInfo.ShowHelpMessage( IDS_BONGING_FEED,TEXTEFFECT_COLOR_WARNING);
 
 			//HT_CHEAT : 간을 안 처먹을 때가 있지?? ㅡㅡ;;
-			XiahItem::sItemInfo* pItem = g_MainCharInfo.m_pMySack[0]->FindSackItemByVisualID(9102); //독수리간만
+			XiahItem::sItemInfo* pItem = g_MainCharInfo.m_pMySack[0]->FindSackItemByVisualID(g_dwPetFoodID); //독수리간만
 			if( pItem) 
 			{
 				SendCS_IM_GIVEITEM_REQ( pItem->m_bSackCount+1, pItem->m_bSackPos, pItem->m_dwItemID, OBJTYPE_PET, pPetInfo->dwID);
 			}
 			else
 			{
-				pItem = g_MainCharInfo.m_pMySack[1]->FindSackItemByVisualID(9102);
+				pItem = g_MainCharInfo.m_pMySack[1]->FindSackItemByVisualID(g_dwPetFoodID);
 				if( pItem)
 				{
 					SendCS_IM_GIVEITEM_REQ( pItem->m_bSackCount+1, pItem->m_bSackPos, pItem->m_dwItemID, OBJTYPE_PET, pPetInfo->dwID);
 				}
 				else //행낭에 독수리간이 없을때 봉인을 하자
 				{
-					XiahItem::sItemInfo* pBongInItem = g_MainCharInfo.m_pMySack[0]->FindSackItemByVisualID(9210); //우선 공혼경
+					XiahItem::sItemInfo* pBongInItem = g_MainCharInfo.m_pMySack[0]->FindSackItemByVisualID(g_dwPetSealID); //우선 공혼경
 					if(pBongInItem)
 					{
 						g_MainCharInfo.ShowHelpMessage(_T("독수리 간이 없어서 봉인함.."), TEXTEFFECT_COLOR_GAIN);
