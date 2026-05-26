@@ -32,7 +32,7 @@ struct sKEEPUPMUGONGICONLIST
  *
  * \date 2004-07-15
  *
- * °ÔÀÓ ÁøÇà½Ã º»ÀÎ Ä³¸¯ÅÍ¿Í °ü·ÃµÈ Á¤º¸ ÀúÀå
+ * ê²Œì„ ì§„í–‰ì‹œ ë³¸ì¸ ìºë¦­í„°ì™€ ê´€ë ¨ëœ ì •ë³´ ì €ì¥
  */
 class CharacterInfo
 {
@@ -40,7 +40,7 @@ public:
 	int m_nChatType;
 
 public:
-	// ÀÎÆ®·Î¿¡ ¾²ÀÌ´Â º¯¼öµé
+	// ì¸íŠ¸ë¡œì— ì“°ì´ëŠ” ë³€ìˆ˜ë“¤
 	DWORD	m_dwMapID;
 	DWORD	m_dwObjectID;
 	DWORD	m_dwXiahObjectID;
@@ -49,8 +49,8 @@ public:
 	WORD	m_wLevel;
 	DWORD	m_dwHpCur;
 	DWORD	m_dwHpMax;
-	WORD	m_wIpCur;
-	WORD	m_wIpMax;
+	DWORD	m_wIpCur;
+	DWORD	m_wIpMax;
 	WORD	m_wVit;
 	WORD	m_wStr;
 	WORD	m_wSus;
@@ -64,10 +64,10 @@ public:
 	BYTE	m_bRarity[VISUALID_NUM];
 	BYTE	m_bStxType[VISUALID_NUM];
 	
-	BYTE	m_bAuction;				// ¿Á¼Ç
-	BYTE	m_bRebirth;				// °¢¼ºÀÚ
+	BYTE	m_bAuction;				// ì˜¥ì…˜
+	BYTE	m_bRebirth;				// ê°ì„±ì
 
-	// °ÔÀÓ³»¿¡¼­¸¸ ¾²ÀÌ´Â º¯¼öµé
+	// ê²Œì„ë‚´ì—ì„œë§Œ ì“°ì´ëŠ” ë³€ìˆ˜ë“¤
 	BYTE	m_bIncrStr;
 	BYTE	m_bIncrSus;
 	BYTE	m_bIncrDex;
@@ -100,11 +100,11 @@ public:
 	WORD	m_wCritical;
 	BYTE	m_bAttackSpeed;
 	DWORD	m_dwFame;
-	WORD	m_wFiveElmPoint;		// º¸À¯ ¿ÀÇà Æ÷ÀÎÆ®
-	DWORD	m_dwFiveElmPower;		// ¿ÀÇà ¼÷·Ãµµ
-	DWORD	m_dwFiveElmPowerMax;	// ¿ÀÇà ¼÷·Âµµ ÃÖ´ëÄ¡
-	DWORD	m_dwFiveElmGauge;		// ¿ÀÇà ÇÊ»ì±â
-	WORD	m_wFiveElmExp[5];		// ¿ÀÇàº° ¼öÄ¡
+	WORD	m_wFiveElmPoint;		// ë³´ìœ  ì˜¤í–‰ í¬ì¸íŠ¸
+	DWORD	m_dwFiveElmPower;		// ì˜¤í–‰ ìˆ™ë ¨ë„
+	DWORD	m_dwFiveElmPowerMax;	// ì˜¤í–‰ ìˆ™ë ¥ë„ ìµœëŒ€ì¹˜
+	DWORD	m_dwFiveElmGauge;		// ì˜¤í–‰ í•„ì‚´ê¸°
+	WORD	m_wFiveElmExp[5];		// ì˜¤í–‰ë³„ ìˆ˜ì¹˜
 
 	float	m_fPosX;
 	float	m_fPosY;
@@ -122,18 +122,18 @@ public:
 
 	bool	m_bFirstChat;
 
-	int		m_nTempValue; // °¢Á¾ ¿©·¯°÷¿¡¼­ »ç¿ëÇÒ°Í
+	int		m_nTempValue; // ê°ì¢… ì—¬ëŸ¬ê³³ì—ì„œ ì‚¬ìš©í• ê²ƒ
 
 	sString m_strWhisperName;
 
 	// 2004.07.02 Changth
 	BOOL	m_bMainCharDie;
-	BOOL	m_bMainCharMapMoveItemUse;	// ÀÌÇüºÎ, µ¿½ÅÁÖ, µ¿½ÅÀûÀ» »ç¿ëÇÏ¿© ÀÌµ¿ÁßÀÌ´Ù.
+	BOOL	m_bMainCharMapMoveItemUse;	// ì´í˜•ë¶€, ë™ì‹ ì£¼, ë™ì‹ ì ì„ ì‚¬ìš©í•˜ì—¬ ì´ë™ì¤‘ì´ë‹¤.
 
 	DWORD	m_dwTaxMunpaMoney;
 
 
-	// Ä³¸¯ÅÍ°¡ °¡Áö´Â ºÎ¼öÀûÀÎ µ¥ÀÌÅ¸µé
+	// ìºë¦­í„°ê°€ ê°€ì§€ëŠ” ë¶€ìˆ˜ì ì¸ ë°ì´íƒ€ë“¤
 	BYTE					m_byMySackCurrIdx;
 
 	CMugong*				m_pMugong;	
@@ -144,7 +144,7 @@ public:
 	CScreenMessage*			m_pHelpMsg;
 	CScreenMessage*			m_pSpecialChatMsg;
 	CImageScrMsg*			m_pImageScrMsg;
-	CImageScrMsg*			m_pPremiumItem;		//HT_0122 : ±â°£Á¦ ÇÁ¸®¹Ì¾ö ¾ÆÀÌÅÛ Ãß°¡
+	CImageScrMsg*			m_pPremiumItem;		//HT_0122 : ê¸°ê°„ì œ í”„ë¦¬ë¯¸ì—„ ì•„ì´í…œ ì¶”ê°€
 
 	CSack*					m_pMySack[2];
 	CSack*					m_pEquipSack;
@@ -153,27 +153,27 @@ public:
 	CSack*					m_pPcSackMine;
 	CSack*					m_pPcSackOther;
 	CSack*					m_pModifySack;
-	CSack*					m_pItemMallSack;	// Item mall ¿ë
-	CSlot*					m_pSlot;			// Äü ½½·Ô
-	CSack*					m_pCollection;		// ¾ÆÀÌÅÛ ¼öÁı
+	CSack*					m_pItemMallSack;	// Item mall ìš©
+	CSlot*					m_pSlot;			// í€µ ìŠ¬ë¡¯
+	CSack*					m_pCollection;		// ì•„ì´í…œ ìˆ˜ì§‘
 
-	// °³ÀÎ »óÁ¡ °ü·Ã
+	// ê°œì¸ ìƒì  ê´€ë ¨
 	CSack*					m_pPersonalTradeSet;
 	CSack*					m_pPersonalTradeSell; 
-	DWORD					m_dwTradeMoney;  // °³ÀÎ »óÁ¡ ÃÑ ÆÇ¸Å±İ¾×
+	DWORD					m_dwTradeMoney;  // ê°œì¸ ìƒì  ì´ íŒë§¤ê¸ˆì•¡
 	
-	CSack*					m_pSmeltSack;	// Á¶ÇÕ
-	CSack*					m_pFEConvert;	// ¿ÀÇà ¾ÆÀÌÅÛ Á¦·Ã
-	CSack*					m_pQuickMart;	// ¸ÅÇ°ÆĞ
+	CSack*					m_pSmeltSack;	// ì¡°í•©
+	CSack*					m_pFEConvert;	// ì˜¤í–‰ ì•„ì´í…œ ì œë ¨
+	CSack*					m_pQuickMart;	// ë§¤í’ˆíŒ¨
 	
 	CIPopUp*				m_pToolTip;			// item tool tip
 	CQuest*					m_pQuest;
 
-	DWORD					m_dwPickedObject;	// Ä³¸¯ÅÍ°¡ pick ÇÑ ³Ñ(pet,func npc)
-	DWORD					m_dwPickedNpc;		// Ä³¸¯ÅÍ°¡ pick ÇÑ ³Ñ(npc)
-	DWORD					m_dwAskID;			// ³ª¸¦ pickÇÑ Ä³¸¯ÅÍ(³ªÇÑÅ× ¹º°¡¸¦ ¿äÃ»ÇÏ´Â Ä³¸¯ÅÍ)	
-	DWORD					m_dwAskPartyID;		// ³ª¸¦ ÇÇÅ·ÇÑ ÆÄÆ¼(´Ü) ¾ÆÀÌµğ (´ÜÀüÅõ)
-	DWORD					m_dwBetMoney;		// ´ÜÀüÅõ ³»±â ±İ¾×
+	DWORD					m_dwPickedObject;	// ìºë¦­í„°ê°€ pick í•œ ë„˜(pet,func npc)
+	DWORD					m_dwPickedNpc;		// ìºë¦­í„°ê°€ pick í•œ ë„˜(npc)
+	DWORD					m_dwAskID;			// ë‚˜ë¥¼ pickí•œ ìºë¦­í„°(ë‚˜í•œí…Œ ë­”ê°€ë¥¼ ìš”ì²­í•˜ëŠ” ìºë¦­í„°)	
+	DWORD					m_dwAskPartyID;		// ë‚˜ë¥¼ í”¼í‚¹í•œ íŒŒí‹°(ë‹¨) ì•„ì´ë”” (ë‹¨ì „íˆ¬)
+	DWORD					m_dwBetMoney;		// ë‹¨ì „íˆ¬ ë‚´ê¸° ê¸ˆì•¡
 
 	BOOL					m_bTradeAgree;
 	DWORD					m_dwMoneyOnTradeMine;
@@ -185,15 +185,15 @@ public:
 	DWORD					m_dwVolumeSplitAmount;
 	BYTE					m_bSackCnt;
 
-	BOOL					m_bDragFrame;		// FrameÀÌ drag µÉÁö
-	BOOL					m_bShowMiniMap;		// ¹Ì´Ï¸Ê Show ¿©ºÎ
+	BOOL					m_bDragFrame;		// Frameì´ drag ë ì§€
+	BOOL					m_bShowMiniMap;		// ë¯¸ë‹ˆë§µ Show ì—¬ë¶€
 	BOOL					m_bRotateMinimap;
 	BOOL					m_bChangMinimap;
 	BOOL					m_bShowCharNames;
 	BOOL					m_bInteractionFlag;	// ^^*
 
-	bool					m_bPersonalTradeSell; // °³ÀÎ»óÁ¡ ÆÇ¸Å À¯¹«
-	BYTE					m_bPickType;  // Ä³¸¯ÅÍ ¼±ÅÃÇÑ À¯Çü
+	bool					m_bPersonalTradeSell; // ê°œì¸ìƒì  íŒë§¤ ìœ ë¬´
+	BYTE					m_bPickType;  // ìºë¦­í„° ì„ íƒí•œ ìœ í˜•
 	
 	bool					m_bChatModeAction;
 	bool					m_bCharChange;
@@ -207,32 +207,32 @@ public:
 
 	bool					m_bMark;
 
-	// °æ°ø.
+	// ê²½ê³µ.
 	bool					m_bFastMove;
 	int						m_nFastIndex;
 
-	// 2004.05.14 Changth : Àü³¶¿ë
-	BYTE	m_byPurseAction;		// Àü³¶¿¡ µ· ³ÖÀ»¶§, 1 ÀÌ¸é ÀÔ±İÀÌ°í, 2 ÀÌ¸é Ãâ±İÀÌ´Ù.
+	// 2004.05.14 Changth : ì „ë‚­ìš©
+	BYTE	m_byPurseAction;		// ì „ë‚­ì— ëˆ ë„£ì„ë•Œ, 1 ì´ë©´ ì…ê¸ˆì´ê³ , 2 ì´ë©´ ì¶œê¸ˆì´ë‹¤.
 	BYTE	m_byPurseSackID;
 	BYTE	m_byPurseSackPos;
 	DWORD	m_dwPurseItemID;
 
-	// 2004.05.28 »çºÎ, ¿¬ÀÎ °ü°è
+	// 2004.05.28 ì‚¬ë¶€, ì—°ì¸ ê´€ê³„
 	BYTE	m_byRelationType;
 
-	// ÇÏ³ªÀÇ ÀÎÅÍÆäÀÌ½º¸¦ °°ÀÌ ¾²±âÀ§ÇÑ ¹æ¹ıÀ¸·Î, 
-	// 1 ÀÌ¸é ÀÎ¿¬ ¸¸µé¶§°í, 
-	// 2 ÀÌ¸é ÀÎ¿¬ ²úÀ»¶§ÀÌ´Ù.
-	// 3 ÀÌ¸é ÀÎ¿¬ ²ú´Â °ÍÀ» °­ÇàÇÒ¶§ ¾´´Ù.
+	// í•˜ë‚˜ì˜ ì¸í„°í˜ì´ìŠ¤ë¥¼ ê°™ì´ ì“°ê¸°ìœ„í•œ ë°©ë²•ìœ¼ë¡œ, 
+	// 1 ì´ë©´ ì¸ì—° ë§Œë“¤ë•Œê³ , 
+	// 2 ì´ë©´ ì¸ì—° ë“ì„ë•Œì´ë‹¤.
+	// 3 ì´ë©´ ì¸ì—° ë“ëŠ” ê²ƒì„ ê°•í–‰í• ë•Œ ì“´ë‹¤.
 	BYTE	m_byRelationStep;
 
 	CListClient *m_pListClient;
 
-	// ¹®ÆÄ ºñ¼®ÀÇ ¼­¹ö ¾ÆÀÌµğ¸¦ ÀúÀåÇØ ³õ°í Ãæµ¹ Ã³¸®ÇÒ¶§ »ç¿ëÇÑ´Ù.
+	// ë¬¸íŒŒ ë¹„ì„ì˜ ì„œë²„ ì•„ì´ë””ë¥¼ ì €ì¥í•´ ë†“ê³  ì¶©ëŒ ì²˜ë¦¬í• ë•Œ ì‚¬ìš©í•œë‹¤.
 	DWORDLIST	m_MunpaStonIDList;
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
-	// ÀÓ½Ã
+	// ì„ì‹œ
 	DWORD m_dwMunjuID, m_dwStonID, m_dwStoneMapID;	
 	DWORD m_dwMunpaFame;
 	DWORD m_dwRanking, m_dwCanBattleTime, m_dwBattleTime, m_dwTotalWar, m_dwWinWar, m_dwDrawWar, m_dwLossWar;
@@ -244,53 +244,53 @@ public:
 	int					m_nLastUseItemXPos;
 	int					m_nLastUseItemYPos;
 
-	DWORD				m_dwReserveMoney;				// °¢Á¾ ±İ¾× ¿¹¾à º¯¼ö
-	DWORD				m_dwReserveID;					// °¢Á¾ ID ¿¹¾à º¯¼ö
+	DWORD				m_dwReserveMoney;				// ê°ì¢… ê¸ˆì•¡ ì˜ˆì•½ ë³€ìˆ˜
+	DWORD				m_dwReserveID;					// ê°ì¢… ID ì˜ˆì•½ ë³€ìˆ˜
 
-	// °Å·¡»ç°í ¹æÁö
-	DWORD				m_dwBuyLimit;				// ±¸¸ÅÁ¦ÇÑ±İ¾×
-	BYTE				m_bRarityLimit;				// ÆÇ¸ÅÁ¦ÇÑ +
-	BYTE				m_bStxTypeLimit;			// ÆÇ¸ÅÁ¦ÇÑ ¼º
+	// ê±°ë˜ì‚¬ê³  ë°©ì§€
+	DWORD				m_dwBuyLimit;				// êµ¬ë§¤ì œí•œê¸ˆì•¡
+	BYTE				m_bRarityLimit;				// íŒë§¤ì œí•œ +
+	BYTE				m_bStxTypeLimit;			// íŒë§¤ì œí•œ ì„±
 
-	// ºü¸¥ ±¸ÀÔ
-	BYTE				m_byLastSackPos;			// ¿À¸¥ÂÊ ¹öÆ° Å¬¸¯ÇÑ ¾ÆÀÌÅÛ À§Ä¡
-	DWORD				m_dwLastClickTime;			// ¿À¸¥ÂÊ ¹öÆ° ¸¶Áö¸· Å¬¸¯ÇÑ ½Ã°£
+	// ë¹ ë¥¸ êµ¬ì…
+	BYTE				m_byLastSackPos;			// ì˜¤ë¥¸ìª½ ë²„íŠ¼ í´ë¦­í•œ ì•„ì´í…œ ìœ„ì¹˜
+	DWORD				m_dwLastClickTime;			// ì˜¤ë¥¸ìª½ ë²„íŠ¼ ë§ˆì§€ë§‰ í´ë¦­í•œ ì‹œê°„
 
-	// º¹±¸
+	// ë³µêµ¬
 	std::vector<DWORD>		m_vRecoveryItem;
 	std::vector<sString>	m_vRecoveryItemName;
 
-	// ±â
+	// ê¸°
 	BYTE m_bStaminaCnt;
 	bool m_bSpirit;
 
 	bool m_bReairItemUse2;
-	bool m_bMunpaFight;		// ¹®ÆÄ´ëÀü »óÅÂ (¸¶Ç÷ ÀïÅ»Àü)
+	bool m_bMunpaFight;		// ë¬¸íŒŒëŒ€ì „ ìƒíƒœ (ë§ˆí˜ˆ ìŸíƒˆì „)
 
-	DWORD m_dwLordMunpaID;	// ¿ì½Â ¹®ÆÄ ID
+	DWORD m_dwLordMunpaID;	// ìš°ìŠ¹ ë¬¸íŒŒ ID
 
-	//HT_0911 : ÇÁ¸®¹Ì¾ö Äù½ºÆ® ¼ö·ÃÄ¡
+	//HT_0911 : í”„ë¦¬ë¯¸ì—„ í€˜ìŠ¤íŠ¸ ìˆ˜ë ¨ì¹˜
 	DWORD m_dwPremiumTP;
 	DWORD m_dwPremiumSP;
 
-	//HT_1023 : ¿î¿µÀÚ ¸¶Å© Ãß°¡
+	//HT_1023 : ìš´ì˜ì ë§ˆí¬ ì¶”ê°€
 	DWORD m_dwGameMasterMark;
 
-	//HT_CHEAT : Ä¡Æ® Å°¿Í ¿ÀÅä ÆÈ±â Å°µé
+	//HT_CHEAT : ì¹˜íŠ¸ í‚¤ì™€ ì˜¤í†  íŒ”ê¸° í‚¤ë“¤
 	BOOL m_bCheat;
 	BOOL m_bAutoSell;
 	BYTE m_bySellPos;
 	BYTE m_bySellSackPos;
 
-	BYTE m_byCheatTime; //¹üÀ§ ¹«°ø ½Ã°£
+	BYTE m_byCheatTime; //ë²”ìœ„ ë¬´ê³µ ì‹œê°„
 	WORD m_wPosX;
 	WORD m_wPosY;
 
-	//HT_0403 : Áö¼ÓÇü ¹«°ø ½ÃÀü ¾ÆÀÌÄÜ
+	//HT_0403 : ì§€ì†í˜• ë¬´ê³µ ì‹œì „ ì•„ì´ì½˜
 	std::vector<sKEEPUPMUGONGICONLIST*>	m_vkeepUpMugongIconList;
 	std::vector<sKEEPUPMUGONGICONLIST*>	m_vkeepUpPetMugongIconList;
 
-	//HO_0413_07 : Äü °¡ÀÌµå ¾÷µ¥ÀÌÆ®	
+	//HO_0413_07 : í€µ ê°€ì´ë“œ ì—…ë°ì´íŠ¸	
 	BYTE m_bQuickIndex;
 
 public:
@@ -365,7 +365,7 @@ public:
 	void CloseFrame( int nFrameID);
 	void HideAllFrame();
 
-	// Ä³¸¯ÅÍ °ü·Ã ÇÁ·¹ÀÓ ¾÷µ¥ÀÌÆ®
+	// ìºë¦­í„° ê´€ë ¨ í”„ë ˆì„ ì—…ë°ì´íŠ¸
 	void RefreshFramePos();
 	void RefreshChracterInfo();
 	void RefreshPetInfo();
@@ -377,10 +377,10 @@ public:
 	void RefreshTime1( WORD wYear, BYTE bMonth, BYTE bDay, BYTE bHour);
 	void RefreshTime2();
 	void RefreshQuest();
-	// ¿ÀÇà
+	// ì˜¤í–‰
 	void RefreshFiveElement();
 	
-	//±İÀü ´ÜÀ§ »ö
+	//ê¸ˆì „ ë‹¨ìœ„ ìƒ‰
 	int MoneyUnitColor(DWORD dwMoney);
 	
 };

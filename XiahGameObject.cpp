@@ -1055,9 +1055,27 @@ void CXiahCharObject::PersistEffect(_EFFECTPACKAGEPAIR** ppEffect, DWORD dwMugon
 	{
 		if(!*ppEffect)
 		{
+			if( g_pMainChar && this == (CXiahCharObject*)g_pMainChar->m_pObject )
+			{
+				char buf[256];
+				sprintf(buf, "[Buff Debug] Buff %d exists! Spawning persist effect type %d...", dwMugongID, nType);
+				g_MainCharInfo.ShowHelpMessage(buf, TEXTEFFECT_COLOR_GAIN);
+			}
+
 			g_EffectManager.MakeSharedPackagePair( 0, 0, 0 );
 
 			_EFFECTPACKAGE* pEffectPackage = g_EffectManager.EnqOutGongPersistEffectImmediately( nType );
+
+			if( g_pMainChar && this == (CXiahCharObject*)g_pMainChar->m_pObject )
+			{
+				char buf2[256];
+				if( pEffectPackage ) {
+					sprintf(buf2, "[Buff Debug] Effect package created! Pointer: %p", pEffectPackage);
+				} else {
+					sprintf(buf2, "[Buff Debug] FAILED to create effect package! (pEffectPackage IS NULL)");
+				}
+				g_MainCharInfo.ShowHelpMessage(buf2, pEffectPackage ? TEXTEFFECT_COLOR_GAIN : TEXTEFFECT_COLOR_WARNING);
+			}
 			// matrix
 			if( pEffectPackage )
 			{
@@ -3749,7 +3767,7 @@ BOOL CXiahCharObject::LoadLegendTitle(int nTitleID)
 		HRESULT hr = D3DXCreateTextureFromFileExA(
 			g_pDirect3DDevice, 
 			szImgPath, 
-			D3DX_DEFAULT, D3DX_DEFAULT, 1, 0, 
+			D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, 1, 0, 
 			D3DFMT_A8R8G8B8, D3DPOOL_MANAGED, 
 			D3DX_FILTER_NONE, D3DX_FILTER_NONE, 
 			0, NULL, NULL, &pTexture
@@ -3810,11 +3828,12 @@ void CXiahCharObject::RenderLegendTitle(int nNameX, int nNameY)
 
 	D3DSURFACE_DESC desc;
 	pTexture->GetLevelDesc(0, &desc);
-	float fWidth  = (float)desc.Width;
-	float fHeight = (float)desc.Height;
+	float fScale = 0.4f;
+	float fWidth  = (float)desc.Width * fScale;
+	float fHeight = (float)desc.Height * fScale;
 
-	float fX = (float)nNameX + (float)curFrame.nOffsetX - 0.5f;
-	float fY = (float)nNameY + (float)curFrame.nOffsetY - 0.5f;
+	float fX = (float)nNameX + (float)curFrame.nOffsetX * fScale - 0.5f;
+	float fY = (float)nNameY + (float)curFrame.nOffsetY * fScale - 0.5f;
 
 	VT_TLVertex Vertex[4];
 	

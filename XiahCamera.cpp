@@ -153,7 +153,13 @@ float CXiahCamera::GetCursorDirection(Vector3 &vTarget)
 
 BOOL CXiahCamera::Update()
 {
-	// ÆĞµåÀÇ »óÇÏ È®´ë
+	// å¦‚æœå®¢æˆ·ç«¯çª—å£å¤±å»ç„¦ç‚¹ï¼Œåˆ™ä¸è¿›è¡Œä»»ä½•è§†è§’æ—‹è½¬å’Œç¼©æ”¾çš„æ›´æ–°ï¼Œé˜²èŒƒåå°å…¨å±€æŒ‰é”®å“åº”
+	if (GetForegroundWindow() != g_AppData.m_hWnd)
+	{
+		return TRUE;
+	}
+
+	// íŒ¨ë“œì˜ ìƒí•˜ í™•ëŒ€
 	if(g_GameWork.m_nNavigationMode == 0)
 	{
 		if(XiahInput::g_Zoomin_Down)
@@ -245,7 +251,7 @@ BOOL CXiahCamera::Update()
 			}
 		}
 
-		// Á» ¹ø°Å ·ÓÁö¸¸ fromÀ» ±¸ÇØº»´Ù
+		// ì¢€ ë²ˆê±° ë¡­ì§€ë§Œ fromì„ êµ¬í•´ë³¸ë‹¤
 		if( g_pMainChar)
 		{
 			CXiah3DObject *pCharObject = (CXiah3DObject *)g_pMainChar->m_pObject;
@@ -304,7 +310,7 @@ BOOL CXiahCamera::Update()
 
 		vFrom = vAt + vFrom;
 	
-		// ÁöÇü°úÀÇ Ä«¸Ş¶ó Ãæµ¹ Ã³¸®
+		// ì§€í˜•ê³¼ì˜ ì¹´ë©”ë¼ ì¶©ëŒ ì²˜ë¦¬
 		float height = Map::g_MapRes.GetHeight( vFrom.x, vFrom.z);
 		Vector3 vDir = vFrom - vAt;
 		vDir.Normalize();
@@ -356,7 +362,7 @@ BOOL CXiahCamera::Update()
 		vFrom = vAt + vFrom;
 
 /*
-		// ÁöÇü°úÀÇ Ä«¸Ş¶ó Ãæµ¹ Ã³¸®
+		// ì§€í˜•ê³¼ì˜ ì¹´ë©”ë¼ ì¶©ëŒ ì²˜ë¦¬
 		height = Map::g_MapRes.GetHeight( vFrom.x, vFrom.z);
 		Vector3 vDir = vFrom - vAt;
 		vDir.Normalize();
@@ -445,7 +451,7 @@ BOOL CXiahCamera::RotateY(BOOL bRight, float fSpeed)
  */
 BOOL CXiahCamera::Zoom(BOOL bIn)
 {	
-	// ´øÀü¿ë Ä«¸Ş¶ó ¼³Á¤
+	// ë˜ì „ìš© ì¹´ë©”ë¼ ì„¤ì •
 	if(11 == XiahMap::g_XiahMap.m_MapInfo.m_dwMapID)
 	{
 		//m_fDestXAngle = -0.710f;

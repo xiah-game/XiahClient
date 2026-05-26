@@ -1344,6 +1344,8 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 	return 0;
 }
 
+bool g_bDumpEffectsLog = false; // Global toggle to control loaded_effects.txt output
+
 bool ManageExtraItemEffect()
 {
 	CRes_Character* pChar = GetCharacter(1018);
@@ -1365,6 +1367,16 @@ bool ManageExtraItemEffect()
 				if(pEffect != NULL)
 				{
 					LPCTSTR lpEffectName = pEffect->m_EffectName.data();
+
+					// record log
+					if (g_bDumpEffectsLog)
+					{
+						FILE* fp = fopen("loaded_effects.txt", "a+");
+						if (fp) {
+							fprintf(fp, "[MeshEffect] %s\n", lpEffectName);
+							fclose(fp);
+						}
+					}
 
 					// 각성 아이템
 					if(_tcscmp(lpEffectName, _T("기린석발광")) == 0)
@@ -1416,6 +1428,16 @@ bool ManageExtraEffectEtc()
 			if( pEffect != NULL )
 			{
 				LPCTSTR lpEffectName = pEffect->m_EffectName.data();
+
+				// record log
+				if (g_bDumpEffectsLog)
+				{
+					FILE* fp = fopen("loaded_effects.txt", "a+");
+					if (fp) {
+						fprintf(fp, "[AniEffect] %s\n", lpEffectName);
+						fclose(fp);
+					}
+				}
 
 				int nX = pResAni->effect_ptr[i].nPosX;
 				int nY = pResAni->effect_ptr[i].nPosY;
@@ -1522,17 +1544,29 @@ bool ManageExtraEffectEtc()
 
 BOOL ManageExtraEffect()
 {
+	// clear debug log
+	if (g_bDumpEffectsLog)
+	{
+		FILE* fp_init = fopen("loaded_effects.txt", "w");
+		if (fp_init) fclose(fp_init);
+	}
 	// 하드 코딩의 결정판!
 	// Dummy 캐릭터인 검영의 800번째 애니메이션을 접근한다.
 	CRes_Character* pChar = GetCharacter( 790 );
 
 	if( pChar == NULL )
+	{
+		g_MainCharInfo.ShowHelpMessage("[Engine Debug] GetCharacter(790) IS NULL! Persist effects disabled.", TEXTEFFECT_COLOR_WARNING);
 		return false;
+	}
 
 	XiahGameEngine::CRes_Character::ANIMATIONLIST::iterator ait = pChar->AnimationList.find( 800 );
 
 	if( ait == pChar->AnimationList.end() )
+	{
+		g_MainCharInfo.ShowHelpMessage("[Engine Debug] Character 790 has NO 800 animation! Persist effects disabled.", TEXTEFFECT_COLOR_WARNING);
 		return false;
+	}
 	else
 	{
 		Res_Animation* pResAni = ait->second;
@@ -1550,6 +1584,16 @@ BOOL ManageExtraEffect()
 			if( pEffect != NULL )
 			{
 				LPCTSTR lpEffectName = pEffect->m_EffectName.data();
+
+				// record log
+				if (g_bDumpEffectsLog)
+				{
+					FILE* fp = fopen("loaded_effects.txt", "a+");
+					if (fp) {
+						fprintf(fp, "[AniEffect] (790) %s\n", lpEffectName);
+						fclose(fp);
+					}
+				}
 
 				int nX = pResAni->effect_ptr[i].nPosX;
 				int nY = pResAni->effect_ptr[i].nPosY;
@@ -1707,12 +1751,51 @@ BOOL ManageExtraEffect()
 					g_EffectManager.SetOutGongPersistEffect( eEconomiKindItem_keepup, pEffect, nX, nY, nZ );
 				// 외공 지속 이펙트 및 무공 이펙트.
 				// 검영 무공, 외공 지속 이펙트
-				else if( _tcscmp( lpEffectName, _T("무수혼지속이펙트") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb9\xab\xbc\xf6\xc8\xa5\xc1\xf6\xbc\xd3\xc0\xcc\xc6\xe5\xc6\xae") ) == 0 ||
+						 _tcscmp( lpEffectName, _T("무수혼지속이펙트") ) == 0 ||
+						 _tcscmp( lpEffectName, _T("\xce\xe4\xbb\xea\xb3\xd6\xd0\xf8") ) == 0 ||
+						 _tcscmp( lpEffectName, _T("\xce\xe4\xbb\xea\xb3\xd6\xd0\xf8\xcc\xd8\xd0\xa7") ) == 0 )
+				{
 					g_EffectManager.SetOutGongPersistEffect( eMusuhon, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("폭사혼지속이펙트") ) == 0 )
+					if (g_bDumpEffectsLog)
+					{
+						FILE* fp = fopen("loaded_effects.txt", "a+");
+						if (fp) {
+							fprintf(fp, "[Match Success] eMusuhon (Musuhon) matched and bound successfully!\n");
+							fclose(fp);
+						}
+					}
+				}
+				else if( _tcscmp( lpEffectName, _T("\xc6\xf8\xbb\xe7\xc8\xa5\xc1\xf6\xbc\xd3\xc0\xcc\xc6\xe5\xc6\xae") ) == 0 ||
+						 _tcscmp( lpEffectName, _T("폭사혼지속이펙트") ) == 0 ||
+						 _tcscmp( lpEffectName, _T("\xb1\xac\xc9\xe4\xbb\xea\xb3\xd6\xd0\xf8") ) == 0 ||
+						 _tcscmp( lpEffectName, _T("\xb1\xac\xc9\xe4\xbb\xea\xb3\xd6\xd0\xf8\xcc\xd8\xd0\xa7") ) == 0 )
+				{
 					g_EffectManager.SetOutGongPersistEffect( ePoksahon, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("금강유지") ) == 0 )
+					if (g_bDumpEffectsLog)
+					{
+						FILE* fp = fopen("loaded_effects.txt", "a+");
+						if (fp) {
+							fprintf(fp, "[Match Success] ePoksahon (Poksahon) matched and bound successfully!\n");
+							fclose(fp);
+						}
+					}
+				}
+				else if( _tcscmp( lpEffectName, _T("\xb1\xdd\xb0\xad\xc0\xaf\xc1\xf6") ) == 0 ||
+						 _tcscmp( lpEffectName, _T("금강유지") ) == 0 ||
+						 _tcscmp( lpEffectName, _T("\xbd\xf0\xb8\xd5\xce\xac\xb3\xd6") ) == 0 ||
+						 _tcscmp( lpEffectName, _T("\xbd\xf0\xb8\xd5\xc1\xa6\xb3\xd6\xd0\xf8") ) == 0 )
+				{
 					g_EffectManager.SetOutGongPersistEffect( eKuymgangruk, pEffect, nX, nY, nZ );
+					if (g_bDumpEffectsLog)
+					{
+						FILE* fp = fopen("loaded_effects.txt", "a+");
+						if (fp) {
+							fprintf(fp, "[Match Success] eKuymgangruk (Kumgangruk) matched and bound successfully!\n");
+							fclose(fp);
+						}
+					}
+				}
 				else if( _tcscmp( lpEffectName, _T("바닥_일위도강지속2") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eIlyuidogang, pEffect, nX, nY, nZ );
 				// 연랑 무공.

@@ -17,11 +17,11 @@ namespace XiahItem
 	};
 
 
-	// [12/9/2004] ÃÊ±â¿¡ ¾ÆÀÌÅÛ ±¸Á¶¸¦ ÅëÀ¸·Î Àâ¾ÒÁ® ÀÖ¾ú´Âµ¥... Å¬·¡½º·Î ³ª´²¾ß ÇÒ°Í °°´Ù.
-	// ÃÊ±â¿¡ ´©°¡ ÀÌ·¸°Ô Àâ¾ÒÁö -_-;
+	// [12/9/2004] ì´ˆê¸°ì— ì•„ì´í…œ êµ¬ì¡°ë¥¼ í†µìœ¼ë¡œ ì¡ì•˜ì ¸ ìˆì—ˆëŠ”ë°... í´ë˜ìŠ¤ë¡œ ë‚˜ëˆ ì•¼ í• ê²ƒ ê°™ë‹¤.
+	// ì´ˆê¸°ì— ëˆ„ê°€ ì´ë ‡ê²Œ ì¡ì•˜ì§€ -_-;
 	struct sItemInfo
 	{
-		// 2004-02-18, ¾ÆÀÌÅÛ ÆĞÅ¶ º¯°æ¿¡ µû¸¥ µ¥ÀÌÅ¸ Ãß°¡.
+		// 2004-02-18, ì•„ì´í…œ íŒ¨í‚· ë³€ê²½ì— ë”°ë¥¸ ë°ì´íƒ€ ì¶”ê°€.
 		WORD	m_wRefID;
 		WORD	m_wLevel;		// Item Level
 		BYTE	m_bLimitCnt;
@@ -33,7 +33,7 @@ namespace XiahItem
 		BYTE	m_bNeedMugongLevel;
 		WORD	m_wHuljungModityCount;
 
-		// InstanceÁ¤º¸ 
+		// Instanceì •ë³´ 
 		DWORD	m_dwMapObjectID;
 		DWORD	m_dwMapID;
 		DWORD	m_dwItemID;
@@ -62,16 +62,16 @@ namespace XiahItem
 		BYTE 	m_bDecrDurRate;
 		WORD 	m_wCurDur;
 		WORD 	m_wMaxDur;
-		WORD 	m_wAtkPwr;
-		WORD 	m_wDefPwr;
-		WORD 	m_wAtkRating;
+		DWORD 	m_wAtkPwr;
+		DWORD 	m_wDefPwr;
+		DWORD 	m_wAtkRating;
 		WORD 	m_wStkSpeed;
 		WORD 	m_wDecrSpeed;
 		BYTE 	m_bPlusAtkType;
 		WORD 	m_wPlusAtkPwr;
 		WORD 	m_wAtkRange;
 
-		// ¾È¾²´Âµ¥
+		// ì•ˆì“°ëŠ”ë°
 		//WORD 	m_wMeleeBlock;
 		//WORD 	m_wShotBlock;
 		//WORD 	m_wBoltBlock;
@@ -79,17 +79,17 @@ namespace XiahItem
 		//WORD 	m_wIceBlock;
 		//WORD 	m_wPoisonBlock;
 
-		WORD 	m_wIncrHp;
-		WORD 	m_wIncrIp;
+		DWORD 	m_wIncrHp;
+		DWORD 	m_wIncrIp;
 		WORD 	m_wRestoreHp;
 		WORD 	m_wRestoreIp;
 		BYTE 	m_bModifyCnt;
 		
-		// CG_2005/01/28 : º¯Á¾¾ÆÀÌÅÛ±â´ÉÃß°¡
-		// º¯Á¾¾ÆÀÌÅÛÀÇ ¼ö¸®È½¼ö - 12¹ø ¼ö¸®ÇÏ¸é ¿ø·¡´ë·Î....
+		// CG_2005/01/28 : ë³€ì¢…ì•„ì´í…œê¸°ëŠ¥ì¶”ê°€
+		// ë³€ì¢…ì•„ì´í…œì˜ ìˆ˜ë¦¬íšŸìˆ˜ - 12ë²ˆ ìˆ˜ë¦¬í•˜ë©´ ì›ë˜ëŒ€ë¡œ....
 		BYTE	m_bRepairCnt;
 
-		WORD 	m_wIncrCritical; //ÀÏ°İ¼ú ¼öÁ¤
+		WORD 	m_wIncrCritical; //ì¼ê²©ìˆ  ìˆ˜ì •
 		BYTE 	m_bStxType;
 		BYTE	m_bRarity;
 	
@@ -107,10 +107,10 @@ namespace XiahItem
 		//BYTE 	m_bBunchAmount;
 		// redmoon. 4.26
 		BYTE	m_bSackID;
-		BYTE	m_bSackCount;	// mysack¿¡¼­ µÎ¹øÂ° »ö ±¸Çö½Ã »ç¿ë
+		BYTE	m_bSackCount;	// mysackì—ì„œ ë‘ë²ˆì§¸ ìƒ‰ êµ¬í˜„ì‹œ ì‚¬ìš©
 		BYTE	m_bSackPos;
 		BYTE	m_bSackIDPrev;
-		BYTE	m_bSackPosPrev;	// mysack °ú modifysack Ã³¸®ÇÒ¶§ »ç¿ë		
+		BYTE	m_bSackPosPrev;	// mysack ê³¼ modifysack ì²˜ë¦¬í• ë•Œ ì‚¬ìš©		
 
 		WORD	m_wSuccessRatio;
 		WORD	m_wFactorValue;
@@ -127,7 +127,7 @@ namespace XiahItem
 		BYTE	m_bNpcRace;
 		BYTE	m_bNpcBagSize;
 
-		// Client¿ë VisualData
+		// Clientìš© VisualData
 		int		m_nResID;
 		BYTE	m_bSackSizeX;
 		BYTE	m_bSackSizeY;
@@ -143,10 +143,10 @@ namespace XiahItem
 		WORD	m_wPrev;
 		bool	m_bShowMessage;
 		
-		DWORD	m_dwBuyCount;   // ±¸ÀÔ °³¼ö
-		WORD	m_wFunctionItem; // ±â´É¼º ¹øÈ£
+		DWORD	m_dwBuyCount;   // êµ¬ì… ê°œìˆ˜
+		WORD	m_wFunctionItem; // ê¸°ëŠ¥ì„± ë²ˆí˜¸
 
-		WORD	m_wPosX, m_wPosY;	// µ¿½ÅÀû ÁÂÇ¥
+		WORD	m_wPosX, m_wPosY;	// ë™ì‹ ì  ì¢Œí‘œ
 
 		// [4/11/2004]
 		BYTE m_bDanIncExp;
@@ -158,57 +158,57 @@ namespace XiahItem
 		BYTE m_bGambleShopDec;
 		BYTE m_bEffectType;
 
-		// 2004_05_12 Changth : Àü³¶¿¡ »ç¿ëµÉ º¯¼ö, ÀÔ±İ, Ãâ±İÇÒ¶§ ¾×¼ö.
+		// 2004_05_12 Changth : ì „ë‚­ì— ì‚¬ìš©ë  ë³€ìˆ˜, ì…ê¸ˆ, ì¶œê¸ˆí• ë•Œ ì•¡ìˆ˜.
 		DWORD	m_dwValue;
 
-		BYTE m_bPrizeRank;		// µîÀ§
-		BYTE m_bLottoNum[4];	// ¼±ÅÃ¹øÈ£
-		DWORD m_dwRound;		// È¸Â÷		
-		DWORD m_dwPrizeMoney;	// ´çÃ·±İ¾×(Ãµ´ÜÀ§)
+		BYTE m_bPrizeRank;		// ë“±ìœ„
+		BYTE m_bLottoNum[4];	// ì„ íƒë²ˆí˜¸
+		DWORD m_dwRound;		// íšŒì°¨		
+		DWORD m_dwPrizeMoney;	// ë‹¹ì²¨ê¸ˆì•¡(ì²œë‹¨ìœ„)
 
-		BYTE m_bIsDividedRes;	// °³Á¶°¡´É ¿©ºÎ (0-°¡´É, 1-ºÒ°¡´É)
-		BYTE m_bPuzzleType;		// Á¶ÇÕµÈ ¾ÆÀÌÅÛ Å¸ÀÔ
+		BYTE m_bIsDividedRes;	// ê°œì¡°ê°€ëŠ¥ ì—¬ë¶€ (0-ê°€ëŠ¥, 1-ë¶ˆê°€ëŠ¥)
+		BYTE m_bPuzzleType;		// ì¡°í•©ëœ ì•„ì´í…œ íƒ€ì…
 
-		// Á¦·Ã
-		BYTE m_bSocketCount;	// ¼ÒÄÏ ¼ö
-		BYTE m_bSocketItem[3];	// ¼ÒÄÏ ¾ÆÀÌÅÛ ()
-		WORD m_wRBSocketItem;	// HT_1116 : °¢¼ºÀÚ ¾ÆÀÌÅÛ Ãß°¡
+		// ì œë ¨
+		BYTE m_bSocketCount;	// ì†Œì¼“ ìˆ˜
+		BYTE m_bSocketItem[3];	// ì†Œì¼“ ì•„ì´í…œ ()
+		WORD m_wRBSocketItem;	// HT_1116 : ê°ì„±ì ì•„ì´í…œ ì¶”ê°€
 
 		BYTE m_bFuncID;
 
 		WORD m_wOriginRefID;
 		WORD m_wUnionRefID;
 
-		// ¼ö¸®ºñ ÇÒÀÎ(¹éÈ­¼öÁ¤)
+		// ìˆ˜ë¦¬ë¹„ í• ì¸(ë°±í™”ìˆ˜ì •)
 		BYTE m_bRepairDiscount;
 
-		//°¢¼º¼®
+		//ê°ì„±ì„
 		BYTE m_bStepID;
 		WORD m_wRebirthFuncID;
 		WORD m_wRebirthNeedLevel;
 
-		//HT_0829 : ÇÁ¸®¹Ì¾ö Äù½ºÆ®
+		//HT_0829 : í”„ë¦¬ë¯¸ì—„ í€˜ìŠ¤íŠ¸
 		DWORD m_dwPremiumQuestID;
 
-		//HT_1126 : °¢¼ºÀÚ ¾ÆÀÌÅÛ Ãß°¡
+		//HT_1126 : ê°ì„±ì ì•„ì´í…œ ì¶”ê°€
 		WORD  m_wRebuithValue;
 
-		//HT_0406 : È¯¹è ½Ã½ºÅÛ Ãß°¡
+		//HT_0406 : í™˜ë°° ì‹œìŠ¤í…œ ì¶”ê°€
 		DWORD	m_dwKeepUpTime;
 		BYTE	m_bMaxLevel;
 		BYTE	m_bMinLevel;
 
-		//HO_0828_07 È²±İ¿­¼è Ãß°¡
+		//HO_0828_07 í™©ê¸ˆì—´ì‡  ì¶”ê°€
 		WORD	m_wKeyRefID;
 		WORD	m_wKeyAmount;
 
 		sItemInfo()
 		{
-			// ¼ö¸® ¾ÆÀÌÄÜ
+			// ìˆ˜ë¦¬ ì•„ì´ì½˜
 			m_wPrev = 0;
 			m_bShowMessage = true;
 
-			// InstanceÁ¤º¸ 
+			// Instanceì •ë³´ 
 			m_dwMapObjectID = 0;
 			m_dwMapID = 0;
 			m_dwItemID = 0;
@@ -256,7 +256,7 @@ namespace XiahItem
 			m_wRestoreHp = 0;
 			m_wRestoreIp = 0;
 			m_bModifyCnt = 0;
-			// CG_2005/01/28 : º¯Á¾¾ÆÀÌÅÛ±â´ÉÃß°¡
+			// CG_2005/01/28 : ë³€ì¢…ì•„ì´í…œê¸°ëŠ¥ì¶”ê°€
 			m_bRepairCnt = 0;
 
 			m_wIncrCritical = 0;
@@ -294,7 +294,7 @@ namespace XiahItem
 			m_bNpcRace = 0;
 			m_bNpcBagSize = 0;
 
-			// Client¿ë VisualData
+			// Clientìš© VisualData
 			m_nResID = 0;
 			m_bSackSizeX = 0;
 			m_bSackSizeY = 0;
@@ -307,7 +307,7 @@ namespace XiahItem
 			m_nEquipMeshType = 0;
 			m_nEquipTextureType = 0;
 
-			// [3/2/2004] Æê Èí¼öÀ² ÃÊ±âÈ­
+			// [3/2/2004] í« í¡ìˆ˜ìœ¨ ì´ˆê¸°í™”
 			m_wSoakHPRatio = m_wSoakAtkRatio = m_wSoakDefRatio = m_wSoakHitRatio = m_bWildRate = 0;
 			m_wFunctionItem = -1;
 
@@ -344,19 +344,19 @@ namespace XiahItem
 			m_wRBSocketItem = 0;
 			m_wRebuithValue =0;
 
-			//HT_0406 : È¯¹è ½Ã½ºÅÛ Ãß°¡
+			//HT_0406 : í™˜ë°° ì‹œìŠ¤í…œ ì¶”ê°€
 			m_dwKeepUpTime = 0;
 			m_bMaxLevel = 0;
 			m_bMinLevel = 0;
 
-			//HO_0828_07 È²±İ¿­¼è Ãß°¡
+			//HO_0828_07 í™©ê¸ˆì—´ì‡  ì¶”ê°€
 			m_wKeyRefID = 0;
 			m_wKeyAmount = 0;
 		};
 	};
 
-	// info¿¡ ¹Ì¸® ¼¼ÆÃµÇ¾î ÀÖ¾î¾ß ÇÒ °ªµé
-	// m_wVisualID	¹İ´Ù½Ã!!!
+	// infoì— ë¯¸ë¦¬ ì„¸íŒ…ë˜ì–´ ìˆì–´ì•¼ í•  ê°’ë“¤
+	// m_wVisualID	ë°˜ë‹¤ì‹œ!!!
 
 	BOOL SetItemVisualData(sItemInfo* pInfo);
 	BOOL ReleaseItemInfo(DWORD pInfo);
