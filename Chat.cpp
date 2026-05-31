@@ -135,7 +135,22 @@ void CChat::SetChatMsg( DWORD dwSender, BYTE type, sString content, sString Send
 	
 	// listChat¿¡ chat message ³Ö±â
 	sString buff;
-	buff.printf( _T("%s : %s"), (LPCTSTR)SenderName, (LPCTSTR)content);
+	switch( type)
+	{
+	case CT_WHISPER:
+		buff.printf( _T("[\xc3\xdc\xd3\xef] %s : %s"), (LPCTSTR)SenderName, (LPCTSTR)content);
+		break;
+	case CT_DAN:
+		buff.printf( _T("[\xd7\xe9\xb6\xd3] %s : %s"), (LPCTSTR)SenderName, (LPCTSTR)content);
+		break;
+	case CT_MUNPA_BROADCAST:
+	case CT_MUNPA_MUNJUSHOUT:
+		buff.printf( _T("[\xc3\xc5\xc5\xc9] %s : %s"), (LPCTSTR)SenderName, (LPCTSTR)content);
+		break;
+	default:
+		buff.printf( _T("[\xc6\xd5\xcd\xa8] %s : %s"), (LPCTSTR)SenderName, (LPCTSTR)content);
+		break;
+	}
 
 	if(m_listChat.size() >= MAXCHATSIZE)
 	{
@@ -215,18 +230,19 @@ void CChat::UpdateTex()
 		switch( pChat->byType)
 		{
 		case CT_WHISPER:
-			color = 4278255360; // 4278255360 D3DCOLOR_XRGB( 0, 255, 0);			
+			color = D3DCOLOR_XRGB( 128, 255, 128);			
 			break;
 		case CT_DAN:
-			color = D3DCOLOR_XRGB( 0, 255, 255);
+			color = D3DCOLOR_XRGB( 100, 200, 255);
 			break;
 		case CT_BATTLE:
 			break;
 		case CT_MUNPA_BROADCAST:
-			color = D3DCOLOR_XRGB( 255, 175, 96);
+		case CT_MUNPA_MUNJUSHOUT:
+			color = D3DCOLOR_XRGB( 255, 180, 80);
 			break;
 		default:
-			color = 4294967295; // 4294967295  D3DCOLOR_XRGB( 255, 255, 255);
+			color = D3DCOLOR_XRGB( 255, 255, 255);
 			break;
 		}
 		m_text2D[i].SetText( 0, 0, (LPCTSTR)pChat->szContent, DEFAULT_FONT /*GetFont( IDS_DUDUM, 12)*/, color);

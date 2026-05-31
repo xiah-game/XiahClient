@@ -112,7 +112,7 @@ BOOL CXiah3DObject::SetPosition(WORD wPosX,WORD wPosY)
 
 BOOL CXiah3DObject::UpdateTM()
 {
-	// �?화살일때�?ObjectTM�?내가 직접 만져 주겠�?
+	// �??�살?�때??ObjectTM???��? 직접 만져 주겠??
 
 	if( m_bTargetMove && m_nTargetMoveType == eLBP_Arrow)
 	{
@@ -129,7 +129,7 @@ BOOL CXiah3DObject::UpdateTM()
 		m_ObjectTM.t = m_Position;
 	}
 
-	// 초당 90도씩
+	// 초당 90?�씩
 
 	if( m_LocalAngle != 0)
 	{
@@ -415,15 +415,15 @@ CXiahCharObject::CXiahCharObject() : m_bTradeSell(false), m_bFECur(0), m_bFELeve
 	m_pDok_DragonPP			= NULL;
 	m_pNoi_DragonPP			= NULL;
 
-	//HT_0711 : 진각�?무공
-	m_pKuymgangsingongEffectPP	= NULL;		// 흡성 신공 금강신공
-	//m_pBunsinsingongEffectPP	= NULL;		// 흡성 신공 분신신공
-	m_pWonkisingongEffectPP		= NULL;		// 흡성 신공 원기신공
-	m_pKyugamsingongEffectPP	= NULL;		// 흡성 신공 교감신공
-	m_pKumnasingongEffectPP		= NULL;		// 흡성 신공 금나신공
-	m_pMarulsingongEffectPP		= NULL;		// 흡성 신공 마령신공
-	//m_pGwangmasingongEffectPP	= NULL;		// 흡성 신공 광마신공
-	m_pDokhyulsingongEffectPP	= NULL;		// 흡성 신공 독혈신공
+	//HT_0711 : 진각??무공
+	m_pKuymgangsingongEffectPP	= NULL;		// ?�성 ?�공 금강?�공
+	//m_pBunsinsingongEffectPP	= NULL;		// ?�성 ?�공 분신?�공
+	m_pWonkisingongEffectPP		= NULL;		// ?�성 ?�공 ?�기?�공
+	m_pKyugamsingongEffectPP	= NULL;		// ?�성 ?�공 교감?�공
+	m_pKumnasingongEffectPP		= NULL;		// ?�성 ?�공 금나?�공
+	m_pMarulsingongEffectPP		= NULL;		// ?�성 ?�공 마령?�공
+	//m_pGwangmasingongEffectPP	= NULL;		// ?�성 ?�공 광마?�공
+	m_pDokhyulsingongEffectPP	= NULL;		// ?�성 ?�공 ?�혈?�공
 
 	m_EffectPPList.clear();
 
@@ -443,7 +443,7 @@ CXiahCharObject::CXiahCharObject() : m_bTradeSell(false), m_bFECur(0), m_bFELeve
 	m_szMunpaName = _T("");
 	m_szMunpaNickName = _T("");
 
-	// 공격시의 Sound Effect 관�?
+	// 공격?�의 Sound Effect 관??
 	m_dwEnemyType = 0; 
 	m_dwOwnerID = 0;
 
@@ -456,7 +456,7 @@ CXiahCharObject::CXiahCharObject() : m_bTradeSell(false), m_bFECur(0), m_bFELeve
 
 	m_dwMunpaMarkID	=0;
 
-	// 설승단약
+	// ?�승?�약
 	m_bPotionEndKeepup = 0;
 
 	// �?
@@ -472,7 +472,7 @@ CXiahCharObject::CXiahCharObject() : m_bTradeSell(false), m_bFECur(0), m_bFELeve
 	m_pHojungkangkiEffectPP = NULL;
 	m_pSusinkikangEffectPP = NULL;
 
-	m_bGameMasterMark = 0;//HT_1023 : 운영�?마크 추가
+	m_bGameMasterMark = 0;//HT_1023 : ?�영??마크 추�?
 }
 
 CXiahCharObject::~CXiahCharObject()
@@ -541,12 +541,12 @@ void CXiahCharObject::InitClass()
 	m_fWeaponLength		= 0.5f;
 	m_bGray				= false;
 
-	// 무공 지�?이펙�?
-	// 검�?
+	// 무공 지???�펙??
+	// 검??
 	m_pMusuhonEffectPP		= NULL;
 	m_pPoksahonEffectPP		= NULL;
 	m_pKuymgangrukEffectPP	= NULL;
-	// 연랑
+	// ?�랑
 	m_pYuenoyuengEffectPP	= NULL;
 	m_pKyugamsuEffectPP		= NULL;
 	m_pWonkisingangEffectPP	= NULL;
@@ -565,15 +565,15 @@ void CXiahCharObject::InitClass()
 	m_pDok_DragonPP			= NULL;
 	m_pNoi_DragonPP			= NULL;
 
-	//HT_0711 : 진각�?무공
-	m_pKuymgangsingongEffectPP	= NULL;		// 흡성 신공 금강신공
-//	m_pBunsinsingongEffectPP	= NULL;		// 흡성 신공 분신신공
-	m_pWonkisingongEffectPP		= NULL;		// 흡성 신공 원기신공
-	m_pKyugamsingongEffectPP	= NULL;		// 흡성 신공 교감신공
-	m_pKumnasingongEffectPP		= NULL;		// 흡성 신공 금나신공
-	m_pMarulsingongEffectPP		= NULL;		// 흡성 신공 마령신공
-//	m_pGwangmasingongEffectPP	= NULL;		// 흡성 신공 광마신공
-	m_pDokhyulsingongEffectPP	= NULL;		// 흡성 신공 독혈신공
+	//HT_0711 : 진각??무공
+	m_pKuymgangsingongEffectPP	= NULL;		// ?�성 ?�공 금강?�공
+//	m_pBunsinsingongEffectPP	= NULL;		// ?�성 ?�공 분신?�공
+	m_pWonkisingongEffectPP		= NULL;		// ?�성 ?�공 ?�기?�공
+	m_pKyugamsingongEffectPP	= NULL;		// ?�성 ?�공 교감?�공
+	m_pKumnasingongEffectPP		= NULL;		// ?�성 ?�공 금나?�공
+	m_pMarulsingongEffectPP		= NULL;		// ?�성 ?�공 마령?�공
+//	m_pGwangmasingongEffectPP	= NULL;		// ?�성 ?�공 광마?�공
+	m_pDokhyulsingongEffectPP	= NULL;		// ?�성 ?�공 ?�혈?�공
 
 	m_rcObjectScreenPos		= sRect(0,0,0,0);
 	m_rcObjectScreenPos2	= sRect(0,0,0,0);
@@ -606,12 +606,12 @@ void CXiahCharObject::InitClass()
 	m_pLineParticle			= NULL;
 	m_fWeaponLength			= 0;
 	m_bGlowEnable			= 0;
-	m_bShowGage				= 0;	// 에너지 게이지
+	m_bShowGage				= 0;	// ?�너지 게이지
 	m_bShowManaGage			= 0;
 	m_bGray					= false;
 	m_dwOwnerID				= 0;
 	m_bSemiPKStatus			= 0;
-	// CG_2005/01/28 : 변종아이템기능추가
+	// CG_2005/01/28 : 변종아?�템기능추�?
 	m_bChangeItemSet		= 0;
 
 	m_dwTimeInterval		= 0;
@@ -625,7 +625,7 @@ void CXiahCharObject::InitClass()
 	m_ShotAttackInfo.wLifeTime	=	0;	
 
 	m_SwordTrace.Release();
-	// 2D Text 릴리�?하면 미출�?
+	// 2D Text 릴리�??�면 미출??
 	//m_text2DForChatBox.Release();
 	m_Shadow.Release();
 
@@ -645,11 +645,11 @@ void CXiahCharObject::InitClass()
 
 	m_dwMunpaMarkID			= 0;
 
-	// 오행 이펙�?
+	// ?�행 ?�펙??
 	m_bFECur = m_bFELevel = 0;
 	m_bOrderID = 255;
 
-	// 설승단약
+	// ?�승?�약
 	m_bPotionEndKeepup = 0;
 
 	// �?
@@ -684,7 +684,7 @@ BOOL CXiahCharObject::Release()
 
 	m_bGlowEnable = FALSE;
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
-	/* 위로 이동
+	/* ?�로 ?�동
 	TRIGGER_LIST::iterator it;
 
 	for(it = m_TriggerList.begin(); it != m_TriggerList.end(); it++)
@@ -723,7 +723,7 @@ BOOL CXiahCharObject::Release()
 		m_pSpiritEffectPP = NULL;
 	}
 
-	if( m_pItemGroundEffectPP )	// �?이펙트는 반복 이펙�?이므�?바닥 아이템이 없어지�?이펙트도 같이 삭제.
+	if( m_pItemGroundEffectPP )	// ???�펙?�는 반복 ?�펙???��?�?바닥 ?�이?�이 ?�어지�??�펙?�도 같이 ??��.
 	{
 		g_EffectManager.DeqEffectPackagePair( m_pItemGroundEffectPP );
 		m_pItemGroundEffectPP = NULL;
@@ -904,7 +904,7 @@ BOOL CXiahCharObject::ClearMugongEffect()
 		m_pSusinkikangEffectPP = NULL;
 	}
 
-	//HT_0711 : 진각�?무공
+	//HT_0711 : 진각??무공
 	if(m_pKuymgangsingongEffectPP)
 	{
 		g_EffectManager.DeqEffectPackagePair(m_pKuymgangsingongEffectPP);
@@ -953,7 +953,7 @@ BOOL CXiahCharObject::ClearMugongEffect()
 		m_pDokhyulsingongEffectPP = NULL;
 	}
 
-	// 연결�?이펙트도 같이 지워준�?
+	// ?�결???�펙?�도 같이 지?��???
 	EFFECTPACKAGEPAIRLIST::iterator eppit;
 	for(eppit=m_EffectPPList.begin(); eppit!=m_EffectPPList.end(); eppit++)
 	{
@@ -973,7 +973,7 @@ BOOL CXiahCharObject::UpdateTargetMove()
 
 	if( !m_bTargetMove)
 	{
-		// 화살 궤적
+		// ?�살 궤적
 		if( m_pLineParticle )
 		{
 			m_pLineParticle->Update( fLocalFrameScale, m_Position );
@@ -986,7 +986,7 @@ BOOL CXiahCharObject::UpdateTargetMove()
 		return TRUE;
 	}
 
-	// TargetPosition�?실시간으�?변한다, 오브젝트 가 있다�?
+	// TargetPosition???�시간으�?변?�다, ?�브?�트 가 ?�다�?
 	if( m_TargetObjectID != 0)
 	{
 		XiahObject::CXiahObject *pTargetObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, m_TargetObjectID, m_TargetObjectType));
@@ -1017,7 +1017,7 @@ BOOL CXiahCharObject::UpdateTargetMove()
 
 //			SetAngleTarget( m_TargetPosition);
 
-			// 화살 궤적
+			// ?�살 궤적
 			if( m_pLineParticle )
 			{
 				m_pLineParticle->Update( fLocalFrameScale, m_Position );
@@ -1030,7 +1030,7 @@ BOOL CXiahCharObject::UpdateTargetMove()
 			m_bRenderOK = false;
 //			m_bDeleteME = TRUE;
 
-			// 화살 궤적
+			// ?�살 궤적
 			if( m_pLineParticle )
 			{
 				m_pLineParticle->End();
@@ -1039,8 +1039,8 @@ BOOL CXiahCharObject::UpdateTargetMove()
 		}
 
 		break;
-	case eLBP_CharNavigation:	// 이따쉭은 비등�?운동인데 �?,�?
-		// 여기�?아무것도 할수 없겠�?
+	case eLBP_CharNavigation:	// ?�따??? 비등???�동?�데 ??,??
+		// ?�기???�무것도 ?�수 ?�겠??
 
 		break;
 	}
@@ -1127,25 +1127,25 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 
 	float fLocalFrameScale = 33.0f * g_fFrameScale;
 
-	// 아이�?회전
+	// ?�이???�전
 	if(m_bObjType == OBJTYPE_ITEM)
 	{
 		long _f = g_dwCurTime;
 		SetAngle( _f / 5 );
 	}
 
-//  화살 이펙트를 위해�?이렇�?했음.
+//  ?�살 ?�펙?��? ?�해???�렇�??�음.
 //	if( m_bTargetMove)
 //	{
 		UpdateTargetMove();
 //	}
 
-	// 야차�?광마독공, 사이즈가 커진�?
+	// ?�차??광마?�공, ?�이즈�? 커진??
 	if( m_bObjType == OBJTYPE_PC && m_bSubObjType == 4 )
 	{
 		if( m_bNowGwangmadokgong )
 		{
-			// 목표 값보�?작으�?점점 키워준�?
+			// 목표 값보???�으�??�점 ?�워준??
 			if( m_fLocalScaleForGwangmadokgong < GWANGMADOKGONG_CHARSCALE )
 			{
 				m_fLocalScaleForGwangmadokgong += (GWANGMADOKGONG_CHARSCALE-1.0f) * (fLocalFrameScale) / 1500.0f;
@@ -1162,7 +1162,7 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 		}
 		else
 		{
-			// 이제 다시 줄여준�?
+			// ?�제 ?�시 줄여준??
 			if( m_fLocalScaleForGwangmadokgong > 1.0f )
 			{
 				m_fLocalScaleForGwangmadokgong -= (GWANGMADOKGONG_CHARSCALE-1.0f) * (fLocalFrameScale) / 1500.0f;
@@ -1178,12 +1178,12 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 			}
 		}
 	}
-	//HT_0711 : 진각�?무공(광마신공)
+	//HT_0711 : 진각??무공(광마?�공)
 	else if( m_bObjType == OBJTYPE_PC && m_bRebirth > 6 )
 	{
 		if( m_bNowGwangmadokgong )
 		{
-			// 목표 값보�?작으�?점점 키워준�?
+			// 목표 값보???�으�??�점 ?�워준??
 			if( m_fLocalScaleForGwangmadokgong < GWANGMADOKGONG_CHARSCALE )
 			{
 				m_fLocalScaleForGwangmadokgong += (GWANGMADOKGONG_CHARSCALE-1.0f) * (fLocalFrameScale) / 1500.0f;
@@ -1200,7 +1200,7 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 		}
 		else
 		{
-			// 이제 다시 줄여준�?
+			// ?�제 ?�시 줄여준??
 			if( m_fLocalScaleForGwangmadokgong > 1.0f )
 			{
 				m_fLocalScaleForGwangmadokgong -= (GWANGMADOKGONG_CHARSCALE-1.0f) * (fLocalFrameScale) / 1500.0f;
@@ -1220,11 +1220,11 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 	//
 	UpdateTM();
 
-	// 캐릭터가 화면�?안보이면 Update만하�?Render�?안한�? 이때 연결�?이펙트도 같이 해줘야함.
-	// 여기서는 메인 오브젝트와 부착된 오브젝트�?Mesh 이펙트만 해주�?되고 
-	// 메인 오브젝트�?애니메이�?이펙트는 CCharRender::PrepareRender 에서 한다. 
-	// Mesh 이펙�? 보이�?오브젝트가 안보이면 CXiahCharObject에서 Update할때 Visible = FALSE�?하는�?
-	// 이때 얘가 가지�?있는 Mesh 이펙트도 같이 안보이도�?해줘�?한다.캐릭터와 이펙트가 따로 렌더링되�?때문.
+	// 캐릭?��? ?�면???�보?�면 Update만하�?Render???�한?? ?�때 ?�결???�펙?�도 같이 ?�줘?�함.
+	// ?�기?�는 메인 ?�브?�트?� 부착된 ?�브?�트??Mesh ?�펙?�만 ?�주�??�고 
+	// 메인 ?�브?�트???�니메이???�펙?�는 CCharRender::PrepareRender ?�서 ?�다. 
+	// Mesh ?�펙?? 보이???�브?�트가 ?�보?�면 CXiahCharObject?�서 Update?�때 Visible = FALSE�??�는??
+	// ?�때 ?��? 가지�??�는 Mesh ?�펙?�도 같이 ?�보?�도�??�줘???�다.캐릭?��? ?�펙?��? ?�로 ?�더링되�??�문.
 	if( bVisible )
 	{
 		if( m_CharRender.m_pMeshEffectPackagePair )
@@ -1260,7 +1260,7 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 			m_pRebirthItemEffectPP->bIsVisible = false;
 	}// if
 
-	// 숨어 있는 애가 Mesh Effect가 있으�?이것�?통과
+	// ?�어 ?�는 ?��? Mesh Effect가 ?�으�??�것???�과
 	if( m_bObjStatus == NPCSTATUS_HIDE )
 	{
 		if( m_CharRender.m_pMeshEffectPackagePair )
@@ -1271,7 +1271,7 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 	m_CharRender.SetPosition( &m_ObjectTM);
 	m_CharRender.SetLocalAngle( m_LocalAngle);
 
-	// 바닥 아이템일 경우, 첨에 한번 실행. 이펙�?생성.
+	// 바닥 ?�이?�일 경우, 첨에 ?�번 ?�행. ?�펙???�성.
 	if( m_bCreateItemGroundEffect && !m_pItemGroundEffectPP )
 	{
 		_EFFECTPACKAGE* pPackage = g_EffectManager.EnqAppearEffectImmediately( eItemGround );
@@ -1291,7 +1291,7 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 	{
 		float terrain_height = GetHeight( m_Position.x, m_Position.z);
 
-		// 비등속이 일어난다
+		// 비등?�이 ?�어?�다
 		if(m_bObjType == OBJTYPE_PC)
 		{
 			unsigned char ground_type = 0;
@@ -1306,21 +1306,21 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 		}
 
 		/*
-		// 의문�?코드! PC�?m_bCollide가 TRUE인데 그러�?Y좌표보정은?? 이렇�?하니�?빠지�?올라가�?현상나타�?
+		// ?�문??코드! PC??m_bCollide가 TRUE?�데 그러�?Y좌표보정?�?? ?�렇�??�니�?빠�?�??�라가???�상?��???
 		if( m_ObjectTM.t.y > terrain_height && m_bCollide == FALSE)
 			m_ObjectTM.t.y -= GRAVITY_PER_FRAME * g_fFrameScale;
 		if( m_ObjectTM.t.y < terrain_height && m_bCollide == FALSE)
 			m_ObjectTM.t.y = terrain_height;
 		*/
-		// 그리하여, 바운딩박�?위에 올라�?때를 제외하고서는 보정해준�?
+		// 그리?�여, 바운?�박???�에 ?�라�??��? ?�외?�고?�는 보정?��???
 		if( m_ObjectTM.t.y > terrain_height && m_bRide == FALSE)
 			m_ObjectTM.t.y -= GRAVITY_PER_FRAME * g_fFrameScale;
 
 		if( m_ObjectTM.t.y < terrain_height && m_bRide == FALSE)
 			m_ObjectTM.t.y = terrain_height;
 
-		// 올라가 있으�?여기�?보정!
-		if(m_bRide == TRUE) m_ObjectTM.t.y = m_fColHeight;	// 임시저�?바운�?높이
+		// ?�라가 ?�으�??�기??보정!
+		if(m_bRide == TRUE) m_ObjectTM.t.y = m_fColHeight;	// ?�시?�??바운???�이
 
 	}
 	else
@@ -1340,31 +1340,31 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 		{
 			if( m_ChildChar[ i].IsValid())
 			{
-				m_ChildChar[ i].PrepareRender( bVisible == FALSE);	// 이넘들은 특별�?할게 없는�?
+				m_ChildChar[ i].PrepareRender( bVisible == FALSE);	// ?�넘?��? ?�별???�게 ?�는??
 			}
 		}
 	}
 
-	// 숨어있는 애들은 그림�?통과
+	// ?�어?�는 ?�들?� 그림???�과
 	if( bVisible && m_bObjStatus != NPCSTATUS_HIDE)
 	{
 		Vector3 size = m_LocalBound.Size();
 		size.y = 0;
 		float fSize = 1.1f;
 
-		// 2004_04_26 Changth : �?비무에서�?그림자가 바뀐다.
+		// 2004_04_26 Changth : ??비무?�서??그림?��? 바뀐다.
 
-		// 일반 그림�? �?비무에서 나오�?특별�?그림자를 구분
-		// 0 : 일반 그림�?
-		// 1 : �?비무에서 단주
-		// 2 : �?비무에서 단원
+		// ?�반 그림?? ??비무?�서 ?�오???�별??그림?��? 구분
+		// 0 : ?�반 그림??
+		// 1 : ??비무?�서 ?�주
+		// 2 : ??비무?�서 ?�원
 		// 3 : 문주
 		BYTE byRenderType = 0;
 
 		DWORD dwResIDAry[4];
-		dwResIDAry[0] = 50000786;	// 일반 그림�?
-		dwResIDAry[1] = 50001584;	// 단주 - 육각�?
-		dwResIDAry[2] = 50001583;	// 단원 - 원형
+		dwResIDAry[0] = 50000786;	// ?�반 그림??
+		dwResIDAry[1] = 50001584;	// ?�주 - ?�각??
+		dwResIDAry[2] = 50001583;	// ?�원 - ?�형
 		dwResIDAry[3] = 50002012;	// 문주
 
 		DWORD dwResID = dwResIDAry[0];
@@ -1374,29 +1374,29 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 		cColorAry[1] = D3DCOLOR_XRGB(  16, 128, 255 );	// Blue
 		cColorAry[2] = D3DCOLOR_XRGB( 255,  67,  16 );	// Red
 		cColorAry[3] = D3DCOLOR_XRGB( 255, 211, 117 );	// Yellow
-		cColorAry[4] = D3DCOLOR_XRGB(   0, 255, 128 );	// Black�?초록색으�?바�?
+		cColorAry[4] = D3DCOLOR_XRGB(   0, 255, 128 );	// Black??초록?�으�?바�?
 
 		D3DCOLOR cColor = cColorAry[0];
 
 		if(m_bObjType == OBJTYPE_PC)
 		{
-			if(m_dwPartyID)	// �?캐릭�?
+			if(m_dwPartyID)	// ??캐릭??
 			{
 				CXiahCharObject* pMainCharObject = (CXiahCharObject*)g_pMainChar->m_pObject;
 
-				// server id�?클라이언트가 가지�?있는 id�?바꾼�?
+				// server id�??�라?�언?��? 가지�??�는 id�?바꾼??
 				DWORD dwPartyLeaderID = MAKEOBJECTID( 0, m_dwPartyLeaderID, OBJTYPE_PC );
 
-				if( m_dwEnemyPartyID )	// �?비무 중인 캐릭터다.
+				if( m_dwEnemyPartyID )	// ??비무 중인 캐릭?�다.
 				{
-					if( pMainCharObject == this ) // 이게 나야?
+					if( pMainCharObject == this ) // ?�게 ?�야?
 					{
-						// �?비무일때에는 포탈 불가�?
+						// ??비무?�때?�는 ?�탈 불�???
 						g_MainCharInfo.m_bPortalMove = false;
 
 						cColor = cColorAry[1];
 
-						// 내가 단주인가?
+						// ?��? ?�주?��??
 						if( g_MainCharInfo.m_dwObjectID == m_dwPartyLeaderID )
 						{
 							dwResID = dwResIDAry[1];
@@ -1408,13 +1408,13 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 							byRenderType = 2;
 						}
 					}
-					else	// 내가 아닌 다른 캐릭터일�?
+					else	// ?��? ?�닌 ?�른 캐릭?�일??
 					{
-						if( m_dwPartyID == pMainCharObject->m_dwPartyID )	// 아군이네
+						if( m_dwPartyID == pMainCharObject->m_dwPartyID )	// ?�군?�네
 						{
 							cColor = cColorAry[1];
 
-							// 이녀석이 단주인가?
+							// ?��??�이 ?�주?��??
 							if( dwPartyLeaderID == m_dwXiahObjectID )
 							{
 								dwResID = dwResIDAry[1];
@@ -1426,11 +1426,11 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 								byRenderType = 2;
 							}
 						}
-						else if( m_dwPartyID == pMainCharObject->m_dwEnemyPartyID )	// 적군이네
+						else if( m_dwPartyID == pMainCharObject->m_dwEnemyPartyID )	// ?�군?�네
 						{
 							cColor = cColorAry[2];
 
-							// 이녀석이 단주인가?
+							// ?��??�이 ?�주?��??
 							if( dwPartyLeaderID == m_dwXiahObjectID )
 							{
 								dwResID = dwResIDAry[1];
@@ -1442,11 +1442,11 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 								byRenderType = 2;
 							}
 						}
-						else	// �?�?단이로구�?
+						else	// ?????�이로구??
 						{
 							cColor = cColorAry[3];
 
-							// 이녀석이 단주인가?
+							// ?��??�이 ?�주?��??
 							if( dwPartyLeaderID == m_dwXiahObjectID )
 							{
 								dwResID = dwResIDAry[1];
@@ -1460,12 +1460,12 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 						}
 					}
 				}	// if( m_dwEnemyPartyID )
-				else	// 단은 있고 �?비무�?안하�?있다.
+				else	// ?��? ?�고 ??비무???�하�??�다.
 				{
 					cColor = cColorAry[4];
 					byRenderType = 0;
 
-					// 이녀석이 단주인가?
+					// ?��??�이 ?�주?��??
 					if( dwPartyLeaderID == m_dwXiahObjectID )
 					{
 						dwResID = dwResIDAry[1];
@@ -1479,12 +1479,12 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 				byRenderType = 3;
 
 				fSize = 1.5f;
-				// 문주 그림�?교체
+				// 문주 그림??교체
 			} // if(m_dwMunpaOrder && !m_dwPartyID)
 
-			// 이번�?문파전이�?
-			// 문파전일�? 아군은 파란�? 적은 빨간색이�?
-			// 주인공인 메인 캐릭터가 문파전을 할때에만 적용된다.
+			// ?�번??문파?�이??
+			// 문파?�일?? ?�군?� ?��??? ?��? 빨간?�이??
+			// 주인공인 메인 캐릭?��? 문파?�을 ?�때?�만 ?�용?�다.
 			if( g_pMainChar )
 			{			
 				CXiahCharObject* pMainCharObject = (CXiahCharObject*)g_pMainChar->m_pObject;
@@ -1521,7 +1521,7 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 
 		bool bShadowCreate = false;
 
-		// 메인 캐릭터가 암흑무에 걸리�?메인 캐릭�?그림자만 그린�?
+		// 메인 캐릭?��? ?�흑무에 걸리�?메인 캐릭??그림?�만 그린??
 		if( !g_XiahEnvInfo.m_bAmhukmuFog )
 		{
             m_Shadow.Create( XiahPak::GetTexture(dwResID, true), m_Position.x,m_Position.z , size.GetLength() * fSize, cColor, TRUE, byRenderType );
@@ -1557,11 +1557,11 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 		{
 			Vector3 vStart,vEnd;
 
-			// 무투꺼는 두개가 변한다.
+			// 무투꺼는 ?�개가 변?�다.
 			Vector3 vV;
 			int nCharID = m_CharRender.GetCharID();
 			if( nCharID != 891 )
-				vV = Vector3( 0, 0, -m_fWeaponLength );		// 검�? 연랑.
+				vV = Vector3( 0, 0, -m_fWeaponLength );		// 검?? ?�랑.
 			else
 				vV = Vector3( 0, 0.7f, -m_fWeaponLength );	// 무투
 
@@ -1575,7 +1575,7 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 		}
 	}// if
 
-	// 야차�?왼손 �?궤적
+	// ?�차???�손 �?궤적
 	if( m_bSubObjType == 4 && m_SwordTrace2.IsStart() )
 	{
 		Matrix4x4 *pBoneMatrix = m_CharRender.GetChildBoneMatrix( eLBP_LeftHand );
@@ -1597,62 +1597,62 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 		}
 	}// if
 
-	// 무공 지�?이펙�? 포탈�?날라�?캐릭�?문제�?여기�?이펙트를 만들�?업데이트�?해준�?
+	// 무공 지???�펙?? ?�탈�??�라??캐릭??문제�??�기???�펙?��? 만들�??�데?�트�??��???
 	if( bVisible )
 	{
-		if( m_bObjType == OBJTYPE_PC )		// PC에만 붙는 무공 지�?이펙�?
+		if( m_bObjType == OBJTYPE_PC )		// PC?�만 붙는 무공 지???�펙??
 		{
-			// 무수�?
+			// 무수??
 			PersistEffect(&m_pMusuhonEffectPP, OUTGONGID_MUSUHON, eMusuhon, fLocalFrameScale);
 
-			// 폭사�?
+			// ??��??
 			PersistEffect(&m_pPoksahonEffectPP, OUTGONGID_POKSAHON, ePoksahon, fLocalFrameScale);
 
-			// 금강�?
+			// 금강??
 			PersistEffect(&m_pKuymgangrukEffectPP, OUTGONGID_KUMKANGLUK, eKuymgangruk, fLocalFrameScale);
 
-			// 원기신강.
+			// ?�기?�강.
 			PersistEffect(&m_pWonkisingangEffectPP, OUTGONGID_W0NKISINKANG, eWonkisingang, fLocalFrameScale);
 
 			// 반탄강기.
 			PersistEffect(&m_pBantankangkiEffectPP, OUTGONGID_BANTANKANGKI, eBantankangki, fLocalFrameScale);
 
-			// 적운강기.
+			// ?�운강기.
 			PersistEffect(&m_pJukwonkangkiEffectPP, OUTGONGID_JUKUNKANGKI, eJukwonkangki, fLocalFrameScale);
 
 			// 만독불진.
 			PersistEffect(&m_pMandokbuljinEffectPP, OUTGONGID_MANDOKBULJIN, eMandokbuljin, fLocalFrameScale);
 
-			// 연랑 사장신공지�?
+			// ?�랑 ?�장?�공지??
 			PersistEffect(&m_pSajangsingongEffectPP, YUN_SAJANGSINGONG, eYunSajangsingong, fLocalFrameScale);
 
 			// 무투 기흡강기
 			PersistEffect(&m_pKihubkangkiEffectPP, MU_KIHUBKANGKI, eMuKihubkangki, fLocalFrameScale);
 
-			// 야차 호정강기
+			// ?�차 ?�정강기
 			PersistEffect(&m_pHojungkangkiEffectPP, YA_HOJUNGKANGKI, eYaHojungkangki, fLocalFrameScale);
 
-			// 야차 은신술
+			// ?�차 ?�?�술
 			PersistEffect(&m_pEunsinsulEffectPP, YA_EUNSINSUL, eYaEunsinsul, fLocalFrameScale);
 
-			// 연랑 수신기강
+			// ?�랑 ?�신기강
 			PersistEffect(&m_pSusinkikangEffectPP, YUN_SUSINKIKANG, eYunrangSpecial, fLocalFrameScale);
 
-			////HT_0711 : 진각�?무공
-			// 흡성 신공 금강신공
+			////HT_0711 : 진각??무공
+			// ?�성 ?�공 금강?�공
 			PersistEffect(&m_pKuymgangsingongEffectPP, REBRITH_KUMKANGSINGONG, eKuymgangruk, fLocalFrameScale);
 
-			// 흡성 신공 분신신공
+			// ?�성 ?�공 분신?�공
 			//PersistEffect(&m_pBunsinsingongEffectPP, REBRITH_BUSNSINGONG, eKuymgangruk, fLocalFrameScale);
 			
-			// 흡성 신공 원기신공
+			// ?�성 ?�공 ?�기?�공
 			PersistEffect(&m_pWonkisingongEffectPP, REBRITH_W0NKISINGONG, eWonkisingang, fLocalFrameScale);
 			
-			// 흡성 신공 광마신공
+			// ?�성 ?�공 광마?�공
 			//PersistEffect(&m_pGwangmasingongEffectPP, REBRITH_GWANGMASINGONG, eKuymgangruk, fLocalFrameScale);
 			
 			
-			// 이제 경공이다.
+			// ?�제 경공?�다.
 						bool hasGyungGong = ( m_KeepUpMugongList.IsExist(OUTGONGID_ILYUIDOGANG ) ||
 								  m_KeepUpMugongList.IsExist(OUTGONGID_YUESUSINYUNG) ||
 								  m_KeepUpMugongList.IsExist(OUTGONGID_JILPUNGBO)    ||
@@ -2041,12 +2041,12 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 						g_EffectManager.DeqEffectPackagePair( m_pNoi_DragonPP );
 					m_pNoi_DragonPP = NULL;
 				}
-			}//각성 뇌룡 무공
+			}//각성 ?�룡 무공
 
 		}// if( OBJTYPE_PC || OBJTYPE_NPC || OBJTYPE_PET )
 	}// if( bVisible )
 	else
-	{	// 시간 계산은 계속하고 보이지 않도�?한다.
+	{	// ?�간 계산?� 계속?�고 보이지 ?�도�??�다.
 		EffectTimeUpdate(m_pMusuhonEffectPP, fLocalFrameScale);
 
 		EffectTimeUpdate(m_pPoksahonEffectPP, fLocalFrameScale);
@@ -2107,7 +2107,7 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 
 		EffectTimeUpdate(m_pSusinkikangEffectPP, fLocalFrameScale);
 
-		EffectTimeUpdate(m_pKuymgangsingongEffectPP, fLocalFrameScale); //HT_0711 : 진각�?무공
+		EffectTimeUpdate(m_pKuymgangsingongEffectPP, fLocalFrameScale); //HT_0711 : 진각??무공
 
 		//EffectTimeUpdate(m_pBunsinsingongEffectPP, fLocalFrameScale);
 
@@ -2125,7 +2125,7 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 
 	}// if( bVisible )
 
-	// 캐릭터에 연결�?이펙�? 여기�?리스�?관리만 하면 �? 사용하고 있는 것만 가지�?있는�?
+	// 캐릭?�에 ?�결???�펙?? ?�기??리스??관리만 ?�면 ?? ?�용?�고 ?�는 것만 가지�??�는??
 	EFFECTPACKAGEPAIRLIST NowUseingList;
 
 	EFFECTPACKAGEPAIRLIST::iterator eppit;
@@ -2158,7 +2158,7 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 /*
 BOOL CXiahCharObject::ShadowRender()
 {
-	// 일단 PC, NPC, FUNCNPC �?Real Shadow
+	// ?�단 PC, NPC, FUNCNPC �?Real Shadow
 	if(m_bObjType != OBJTYPE_PC || m_bObjType != OBJTYPE_NPC || m_bObjType != OBJTYPE_FUNCTIONALNPC) return FALSE;
 
 	// CCharRender Class
@@ -2168,12 +2168,12 @@ BOOL CXiahCharObject::ShadowRender()
 */
 
 
-// XIAH CHARACTER OBJECT�?렌더�?
+// XIAH CHARACTER OBJECT�??�더�?
 BOOL CXiahCharObject::Render()
 {
 	if( !m_bRenderOK ) 
 	{
-		// 화살 궤적.
+		// ?�살 궤적.
 		if( m_pLineParticle )
 			m_pLineParticle->Render();
 
@@ -2183,7 +2183,7 @@ BOOL CXiahCharObject::Render()
 	if( !m_CharRender.IsValid()) return TRUE;
 
 	BOOL bYaChaGwangmadokgong = FALSE;
-	// 야차 광마독공은 헐크가 되어�?한다.
+	// ?�차 광마?�공?� ?�크가 ?�어???�다.
 	if( m_bObjType == OBJTYPE_PC && m_bSubObjType == 4 )
 	{
 		if( m_bNowGwangmadokgong )
@@ -2194,7 +2194,7 @@ BOOL CXiahCharObject::Render()
 		else
 			m_CharRender.SetMaterialDiffuseColor( FALSE, 1, 1, 1 );
 	}
-	//HT_0711 : 진각�?무공(광마신공)
+	//HT_0711 : 진각??무공(광마?�공)
 	else if( m_bObjType == OBJTYPE_PC && m_bRebirth > 6 )
 	{
 		if( m_bNowGwangmadokgong )
@@ -2214,7 +2214,7 @@ BOOL CXiahCharObject::Render()
 		{
 			if( m_ChildChar[ i].IsValid())
 			{
-				// 야차 광마독공은 모자까지 헐크가 되어�?한다.
+				// ?�차 광마?�공?� 모자까�? ?�크가 ?�어???�다.
 				if( i == eLBP_Head )
 				if( bYaChaGwangmadokgong )
 					m_ChildChar[ i].SetMaterialDiffuseColor( TRUE, GWANGMADOKGONG_MATERIAL_R, GWANGMADOKGONG_MATERIAL_G, GWANGMADOKGONG_MATERIAL_B );
@@ -2228,7 +2228,7 @@ BOOL CXiahCharObject::Render()
 
 	g_pDirect3DDevice->SetRenderState( D3DRS_CULLMODE, D3DCULL_CCW);
 
-	// 에너지 게이지
+	// ?�너지 게이지
 	if( m_bShowGage)
 	{
 		if( g_pCurrentCamera)
@@ -2252,7 +2252,7 @@ BOOL CXiahCharObject::Render()
 			RenderEnergyGauge( m_rcObjectScreenPos.left - 40, m_rcObjectScreenPos.top - 5, 80, m_dwCurHP, m_dwMaxHP, m_cGageColor, D3DCOLOR_XRGB(0, 0, 0), 5);
 		}
 
-		m_bShowObjectName = TRUE;	// �?. 이건 XiahGame_Main.cpp�?다른 사람�?쓰고 있어�?그냥 넣었�? 나중�?고쳐야됨
+		m_bShowObjectName = TRUE;	// ??. ?�건 XiahGame_Main.cpp�??�른 ?�람???�고 ?�어??그냥 ?�었?? ?�중??고쳐?�됨
 	}
 
 	if(m_bShowObjectName || m_bSemiPKStatus == 2)
@@ -2277,8 +2277,8 @@ BOOL CXiahCharObject::Render()
 					cTradeName	 = D3DCOLOR_XRGB(183, 46, 247);
 					cTradeDea	 = D3DCOLOR_XRGB(183, 46, 247);
 				}
-				// CG_2005/01/28 : 변종아이템기능추가
-				// 변종아이템 셋트�?입었�?		
+				// CG_2005/01/28 : 변종아?�템기능추�?
+				// 변종아?�템 ?�트�??�었??		
 				else if(m_bChangeItemSet == 1)
 				{
 					m_cNameColor = D3DCOLOR_XRGB( 0, 255, 0 );
@@ -2311,7 +2311,7 @@ BOOL CXiahCharObject::Render()
 
 						if((m_dwMunpaID != 0) && (g_MainCharInfo.m_dwLordMunpaID == m_dwMunpaID))
 						{
-							// 우승 문파명을 하늘색으�?바꿔�?							
+							// ?�승 문파명을 ?�늘?�으�?바꿔�?							
 							m_tObjectName.SetText( 0, 0, strTemp, GetFont(IDS_GULIM, 12), D3DCOLOR_XRGB( 102, 204, 255 ), 8, 1, m_cNameColor);
 						}
 						else
@@ -2410,11 +2410,11 @@ BOOL CXiahCharObject::Render()
 				}
 				else if(!m_bChangeItemSet && g_bScreenShot)
 				{
-					m_cNameColor = D3DCOLOR_XRGB( 255, 255, 200);//HO_0509_07 오토대처방�?: 스샷으로 색상�?알아내지 못하도록 색상�?변�?
+					m_cNameColor = D3DCOLOR_XRGB( 255, 255, 200);//HO_0509_07 ?�토?�처방??: ?�샷?�로 ?�상???�아?��? 못하?�록 ?�상??변�?
 				}
 				else
 				{
-					m_cNameColor = D3DCOLOR_XRGB( 240, 240, 190 );//HO_0509_07 오토대처방�?: 아이템을 아이�?명의 색상으로 검색하기에 색상�?변�?.... 기존색상( 255, 255, 200)					
+					m_cNameColor = D3DCOLOR_XRGB( 240, 240, 190 );//HO_0509_07 ?�토?�처방??: ?�이?�을 ?�이??명의 ?�상?�로 검?�하기에 ?�상??변�?.... 기존?�상( 255, 255, 200)					
 				}
 
 				m_tObjectName.SetText(0, 0, (LPCTSTR)m_szObjectName, GetFont(IDS_GULIM, 12), m_cNameColor, 8);
@@ -2422,7 +2422,7 @@ BOOL CXiahCharObject::Render()
 				m_rcObjectScreenPos.left -= m_tObjectName.GetSize().cx / 2;
 			}
 		    break;		
-		//case OBJTYPE_ITEM: //HO_0525_07 오토대처방�?: 기존코드
+		//case OBJTYPE_ITEM: //HO_0525_07 ?�토?�처방??: 기존코드
 		//	{
 		//		if(m_bChangeItemSet)
 		//		{
@@ -2446,7 +2446,7 @@ BOOL CXiahCharObject::Render()
 				{
 					if((pInfo->m_dwOwnID != 0) && (g_MainCharInfo.m_dwLordMunpaID == pInfo->m_dwOwnID))
 					{
-						// 우승 문파명을 하늘색으�?바꿔�?							
+						// ?�승 문파명을 ?�늘?�으�?바꿔�?							
 						m_tObjectName.SetText(0, 0, (LPCTSTR)m_szObjectName, GetFont(IDS_GULIM, 12), D3DCOLOR_XRGB( 102, 204, 255 ), 8);
 					}
 					else
@@ -2481,11 +2481,11 @@ BOOL CXiahCharObject::Render()
 			break;
 		}
 
-		// 여기�?안그린다.
+		// ?�기???�그린다.
 //		m_tObjectName.Render();
 	} // if( m_bShowObjectName)
 
-	// 화살 궤적.
+	// ?�살 궤적.
 	if( m_pLineParticle )
         m_pLineParticle->Render();
 
@@ -2493,7 +2493,7 @@ BOOL CXiahCharObject::Render()
 	if( m_SwordTrace.IsStart() )
 		m_SwordTrace.Render();
 
-	// 야차 왼손 �?궤적
+	// ?�차 ?�손 �?궤적
 	if( m_bSubObjType == 4 && m_SwordTrace2.IsStart() )
 		m_SwordTrace2.Render();
 
@@ -2511,10 +2511,14 @@ void CXiahCharObject::SetChatBox( DWORD dwTimeInterval, sString ChatMsg, BYTE by
 	switch( byChatType)
 	{
 	case CT_WHISPER:
-		m_ChatColor = D3DCOLOR_XRGB( 0, 255, 0);
+		m_ChatColor = D3DCOLOR_XRGB( 128, 255, 128);
 		break;
 	case CT_DAN:
-		m_ChatColor = D3DCOLOR_XRGB( 255, 255, 0);
+		m_ChatColor = D3DCOLOR_XRGB( 100, 200, 255);
+		break;
+	case CT_MUNPA_BROADCAST:
+	case CT_MUNPA_MUNJUSHOUT:
+		m_ChatColor = D3DCOLOR_XRGB( 255, 180, 80);
 		break;
 	case CT_BATTLE:
 		break;
@@ -2539,17 +2543,17 @@ void CXiahCharObject::ShowChatBox()
 		{
 			Vector3 scPos = g_pCurrentCamera->WorldToScreen( m_Position + Vector3( 0, m_LocalBound.m_vMax.y + 1, 0));
 
-			if( m_bShowObjectName || m_bSemiPKStatus == 2)	// SEMI PK�?깜빡상태�?경우
+			if( m_bShowObjectName || m_bSemiPKStatus == 2)	// SEMI PK??깜빡?�태??경우
 			{
 				if(m_bTradeSell)
 				{
-					// 개인 상점 개설�?
+					// 개인 ?�점 개설??
 					m_rcObjectScreenPos2.left = scPos.x - (m_ChatMsg.size()*2 + 6);
 					m_rcObjectScreenPos2.top = m_rcObjectScreenPos.top + 32;
 				}
 				else
 				{
-					// 일반 사용�?
+					// ?�반 ?�용??
 					if(m_dwMunpaID)
 					{
 						m_rcObjectScreenPos2.left = m_rcObjectScreenPos.left + m_tObjectName.GetSize(1).cx + 6;
@@ -2564,7 +2568,7 @@ void CXiahCharObject::ShowChatBox()
 			} // if( m_bShowObjectName)
 			else
 			{
-				// 이것�?저것도 아닌사람
+				// ?�것???�것도 ?�닌?�람
 				m_rcObjectScreenPos2.left = scPos.x - m_ChatMsg.size()*2;
 				m_rcObjectScreenPos2.top = scPos.y;
 			}
@@ -2586,7 +2590,7 @@ BOOL CXiahCharObject::Create(int nCharID,int nMeshType,int nTextureType,int nAni
 	{
 		if(m_CharRender.SetAnimation( nAniType) == FALSE)
 		{
-			// 여기�?RETURN 하면 BOUNDBOX 설정 실패�?
+			// ?�기??RETURN ?�면 BOUNDBOX ?�정 ?�패??
 			//return FALSE;	
 		}
 	}
@@ -2660,11 +2664,11 @@ BOOL CXiahCharObject::SetAnimation(int nCurMotionType,int nNextMotionType,int nC
 		{
 			Vector3 vStart,vEnd;
 
-			// 무투꺼는 두개가 변한다.
+			// 무투꺼는 ?�개가 변?�다.
 			Vector3 vV;
 			int nCharID = m_CharRender.GetCharID();
 			if( nCharID != 891 )
-				vV = Vector3( 0, 0, -m_fWeaponLength );		// 검�? 연랑.
+				vV = Vector3( 0, 0, -m_fWeaponLength );		// 검?? ?�랑.
 			else
 				vV = Vector3( 0, 0.7f, -m_fWeaponLength );	// 무투
 
@@ -2677,7 +2681,7 @@ BOOL CXiahCharObject::SetAnimation(int nCurMotionType,int nNextMotionType,int nC
 		}
 		else
 		{
-			DBG_LogFile( _T("CXiahCharObject::SetAnimation 실패"));
+			DBG_LogFile( _T("CXiahCharObject::SetAnimation ?�패"));
 //			return false;
 		}
 	}
@@ -2687,7 +2691,7 @@ BOOL CXiahCharObject::SetAnimation(int nCurMotionType,int nNextMotionType,int nC
 		m_SwordTrace.End();
 	}
 
-	// 야차 왼손 �?궤적
+	// ?�차 ?�손 �?궤적
 	if( bSwordTrace && m_bSubObjType == 4 )
 	{
 		Matrix4x4 *pBoneMatrix = m_CharRender.GetChildBoneMatrix( eLBP_LeftHand);
@@ -2708,7 +2712,7 @@ BOOL CXiahCharObject::SetAnimation(int nCurMotionType,int nNextMotionType,int nC
 		}
 		else
 		{
-			DBG_LogFile( _T("CXiahCharObject::SetAnimation 실패"));
+			DBG_LogFile( _T("CXiahCharObject::SetAnimation ?�패"));
 		}
 	}
 
@@ -2754,11 +2758,11 @@ BOOL CXiahCharObject::SetAnimation(int nMotionType,int nIndex,float fAnimationSp
 		{
 			Vector3 vStart,vEnd;
 
-			// 무투꺼는 두개가 변한다.
+			// 무투꺼는 ?�개가 변?�다.
 			Vector3 vV;
 			int nCharID = m_CharRender.GetCharID();
 			if( nCharID != 891 )
-				vV = Vector3( 0, 0, -m_fWeaponLength );		// 검�? 연랑.
+				vV = Vector3( 0, 0, -m_fWeaponLength );		// 검?? ?�랑.
 			else
 				vV = Vector3( 0, 0.7f, -m_fWeaponLength );	// 무투
 
@@ -2776,7 +2780,7 @@ BOOL CXiahCharObject::SetAnimation(int nMotionType,int nIndex,float fAnimationSp
 		m_SwordTrace.End();
 	}
 
-	// 야차 왼손 �?궤적
+	// ?�차 ?�손 �?궤적
 	if( bSwordTrace && m_bSubObjType == 4 )
 	{
 		Matrix4x4 *pBoneMatrix = m_CharRender.GetChildBoneMatrix( eLBP_LeftHand);
@@ -2797,7 +2801,7 @@ BOOL CXiahCharObject::SetAnimation(int nMotionType,int nIndex,float fAnimationSp
 		}
 		else
 		{
-			DBG_LogFile( _T("CXiahCharObject::SetAnimation 실패"));
+			DBG_LogFile( _T("CXiahCharObject::SetAnimation ?�패"));
 		}
 	}
 	if( !bSwordTrace && m_bSubObjType == 4 )
@@ -2810,7 +2814,7 @@ BOOL CXiahCharObject::SetAnimation(int nMotionType,int nIndex,float fAnimationSp
 }
 
 /**
- * 애니메이션이 끝날�?
+ * ?�니메이?�이 ?�날??
  * \param param 
  * \return 
  */
@@ -2848,12 +2852,12 @@ int CXiahCharObject::OnEndAnimation(unsigned long param)
 			{
 				float fAlphaEffectSpeed = 1.0f;
 
-				// 어떤 NPC�?�?빠르�?사라진다.
+				// ?�떤 NPC????빠르�??�라진다.
 				if( m_bObjType == OBJTYPE_NPC )
 				{
 					switch( m_bSubObjType )
 					{
-					case 184:	// 신조
+					case 184:	// ?�조
 						fAlphaEffectSpeed = 4.0f;
 						break;
 					};
@@ -2865,7 +2869,7 @@ int CXiahCharObject::OnEndAnimation(unsigned long param)
 			m_SwordTrace.End();
 			m_SwordTrace2.End();
 		}
-		else if( m_nCurAniIndex == -1)	// 랜덤 반복이라�?�?�?,�?
+		else if( m_nCurAniIndex == -1)	// ?�덤 반복?�라??�???,??
 		{
 			m_SwordTrace.End();
 			m_SwordTrace2.End();
@@ -2874,7 +2878,7 @@ int CXiahCharObject::OnEndAnimation(unsigned long param)
 
 			return 1;
 		}
-		// 채집애니 끝날�?�?이펙�?붙여주기
+		// 채집?�니 ?�날?????�펙??붙여주기
 		else if(XiahAniType::eLAT_Collect == m_nCurMotionType)
 		{
 			m_CharRender.StopEffect();
@@ -2894,7 +2898,7 @@ int CXiahCharObject::OnEndAlphaEffect(unsigned long param)
 
 BOOL CXiahCharObject::AttachChildCharRender(int nLogicalPos,int nCharID,int nMeshType,int nTextureType, int nEffectIndex)
 {
-	// 신발은 예외 처리
+	// ?�발?� ?�외 처리
 	if( nLogicalPos == eLBP_Shoe)
 	{
 		CRes_Character* pChar = GetCharacter( nCharID);
@@ -2921,7 +2925,7 @@ BOOL CXiahCharObject::AttachChildCharRender(int nLogicalPos,int nCharID,int nMes
 	}
 
 
-	if( nLogicalPos == eLBP_Protector) // �?
+	if( nLogicalPos == eLBP_Protector) // ??
 	{
 		CRes_Character* pChar = GetCharacter( nCharID);
 
@@ -2937,50 +2941,50 @@ BOOL CXiahCharObject::AttachChildCharRender(int nLogicalPos,int nCharID,int nMes
 
 		//if( pTexture->texture_sub_count < 4)	return TRUE;
 				
-		// 같은 캐릭터면 MeshType�?바꿔 준�?
-		// 코드 멋지�?
+		// 같�? 캐릭?�면 MeshType�?바꿔 준??
+		// 코드 멋�?�?
 		if( m_CharRender.GetCharID() == nCharID && m_CharRender.GetMeshType() == nMeshType)
 		{
 			m_CharRender.ChangeTexture( 0, pTexture->texture_sub_ptr[ 0].texture_id);
 			m_CharRender.ChangeTexture( 3, pTexture->texture_sub_ptr[ 0].texture_id);
 
-			// 무투�?4단계�?날개�?텍스쳐가 몸과 다른�?쓴다. 날개�?MeshBlock 4번째�?
-			// 변�?넣어가지�?버그�?생기�?하고..
+			// 무투??4?�계???�개???�스쳐�? 몸과 ?�른�??�다. ?�개??MeshBlock 4번째??
+			// 변�??�어가지�?버그�??�기�??�고..
 			if( nCharID == 891/*m_bSubObjType == 3*/ && nMeshType >= 3 )
 			{
 				 m_CharRender.ChangeTexture( 3, pTexture->texture_sub_ptr[ 3].texture_id);
 			}
-			// 야차�?2단계 부터는 망토가 몸과 다른 텍스쳐를 쓴다. 망토�?MeshBlock 4번째�?
-			// 변�?넣어가지�?버그�?생기�?하고..
+			// ?�차??2?�계 부?�는 망토가 몸과 ?�른 ?�스쳐�? ?�다. 망토??MeshBlock 4번째??
+			// 변�??�어가지�?버그�??�기�??�고..
 			else if( nCharID == 906 /*m_bSubObjType == 4*/ && nMeshType > 0 )
 			{
 				 m_CharRender.ChangeTexture( 3, pTexture->texture_sub_ptr[ 3].texture_id);
 			}
-			else if(nCharID == 867 && (nMeshType == 4 || nMeshType == 5 || nMeshType == 6)) //HT_1116 : 각성�?아이�?추가
+			else if(nCharID == 867 && (nMeshType == 4 || nMeshType == 5 || nMeshType == 6)) //HT_1116 : 각성???�이??추�?
 			{
 				m_CharRender.ChangeTexture(3, pTexture->texture_sub_ptr[ 3].texture_id);
 			}
 		}
-		else// 캐릭터가 다르�?다시 만들�?준�?꾸웩!!
+		else// 캐릭?��? ?�르�??�시 만들??준??꾸웩!!
 		{
-			// 일단 캐릭터를 만들�?
+			// ?�단 캐릭?��? 만들�?
 			m_CharRender.Clear();
 			m_CharRender.SetChar( nCharID);
 			m_CharRender.SetMesh( nMeshType, nTextureType);
 			
-			// 이부분에�?Intro�?Aninmation 결정!
+			// ?��?분에??Intro??Aninmation 결정!
 
 			if( m_pAniType == NULL)
 			{
 				switch(m_bSubObjType)
 				{
-					case 1 : // 검�?
+					case 1 : // 검??
 						m_CharRender.SetAnimation( 201);
 					break;
 
-					case 2 :	// 연랑
+					case 2 :	// ?�랑
 					case 3 :	// 무투
-					case 4 :	// 야차
+					case 4 :	// ?�차
 						m_CharRender.SetAnimation( 103);
 					break;
 				}
@@ -2989,7 +2993,7 @@ BOOL CXiahCharObject::AttachChildCharRender(int nLogicalPos,int nCharID,int nMes
 				SetAnimation( XiahAniType::eLAT_Stand, 0);
 
 
-			// 장착 관�?Bone정보�?다시 세팅해준�?
+			// ?�착 관??Bone?�보�??�시 ?�팅?��???
 			for(int i = 0; i < LOGICAL_BONE_POS_COUNT; i++)
 			{
 				if( m_ChildChar[ i].IsValid())
@@ -3029,7 +3033,7 @@ BOOL CXiahCharObject::AttachChildCharRender(int nLogicalPos,int nCharID,int nMes
 	//m_ChildChar[ nLogicalPos].SetLocalCenter(Matrix4x4());
 	DBG_Assert( m_ChildChar[ nLogicalPos].IsValid());
 
-	// 무기일때 이펙트가 붙는�?
+	// 무기?�때 ?�펙?��? 붙는??
 	if( nEffectIndex >= 0 )
 	{
 		m_ChildChar[ nLogicalPos].MakeMeshEffect( nEffectIndex );
@@ -3039,7 +3043,7 @@ BOOL CXiahCharObject::AttachChildCharRender(int nLogicalPos,int nCharID,int nMes
 	Matrix4x4 *pBoneMatrix = m_CharRender.GetChildBoneMatrix( nLogicalPos);
 
 	m_ChildChar[ nLogicalPos].SetPosition( pBoneMatrix);
-	++m_nChildChar;	// 아구가 맞을려나?
+	++m_nChildChar;	// ?�구가 맞을?�나?
 
 	return TRUE;
 }
@@ -3047,7 +3051,7 @@ BOOL CXiahCharObject::AttachChildCharRender(int nLogicalPos,int nCharID,int nMes
 // test code
 bool CXiahCharObject::AttachPetChildChar(int nLogicalPos, int nCharID, int nMeshType, int nTextureType)
 {
-	// 신발은 예외 처리
+	// ?�발?� ?�외 처리
 	if(nLogicalPos == eLBP_Shoe)
 	{
 		CRes_Character* pChar = GetCharacter( nCharID);
@@ -3069,7 +3073,7 @@ bool CXiahCharObject::AttachPetChildChar(int nLogicalPos, int nCharID, int nMesh
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
-	if(nLogicalPos == eLBP_Protector) // �?
+	if(nLogicalPos == eLBP_Protector) // ??
 	{
 		CRes_Character* pChar = GetCharacter( nCharID);
 
@@ -3085,15 +3089,15 @@ bool CXiahCharObject::AttachPetChildChar(int nLogicalPos, int nCharID, int nMesh
 
 		//if( pTexture->texture_sub_count < 4)	return TRUE;
 
-		// 같은 캐릭터면 MeshType�?바꿔 준�?
+		// 같�? 캐릭?�면 MeshType�?바꿔 준??
 		if( m_CharRender.GetCharID() == nCharID && m_CharRender.GetMeshType() == nMeshType)
 		{
 			m_CharRender.ChangeTexture( 0, pTexture->texture_sub_ptr[ 0].texture_id);
 			m_CharRender.ChangeTexture( 3, pTexture->texture_sub_ptr[ 0].texture_id);
 		}
-		else// 캐릭터가 다르�?다시 만들�?준�?꾸웩!!
+		else// 캐릭?��? ?�르�??�시 만들??준??꾸웩!!
 		{
-			// 일단 캐릭터를 만들�?
+			// ?�단 캐릭?��? 만들�?
 			m_CharRender.Clear();
 			m_CharRender.SetChar( nCharID);
 			m_CharRender.SetMesh( nMeshType, nTextureType);
@@ -3101,7 +3105,7 @@ bool CXiahCharObject::AttachPetChildChar(int nLogicalPos, int nCharID, int nMesh
 			SetAnimation( XiahAniType::eLAT_Stand, 0);
 
 
-			// 장착 관�?Bone정보�?다시 세팅해준�?
+			// ?�착 관??Bone?�보�??�시 ?�팅?��???
 			for(int i = 0; i < LOGICAL_BONE_POS_COUNT; ++i)
 			{
 				if( m_ChildChar[ i].IsValid())
@@ -3116,7 +3120,7 @@ bool CXiahCharObject::AttachPetChildChar(int nLogicalPos, int nCharID, int nMesh
 		}
 
 		return true; 
-	} // if(nLogicalPos == eLBP_Protector) // �?
+	} // if(nLogicalPos == eLBP_Protector) // ??
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 	RemoveChildCharRender(nLogicalPos);
@@ -3149,7 +3153,7 @@ bool CXiahCharObject::AttachPetChildChar(int nLogicalPos, int nCharID, int nMesh
 	assert(pBoneMatrix);
 
 	m_ChildChar[ nLogicalPos].SetPosition( pBoneMatrix);
-	++m_nChildChar;	// 아구가 맞을려나?
+	++m_nChildChar;	// ?�구가 맞을?�나?
 
 
 	return true;
@@ -3160,7 +3164,7 @@ BOOL CXiahCharObject::RemoveChildCharRender(int nLogicalPos)
 	if( m_ChildChar[ nLogicalPos].IsValid())
 	{
 		m_ChildChar[ nLogicalPos].Clear();
-		--m_nChildChar;	// 아구가 맞을려나?
+		--m_nChildChar;	// ?�구가 맞을?�나?
 	}
 
 	return TRUE;
@@ -3191,7 +3195,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 		pFrameDelta->t.z = 0;
 		return 0;
 	}
-	// 화살�?아닌 넘들�?한해�?TargetMove�?여기다가 살짝 넣어준�?
+	// ?�살???�닌 ?�들???�해??TargetMove�??�기?��? ?�짝 ?�어준??
 	
 	Matrix4x4 future_tm = *pFrameDelta * m_ObjectTM;
 	future_tm.t.y -= 0.5f;
@@ -3208,15 +3212,15 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 		vDir2.Normalize();
 
 		float bt = sqrt((m_TargetPosition.x - m_Position.x)*(m_TargetPosition.x - m_Position.x) + (m_TargetPosition.z - m_Position.z)*(m_TargetPosition.z - m_Position.z));
-		// bt�?이동중에 현재 PC�?발바닥을 찍을경우 m_TargetPosition�?m_TargetStartPosition�?갱신되지�?
-		// 계산상의 댄轎�?pFrameDelta가 비정상적으로 나오�?경우 무한 달리기를 한다. 이를 막기위하�?추가
-		// 1.5f�?경험상의 수치�?클릭�?목적지와 현재�?위치가 1.5f정도만큼 이하�?나오�?멈추�?한다. 1.5 정도�?잘작동한�?
+		// bt???�동중에 ?�재 PC??발바?�을 찍을경우 m_TargetPosition�?m_TargetStartPosition??갱신?��?�?
+		// 계산?�의 ?�轎�?pFrameDelta가 비정?�적?�로 ?�오??경우 무한 ?�리기�? ?�다. ?��? 막기?�하??추�?
+		// 1.5f??경험?�의 ?�치�??�릭??목적지?� ?�재???�치가 1.5f?�도만큼 ?�하�??�오�?멈추�??�다. 1.5 ?�도�??�작?�한??
 
 		if( vDir.Dot( vDir2) < 0 || bt < 1.5f)
 		{
-			m_bTargetMove = FALSE; // 다왔�?
+			m_bTargetMove = FALSE; // ?�왔??
 
-			// 임시 하드 코딩 캐릭터는 -1주면 않됨
+			// ?�시 ?�드 코딩 캐릭?�는 -1주면 ?�됨
 			SetAnimation( XiahAniType::eLAT_Stand, m_bObjType != OBJTYPE_PC ? -1 : 0);
 
 			if( m_pParentTrigger[ eXCT_OnEndTargetMove] != NULL)
@@ -3230,7 +3234,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 		return 0;
 
 	//////////////////////////////////////////////////////////////////////////
-	// MAP 속성처리
+	// MAP ?�성처리
 
 	int att_x,att_y;
 	unsigned char	att_res;
@@ -3253,7 +3257,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 
 
 	//////////////////////////////////////////////////////////////////////////
-	// 세상�?�?
+	// ?�상????
 	if( future_tm.t.x < 5 || -future_tm.t.z < 5 || future_tm.t.x > 2043 || -future_tm.t.z > 2043)
 	{
 		pFrameDelta->t = Vector3();
@@ -3264,7 +3268,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 	}
 	
 	//////////////////////////////////////////////////////////////////////////
-	// 경사�?처리 못올라가�?
+	// 경사�?처리 못올?��?�?
 	float t_h = Map::g_MapRes.GetHeight(future_tm.t.x,future_tm.t.z);
 /*
 	sString str;
@@ -3279,25 +3283,25 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 		return 0;
 	}
 /*
-	// 바운�?박스 무시
+	// 바운??박스 무시
 	if( GetAsyncKeyState( VK_SPACE) < 0)
 		return 0;
 */
 
 
-	// 배경으로 부�?object list�?얻어 온다
-	// 2004_04_12 changth : 캐릭터가 움직일�?속해 있는 맵셀�?오브젝트�?충돌 검사를 하는�?
-	// 이때 문제가 발생�? 맵셀 사이�?끼어 있는 오브젝트�?경우, �?에디터에�?저장될�?
-	// 어떤 맵셀�?저장되는지 알수가 없다. 그래�?캐릭터가 속해있는 맵셀�?경계 부분에 있으�?
-	// 인접�?맵셀�?오브젝트까지 충돌 검사를 한다. 그래�?정확하다.
+	// 배경?�로 부??object list�??�어 ?�다
+	// 2004_04_12 changth : 캐릭?��? ?�직일???�해 ?�는 맵�????�브?�트�?충돌 검?��? ?�는??
+	// ?�때 문제가 발생?? 맵�? ?�이???�어 ?�는 ?�브?�트??경우, �??�디?�에???�?�될??
+	// ?�떤 맵�????�?�되?��? ?�수가 ?�다. 그래??캐릭?��? ?�해?�는 맵�???경계 부분에 ?�으�?
+	// ?�접??맵�????�브?�트까�? 충돌 검?��? ?�다. 그래???�확?�다.
 
-	// 일단 캐릭터가 맵셀�?가운데 부분에 있는지, 경계 부분에 있는지 검사하�?
-	// 검사할 �?셀�?개수�?알아 낸다. 참고�? 맵셀�?크기�?256x256이다.
+	// ?�단 캐릭?��? 맵�???가?�데 부분에 ?�는지, 경계 부분에 ?�는지 검?�하??
+	// 검?�할 �??�??개수�??�아 ?�다. 참고�? 맵�????�기??256x256?�다.
 	int nMapCellCount = 1;
-	WORD wXAry[4];	// 최대�?4개다. 현재 있는 곳을 포함하여
+	WORD wXAry[4];	// 최�???4개다. ?�재 ?�는 곳을 ?�함?�여
 	WORD wZAry[4];
 
-	// 현재 속해 있는 �?
+	// ?�재 ?�해 ?�는 �?
 	wXAry[0] = (WORD)future_tm.t.x;
 	wZAry[0] = (WORD)(-future_tm.t.z);
 
@@ -3305,19 +3309,19 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 	int nRemnantZ = wZAry[0] % 256;
 
 	int nSearchGap = 50;
-	if( nRemnantX < nSearchGap )	// 왼쪽�?있는 맵셀�?추가된다.
+	if( nRemnantX < nSearchGap )	// ?�쪽???�는 맵�???추�??�다.
 	{
 		nMapCellCount++;
 
 		wXAry[1] = (WORD)(future_tm.t.x - nRemnantX - 2);
 		wZAry[1] = (WORD)(-future_tm.t.z);
 
-		if( nRemnantZ >= nSearchGap && nRemnantZ <= 256-nSearchGap )	// �? 아래�?검사가 필요 없다.
+		if( nRemnantZ >= nSearchGap && nRemnantZ <= 256-nSearchGap )	// ?? ?�래??검?��? ?�요 ?�다.
 		{
 		}
 		else
 		{
-			if( nRemnantZ < nSearchGap )	// 위의 맵셀�?추가된다.
+			if( nRemnantZ < nSearchGap )	// ?�의 맵�???추�??�다.
 			{
 				nMapCellCount++;
 
@@ -3325,7 +3329,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 				wZAry[2] = (WORD)(-future_tm.t.z - nRemnantZ - 2);
 			}
 			else
-			if( nRemnantZ > 256-nSearchGap )	// 아래�?맵셀�?추가된다.
+			if( nRemnantZ > 256-nSearchGap )	// ?�래??맵�???추�??�다.
 			{
 				nMapCellCount++;
 
@@ -3336,7 +3340,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 			}
 		}
 
-		if( nMapCellCount == 3 )	// 대각선쪽으로도 추가한다.
+		if( nMapCellCount == 3 )	// ?�각선쪽으로도 추�??�다.
 		{
 			nMapCellCount++;
 
@@ -3345,7 +3349,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 		}
 	}// if
 	else
-	if( nRemnantX > 256-nSearchGap )	// 오른쪽에 있는 맵셀�?추가된다.
+	if( nRemnantX > 256-nSearchGap )	// ?�른쪽에 ?�는 맵�???추�??�다.
 	{
 		nMapCellCount++;
 
@@ -3354,12 +3358,12 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 		wXAry[1] = (WORD)(future_tm.t.x + nX + 2);
 		wZAry[1] = (WORD)(-future_tm.t.z);
 
-		if( nRemnantZ >= nSearchGap && nRemnantZ <= 256-nSearchGap )	// �? 아래�?검사가 필요 없다.
+		if( nRemnantZ >= nSearchGap && nRemnantZ <= 256-nSearchGap )	// ?? ?�래??검?��? ?�요 ?�다.
 		{
 		}
 		else
 		{
-			if( nRemnantZ < nSearchGap )	// 위의 맵셀�?추가된다.
+			if( nRemnantZ < nSearchGap )	// ?�의 맵�???추�??�다.
 			{
 				nMapCellCount++;
 
@@ -3367,7 +3371,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 				wZAry[2] = (WORD)(-future_tm.t.z - nRemnantZ - 2);
 			}
 			else
-			if( nRemnantZ > 256-nSearchGap )	// 아래�?맵셀�?추가된다.
+			if( nRemnantZ > 256-nSearchGap )	// ?�래??맵�???추�??�다.
 			{
 				nMapCellCount++;
 
@@ -3378,7 +3382,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 			}
 		}
 
-		if( nMapCellCount == 3 )	// 대각선쪽으로도 추가한다.
+		if( nMapCellCount == 3 )	// ?�각선쪽으로도 추�??�다.
 		{
 			nMapCellCount++;
 
@@ -3387,8 +3391,8 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 		}
 	}// if
 
-	// Z 축도 검�? �?녀석은 �? 아래�?검사하�?된다.
-	if( nMapCellCount == 1 && nRemnantZ < nSearchGap )	// 위의 맵셀�?추가된다.
+	// Z 축도 검?? ???�?��? ?? ?�래�?검?�하�??�다.
+	if( nMapCellCount == 1 && nRemnantZ < nSearchGap )	// ?�의 맵�???추�??�다.
 	{
 		nMapCellCount++;
 
@@ -3396,7 +3400,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 		wZAry[1] = (WORD)(-future_tm.t.z - nRemnantZ - 2);
 	}
 	else
-	if( nMapCellCount == 1 && nRemnantZ > 256-nSearchGap )	// 아래�?맵셀�?추가된다.
+	if( nMapCellCount == 1 && nRemnantZ > 256-nSearchGap )	// ?�래??맵�???추�??�다.
 	{
 		nMapCellCount++;
 
@@ -3406,7 +3410,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 		wZAry[1] = (WORD)(-future_tm.t.z + nZ + 2);
 	}
 
-	// 이제 리스트에 들어 있는 맵셀�?오브젝트와 충돌 검사를 한다.
+	// ?�제 리스?�에 ?�어 ?�는 맵�????�브?�트?� 충돌 검?��? ?�다.
 	for(int i=0; i<nMapCellCount; i++)
 	{
 		XiahGameEngine::Map::MAPRENDER_MAPOBJECTLIST *pObjectList;
@@ -3437,15 +3441,15 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 			{
 				BBoxOBB3* map_object_bound = box_list + i;
 
-				// 원래 코드가 이랬는데..
+				// ?�래 코드가 ?�랬?�데..
 				if( !map_object_bound->m_BBoxAABB.Intersect( future_bound.m_BBoxAABB))
 					continue;
 
-				// 원래 코드가 이것�?체크�?하는�? 현재�?이게 없어�?�?
+				// ?�래 코드가 ?�것??체크�??�는?? ?�재???�게 ?�어????
 //				if( !map_object_bound->IsIntersect( &future_bound))
 //					continue;
 
-				// 다리 주위�?있을때에�?두개�?오브젝트�?검사해�?하므�?한번 �?검사한�?
+				// ?�리 주위???�을?�에???�개???�브?�트�?검?�해???��?�??�번 ??검?�한??
 				if( !bFirstCollide )
 					bCollide = TRUE;
 
@@ -3457,7 +3461,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 			}// for
 		}
 
-		if( collide_height != 0.0f ) // 한번 검�?했을때도 역시 충돌 �?상태�?
+		if( collide_height != 0.0f ) // ?�번 검???�을?�도 ??�� 충돌 ???�태??
 			bCollide = TRUE;
 
 		m_bCollide = bCollide;
@@ -3465,29 +3469,29 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 		// 충돌!
 		if( bCollide)
 		{
-			// 충돌되었는데 충돌된얘보다 �?위에 서있는경�?-_-;;
+			// 충돌?�었?�데 충돌?�얘보다 ???�에 ?�있?�경??-_-;;
 			if( future_tm.t.y > collide_height)
 			{
-				// �?경우�?내려가�?한다.
+				// ??경우???�려가???�다.
 				m_ObjectTM.y = collide_height;
 				m_fColHeight = collide_height;
 				m_bRide = TRUE;
 			}
 			else 
-			if( future_tm.t.y < collide_height)		// 바운�?박스 height보다 현재 위치가 작은가?
+			if( future_tm.t.y < collide_height)		// 바운??박스 height보다 ?�재 ?�치가 ?��?가?
 			{
 				if( abs( future_tm.t.y - collide_height) < 4)
 				{
-					// 올라가 버림
+					// ?�라가 버림
 					m_ObjectTM.y = collide_height;
-					m_fColHeight = collide_height;	// 임시저�?바운�?높이
+					m_fColHeight = collide_height;	// ?�시?�??바운???�이
 					m_bRide = TRUE;
 				}
 				else
 				{
 					//				m_bRide = FALSE;
 					pFrameDelta->t = Vector3();
-					// 더이�?�?�?없음�?알려 준�?
+					// ?�이??�????�음???�려 준??
 					if( m_pParentTrigger[ eXCT_OnCollision] != NULL)
 						return m_pParentTrigger[ eXCT_OnCollision]->Invoke();
 				}
@@ -3504,7 +3508,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 
 
 	// 2004_06_01 Changth
-	// 문파 비석�?충돌 처리�?넣어준�?
+	// 문파 비석�?충돌 처리�??�어준??
 	BBoxOBB3 StoneBound;
 
 	DWORDLIST::iterator dit;
@@ -3538,7 +3542,7 @@ int CXiahCharObject::OnTimer(unsigned long type)
 		return m_pParentTrigger[ eXCT_OnTimer]->Invoke();
 	}
 
-	// 아~~ 결국 하드코딩이구�?
+	// ??~ 결국 ?�드코딩?�구??
 	if( m_bObjType == OBJTYPE_NPC)
 	{
 		if( type == 0)
@@ -3559,7 +3563,7 @@ int CXiahCharObject::OnTimer(unsigned long type)
 #ifdef TRACE_LOG
 				if(pTM == NULL || pObject == NULL)
 				{
-					DBG_LogFile( _T("CXiahCharObject::OnTimer 실패"));
+					DBG_LogFile( _T("CXiahCharObject::OnTimer ?�패"));
 				}
 #endif
 				pObject->Create( 837, 0, 0, 0);
@@ -3579,10 +3583,10 @@ int CXiahCharObject::OnTimer(unsigned long type)
 				//pObject->m_CharRender.SetLocalCenter(Matrix4x4());
 				RemoveChildCharRender( eLBP_RightHand);
 			
-				// 화살�?쏜다
+				// ?�살???�다
 				XiahObject::g_XiahObjectManager.CreateXiahObject( 0, 0, pObject);
 
-				// 화살 궤적
+				// ?�살 궤적
 				if( pObject->m_pLineParticle == NULL )
 				{
 					pObject->m_pLineParticle = new CLineParticle;
@@ -3590,7 +3594,7 @@ int CXiahCharObject::OnTimer(unsigned long type)
 #ifdef TRACE_LOG
 					if(pObject->m_pLineParticle == NULL)
 					{
-						DBG_LogFile( _T("CXiahCharObject::OnTimer 실패"));
+						DBG_LogFile( _T("CXiahCharObject::OnTimer ?�패"));
 					}
 #endif
 					pObject->m_pLineParticle->Init();
@@ -3645,44 +3649,38 @@ void CXiahCharObject::RefreshFameColor(DWORD dwFame)
 		m_dwFame = dwFame;
 
 	if(m_dwFame >= 127)
-	{   // 노락�?계열
-		if(m_dwFame >= 133 && m_dwFame <= 226) // 선인 2단계
+	{   // ?�락??계열
+		if(m_dwFame >= 133 && m_dwFame <= 226) // ?�인 2?�계
 		{
 			m_cNameColor = D3DCOLOR_XRGB( 255, 255, 120);
 		}
-		else if(m_dwFame >= 227) // 선인 3단계
+		else if(m_dwFame >= 227) // ?�인 3?�계
 		{
 			m_cNameColor = D3DCOLOR_XRGB( 255, 255, 0);
 		}
-		else  // 선인 1단계
+		else  // ?�인 1?�계
 		{
 			m_cNameColor = D3DCOLOR_XRGB( 255, 255, 200);
 		}
 	} // if(dwFame >= 127)
 	else
 	{
-		// 빨간�?계열
-		if(m_dwFame <= 121 && m_dwFame >= 28) // 악인 2단계
+		// 빨간??계열
+		if(m_dwFame <= 121 && m_dwFame >= 28) // ?�인 2?�계
 		{
 			m_cNameColor = D3DCOLOR_XRGB( 255, 75, 75);
 		}
-		else if(m_dwFame <= 27) // 악인 3단계
+		else if(m_dwFame <= 27) // ?�인 3?�계
 		{
 			m_cNameColor = D3DCOLOR_XRGB( 255, 0, 0);
 		}
-		else  // 악인 1단계
+		else  // ?�인 1?�계
 		{
 			m_cNameColor = D3DCOLOR_XRGB( 255, 150, 150);
 		}
 	}
 
-	// Update active dynamic title when fame changes
-	int nNewTitleID = GetTitleIDByFame(m_dwFame);
-	if (nNewTitleID != m_nActiveTitleID)
-	{
-		m_nActiveTitleID = nNewTitleID;
-		LoadLegendTitle(nNewTitleID);
-	}
+
 	
 }
 
@@ -3717,7 +3715,7 @@ BOOL ValidateObject(BYTE bObjType,DWORD ObjID,WORD wPosX,WORD wPosY)
 	case OBJTYPE_PC:
 		SendCS_IT_CHARINFO_REQ( ObjID);
 		break;
-	case OBJTYPE_NPC:	// NPC가 NPC�?떄려?
+	case OBJTYPE_NPC:	// NPC가 NPC�??�려?
 		SendCS_NC_NPCINFO_REQ( ObjID);
 		break;
 	case OBJTYPE_PET:

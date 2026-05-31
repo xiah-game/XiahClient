@@ -146,7 +146,7 @@ public:
 	CImageScrMsg*			m_pImageScrMsg;
 	CImageScrMsg*			m_pPremiumItem;		//HT_0122 : 기간제 프리미엄 아이템 추가
 
-	CSack*					m_pMySack[2];
+	CSack*					m_pMySack[3];
 	CSack*					m_pEquipSack;
 	CSack*					m_pNpcSack;
 	CSack*					m_pDepositSack;
@@ -184,6 +184,7 @@ public:
 	DWORD					m_dwCurrentSelectedBongInItem;
 	DWORD					m_dwVolumeSplitAmount;
 	BYTE					m_bSackCnt;
+	int                     m_nVIPLevel = 0;
 
 	BOOL					m_bDragFrame;		// Frame이 drag 될지
 	BOOL					m_bShowMiniMap;		// 미니맵 Show 여부

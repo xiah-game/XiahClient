@@ -619,9 +619,9 @@ int OnCS_IM_REMOVEFROMSACK_ACK(CMsg &msg)
 	{
 		g_MainCharInfo.m_pHoldItem->DeleteHoldItemItem();
 	}
-	else if( bSackID == SACKTYPE__DEFAULT || bSackID == SACKTYPE__DEFAULT2)
+	else if( bSackID == SACKTYPE__DEFAULT || bSackID == SACKTYPE__DEFAULT2 || bSackID == 3)
 	{		
-		// 穿荐 荐沥
+		// 누수 수정
 		g_MainCharInfo.m_pMySack[ bSackID -1]->DeleteItem( bSackPos, true);
 	}
 	else if( bSackID == SACKTYPE__EQUIPMENT)
@@ -790,9 +790,9 @@ int OnCS_IM_MOVE_ACK( CMsg &msg)
 	{
 		// 己傍 窍搁
 		// client俊辑绰 滴俺甫 鞍篮 鸥涝栏肺 牢侥矫难具茄促.
-		if( bSrcSackID == SACKTYPE__DEFAULT2)
+		if( bSrcSackID == SACKTYPE__DEFAULT2 || bSrcSackID == 3)
 			bSrcSackID = SACKTYPE__DEFAULT;
-		if( bDesSackID == SACKTYPE__DEFAULT2)
+		if( bDesSackID == SACKTYPE__DEFAULT2 || bDesSackID == 3)
 			bDesSackID = SACKTYPE__DEFAULT;
 
 		XiahItem::sItemInfo* pDesItem	= NULL;
@@ -1048,7 +1048,7 @@ int OnCS_IM_DURABILITY_ACK( CMsg &msg)
 
 	XiahItem::sItemInfo* pInfo = NULL;
 
-	if( bSackID == SACKTYPE__DEFAULT || bSackID == SACKTYPE__DEFAULT2)
+	if( bSackID == SACKTYPE__DEFAULT || bSackID == SACKTYPE__DEFAULT2 || bSackID == 3)
 	{
 		pInfo = g_MainCharInfo.m_pMySack[g_MainCharInfo.m_byMySackCurrIdx]->FindSackItemByID( dwItemID);
 

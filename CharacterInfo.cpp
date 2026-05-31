@@ -1,4 +1,4 @@
-﻿#include "precompile.h"
+#include "precompile.h"
 #include "resource.h"
 #include "AppData.h"
 #include "CharacterInfo.h"
@@ -101,7 +101,7 @@ CharacterInfo::CharacterInfo() : m_pImageScrMsg(NULL), m_pPremiumItem(NULL)
 	m_pHelpMsg = NULL;
 	m_pSpecialChatMsg = NULL;
 
-	for( int i=0; i<2; ++i)
+	for( int i=0; i<3; ++i)
 		m_pMySack[i] = NULL;
 
 	m_pEquipSack = m_pNpcSack = m_pDepositSack = m_pPcSackMine = m_pPcSackOther = m_pModifySack = m_pPersonalTradeSet = m_pPersonalTradeSell = NULL;
@@ -801,7 +801,7 @@ void CharacterInfo::CreateSack()
 {	
 	m_pEquipSack = new CEquipSack( SACKTYPE__EQUIPMENT, 9);				// equip sack
 
-	for(int i=0; i < 2; ++i)
+	for(int i=0; i < 3; ++i)
 		m_pMySack[i] = new CCharSack( SACKTYPE__DEFAULT, 6, 6);			// character sack
 
 	m_pModifySack = new CEquipSack( SACKTYPE__MODIFY, 4);
@@ -817,7 +817,7 @@ void CharacterInfo::CreateSack()
  */
 void CharacterInfo::DeleteSack()
 {
-	for(register int i=0; i < 2; ++i)
+	for(register int i=0; i < 3; ++i)
 		SAFE_DELETE(m_pMySack[i]);		// 행낭
 
 	SAFE_DELETE(m_pEquipSack);			// 장착

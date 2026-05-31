@@ -1,4 +1,4 @@
-﻿
+
 bool g_bFirstCharListAck = true;
 
 /**
@@ -899,6 +899,10 @@ int OnCS_IT_ITEMLIST_ACK( CMsg &msg)
 		>> bSackID
 		>> bNumItem;
 
+	if (bSackID == 3) {
+		g_MainCharInfo.m_nVIPLevel = 5; // 收到第 3 页数据包，激活本地 VIP 状态标志
+	}
+
 	for(int i=0; i < bNumItem; ++i) 
 	{
 		XiahItem::sItemInfo* pItem = new XiahItem::sItemInfo;
@@ -921,6 +925,11 @@ int OnCS_IT_ITEMLIST_ACK( CMsg &msg)
 		case SACKTYPE__DEFAULT2:
 			pItem->m_bSackCount = 1;
 			g_MainCharInfo.m_pMySack[1]->InsertItem( bSackPos, pItem);
+			break;
+		case 3: // SACKTYPE__DEFAULT3 (VIP专属背包)
+			pItem->m_bSackID = SACKTYPE__DEFAULT;
+			pItem->m_bSackCount = 2;
+			g_MainCharInfo.m_pMySack[2]->InsertItem( bSackPos, pItem);
 			break;
 		case SACKTYPE_COLLECTION:	// 아이템 수집
 			{

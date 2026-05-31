@@ -1,4 +1,4 @@
-﻿extern sString MoneyCommaStr(INT64 nMoney);
+extern sString MoneyCommaStr(INT64 nMoney);
 extern LPCTSTR GetMapName(DWORD dwMapID);
 
 //////////////////////////////////////////////////////////
@@ -50,8 +50,8 @@ void CharacterInfo::RefreshChracterInfo()
 	//int dwMAXLevelExp = g_MainCharInfo.m_dwNextLevelUpExp - g_MainCharInfo.m_dwLevelExp;
 	//int dwSUBLevelExp = g_MainCharInfo.m_i64Exp - g_MainCharInfo.m_dwLevelExp;
 
-	//150갑자 초과시
-	//HT_0621 ; 경험치 수치 수정
+	//150갑자 초과�
+	//HT_0621 ; 경험� 수치 수정
 	if(m_wLevel<150)
 	{
         INT64 i64MAXLevelExp = g_MainCharInfo.m_i64NextLevelUpExp - g_MainCharInfo.m_i64LevelExp;
@@ -91,10 +91,10 @@ void CharacterInfo::RefreshChracterInfo()
 	g_pUIManager->SetString(WINDOW_CHARACTER, character_window_contents_dummy_004, Exp);
 	g_pUIManager->SetString(WINDOW_CHARACTER, character_window_contents_dummy_012, strFame, byType);
 
-	// 각성했을시
+	// 각성했을�
 	if(m_bRebirth)
 	{	
-		if(m_bRebirth < 7)	//HT_0702 : 각성자
+		if(m_bRebirth < 7)	//HT_0702 : 각성�
 			_stprintf( strName, IDS_REBIRTH_COUNT_01, (LPCTSTR)m_szNickName, m_bRebirth);
 		else				//진각성자
 			_stprintf( strName, IDS_2TH_REBIRTH_COUNT_01, (LPCTSTR)m_szNickName, m_bRebirth-6 );
@@ -102,7 +102,7 @@ void CharacterInfo::RefreshChracterInfo()
 		g_pUIManager->SetString(WINDOW_CHARACTER, character_window_contents_dummy_001, strName);
 	}
 	
-	//150갑자 초과시 
+	//150갑자 초과� 
 	if(m_wLevel < 150)
 	{
         g_pUIManager->SetString(WINDOW_CHARACTER, character_window_contents_dummy_003, m_wLevel);
@@ -126,6 +126,36 @@ void CharacterInfo::RefreshChracterInfo()
 	g_pUIManager->SetString(WINDOW_CHARACTER, character_window_contents_dummy_010, strHp);
 	g_pUIManager->SetString(WINDOW_CHARACTER, character_window_contents_dummy_011, strIp);
 
+	if (g_pMainChar)
+	{
+		int activeTitleID = (int)g_MainCharInfo.wEquipVisualID[8];
+
+		TCHAR szTitleName[128] = _T("");
+		if (activeTitleID > 0)
+		{
+			TCHAR szKey[32];
+			_stprintf(szKey, _T("%d"), activeTitleID);
+			GetPrivateProfileString(_T("TITLE_NAME"), szKey, _T(""), szTitleName, 128, _T(".\\config.ini"));
+
+			if (_tcslen(szTitleName) == 0)
+			{
+				_stprintf(szKey, _T("%d"), activeTitleID - 400);
+				GetPrivateProfileString(_T("TITLE_NAME"), szKey, _T(""), szTitleName, 128, _T(".\\config.ini"));
+			}
+
+			if (_tcslen(szTitleName) == 0)
+			{
+				_stprintf(szTitleName, _T("TitleIcon_%d"), activeTitleID);
+			}
+		}
+
+		g_pUIManager->SetString(WINDOW_CHARACTER, 50, szTitleName);
+
+		// TCHAR szDbg[256];
+		// _stprintf(szDbg, _T("[DebugTitle] ID:%d, Name:%s"), activeTitleID, szTitleName);
+		// g_MainCharInfo.ShowHelpMessage(szDbg);
+	}
+
 	RefreshTime2();
 }
 
@@ -144,8 +174,8 @@ void CharacterInfo::RefreshPetInfo()
 	INT64 i64MAXLevelExp = pPetInfo->i64NextLevelUpExp - pPetInfo->i64LevelExp;
 	INT64 i64SUBLevelExp = pPetInfo->i64Exp - pPetInfo->i64LevelExp;
 
-	//HT_0625 : 펫 경험치 150갑자 일 경우(우선 이렇게 해 놓자.. 기획에서 확정 안 되었음)
-	if(pPetInfo->m_dwIsHwan != 0) //HO_0820_07 분신격, 환수유 일경우 무조건 -/- 경치 표시다..
+	//HT_0625 : � 경험� 150갑자 � 경우(우선 이렇� � 놓자.. 기획에서 확정 � 되었�)
+	if(pPetInfo->m_dwIsHwan != 0) //HO_0820_07 분신�, 환수� 일경� 무조� -/- 경치 표시�..
 	{
 		_stprintf( szExp, _T("- / -"));
 	}
@@ -210,7 +240,7 @@ void CharacterInfo::RefreshMainFrame()
 	if( i64SUBTPExp < 1)
 		i64SUBTPExp = 0;
 
-	//150갑자 초과시 
+	//150갑자 초과� 
 	if( i64MAXLevelExp < 1)
 		bLevelExpPer = 100;
 	else if(m_wLevel >= 150)
@@ -218,7 +248,7 @@ void CharacterInfo::RefreshMainFrame()
 	else
 		bLevelExpPer = 100 * i64SUBLevelExp / i64MAXLevelExp;	
 
-	//150갑자 초과시 
+	//150갑자 초과� 
 	if( i64MAXTPExp < 1)
 		bTPExpPer = 100;
 	else if(m_wLevel >= 150)
@@ -255,7 +285,7 @@ void CharacterInfo::RefreshMainFrame()
 
 	if(m_bRebirth)
 	{		
-		if(m_bRebirth < 7)	//HT_0702 : 각성자
+		if(m_bRebirth < 7)	//HT_0702 : 각성�
 			_stprintf( strName, IDS_REBIRTH_COUNT_01, (LPCTSTR)m_szNickName, m_bRebirth);
 		else				//진각성자
 			_stprintf( strName, IDS_2TH_REBIRTH_COUNT_01, (LPCTSTR)m_szNickName, m_bRebirth-6);
@@ -279,7 +309,7 @@ void CharacterInfo::RefreshMainFrame()
 	pFrame->GetControl( percentmain_frame_percent_gauge_02)->SetString( szTPExpPer, GetFont( IDS_FONT_GULIM, 12));
 #else
 
-	//150갑자 초과시
+	//150갑자 초과�
 	if(m_wLevel < 150)
 	{
 		g_pUIManager->SetString(MAIN_FRAME, percentmain_frame_percent_gauge_01, szLevelExpPer, GetFont(IDS_FONT_GULIM, 10));
@@ -445,7 +475,7 @@ void CharacterInfo::RefreshTime2()
 	TCHAR szLevel[50]={0,};
 	TCHAR strName[128]={0,};
 
-	//150갑자 초과시 
+	//150갑자 초과� 
 	if(m_wLevel<150)
 	{
         _stprintf( szLevel, IDS_D_GAPJA, m_wLevel);
@@ -493,7 +523,7 @@ void CharacterInfo::RefreshFiveElement()
 	}
 	FiveElmTemp+=m_wFiveElmPoint;
     
-	//HT_0711 : 진각성 무공( 오행 MAX 2000씩 )
+	//HT_0711 : 진각� 무공( 오행 MAX 2000� )
 	if(FiveElmTemp>=10000)
 	{
 		g_pUIManager->SetData(WINDOW_FIVEELEMENTS, fiveelements_window_exp_bar,VALUE1,0);
@@ -502,7 +532,7 @@ void CharacterInfo::RefreshFiveElement()
 	}
 	else
 	{
-		if(m_dwFiveElmPowerMax)	// 0 나누기 무섭다
+		if(m_dwFiveElmPowerMax)	// 0 나누� 무섭�
 		{
 			nExp = 100 * m_dwFiveElmPower / m_dwFiveElmPowerMax;
 			g_pUIManager->SetData(WINDOW_FIVEELEMENTS, fiveelements_window_exp_bar, VALUE1, nExp);
@@ -513,7 +543,7 @@ void CharacterInfo::RefreshFiveElement()
 		}
 	}
 
-	// 필살기
+	// 필살�
 	nExp = 100 * m_dwFiveElmGauge / 5000;
 	g_pUIManager->SetData(WINDOW_FIVEELEMENTS, fiveelements_window_skill_bar, VALUE1, nExp);
 	

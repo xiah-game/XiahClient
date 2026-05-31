@@ -1,8 +1,8 @@
-BOOL SetupPC_VisualEquipement(CXiahCharObject* pObject, WORD* pVisualList, BYTE* pRarityList, BYTE* pStxTypeList)
+ÔªøBOOL SetupPC_VisualEquipement(CXiahCharObject* pObject, WORD* pVisualList, BYTE* pRarityList, BYTE* pStxTypeList)
 {
 	XiahItem::sItemInfo info;
 
-	// CG_2005/01/27 : ∫Ø¡ææ∆¿Ã≈€±‚¥…√ﬂ∞°
+	// CG_2005/01/27 : Î≥ÄÏ¢ÖÏïÑÏù¥ÌÖúÍ∏∞Îä•Ï∂îÍ∞Ä
 	int nCharID = pObject->m_CharRender.GetCharID();
 
 	if( pVisualList[ EQUIPPOS_CLOTH] != 0)
@@ -18,16 +18,16 @@ BOOL SetupPC_VisualEquipement(CXiahCharObject* pObject, WORD* pVisualList, BYTE*
 	{
 		switch( pObject->m_bSubObjType)
 		{
-		case 1://∞Àøµ
+		case 1://Í≤ÄÏòÅ
 			pVisualList[ EQUIPPOS_CLOTH] = 2000;
 			break;
-		case 2://ø¨∂˚
+		case 2://Ïó∞Îûë
 			pVisualList[ EQUIPPOS_CLOTH] = 2100;
 			break;
-		case 3://π´≈ı
+		case 3://Î¨¥Ìà¨
 			pVisualList[ EQUIPPOS_CLOTH] = 2200;
 			break;
-		case 4:// æﬂ¬˜
+		case 4:// ÏïºÏ∞®
 			pVisualList[ EQUIPPOS_CLOTH] = 2300;
 			break;
 		}
@@ -41,9 +41,9 @@ BOOL SetupPC_VisualEquipement(CXiahCharObject* pObject, WORD* pVisualList, BYTE*
 
 	if( pVisualList[ EQUIPPOS_WEAPON] != 0)
 	{
-		info.m_wVisualID = pVisualList[ EQUIPPOS_WEAPON]; // π´±‚
+		info.m_wVisualID = pVisualList[ EQUIPPOS_WEAPON]; // Î¨¥Í∏∞
 		if( XiahItem::SetItemVisualData( &info))
-		{	// ø©±‚º≠ π´±‚ø° ∫Ÿ¥¬ ¿Ã∆Â∆Æ¿« ¿Œµ¶Ω∫∏¶ ∞·¡§«—¥Ÿ.
+		{	// Ïó¨Í∏∞ÏÑú Î¨¥Í∏∞Ïóê Î∂ôÎäî Ïù¥ÌéôÌä∏Ïùò Ïù∏Îç±Ïä§Î•º Í≤∞Ï†ïÌïúÎã§.
 			// +
 			int nREffectIndex = -1;
 			if( pRarityList != NULL )
@@ -61,49 +61,50 @@ BOOL SetupPC_VisualEquipement(CXiahCharObject* pObject, WORD* pVisualList, BYTE*
 					nREffectIndex = 3;
 			}
 
-			// º∫.
+			// ÏÑ±.
 			int nSEffectIndex = -1;
 			if( pStxTypeList != NULL )
 			{
-				if( pStxTypeList[ EQUIPPOS_WEAPON ] >=1 && pStxTypeList[ EQUIPPOS_WEAPON ] <=2 )
+				// ÂèëÂÖâÁâπÊïàÁî±Âº∫ÂåñÁ≠âÁ∫ßÈ©±Âä®Ôºö+1~3Âü∫Á°Ä, +4~10‰∏≠Á∫ß, +11~20È´òÁ∫ß, +21+ÊûÅÂìÅ
+				if( pStxTypeList[ EQUIPPOS_WEAPON ] >=1 && pStxTypeList[ EQUIPPOS_WEAPON ] <=3 )
 					nSEffectIndex = 0;
 				else
-				if( pStxTypeList[ EQUIPPOS_WEAPON ] >=3 && pStxTypeList[ EQUIPPOS_WEAPON ] <=4 )
+				if( pStxTypeList[ EQUIPPOS_WEAPON ] >=4 && pStxTypeList[ EQUIPPOS_WEAPON ] <=10 )
 					nSEffectIndex = 1;
 				else
-				if( pStxTypeList[ EQUIPPOS_WEAPON ] >=5 && pStxTypeList[ EQUIPPOS_WEAPON ] <=6 )
+				if( pStxTypeList[ EQUIPPOS_WEAPON ] >=11 && pStxTypeList[ EQUIPPOS_WEAPON ] <=20 )
 					nSEffectIndex = 2;
 				else
-				if( pStxTypeList[ EQUIPPOS_WEAPON ] >=7 )
+				if( pStxTypeList[ EQUIPPOS_WEAPON ] >=21 )
 					nSEffectIndex = 3;
 			}
 
-			// ≈´ ¿Œµ¶Ω∫∏¶ º±≈√.
+			// ÌÅ∞ Ïù∏Îç±Ïä§Î•º ÏÑ†ÌÉù.
 			int nEffectIndex = nREffectIndex;
 			if( nEffectIndex < nSEffectIndex )
 				nEffectIndex = nSEffectIndex;
 
-			// ∏¡ƒ°∞° ƒ≥∏Ø≈Õ ∏∂¥Ÿ ¥Ÿ∏£¥Ÿ.
+			// ÎßùÏπòÍ∞Ä Ï∫êÎ¶≠ÌÑ∞ ÎßàÎã§ Îã§Î•¥Îã§.
 			if(info.m_wVisualID >= 101 && info.m_wVisualID <= 107)
 			{
 				switch(pObject->m_bSubObjType)
 				{
-					case 1:	// ∞Àøµ
+					case 1:	// Í≤ÄÏòÅ
 						{
 							info.m_nEquipCharID = 749;
 						}					
 						break;
-					case 2:	// ø¨∂˚
+					case 2:	// Ïó∞Îûë
 						{
 							info.m_nEquipCharID = 750;
 						}
 						break;
-					case 3:	// π´≈ı
+					case 3:	// Î¨¥Ìà¨
 						{
 							info.m_nEquipCharID = 889;
 						}
 						break;
-					case 4:	// æﬂ¬˜
+					case 4:	// ÏïºÏ∞®
 						{
 							info.m_nEquipCharID = 966;
 						}
@@ -116,23 +117,23 @@ BOOL SetupPC_VisualEquipement(CXiahCharObject* pObject, WORD* pVisualList, BYTE*
 
 			switch( pObject->m_bSubObjType )
 			{
-				case 1:	// ∞Àøµ
-				case 2:	// ø¨∂˚
-				case 3:	// π´≈ı
+				case 1:	// Í≤ÄÏòÅ
+				case 2:	// Ïó∞Îûë
+				case 3:	// Î¨¥Ìà¨
 					pObject->AttachChildCharRender( eLBP_RightHand, info.m_nEquipCharID, info.m_nEquipMeshType, info.m_nEquipTextureType, nEffectIndex );
 					break;
-				case 4:// æﬂ¬˜¥¬ æÁº’ π´±‚¿Ã¥Ÿ.
+				case 4:// ÏïºÏ∞®Îäî ÏñëÏÜê Î¨¥Í∏∞Ïù¥Îã§.
 					{
-						// æﬂ¬˜¥¬ µŒº’ ªÁøÎ«œ¥¬µ• «—¬ ∏∏. ∏ﬁΩ√≈∏¿‘¿∫ 201 ∫Œ≈Õ
+						// ÏïºÏ∞®Îäî ÎëêÏÜê ÏÇ¨Ïö©ÌïòÎäîÎç∞ ÌïúÏ™ΩÎßå. Î©îÏãúÌÉÄÏûÖÏùÄ 201 Î∂ÄÌÑ∞
 						if(info.m_wVisualID >= 101 && info.m_wVisualID <= 107)
 						{							
 							info.m_nEquipMeshType = info.m_wVisualID + 100;
 
 							pObject->AttachChildCharRender( eLBP_RightHand, info.m_nEquipCharID, info.m_nEquipMeshType, info.m_nEquipTextureType, nEffectIndex );
 						}
-						else	// ¿œπ› π´±‚
+						else	// ÏùºÎ∞ò Î¨¥Í∏∞
 						{
-							// CG_2005/01/27 : ∫Ø¡ææ∆¿Ã≈€±‚¥…√ﬂ∞°
+							// CG_2005/01/27 : Î≥ÄÏ¢ÖÏïÑÏù¥ÌÖúÍ∏∞Îä•Ï∂îÍ∞Ä
 							if( info.m_nEquipCharID == 966 )
 							{
 								pObject->AttachChildCharRender( eLBP_LeftHand,  info.m_nEquipCharID, info.m_nEquipMeshType,   info.m_nEquipTextureType, nEffectIndex );
@@ -147,17 +148,17 @@ BOOL SetupPC_VisualEquipement(CXiahCharObject* pObject, WORD* pVisualList, BYTE*
 					break;
 			}
 
-			// 2004_04_19 Changth : ¿Ã¡® π´±‚ø° Ω∫∆‰≈ß∂Û∞° æ¯¥Ÿ. §–§–, ¿Ã¡® ª«¥Î∞° æ¯¥Ÿ.
+			// 2004_04_19 Changth : Ïù¥Ï†† Î¨¥Í∏∞Ïóê Ïä§ÌéòÌÅòÎùºÍ∞Ä ÏóÜÎã§. „Ö†„Ö†, Ïù¥Ï†† ÎΩÄÎåÄÍ∞Ä ÏóÜÎã§.
 //			pObject->m_ChildChar[ eLBP_RightHand].EnableSpecularEffect();
 
-			// π´±‚ ±Ê¿Ã ºº∆√
+			// Î¨¥Í∏∞ Í∏∏Ïù¥ ÏÑ∏ÌåÖ
 			sArrayData* pData = XiahArrayIndex::g_ItemLength.GetData( info.m_wVisualID );
 			if( pData )
 			{
 				int nLength = pData->GetInt(1);
 				pObject->m_fWeaponLength = (float)nLength / 10.0f;
 
-				// §ª§ª, æﬂ¬˜ π´±‚ '∫Ò' ¥¬ º’¿‚¿Ã µ⁄∑Œ ±Ê∞‘ ≥™øÕ ¿÷¥Ÿ.
+				// „Öã„Öã, ÏïºÏ∞® Î¨¥Í∏∞ 'ÎπÑ' Îäî ÏÜêÏû°Ïù¥ Îí§Î°ú Í∏∏Í≤å ÎÇòÏôÄ ÏûàÎã§.
 				if( info.m_wVisualID >= 1700 && info.m_wVisualID < 1800 )
 				{
 					int nLengthBack = pData->GetInt(2);
@@ -181,10 +182,10 @@ BOOL SetupPC_VisualEquipement(CXiahCharObject* pObject, WORD* pVisualList, BYTE*
 			pObject->RemoveChildCharRender( eLBP_LeftHand );
 	}
 	
-	// CG_2005/01/27 : ∫Ø¡ææ∆¿Ã≈€±‚¥…√ﬂ∞°
+	// CG_2005/01/27 : Î≥ÄÏ¢ÖÏïÑÏù¥ÌÖúÍ∏∞Îä•Ï∂îÍ∞Ä
 	if( nCharID == pObject->m_CharRender.GetCharID() )
 	{
-		if( pVisualList[ EQUIPPOS_HAT] != 0)	// ∏¿⁄
+		if( pVisualList[ EQUIPPOS_HAT] != 0)	// Î™®Ïûê
 		{
 			info.m_wVisualID = pVisualList[ EQUIPPOS_HAT];
 			if( XiahItem::SetItemVisualData( &info))
@@ -196,19 +197,19 @@ BOOL SetupPC_VisualEquipement(CXiahCharObject* pObject, WORD* pVisualList, BYTE*
 		{
 			pObject->RemoveChildCharRender( eLBP_Head );
 
-			// πŒ∏”∏Æ
+			// ÎØºÎ®∏Î¶¨
 			switch( nCharID/*pObject->m_bSubObjType*/ )
 			{
-			case 790:// ∞Àøµ
+			case 790:// Í≤ÄÏòÅ
 				pObject->AttachChildCharRender( eLBP_Head, 755, 8, 0 );
 				break;
-			case 867:// ø¨∂˚
+			case 867:// Ïó∞Îûë
 				pObject->AttachChildCharRender( eLBP_Head, 756, 8, 0 );
 				break;
-			case 891:// π´≈ı
+			case 891:// Î¨¥Ìà¨
 				pObject->AttachChildCharRender( eLBP_Head, 893, 8, 0 );
 				break;
-			case 906:// æﬂ¬˜
+			case 906:// ÏïºÏ∞®
 				pObject->AttachChildCharRender( eLBP_Head, 969, 8, 0 );
 				break;
 			};
@@ -216,7 +217,7 @@ BOOL SetupPC_VisualEquipement(CXiahCharObject* pObject, WORD* pVisualList, BYTE*
 	}
 	else
 	{
-		if( pVisualList[ EQUIPPOS_HAT] != 0)	// ∏¿⁄
+		if( pVisualList[ EQUIPPOS_HAT] != 0)	// Î™®Ïûê
 		{
 			info.m_wVisualID = pVisualList[ EQUIPPOS_HAT]; 
 			if( XiahItem::SetItemVisualData( &info ))
@@ -228,19 +229,19 @@ BOOL SetupPC_VisualEquipement(CXiahCharObject* pObject, WORD* pVisualList, BYTE*
 		{
 			pObject->RemoveChildCharRender( eLBP_Head );
 
-			// πŒ∏”∏Æ
+			// ÎØºÎ®∏Î¶¨
 			switch( pObject->m_CharRender.GetCharID() )
 			{
-			case 790:// ∞Àøµ
+			case 790:// Í≤ÄÏòÅ
 				pObject->AttachChildCharRender( eLBP_Head, 755, 8, 0 );
 				break;
-			case 867:// ø¨∂˚
+			case 867:// Ïó∞Îûë
 				pObject->AttachChildCharRender( eLBP_Head, 756, 8, 0 );
 				break;
-			case 891:// π´≈ı
+			case 891:// Î¨¥Ìà¨
 				pObject->AttachChildCharRender( eLBP_Head, 893, 8, 0 );
 				break;
-			case 906:// æﬂ¬˜
+			case 906:// ÏïºÏ∞®
 				pObject->AttachChildCharRender( eLBP_Head, 969, 8, 0 );
 				break;
 			};
@@ -249,7 +250,7 @@ BOOL SetupPC_VisualEquipement(CXiahCharObject* pObject, WORD* pVisualList, BYTE*
 
 	if( pVisualList[ EQUIPPOS_SHOE] != 0)
 	{
-		info.m_wVisualID = pVisualList[ EQUIPPOS_SHOE]; // Ω≈πﬂ
+		info.m_wVisualID = pVisualList[ EQUIPPOS_SHOE]; // Ïã†Î∞ú
 
 		if( XiahItem::SetItemVisualData( &info))
 		{
@@ -258,7 +259,7 @@ BOOL SetupPC_VisualEquipement(CXiahCharObject* pObject, WORD* pVisualList, BYTE*
 	}
 	else
 	{
-        // ±‚∫ª Ω≈πﬂ.
+        // Í∏∞Î≥∏ Ïã†Î∞ú.
 		switch( pObject->m_bSubObjType )
 		{
 		case 1:
@@ -276,19 +277,33 @@ BOOL SetupPC_VisualEquipement(CXiahCharObject* pObject, WORD* pVisualList, BYTE*
 		};
 	}
 
-	// GlowEffect∫π±Õ
 	pObject->EnableGlowEffect( pObject->m_bGlowEnable);
 
+	int nNewTitleID = (int)pVisualList[8];
+	if (g_pMainChar && pObject == (CXiahCharObject*)g_pMainChar->m_pObject)
+	{
+		g_MainCharInfo.wEquipVisualID[8] = (WORD)nNewTitleID;
+	}
+	if (nNewTitleID != pObject->m_nActiveTitleID)
+	{
+		pObject->m_nActiveTitleID = nNewTitleID;
+		pObject->LoadLegendTitle(nNewTitleID);
+
+		if (g_pMainChar && pObject == (CXiahCharObject*)g_pMainChar->m_pObject)
+		{
+			g_MainCharInfo.RefreshChracterInfo();
+		}
+	}
 
 /*
 	// 2004_04_19 Changth
-	// ¿Ã∫•∆Æ æ∆¿Ã≈€¿« ¿Ã∆Â∆Æ∏¶ »£√‚«œ±‚ ¿ß«ÿº≠¥¬ µŒ±∫µ•ø° ƒ⁄µ˘¿ª «—¥Ÿ.
-	// «œ≥™¥¬ ¿Â∫Ò∏¶ ¿Â¬¯«“∂ß »∑∂®«œ¥¬ ∞Õ¿Ã∞Ì, ∂« «œ≥™¥¬ ChangeEventInfo_ack∞° ø√∂ß ¿Ã¥Ÿ.
-	// ¿Ã¿Ø¥¬, ¿Ã∆Â∆Æ¿« Ω√¿€¿∫ ChangeEventInfo_ackø°º≠ æÀºˆ ¿÷¥¬µ•, ¿Â∫Ò∏¶ ¿Â¬¯«œ∞Ì ≥™º≠
-	// ¿Ã ∆–≈∂¿Ã ø¿±‚∂ßπÆø° ¡§¿€ ¿Â¬¯«“∂ß ¿Ã∫•∆Æ∞° Ω√¿€¿Œ¡ˆ æÀºˆ∞° æ¯¥Ÿ. ¥Ÿ∏∏ ¥Ÿ∏• ƒ≥∏Ø≈Õ∞°
-	// ≥™¿« ¿ßƒ°∑Œ ø‘¿ª∂ß «ˆ¿Á ¡¯«‡¡ﬂ¿Œ ¿Ã∫•∆Æ∏¶ »∑∂®«œ±‚ ¿ß«ÿº≠ ¿Ã∑∏∞‘ «—¥Ÿ.
+	// Ïù¥Î≤§Ìä∏ ÏïÑÏù¥ÌÖúÏùò Ïù¥ÌéôÌä∏Î•º Ìò∏Ï∂úÌïòÍ∏∞ ÏúÑÌï¥ÏÑúÎäî ÎëêÍµ∞Îç∞Ïóê ÏΩîÎî©ÏùÑ ÌïúÎã§.
+	// ÌïòÎÇòÎäî Ïû•ÎπÑÎ•º Ïû•Ï∞©Ìï†Îïå ÌöÖÎïçÌïòÎäî Í≤ÉÏù¥Í≥†, Îòê ÌïòÎÇòÎäî ChangeEventInfo_ackÍ∞Ä Ïò¨Îïå Ïù¥Îã§.
+	// Ïù¥Ïú†Îäî, Ïù¥ÌéôÌä∏Ïùò ÏãúÏûëÏùÄ ChangeEventInfo_ackÏóêÏÑú ÏïåÏàò ÏûàÎäîÎç∞, Ïû•ÎπÑÎ•º Ïû•Ï∞©ÌïòÍ≥† ÎÇòÏÑú
+	// Ïù¥ Ìå®ÌÇ∑Ïù¥ Ïò§Í∏∞ÎïåÎ¨∏Ïóê Ï†ïÏûë Ïû•Ï∞©Ìï†Îïå Ïù¥Î≤§Ìä∏Í∞Ä ÏãúÏûëÏù∏ÏßÄ ÏïåÏàòÍ∞Ä ÏóÜÎã§. Îã§Îßå Îã§Î•∏ Ï∫êÎ¶≠ÌÑ∞Í∞Ä
+	// ÎÇòÏùò ÏúÑÏπòÎ°ú ÏôîÏùÑÎïå ÌòÑÏû¨ ÏßÑÌñâÏ§ëÏù∏ Ïù¥Î≤§Ìä∏Î•º ÌöÖÎïçÌïòÍ∏∞ ÏúÑÌï¥ÏÑú Ïù¥Î†áÍ≤å ÌïúÎã§.
 
-	// ¿Ã∫•∆Æ æ∆¿Ã≈€¿ª «ˆ¿Á ªÁøÎ¡ﬂ¿Ã∏È ¿Ã∆Â∆Æ∞° ≥™øÕæﬂ «—¥Ÿ.
+	// Ïù¥Î≤§Ìä∏ ÏïÑÏù¥ÌÖúÏùÑ ÌòÑÏû¨ ÏÇ¨Ïö©Ï§ëÏù¥Î©¥ Ïù¥ÌéôÌä∏Í∞Ä ÎÇòÏôÄÏïº ÌïúÎã§.
 	if( g_pMainChar && NULL == pObject->m_pEventItemEffectPP )
 	{
 		std::map<int, sImageScrMsg*>::iterator iit;
@@ -297,16 +312,16 @@ BOOL SetupPC_VisualEquipement(CXiahCharObject* pObject, WORD* pVisualList, BYTE*
 			int nEventKind = iit->first;
 			sImageScrMsg *pItem = iit->second;
 
-			if( !pItem->bShow ) continue; // «ˆ¿Á ¡¯«‡¡ﬂ¿Œ∞Õ∏∏.
+			if( !pItem->bShow ) continue; // ÌòÑÏû¨ ÏßÑÌñâÏ§ëÏù∏Í≤ÉÎßå.
 
-			// «ˆ¿Á ¿Â∫Ò∏¶ ±≥√º«œ∑¡¥¬ ƒ≥∏Ø≈Õ∞° ¿Ã∫•∆Æ æ∆¿Ã≈€¿ª ªÁøÎ¡ﬂ¿Œ ƒ≥∏Ø≈Õ¿Œ¡ˆ ∞ÀªÁ«—¥Ÿ.
+			// ÌòÑÏû¨ Ïû•ÎπÑÎ•º ÍµêÏ≤¥ÌïòÎ†§Îäî Ï∫êÎ¶≠ÌÑ∞Í∞Ä Ïù¥Î≤§Ìä∏ ÏïÑÏù¥ÌÖúÏùÑ ÏÇ¨Ïö©Ï§ëÏù∏ Ï∫êÎ¶≠ÌÑ∞Ïù∏ÏßÄ Í≤ÄÏÇ¨ÌïúÎã§.
 			XiahObject::CXiahObject* pXiahObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID(0, pItem->dwEventCharID, OBJTYPE_PC) );
 			if( pXiahObject )
 			{
 				CXiahCharObject* pCharObject = (CXiahCharObject*)pXiahObject->m_pObject;
 				if( pCharObject && pCharObject == pObject )
 				{
-					// 0: ∞¯∞›∞Ë, 1: º∫¿Â∞Ë, 2: ∏ÛΩ∫≈Õ∞Ë, 3: ∞Ê¡¶∞Ë
+					// 0: Í≥µÍ≤©Í≥Ñ, 1: ÏÑ±Ïû•Í≥Ñ, 2: Î™¨Ïä§ÌÑ∞Í≥Ñ, 3: Í≤ΩÏ†úÍ≥Ñ
 					int nEffectType = 0;
 
 					if( nEventKind >= 0 && nEventKind <= 4 )
@@ -321,8 +336,8 @@ BOOL SetupPC_VisualEquipement(CXiahCharObject* pObject, WORD* pVisualList, BYTE*
 					if( nEventKind >= 10 && nEventKind <= 11 )
 						nEffectType = 3;
 
-					// ¡ˆº” ¿Ã∆Â∆Æ
-					// ∞∞¿∫ ¡æ∑˘¿« æ∆¿Ã≈€¿ª π˙Ω· æ≤∞Ì ¿÷¿∏∏È ¿Ã∆Â∆Æ∞° ¿÷¥¬ ªÛ≈¬¥Ÿ.
+					// ÏßÄÏÜç Ïù¥ÌéôÌä∏
+					// Í∞ôÏùÄ Ï¢ÖÎ•òÏùò ÏïÑÏù¥ÌÖúÏùÑ Î≤åÏç® Ïì∞Í≥† ÏûàÏúºÎ©¥ Ïù¥ÌéôÌä∏Í∞Ä ÏûàÎäî ÏÉÅÌÉúÎã§.
 					if( NULL == pCharObject->m_pEventItemEffectPP )
 					{
 						_EFFECTPACKAGE* pEffectPackage2 = g_EffectManager.EnqOutGongPersistEffectImmediately( eAttackKindItem_keepup + nEffectType );
@@ -345,11 +360,11 @@ BOOL SetupPC_VisualEquipement(CXiahCharObject* pObject, WORD* pVisualList, BYTE*
 }
 
 
-// «ˆ¿Á¥¬ ∆Íƒ⁄µÂ«¸≈¬∏∏
+// ÌòÑÏû¨Îäî Ìé´ÏΩîÎìúÌòïÌÉúÎßå
 bool SetupPET_VisualEquipement(CXiahCharObject* pObject, WORD* pVisualList)
 {
 	XiahItem::sItemInfo info;
-	// 2-4-1-3 ( ∏ˆ≈Î-πﬂ-∏”∏Æ-≤ø∏Æ )
+	// 2-4-1-3 ( Î™∏ÌÜµ-Î∞ú-Î®∏Î¶¨-Íº¨Î¶¨ )
 
 	if(pVisualList[5] != 0)
 	{
@@ -366,7 +381,7 @@ bool SetupPET_VisualEquipement(CXiahCharObject* pObject, WORD* pVisualList)
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 	if(pVisualList[4] != 0)
 	{
-		info.m_wVisualID = pVisualList[4]; // Ω≈πﬂ
+		info.m_wVisualID = pVisualList[4]; // Ïã†Î∞ú
 
 		if(XiahItem::SetItemVisualData(&info))
 			pObject->AttachPetChildChar(eLBP_Shoe, info.m_nEquipCharID, info.m_nEquipMeshType, info.m_nEquipTextureType);
@@ -378,7 +393,7 @@ bool SetupPET_VisualEquipement(CXiahCharObject* pObject, WORD* pVisualList)
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
-	if(pVisualList[3] != 0)	// ∏”∏Æ
+	if(pVisualList[3] != 0)	// Î®∏Î¶¨
 	{
 		info.m_wVisualID = pVisualList[3];
 
@@ -391,7 +406,7 @@ bool SetupPET_VisualEquipement(CXiahCharObject* pObject, WORD* pVisualList)
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
-	//≤ø∏Æ
+	//Íº¨Î¶¨
 	if(pVisualList[1] != 0)
 	{
 		info.m_wVisualID = pVisualList[1];

@@ -14,7 +14,7 @@ void ProcessSituation( LPARAM lParam)
 	case situation_bar_toggle_down:
 //		pFrame->Show();
 		break;
-	case situation_bar_toggle_up:	// πÃ¥œ∏ 
+	case situation_bar_toggle_up:	// ÎØ∏ÎãàÎßµ
 		g_MainCharInfo.ShowMiniMap();
 		break;
 	case situation_bar_toggle_rotation:
@@ -36,7 +36,7 @@ void ProcessMainFrame( LPARAM lParam)
 
 	switch(nControlID)
 	{
-	case main_frame_window_button:	// ∞‘¿” ∏ﬁ¥∫
+	case main_frame_window_button:	// Í≤åÏûÑ Î©îÎâ¥
 		{
 //			if(g_MainCharInfo.m_bRebirthItem_Use) break;
             if(g_pUIManager->IsShow(WINDOW_BUTTON_GROUP_01))
@@ -46,7 +46,7 @@ void ProcessMainFrame( LPARAM lParam)
 		}		
 		break;
 
-	case main_frame_system_button:	// Ω√Ω∫≈€ ∏ﬁ¥∫
+	case main_frame_system_button:	// ÏãúÏä§ÌÖú Î©îÎâ¥
 		{
 //			if(g_MainCharInfo.m_bRebirthItem_Use) break;
 			if(g_pUIManager->IsShow(SYSTEM_BUTTON_GROUP_01))
@@ -56,16 +56,16 @@ void ProcessMainFrame( LPARAM lParam)
 		}		
 		break;
 
-	case main_frame_message_toggle:	// √§∆√
+	case main_frame_message_toggle:	// Ï±ÑÌåÖ
 		{
-			// ∏≈«∞∆–
+			// Îß§ÌíàÌå®
 			if(!g_MainCharInfo.m_bPersonalTradeSell && !g_MainCharInfo.m_pQuickMart)
 				ProcessEnterForChat();
 		}		
 		break;
 
-		// ƒ¸ ΩΩ∑‘ »Æ¿Â
-	case main_frame_socket_up:		// º“ƒœ
+		// ÌÄµ Ïä¨Î°Ø ÌôïÏû•
+	case main_frame_socket_up:		// ÏÜåÏºì
 		{
 			if(g_MainCharInfo.m_pSlot)
 			{
@@ -73,7 +73,7 @@ void ProcessMainFrame( LPARAM lParam)
 			}
 		}
 		break;
-	case main_frame_socket_down:	// º“ƒœ
+	case main_frame_socket_down:	// ÏÜåÏºì
 		{
 			if(g_MainCharInfo.m_pSlot)
 			{
@@ -83,8 +83,8 @@ void ProcessMainFrame( LPARAM lParam)
 		break;
 	}
 
-	//HO_0413_07 ƒ¸ ∞°¿ÃµÂ æ˜µ•¿Ã∆Æ : πˆ∆∞ √ﬂ∞°∑Œ ¿Œ«— ¿ßƒ° ºˆ¡§
-	if(!g_pUIManager->IsShow(WINDOW_BUTTON_GROUP_01))//ƒ¸ ∞°¿ÃµÂ πˆ∆∞ √ﬂ∞°∑Œ ¿Œ«— ¿©µµøÏ, Ω√Ω∫≈€ ±◊∑Ïπˆ∆∞ ¿ßƒ° ºˆ¡§
+	//HO_0413_07 ÌÄµ Í∞ÄÏù¥Îìú ÏóÖÎç∞Ïù¥Ìä∏ : Î≤ÑÌäº Ï∂îÍ∞ÄÎ°ú Ïù∏Ìïú ÏúÑÏπò ÏàòÏ†ï
+	if(!g_pUIManager->IsShow(WINDOW_BUTTON_GROUP_01))//ÌÄµ Í∞ÄÏù¥Îìú Î≤ÑÌäº Ï∂îÍ∞ÄÎ°ú Ïù∏Ìïú ÏúàÎèÑÏö∞, ÏãúÏä§ÌÖú Í∑∏Î£πÎ≤ÑÌäº ÏúÑÏπò ÏàòÏ†ï
 	{
 		RECT rtTemp;
 
@@ -102,7 +102,7 @@ void ProcessMainFrame( LPARAM lParam)
 
 
 /**
- * ø¯µµøÏ πˆ∆∞ ±◊∑Ï
+ * ÏõêÎèÑÏö∞ Î≤ÑÌäº Í∑∏Î£π
  * \param lParam 
  */
 void ProcessWindowButtonGroup( LPARAM lParam)
@@ -112,26 +112,26 @@ void ProcessWindowButtonGroup( LPARAM lParam)
 
 	switch( controlID)
 	{
-	case new_window_button_01:	// «‡≥∂
+	case new_window_button_01:	// ÌñâÎÇ≠
 		ProcessClickSackButton();		
 		break;
-	case new_window_button_02:	// ƒ≥∏Ø≈Õ¡§∫∏
+	case new_window_button_02:	// Ï∫êÎ¶≠ÌÑ∞Ï†ïÎ≥¥
 		if(!g_MainCharInfo.m_bPersonalTradeSell)
 			ProcessClickCharInfoButton();		
 		break;
-	case new_window_button_03:	// π´∞¯
+	case new_window_button_03:	// Î¨¥Í≥µ
 		if(!g_MainCharInfo.m_bPersonalTradeSell)
 			ProcessClickMugongButton( 1);
 		break;
-	case new_window_button_04:	// ∞¸∞Ë
+	case new_window_button_04:	// Í¥ÄÍ≥Ñ
 		if(!g_MainCharInfo.m_bPersonalTradeSell)
 			ProcessClickRelationButton( eDAN);
 		break;
-	case new_window_button_05:	// ±‚ø¨
+	case new_window_button_05:	// Í∏∞Ïó∞
 		if(!g_MainCharInfo.m_bPersonalTradeSell)
 			ProcessClickQuestButton();
 		break;
-	case new_window_button_06:	// æ∆¿Ã≈€ ºˆ¡˝
+	case new_window_button_06:	// ÏïÑÏù¥ÌÖú ÏàòÏßë
 		{
 			if(!g_MainCharInfo.m_bPersonalTradeSell)
 			{
@@ -156,13 +156,13 @@ void ProcessSystemButtonGroup( LPARAM lParam)
 
 	switch( controlID)
 	{
-	case new_system_button_01:	// πÃ¥œ∏ 
+	case new_system_button_01:	// ÎØ∏ÎãàÎßµ
 		g_MainCharInfo.ShowMiniMap( TRUE);
 		break;
-	case new_system_button_02:	// «Ô«¡
+	case new_system_button_02:	// Ìó¨ÌîÑ
 		g_MainCharInfo.OpenFrame( A_HELP);
 		break;
-	case new_system_button_03:	// ø…º«
+	case new_system_button_03:	// ÏòµÏÖò
 		if(!g_MainCharInfo.m_bPersonalTradeSell)
 			ProcessClickOptionButton();
 
@@ -171,14 +171,14 @@ void ProcessSystemButtonGroup( LPARAM lParam)
 			g_MainCharInfo.m_pChat->SetChatType( SMALLCHAT);
 		}
 		break;
-	case new_system_button_04:	// ≥°≥ª±‚
+	case new_system_button_04:	// ÎÅùÎÇ¥Í∏∞
 		ProcessClickCloseButton();
 		break;
 	}
 }
 
 
-// PET AI¡ˆ¡§ πˆ∆∞
+// PET AIÏßÄÏ†ï Î≤ÑÌäº
 void ProcessPetButtonGroup( LPARAM lParam)
 {
 	int controlID = LOWORD( lParam);
@@ -186,20 +186,20 @@ void ProcessPetButtonGroup( LPARAM lParam)
 
 	switch( controlID)
 	{
-	case pet_button_01:	// »£√‚
+	case pet_button_01:	// Ìò∏Ï∂ú
 		g_PetList.Change_PET_AI(PETAI_CALLTOME);
 		break;
-	case pet_button_02:	// µøπ›∞¯∞›
+	case pet_button_02:	// ÎèôÎ∞òÍ≥µÍ≤©
 		g_PetList.Change_PET_AI(PETAI_AUTOATTACK);
 		break;
-	case pet_button_03:	// ¡ˆ¡§∞¯∞›
+	case pet_button_03:	// ÏßÄÏ†ïÍ≥µÍ≤©
 		g_PetList.Change_PET_AI(PETAI_TARGETATTACK);
 		g_bCommandAI = TRUE;
 		g_dwCommandType = PETAI_TARGETATTACK;
 		break;
-	case pet_button_04:	// π´∞¯∞¯∞›
+	case pet_button_04:	// Î¨¥Í≥µÍ≥µÍ≤©
 		break;
-	case pet_button_05:	// æ∆¿Ã≈€ºˆ¡˝
+	case pet_button_05:	// ÏïÑÏù¥ÌÖúÏàòÏßë
 		g_PetList.Change_PET_AI(PETAI_TAKEITEM);
 		break;
 	}
@@ -220,7 +220,7 @@ void ProcessMainChat( LPARAM lParam)
 
 	switch( controlID)
 	{
-	case chat_name_edit:			// ¿Ã∏ß¿‘∑¬√¢
+	case chat_name_edit:			// Ïù¥Î¶ÑÏûÖÎ†•Ï∞Ω
 		{
 			TCHAR strName[128] = {0,};
 			memset(strName, 0, sizeof(strName));
@@ -231,7 +231,7 @@ void ProcessMainChat( LPARAM lParam)
 			g_MainCharInfo.m_strWhisperName = strName;
 		}
 		break;
-	case main_chat_edit:			// √§∆√ ≥ªøÎ¿‘∑¬√¢
+	case main_chat_edit:			// Ï±ÑÌåÖ ÎÇ¥Ïö©ÏûÖÎ†•Ï∞Ω
 		{
 			g_MainCharInfo.m_bFirstChat = false;
 
@@ -259,9 +259,9 @@ void ProcessMainChat( LPARAM lParam)
 					if( szName != _T(""))
 					{
 						DWORD dwListnerID = 0;
-						// ¿œ¥‹ ¡÷∫Øø°º≠ √£∞Ì
+						// ÏùºÎã® Ï£ºÎ≥ÄÏóêÏÑú Ï∞æÍ≥†
 						//dwListnerID = g_MainCharInfo.FindIDByName( (LPCTSTR)szName);
-						// Relationø°º≠ √£¥¬¥Ÿ
+						// RelationÏóêÏÑú Ï∞æÎäîÎã§
 						if( !dwListnerID)
 							dwListnerID = g_MainCharInfo.m_pRelation->FindRelationIDByName( (LPCTSTR)szName);
 						
@@ -283,7 +283,12 @@ void ProcessMainChat( LPARAM lParam)
 				}
 				else if( byChatType == CT_MUNPA_BROADCAST)
 				{
-					SendCS_RL_MUNPACHAT_REQ( CT_MUNPA_BROADCAST, szContent);
+					if( g_MainCharInfo.m_pRelation && g_MainCharInfo.m_pRelation->GetClanID() != 0)
+						SendCS_RL_MUNPACHAT_REQ( CT_MUNPA_BROADCAST, szContent);
+					else
+					{
+						g_MainCharInfo.ShowHelpMessage( IDS_NO_MUNPA, TEXTEFFECT_COLOR_WARNING);
+					}
 				}
 				else
 				{
@@ -314,7 +319,7 @@ void ProcessMainChat( LPARAM lParam)
 
 
 /**
-* ±‚
+* Í∏∞
 * \param lParam 
 */
 void ProcessSpirit(LPARAM lParam)
@@ -335,7 +340,7 @@ void ProcessSpirit(LPARAM lParam)
 
 }
 
-void ProcessHELPER(LPARAM lParam)//HO_0214_07 ƒ¸ ∞°¿ÃµÂ æ˜µ•¿Ã∆Æ
+void ProcessHELPER(LPARAM lParam)//HO_0214_07 ÌÄµ Í∞ÄÏù¥Îìú ÏóÖÎç∞Ïù¥Ìä∏
 {
 	int nControlID = LOWORD(lParam);
 

@@ -1,4 +1,4 @@
-#include "precompile.h"
+ï»¿#include "precompile.h"
 #include "equipsack.h"
 #include "CharacterInfo.h"
 #include "XiahGame_Main.h"
@@ -7,7 +7,7 @@
 #include <algorithm>
 #include <assert.h>
 
-//HT_CHEAT : ÀÚµ¿ ¼ö¸®¸¦ À§ÇØ Çì´õ Ãß°¡
+//HT_CHEAT : ìë™ ìˆ˜ë¦¬ë¥¼ ìœ„í•´ í—¤ë” ì¶”ê°€
 #include "XiahGame_Handler_Sender.h"
 
 typedef vector< BYTE> VSHORTENDU;
@@ -38,13 +38,13 @@ CEquipSack::CEquipSack( BYTE byType, BYTE byTotalSize) : m_dwTime(0), m_bRepairS
 		m_vecItemTex.push_back( NULL);
 		m_vecItemRt.push_back( NULL);
 
-		// Á¦·Ã
+		// ì œë ¨
 		m_vecItemSocketVB.push_back(NULL);
 
 		m_vecSocketItem1VB.push_back(NULL);
 		m_vecSocketItem2VB.push_back(NULL);
 		m_vecSocketItem3VB.push_back(NULL);
-		m_vecRBSocketItemVB.push_back(NULL);//HT_1116 : °¢¼ºÀÚ ¾ÆÀÌÅÛ Ãß°¡
+		m_vecRBSocketItemVB.push_back(NULL);//HT_1116 : ê°ì„±ì ì•„ì´í…œ ì¶”ê°€
 		m_vecRBItemStoneVB.push_back(NULL);
 	}
 
@@ -62,7 +62,7 @@ CEquipSack::~CEquipSack(void)
 			m_pEquipVB[i] = NULL;
 		}
 
-		// TEXTURE´Â XIAH PAK¿¡ ¸Â±ä´Ù.
+		// TEXTUREëŠ” XIAH PAKì— ë§ê¸´ë‹¤.
 	}
 }
 
@@ -131,7 +131,7 @@ void CEquipSack::SetSackRegion()
 			m_SackRt.bottom = m_vecItemRt[ 3]->bottom;
 		}
 		break;
-	case SACKTYPE__PET_EQUIP:	// Æê ÀåÂø
+	case SACKTYPE__PET_EQUIP:	// í« ì¥ì°©
 		{
 			RECT rtTemp;
 
@@ -160,7 +160,7 @@ void CEquipSack::SetSackRegion()
 		}
 		break;
 
-	case SACKTYPE__FIVEELEMENT_CONVERT:	// ¿ÀÇà ¾ÆÀÌÅÛ Á¦·Ã
+	case SACKTYPE__FIVEELEMENT_CONVERT:	// ì˜¤í–‰ ì•„ì´í…œ ì œë ¨
 		{
 			RECT rtTemp;
 
@@ -179,7 +179,7 @@ void CEquipSack::SetSackRegion()
 			m_SackRt.bottom = m_vecItemRt[ 3]->bottom;
 		}
 		break;
-	case SACKTYPE__COLLECTION:		// ¾ÆÀÌÅÛ ¼öÁı
+	case SACKTYPE__COLLECTION:		// ì•„ì´í…œ ìˆ˜ì§‘
 		{
 			RECT rtTemp;
 
@@ -251,15 +251,15 @@ void CEquipSack::CreateEquipVB()
 	}
 
 
-	m_pEquipTex[EQUIPPOS_WEAPON]	= XiahPak::GetTexture(887);//¹«±â887
-	m_pEquipTex[EQUIPPOS_HAT]		= XiahPak::GetTexture(885);//¸ğÀÚ885
-	m_pEquipTex[EQUIPPOS_CLOTH]		= XiahPak::GetTexture(890);//ÀÇº¹890
-	m_pEquipTex[EQUIPPOS_SHOE]		= XiahPak::GetTexture(889);//½Å¹ß889
+	m_pEquipTex[EQUIPPOS_WEAPON]	= XiahPak::GetTexture(887);//ë¬´ê¸°887
+	m_pEquipTex[EQUIPPOS_HAT]		= XiahPak::GetTexture(885);//ëª¨ì885
+	m_pEquipTex[EQUIPPOS_CLOTH]		= XiahPak::GetTexture(890);//ì˜ë³µ890
+	m_pEquipTex[EQUIPPOS_SHOE]		= XiahPak::GetTexture(889);//ì‹ ë°œ889
 	m_pEquipTex[4]					= NULL;
-	m_pEquipTex[EQUIPPOS_RING]		= XiahPak::GetTexture(888);//¹İÁö888
-	m_pEquipTex[EQUIPPOS_NECLACE]	= XiahPak::GetTexture(886);//¸ñ°ÉÀÌ886
+	m_pEquipTex[EQUIPPOS_RING]		= XiahPak::GetTexture(888);//ë°˜ì§€888
+	m_pEquipTex[EQUIPPOS_NECLACE]	= XiahPak::GetTexture(886);//ëª©ê±¸ì´886
 	m_pEquipTex[7]					= NULL;	
-	m_pEquipTex[EQUIPPOS_BONGIN]	= XiahPak::GetTexture(1071);//Ç×¾Æ¸® 1071
+	m_pEquipTex[EQUIPPOS_BONGIN]	= XiahPak::GetTexture(1071);//í•­ì•„ë¦¬ 1071
 }
 
 /**
@@ -294,7 +294,7 @@ BOOL CEquipSack::CheckItemUnSelected()
 BOOL CEquipSack::InsertItem( BYTE bSackPos, XiahItem::sItemInfo* pItem)
 {
 	if( bSackPos >= m_bySackTotalSize) return FALSE;
-	// ÀåÂø
+	// ì¥ì°©
 	if( g_pMainChar && m_bySackType == SACKTYPE__EQUIPMENT)
 	{
 		CXiahCharObject* pCharObject = (CXiahCharObject*)g_pMainChar->m_pObject;
@@ -303,7 +303,7 @@ BOOL CEquipSack::InsertItem( BYTE bSackPos, XiahItem::sItemInfo* pItem)
 
 		g_MainCharInfo.wEquipVisualID[ bSackPos] = pItem->m_wVisualID;
 		g_MainCharInfo.m_bRarity[ bSackPos ]  = pItem->m_bRarity;
-		g_MainCharInfo.m_bStxType[ bSackPos ] = pItem->m_bStxType;
+		g_MainCharInfo.m_bStxType[ bSackPos ] = pItem->m_bLimitCnt; // å‘å…‰ç‰¹æ•ˆç”±å¼ºåŒ–ç­‰çº§é©±åŠ¨
 
 		SetupPC_VisualEquipement( pCharObject, g_MainCharInfo.wEquipVisualID, g_MainCharInfo.m_bRarity, g_MainCharInfo.m_bStxType );
 	}
@@ -318,7 +318,7 @@ BOOL CEquipSack::InsertItem( BYTE bSackPos, XiahItem::sItemInfo* pItem)
 void CEquipSack::DeleteItem( BYTE bSackPos, bool bDelete)
 {
 	if( bSackPos >= m_bySackTotalSize) return;
-	// Å»Âø
+	// íƒˆì°©
 	if( g_pMainChar && m_bySackType == SACKTYPE__EQUIPMENT)
 	{	
 		CXiahCharObject* pCharObject = (CXiahCharObject*)g_pMainChar->m_pObject;
@@ -340,7 +340,7 @@ void CEquipSack::DeleteItem( BYTE bSackPos, bool bDelete)
 		m_vecItemVB[ bSackPos] = NULL;
 	}
 
-	// Á¦·Ã
+	// ì œë ¨
 	if(m_vecItemSocketVB[bSackPos])
 	{
 		m_vecItemSocketVB[bSackPos]->Release();
@@ -364,7 +364,7 @@ void CEquipSack::DeleteItem( BYTE bSackPos, bool bDelete)
 		m_vecSocketItem3VB[bSackPos]->Release();
 		m_vecSocketItem3VB[bSackPos] = NULL;
 	}
-	//HT_1116 : °¢¼ºÀÚ ¾ÆÀÌÅÛ Ãß°¡
+	//HT_1116 : ê°ì„±ì ì•„ì´í…œ ì¶”ê°€
 	if(m_vecRBSocketItemVB[bSackPos])
 	{
 		m_vecRBSocketItemVB[bSackPos]->Release();
@@ -437,7 +437,7 @@ void CEquipSack::CheckEquipShortEndu()
 		{
 			if( m_vecItem[i])
 			{
-				// ÀÌº¥Æ® ¾ÆÀÌÅÛÀº Åë°ú
+				// ì´ë²¤íŠ¸ ì•„ì´í…œì€ í†µê³¼
 				if(m_vecItem[i]->m_bItemType == ITEMTYPE_SOCKET)
 					continue;
 
@@ -462,12 +462,12 @@ void CEquipSack::CheckEquipShortEndu()
 						{
 							if(m_vecItem[i]->m_bShowMessage)
 							{
-								// ¸ÁÄ¡´Â ¹®±¸ Á¦¿Ü
+								// ë§ì¹˜ëŠ” ë¬¸êµ¬ ì œì™¸
 								if(!(ITEMTYPE_WEAPON == m_vecItem[i]->m_bItemType && 8 == m_vecItem[i]->m_bItemKind))
 									g_MainCharInfo.ShowHelpMessage(INTER_WARNNIG3 ,TEXTEFFECT_COLOR_WARNING);
 
 								
-								//HT_CHEAT : ÀÚµ¿ ¼ö¸®
+								//HT_CHEAT : ìë™ ìˆ˜ë¦¬
 								XiahItem::sItemInfo* pItem = m_vecItem[i];
 								WORD wDur = pItem->m_wCurDur * 100 / pItem->m_wMaxDur;
 								SendCS_IM_REPAIRITEM_REQ( pItem->m_dwItemID, pItem->m_bSackID, pItem->m_bSackPos);
@@ -504,7 +504,7 @@ void CEquipSack::CheckEquipShortEndu()
 		}
 	}
 
-	// 0.5ÃÊ °£°İ
+	// 0.5ì´ˆ ê°„ê²©
 	if(m_dwTime+500 <= g_dwCurTime)
 	{
 		if(bRepairShow)

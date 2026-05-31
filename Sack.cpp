@@ -1,4 +1,4 @@
-#include "precompile.h"
+ï»¿#include "precompile.h"
 #include "resource.h"
 #include "AppData.h"
 #include "sack.h"
@@ -19,7 +19,7 @@
 
 #include <assert.h>
 
-//HT_CHEAT : Ä¡Æ® Å° 
+//HT_CHEAT : ?? ? 
 extern BOOL g_bCheat;
 
 CSack::CSack() : m_bShow(FALSE), m_bRefreshToolTip(FALSE), m_nCurToolTipItemPos(-1), m_nPrevToolTipItemPos(-1),
@@ -29,12 +29,12 @@ CSack::CSack() : m_bShow(FALSE), m_bRefreshToolTip(FALSE), m_nCurToolTipItemPos(
 	m_vecItemVB.clear();
 	m_vecItemTex.clear();
 	m_vecItemRt.clear();
-	// Á¦·Ã
+	// ??
 	m_vecItemSocketVB.clear();
 	m_vecSocketItem1VB.clear();
 	m_vecSocketItem2VB.clear();
 	m_vecSocketItem3VB.clear();
-	m_vecRBSocketItemVB.clear();//HT_1116 : °¢¼ºÀÚ ¾ÆÀÌÅÛ Ãß°¡
+	m_vecRBSocketItemVB.clear();//HT_1116 : ??? ??? ??
 	m_vecRBItemStoneVB.clear();
 }
 
@@ -60,7 +60,7 @@ CSack::~CSack()
 			m_vecItemRt[i] = NULL;
 		}
 
-		// Á¦·Ã
+		// ??
 		if(m_vecItemSocketVB[i])
 		{
 			m_vecItemSocketVB[i]->Release();
@@ -84,7 +84,7 @@ CSack::~CSack()
 			m_vecSocketItem3VB[i]->Release();
 			m_vecSocketItem3VB[i] = NULL;
 		}
-		//HT_1116 : °¢¼ºÀÚ ¾ÆÀÌÅÛ Ãß°¡
+		//HT_1116 : ??? ??? ??
 		if(m_vecRBSocketItemVB[i])
 		{
 			m_vecRBSocketItemVB[i]->Release();
@@ -102,12 +102,12 @@ CSack::~CSack()
 	m_vecItemTex.clear();
 	m_vecItemRt.clear();
 
-	// Á¦·Ã
+	// ??
 	m_vecItemSocketVB.clear();
 	m_vecSocketItem1VB.clear();
 	m_vecSocketItem2VB.clear();
 	m_vecSocketItem3VB.clear();
-	m_vecRBSocketItemVB.clear();//HT_1116 : °¢¼ºÀÚ ¾ÆÀÌÅÛ Ãß°¡
+	m_vecRBSocketItemVB.clear();//HT_1116 : ??? ??? ??
 	m_vecRBItemStoneVB.clear();
 }
 
@@ -129,7 +129,7 @@ void CSack::HideSack( BOOL bFlagForModifySack)
 	{
 		if(m_vecItem[i] != NULL)
 		{
-			// ¿ÀÇà Á¦·Ã Ãß°¡
+			// ?? ?? ??
 			if(m_bySackType == SACKTYPE__MODIFY || SACKTYPE__SMELT == m_bySackType || SACKTYPE__FIVEELEMENT_CONVERT == m_bySackType )
 			{
 				g_MainCharInfo.m_pMySack[m_vecItem[i]->m_bSackIDPrev]->InsertItem(m_vecItem[i]->m_bSackPosPrev, m_vecItem[i]);
@@ -163,7 +163,7 @@ void CSack::DrawSack()
 	g_pDirect3DDevice->SetSamplerState( 0, D3DSAMP_MAGFILTER, D3DTEXF_POINT);
 	g_pDirect3DDevice->SetSamplerState( 0, D3DSAMP_MINFILTER, D3DTEXF_POINT);
 
-	// item ±×¸®±â
+	// item ???
 	for( int i=0; i < m_bySackTotalSize; ++i)
 	{
 		if( m_vecItem[i] != NULL)
@@ -172,7 +172,7 @@ void CSack::DrawSack()
 		}
 	}
 
-	// item tool tip ±×¸®±â
+	// item tool tip ???
 	for( int i=0; i < m_bySackTotalSize; ++i)
 	{
 		if( m_vecItem[i] != NULL)
@@ -206,7 +206,7 @@ void CSack::DrawItem( int nPosition)
 	//g_pDirect3DDevice->SetFVF( D3DFVF_TLVERTEX);
 	g_pDirect3DDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 0, 2);
 
-	// ¼ÒÄÏ
+	// ??
 	XiahItem :: sItemInfo* pItem = m_vecItem[nPosition];
 
 	if(pItem && m_vecItemSocketVB[nPosition] && pItem->m_bSocketCount)
@@ -236,7 +236,7 @@ void CSack::DrawItem( int nPosition)
 			{
 				int nResID = 0;
 
-				// ¼ÒÄÏ¾ÆÀÌÅÛÀÇ ¸®¼Ò½º
+				// ?????? ???
 				
 				switch(pItem->m_bSocketItem[i])
 				{
@@ -279,7 +279,7 @@ void CSack::DrawItem( int nPosition)
 		} // for(int i=0; i < 3; ++i)
 	}	
 
-	//HT_1116 : °¢¼ºÀÚ ¾ÆÀÌÅÛ Ãß°¡
+	//HT_1116 : ??? ??? ??
 	if(pItem && m_vecRBSocketItemVB[nPosition] && (pItem->m_wRBSocketItem != 0))
 	{
 		g_Device.SetTexture(0, Gettex(1569));
@@ -334,7 +334,7 @@ void CSack::DrawItemToolTip( int nPosition)
 
 		m_nCurToolTipItemPos = nPosition;		
 
-		// ¾êÇÑÅ×´Â Á¶°Ç °É¾î¼­ ÇÑ¹ø¸¸ ¼¼ÆÃ µÇ°Ô ÇÏÀÚ
+		// ???? ?? ??? ??? ?? ?? ??
 		if( m_nCurToolTipItemPos != m_nPrevToolTipItemPos ||
 			nCurToolTipItemSack != nPrevToolTipItemSack ||
 			m_bRefreshToolTip)
@@ -364,22 +364,22 @@ void CSack::DemandClass(XiahItem::sItemInfo* pItem)
 
 		switch( pItem->m_bNeedCharType)
 		{
-		case 1:	// ¿ä±¸À¯ÆÄ °Ë¿µ
+		case 1:	// ???? ??
 			{
 				_tcscpy( szTip, IDS_DEMAND_CLASS_GUM);
 			}			
 			break;
-		case 2:	// ¿¬¶û
+		case 2:	// ??
 			{
 				_tcscpy( szTip, IDS_DEMAND_CLASS_YUN);
 			}			
 			break;
-		case 3:	// ¹«Åõ
+		case 3:	// ??
 			{
 				_tcscpy( szTip, IDS_DEMAND_CLASS_MUTU);
 			}			
 			break;
-		case 4:	// ¾ßÂ÷
+		case 4:	// ??
 			{
 				_tcscpy( szTip, IDS_DEMAND_CLASS_YACHA);
 			}			
@@ -514,44 +514,44 @@ void CSack::SetItemToolTip(int nPosition)
 
 	bool bMugongBook = false;
 	bool bBongin = false;
-	D3DCOLOR dwColor = D3DCOLOR_XRGB(255, 255, 255);				// m_bRarity == 0 : º¸Åë ¾ÆÀÌÅÛ, Èò»ö
+	D3DCOLOR dwColor = D3DCOLOR_XRGB(255, 255, 255);				// m_bRarity == 0 : ?? ???, ??
 
 	if(pItem->m_bSackID != SACKTYPE__NPC_TRADE)
 	{
-		// CG_2005/01/28 : º¯Á¾¾ÆÀÌÅÛ±â´ÉÃß°¡
-		// º¯Á¾¾ÆÀÌÅÛÀÏ°æ¿ì
-		// 251 : °Ë¿µº¯Á¾ 
-		// 252 : ¿¬¶ûº¯Á¾
-		// 253 : ¹«Åõº¯Á¾
-		// 254 : ¾ßÂ÷º¯Á¾
+		// CG_2005/01/28 : ?????????
+		// ????????
+		// 251 : ???? 
+		// 252 : ????
+		// 253 : ????
+		// 254 : ????
 		if( pItem->m_bNeedCharType > 250 )
 		{
 			dwColor = D3DCOLOR_XRGB( 0, 255, 0 );
 		}
 		else
 		{
-			if( pItem->m_bRarity > 0 && pItem->m_bRarity < 128)			// rare ¾ÆÀÌÅÛ, ±Ý»ö
-			{
-				dwColor = D3DCOLOR_XRGB( 232, 136, 0);
-			}
-			else if( pItem->m_bRarity > 127 && pItem->m_bRarity < 255)	// °³Á¶ ¾ÆÀÌÅÛ, ³ì»ö
+			if( pItem->m_bRarity > 0 && pItem->m_bRarity < 128)			// ç¨€æœ‰ - ç»¿è‰²
 			{
 				dwColor = D3DCOLOR_XRGB( 0, 255, 0);
 			}
-			else if( pItem->m_bRarity == 255)							// unique ¾ÆÀÌÅÛ, º¸¶ó»ö
+			else if( pItem->m_bRarity >= 128 && pItem->m_bRarity < 255)	// å²è¯— - ç´«è‰²
 			{
 				dwColor = D3DCOLOR_XRGB( 165, 0, 255);
 			}
+			else if( pItem->m_bRarity == 255)							// ä¼ è¯´ - æ©™è‰²
+			{
+				dwColor = D3DCOLOR_XRGB( 232, 136, 0);
+			}
 		}
 
-		// TODO: º¯Á¾¾ÆÀÌÅÛ°ú °ãÄ£´Ù
-		if(pItem->m_bSocketCount)
-			dwColor = D3DCOLOR_XRGB(0, 200, 255);
+		// å®çŸ³å­”ä¸å†è¦†ç›–ç¨€æœ‰åº¦é¢œè‰²ï¼Œè£…å¤‡åå­—é¢œè‰²å®Œå…¨ç”± m_bRarity å†³å®š
+		// if(pItem->m_bSocketCount)
+		//	dwColor = D3DCOLOR_XRGB(0, 200, 255);
 
 		if(pItem->m_bItemType == ITEMTYPE_REBUILDRES && pItem->m_bIsDividedRes >= 2)
 			dwColor = D3DCOLOR_XRGB(0, 255, 0);
 
-		// ¾ÆÀÌÅÛ ¼öÁý
+		// ??? ??
 		if(pItem->m_bItemType == 18 && pItem->m_bFuncID)
 		{
 			if(pItem->m_bItemKind == 0)
@@ -577,13 +577,29 @@ void CSack::SetItemToolTip(int nPosition)
 			byToolFrameTipType = 5;
 	}
 
-	// ÅøÆÁ »ý¼º.
+	// ?? ??.
 	g_MainCharInfo.m_pToolTip->SetToolTip( byToolFrameTipType, m_vecItemRt[nPosition], 
 											1, (LPCTSTR)pItem->m_szName, dwColor, 1);
 
+	// å“è´¨æ ‡ç­¾ï¼ˆä»…è£…å¤‡ç±» bType 1-9 æ˜¾ç¤ºï¼‰
+	if(pItem->m_bItemType >= 1 && pItem->m_bItemType <= 9)
+	{
+		TCHAR szQuality[64] = {0,};
+		D3DCOLOR qualityColor = dwColor;
+		if(pItem->m_bRarity == 0)
+		{	_stprintf(szQuality, _T("å“è´¨: æ™®é€š")); qualityColor = D3DCOLOR_XRGB(255, 255, 255); }
+		else if(pItem->m_bRarity > 0 && pItem->m_bRarity < 128)
+		{	_stprintf(szQuality, _T("å“è´¨: ç¨€æœ‰")); qualityColor = D3DCOLOR_XRGB(0, 255, 0); }
+		else if(pItem->m_bRarity >= 128 && pItem->m_bRarity < 255)
+		{	_stprintf(szQuality, _T("å“è´¨: å²è¯—")); qualityColor = D3DCOLOR_XRGB(165, 0, 255); }
+		else if(pItem->m_bRarity == 255)
+		{	_stprintf(szQuality, _T("å“è´¨: ä¼ è¯´")); qualityColor = D3DCOLOR_XRGB(232, 136, 0); }
+		g_MainCharInfo.m_pToolTip->AddToolTip(szQuality, qualityColor);
+	}
 
-	// ¾à°£ °£°ÝÀ» ¶ç¿ï ¶óÀÎÀ» ÁöÁ¤ÇÑ´Ù. 
-	if( pItem->m_wLevel == 1 )	// ±â¿¬ ¾ÆÀÌÅÛÀÌ¸é
+
+	// ?? ??? ?? ??? ????. 
+	if( pItem->m_wLevel == 1 )	// ?? ?????
 		g_MainCharInfo.m_pToolTip->SetGapLine( 3 );
 	else
 		g_MainCharInfo.m_pToolTip->SetGapLine( 2 );
@@ -593,51 +609,51 @@ void CSack::SetItemToolTip(int nPosition)
 #define SETITEMTOOLTIP(a,str) { if(a) { _stprintf(szTip,str,a); g_MainCharInfo.m_pToolTip->AddToolTip(szTip);}}
 #define SETITEMTOOLTIP_COLOR(a,str,cond) { if(a) { _stprintf(szTip,str,a); if(cond<a) g_MainCharInfo.m_pToolTip->AddToolTip(szTip, D3DCOLOR_XRGB( 255, 0, 0)); else g_MainCharInfo.m_pToolTip->AddToolTip(szTip);}}
 
-	// Ãß°¡ÀûÀÎ ¼³¸í ³Ö±â.
+	// ???? ?? ??.
 
-	// ±â¿¬ Item
+	// ?? Item
 	if(pItem->m_wLevel == 1 )
 	{
 		_stprintf( szTip, IDS_GIYEON_ITEM );
 		g_MainCharInfo.m_pToolTip->AddToolTip( szTip, 11, D3DCOLOR_XRGB( 255, 255, 0) );
 	}
 
-	// PC¹æ ¾ÆÀÌÅÛ
+	// PC? ???
 	if(pItem->m_wLevel == 3)
 	{
 		g_MainCharInfo.m_pToolTip->AddToolTip(IDS_PCROOM_ITEM, 11, D3DCOLOR_XRGB(255, 255, 0));
 	}
 
-	// ÀÌº¥Æ® ÀåÂø ¾ÆÀÌÅÛ
+	// ??? ?? ???
 	if(pItem->m_bItemType == ITEMTYPE_SOCKET)
 	{
 		g_MainCharInfo.m_pToolTip->AddToolTip(IDS_ITEM_SOCKET, 11, D3DCOLOR_XRGB( 255, 0, 0) );
 	}
 
-	// ÀÌº¥Æ®¿ë ¾ÆÀÌÅÛ - ÇÃ½º, ¸¶¿ì½º, ¹«¸²±â¼­ 
+	// ???? ??? - ??, ???, ???? 
 	if( pItem->m_bItemType == ITEMTYPE_EVENT && pItem->m_bItemKind != 7 && pItem->m_bItemKind != 11 )
 	{
 		if( pItem->m_bItemKind != 12 )
 		{
-			// ÅøÆÁ ¸¸µå´Â ÄÚµå°¡ Àâ´ÙÇÏ´Ù. ÀÌº¥Æ®¿ëÀº µû·Î °¡ÀÚ.
+			// ?? ??? ??? ????. ????? ?? ??.
 			g_MainCharInfo.m_pToolTip->AddToolTip( IDS_EVENTITEM, 11, D3DCOLOR_XRGB( 255, 0, 0) );
 			g_MainCharInfo.m_pToolTip->SetGapLine( 2 );
 		}
 		else 
 		{
-			//HT_0829 : ÇÁ¸®¹Ì¾ö Äù½ºÆ® 
+			//HT_0829 : ???? ??? 
 			g_MainCharInfo.m_pToolTip->AddToolTip( IDS_EVENTITEM_QUEST, 11, D3DCOLOR_XRGB( 255, 0, 0) );
 			g_MainCharInfo.m_pToolTip->SetGapLine( 2 );
 		}
 
-		// °í´ë¹«¸²±â¼­ ¹Ì°³ºÀ
+		// ?????? ???
 		if( pItem->m_wRefID == 20513)
 		{
 			g_MainCharInfo.m_pToolTip->AddToolTip( _T(""), 9, D3DCOLOR_XRGB(128, 128, 128) );
 			g_MainCharInfo.m_pToolTip->AddToolTip( IDS_EVENTITEM_NOTOPEN, 12, D3DCOLOR_XRGB(128, 128, 128) );
 			g_MainCharInfo.m_pToolTip->AddToolTip( _T(""), 9, D3DCOLOR_XRGB(128, 128, 128) );
 		}
-		// °³ºÀ¿Ï·á
+		// ????
 		else if( pItem->m_wRefID >= 20508 && pItem->m_wRefID <= 20512 || (pItem->m_wRefID >= 20842 && pItem->m_wRefID <= 20845))
 		{
 			g_MainCharInfo.m_pToolTip->AddToolTip( _T(""), 9, D3DCOLOR_XRGB(128, 128, 128) );
@@ -648,14 +664,14 @@ void CSack::SetItemToolTip(int nPosition)
 
 
 
-	// 29ÀÏ ÆÐÄ¡ (¼ö¸®¸ÁÄ¡,ÀÚ¼Ò»Ô)	
+	// 29? ?? (????,???)	
 	if(pItem->m_wRefID == 20926 || pItem->m_wRefID == 20927 || pItem->m_wRefID == 20936)
 	{
 		g_MainCharInfo.m_pToolTip->AddToolTip( IDS_EVENTITEM, 11, D3DCOLOR_XRGB( 255, 0, 0) );
 		g_MainCharInfo.m_pToolTip->SetGapLine( 2 );
 	}	
 
-	// Ä¥°Ë
+	// ??
 	switch(pItem->m_wRefID)
 	{
 		case 20861:
@@ -672,7 +688,7 @@ void CSack::SetItemToolTip(int nPosition)
 			break;
 	}
 
-	if(pItem->m_bItemType == ITEMTYPE_SUNANG)	// ³¶
+	if(pItem->m_bItemType == ITEMTYPE_SUNANG)	// ?
 	{
 		if(pItem->m_bItemKind == 0)
 		{
@@ -684,7 +700,7 @@ void CSack::SetItemToolTip(int nPosition)
 		}
 	}
 
-	if(pItem->m_bItemType == ITEMTYPE_SURESOURCE)	// Àç·á
+	if(pItem->m_bItemType == ITEMTYPE_SURESOURCE)	// ??
 	{
 		if(pItem->m_bItemKind == 0)
 		{
@@ -698,25 +714,25 @@ void CSack::SetItemToolTip(int nPosition)
 
 	sArrayData* pItemTip = XiahArrayIndex::g_ItemTip.GetData(pItem->m_wRefID);
 
-	// ¾ÆÀÌÅÛ ¼³¸í
+	// ??? ??
 	ToolTipArrayText(pItemTip);
 	//ArrayText(pItemTip, 0, D3DCOLOR_XRGB(204, 255, 255));
 
-	//HO_0427_07 ¿µ¼öÈ¯°ñ´Ü
+	//HO_0427_07 ?????
 	if( pItem->m_wRefID == 21921 )
 	{
 		_stprintf(szTip, IDS_MONSTER_STATUS_TIP, pItem->m_wTamingLevel);
 		g_MainCharInfo.m_pToolTip->AddToolTip(szTip);
 
 	}
-	//HT_0523 ÁêÅ©¿Â ÀÌº¥Æ®
+	//HT_0523 ??? ???
 	if( pItem->m_wRefID == 21119 || pItem->m_wRefID == 21123 ) 
 	{
-		g_MainCharInfo.m_pToolTip->AddToolTip( _T("1ÀÎ 1¸ÅÀÌ»ó »ç¿ë ºÒ°¡´É"), 11, D3DCOLOR_XRGB(255, 0, 0) );
+		g_MainCharInfo.m_pToolTip->AddToolTip( _T("1? 1??? ?? ???"), 11, D3DCOLOR_XRGB(255, 0, 0) );
 		g_MainCharInfo.m_pToolTip->SetGapLine( 2 );
 	}
 
-	// ¾Æ·¡ ¼öÄ¡
+	// ?? ??
 	
 	switch(pItem->m_bItemType)
 	{
@@ -730,12 +746,12 @@ void CSack::SetItemToolTip(int nPosition)
 
 			switch(pItem->m_bPrizeRank)
 			{
-			case 0:	// ¹ÌÈ·¶¨
+			case 0:	// ???
 				{
 					g_MainCharInfo.m_pToolTip->AddToolTip(IDS_LOTTO_RANK0);
 				}
 				break;
-			case 1:	// 1~3µî
+			case 1:	// 1~3?
 			case 2:
 			case 3:
 				{
@@ -747,7 +763,7 @@ void CSack::SetItemToolTip(int nPosition)
 					g_MainCharInfo.m_pToolTip->AddToolTip(szTip);
 				}
 				break;
-			case 4:	// ²Î
+			case 4:	// ?
 				{
 					g_MainCharInfo.m_pToolTip->AddToolTip(IDS_LOTTO_RANK4);
 				}
@@ -807,13 +823,13 @@ void CSack::SetItemToolTip(int nPosition)
 		break;
 	case ITEMTYPE_REBUILDRES:
 		{
-			// »óÁ¡¿¡¼­´Â ±¸ÀÔÇÒ¼ö ¾ø±â¿¡..
+			// ????? ???? ???..
 			if(pItem->m_wSuccessRatio && pItem->m_bItemKind != 17)
 			{
 				_stprintf( szTip, IDS_SUCCESS_RATIO, pItem->m_wSuccessRatio);
 				g_MainCharInfo.m_pToolTip->AddToolTip(szTip);
 				
-				//HT_0707 Èæº¸ º¯Á¾°³Á¶
+				//HT_0707 ?? ????
 				if(pItem->m_nResID == 50001354 && pItem->m_wSuccessRatio == 25 && pItem->m_wFactorValue > 5)
 				{
 					LPCTSTR lpStrVarient = NULL;
@@ -860,7 +876,7 @@ void CSack::SetItemToolTip(int nPosition)
 							if(lpStrVarient)
 								g_MainCharInfo.m_pToolTip->AddToolTip(lpStrVarient, D3DCOLOR_XRGB(0, 255, 0));
 
-							//HT_0707 Èæº¸ º¯Á¾°³Á¶
+							//HT_0707 ?? ????
 							if(pItem->m_nResID == 50001354 && pItem->m_wFactorValue >= 20) 
 							{
 								LPCTSTR	lpStrAbilityCnt = NULL;
@@ -923,7 +939,7 @@ void CSack::SetItemToolTip(int nPosition)
 			}
 		}
 		break;
-	case ITEMTYPE_BOOK:	// ¹«°ø¼­
+	case ITEMTYPE_BOOK:	// ???
 		{
 			if(pItem->m_wRefID >=21099 && pItem->m_wRefID <=21117)
 			{
@@ -950,7 +966,7 @@ void CSack::SetItemToolTip(int nPosition)
 					bMugongBook = true;
 				}
 			}
-			//HT_0711 : Áø°¢¼º ¹«°ø¼­
+			//HT_0711 : ??? ???
 			//if(pItem->m_wRefID >=22065 && pItem->m_wRefID <=22079) || pItem->m_wRefID >=22017 && pItem->m_wRefID <=22111)
 			if(pItem->m_wRefID >=22017 && pItem->m_wRefID <=22103)
 			{
@@ -972,10 +988,10 @@ void CSack::SetItemToolTip(int nPosition)
 						DemandClass(pItem);
 					}
 
-					//Å¸ÀÔ°ªÀ» »©¿À°í ±× °ª¿¡ µû¸¥ ÅøÆÁ°ú ¿ä±¸Ä¡¸¦ Ç¥½ÃÇÏ¸é µÇ°Ù´ç 
-					switch(pRebirthMugongDesc->GetInt(2)) //HO_0820_07 Áø¼­ ¿ä±¸Ä¡Ç¥½Ã
+					//???? ??? ? ?? ?? ??? ???? ???? ??? 
+					switch(pRebirthMugongDesc->GetInt(2)) //HO_0820_07 ?? ?????
 					{
-					case 0: //HT_1212 : ³»°ø¼­ ÅøÆÁ ¼öÁ¤ (¿ä±¸ °©ÀÚ°¡ 2°³ ³ª¿Â´Ù)
+					case 0: //HT_1212 : ??? ?? ?? (?? ??? 2? ???)
 						_stprintf(szTip, _T(""));
 						break;						
 					case 1:
@@ -991,9 +1007,9 @@ void CSack::SetItemToolTip(int nPosition)
 					if(strlen(szTip))
 						g_MainCharInfo.m_pToolTip->AddToolTip(szTip);
 					
-					//g_MainCharInfo.m_pToolTip->AddToolTip(IDS_2TH_REBIRTH_D_STEP);//°¢¼ºÂ÷¼ö Ç¥½ÃÀü ÄÚµå
+					//g_MainCharInfo.m_pToolTip->AddToolTip(IDS_2TH_REBIRTH_D_STEP);//???? ??? ??
 
-					sString strTemp1 = pRebirthMugongDesc->GetString(2);//HO_0726_07 °¢¼ºÂ÷¼öÇ¥½Ã : »ç¿ë°¡´É ¿©ºÎ¸¦ °¢¼ºÂ÷¼ö·Î ÆÇ´ÜÇÏ¿© ÅøÆÁ »öº¯°æ ¹× Ç¥½Ã
+					sString strTemp1 = pRebirthMugongDesc->GetString(2);//HO_0726_07 ?????? : ???? ??? ????? ???? ?? ??? ? ??
 					_stprintf( szTip, IDS_2TH_REBIRTH_D_STEP, strTemp1.data());
 					if(g_MainCharInfo.m_bRebirth < pItem->m_wNeedLevel) 
 						g_MainCharInfo.m_pToolTip->AddToolTip(szTip, D3DCOLOR_XRGB( 255, 0, 0)); 
@@ -1028,7 +1044,7 @@ void CSack::SetItemToolTip(int nPosition)
 		
 					switch(pMugongDesc->GetInt(2))
 					{
-					case 0: //HT_1212 : ³»°ø¼­ ÅøÆÁ ¼öÁ¤ (¿ä±¸ °©ÀÚ°¡ 2°³ ³ª¿Â´Ù)
+					case 0: //HT_1212 : ??? ?? ?? (?? ??? 2? ???)
 						{
                             if(pItem->m_bSackID == 5)
 								_stprintf(szTip, IDS_D_GABJA_DEMAND, pMugongDesc->GetInt(3));
@@ -1044,7 +1060,7 @@ void CSack::SetItemToolTip(int nPosition)
 						_stprintf(szTip, IDS_D_JIGU, pMugongDesc->GetInt(3));				break;
 					case 4:
 						_stprintf(szTip, IDS_D_GUNRYUK, pMugongDesc->GetInt(3));			break;
-					case 5:	// ¿ÀÇà ¼÷·Ãµµ
+					case 5:	// ?? ???
 						_stprintf(szTip, IDS_FE_POINT, pMugongDesc->GetInt(3));				break;
 					} // switch(nDemandType)
 
@@ -1056,7 +1072,7 @@ void CSack::SetItemToolTip(int nPosition)
 			}
 		}
 		break;
-	case ITEMTYPE_QUEST:	// Äù½ºÆ® ¾ÆÀÌÅÛ ÅøÆÁ
+	case ITEMTYPE_QUEST:	// ??? ??? ??
 		{
 			sArrayData* pQuestItem = XiahArrayIndex::g_QuestItem.GetData( pItem->m_wVisualID);
 
@@ -1073,7 +1089,7 @@ void CSack::SetItemToolTip(int nPosition)
 		break;
 	case ITEMTYPE_BONGIN:
 		{
-			if(pItem->m_wLevel == 2)	// ºùÁ¤ ¾ÆÀÌÅÛ ÀåÂø °©ÀÚ
+			if(pItem->m_wLevel == 2)	// ?? ??? ?? ??
 			{
 				SETITEMTOOLTIP_COLOR(pItem->m_wNeedLevel, IDS_WEARING_GABJA, g_MainCharInfo.m_wLevel);
 			}
@@ -1111,16 +1127,16 @@ void CSack::SetItemToolTip(int nPosition)
 		}
 		break;
 
-		// [5/13/2005] ÇÑ±¹ ÀÌº¥Æ® (Áß±¹ 3¿ù 31ÀÏ ÀÛ¾÷ - Áß±¹ ·Ñ¹é º¸»ó ÀÌº¥Æ®, °æÇèÄ¡)
+		// [5/13/2005] ?? ??? (?? 3? 31? ?? - ?? ?? ?? ???, ???)
 	case ITEMTYPE_EVENT:
 		{
-			// °æÇèÄ¡ ¹°¾à¸¸
+			// ??? ???
 			if(pItem->m_bItemKind == 6)
 			{
 				g_MainCharInfo.m_pToolTip->AddToolTip(IDS_EVENT_EXP);
 
 				DWORD dwExp = 0;
-				// [6/28/2005] È°·É¾à REF ID ±³Ã¼
+				// [6/28/2005] ??? REF ID ??
 				switch(pItem->m_wRefID)
 				{					
 				case 15005:	dwExp = 5000;		break;
@@ -1144,7 +1160,7 @@ void CSack::SetItemToolTip(int nPosition)
 		break;
 	case ITEMTYPE_REBIRTH:
 		{	
-			//HT_0711 : Áø°¢¼º ¹«°ø (Áø°¢¼º ½Å´ÜÀº ÀÎµ¦½º¿¡ Ç¥±âÇßÀ½)
+			//HT_0711 : ??? ?? (??? ??? ???? ????)
 			if(!(pItem->m_wRefID >= 22112 && pItem->m_wRefID <= 22117))
 			{
 				if(pItem->m_bStepID == 0)
@@ -1172,7 +1188,7 @@ void CSack::SetItemToolTip(int nPosition)
 		}
 		break;
 	
-	//HT_0406 : È¯¹è ½Ã½ºÅÛ Ãß°¡
+	//HT_0406 : ?? ??? ??
 	case ITEMTYPE_POTION:
 		{
 			if(pItem->m_bItemKind == ITEMKIND_POTION_HWANBEA)
@@ -1204,9 +1220,9 @@ void CSack::SetItemToolTip(int nPosition)
 
 	SETITEMTOOLTIP(pItem->m_bWildRate, IDS_WILD_DEC);
 
-	// ¸ô ¾ÆÀÌÅÛÀº ¿ä±¸°©ÀÚ ¹ÌÃâ·ÂÀ» ¿Ö ÇßÀ»±î.. ±â¾ïÀÌ
+	// ? ???? ???? ???? ? ???.. ???
 	if(pItem->m_bItemType != ITEMTYPE_BONGIN && pItem->m_wLevel != 2 && !(pItem->m_wRefID >=21099 && pItem->m_wRefID <=21117)
-		&& !(pItem->m_wRefID >=22017 && pItem->m_wRefID <= 22103))	// ÀÏ¹Ý ¿ä±¸ °©ÀÚ
+		&& !(pItem->m_wRefID >=22017 && pItem->m_wRefID <= 22103))	// ?? ?? ??
 	{
 		//SETITEMTOOLTIP_COLOR(pItem->m_wNeedLevel, IDS_D_GABJA_DEMAND, g_MainCharInfo.m_wLevel);
 		if(pItem->m_wNeedLevel) 
@@ -1223,7 +1239,7 @@ void CSack::SetItemToolTip(int nPosition)
 		SETITEMTOOLTIP_COLOR(pItem->m_wNeedLevel, IDS_D_GABJA_DEMAND, g_MainCharInfo.m_wLevel);
 	}
 
-	// CG_2005/01/28 º¯Á¾ ¾ÆÀÌÅÛ
+	// CG_2005/01/28 ?? ???
 	if( pItem->m_bNeedCharType < 250 )
 	{
 		SETITEMTOOLTIP_COLOR(pItem->m_wNeedDex, IDS_D_MINCHUP,	g_MainCharInfo.m_wDex);
@@ -1239,31 +1255,31 @@ void CSack::SetItemToolTip(int nPosition)
 		SETITEMTOOLTIP(pItem->m_wAtkRating, IDS_D_AGI);
 	}
 
-	// ¼ö¸®ºñ ¹®±¸
-	// [6/27/2005] ¾ÆÀÌÅÛ¸ô ¿¬Àå (¼ö¸®ºñ ¾øÀ½)
+	// ??? ??
+	// [6/27/2005] ???? ?? (??? ??)
 	if( g_CursorType == eCT_Repair && pItem->m_wMaxDur && !g_MainCharInfo.m_bReairItemUse2)
 	{
 		//DWORD Amount = pItem->m_dwPrice / 3 * (float)( (float)(pItem->m_wMaxDur - pItem->m_wCurDur) / (float)pItem->m_wMaxDur);
 		DWORD Amount = pItem->m_dwPrice * 0.1 * ( (float)(pItem->m_wMaxDur - pItem->m_wCurDur) / (float)pItem->m_wMaxDur );
 
-		// È²±Ý¿¬ÀåÀº ¼ö¸®ºñ 50%·Î º¯°æ
+		// ????? ??? 50%? ??
 		if(pItem->m_wRefID == 20601)
 		{
 			Amount /= 2;
 		}
 
-		// ¼ºÀÎ¼­¹öÀÏ¶§
+		// ??????
 		if(g_AppData.m_bAdult)
 		{
 			float fBadExtPrice = 0.0f;
 
 			if(g_MainCharInfo.m_dwFame > 127)
 			{
-				if(g_MainCharInfo.m_dwFame >= 128 && g_MainCharInfo.m_dwFame <= 132)		// ¼±ÀÎ 1´Ü°è
+				if(g_MainCharInfo.m_dwFame >= 128 && g_MainCharInfo.m_dwFame <= 132)		// ?? 1??
 					fBadExtPrice = 5.0f;					
-				else if(g_MainCharInfo.m_dwFame >= 133 && g_MainCharInfo.m_dwFame <= 226)	// ¼±ÀÎ 2´Ü°è
+				else if(g_MainCharInfo.m_dwFame >= 133 && g_MainCharInfo.m_dwFame <= 226)	// ?? 2??
 					fBadExtPrice = 10.0f;
-				else if(g_MainCharInfo.m_dwFame >= 227)										// ¼±ÀÎ 3´Ü°è
+				else if(g_MainCharInfo.m_dwFame >= 227)										// ?? 3??
 					fBadExtPrice = 20.0f;
 
 				Amount = Amount - (Amount * (fBadExtPrice / 100));								
@@ -1281,11 +1297,11 @@ void CSack::SetItemToolTip(int nPosition)
 			}			
 		}
 		
-//		Amount = Amount + (Amount * ( * 0.01));				//¹éÈ­¼öÁ¤ ¼ö¸®ºñ ÇÒÀÎ °³Á¶
+//		Amount = Amount + (Amount * ( * 0.01));				//???? ??? ?? ??
 		
 		_stprintf( szTip, IDS_D_SURI, MoneyCommaStr(Amount).data());
 
-		// ¼ö¸®°¡´É½Ã
+		// ?????
 		if( Amount > 0 && !g_MainCharInfo.m_bReairItemUse)
 		{			
 			XiahObject::CXiahObject* pObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, g_MainCharInfo.m_dwPickedObject, OBJTYPE_FUNCTIONALNPC));
@@ -1308,25 +1324,25 @@ void CSack::SetItemToolTip(int nPosition)
 			bool bFlag = FALSE;
 			switch( pInfo->m_bType)
 			{
-			case 1: //´ëÀåÀåÀÌ
+			case 1: //????
 				{
 					if( pItem->m_bItemType != ITEMTYPE_WEAPON)
 						bFlag = TRUE;
 				}				
 				break;
-			case 2:	//ÀÇ·ù»óÀÎ
+			case 2:	//????
 				{
 					if( pItem->m_bItemType != ITEMTYPE_CLOTH)
 						bFlag = TRUE;
 				}				
 				break;		
-			case 3: //ÀâÈ­»óÀÎ
+			case 3: //????
 				{
 					if( !(pItem->m_bItemType == ITEMTYPE_SHOE || pItem->m_bItemType == ITEMTYPE_HAT))
 						bFlag = TRUE;
 				}				
 				break;
-			case 4:	//º¸¼®»óÀÎ
+			case 4:	//????
 				{
 					if( !(pItem->m_bItemType == ITEMTYPE_RING || pItem->m_bItemType == ITEMTYPE_NECKLACE))
 						bFlag = TRUE;
@@ -1352,7 +1368,7 @@ void CSack::SetItemToolTip(int nPosition)
 		}
 	}
 
-	// ÀÌµ¿/°ø°Ý ¼Óµµ
+	// ??/?? ??
 	if( pItem->m_wStkSpeed)
 	{
 		switch( pItem->m_bItemType)
@@ -1384,7 +1400,7 @@ void CSack::SetItemToolTip(int nPosition)
 	SETITEMTOOLTIP(pItem->m_wAtkRange,	IDS_D_ATTK_DIST);
 
 
-	// »ý¸í·Â
+	// ???
 	if( pItem->m_wIncrHp && !bBongin)// && (pItem->m_bItemKind != ITEMKIND_POTION_HWANBEA && pItem->m_bItemType == ITEMTYPE_POTION))
 	{
 		if( pItem->m_bItemType ==ITEMTYPE_POTION || pItem->m_bItemType==ITEMTYPE_NPCITEM)
@@ -1404,7 +1420,7 @@ void CSack::SetItemToolTip(int nPosition)
 			g_MainCharInfo.m_pToolTip->AddToolTip( szTip);
 	} // if( pItem->m_wIncrHp)
 
-	// ³»·Â
+	// ??
 	if( pItem->m_wIncrIp )//&& (pItem->m_bItemKind != ITEMKIND_POTION_HWANBEA && pItem->m_bItemType == ITEMTYPE_POTION))
 	{
 		if( pItem->m_bItemType ==ITEMTYPE_POTION)
@@ -1425,42 +1441,42 @@ void CSack::SetItemToolTip(int nPosition)
 	SETITEMTOOLTIP(pItem->m_wRestoreHp, IDS_D_AUTO_LIFE_REC);
 	SETITEMTOOLTIP(pItem->m_wRestoreIp, IDS_D_AUTO_INLIFE_REC);
 
-	// ÀÏ°Ý¼ú È®·ü Áõ°¡
+	// ??? ?? ??
 	if(pItem->m_bItemType != ITEMTYPE_SOCKET)
 		SETITEMTOOLTIP(pItem->m_wIncrCritical,IDS_D_CRITICAL_INC);
 
-	if(pItem->m_bNeedCharType && !bMugongBook)	// ¿ä±¸À¯ÆÄ
+	if(pItem->m_bNeedCharType && !bMugongBook)	// ????
 	{
 		DemandClass(pItem);
 	}
 
-	// ¼öÁý ³¶
+	// ?? ?
 	if(pItem->m_bItemType == ITEMTYPE_SUNANG || pItem->m_bItemType == ITEMTYPE_SURESOURCE)
 	{
 		switch(pItem->m_bFuncID)
 		{
-		case 1:	// °ø°Ý·Â
+		case 1:	// ???
 			_stprintf(szTip, IDS_D_PWR, pItem->m_dwValue);
 			break;
-		case 2:	// ¹æ¾î·Â
+		case 2:	// ???
 			_stprintf(szTip, IDS_D_DEF, pItem->m_dwValue);
 			break;
-		case 3:	// ÃÖ´ë »ý¸í·Â
+		case 3:	// ?? ???
 			_stprintf(szTip, IDS_D_MAX_LIFE_INC, pItem->m_dwValue);
 			break;
-		case 4:	// Á¤È®µµ
+		case 4:	// ???
 			_stprintf(szTip, IDS_D_AGI, pItem->m_dwValue);
 			break;
-		case 5:	// ÃÖ´ë ³»·Â Áõ°¡
+		case 5:	// ?? ?? ??
 			_stprintf(szTip, IDS_D_MAX_INLIFE_INC, pItem->m_dwValue);
 			break;
-		case 6:	// ÀÏ°Ý¼ú È®·ü Áõ°¡
+		case 6:	// ??? ?? ??
 			_stprintf(szTip, IDS_D_CRITICAL_INC, pItem->m_dwValue);
 			break;
-		case 7:	// ÀÚµ¿ ³»·Â È¸º¹
+		case 7:	// ?? ?? ??
 			_stprintf(szTip, IDS_D_AUTO_INLIFE_REC, pItem->m_dwValue);
 			break;
-		case 8:	// ÀÚµ¿ »ý¸í·Â È¸º¹
+		case 8:	// ?? ??? ??
 			_stprintf(szTip, IDS_D_AUTO_LIFE_REC, pItem->m_dwValue);
 			break;
 		}
@@ -1468,37 +1484,37 @@ void CSack::SetItemToolTip(int nPosition)
 		g_MainCharInfo.m_pToolTip->AddToolTip(szTip);
 	}
 
-	if(pItem->m_wCurDur)	// ÇöÀç³»±¸
+	if(pItem->m_wCurDur)	// ????
 	{
 		switch(pItem->m_wFunctionItem)
 		{
-		case 0:	// »ç¿ë±â°£
+		case 0:	// ????
 			_stprintf( szTip, IDS_USABLE, pItem->m_wCurDur, pItem->m_wMaxDur);
 			break;
-		case 1:	// »ç¿ëÈ½¼ö
+		case 1:	// ????
 		case 2:
 		case 3:
 		case 4:
 		case 5:
-		case 9:	// »ç¿ëÈ½¼ö ¸ÅÇ°ÆÐ			
+		case 9:	// ???? ???			
 			_stprintf( szTip, IDS_USE_FREQUENCY, pItem->m_wCurDur, pItem->m_wMaxDur);
 			break;
-		case 6:	// ÀÜ¿© Àü³¶(´ë)
-		case 11:// ÀÜ¿© //HO_0918_07 ÃÊº¸ÀÚ¿ë Àü³¶ Ãß°¡ : Àü³¶(¼Ò)
+		case 6:	// ?? ??(?)
+		case 11:// ?? //HO_0918_07 ???? ?? ?? : ??(?)
 			_stprintf( szTip, IDS_PURSE_USE, pItem->m_wCurDur);
 			break;
-		case 7:	// ³²Àº Àü¼Û È½¼ö
+		case 7:	// ?? ?? ??
 			_stprintf( szTip, IDS_REMAIN_SEND, pItem->m_wCurDur);
 			break;
 		default:
 			{
 				if(pItem->m_bItemType == ITEMTYPE_SOCKET)
-					_stprintf(szTip, IDS_USABLE_TIME, pItem->m_wCurDur, pItem->m_wMaxDur);		// »ç¿ë½Ã°£
+					_stprintf(szTip, IDS_USABLE_TIME, pItem->m_wCurDur, pItem->m_wMaxDur);		// ????
 				else
 				{
-					_stprintf(szTip, IDS_D_DUR, pItem->m_wCurDur, pItem->m_wMaxDur);			// ³»±¸·Â
+					_stprintf(szTip, IDS_D_DUR, pItem->m_wCurDur, pItem->m_wMaxDur);			// ???
 
-					// [4/24/2006] ³»±¸µµ 20% ÀÌÇÏ ÀÏ¶§ »¡°£»ö ÅøÆÁ¹è°æÀ¸·Î ±³Ã¼
+					// [4/24/2006] ??? 20% ?? ?? ??? ?????? ??
 					if((pItem->m_bItemType >= 1 && pItem->m_bItemType <= 9) ||
 						(pItem->m_bItemType >= 11 && pItem->m_bItemType <= 15) ||
 						pItem->m_bItemType == 17 || pItem->m_bItemType == 18 ||
@@ -1521,7 +1537,7 @@ void CSack::SetItemToolTip(int nPosition)
 
 	if(g_MainCharInfo.m_pDepositSack)
 	{
-		// Ã¢°íÁö±â¿Í °Å·¡ÇÒ¶§ ÀÎº¥Åä¸®¿¡ ¾ÆÀÌÅÛ °¡°Ý ³ªÅ¸³»±â
+		// ????? ???? ????? ??? ?? ????
 		DWORD Amount = (pItem->m_dwPrice / 100) * pItem->m_dwAmount;
 
 		if( Amount < 1 )
@@ -1535,7 +1551,7 @@ void CSack::SetItemToolTip(int nPosition)
 			g_MainCharInfo.m_pToolTip->AddToolTip( szTip);
 	} // if( g_MainCharInfo.m_pDepositSack)
 
-	// ¼³½Â´Ü¾à
+	// ????
 	if(pItem->m_wRefID == 20847)
 	{
 		SETITEMTOOLTIP(1, IDS_USABLE_TIME2);
@@ -1550,7 +1566,7 @@ TIP_Volume:
 
 	switch(pItem->m_bSackID)
 	{
-	case SACKTYPE__NPC_TRADE:			// NPC ÆÇ¸Å°¡
+	case SACKTYPE__NPC_TRADE:			// NPC ???
 		{			
 			if(pItem->m_dwPrice)
 			{
@@ -1563,7 +1579,7 @@ TIP_Volume:
 			}
 		}
 		break;
-	case SACKTYPE__PERSONAL_TRADE_SET:	// °³ÀÎ»óÁ¡½Ã ÆÇ¸Å°¡
+	case SACKTYPE__PERSONAL_TRADE_SET:	// ????? ???
 	case SACKTYPE__PERSONAL_TRADE_SELL:
 		{
 			if( g_MainCharInfo.m_pPersonalTradeSet || g_MainCharInfo.m_pPersonalTradeSell)
@@ -1573,16 +1589,16 @@ TIP_Volume:
 			}
 		}
 		break;
-	case SACKTYPE__DEFAULT:				// NPC¿Í °Å·¡½Ã
+	case SACKTYPE__DEFAULT:				// NPC? ???
 		{
-			// ¸ÅÇ°ÆÐ
+			// ???
 			if(pItem->m_dwPrice && (g_MainCharInfo.m_pNpcSack || g_MainCharInfo.m_pQuickMart))
 			{
-				// ³»±¸µµ¸¦ Àû¿ëÇÏ´Â °æ¿ì
+				// ???? ???? ??
 				//Amount = (float)pItem->m_dwPrice * 2 / 5.0 * pItem->m_dwAmount * (float)((float)pItem->m_wCurDur / (float)pItem->m_wMaxDur);
 				DWORD dwAmount = 0;
 
-				// ±Ý±«
+				// ??
 				if(pItem->m_bItemType == ITEMTYPE_MONEY && pItem->m_bItemKind == 1)
 					dwAmount = pItem->m_dwPrice;
 				else
@@ -1592,28 +1608,28 @@ TIP_Volume:
 					   pItem->m_bItemType == 17 || pItem->m_bItemType == 18 ||
 					   pItem->m_bItemType == 32)
 					{
-						//HT_0719 : ÆÇ¸Å°¡ ¾ÈÀüÀåÄ¡
+						//HT_0719 : ??? ????
 						if ( pItem->m_wCurDur > pItem->m_wMaxDur )
 							pItem->m_wCurDur = pItem->m_wMaxDur;
 
-						// [4/24/2006] NPC¿¡°Ô ÆÇ¸ÅÇÏ´Â °ø½Ä º¯°æ
+						// [4/24/2006] NPC?? ???? ?? ??
 						float fPrice = (float)pItem->m_dwPrice * 0.4f * ((float)pItem->m_wCurDur / (float)pItem->m_wMaxDur);
 
 						dwAmount = (DWORD)fPrice;
 					}
-					//else if(pItem->m_bItemType == 25) //HT_1026 : °³Á¶¼® ÆÇ¸Å ÀÌº¥Æ® 
+					//else if(pItem->m_bItemType == 25) //HT_1026 : ??? ?? ??? 
 					//{
 					//	switch (pItem->m_wRefID)
 					//	{
-					//	case 20268:		dwAmount = 1500000;		break;	//Èæº¸
-					//	case 20269:		dwAmount = 1000000;		break;	//¼Òº¸
-					//	case 20270:		dwAmount = 220000;		break;	//Ç÷º¸
-					//	case 20108:		dwAmount = 200000;		break;	//ÈæÁ¤
-					//	case 20109:		dwAmount = 300000;		break;	//¼ÒÁ¤
-					//	case 20189:		dwAmount = 150000;		break;	//Ç÷Á¤
-					//	case 20265:		dwAmount = 100000;		break;	//ÈæÆí
-					//	case 20266:		dwAmount = 150000;		break;	//¼ÒÆí
-					//	case 20267:		dwAmount = 80000;		break;	//Ç÷Æí
+					//	case 20268:		dwAmount = 1500000;		break;	//??
+					//	case 20269:		dwAmount = 1000000;		break;	//??
+					//	case 20270:		dwAmount = 220000;		break;	//??
+					//	case 20108:		dwAmount = 200000;		break;	//??
+					//	case 20109:		dwAmount = 300000;		break;	//??
+					//	case 20189:		dwAmount = 150000;		break;	//??
+					//	case 20265:		dwAmount = 100000;		break;	//??
+					//	case 20266:		dwAmount = 150000;		break;	//??
+					//	case 20267:		dwAmount = 80000;		break;	//??
 					//	default:
 					//		{
 					//			dwAmount = (float)pItem->m_dwPrice * 2 / 5.0 * pItem->m_dwAmount;
@@ -1634,7 +1650,7 @@ TIP_Volume:
 		break;
 	}
 
-	// ¼ö·®
+	// ??
 	if( pItem->m_dwAmount > 1)
 	{
 		if(pItem->m_bItemType == ITEMTYPE_EVENT && 5 == pItem->m_bItemKind)
@@ -1644,12 +1660,12 @@ TIP_Volume:
 				_stprintf(szTip, IDS_RICECAKE_LENGTH, pItem->m_dwAmount);
 				g_MainCharInfo.m_pToolTip->AddToolTip(szTip);
 			}
-			else if(pItem->m_wRefID == 21922)//HO_0430_07 »ç¶ûÀÇ ÇÏÆ®
+			else if(pItem->m_wRefID == 21922)//HO_0430_07 ??? ??
 			{
 				_stprintf(szTip, IDS_HEART_LENGTH, pItem->m_dwAmount);
 				g_MainCharInfo.m_pToolTip->AddToolTip(szTip);
 			}
-			else if(pItem->m_wRefID == 22118)//HO_0706_07 ¾óÀ½ ÀÌº¥Æ® : Ã³À½¿¡´Â °¡·¡¶±¸¸ ÀÖ¾ú´Ù.. ±×´ÙÀ½ »ç¶ûÀÇ ÇÏÆ® ±×¸®°í ¾óÀ½.. ´õ Ãß°¡µÇ¸é .. ½ºÀ§Ä¡·Î °£´Ù!!
+			else if(pItem->m_wRefID == 22118)//HO_0706_07 ?? ??? : ???? ???? ???.. ??? ??? ?? ??? ??.. ? ???? .. ???? ??!!
 			{
 				_stprintf(szTip, IDS_ICE_LENGTH, pItem->m_dwAmount);
 				g_MainCharInfo.m_pToolTip->AddToolTip(szTip);
@@ -1670,33 +1686,34 @@ TIP_Volume:
 		}
 	} // if( pItem->m_dwNpcID)
 
-	// ¾ÆÀÌÅÛ¸ô Àü³¶
-	if(pItem->m_wFunctionItem == 6 || pItem->m_wFunctionItem == 11 )//HO_0918_07 ÃÊº¸ÀÚ¿ë Àü³¶ Ãß°¡ : Àü³¶(¼Ò) pItem->m_wFunctionItem == 11
+	// ???? ??
+	if(pItem->m_wFunctionItem == 6 || pItem->m_wFunctionItem == 11 )//HO_0918_07 ???? ?? ?? : ??(?) pItem->m_wFunctionItem == 11
 	{
 		_stprintf(szTip, IDS_PURSE_IN_DES, MoneyCommaStr(pItem->m_dwValue).data());
 		g_MainCharInfo.m_pToolTip->AddToolTip( szTip,MoneyUnitColor(pItem->m_dwValue));
 	}
 
 
-	if(pItem->m_bItemType == ITEMTYPE_BONGIN && (pItem->m_wLevel == 2 || pItem->m_wLevel == 3))	// ºùÁ¤ÀÏ½Ã ºÀÀÎµÈ ¼ö
+	if(pItem->m_bItemType == ITEMTYPE_BONGIN && (pItem->m_wLevel == 2 || pItem->m_wLevel == 3))	// ???? ??? ?
 	{
 		SETITEMTOOLTIP(pItem->m_bModifyCnt, IDS_BONGIN_COUNT);
 	}
-	else if(pItem->m_bItemType == 18 && pItem->m_bModifyCnt)			// ¼öÁý ³¶
+	else if(pItem->m_bItemType == 18 && pItem->m_bModifyCnt)			// ?? ?
 	{
 		SETITEMTOOLTIP(pItem->m_bModifyCnt, IDS_MIXITEM);
 	}
-	else if(pItem->m_bItemType != ITEMTYPE_BONGIN && pItem->m_bItemType != 18)	// ÀÏ¹Ý °³Á¶ È½¼ö
-	{
-		SETITEMTOOLTIP(pItem->m_bModifyCnt, IDS_D_CONVERT_TRY);
-	}
+	// è£…å¤‡ç±»è¿½åŠ ç­‰çº§ä¸å†å•ç‹¬æ˜¾ç¤ºï¼ˆåå­—å·²è¡¨è¾¾ï¼‰
+	// else if(pItem->m_bItemType != ITEMTYPE_BONGIN && pItem->m_bItemType != 18)
+	// {
+	//	SETITEMTOOLTIP(pItem->m_bModifyCnt, IDS_D_CONVERT_TRY);
+	// }
 
 
 
-	// ¿ÀÇà ¼ÒÄÏ
+	// ?? ??
 	if(pItem->m_bSocketCount)
 	{
-		// ±â°ø¼ö
+		// ???
 		_stprintf(szTip, IDS_FE_SOCKET, pItem->m_bSocketCount);		
 		g_MainCharInfo.m_pToolTip->AddToolTip(szTip);
 
@@ -1706,35 +1723,35 @@ TIP_Volume:
 		ZeroMemory(bCumulate, sizeof(BYTE)*3);
 
 		bool bFE = false;
-		// Á¦·ÃµÈ Á¤º¸
+		// ??? ??
 		
-		// ±â°ø¿¡ ¹ÚÈù Á¾·ù¸¦ ºÐ·ù
+		// ??? ?? ??? ??
 		for(BYTE i=0; i < pItem->m_bSocketCount; ++i)
 		{
 			if(pItem->m_bSocketItem[i])
 			{
 				bFE = true;
 
-				// ±â°ø¿¡ ¹ÚÈù Á¾·ù
+				// ??? ?? ??
 				BYTE bSocketItem = pItem->m_bSocketItem[i] / 10;				
 
 				bool bExist = false;
 				for(int j=0; j < 3; ++j)
 				{
-					// ºÐ·ùµÈ µ¥ÀÌÅÍ Á¾·ù
+					// ??? ??? ??
 					BYTE bFESocket = bFEData[j] / 10;
 
-					// °°Àº Á¾·ù¸¸
+					// ?? ???
 					if(bFESocket == bSocketItem)
 					{
-						// Á¤/Æä ±¸ºÐ
+						// ?/? ??
 						BYTE bRest = pItem->m_bSocketItem[i] % 10;
 
-						// ´©Àû °ø½ÄÀÌ ¹Ù²î¾ú´Ù. ±×³É ±×´ë·Î µÑ·Ã´Ù
+						// ?? ??? ????. ?? ??? ???
 						//bFEData[j] += ++bRest;
 						++bRest;
 
-						// ´©Àû Àû¿ë 1´ÜÀ§ Á¤, 10´ÜÀ§ ÆÐ
+						// ?? ?? 1?? ?, 10?? ?
 						if(bRest == 1)
 							bCumulate[j] += 1;
 						else if(bRest == 2)
@@ -1746,7 +1763,7 @@ TIP_Volume:
 					}
 				} // for(int j=0; j < 3; ++j)
 
-				// °°Àº Á¾·ù ¾øÀ»½Ã
+				// ?? ?? ???
 				if(!bExist)
 				{
 					for(int x=0; x < 3; ++x)
@@ -1778,37 +1795,37 @@ TIP_Volume:
 
 				switch(bFEData[j] / 10)
 				{
-					case 1:	// È­
+					case 1:	// ?
 						lpStrTemp = IDS_FE_1;		break;
-					case 2:	// ¼ö
+					case 2:	// ?
 						lpStrTemp = IDS_FE_2;		break;
-					case 3:	// ¸ñ
+					case 3:	// ?
 						lpStrTemp = IDS_FE_3;		break;
-					case 4:	// ±Ý
+					case 4:	// ?
 						lpStrTemp = IDS_FE_4;		break;
-					case 5:	// Åä
+					case 5:	// ?
 						lpStrTemp = IDS_FE_5;		break;
 					default:
 						continue;
 						break;
 				}
 
-				// ´©Àû ¼öÄ¡ °è»ê
+				// ?? ?? ??
 				BYTE bCumulateSum = 0;
 				BYTE bTemp = (bCumulate[j] / 10);
-				// [4/13/2005] ¾Æ´Ï 12¿ù¿¡ ÀÌ¸® Àú¸® °ø½ÄÀ» ÇÏ´õ¸¸ È·¶¨À» ÇÏ°í´Â ÀÌÁ¦ ¿Í¼­				
-				// ÆÐ (10´ÜÀ§)
+				// [4/13/2005] ?? 12?? ?? ?? ??? ??? ??? ??? ?? ??				
+				// ? (10??)
 				if(bTemp)
 				{
 					bCumulateSum += ((bTemp-1) * 2 + 10);
 
-					// Á¤ (1´ÜÀ§)
+					// ? (1??)
 					bTemp = (bCumulate[j] % 10);
 					bCumulateSum += bTemp;
 				}
 				else
 				{
-					// Á¤ (1´ÜÀ§)
+					// ? (1??)
 					bTemp = (bCumulate[j] % 10);
 					if(bTemp)
 						bCumulateSum += ((bTemp-1) * 1 + 5);
@@ -1826,10 +1843,10 @@ TIP_Volume:
 	}
 
 
-	//HT_1116 : °¢¼ºÀÚ ¾ÆÀÌÅÛ Ãß°¡
+	//HT_1116 : ??? ??? ??
 	if(pItem->m_wRBSocketItem)
 	{
-		// °¢¼ºÀÚ ¾ÆÀÌÅÛ 
+		// ??? ??? 
 		_stprintf(szTip, IDS_REBIRTHITEM);	
 		g_MainCharInfo.m_pToolTip->AddToolTip(szTip, 12, D3DCOLOR_XRGB(90, 255, 90));
 
@@ -1840,71 +1857,71 @@ TIP_Volume:
 
 			if(pItem->m_wRBSocketItem >= 100 && pItem->m_wRBSocketItem < 200)
 			{
-				lpstr = _T("³³¸Å±â"); 
-				lpstr2 = _T("°ø°Ý·Â Áõ°¡ : %d");
+				lpstr = _T("???"); 
+				lpstr2 = _T("??? ?? : %d");
 			}
 			else if(pItem->m_wRBSocketItem >= 200 && pItem->m_wRBSocketItem < 300)
 			{
-				lpstr = _T("´ãÇâ±â"); 
-				lpstr2 = _T("¹æ¾î·Â Áõ°¡ : %d");
+				lpstr = _T("???"); 
+				lpstr2 = _T("??? ?? : %d");
 			}
 			else if(pItem->m_wRBSocketItem >= 300 && pItem->m_wRBSocketItem < 400)
 			{
-				lpstr = _T("¸ÅÈ­±â"); 
-				lpstr2 = _T("Á¤È®µµ Áõ°¡ : %d");
+				lpstr = _T("???"); 
+				lpstr2 = _T("??? ?? : %d");
 			}
 			else if(pItem->m_wRBSocketItem >= 400 && pItem->m_wRBSocketItem < 500)
 			{
-				lpstr = _T("ºÎ¿ë±â"); 
-				lpstr2 = _T("»ý¸í·Â Áõ°¡ : %d");
+				lpstr = _T("???"); 
+				lpstr2 = _T("??? ?? : %d");
 			}
 			else if(pItem->m_wRBSocketItem >= 500 && pItem->m_wRBSocketItem < 600)
 			{	
-				lpstr = _T("¿ùÁø·ç"); 
-				lpstr2 = _T("³»·Â Áõ°¡ : %d");
+				lpstr = _T("???"); 
+				lpstr2 = _T("?? ?? : %d");
 			}
 			else if(pItem->m_wRBSocketItem >= 600 && pItem->m_wRBSocketItem < 700)
 			{
-				lpstr = _T("¼³À¯·ç"); 
-				lpstr2 = _T("ÀÚµ¿»ý¸íÈ¸º¹ Áõ°¡ : %d");
+				lpstr = _T("???"); 
+				lpstr2 = _T("?????? ?? : %d");
 			}
 			else if(pItem->m_wRBSocketItem >= 700 && pItem->m_wRBSocketItem < 800)
 			{
-				lpstr = _T("Å¸¹¦·ç"); 
-				lpstr2 = _T("ÀÚµ¿³»·ÂÈ¸º¹ Áõ°¡ : %d");
+				lpstr = _T("???"); 
+				lpstr2 = _T("?????? ?? : %d");
 			}
 			else if(pItem->m_wRBSocketItem >= 800 && pItem->m_wRBSocketItem < 900)
 			{
-				lpstr = _T("°á¿À·ç"); 
-				lpstr2 = _T("ÀÏ°Ý¼ú Áõ°¡ : %d");
+				lpstr = _T("???"); 
+				lpstr2 = _T("??? ?? : %d");
 			}
 			else if(pItem->m_wRBSocketItem >= 900 && pItem->m_wRBSocketItem < 1000)
 			{
-				lpstr = _T("ÃµÀá±Ý»ç"); 
-				lpstr2 = _T("¾ÆÀÌÅÛ³»±¸µµ Áõ°¡ : %d(%%)");
+				lpstr = _T("????"); 
+				lpstr2 = _T("?????? ?? : %d(%%)");
 			}
 			else if(pItem->m_wRBSocketItem >= 1000 && pItem->m_wRBSocketItem < 1100)
 			{
-				lpstr = _T("ÃµÀáÀº»ç"); 
-				lpstr2 = _T("Âø¿ëÁ¦ÇÑ °©ÀÚÇÏ¶ô : %d");
+				lpstr = _T("????"); 
+				lpstr2 = _T("???? ???? : %d");
 			}
 			else if(pItem->m_wRBSocketItem == 1100)
-				lpstr = _T("Ã»¸¶ÆÐ");
+				lpstr = _T("???");
 			else if(pItem->m_wRBSocketItem == 1101)
-				lpstr = _T("Àû·ÉÆÐ");
+				lpstr = _T("???");
 			else if(pItem->m_wRBSocketItem == 1102)
-				lpstr = _T("¹é±ÍÆÐ");
+				lpstr = _T("???");
 			else if(pItem->m_wRBSocketItem == 1103)
-				lpstr = _T("Èæ»ìÆÐ");
+				lpstr = _T("???");
 			else if(pItem->m_wRBSocketItem == 1200) 
 			{
-				lpstr = _T("ÈñÀá");
-				lpstr2 = _T("Èæ°³Á¶¼º°ø½ÃÃß°¡Áõ°¡°ª:%d");
+				lpstr = _T("??");
+				lpstr2 = _T("???????????:%d");
 			}
 			else if(pItem->m_wRBSocketItem == 1201)
 			{
-				lpstr = _T("¼öÀá");
-				lpstr2 = _T("Èæ°³Á¶¼º°ø½ÃÃß°¡Áõ°¡°ª:%d");
+				lpstr = _T("??");
+				lpstr2 = _T("???????????:%d");
 			}
 			//else 
 			//	lpstr = NULL; lpstr2 = NULL;
@@ -1922,29 +1939,29 @@ TIP_Volume:
 		}
 	}
 
-	// Á¶ÇÕµÈ ¾ÆÀÌÅÛ Å¸ÀÔ
+	// ??? ??? ??
 	if(pItem->m_bPuzzleType)
 	{
 		LPCTSTR lpStrTemp = NULL;
 
 		switch(pItem->m_bPuzzleType)
 		{
-			case 1:	// ¿ä±¸ °©ÀÚ Á¶ÇÕ
+			case 1:	// ?? ?? ??
 				lpStrTemp = IDS_MIXTURE_ITEM1;
 				break;
-			case 2:	// ±Ù·Â
+			case 2:	// ??
 				lpStrTemp = IDS_MIXTURE_ITEM2;
 				break;
-			case 3:	// ¹ÎÃ¸
+			case 3:	// ??
 				lpStrTemp = IDS_MIXTURE_ITEM3;
 				break;
-			case 4:	// Áö±¸·Â
+			case 4:	// ???
 				lpStrTemp = IDS_MIXTURE_ITEM4;
 				break;
-			case 5:	// ¾ÆÀÌÅÛ ³»±¸µµ
+			case 5:	// ??? ???
 				lpStrTemp = IDS_MIXTURE_ITEM5;
 				break;
-			case 6:	// ÀÌµ¿¼Óµµ Áõ°¡ Á¶ÇÕ
+			case 6:	// ???? ?? ??
 				lpStrTemp = IDS_MIXTURE_ITEM6;
 				break;
 			default:
@@ -1955,39 +1972,38 @@ TIP_Volume:
 		g_MainCharInfo.m_pToolTip->AddToolTip(lpStrTemp, 12, D3DCOLOR_XRGB(0, 255, 0));
 	}
 
-	// CG_2005/01/28 : º¯Á¾¾ÆÀÌÅÛ±â´ÉÃß°¡
-	// º¯Á¾¾ÆÀÌÅÛÀÏ°æ¿ì ¼ö¸®ÀÜ¿©È¸¼ö Ç¥½Ã
+	// CG_2005/01/28 : ?????????
+	// ???????? ?????? ??
 	if( pItem->m_bNeedCharType > 250 )
 	{
 		_stprintf( szTip, IDS_D_REPAIRCOUNT, pItem->m_bRepairCnt );
 		g_MainCharInfo.m_pToolTip->AddToolTip( szTip, D3DCOLOR_XRGB( 0, 255, 0 ));
 	}
 
-	// º¸Çè ¾ÆÀÌÅÛ
+	// ?? ???
 	if(pItem->m_wLevel == 4)
 	{
-		// º¹±¸°¡´É
+		// ????
 		g_MainCharInfo.m_pToolTip->AddToolTip(IDS_RECOVERY_ABLE, D3DCOLOR_XRGB(250, 130, 210));
 	}
 
-	// ¼ö¸®ºñ ÇÒÀÎ °³Á¶¸¦ ÇÑ ¾ÆÀÌÅÛÀÇ ¼ö¸®ºñ ÇÒÀÎÀ² Ç¥½Ã
+	// ??? ?? ??? ? ???? ??? ??? ??
 	if(pItem->m_bRepairDiscount != 0)
 	{
-		_stprintf( szTip, IDS_REPAIR_DISCOUNT, pItem->m_bRepairDiscount );
+		_stprintf( szTip, _T("æ”¹é€ æ¬¡æ•°: %d/201"), pItem->m_bRepairDiscount );
 		g_MainCharInfo.m_pToolTip->AddToolTip( szTip, D3DCOLOR_XRGB( 150, 150, 255 ));
-		g_MainCharInfo.m_pToolTip->AddToolTip(IDS_REPAIR_DISCOUNT1, D3DCOLOR_XRGB(150, 150, 255));
 	}
 }
 
 /**
- * ¾ÆÀÌÅÛ Ãß°¡
- * \param bSackPos À§Ä¡
- * \param pItem ¾ÆÀÌÅÛ Æ÷ÀÎÅÍ
- * \return ¼º°ø ¿©ºÎ
+ * ??? ??
+ * \param bSackPos ??
+ * \param pItem ??? ???
+ * \return ?? ??
  */
 BOOL CSack::InsertItem(BYTE bSackPos, XiahItem::sItemInfo* pItem)
 {	
-	// [10/27/2004] ÀÌ»óÇÑ ½½·Ô¿¡ ³ÖÀ»·Á°í ÇÏ´Â°Í °Ë»ç - ÀÌ°Í ºüÁö¸é Àß¸øÇÏ¸é Á×´Â´Ù
+	// [10/27/2004] ??? ??? ???? ??? ?? - ?? ??? ???? ???
 	if(m_bySackTotalSize < bSackPos)
 		return false;
 
@@ -1997,7 +2013,7 @@ BOOL CSack::InsertItem(BYTE bSackPos, XiahItem::sItemInfo* pItem)
 	pItem->m_bSackPos	= bSackPos;
 	m_vecItem[bSackPos] = pItem;
 
-	// m_vecItemVB ¼¼ÆÃÇÏ±â
+	// m_vecItemVB ????
 //	g_pDirect3DDevice->CreateVertexBuffer( 4*sizeof(VT_TLVertex),
 //										D3DUSAGE_WRITEONLY | D3DUSAGE_DYNAMIC, D3DFVF_TLVERTEX,
 //										D3DPOOL_DEFAULT, &m_vecItemVB[ bSackPos], NULL);
@@ -2012,13 +2028,13 @@ BOOL CSack::InsertItem(BYTE bSackPos, XiahItem::sItemInfo* pItem)
 }
 
 /**
- * ¼ÒÄÏ - º¸¼® VB»ý¼º
+ * ?? - ?? VB??
  * \param bSackPos 
  * \param pItem 
  */
 void CSack::CreateSocketVB(BYTE bSackPos, XiahItem::sItemInfo* pItem)
 {
-	// Á¦·Ã
+	// ??
 	if(pItem->m_bSocketCount)
 	{
 		if(!m_vecItemSocketVB[bSackPos])
@@ -2053,7 +2069,7 @@ void CSack::CreateSocketVB(BYTE bSackPos, XiahItem::sItemInfo* pItem)
 	
 	if(pItem->m_wRBSocketItem > 0)
 	{
-		//HT_1116 : °¢¼ºÀÚ ¾ÆÀÌÅÛ Ãß°¡
+		//HT_1116 : ??? ??? ??
 		if(pItem->m_wRBSocketItem == 1)
 		{
 			if(!m_vecRBSocketItemVB[bSackPos])
@@ -2077,16 +2093,16 @@ void CSack::CreateSocketVB(BYTE bSackPos, XiahItem::sItemInfo* pItem)
 }
 
 /**
- * ¾ÆÀÌÅÛ »èÁ¦
+ * ??? ??
  * \param bSackPos 
  */
 void CSack::DeleteItem( BYTE bSackPos, bool bDelete)
 {
-	// ÀÌ»óÇÑ ½½·Ô Áö¿ï·Á°í ÇÏ´ÂÁö °Ë»ç
+	// ??? ?? ???? ??? ??
 	if(m_bySackTotalSize < bSackPos)
 		return;
 
-	// ´©¼ö ¼öÁ¤
+	// ?? ??
 	if(bDelete)
 	{
 		if(m_vecItem[ bSackPos] != NULL)
@@ -2107,7 +2123,7 @@ void CSack::DeleteItem( BYTE bSackPos, bool bDelete)
 		m_vecItemRt[ bSackPos] = NULL;
 	}
 
-	// Á¦·Ã
+	// ??
 	if(m_vecItemSocketVB[bSackPos])
 	{
 		m_vecItemSocketVB[bSackPos]->Release();
@@ -2131,7 +2147,7 @@ void CSack::DeleteItem( BYTE bSackPos, bool bDelete)
 		m_vecSocketItem3VB[bSackPos]->Release();
 		m_vecSocketItem3VB[bSackPos] = NULL;
 	}
-	//HT_1116 : °¢¼ºÀÚ ¾ÆÀÌÅÛ Ãß°¡
+	//HT_1116 : ??? ??? ??
 	if(m_vecRBSocketItemVB[bSackPos])
 	{
 		m_vecRBSocketItemVB[bSackPos]->Release();
@@ -2187,7 +2203,7 @@ BOOL CSack::CheckItemSelectedByLButton()
 
 	if( g_CursorType == eCT_General)
 	{
-		// CG_2005/01/28 : º¯Á¾¾ÆÀÌÅÛ °©¿ÊÀ» ÀÔ¾úÀ»¶§ ¾Æ¿¹ Å¬¸¯¾ÈµÇ°Ô ¸·ÀÚ.
+		// CG_2005/01/28 : ????? ??? ???? ?? ????? ??.
 		if( m_bySackType == SACKTYPE__EQUIPMENT )
 		{
 			if( g_MainCharInfo.m_pEquipSack->m_vecItem[ 1 ] != NULL &&
@@ -2207,13 +2223,13 @@ BOOL CSack::CheckItemSelectedByLButton()
 				m_vecItemRt[i] != NULL &&
 				m_vecItemRt[i]->PtInRect( XiahInput::g_ptMouse))
 			{
-				// ³»°¡ Ã³¸®ÇÏÁö ¾Ê¾Æµµ µÇ´Â Á¾·ùÀÇ Çà³¶
+				// ?? ???? ??? ?? ??? ??
 				if( m_bySackType == SACKTYPE__PC_TRADE_OTHER || m_bySackType == SACKTYPE__MODIFY || m_bySackType == SACKTYPE__FIVEELEMENT_CONVERT)
 				{
 					return TRUE;
 				}
 	
-				// ¾ÖÃÊ¿¡ ¸ø¿òÁ÷ÀÌ°Ô ¸·±â?
+				// ??? ????? ???
 				if( m_bySackType == SACKTYPE__PC_TRADE_MINE)
 				{
 					g_MainCharInfo.ShowHelpMessage( (IDS_CANNOT_REMOVE_ITEM), TEXTEFFECT_COLOR_WARNING);
@@ -2221,7 +2237,7 @@ BOOL CSack::CheckItemSelectedByLButton()
 					return TRUE;
 				}
 
-				// ¼ö·®ÀÌ ÀÖ´Â Á¾·ùÀÇ ¾ÆÀÌÅÛÀÎ°¡
+				// ??? ?? ??? ?????
 				//if( m_vecItem[ i]->m_wVisualID == POTION_VISUALID_1 || m_vecItem[ i]->m_wVisualID == POTION_VISUALID_2)
 
 
@@ -2230,7 +2246,7 @@ BOOL CSack::CheckItemSelectedByLButton()
 
 				if( m_vecItem[ i]->m_bItemType == ITEMTYPE_POTION || m_vecItem[ i]->m_bItemType == ITEMTYPE_PORTAL || 
 					m_vecItem[ i]->m_bItemType == ITEMTYPE_GOLDKEY || 
-					(m_vecItem[ i]->m_bItemType == ITEMTYPE_EVENT && m_vecItem[ i]->m_bItemKind == 11)) //HO_0828_07 È²±Ý¿­¼è Ãß°¡
+					(m_vecItem[ i]->m_bItemType == ITEMTYPE_EVENT && m_vecItem[ i]->m_bItemKind == 11)) //HO_0828_07 ???? ??
 				{
 					if( GetAsyncKeyState( VK_CONTROL) < 0 &&
 					(( m_vecItem[ i]->m_dwAmount > 1 && (m_bySackType == SACKTYPE__DEFAULT || m_bySackType == SACKTYPE__DEFAULT2)) || (m_vecItem[ i]->m_dwAmount == 1 && m_bySackType == SACKTYPE__NPC_TRADE)))
@@ -2246,7 +2262,7 @@ BOOL CSack::CheckItemSelectedByLButton()
 				g_MainCharInfo.m_pHoldItem->GetHoldItemItem()->m_bSackPos = i;
 
 
-				// »óÁ¡¾ÆÀÌÅÛÀÎ°¡
+				// ???????
 				if( m_bySackType != SACKTYPE__NPC_TRADE)
 					DeleteItem( i);
 
@@ -2319,21 +2335,21 @@ BOOL CSack::CheckItemSelectedByLButton()
 
 						switch( pInfo->m_bType)
 						{
-						case 1: //´ëÀåÀåÀÌ
+						case 1: //????
 							if( m_vecItem[i]->m_bItemType != ITEMTYPE_WEAPON)
 							{
 								g_MainCharInfo.ShowHelpMessage( IDS_ONLY_WEAPON_REPAIR, TEXTEFFECT_COLOR_WARNING);
 								return TRUE;
 							}
 							break;
-						case 2: //ÀÇ·ù»óÀÎ
+						case 2: //????
 							if( m_vecItem[i]->m_bItemType != ITEMTYPE_CLOTH)
 							{
 								g_MainCharInfo.ShowHelpMessage( IDS_ONLY_CLOTH_REPAIR, TEXTEFFECT_COLOR_WARNING);
 								return TRUE;
 							}
 							break;
-						case 3: //ÀâÈ­»óÀÎ
+						case 3: //????
 							if( !(m_vecItem[i]->m_bItemType == ITEMTYPE_HAT ||
 								m_vecItem[i]->m_bItemType == ITEMTYPE_SHOE))
 							{
@@ -2341,7 +2357,7 @@ BOOL CSack::CheckItemSelectedByLButton()
 								return TRUE;
 							}
 							break;
-						case 4:	//º¸¼®»óÀÎ
+						case 4:	//????
 							if( !(m_vecItem[i]->m_bItemType == ITEMTYPE_RING ||
 								m_vecItem[i]->m_bItemType == ITEMTYPE_NECKLACE))
 							{
@@ -2377,7 +2393,7 @@ BOOL CSack::CheckItemSelectedByRButton()
 	
 	if ( m_bySackType != SACKTYPE__DEFAULT)
 	{
-		// »óÁ¡ ºü¸¥ ±¸ÀÔ
+		// ?? ?? ??
 		if(m_bySackType == SACKTYPE__NPC_TRADE || m_bySackType == SACKTYPE__PERSONAL_TRADE_SELL)
 		{
 			for(BYTE i=0; i < m_bySackTotalSize; ++i)
@@ -2389,7 +2405,7 @@ BOOL CSack::CheckItemSelectedByRButton()
 					DWORD dwTime = timeGetTime();
 					static bool bDelay = false;
 
-					// 1.1ÃÊ °£°ÝÀÇ ´õºí Å¬¸¯½Ã
+					// 1.1? ??? ?? ???
 					if(!bDelay && (dwTime - g_MainCharInfo.m_dwLastClickTime) <= 1100)
 					{
 						if(g_MainCharInfo.m_byLastSackPos == i)
@@ -2401,10 +2417,10 @@ BOOL CSack::CheckItemSelectedByRButton()
 							g_MainCharInfo.m_pHoldItem->GetHoldItemItem()->m_bSackPos = i;
 							g_MainCharInfo.m_pHoldItem->GetHoldItemItem()->m_dwBuyCount = m_vecItem[i]->m_dwAmount;
 
-							// NPC±¸ÀÔ
+							// NPC??
 							if(m_bySackType == SACKTYPE__NPC_TRADE)
 							{
-								// °Å·¡ ¿É¼Ç
+								// ?? ??
 								if(m_vecItem[i]->m_dwPrice >= g_MainCharInfo.m_dwBuyLimit && g_MainCharInfo.m_dwBuyLimit)
 								{	
 									g_pUIManager->ShowNotice(IDS_LIMIT_PTBUY, NOTICE_FRAME_OKCANCEL, NOTICE_FRAME_LIMIT_BUY, XiahInput::g_ptMouse.x - 270, XiahInput::g_ptMouse.y-90);
@@ -2422,7 +2438,7 @@ BOOL CSack::CheckItemSelectedByRButton()
 									//g_MainCharInfo.ShowHelpMessage(IDS_PT_SELL_NOUSE);
 								}
 							}
-							// »óÁ¡ ±¸ÀÔ
+							// ?? ??
 							else if(m_bySackType == SACKTYPE__PERSONAL_TRADE_SELL)
 							{
 								g_MainCharInfo.m_pHoldItem->m_bBackPosition = 255;								
@@ -2437,8 +2453,8 @@ BOOL CSack::CheckItemSelectedByRButton()
 						}
 					}
 
-					// ¼­¹ö¿¡¼­ 0.8ÃÊ Àü¿¡ Àç ±¸ÀÔ½Ã ¸·´Â´Ù.
-					// ¼­¹ö¿¡¼­µµ °Ë»ç ÇÏÁö¸¸ ¿©±â¼­µµ ¸·¾ÆÁÖÀÚ.
+					// ???? 0.8? ?? ? ??? ???.
+					// ????? ?? ??? ???? ????.
 					if((dwTime - g_MainCharInfo.m_dwLastClickTime) >= 810)
 					{
 						bDelay = false;
@@ -2477,7 +2493,7 @@ BOOL CSack::CheckItemSelectedByRButton()
 		{
 			bool bUseCommonItemUseSound = true;
 
-			// ºÀÀÎ´ÜÁö ¶Ç´Â ºÀÀÎ ¾ÆÀÌÅÛ
+			// ???? ?? ?? ???
 			if( m_vecItem[i]->m_wVisualID == 9200 ||
 				m_vecItem[i]->m_wVisualID == 9210 ||
 				m_vecItem[i]->m_wVisualID == 9211 ||
@@ -2485,7 +2501,7 @@ BOOL CSack::CheckItemSelectedByRButton()
 				m_vecItem[i]->m_wVisualID == 9213 ||
 				m_vecItem[i]->m_wVisualID == 9214 ||
 				m_vecItem[i]->m_wVisualID == 9215 ||
-				m_vecItem[i]->m_wVisualID == 9235 || //HT_0410 : ½Å±Ô ºùÁ¤·ù Ãß°¡
+				m_vecItem[i]->m_wVisualID == 9235 || //HT_0410 : ?? ??? ??
 				m_vecItem[i]->m_wVisualID == 9236 ||
 				m_vecItem[i]->m_wVisualID == 9237)
 			{
@@ -2493,8 +2509,8 @@ BOOL CSack::CheckItemSelectedByRButton()
 					SendCS_NC_PETBONGOUT_REQ( m_vecItem[i]->m_bSackCount+1, m_vecItem[i]->m_bSackPos);
 				else
 				{
-					//ºÀÀÎÇØº¼±î..
-					//HT_0711 : Áø°¢¼º ¹«°ø (¾Ö¿Ï¿ë Æê¸¸ ÀÌ¸§À» Ãâ·ÂÇØ ÁØ´Ù. ºÐ½Å ¹× È¯¼ö´Â ³ª¿ÀÁö¸¶~)
+					//?????..
+					//HT_0711 : ??? ?? (??? ?? ??? ??? ??. ?? ? ??? ????~)
 					BYTE bSize = g_PetList.size();
 					
 					switch(bSize)
@@ -2610,17 +2626,17 @@ BOOL CSack::CheckItemSelectedByRButton()
 			{
 				switch(m_vecItem[i]->m_wRefID)
 				{
-				case 20503:	// °øºùÁ¤
-				case 20504:	// ¹æºùÁ¤
-				case 20505:	// Á¤ºùÁ¤
-				case 20506:	// »ýºùÁ¤
-				case 20603:	// °øºùÁ¤(pc¹æ)
-				case 20604:	// ¹æºùÁ¤(pc¹æ)
-				case 20605:	// Á¤ºùÁ¤(pc¹æ)
-				case 20606:	// »ýºùÁ¤(pc¹æ)
-	//			case 21863:	// »ìÈ¥Á¤	//HO_0410_07 »ì,º¸,¿ëÈ¥Á¤ Ãß°¡
-	//			case 21864:	// º¸È¥Á¤
-	//			case 21865:	// ¿ëÈ¥Á¤
+				case 20503:	// ???
+				case 20504:	// ???
+				case 20505:	// ???
+				case 20506:	// ???
+				case 20603:	// ???(pc?)
+				case 20604:	// ???(pc?)
+				case 20605:	// ???(pc?)
+				case 20606:	// ???(pc?)
+	//			case 21863:	// ???	//HO_0410_07 ?,?,??? ??
+	//			case 21864:	// ???
+	//			case 21865:	// ???
 					{
 						if(g_PetList.size())
 						{							
@@ -2634,7 +2650,7 @@ BOOL CSack::CheckItemSelectedByRButton()
 						}
 					}						
 					break;
-				case 20850:	// Àý¿¬ºÎ
+				case 20850:	// ???
 					{
 						g_MainCharInfo.m_ReairSackID = m_vecItem[i]->m_bSackCount+1;
 						g_MainCharInfo.m_RpairItemPos = m_vecItem[i]->m_bSackPos; 
@@ -2647,10 +2663,10 @@ BOOL CSack::CheckItemSelectedByRButton()
 					break;
 				}
 
-				// Àü³¶ ÄÞº¸
-				if( m_vecItem[i]->m_wFunctionItem == 6 || m_vecItem[i]->m_wFunctionItem == 11 && m_vecItem[i]->m_bItemType == ITEMTYPE_GISDURABLITY)//HO_0918_07 ÃÊº¸ÀÚ¿ë Àü³¶ Ãß°¡ : Àü³¶(¼Ò) pItem->m_wFunctionItem == 11
+				// ?? ??
+				if( m_vecItem[i]->m_wFunctionItem == 6 || m_vecItem[i]->m_wFunctionItem == 11 && m_vecItem[i]->m_bItemType == ITEMTYPE_GISDURABLITY)//HO_0918_07 ???? ?? ?? : ??(?) pItem->m_wFunctionItem == 11
 				{
-					// Àü³¶ ÆÐÅ¶¿¡ »ç¿ëµÇ´Â Ç×¸ñ ÀúÀå.
+					// ?? ??? ???? ?? ??.
 					g_MainCharInfo.m_byPurseSackID  = m_vecItem[i]->m_bSackCount+1;
 					g_MainCharInfo.m_byPurseSackPos = m_vecItem[i]->m_bSackPos;
 					g_MainCharInfo.m_dwPurseItemID  = m_vecItem[i]->m_dwItemID;
@@ -2673,7 +2689,7 @@ BOOL CSack::CheckItemSelectedByRButton()
 				} // if( m_vecItem[i]->m_wFunctionItem == 6 && m_vecItem[i]->m_bItemType == ITEMTYPE_GISDURABLITY)
 
 				/////////////////////////////////////////////////////////////////////////////////////////////////////
-				// º¹±Ç
+				// ??
 				if(m_vecItem[i]->m_bItemType == ITEMTYPE_LOTTO)
 				{
 					g_MainCharInfo.m_ReairSackID = m_vecItem[i]->m_bSackCount+1;
@@ -2683,11 +2699,11 @@ BOOL CSack::CheckItemSelectedByRButton()
 					bool bLottoCheck1 = true;
 					bool bLottoCheck2 = false;
 
-					// º¹±ÇÈ·¶¨ÀÚ´Â ÆÐ½º
+					// ?????? ??
 					if(m_vecItem[i]->m_bPrizeRank >= 1 && m_vecItem[i]->m_bPrizeRank <= 4)
 						bLottoCheck1 = false;
 
-					// ´çÃ·ÀÚ¸¸ & ´çÃ·±Ý¾×º¸À¯ÀÚ
+					// ???? & ???????
 					if(m_vecItem[i]->m_bPrizeRank >=1 && m_vecItem[i]->m_bPrizeRank <= 3 && m_vecItem[i]->m_dwPrizeMoney)
 						bLottoCheck2 = true;
 
@@ -2698,8 +2714,8 @@ BOOL CSack::CheckItemSelectedByRButton()
 
 				}
 
-				// ¿¬Àå - ¼ö¸®
-				// ¼ö¸®¸ÁÄ¡
+				// ?? - ??
+				// ????
 				if(m_vecItem[i]->m_wVisualID == 10300 || m_vecItem[i]->m_wVisualID == 10301 ||
 					m_vecItem[i]->m_wVisualID == 31013 || m_vecItem[i]->m_wVisualID == 10302 ||
 					m_vecItem[i]->m_wVisualID == 10303 || m_vecItem[i]->m_wVisualID == 10304)
@@ -2720,7 +2736,7 @@ BOOL CSack::CheckItemSelectedByRButton()
 					return true;
 				} // if(m_vecItem[i]->m_wVisualID == 10300)
 
-				// µ¿½ÅÁÖ
+				// ???
 				if(((m_vecItem[i]->m_wFunctionItem >= 2 && m_vecItem[i]->m_wFunctionItem <= 4) || (m_vecItem[i]->m_wFunctionItem == 8))	&& !g_pUIManager->IsShow(WINDOW_DONGSIN))
 				{
 					g_MainCharInfo.m_nTempValue = m_vecItem[i]->m_wFunctionItem;
@@ -2736,7 +2752,7 @@ BOOL CSack::CheckItemSelectedByRButton()
 					case 4:
 						g_pUIManager->SetString(GAK_MESSAGE_WINDOW, gak_title_dummy, IDS_GAK_TITLE_L);
 						break;
-					case 8:	// È²±Ý°¢Àû
+					case 8:	// ????
 						g_pUIManager->SetString(GAK_MESSAGE_WINDOW, gak_title_dummy, IDS_GAK_TITLE_GOLD);						
 						break;
 					} // switch(m_vecItem[i]->m_wFacultyItem)
@@ -2754,7 +2770,7 @@ BOOL CSack::CheckItemSelectedByRButton()
 					return true;
 				} // if(m_vecItem[i]->m_wFunctionItem >= 2 && m_vecItem[i]->m_wFunctionItem <= 4)
 
-				// µ¿½ÅÁÖ
+				// ???
 				if(m_vecItem[i]->m_bItemKind == 1 && m_vecItem[i]->m_bItemType == ITEMTYPE_PORTAL && !g_pUIManager->IsShow(GAK_MESSAGE_WINDOW))
 				{
 					LPCTSTR lpStrTemp;
@@ -2776,7 +2792,7 @@ BOOL CSack::CheckItemSelectedByRButton()
 					g_MainCharInfo.m_RpairItemPos = m_vecItem[i]->m_bSackPos; 
 					g_MainCharInfo.m_dwResItemID = m_vecItem[i]->m_dwItemID;
 
-					// ¹Ì ÁöÁ¤ ÁÂÇ¥ÀÏ°æ¿ì
+					// ? ?? ?????
 					if(m_vecItem[i]->m_wPosX == 0 && m_vecItem[i]->m_wPosY == 0)
 						g_MainCharInfo.m_bMark = false;
 					else
@@ -2794,37 +2810,37 @@ BOOL CSack::CheckItemSelectedByRButton()
 				if(m_vecItem[i]->m_bItemKind == 1 && m_vecItem[i]->m_bItemType == ITEMTYPE_PORTAL)
 					return true;
 
-				// Æ÷Å» ºÒ°¡´ÉÇÑ °æ¿ì
+				// ?? ???? ??
 				CXiahCharObject* pMainChar = (CXiahCharObject*)g_pMainChar->m_pObject;
 
 				if(m_vecItem[i]->m_bItemType == ITEMTYPE_PORTAL && !g_MainCharInfo.m_bPortalMove)
 				{
-					// ´Ü ºñ¹«ÀÏ¶§¿¡µµ Æ÷Å» ±â´É ºÒ°¡´É
+					// ? ?????? ?? ?? ???
 					if( pMainChar->m_dwPartyID && pMainChar->m_dwEnemyPartyID )
 						g_MainCharInfo.ShowHelpMessage(IDS_NOTPORTALMOVE_INDANBATTLE);
-					else	// ÀÌº¥Æ® ¾ÆÀÌÅÛÀÇ °æ¿ì Æ÷Å» ºÒ°¡´É
+					else	// ??? ???? ?? ?? ???
 						g_MainCharInfo.ShowHelpMessage(IDS_NOTPORTALMOVE);
 
 					return true;
 				}
 
-				// µ¿½ÅÁÖ, ÀÌÇüºÎ
+				// ???, ???
 				if( m_vecItem[i]->m_wVisualID == 10000 || m_vecItem[i]->m_wVisualID == 10001)
 				{
-					if(g_MainCharInfo.m_dwHpCur == 0)	// »ý¸í·Â 0 (Á×À»½Ã) ÀÌµ¿ÇÏ¸é ¼­¹ö¿¡¼­ ¹«½Ã ÇØ¹ö¸°´Ù. ±×·¡¼­ »ç¿ëºÒ°¡ Ã³¸®
+					if(g_MainCharInfo.m_dwHpCur == 0)	// ??? 0 (???) ???? ???? ?? ????. ??? ???? ??
 					{
 						g_MainCharInfo.ShowHelpMessage(IDS_NOT_MOVE, 2);
 						return true;
 					}
 
-					// ¾ÆÀÌÅÛÀ» »ç¿ëÇÏ¿© ÀÌµ¿ÇÑ´Ù.
+					// ???? ???? ????.
 					g_MainCharInfo.m_bMainCharMapMoveItemUse = TRUE;
 
 					g_MainCharInfo.ShowHelpMessage( IDS_MOVE_ITEMUSE );
 
 					CloseAllWindow();
 
-					// [5/20/2005] ¸ÅÇ°ÆÐ
+					// [5/20/2005] ???
 					if(g_MainCharInfo.m_pQuickMart)
 					{
 						g_MainCharInfo.HideSack(SACKTYPE__QUICKMART, FALSE);						
@@ -2833,10 +2849,10 @@ BOOL CSack::CheckItemSelectedByRButton()
 //					g_MainCharInfo.OpenFrame( LOADING_IMAGE);					
 				}
 
-				// Àü¼­±¸
+				// ???
 				if( m_vecItem[i]->m_wFunctionItem == GISDURABLITY_MEMO)
 				{
-					// ¾ÆÀÌÅÛÀÇ À§Ä¡
+					// ???? ??
 					g_Mail.Set_SackID(m_vecItem[i]->m_bSackCount+1);
 					g_Mail.Set_SackPos(m_vecItem[i]->m_bSackPos);
 
@@ -2859,16 +2875,16 @@ BOOL CSack::CheckItemSelectedByRButton()
 					return true;
 				}
 
-				// °í´ë¹«¸²±â¼­
+				// ??????
 				if( m_vecItem[i]->m_wRefID == 20513 )
 				{
-					// ÀÌ³à¼®Àº »ç¿îµå°¡ µû·Î ÀÖ´Ù.
+					// ???? ???? ?? ??.
 					bUseCommonItemUseSound = false;
 
 					g_MainCharInfo.PlayInterfaceSound( EVENT_PREMIUMITEM_SOUND_CLICK );
 				}
 
-				// TODO: Æê
+				// TODO: ?
 				g_MainCharInfo.m_ReairSackID = m_vecItem[i]->m_bSackCount+1;
 				g_MainCharInfo.m_RpairItemPos = m_vecItem[i]->m_bSackPos; 
 
@@ -2876,19 +2892,19 @@ BOOL CSack::CheckItemSelectedByRButton()
 				g_MainCharInfo.m_nLastUseItemYPos = m_vecItemRt[i]->bottom;
 				/////////////////////////////////////////////////////////////////////////////////////////////////////
 
-				// µåµ® ¼­¹ö¿¡ ¾ÆÅÛÀ» »ç¿ëÇß´Ù°í º¸³½´Ù.
+				// ?? ??? ??? ????? ???.
 				//SendCS_IM_USEITEM_REQ( m_vecItem[i]->m_bSackCount+1, m_vecItem[i]->m_bSackPos, m_vecItem[i]->m_dwItemID);
 
-				if(m_vecItem[i]->m_bItemType != ITEMTYPE_BOOK)	//HO_0329_07 ¹«°ø ½Àµæ ¿©ºÎ Ãß°¡
+				if(m_vecItem[i]->m_bItemType != ITEMTYPE_BOOK)	//HO_0329_07 ?? ?? ?? ??
 					SendCS_IM_USEITEM_REQ( m_vecItem[i]->m_bSackCount+1, m_vecItem[i]->m_bSackPos, m_vecItem[i]->m_dwItemID);
 				else
 				{
-					switch(g_MainCharInfo.m_bCharType)//HO_0725_07 Èí¼º½Å°ø : µ¿ÀÏÀ¯ÆÄ¹«°ø ½ÀµæºÒ°¡
+					switch(g_MainCharInfo.m_bCharType)//HO_0725_07 ???? : ?????? ????
 					{
 					case 1:
 						if( m_vecItem[i]->m_dwMugongID == 191 || m_vecItem[i]->m_dwMugongID == 192 )
 						{
-							g_MainCharInfo.ShowHelpMessage(IDS_2TH_NOT_LEARNMUGONG, TEXTEFFECT_COLOR_WARNING);//À¯ÆÄ °íÀ¯ÀÇ ¹«°øÀº Èí¼º½Å°øÀ¸·Î ¹è¿ìÁö ¸øÇÕ´Ï´Ù
+							g_MainCharInfo.ShowHelpMessage(IDS_2TH_NOT_LEARNMUGONG, TEXTEFFECT_COLOR_WARNING);//?? ??? ??? ?????? ??? ????
 							return FALSE;
 						}
 						break;
@@ -2915,8 +2931,8 @@ BOOL CSack::CheckItemSelectedByRButton()
 						break;
 					}
 
-				//	g_MainCharInfo.m_ReairSackID = m_vecItem[i]->m_bSackCount+1;//HO_0419_07 À§¿¡¼­ Àû¿ëÇÏ¿´±â¿¡ ÁÖ¼®Ã³¸®
-				//	g_MainCharInfo.m_RpairItemPos = m_vecItem[i]->m_bSackPos;//HO_0419_07 À§¿¡¼­ Àû¿ëÇÏ¿´±â¿¡ ÁÖ¼®Ã³¸®
+				//	g_MainCharInfo.m_ReairSackID = m_vecItem[i]->m_bSackCount+1;//HO_0419_07 ??? ?????? ????
+				//	g_MainCharInfo.m_RpairItemPos = m_vecItem[i]->m_bSackPos;//HO_0419_07 ??? ?????? ????
 					g_MainCharInfo.m_dwResItemID = m_vecItem[i]->m_dwItemID;
 
 					TCHAR szContent[1024] = {0,};
@@ -2926,7 +2942,7 @@ BOOL CSack::CheckItemSelectedByRButton()
 					g_pUIManager->ShowNotice( szContent, NOTICE_FRAME_OKCANCEL, NOTICE_FRAME_MUGONG);
 				}
 
-				// °¢¼º½Å´Ü »ç¿ë
+				// ???? ??
 				if(m_vecItem[i]->m_bItemType == ITEMTYPE_REBIRTH)
 				{	
 					g_MainCharInfo.m_ReairSackID = m_vecItem[i]->m_bSackCount+1;
@@ -2957,7 +2973,7 @@ BOOL CSack::CheckItemSelectedByRButton()
  */
 BOOL CSack::CheckItemUnSelected()
 {
-	// ÀÚ±â sackÀÇ ¿µ¿ªÀ» °Ë»çÇØ¼­ ÀÖÀ¸¸é
+	// ?? sack? ??? ???? ???
 	if( m_SackRt.PtInRect( XiahInput::g_ptMouse))
 		return TRUE;
 	else
@@ -2996,15 +3012,15 @@ void CSack::SetVB( BYTE nPosition, XiahItem::sItemInfo* pItem)
 		DBG_LogFile( _T("CSack::SetVB fail"));
 	}
 
-	// texture ¼¼ÆÃ
+	// texture ??
 	m_vecItemTex[nPosition] = Gettex(pItem->m_nResID);
 
-	// Á¦·Ã	
+	// ??	
 	if(pItem->m_bSocketCount)
 	{
 		float fHeight = 0;
-		// ÀÌ¹ø ¸®¼Ò½º Á¦ÀÛÀÚ x!!! °°´Ù. ¼ö¾øÀÌ ¼öÁ¤¿äÃ»ÇØµµ... ´Ù¸¥°Íµµ Á¦´ë·Î ³Ñ°ÜÁÖ´Â°Ô ¾ø±º.
-		// ¿Ö ¸®¼Ò½º Å©±â°¡ Áö¸Ú´ë·Î¾ß. Â¥Áõ³ª¼­ ³»°¡ ÇÏ°í¸»Áö
+		// ?? ??? ??? x!!! ??. ??? ??????... ???? ??? ????? ??.
+		// ? ??? ??? ?????. ???? ?? ????
 		switch(pItem->m_bSocketCount)
 		{
 		case 1:
@@ -3145,12 +3161,12 @@ void CSack::SetVB( BYTE nPosition, XiahItem::sItemInfo* pItem)
 			break;
 		}
 	}
-	//HT_1116 : °¢¼ºÀÚ ¾ÆÀÌÅÛ Ãß°¡
+	//HT_1116 : ??? ??? ??
 	if(pItem->m_wRBSocketItem != 0)
 	{
 		float fHeight = 12;
-		// ÀÌ¹ø ¸®¼Ò½º Á¦ÀÛÀÚ x!!! °°´Ù. ¼ö¾øÀÌ ¼öÁ¤¿äÃ»ÇØµµ... ´Ù¸¥°Íµµ Á¦´ë·Î ³Ñ°ÜÁÖ´Â°Ô ¾ø±º.
-		// ¿Ö ¸®¼Ò½º Å©±â°¡ Áö¸Ú´ë·Î¾ß. Â¥Áõ³ª¼­ ³»°¡ ÇÏ°í¸»Áö
+		// ?? ??? ??? x!!! ??. ??? ??????... ???? ??? ????? ??.
+		// ? ??? ??? ?????. ???? ?? ????
 
 		CreateSocketVB(nPosition, pItem);
 
@@ -3243,7 +3259,7 @@ void CSack::SetVB( BYTE nPosition, XiahItem::sItemInfo* pItem)
  */
 void CSack::RefreshSackPos()
 {
-	if(m_bySackType == SACKTYPE__PET_EQUIP) // ÀÌ°Ç ¸ô¶ó ÀÌ»óÇÑ ±¸Á¶¶ó¼­ ¸ô¶ó.
+	if(m_bySackType == SACKTYPE__PET_EQUIP) // ?? ?? ??? ???? ??.
 		SetSackRegion();
 
 	for( int i=0; i < m_bySackTotalSize; ++i)

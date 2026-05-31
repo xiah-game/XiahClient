@@ -264,7 +264,7 @@
 #define IDS_D_MAX_INLIFE_INC				_T("最大内力增加: %d")
 #define IDS_D_AUTO_LIFE_REC					_T("自动生命力恢复: %d")
 #define IDS_D_AUTO_INLIFE_REC				_T("自动内力恢复: %d")
-#define IDS_D_CONVERT_TRY					_T("改造尝试次数: %d")
+#define IDS_D_CONVERT_TRY					_T("追加等级: +%d")
 #define IDS_D_CRITICAL_INC					_T("暴击术概率增加(%%): %d")
 #define IDS_D_NEXT_CRITICAL_INC				_T("下一级暴击术概率增加(%%): %d")
 #define IDS_D_VOLUME						_T("数量: %d")
@@ -428,6 +428,8 @@
 #define	IDS_SEND_INVITE_CLAN_MSG			_T("门派加入申请完成")
 #define	IDS_DANJU_INVITE        			_T("只有团长可以邀请")
 #define	IDS_NO_DAN              			_T("没有加入的团")
+
+#define	IDS_NO_MUNPA            			_T("没有加入的门派")
 #define	IDS_TO_WHO              			_T("未指定对象")
 #define IDS_CONVERT_SWORD       			_T("开始改造武器")
 #define IDS_CONVERT_CLOTH       			_T("开始改造衣物")
@@ -1882,8 +1884,8 @@
 
 #define IDS_PICK_NOAUTHORITY			_T("无获取权限。")
 
-#define IDS_REPAIR_DISCOUNT				_T("修理费折扣率:%d%%") 
-#define IDS_REPAIR_DISCOUNT1			_T("(最高折扣率50%)") 
+#define IDS_REPAIR_DISCOUNT				_T("改造次数: %d") 
+#define IDS_REPAIR_DISCOUNT1			_T("") 
 
 // [5/12/2006] 觉醒
 #define IDS_REBIRTH_CARE				_T("[觉醒注意事项]|觉醒时装备的物品会被强制解除|进入行囊。|(请注意行囊内剩余空间)") 
@@ -2095,7 +2097,7 @@
 #define IDS_HEART_LENGTH			_T("爱心大小: %d")
 
 //HO_0706_10 冰
-#define IDS_ICE_LENGTH			_T("冰大小: %d㎤")
+#define IDS_ICE_LENGTH			_T("冰大小: %d?")
 #define IDS_ICE					_T("冰")
 
 //HT_0711 : 真觉醒武功书读取时
