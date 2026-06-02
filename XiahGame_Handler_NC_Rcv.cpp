@@ -1,4 +1,4 @@
-#include "XiahCheatConfig.h"
+ï»¿#include "XiahCheatConfig.h"
 #include "cEFFECT_SPOT.h"
 
 #define BOOM_FXSOUND1	50001470
@@ -30,7 +30,7 @@ int OnCS_NC_NPCINFO_ACK(CMsg &msg)
 	BYTE	bDesHeight	=	0;	
 	BYTE	bWalkSpeed	=	0;
 	BYTE	bOrderID	=	0;
-	// NPCµéÀÇ TYPEÀ» °áÁ¤ 0,1,2 -> Quest¿ë(ÀÌ°ÍÀº Mesh Type°ú °°´Ù),  NPC 255 -> ÀÏ¹Ý
+	// NPCë“¤ì˜ TYPEì„ ê²°ì • 0,1,2 -> Questìš©(ì´ê²ƒì€ Mesh Typeê³¼ ê°™ë‹¤),  NPC 255 -> ì¼ë°˜
 	BYTE	bSubType	=	0;
 	WORD	wLevel		=0;
 
@@ -73,10 +73,10 @@ int OnCS_NC_NPCINFO_ACK(CMsg &msg)
 
 	XiahObject::CXiahObject* pXiahObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, dwObjectID,OBJTYPE_NPC) );
 
-	// »õ·Î¿î Ä³¸¯ÅÍ¸é Ã·ºÎÅÍ »ý¼ºÇÏÁö¸¸, Á¸ÀçÇÏ´Â °Å¶ó¸é µ¥ÀÌÅ¸¸¦ ¹Ù²ãÁØ´Ù.
+	// ìƒˆë¡œìš´ ìºë¦­í„°ë©´ ì²¨ë¶€í„° ìƒì„±í•˜ì§€ë§Œ, ì¡´ìž¬í•˜ëŠ” ê±°ë¼ë©´ ë°ì´íƒ€ë¥¼ ë°”ê¿”ì¤€ë‹¤.
 	bool bCreateChar = true;
 
-	if( pXiahObject != NULL ) // Ä³¸¯ÅÍ µ¥ÀÌÅ¸°¡ ÀÖÀ¸¸é new ÇÏÁö ¾Ê°í µ¥ÀÌÅ¸¸¸ ¹Ù²ãÁØ´Ù.
+	if( pXiahObject != NULL ) // ìºë¦­í„° ë°ì´íƒ€ê°€ ìžˆìœ¼ë©´ new í•˜ì§€ ì•Šê³  ë°ì´íƒ€ë§Œ ë°”ê¿”ì¤€ë‹¤.
 		bCreateChar = false;
 
 	sArrayData *pData = XiahArrayIndex::g_NpcType.GetData( bNpcType);
@@ -111,21 +111,21 @@ int OnCS_NC_NPCINFO_ACK(CMsg &msg)
 		XiahObject::g_XiahObjectManager.CreateXiahObject( dwObjectID, OBJTYPE_NPC, pObject);
 	else
 	{
-		// ±âÁ¸ÀÇ Á¤º¸
+		// ê¸°ì¡´ì˜ ì •ë³´
 		bHi_Subtype_Old = (pObject->m_bExSubObjType & 0xf0) >> 4;
 		bLo_Subtype_Old = (pObject->m_bExSubObjType & 0x0f);
 	}
 
 	if(bSubType == 0xff)
 	{
-		// ÀÏ¹Ý NPCÀÏ°æ¿ì
+		// ì¼ë°˜ NPCì¼ê²½ìš°
 		nCharID		 = pData->GetInt( 1);
 		nMeshType	 = pData->GetInt( 2);
 		nTextureType = pData->GetInt( 3);
 	}
 	else if(bHi_Subtype == 0 || bHi_Subtype == 1 || bHi_Subtype == 2)
 	{
-		// ÆÄ±« Äù½ºÆ®¿ë NPC -> Mesh¸¦ ¹Ù²Û´Ù
+		// íŒŒê´´ í€˜ìŠ¤íŠ¸ìš© NPC -> Meshë¥¼ ë°”ê¾¼ë‹¤
 		nCharID		 = pData->GetInt( 1);
 		nMeshType	 = bHi_Subtype;
 		nTextureType = pData->GetInt( 3);
@@ -147,64 +147,64 @@ int OnCS_NC_NPCINFO_ACK(CMsg &msg)
 	
 	pObject->m_bOrderID = bOrderID;
 
-	if(11 == dwMapID)	// ´øÀü¿¡¼­¸¸
+	if(11 == dwMapID)	// ë˜ì „ì—ì„œë§Œ
 	{
 		switch(nCharID)
 		{
-			case 816:	// ºù¿ä
+			case 816:	// ë¹™ìš”
 				pObject->m_CharRender.SetLocalScale(Vector3(1.5f, 1.5f, 1.5f));
 				break;
-			case 902:	// ÇØ½Å
+			case 902:	// í•´ì‹ 
 				pObject->m_CharRender.SetLocalScale(Vector3(1.5f, 1.5f, 1.5f));
 				break;
-			case 942:	// ¼®±Í
+			case 942:	// ì„ê·€
 				pObject->m_CharRender.SetLocalScale(Vector3(1.5f, 1.5f, 1.5f));
 				break;
-			case 1041:	// ÀûÈ£
+			case 1041:	// ì í˜¸
 				pObject->m_CharRender.SetLocalScale(Vector3(1.5f, 1.5f, 1.5f));
 				break;
-			case 1042:	// ±Ý°¢µ¿ÀÎ
+			case 1042:	// ê¸ˆê°ë™ì¸
 				pObject->m_CharRender.SetLocalScale(Vector3(1.5f, 1.5f, 1.5f));
 				break;
-			case 1040:	// ÀÎ¸é¼ö
+			case 1040:	// ì¸ë©´ìˆ˜
 				pObject->m_CharRender.SetLocalScale(Vector3(1.5f, 1.5f, 1.5f));
 				break;
-			case 1043:	// Ç÷±â¸°
+			case 1043:	// í˜ˆê¸°ë¦°
 				pObject->m_CharRender.SetLocalScale(Vector3(1.55f, 1.55f, 1.55f));
 				break;
-			case 1044:	// ±Ý°¢°ÅÀÎ
+			case 1044:	// ê¸ˆê°ê±°ì¸
 				pObject->m_CharRender.SetLocalScale(Vector3(1.15f, 1.15f, 1.15f));
 				break;
-			case 1045:	// ±³·æ
+			case 1045:	// êµë£¡
 				pObject->m_CharRender.SetLocalScale(Vector3(1.5f, 1.5f, 1.5f));
 				break;
-			case 1039:	// ´ëÁ¶±Í
+			case 1039:	// ëŒ€ì¡°ê·€
 				pObject->m_CharRender.SetLocalScale(Vector3(0.85f, 0.85f, 0.85f));
 				break;
-			case 1084:	// ÈÄ
+			case 1084:	// í›„
 				pObject->m_CharRender.SetLocalScale(Vector3(1.5f, 1.5f, 1.5f));
 				break;
 		}
 
 		switch(bOrderID)
 		{
-			case 1:	// º¸½º
+			case 1:	// ë³´ìŠ¤
 				pObject->m_CharRender.SetLocalScale( Vector3( 1.7f, 1.7f, 1.7f));
 				break;
-			case 2:	// Çàµ¿´ëÀå
+			case 2:	// í–‰ë™ëŒ€ìž¥
 				pObject->m_CharRender.SetLocalScale( Vector3( 1.6f, 1.6f, 1.6f));
 				break;
-			//case 3:	// ³ë·ÃÇÑ
+			//case 3:	// ë…¸ë ¨í•œ
 			//	pObject->m_CharRender.SetLocalScale( Vector3( 0.8f, 0.9f, 0.8f));
 			//	break;
 		}
 	}
-	else if(dwMapID == 12)	// ¸¶Ç÷¼º
+	else if(dwMapID == 12)	// ë§ˆí˜ˆì„±
 	{
-		//pObject->m_CharRender.SetLocalScale(Vector3(2.0f, 2.0f, 2.0f)); //HO_0614_07 ÀÚ°´Ãß°¡ : Ãß°¡Àü ÄÚµå
-		switch(nCharID) //HO_0614_07 ÀÚ°´Ãß°¡
+		//pObject->m_CharRender.SetLocalScale(Vector3(2.0f, 2.0f, 2.0f)); //HO_0614_07 ìžê°ì¶”ê°€ : ì¶”ê°€ì „ ì½”ë“œ
+		switch(nCharID) //HO_0614_07 ìžê°ì¶”ê°€
 		{
-			case 1145:	// ÀÚ°´
+			case 1145:	// ìžê°
 				pObject->m_CharRender.SetLocalScale(Vector3(1.5f, 1.5f, 1.5f));
 				break;
 			default:
@@ -212,124 +212,124 @@ int OnCS_NC_NPCINFO_ACK(CMsg &msg)
 				break;
 		}
 	}
-	else if(dwMapID == 13)	// ±¤¸íÀü
+	else if(dwMapID == 13)	// ê´‘ëª…ì „
 	{
 		switch(nCharID)
 		{
-			case 1084:	//±¤¸íÁÂ»ç, ±¤¸í¿ì»ç
+			case 1084:	//ê´‘ëª…ì¢Œì‚¬, ê´‘ëª…ìš°ì‚¬
 				pObject->m_CharRender.SetLocalScale(Vector3(1.5f, 1.5f, 1.5f));
 				break;
-			case 942:	//¼®±Í¿Õ, ÅäÀÇ¼öÈ£ÀÚ
+			case 942:	//ì„ê·€ì™•, í† ì˜ìˆ˜í˜¸ìž
 				pObject->m_CharRender.SetLocalScale(Vector3(1.2f, 1.2f, 1.2f));
 				break;
-			case 1131:	//±Ý°¢¿Õ, ±ÝÀÇ¼öÈ£ÀÚ
+			case 1131:	//ê¸ˆê°ì™•, ê¸ˆì˜ìˆ˜í˜¸ìž
 				pObject->m_CharRender.SetLocalScale(Vector3(1.3f, 1.3f, 1.3f));
 				break;
-			case 935:	//¾ß°ï¿Õ, ¸ñÀÇ¼öÈ£ÀÚ				
-			case 936:	//Áø¸ð¿Õ, ¼öÀÇ¼öÈ£ÀÚ				
-			case 938:	//Ç¥ÀÎ¿Õ, È­ÀÇ¼öÈ£ÀÚ
+			case 935:	//ì•¼ê³¤ì™•, ëª©ì˜ìˆ˜í˜¸ìž				
+			case 936:	//ì§„ëª¨ì™•, ìˆ˜ì˜ìˆ˜í˜¸ìž				
+			case 938:	//í‘œì¸ì™•, í™”ì˜ìˆ˜í˜¸ìž
 				pObject->m_CharRender.SetLocalScale(Vector3(1.5f, 1.5f, 1.5f));
 				break;
 		}
 	}
-	else if(dwMapID == 14)	// ÃµÈ²Àü
+	else if(dwMapID == 14)	// ì²œí™©ì „
 	{
 		switch(nCharID)
 		{
-			case 1144:	//4´ëÃµ¿Õ
+			case 1144:	//4ëŒ€ì²œì™•
 				pObject->m_CharRender.SetLocalScale(Vector3(1.8f, 1.8f, 1.8f));
 				break;
-			case 1143:	// ¸¶Ç÷ÃµÈ²
+			case 1143:	// ë§ˆí˜ˆì²œí™©
 				pObject->m_CharRender.SetLocalScale(Vector3(2.2f, 2.2f, 2.2f));
 				break;
-			case 942:	//¼®±Í¿Õ, ÅäÀÇ¼öÈ£ÀÚ
+			case 942:	//ì„ê·€ì™•, í† ì˜ìˆ˜í˜¸ìž
 				pObject->m_CharRender.SetLocalScale(Vector3(1.2f, 1.2f, 1.2f));
 				break;
-			case 1131:	//±Ý°¢¿Õ, ±ÝÀÇ¼öÈ£ÀÚ
+			case 1131:	//ê¸ˆê°ì™•, ê¸ˆì˜ìˆ˜í˜¸ìž
 				pObject->m_CharRender.SetLocalScale(Vector3(1.3f, 1.3f, 1.3f));
 				break;
-			case 935:	//¾ß°ï¿Õ, ¸ñÀÇ¼öÈ£ÀÚ				
-			case 936:	//Áø¸ð¿Õ, ¼öÀÇ¼öÈ£ÀÚ				
-			case 938:	//Ç¥ÀÎ¿Õ, È­ÀÇ¼öÈ£ÀÚ 
+			case 935:	//ì•¼ê³¤ì™•, ëª©ì˜ìˆ˜í˜¸ìž				
+			case 936:	//ì§„ëª¨ì™•, ìˆ˜ì˜ìˆ˜í˜¸ìž				
+			case 938:	//í‘œì¸ì™•, í™”ì˜ìˆ˜í˜¸ìž 
 				pObject->m_CharRender.SetLocalScale(Vector3(1.5f, 1.5f, 1.5f));
 				break;
 		}
 	}
 	else
 	{
-		// [3/25/2005] ¤¾¤¾ ¶Ç´Ù ¶Ç ¾Ë¾Æ¼­ ÇØ¶ó. ÃÊ±â ½ºÄÉÀÏ Å×½ºÆ® ¾øÀÌ ¸ðµ¨¸µÇÏ°í.. ÄÚµå·Î ½ºÄÉÀÏ Á¶Àý ÇØ´Þ¶ó´Ï
+		// [3/25/2005] ã…Žã…Ž ë˜ë‹¤ ë˜ ì•Œì•„ì„œ í•´ë¼. ì´ˆê¸° ìŠ¤ì¼€ì¼ í…ŒìŠ¤íŠ¸ ì—†ì´ ëª¨ë¸ë§í•˜ê³ .. ì½”ë“œë¡œ ìŠ¤ì¼€ì¼ ì¡°ì ˆ í•´ë‹¬ë¼ë‹ˆ
 		switch(nCharID)
 		{
-		case 1084:	// [1/4/2005] ÈÄ ¼öÁ¤ - ÆÐÅ°Â¡ ´ÙÇÏ°í ¿Ã¸®°í ³ª´Ï ¶Ç Àú·±´Ù. Ãé,
+		case 1084:	// [1/4/2005] í›„ ìˆ˜ì • - íŒ¨í‚¤ì§• ë‹¤í•˜ê³  ì˜¬ë¦¬ê³  ë‚˜ë‹ˆ ë˜ ì €ëŸ°ë‹¤. ì·Œ,
 			{
 				switch(bOrderID)
 				{
-					//case 0:		// º¸½º
+					//case 0:		// ë³´ìŠ¤
 					//	pObject->m_CharRender.SetLocalScale(Vector3(1.7f, 1.7f, 1.7f));
 					//	break;
-					case 1:		// Çàµ¿´ëÀå
+					case 1:		// í–‰ë™ëŒ€ìž¥
 						pObject->m_CharRender.SetLocalScale(Vector3(1.7f, 1.7f, 1.7f));						
 						break;
-					case 2:		// ³ë·ÃÇÑ
+					case 2:		// ë…¸ë ¨í•œ
 						pObject->m_CharRender.SetLocalScale(Vector3(1.6f, 1.6f, 1.6f));						
 						break;
-					default:	// ÀÏ¹Ý Å¸ÀÔ
+					default:	// ì¼ë°˜ íƒ€ìž…
 						pObject->m_CharRender.SetLocalScale(Vector3(1.5f, 1.5f, 1.5f));
 						break;
 				}
 			}
 			break;
-		case 1097:	// ºñ°­
+		case 1097:	// ë¹„ê°•
 			{
 				switch(bOrderID)
 				{
-					//case 0:		// º¸½º
+					//case 0:		// ë³´ìŠ¤
 					//	pObject->m_CharRender.SetLocalScale(Vector3(0.9f, 0.9f, 0.9f));
 					//	break;
-					case 1:		// Çàµ¿´ëÀå
+					case 1:		// í–‰ë™ëŒ€ìž¥
 						pObject->m_CharRender.SetLocalScale(Vector3(0.9f, 0.9f, 0.9f));												
 						break;
-					case 2:		// ³ë·ÃÇÑ
+					case 2:		// ë…¸ë ¨í•œ
 						pObject->m_CharRender.SetLocalScale(Vector3(0.8f, 0.8f, 0.8f));						
 						break;
-					default:	// ÀÏ¹Ý Å¸ÀÔ
+					default:	// ì¼ë°˜ íƒ€ìž…
 						pObject->m_CharRender.SetLocalScale(Vector3(0.7f, 0.7f, 0.7f));
 						break;
 				}
 			}
 			break;
-		case 1098:	// ¿ø½Å¼ö
+		case 1098:	// ì›ì‹ ìˆ˜
 			{
 				switch(bOrderID)
 				{
-					//case 0:		// º¸½º
+					//case 0:		// ë³´ìŠ¤
 					//	pObject->m_CharRender.SetLocalScale(Vector3(1.0f, 1.0f, 1.0f));
 					//	break;
-					case 1:		// Çàµ¿´ëÀå
+					case 1:		// í–‰ë™ëŒ€ìž¥
 						pObject->m_CharRender.SetLocalScale(Vector3(1.0f, 1.0f, 1.0f));						
 						break;
-					case 2:		// ³ë·ÃÇÑ
+					case 2:		// ë…¸ë ¨í•œ
 						pObject->m_CharRender.SetLocalScale(Vector3(0.9f, 0.9f, 0.9f));						
 						break;
-					default:	// ÀÏ¹Ý Å¸ÀÔ
+					default:	// ì¼ë°˜ íƒ€ìž…
 						pObject->m_CharRender.SetLocalScale(Vector3(0.8f, 0.8f, 0.8f));
 						break;
 				}
 			}
 			break;
-		case 1101:	// »çµµ´Â ±×³É Åë°ú
+		case 1101:	// ì‚¬ë„ëŠ” ê·¸ëƒ¥ í†µê³¼
 			break;
 		default:
 			{
 				switch(bOrderID)
 				{
-					case 1:	// º¸½º
+					case 1:	// ë³´ìŠ¤
 						pObject->m_CharRender.SetLocalScale( Vector3( 1.4f, 1.4f, 1.4f));
 						break;
-					case 2:	// Çàµ¿´ëÀå
+					case 2:	// í–‰ë™ëŒ€ìž¥
 						pObject->m_CharRender.SetLocalScale( Vector3( 1.2f, 1.2f, 1.2f));
 						break;
-					//case 3:	// ³ë·ÃÇÑ
+					//case 3:	// ë…¸ë ¨í•œ
 					//	pObject->m_CharRender.SetLocalScale( Vector3( 0.8f, 0.9f, 0.8f));
 					//	break;
 				}
@@ -338,19 +338,19 @@ int OnCS_NC_NPCINFO_ACK(CMsg &msg)
 		}
 	}
 
-	////HT_0810 : º¹µ¹ÀÌ Å©±â 
+	////HT_0810 : ë³µëŒì´ í¬ê¸° 
 	//if(bNpcType == 155 || bNpcType == 156)
 	//{
 	//	pObject->m_CharRender.SetLocalScale(Vector3(2.0f, 2.0f, 2.0f));
 	//}
 
-	////HT_1214 : ºÀÈ² ÀÌº¥Æ® 
+	////HT_1214 : ë´‰í™© ì´ë²¤íŠ¸ 
 	//if(bNpcType == 12 || bNpcType == 13)
 	//{
 	//	pObject->m_CharRender.SetLocalScale(Vector3(0.5f, 0.5f, 0.5f));
 	//}
 
-	//HT_0112 : º¹µÅÁö ÀÌº¥Æ® 
+	//HT_0112 : ë³µë¼ì§€ ì´ë²¤íŠ¸ 
 	//if(bNpcType == 14)// || bNpcType == 19)
 	//{
 	//	pObject->m_CharRender.SetLocalScale(Vector3(2.5f, 2.5f, 2.5f));
@@ -379,17 +379,17 @@ int OnCS_NC_NPCINFO_ACK(CMsg &msg)
 
 	pObject->m_wLevel		 = wLevel;
 
-	// Äù½ºÆ®¿ë NPC´Â ROTATE ºÒ°¡
+	// í€˜ìŠ¤íŠ¸ìš© NPCëŠ” ROTATE ë¶ˆê°€
 	if(bSubType != 0xff)
 	{
 		pObject->m_bRotatable = FALSE;
 	}
 
-	// »çµµ ¼ÒÈ¯ ¸÷Àº ¼û¾î ÀÖÀ½.
+	// ì‚¬ë„ ì†Œí™˜ ëª¹ì€ ìˆ¨ì–´ ìžˆìŒ.
 	_EFFECTPACKAGE* pPackage = NULL;
 	if(NPCSTATUS_HIDE != bState)
 	{
-		// Ä³¸¯ÅÍ°¡ µîÀåÇÒ¶§ ÀÌÆåÆ®
+		// ìºë¦­í„°ê°€ ë“±ìž¥í• ë•Œ ì´íŽ™íŠ¸
 		Vector3 vSize = pObject->m_LocalBound.Size();
 		vSize.y = 0;
 		float fSize = vSize.GetLength();
@@ -408,7 +408,7 @@ int OnCS_NC_NPCINFO_ACK(CMsg &msg)
 		}
 	}	
 
-	// Ä³¸¯ÅÍ°¡ Mesh ÀÌÆåÆ®°¡ ÀÖÀ¸¸é
+	// ìºë¦­í„°ê°€ Mesh ì´íŽ™íŠ¸ê°€ ìžˆìœ¼ë©´
 	if(bHi_Subtype == 0 || bHi_Subtype == 1 || bHi_Subtype == 2 && 3 != bSubType)	// Quest NPC
 		pObject->m_CharRender.MakeMeshEffect( bLo_Subtype );
 	else	// General
@@ -469,7 +469,7 @@ int OnCS_NC_NPCINFOLIST_ACK(CMsg &msg)
 		DWORD	dwHpMax		=	0;
 		DWORD	dwHpCur		=	0;		
 		
-		// NPCµéÀÇ TYPEÀ» °áÁ¤ 0,1,2 -> Quest¿ë(ÀÌ°ÍÀº Mesh Type°ú °°´Ù),  NPC 255 -> ÀÏ¹Ý
+		// NPCë“¤ì˜ TYPEì„ ê²°ì • 0,1,2 -> Questìš©(ì´ê²ƒì€ Mesh Typeê³¼ ê°™ë‹¤),  NPC 255 -> ì¼ë°˜
 		BYTE	bSubType	=	0;
 		WORD	wLevel		=0;
 
@@ -500,12 +500,12 @@ int OnCS_NC_NPCINFOLIST_ACK(CMsg &msg)
 		BYTE	bHi_Subtype,bLo_Subtype			=	0;
 		BYTE	bHi_Subtype_Old,bLo_Subtype_Old	=	0;
 
-		// »õ·Î¿î Ä³¸¯ÅÍ¸é Ã·ºÎÅÍ »ý¼ºÇÏÁö¸¸, Á¸ÀçÇÏ´Â °Å¶ó¸é µ¥ÀÌÅ¸¸¦ ¹Ù²ãÁØ´Ù.
+		// ìƒˆë¡œìš´ ìºë¦­í„°ë©´ ì²¨ë¶€í„° ìƒì„±í•˜ì§€ë§Œ, ì¡´ìž¬í•˜ëŠ” ê±°ë¼ë©´ ë°ì´íƒ€ë¥¼ ë°”ê¿”ì¤€ë‹¤.
 		bool bCreateChar = true;
 
 		XiahObject::CXiahObject* pXiahObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, dwObjectID,OBJTYPE_NPC) );
 
-		if( pXiahObject != NULL ) // Ä³¸¯ÅÍ µ¥ÀÌÅ¸°¡ ÀÖÀ¸¸é new ÇÏÁö ¾Ê°í µ¥ÀÌÅ¸¸¸ ¹Ù²ãÁØ´Ù.
+		if( pXiahObject != NULL ) // ìºë¦­í„° ë°ì´íƒ€ê°€ ìžˆìœ¼ë©´ new í•˜ì§€ ì•Šê³  ë°ì´íƒ€ë§Œ ë°”ê¿”ì¤€ë‹¤.
 			bCreateChar = false;
 
 		sArrayData *pData = XiahArrayIndex::g_NpcType.GetData( bNpcType);
@@ -537,7 +537,7 @@ int OnCS_NC_NPCINFOLIST_ACK(CMsg &msg)
 		}
 		else
 		{
-			// ±âÁ¸ÀÇ Á¤º¸
+			// ê¸°ì¡´ì˜ ì •ë³´
 			bHi_Subtype_Old = (pObject->m_bExSubObjType & 0xf0) >> 4;
 			bLo_Subtype_Old = (pObject->m_bExSubObjType & 0x0f);
 		}
@@ -551,7 +551,7 @@ int OnCS_NC_NPCINFOLIST_ACK(CMsg &msg)
 
 		if(bSubType == 255)
 		{
-			// ÀÏ¹Ý NPCÀÏ°æ¿ì
+			// ì¼ë°˜ NPCì¼ê²½ìš°
 			nCharID = pData->GetInt( 1);
 			nMeshType = pData->GetInt( 2);
 			nTextureType = pData->GetInt( 3);
@@ -559,7 +559,7 @@ int OnCS_NC_NPCINFOLIST_ACK(CMsg &msg)
 		}
 		else if(bHi_Subtype == 0 || bHi_Subtype == 1 || bHi_Subtype == 2)
 		{
-			// ÆÄ±« Äù½ºÆ®¿ë NPC -> Mesh¸¦ ¹Ù²Û´Ù
+			// íŒŒê´´ í€˜ìŠ¤íŠ¸ìš© NPC -> Meshë¥¼ ë°”ê¾¼ë‹¤
 			nCharID = pData->GetInt( 1);
 			nMeshType = bHi_Subtype;
 			nTextureType = pData->GetInt( 3);
@@ -582,70 +582,70 @@ int OnCS_NC_NPCINFOLIST_ACK(CMsg &msg)
 		}
 		else
 		{
-			// ÆÄ±« BOX ¿ÀºêÁ§Æ® (ÀÌ°Ç ANI ¾ø¾î¼­ -1 ·Î ¼³Á¤)
+			// íŒŒê´´ BOX ì˜¤ë¸Œì íŠ¸ (ì´ê±´ ANI ì—†ì–´ì„œ -1 ë¡œ ì„¤ì •)
 			pObject->Create( nCharID, nMeshType, nTextureType, -1);
 		}
 
 		pObject->m_bOrderID = bOrderID;
 
-		if(11 == dwMapID)	// ´øÀü¿¡¼­¸¸
+		if(11 == dwMapID)	// ë˜ì „ì—ì„œë§Œ
 		{
 			switch(nCharID)
 			{
-				case 816:	// ºù¿ä
+				case 816:	// ë¹™ìš”
 					pObject->m_CharRender.SetLocalScale(Vector3(1.5f, 1.5f, 1.5f));
 					break;
-				case 902:	// ÇØ½Å
+				case 902:	// í•´ì‹ 
 					pObject->m_CharRender.SetLocalScale(Vector3(1.5f, 1.5f, 1.5f));
 					break;
-				case 942:	// ¼®±Í
+				case 942:	// ì„ê·€
 					pObject->m_CharRender.SetLocalScale(Vector3(1.5f, 1.5f, 1.5f));
 					break;
-				case 1041:	// ÀûÈ£
+				case 1041:	// ì í˜¸
 					pObject->m_CharRender.SetLocalScale(Vector3(1.5f, 1.5f, 1.5f));
 					break;
-				case 1042:	// ±Ý°¢µ¿ÀÎ
+				case 1042:	// ê¸ˆê°ë™ì¸
 					pObject->m_CharRender.SetLocalScale(Vector3(1.5f, 1.5f, 1.5f));
 					break;
-				case 1040:	// ÀÎ¸é¼ö
+				case 1040:	// ì¸ë©´ìˆ˜
 					pObject->m_CharRender.SetLocalScale(Vector3(1.5f, 1.5f, 1.5f));
 					break;
-				case 1043:	// Ç÷±â¸°
+				case 1043:	// í˜ˆê¸°ë¦°
 					pObject->m_CharRender.SetLocalScale(Vector3(1.55f, 1.55f, 1.55f));
 					break;
-				case 1044:	// ±Ý°¢°ÅÀÎ
+				case 1044:	// ê¸ˆê°ê±°ì¸
 					pObject->m_CharRender.SetLocalScale(Vector3(1.15f, 1.15f, 1.15f));
 					break;
-				case 1045:	// ±³·æ
+				case 1045:	// êµë£¡
 					pObject->m_CharRender.SetLocalScale(Vector3(1.5f, 1.5f, 1.5f));
 					break;
-				case 1039:	// ´ëÁ¶±Í
+				case 1039:	// ëŒ€ì¡°ê·€
 					pObject->m_CharRender.SetLocalScale(Vector3(0.85f, 0.85f, 0.85f));
 					break;
-				case 1084:	// ÈÄ
+				case 1084:	// í›„
 					pObject->m_CharRender.SetLocalScale(Vector3(1.5f, 1.5f, 1.5f));
 					break;
 			}
 
 			switch(bOrderID)
 			{
-				case 1:	// º¸½º
+				case 1:	// ë³´ìŠ¤
 					pObject->m_CharRender.SetLocalScale( Vector3( 1.7f, 1.7f, 1.7f));
 					break;
-				case 2:	// Çàµ¿´ëÀå
+				case 2:	// í–‰ë™ëŒ€ìž¥
 					pObject->m_CharRender.SetLocalScale( Vector3( 1.6f, 1.6f, 1.6f));
 					break;
-				//case 3:	// ³ë·ÃÇÑ
+				//case 3:	// ë…¸ë ¨í•œ
 				//	pObject->m_CharRender.SetLocalScale( Vector3( 0.8f, 0.9f, 0.8f));
 				//	break;
 			}
 		}
-		else if(dwMapID == 12)	// ¸¶Ç÷¼º
+		else if(dwMapID == 12)	// ë§ˆí˜ˆì„±
 		{
-			//pObject->m_CharRender.SetLocalScale(Vector3(2.0f, 2.0f, 2.0f)); //HO_0614_07 ÀÚ°´Ãß°¡ : Ãß°¡Àü ÄÚµå
-			switch(nCharID)	//HO_0614_07 ÀÚ°´Ãß°¡
+			//pObject->m_CharRender.SetLocalScale(Vector3(2.0f, 2.0f, 2.0f)); //HO_0614_07 ìžê°ì¶”ê°€ : ì¶”ê°€ì „ ì½”ë“œ
+			switch(nCharID)	//HO_0614_07 ìžê°ì¶”ê°€
 			{
-				case 1145:	// ÀÚ°´
+				case 1145:	// ìžê°
 					pObject->m_CharRender.SetLocalScale(Vector3(1.5f, 1.5f, 1.5f));
 					break;
 				default:
@@ -653,124 +653,124 @@ int OnCS_NC_NPCINFOLIST_ACK(CMsg &msg)
 					break;
 			}
 		}
-		else if(dwMapID == 13)	// ±¤¸íÀü
+		else if(dwMapID == 13)	// ê´‘ëª…ì „
 		{
 			switch(nCharID)
 			{
-			case 1084:	//±¤¸íÁÂ»ç, ±¤¸í¿ì»ç
+			case 1084:	//ê´‘ëª…ì¢Œì‚¬, ê´‘ëª…ìš°ì‚¬
 				pObject->m_CharRender.SetLocalScale(Vector3(1.5f, 1.5f, 1.5f));
 				break;
-			case 942:	//¼®±Í¿Õ, ÅäÀÇ¼öÈ£ÀÚ
+			case 942:	//ì„ê·€ì™•, í† ì˜ìˆ˜í˜¸ìž
 				pObject->m_CharRender.SetLocalScale(Vector3(1.2f, 1.2f, 1.2f));
 				break;
-			case 1131:	//±Ý°¢¿Õ, ±ÝÀÇ¼öÈ£ÀÚ
+			case 1131:	//ê¸ˆê°ì™•, ê¸ˆì˜ìˆ˜í˜¸ìž
 				pObject->m_CharRender.SetLocalScale(Vector3(1.3f, 1.3f, 1.3f));
 				break;
-			case 935:	//¾ß°ï¿Õ, ¸ñÀÇ¼öÈ£ÀÚ				
-			case 936:	//Áø¸ð¿Õ, ¼öÀÇ¼öÈ£ÀÚ				
-			case 938:	//Ç¥ÀÎ¿Õ, È­ÀÇ¼öÈ£ÀÚ
+			case 935:	//ì•¼ê³¤ì™•, ëª©ì˜ìˆ˜í˜¸ìž				
+			case 936:	//ì§„ëª¨ì™•, ìˆ˜ì˜ìˆ˜í˜¸ìž				
+			case 938:	//í‘œì¸ì™•, í™”ì˜ìˆ˜í˜¸ìž
 				pObject->m_CharRender.SetLocalScale(Vector3(1.5f, 1.5f, 1.5f));
 				break;
 			}
 		}
-		else if(dwMapID == 14)	// ÃµÈ²Àü
+		else if(dwMapID == 14)	// ì²œí™©ì „
 		{
 			switch(nCharID)
 			{
-			case 1144:	//4´ëÃµ¿Õ
+			case 1144:	//4ëŒ€ì²œì™•
 				pObject->m_CharRender.SetLocalScale(Vector3(1.8f, 1.8f, 1.8f));
 				break;
-			case 1143:	// ¸¶Ç÷ÃµÈ²
+			case 1143:	// ë§ˆí˜ˆì²œí™©
 				pObject->m_CharRender.SetLocalScale(Vector3(2.2f, 2.2f, 2.2f));
 				break;
-			case 942:	//¼®±Í¿Õ, ÅäÀÇ¼öÈ£ÀÚ
+			case 942:	//ì„ê·€ì™•, í† ì˜ìˆ˜í˜¸ìž
 				pObject->m_CharRender.SetLocalScale(Vector3(1.2f, 1.2f, 1.2f));
 				break;
-			case 1131:	//±Ý°¢¿Õ, ±ÝÀÇ¼öÈ£ÀÚ
+			case 1131:	//ê¸ˆê°ì™•, ê¸ˆì˜ìˆ˜í˜¸ìž
 				pObject->m_CharRender.SetLocalScale(Vector3(1.3f, 1.3f, 1.3f));
 				break;
-			case 935:	//¾ß°ï¿Õ, ¸ñÀÇ¼öÈ£ÀÚ				
-			case 936:	//Áø¸ð¿Õ, ¼öÀÇ¼öÈ£ÀÚ				
-			case 938:	//Ç¥ÀÎ¿Õ, È­ÀÇ¼öÈ£ÀÚ 
+			case 935:	//ì•¼ê³¤ì™•, ëª©ì˜ìˆ˜í˜¸ìž				
+			case 936:	//ì§„ëª¨ì™•, ìˆ˜ì˜ìˆ˜í˜¸ìž				
+			case 938:	//í‘œì¸ì™•, í™”ì˜ìˆ˜í˜¸ìž 
 				pObject->m_CharRender.SetLocalScale(Vector3(1.5f, 1.5f, 1.5f));
 				break;
 			}
 		}
 		else
 		{
-			// [3/25/2005] ¤¾¤¾¤¾ ¶Ç´Ù ¶Ç ¾Ë¾Æ¼­ ÇØ¶ó
+			// [3/25/2005] ã…Žã…Žã…Ž ë˜ë‹¤ ë˜ ì•Œì•„ì„œ í•´ë¼
 			switch(nCharID)
 			{
-			case 1084:	// [1/4/2005] ÈÄ ¼öÁ¤ - ÆÐÅ°Â¡ ´ÙÇÏ°í ¿Ã¸®°í ³ª´Ï ¶Ç Àú·±´Ù. Ãé,
+			case 1084:	// [1/4/2005] í›„ ìˆ˜ì • - íŒ¨í‚¤ì§• ë‹¤í•˜ê³  ì˜¬ë¦¬ê³  ë‚˜ë‹ˆ ë˜ ì €ëŸ°ë‹¤. ì·Œ,
 				{
 					switch(bOrderID)
 					{
-						//case 0:		// º¸½º
+						//case 0:		// ë³´ìŠ¤
 						//	pObject->m_CharRender.SetLocalScale(Vector3(1.7f, 1.7f, 1.7f));
 						//	break;
-						case 1:		// Çàµ¿´ëÀå
+						case 1:		// í–‰ë™ëŒ€ìž¥
 							pObject->m_CharRender.SetLocalScale(Vector3(1.7f, 1.7f, 1.7f));
 							break;
-						case 2:		// ³ë·ÃÇÑ
+						case 2:		// ë…¸ë ¨í•œ
 							pObject->m_CharRender.SetLocalScale(Vector3(1.6f, 1.6f, 1.6f));
 							break;
-						default:	// ÀÏ¹Ý Å¸ÀÔ
+						default:	// ì¼ë°˜ íƒ€ìž…
 							pObject->m_CharRender.SetLocalScale(Vector3(1.5f, 1.5f, 1.5f));
 							break;
 					}
 				}
 				break;
-			case 1097:	// ºñ°­
+			case 1097:	// ë¹„ê°•
 				{
 					switch(bOrderID)
 					{
-						//case 0:		// º¸½º
+						//case 0:		// ë³´ìŠ¤
 						//	pObject->m_CharRender.SetLocalScale(Vector3(0.9f, 0.9f, 0.9f));
 						//	break;
-						case 1:		// Çàµ¿´ëÀå
+						case 1:		// í–‰ë™ëŒ€ìž¥
 							pObject->m_CharRender.SetLocalScale(Vector3(0.9f, 0.9f, 0.9f));
 							break;
-						case 2:		// ³ë·ÃÇÑ
+						case 2:		// ë…¸ë ¨í•œ
 							pObject->m_CharRender.SetLocalScale(Vector3(0.8f, 0.8f, 0.8f));
 							break;
-						default:	// ÀÏ¹Ý Å¸ÀÔ
+						default:	// ì¼ë°˜ íƒ€ìž…
 							pObject->m_CharRender.SetLocalScale(Vector3(0.7f, 0.7f, 0.7f));
 							break;
 					}
 				}
 				break;
-			case 1098:	// ¿ø½Å¼ö
+			case 1098:	// ì›ì‹ ìˆ˜
 				{
 					switch(bOrderID)
 					{
-						//case 0:		// º¸½º
+						//case 0:		// ë³´ìŠ¤
 						//	pObject->m_CharRender.SetLocalScale(Vector3(1.0f, 1.0f, 1.0f));
 						//	break;
-						case 1:		// Çàµ¿´ëÀå
+						case 1:		// í–‰ë™ëŒ€ìž¥
 							pObject->m_CharRender.SetLocalScale(Vector3(1.0f, 1.0f, 1.0f));							
 							break;
-						case 2:		// ³ë·ÃÇÑ
+						case 2:		// ë…¸ë ¨í•œ
 							pObject->m_CharRender.SetLocalScale(Vector3(0.9f, 0.9f, 0.9f));							
 							break;
-						default:	// ÀÏ¹Ý Å¸ÀÔ
+						default:	// ì¼ë°˜ íƒ€ìž…
 							pObject->m_CharRender.SetLocalScale(Vector3(0.8f, 0.8f, 0.8f));
 							break;
 					}
 				}
 				break;
-			case 1101:	// »çµµ´Â ±×³É Åë°ú
+			case 1101:	// ì‚¬ë„ëŠ” ê·¸ëƒ¥ í†µê³¼
 				break;
 			default:
 				{
 					switch(bOrderID)
 					{
-						case 1:	// º¸½º
+						case 1:	// ë³´ìŠ¤
 							pObject->m_CharRender.SetLocalScale( Vector3( 1.4f, 1.4f, 1.4f));
 							break;
-						case 2:	// Çàµ¿´ëÀå
+						case 2:	// í–‰ë™ëŒ€ìž¥
 							pObject->m_CharRender.SetLocalScale( Vector3( 1.2f, 1.2f, 1.2f));
 							break;
-						//case 3:	// ³ë·ÃÇÑ
+						//case 3:	// ë…¸ë ¨í•œ
 						//	pObject->m_CharRender.SetLocalScale( Vector3( 0.8f, 0.9f, 0.8f));
 						//	break;
 					}
@@ -779,19 +779,19 @@ int OnCS_NC_NPCINFOLIST_ACK(CMsg &msg)
 			}
 		}
 
-		////HT_0810 : º¹µ¹ÀÌ Å©±â 
+		////HT_0810 : ë³µëŒì´ í¬ê¸° 
 		//if(bNpcType == 155 || bNpcType == 156)
 		//{
 		//	pObject->m_CharRender.SetLocalScale(Vector3(2.0f, 2.0f, 2.0f));
 		//}
 	
-		////HT_1214 : ºÀÈ² ÀÌº¥Æ® 
+		////HT_1214 : ë´‰í™© ì´ë²¤íŠ¸ 
 		//if(bNpcType == 12 || bNpcType == 13)
 		//{
 		//	pObject->m_CharRender.SetLocalScale(Vector3(0.5f, 0.5f, 0.5f));
 		//}
 
-		//HT_0112 : º¹µÅÁö ÀÌº¥Æ® 
+		//HT_0112 : ë³µë¼ì§€ ì´ë²¤íŠ¸ 
 		if(bNpcType == 14)// || bNpcType == 19)
 		{
 			pObject->m_CharRender.SetLocalScale(Vector3(2.5f, 2.5f, 2.5f));
@@ -801,7 +801,7 @@ int OnCS_NC_NPCINFOLIST_ACK(CMsg &msg)
 
 		if(bCreateChar == true)
 		{
-			// ÀÌ¹Ì ÀÖ´Â°Å¸é À§Ä¡´Â SKIP
+			// ì´ë¯¸ ìžˆëŠ”ê±°ë©´ ìœ„ì¹˜ëŠ” SKIP
 			pObject->SetAngle( wDirection);
 			pObject->SetPosition( wPosX, wPosY);
 		}
@@ -821,14 +821,14 @@ int OnCS_NC_NPCINFOLIST_ACK(CMsg &msg)
 
 		pObject->m_wLevel		= wLevel;
 
-		// »õ·Î¸¸µé¾î Áö´Â °Å¸¸ ÀÌÆåÆ®
+		// ìƒˆë¡œë§Œë“¤ì–´ ì§€ëŠ” ê±°ë§Œ ì´íŽ™íŠ¸
 		if( bCreateChar && 3 != bSubType)
 		{
-			// [4/12/2005] »çµµ ¼ÒÈ¯ ¸÷Àº ¼û¾î ÀÖÀ½.
+			// [4/12/2005] ì‚¬ë„ ì†Œí™˜ ëª¹ì€ ìˆ¨ì–´ ìžˆìŒ.
 			_EFFECTPACKAGE* pPackage = NULL;
 			if(NPCSTATUS_HIDE != bState)
 			{
-				// Ä³¸¯ÅÍ°¡ µîÀåÇÒ¶§ ÀÌÆåÆ®
+				// ìºë¦­í„°ê°€ ë“±ìž¥í• ë•Œ ì´íŽ™íŠ¸
 				Vector3 vSize = pObject->m_LocalBound.Size();
 				vSize.y = 0;
 				float fSize = vSize.GetLength();
@@ -847,13 +847,13 @@ int OnCS_NC_NPCINFOLIST_ACK(CMsg &msg)
 				}
 			}			
 
-			// Äù½ºÆ®¿ë NPC´Â ROTATE ºÒ°¡
+			// í€˜ìŠ¤íŠ¸ìš© NPCëŠ” ROTATE ë¶ˆê°€
 			if(bSubType != 255)
 			{
 				pObject->m_bRotatable = FALSE;
 			}
 
-			// Ä³¸¯ÅÍ°¡ Mesh ÀÌÆåÆ®°¡ ÀÖÀ¸¸é
+			// ìºë¦­í„°ê°€ Mesh ì´íŽ™íŠ¸ê°€ ìžˆìœ¼ë©´
 			if(bHi_Subtype == 0 || bHi_Subtype == 1 || bHi_Subtype == 2)	// Quest NPC
 				pObject->m_CharRender.MakeMeshEffect( bLo_Subtype );
 			else	// General
@@ -870,7 +870,7 @@ int OnCS_NC_NPCINFOLIST_ACK(CMsg &msg)
 		}
 		else
 		{
-			// Ä³¸¯ÅÍ°¡ Mesh ÀÌÆåÆ®°¡ ÀÖÀ¸¸é
+			// ìºë¦­í„°ê°€ Mesh ì´íŽ™íŠ¸ê°€ ìžˆìœ¼ë©´
 			if((bHi_Subtype == 0 || bHi_Subtype == 1 || bHi_Subtype == 2) && 3 != bSubType)	// Quest NPC
 				pObject->m_CharRender.MakeMeshEffect( bLo_Subtype );
 			else	// General
@@ -942,7 +942,7 @@ int OnCS_NC_FUNCTIONALNPCINFOLIST_ACK(CMsg &msg)
 	
 		if( XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, dwObjectID,OBJTYPE_FUNCTIONALNPC)) != NULL)
 		{
-			DBG_Put("ÀÌ¹Ì ÀÖ´Â OBJ %s %d",szName.data(),dwObjectID);
+			DBG_Put("ì´ë¯¸ ìžˆëŠ” OBJ %s %d",szName.data(),dwObjectID);
 			continue;
 		}
 
@@ -950,7 +950,7 @@ int OnCS_NC_FUNCTIONALNPCINFOLIST_ACK(CMsg &msg)
 
 		if( pData == NULL)
 		{
-			DBG_Put(_T("³Í ´©±¸³Ä?"));
+			DBG_Put(_T("ë„Œ ëˆ„êµ¬ëƒ?"));
 			continue;
 		}
 		
@@ -960,7 +960,7 @@ int OnCS_NC_FUNCTIONALNPCINFOLIST_ACK(CMsg &msg)
 
 		if( XiahGameEngine::GetCharacter( nCharID) == NULL)
 		{
-			DBG_Put(_T("ÇªÇæ ´õ ¿ì³¢´Â ³ÑÀÌ³×"));
+			DBG_Put(_T("í‘¸í— ë” ìš°ë¼ëŠ” ë„˜ì´ë„¤"));
 			continue;
 		}
 
@@ -976,19 +976,19 @@ int OnCS_NC_FUNCTIONALNPCINFOLIST_ACK(CMsg &msg)
 
 		pObject->Create( nCharID, nMeshType, nTextureType, 1);
 
-		// [1/24/2005] »ó¼­·É Å°¿ö´Þ¶õ´Ù. ÀÌ·¸°Ô ÇÏµåÄÚµùÀÌ¸é ³¡µµ ¾ø°Ô µÈ´Ù. »çÀü ½ºÄÉÀÏ Å×½ºÆ®Á» ÇØ´Ù¿À. ¸»ÇØµµ ´ÙÀ½¿¡µµ ¶È°°Àº...
+		// [1/24/2005] ìƒì„œë ¹ í‚¤ì›Œë‹¬ëž€ë‹¤. ì´ë ‡ê²Œ í•˜ë“œì½”ë”©ì´ë©´ ëë„ ì—†ê²Œ ëœë‹¤. ì‚¬ì „ ìŠ¤ì¼€ì¼ í…ŒìŠ¤íŠ¸ì¢€ í•´ë‹¤ì˜¤. ë§í•´ë„ ë‹¤ìŒì—ë„ ë˜‘ê°™ì€...
 		if(1091 == nCharID)
 		{
 			pObject->m_CharRender.SetLocalScale(Vector3(1.16f, 1.16f, 1.16f));
 		}
 		
-		//HT_0313 : ¼ö¹®Àå ¼öÈ£±Ý°¢±Í
+		//HT_0313 : ìˆ˜ë¬¸ìž¥ ìˆ˜í˜¸ê¸ˆê°ê·€
 		if(1142 == nCharID)
 		{
 		//	pObject->m_CharRender.SetLocalScale(Vector3(0.8f, 0.8f, 0.8f));
 		}
 
-		// [10/29/2004] ÀÌÆåÆ® ¼³Á¤ (¿¬±Ý¼ú»ç/µµ¿ì¹Ì)
+		// [10/29/2004] ì´íŽ™íŠ¸ ì„¤ì • (ì—°ê¸ˆìˆ ì‚¬/ë„ìš°ë¯¸)
 		int nIndex[2] = {0,1};
 		pObject->m_CharRender.MakeMeshEffect(2, nIndex);
 
@@ -1016,7 +1016,7 @@ int OnCS_NC_FUNCTIONALNPCINFOLIST_ACK(CMsg &msg)
 		pInfo->m_wNumItem	= wNumItem;
 
 		pObject->m_pPrivateData = (DWORD)pInfo;
-		pObject->m_PrivateDataDestoryer = ReleaseFunctionalNpcInfo; // ¾Ñ½Î
+		pObject->m_PrivateDataDestoryer = ReleaseFunctionalNpcInfo; // ì•—ì‹¸
 	}
 
 	return TRUE;
@@ -1080,7 +1080,7 @@ int OnCS_NC_FUNCTIONALNPCINFO_ACK(CMsg &msg)
 
 		if( pData == NULL)
 		{
-			DBG_Put(_T("³Í ´©±¸³Ä?"));
+			DBG_Put(_T("ë„Œ ëˆ„êµ¬ëƒ?"));
 			return TRUE;
 		}
 		
@@ -1112,19 +1112,19 @@ int OnCS_NC_FUNCTIONALNPCINFO_ACK(CMsg &msg)
 		XiahObject::g_XiahObjectManager.CreateXiahObject( dwObjectID, OBJTYPE_FUNCTIONALNPC, pObject);
 
 		pObject->Create( nCharID, nMeshType, nTextureType, 1);
-		// [1/24/2005] »ó¼­·É Å°¿ö´Þ¶õ´Ù. ÀÌ·¸°Ô ÇÏµåÄÚµùÀÌ¸é ³¡µµ ¾ø°Ô µÈ´Ù. »çÀü ½ºÄÉÀÏ Å×½ºÆ®Á» ÇØ´Ù¿À. ¸»ÇØµµ ´ÙÀ½¿¡µµ ¶È°°Àº...
+		// [1/24/2005] ìƒì„œë ¹ í‚¤ì›Œë‹¬ëž€ë‹¤. ì´ë ‡ê²Œ í•˜ë“œì½”ë”©ì´ë©´ ëë„ ì—†ê²Œ ëœë‹¤. ì‚¬ì „ ìŠ¤ì¼€ì¼ í…ŒìŠ¤íŠ¸ì¢€ í•´ë‹¤ì˜¤. ë§í•´ë„ ë‹¤ìŒì—ë„ ë˜‘ê°™ì€...
 		if(1091 == nCharID)
 		{
 			pObject->m_CharRender.SetLocalScale(Vector3(1.16f, 1.16f, 1.16f));
 		}
 
-		//HT_0313 : ¼ö¹®Àå ¼öÈ£±Ý°¢±Í
+		//HT_0313 : ìˆ˜ë¬¸ìž¥ ìˆ˜í˜¸ê¸ˆê°ê·€
 		if(1142 == nCharID)
 		{
 		//	pObject->m_CharRender.SetLocalScale(Vector3(0.8f, 0.8f, 0.8f));
 		}
 
-		// [10/29/2004] ÀÌÆåÆ® ¼³Á¤ (¿¬±Ý¼ú»ç/µµ¿ì¹Ì)
+		// [10/29/2004] ì´íŽ™íŠ¸ ì„¤ì • (ì—°ê¸ˆìˆ ì‚¬/ë„ìš°ë¯¸)
 		int nIndex[2] = {0,1};
 		pObject->m_CharRender.MakeMeshEffect(2, nIndex);
 
@@ -1151,7 +1151,7 @@ int OnCS_NC_FUNCTIONALNPCINFO_ACK(CMsg &msg)
 		pInfo->m_wNumItem	= wNumItem;
 
 		pObject->m_pPrivateData = (DWORD)pInfo;
-		pObject->m_PrivateDataDestoryer = ReleaseFunctionalNpcInfo; // ¾Ñ½Î
+		pObject->m_PrivateDataDestoryer = ReleaseFunctionalNpcInfo; // ì•—ì‹¸
 	}
 
 	return TRUE;
@@ -1199,7 +1199,7 @@ int OnCS_NC_STARTMOVE_ACK(CMsg &msg)
 
 	if( g_PetList.Find( dwObjectID) != NULL)
 	{
-		// ³» Pet´Â ¹«½Ã
+		// ë‚´ PetëŠ” ë¬´ì‹œ
 		return TRUE;
 	}
 
@@ -1217,9 +1217,9 @@ int OnCS_NC_STARTMOVE_ACK(CMsg &msg)
 	pObject->SetAngle( wDirection);
 
 	// 2004.08.05 Changth
-	// À½ ÀÌ·±ÀÏÀÌ »ý±â´Ù´Ï,, ³ªÀÇ ºÐ½ÅÀº ³» ÄÄ¿¡¼­ ´Þ¸®´Âµ¥, ´Ù¸¥ ÄÄ¿¡¼­´Â 
-	// ´À¸®°Å °È´Ù°¡ Á¡ÇÁ¸¦ ÇÏ´Â±º. ÀÌ°É Å¬¶óÀÌ¾ðÆ®°¡ °£´ÜÇÑ ¹æ¹ýÀ¸·Î ÇØ°áÇÏÀÚ.
-	// ÆêÀÇ Ä³¸¯ÅÍ¾ÆÀÌµð°¡ °Ë¿µÀÌ¸é Ä³¸¯ÅÍ°¡ ´Þ¸®´Â °Í°ú µ¿ÀÏÇÏ°Ô ÇØÁØ´Ù. ^^
+	// ìŒ ì´ëŸ°ì¼ì´ ìƒê¸°ë‹¤ë‹ˆ,, ë‚˜ì˜ ë¶„ì‹ ì€ ë‚´ ì»´ì—ì„œ ë‹¬ë¦¬ëŠ”ë°, ë‹¤ë¥¸ ì»´ì—ì„œëŠ” 
+	// ëŠë¦¬ê±° ê±·ë‹¤ê°€ ì í”„ë¥¼ í•˜ëŠ”êµ°. ì´ê±¸ í´ë¼ì´ì–¸íŠ¸ê°€ ê°„ë‹¨í•œ ë°©ë²•ìœ¼ë¡œ í•´ê²°í•˜ìž.
+	// íŽ«ì˜ ìºë¦­í„°ì•„ì´ë””ê°€ ê²€ì˜ì´ë©´ ìºë¦­í„°ê°€ ë‹¬ë¦¬ëŠ” ê²ƒê³¼ ë™ì¼í•˜ê²Œ í•´ì¤€ë‹¤. ^^
 	bool bBunsin = false;
 	if( bObjectType == OBJTYPE_PET && bStatus == NPCSTATUS_RUN )
 	{
@@ -1229,14 +1229,22 @@ int OnCS_NC_STARTMOVE_ACK(CMsg &msg)
 
 	if( bStatus == NPCSTATUS_WALK)
 	{
-		pObject->SetAnimation( XiahAniType::eLAT_Walk, 0);
+		// åŠ¨ç”»é˜²é‡å…¥ï¼šå·²åœ¨ Walk çŠ¶æ€æ—¶ä¸é‡ç½®åŠ¨ç”»å¸§ï¼Œé¿å…å°ç¢Žæ­¥
+		if( pObject->m_nCurMotionType != XiahAniType::eLAT_Walk)
+			pObject->SetAnimation( XiahAniType::eLAT_Walk, 0);
 	}
 	else if( bStatus == NPCSTATUS_RUN)
 	{
 		if( bBunsin )
-			pObject->SetAnimation( XiahAniType::eLAT_Run, 1 );
+		{
+			if( pObject->m_nCurMotionType != XiahAniType::eLAT_Run)
+				pObject->SetAnimation( XiahAniType::eLAT_Run, 1 );
+		}
 		else
-            pObject->SetAnimation( XiahAniType::eLAT_Run, 0);
+		{
+			if( pObject->m_nCurMotionType != XiahAniType::eLAT_Run)
+				pObject->SetAnimation( XiahAniType::eLAT_Run, 0);
+		}
 	}
 	
 	if( bObjectType == OBJTYPE_PET)
@@ -1318,7 +1326,7 @@ int OnCS_NC_SYNCMOVE_ACK(CMsg &msg)
 
 	if( g_PetList.Find( dwObjectID) != NULL)
 	{
-		// ³» Pet´Â ¹«½Ã
+		// ë‚´ PetëŠ” ë¬´ì‹œ
 		return TRUE;
 	}
 
@@ -1330,9 +1338,9 @@ int OnCS_NC_SYNCMOVE_ACK(CMsg &msg)
 	WORD wPreSyncPosY = -pObject->m_SyncPosition.z;
 
 	// 2004.08.05 Changth
-	// À½ ÀÌ·±ÀÏÀÌ »ý±â´Ù´Ï,, ³ªÀÇ ºÐ½ÅÀº ³» ÄÄ¿¡¼­ ´Þ¸®´Âµ¥, ´Ù¸¥ ÄÄ¿¡¼­´Â 
-	// ´À¸®°Å °È´Ù°¡ Á¡ÇÁ¸¦ ÇÏ´Â±º. ÀÌ°É Å¬¶óÀÌ¾ðÆ®°¡ °£´ÜÇÑ ¹æ¹ýÀ¸·Î ÇØ°áÇÏÀÚ.
-	// ÆêÀÇ Ä³¸¯ÅÍ¾ÆÀÌµð°¡ °Ë¿µÀÌ¸é Ä³¸¯ÅÍ°¡ ´Þ¸®´Â °Í°ú µ¿ÀÏÇÏ°Ô ÇØÁØ´Ù. ^^
+	// ìŒ ì´ëŸ°ì¼ì´ ìƒê¸°ë‹¤ë‹ˆ,, ë‚˜ì˜ ë¶„ì‹ ì€ ë‚´ ì»´ì—ì„œ ë‹¬ë¦¬ëŠ”ë°, ë‹¤ë¥¸ ì»´ì—ì„œëŠ” 
+	// ëŠë¦¬ê±° ê±·ë‹¤ê°€ ì í”„ë¥¼ í•˜ëŠ”êµ°. ì´ê±¸ í´ë¼ì´ì–¸íŠ¸ê°€ ê°„ë‹¨í•œ ë°©ë²•ìœ¼ë¡œ í•´ê²°í•˜ìž.
+	// íŽ«ì˜ ìºë¦­í„°ì•„ì´ë””ê°€ ê²€ì˜ì´ë©´ ìºë¦­í„°ê°€ ë‹¬ë¦¬ëŠ” ê²ƒê³¼ ë™ì¼í•˜ê²Œ í•´ì¤€ë‹¤. ^^
 	bool bBunsin = false;
 	if( bObjectType == OBJTYPE_PET && bStatus == NPCSTATUS_RUN )
 	{
@@ -1435,7 +1443,7 @@ int OnCS_NC_ENDMOVE_ACK(CMsg &msg)
 
 	if( g_PetList.Find( dwObjectID) != NULL)
 	{
-		// ³» Pet´Â ¹«½Ã
+		// ë‚´ PetëŠ” ë¬´ì‹œ
 		return TRUE;
 	}
 
@@ -1566,14 +1574,14 @@ int OnCS_NC_STATUSCHANGE_ACK(CMsg &msg)
 	if( pObject == NULL)
 	{
 		//	ValidateObject( bObjectType, dwObjectID, wPosX, wPosY);
-		// ¾ø´Â³Ñ¿¡ ´ëÇÑ Status Change´Â ¹ÞÁö ¾Ê°Ú´Ù
+		// ì—†ëŠ”ë„˜ì— ëŒ€í•œ Status ChangeëŠ” ë°›ì§€ ì•Šê² ë‹¤
 		return TRUE;
 	}
 
-	// Äù½ºÆ®¿ë NPC
+	// í€˜ìŠ¤íŠ¸ìš© NPC
 	if(bObjectType == OBJTYPE_NPC && bSubType != 255) 
 	{
-		if( bHi_Subtype == 0 && bLo_Subtype == 0 ) // Ã³À½ »óÅÂ¸¦ µÎ¹ø ÇÒ ÇÊ¿ä°¡ ¾ø´Ù.
+		if( bHi_Subtype == 0 && bLo_Subtype == 0 ) // ì²˜ìŒ ìƒíƒœë¥¼ ë‘ë²ˆ í•  í•„ìš”ê°€ ì—†ë‹¤.
 			return TRUE;
 
 		CXiahCharObject *pObj = reinterpret_cast<CXiahCharObject*>(pObject->m_pObject);
@@ -1584,20 +1592,20 @@ int OnCS_NC_STATUSCHANGE_ACK(CMsg &msg)
 		bHi_Subtype_Old = (pObj->m_bExSubObjType & 0xf0) >> 4;
 		bLo_Subtype_Old = (pObj->m_bExSubObjType & 0x0f);
 
-		// È­¸é ¹øÂ½! ÀÌ°Ç ¸Þ½Ã ¹Ù²ð¶§!
-		bool bExplore = false;	// ÆøÆÄ ÀÌÆåÆ®
+		// í™”ë©´ ë²ˆì©! ì´ê±´ ë©”ì‹œ ë°”ë€”ë•Œ!
+		bool bExplore = false;	// í­íŒŒ ì´íŽ™íŠ¸
 		if( bHi_Subtype_Old != bHi_Subtype)
 		{
 			//Make_Special_Effect(0xffffffff);
-			bExplore = true;	// ¸Þ½Ã°¡ ¹Ù²Ù¾úÀ¸´Ï ÆøÆÄÀÌÆåÆ®°¡ ³ª¿Â´Ù.
+			bExplore = true;	// ë©”ì‹œê°€ ë°”ê¾¸ì—ˆìœ¼ë‹ˆ í­íŒŒì´íŽ™íŠ¸ê°€ ë‚˜ì˜¨ë‹¤.
 
 		}
 
 		// UPDATE
 		pObj->m_bExSubObjType = bSubType;
 
-		// Subtype¿¡ µû¶ó¼­ Mesh¸¦ ¹Ù²Ù¾î ÁØ´Ù.
-		// SubtypeÀÌ ¹Ù·Î Mesh Type °ú °°´Ù
+		// Subtypeì— ë”°ë¼ì„œ Meshë¥¼ ë°”ê¾¸ì–´ ì¤€ë‹¤.
+		// Subtypeì´ ë°”ë¡œ Mesh Type ê³¼ ê°™ë‹¤
 		int nCharID = pData->GetInt( 1);
 		int nMeshType = bHi_Subtype;
 		int nTextureType = pData->GetInt( 3);
@@ -1614,16 +1622,16 @@ int OnCS_NC_STATUSCHANGE_ACK(CMsg &msg)
 		int nCurMeshType = pObj->m_CharRender.GetMeshType();
 		int nCurTexType  = pObj->m_CharRender.GetTextureType();
 
-		// µ¥ÀÌÅ¸°¡ ¹Ù²ð¶§¸¸ ÇÏÀÚ.
+		// ë°ì´íƒ€ê°€ ë°”ë€”ë•Œë§Œ í•˜ìž.
 		if( nCurCharID   != nCharID ||
 			nCurMeshType != nMeshType ||
 			nCurTexType  != nTextureType  )
             pObj->Create( nCharID, nMeshType, nTextureType, 1);
 
-		// Mesh Effect¸¦ ¸¸µé¶§ Create ÈÄ¿¡ Update ÇÏ±â Àü¿¡ ÇØ¾ß ÇÑ´Ù.
+		// Mesh Effectë¥¼ ë§Œë“¤ë•Œ Create í›„ì— Update í•˜ê¸° ì „ì— í•´ì•¼ í•œë‹¤.
 		pObj->m_CharRender.ClearMeshEffect();
 
-		// 1¹øÂ° ÆøÆÄ ÀÌÆåÆ®´Â 2¹øÂ° ¸Þ½Ã¿¡ ºÙ¾î ÀÖ´Ù.
+		// 1ë²ˆì§¸ í­íŒŒ ì´íŽ™íŠ¸ëŠ” 2ë²ˆì§¸ ë©”ì‹œì— ë¶™ì–´ ìžˆë‹¤.
 		if( bExplore )
 		{
 			if( nMeshType == 2 )
@@ -1635,7 +1643,7 @@ int OnCS_NC_STATUSCHANGE_ACK(CMsg &msg)
 			{
 				int nAry[2];
 				nAry[0] = bLo_Subtype;
-				nAry[1] = 3;	// 4¹øÂ°°¡ ÆøÆÄ ÀÌÆåÆ®ÀÌ´Ù.
+				nAry[1] = 3;	// 4ë²ˆì§¸ê°€ í­íŒŒ ì´íŽ™íŠ¸ì´ë‹¤.
 				pObj->m_CharRender.MakeMeshEffect( 2, nAry );
 				g_MainCharInfo.PlayInterfaceSoundWithVol(BOOM_FXSOUND2,pObj->m_Position);
 			}
@@ -1655,7 +1663,7 @@ int OnCS_NC_STATUSCHANGE_ACK(CMsg &msg)
 
 		pCharObject->m_bTargetMove = FALSE;
 
-		// Quest NPCÀÏ¶§´Â °Ç³Ê¶Ú´Ù.
+		// Quest NPCì¼ë•ŒëŠ” ê±´ë„ˆë›´ë‹¤.
 		if( bSubType != 255 )
 			return TRUE;
 
@@ -1663,10 +1671,10 @@ int OnCS_NC_STATUSCHANGE_ACK(CMsg &msg)
 
 		switch( bState)
 		{
-		// ¼û¾îÀÖ´Ù°¡ ³ª¿Â´Ù
+		// ìˆ¨ì–´ìžˆë‹¤ê°€ ë‚˜ì˜¨ë‹¤
 		case NPCSTATUS_UNHIDE:
 			{
-				// Ä³¸¯ÅÍ°¡ µîÀåÇÒ¶§ ÀÌÆåÆ®
+				// ìºë¦­í„°ê°€ ë“±ìž¥í• ë•Œ ì´íŽ™íŠ¸
 				Vector3 vSize = pCharObject->m_LocalBound.Size();
 				vSize.y = 0;
 				float fSize = vSize.GetLength();
@@ -1696,7 +1704,7 @@ int OnCS_NC_STATUSCHANGE_ACK(CMsg &msg)
 			}
 			break;
 
-		// ¼û¾îÀÖ´Â NPC Ã³¸®
+		// ìˆ¨ì–´ìžˆëŠ” NPC ì²˜ë¦¬
 		case NPCSTATUS_HIDE:
 			{
 				pCharObject->m_CharRender.SetLoopAnimation(FALSE);
@@ -1733,10 +1741,10 @@ int OnCS_NC_STATUSCHANGE_ACK(CMsg &msg)
 			break;
 		case NPCSTATUS_DIE:
 			{
-				// PET ÀÏ°æ¿ì¿¡ Pet list¿¡¼­ Áö¿öÁØ´Ù
+				// PET ì¼ê²½ìš°ì— Pet listì—ì„œ ì§€ì›Œì¤€ë‹¤
 				if(bObjectType == OBJTYPE_PET)
 				{
-					//HT_0403 : Áö¼ÓÇü ¹«°ø ½ÃÀü ¾ÆÀÌÄÜ
+					//HT_0403 : ì§€ì†í˜• ë¬´ê³µ ì‹œì „ ì•„ì´ì½˜
 					CXiahCharObject *pCharObj = reinterpret_cast<CXiahCharObject*>(pObject->m_pObject);
 
 					sPetInfo* pPetInfo = (sPetInfo*)pCharObj->m_pPrivateData;
@@ -1750,13 +1758,13 @@ int OnCS_NC_STATUSCHANGE_ACK(CMsg &msg)
 
 							g_PetList.DeletePet(dwObjectID);
 
-							//HT_CHEAT : ÀÀ·æ ´Ù½Ã ¼ÒÈ¯ »ç³É
+							//HT_CHEAT : ì‘ë£¡ ë‹¤ì‹œ ì†Œí™˜ ì‚¬ëƒ¥
 							if(pPetInfo->m_dwIsHwan == 1 && g_bCheat)
 							{
 								SendCS_BT_MUGONGPREATTACK_REQ(OUTGONGID_WHANSUYUO,1,g_pMainChar->m_dwServerID,1,1,1, 1, g_pMainChar->m_dwServerID, 0, 0, 0);
 							}
 
-							if(pPetInfo->m_dwIsHwan == 2 && g_bCheat) //ºÐ½Å ¼ÒÈ¯
+							if(pPetInfo->m_dwIsHwan == 2 && g_bCheat) //ë¶„ì‹  ì†Œí™˜
 							{
 								SendCS_BT_MUGONGPREATTACK_REQ(41,1,g_pMainChar->m_dwServerID,1,1,1, 1, g_pMainChar->m_dwServerID, 0, 0, 0);
 							}
@@ -1764,12 +1772,12 @@ int OnCS_NC_STATUSCHANGE_ACK(CMsg &msg)
 					}
 
 					// 2004.08.04 Changth
-					// ºÐ½Å°ÝÀÏ¶§, ¿À·§µ¿¾È ½ÃÃ¼(?)°¡ ³²¾Æ ÀÖ´Â °æ¿ì°¡ ÀÖ´Âµ¥,
-					// ÁïÀ¸¸é Á¶±Ý ÈÄ¿¡ ¹Ù·Î °­Á¦·Î Áö¿öÁØ´Ù.
+					// ë¶„ì‹ ê²©ì¼ë•Œ, ì˜¤ëž«ë™ì•ˆ ì‹œì²´(?)ê°€ ë‚¨ì•„ ìžˆëŠ” ê²½ìš°ê°€ ìžˆëŠ”ë°,
+					// ì¦‰ìœ¼ë©´ ì¡°ê¸ˆ í›„ì— ë°”ë¡œ ê°•ì œë¡œ ì§€ì›Œì¤€ë‹¤.
 					pCharObject->m_LastNavigationTime = g_dwCurTime;
 				}
 				
-				// ¼ºÀÎ¼­¹ö¿ë NPC				
+				// ì„±ì¸ì„œë²„ìš© NPC				
 				//if(g_AppData.m_bAdult && bObjectType != OBJTYPE_PET)
 				else if(g_AppData.m_bAdult)
 				{
@@ -1793,49 +1801,49 @@ int OnCS_NC_STATUSCHANGE_ACK(CMsg &msg)
 								pCharObject->Create(pData2->GetInt(1), pData2->GetInt(2), pData2->GetInt(3), -1);
 
 								/////////////////////////////////////////////////////////////////////////////////////////////////////
-								if(11 == XiahMap::g_XiahMap.m_MapInfo.m_dwMapID)	// ´øÀü¿¡¼­¸¸
+								if(11 == XiahMap::g_XiahMap.m_MapInfo.m_dwMapID)	// ë˜ì „ì—ì„œë§Œ
 								{
 									switch(pData1->GetInt(1))
 									{
-									case 816:	// ºù¿ä
+									case 816:	// ë¹™ìš”
 										pCharObject->m_CharRender.SetLocalScale(Vector3(1.5f, 1.5f, 1.5f));
 										break;
-									case 902:	// ÇØ½Å
+									case 902:	// í•´ì‹ 
 										pCharObject->m_CharRender.SetLocalScale(Vector3(1.5f, 1.5f, 1.5f));
 										break;
-									case 942:	// ¼®±Í
+									case 942:	// ì„ê·€
 										pCharObject->m_CharRender.SetLocalScale(Vector3(1.5f, 1.5f, 1.5f));
 										break;
-									case 1041:	// ÀûÈ£
+									case 1041:	// ì í˜¸
 										pCharObject->m_CharRender.SetLocalScale(Vector3(1.5f, 1.5f, 1.5f));
 										break;
-									case 1042:	// ±Ý°¢µ¿ÀÎ
+									case 1042:	// ê¸ˆê°ë™ì¸
 										pCharObject->m_CharRender.SetLocalScale(Vector3(1.5f, 1.5f, 1.5f));
 										break;
-									case 1040:	// ÀÎ¸é¼ö
+									case 1040:	// ì¸ë©´ìˆ˜
 										pCharObject->m_CharRender.SetLocalScale(Vector3(1.5f, 1.5f, 1.5f));
 										break;
-									case 1043:	// Ç÷±â¸°
+									case 1043:	// í˜ˆê¸°ë¦°
 										pCharObject->m_CharRender.SetLocalScale(Vector3(1.55f, 1.55f, 1.55f));
 										break;
-									case 1044:	// ±Ý°¢°ÅÀÎ
+									case 1044:	// ê¸ˆê°ê±°ì¸
 										pCharObject->m_CharRender.SetLocalScale(Vector3(1.15f, 1.15f, 1.15f));
 										break;
-									case 1045:	// ±³·æ
+									case 1045:	// êµë£¡
 										pCharObject->m_CharRender.SetLocalScale(Vector3(1.5f, 1.5f, 1.5f));
 										break;
-									case 1039:	// ´ëÁ¶±Í
+									case 1039:	// ëŒ€ì¡°ê·€
 										pCharObject->m_CharRender.SetLocalScale(Vector3(0.85f, 0.85f, 0.85f));
 										break;
 									}
 
-									// [5/4/2005] ÀüÃ¼ ID ¼öÁ¤ - ¾Æ·¡µµ ÀüºÎ È·¶¨
+									// [5/4/2005] ì „ì²´ ID ìˆ˜ì • - ì•„ëž˜ë„ ì „ë¶€ íš…ë•
 									switch(pCharObject->m_bOrderID)
 									{
-									case 1:	// º¸½º
+									case 1:	// ë³´ìŠ¤
 										pCharObject->m_CharRender.SetLocalScale( Vector3( 1.7f, 1.7f, 1.7f));
 										break;
-									case 2:	// Çàµ¿´ëÀå
+									case 2:	// í–‰ë™ëŒ€ìž¥
 										pCharObject->m_CharRender.SetLocalScale( Vector3( 1.6f, 1.6f, 1.6f));
 										break;										
 									}
@@ -1843,13 +1851,13 @@ int OnCS_NC_STATUSCHANGE_ACK(CMsg &msg)
 									/*
 									switch(pCharObject->m_bOrderID)
 									{
-									case 0:	// º¸½º
+									case 0:	// ë³´ìŠ¤
 										pCharObject->m_CharRender.SetLocalScale(Vector3(1.7f, 1.7f, 1.7f));
 										break;
-									case 1:	// Çàµ¿´ëÀå
+									case 1:	// í–‰ë™ëŒ€ìž¥
 										pCharObject->m_CharRender.SetLocalScale(Vector3(1.6f, 1.6f, 1.6f));
 										break;
-									case 2:	// ³ë·ÃÇÑ
+									case 2:	// ë…¸ë ¨í•œ
 										pCharObject->m_CharRender.SetLocalScale(Vector3(0.8f, 0.9f, 0.8f));
 										break;
 									}
@@ -1859,10 +1867,10 @@ int OnCS_NC_STATUSCHANGE_ACK(CMsg &msg)
 								{
 									switch(pCharObject->m_bOrderID)
 									{
-									case 1:	// º¸½º
+									case 1:	// ë³´ìŠ¤
 										pCharObject->m_CharRender.SetLocalScale( Vector3( 1.4f, 1.4f, 1.4f));
 										break;
-									case 2:	// Çàµ¿´ëÀå
+									case 2:	// í–‰ë™ëŒ€ìž¥
 										pCharObject->m_CharRender.SetLocalScale( Vector3( 1.2f, 1.2f, 1.2f));
 										break;										
 									}
@@ -1870,13 +1878,13 @@ int OnCS_NC_STATUSCHANGE_ACK(CMsg &msg)
 									/*
 									switch(pCharObject->m_bOrderID)
 									{
-									case 0:	// º¸½º
+									case 0:	// ë³´ìŠ¤
 										pCharObject->m_CharRender.SetLocalScale(Vector3(1.4f, 1.4f, 1.4f));
 										break;
-									case 1:	// Çàµ¿´ëÀå
+									case 1:	// í–‰ë™ëŒ€ìž¥
 										pCharObject->m_CharRender.SetLocalScale(Vector3(1.2f, 1.2f, 1.2f));
 										break;
-									case 2:	// ³ë·ÃÇÑ
+									case 2:	// ë…¸ë ¨í•œ
 										pCharObject->m_CharRender.SetLocalScale(Vector3(0.8f, 0.9f, 0.8f));
 										break;
 									}
@@ -1892,17 +1900,17 @@ int OnCS_NC_STATUSCHANGE_ACK(CMsg &msg)
 
 				pCharObject->m_bTargetMove = FALSE;
 
-				// ÇöÀç Ä³¸¯ÅÍ°¡ Mesh Effect°¡ ÀÖÀ¸¸é ¾ø¾ÖÁØ´Ù.
+				// í˜„ìž¬ ìºë¦­í„°ê°€ Mesh Effectê°€ ìžˆìœ¼ë©´ ì—†ì• ì¤€ë‹¤.
 				pCharObject->m_CharRender.ClearMeshEffect();
 
 				pCharObject->ClearMugongEffect();
 
 				pCharObject->m_KeepUpMugongList.clear();
 
-				// Ä³¸¯ÅÍ°¡ Á×À»¶§ ³ª¿À´Â ÀÌÆåÆ®µµ ÀÖ´Ù.
+				// ìºë¦­í„°ê°€ ì£½ì„ë•Œ ë‚˜ì˜¤ëŠ” ì´íŽ™íŠ¸ë„ ìžˆë‹¤.
 				switch( pCharObject->m_bSubObjType )
 				{
-				case 184:	// ½ÅÁ¶
+				case 184:	// ì‹ ì¡°
 					{
 						_EFFECTPACKAGE* pEffectPackage = g_EffectManager.EnqAppearEffectImmediately( eShinjo_Explode, 0, 0, 10, 0 );
 
@@ -1918,7 +1926,7 @@ int OnCS_NC_STATUSCHANGE_ACK(CMsg &msg)
 					break;
 				};
 
-				/// ³Í ÀÎÁ¦ Client²¨´Ù
+				/// ë„Œ ì¸ì œ Clientêº¼ë‹¤
 				//XiahObject::g_XiahObjectManager.ChangeToClientObject( pObject);
 			}
 			break;
@@ -1929,7 +1937,7 @@ int OnCS_NC_STATUSCHANGE_ACK(CMsg &msg)
 }
 
 /**
- * ±â´ÉNPC ¾ÆÀÌÅÛ ¸®½ºÆ®
+ * ê¸°ëŠ¥NPC ì•„ì´í…œ ë¦¬ìŠ¤íŠ¸
  * \param &msg 
  * \return 
  */
@@ -2067,9 +2075,9 @@ int OnCS_NC_FUNCTIONALNPCITEMLIST_ACK(CMsg &msg)
 		case ITEMTYPE_GISDURABLITY:
 			{
 				msg
-					>> pItem->m_wFunctionItem // ±â´É¹øÈ£
+					>> pItem->m_wFunctionItem // ê¸°ëŠ¥ë²ˆí˜¸
 					>> pItem->m_wCurDur
-					>> pItem->m_wMaxDur // ÃÖ´ë³»±¸·Â
+					>> pItem->m_wMaxDur // ìµœëŒ€ë‚´êµ¬ë ¥
 					>> pItem->m_dwValue;
 			}
 			break;
@@ -2094,18 +2102,18 @@ int OnCS_NC_FUNCTIONALNPCITEMLIST_ACK(CMsg &msg)
 				BYTE bTemp = 0;
 
 				msg
-					>> bTemp	// ³»±¸°¨¼Ò
+					>> bTemp	// ë‚´êµ¬ê°ì†Œ
 					>> pItem->m_wCurDur
 					>> pItem->m_wMaxDur;
 			}
 			break;
-		case 18: //HT_0828 : ¼öÁý³¶ ÆÇ¸Å ÀÌº¥Æ®(³¶ )
+		case 18: //HT_0828 : ìˆ˜ì§‘ë‚­ íŒë§¤ ì´ë²¤íŠ¸(ë‚­ )
 			{
 				msg
 					>> pItem->m_bModifyCnt;
 			}
 			break;
-		case 20: //HT_0828 : ¼öÁý³¶ ÆÇ¸Å ÀÌº¥Æ®(Àç·á)
+		case 20: //HT_0828 : ìˆ˜ì§‘ë‚­ íŒë§¤ ì´ë²¤íŠ¸(ìž¬ë£Œ)
 			{
 				msg
 					>> pItem->m_bFuncID
@@ -2127,7 +2135,7 @@ int OnCS_NC_FUNCTIONALNPCITEMLIST_ACK(CMsg &msg)
 int OnCS_NC_PETINFO_ACK(CMsg &msg)
 {
 	/*
-		ÀÌ ¸Þ¼¼Áö´Â NPCINFO_ACK°ú °°ÀÌ ³²ÀÌ µîÀåÇßÀ»¶§ (EnterAck) »ó¼¼ Á¤º¸¸¦ ¹Þ¾Æ¼­ ¸¸µé¾î ÁÖ´Â ±â´ÉÀÌ´Ù
+		ì´ ë©”ì„¸ì§€ëŠ” NPCINFO_ACKê³¼ ê°™ì´ ë‚¨ì´ ë“±ìž¥í–ˆì„ë•Œ (EnterAck) ìƒì„¸ ì •ë³´ë¥¼ ë°›ì•„ì„œ ë§Œë“¤ì–´ ì£¼ëŠ” ê¸°ëŠ¥ì´ë‹¤
 	*/
 	BYTE	bResult		=0;
 	DWORD	dwID		=0;
@@ -2176,21 +2184,21 @@ int OnCS_NC_PETINFO_ACK(CMsg &msg)
 		>> wVisualID[5];
 
 	//if( g_PetList.Find( dwID) != NULL)
-	//	return 0;	// ³»²¨´Â ¹«½Ã
+	//	return 0;	// ë‚´êº¼ëŠ” ë¬´ì‹œ
 
 	// 2004.08.06 Changth
-	// ¿À³Ê¸¦ Ã£´Â´Ù
+	// ì˜¤ë„ˆë¥¼ ì°¾ëŠ”ë‹¤
 	XiahObject::CXiahObject* pOwner = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, dwOwnerID, OBJTYPE_PC));
 
 	if ( !pOwner )
 		return 0;
 
-    // »õ·Î¿î Ä³¸¯ÅÍ¸é Ã·ºÎÅÍ »ý¼ºÇÏÁö¸¸, Á¸ÀçÇÏ´Â °Å¶ó¸é µ¥ÀÌÅ¸¸¦ ¹Ù²ãÁØ´Ù.
+    // ìƒˆë¡œìš´ ìºë¦­í„°ë©´ ì²¨ë¶€í„° ìƒì„±í•˜ì§€ë§Œ, ì¡´ìž¬í•˜ëŠ” ê±°ë¼ë©´ ë°ì´íƒ€ë¥¼ ë°”ê¿”ì¤€ë‹¤.
 	bool bCreateChar = true;
 
 	XiahObject::CXiahObject* pXiahObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, dwID, OBJTYPE_PET) );
 
-	if( pXiahObject != NULL ) // Ä³¸¯ÅÍ µ¥ÀÌÅ¸°¡ ÀÖÀ¸¸é new ÇÏÁö ¾Ê°í µ¥ÀÌÅ¸¸¸ ¹Ù²ãÁØ´Ù.
+	if( pXiahObject != NULL ) // ìºë¦­í„° ë°ì´íƒ€ê°€ ìžˆìœ¼ë©´ new í•˜ì§€ ì•Šê³  ë°ì´íƒ€ë§Œ ë°”ê¿”ì¤€ë‹¤.
 		bCreateChar = false;
 
 	sArrayData* pData = XiahArrayIndex::g_NpcType.GetData( bNpcType);
@@ -2202,9 +2210,9 @@ int OnCS_NC_PETINFO_ACK(CMsg &msg)
 	int nMeshType = pData->GetInt( 2);
 	int nTextureType = pData->GetInt( 3);
 
-	if(bRevolutionStep == 4 && bNpcType == 0) //HT_0621 : ¿µ¼öµÐ°©½Å´Ü Àû¿ë)
+	if(bRevolutionStep == 4 && bNpcType == 0) //HT_0621 : ì˜ìˆ˜ë‘”ê°‘ì‹ ë‹¨ ì ìš©)
 	{
-		// [10/31/2005] Ä³¸¯ÅÍ IDº¯°æ
+		// [10/31/2005] ìºë¦­í„° IDë³€ê²½
 		nCharID = 1133;
 
 		if(wVisualID[5])
@@ -2256,14 +2264,14 @@ int OnCS_NC_PETINFO_ACK(CMsg &msg)
 
 	pCharObject->SetAnimation( XiahAniType::eLAT_Stand, -1);
 
-	if(bRevolutionStep == 4 && bNpcType == 0) //HT_0621 : ¿µ¼öµÐ°©½Å´Ü Àû¿ë
+	if(bRevolutionStep == 4 && bNpcType == 0) //HT_0621 : ì˜ìˆ˜ë‘”ê°‘ì‹ ë‹¨ ì ìš©
 		SetupPET_VisualEquipement(pCharObject, wVisualID);
 
 
-	// ¸¸¾à ºÐ½ÅÀÌ¸é
+	// ë§Œì•½ ë¶„ì‹ ì´ë©´
 	// 2004.08.06 Changth
-	// ºÐ½Å°ÝÀÌ ¶Ù´Ï±ñ ºÐ½ÅÀÌ ¶Û¶§µµ °È´Â ¼Ò¸®°¡ ³ª´Âµ¥ ÀÌ¶§ ¿¡·¯°¡ ³­´Ù. 
-	// ±×·¡¼­ ºÐ½ÅÀÌ ¶Û¶§´Â ¼Ò¸®°¡ ¾ø°ÔÇÑ´Ù.
+	// ë¶„ì‹ ê²©ì´ ë›°ë‹ˆê¹ ë¶„ì‹ ì´ ë›¸ë•Œë„ ê±·ëŠ” ì†Œë¦¬ê°€ ë‚˜ëŠ”ë° ì´ë•Œ ì—ëŸ¬ê°€ ë‚œë‹¤. 
+	// ê·¸ëž˜ì„œ ë¶„ì‹ ì´ ë›¸ë•ŒëŠ” ì†Œë¦¬ê°€ ì—†ê²Œí•œë‹¤.
 	if( bNpcType == 251 )
 		pCharObject->m_CharRender.EnableAnimationSound(false);
 
@@ -2385,27 +2393,27 @@ int OnCS_NC_PETINFOLIST_ACK(CMsg &msg)
 			continue;
 
 		if( g_PetList.Find( dwID) != NULL)
-			continue;	// ³»²¨´Â ¹«½Ã
+			continue;	// ë‚´êº¼ëŠ” ë¬´ì‹œ
 
-		// »õ·Î¿î Ä³¸¯ÅÍ¸é Ã·ºÎÅÍ »ý¼ºÇÏÁö¸¸, Á¸ÀçÇÏ´Â °Å¶ó¸é µ¥ÀÌÅ¸¸¦ ¹Ù²ãÁØ´Ù.
+		// ìƒˆë¡œìš´ ìºë¦­í„°ë©´ ì²¨ë¶€í„° ìƒì„±í•˜ì§€ë§Œ, ì¡´ìž¬í•˜ëŠ” ê±°ë¼ë©´ ë°ì´íƒ€ë¥¼ ë°”ê¿”ì¤€ë‹¤.
 		bool bCreateChar = true;
 
 		XiahObject::CXiahObject* pXiahObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, dwID, OBJTYPE_PET) );
 
-		if( pXiahObject != NULL ) // Ä³¸¯ÅÍ µ¥ÀÌÅ¸°¡ ÀÖÀ¸¸é new ÇÏÁö ¾Ê°í µ¥ÀÌÅ¸¸¸ ¹Ù²ãÁØ´Ù.
+		if( pXiahObject != NULL ) // ìºë¦­í„° ë°ì´íƒ€ê°€ ìžˆìœ¼ë©´ new í•˜ì§€ ì•Šê³  ë°ì´íƒ€ë§Œ ë°”ê¿”ì¤€ë‹¤.
 			bCreateChar = false;
 
 		// 2004.08.05 Changth
-		// ºÐ½ÅÀÌ ÀÌÁ¦ ÀÌ°÷À¸·Î ¿Â´Ù. ¿©±â¼­ ¸¸µé¾î¾ß ¸Ê ÀÌµ¿ÇÒ¶§ »ó´ëÀÇ ºÐ½ÅÀÌ º¸ÀÎ´Ù.
+		// ë¶„ì‹ ì´ ì´ì œ ì´ê³³ìœ¼ë¡œ ì˜¨ë‹¤. ì—¬ê¸°ì„œ ë§Œë“¤ì–´ì•¼ ë§µ ì´ë™í• ë•Œ ìƒëŒ€ì˜ ë¶„ì‹ ì´ ë³´ì¸ë‹¤.
 		if( bNpcType == 251 )
 		{
-			// ¿À³Ê¸¦ Ã£´Â´Ù
+			// ì˜¤ë„ˆë¥¼ ì°¾ëŠ”ë‹¤
 			XiahObject::CXiahObject* pOwnerObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, dwOwnerID, OBJTYPE_PC));
 			if( !pOwnerObject ) continue;
 
 			CXiahCharObject* pOwnerCharObject = (CXiahCharObject*)pOwnerObject->m_pObject;
 
-			// ÀÌ¹Ì ¸¸µé¾îÁø °´Ã¼´Â µ¥ÀÌÅÍ¸¦ ¾÷µ¥ÀÌÆ® ÇÑ´Ù. Áï ´Ù½Ã ¸¸µéÁö ¾Ê´Â´Ù.
+			// ì´ë¯¸ ë§Œë“¤ì–´ì§„ ê°ì²´ëŠ” ë°ì´í„°ë¥¼ ì—…ë°ì´íŠ¸ í•œë‹¤. ì¦‰ ë‹¤ì‹œ ë§Œë“¤ì§€ ì•ŠëŠ”ë‹¤.
 			CXiahCharObject *pBunsin = NULL;
 			if( bCreateChar )
                 pBunsin = new CXiahCharObject;
@@ -2446,8 +2454,8 @@ int OnCS_NC_PETINFOLIST_ACK(CMsg &msg)
 			pBunsin->m_bSubObjType = pOwnerCharObject->m_bSubObjType;
 
 			// 2004.08.06 Changth
-			// ºÐ½Å°ÝÀÌ ¶Ù´Ï±ñ ºÐ½ÅÀÌ ¶Û¶§µµ °È´Â ¼Ò¸®°¡ ³ª´Âµ¥ ÀÌ¶§ ¿¡·¯°¡ ³­´Ù. 
-			// ±×·¡¼­ ºÐ½ÅÀÌ ¶Û¶§´Â ¼Ò¸®°¡ ¾ø°ÔÇÑ´Ù.
+			// ë¶„ì‹ ê²©ì´ ë›°ë‹ˆê¹ ë¶„ì‹ ì´ ë›¸ë•Œë„ ê±·ëŠ” ì†Œë¦¬ê°€ ë‚˜ëŠ”ë° ì´ë•Œ ì—ëŸ¬ê°€ ë‚œë‹¤. 
+			// ê·¸ëž˜ì„œ ë¶„ì‹ ì´ ë›¸ë•ŒëŠ” ì†Œë¦¬ê°€ ì—†ê²Œí•œë‹¤.
 			pBunsin->m_CharRender.EnableAnimationSound(false);
 
 			sPCVisualInfo *pVisualInfo = (sPCVisualInfo *)pOwnerCharObject->m_pPrivateData;
@@ -2470,10 +2478,10 @@ int OnCS_NC_PETINFOLIST_ACK(CMsg &msg)
 
 			pBunsin->m_dwOwnerID = dwOwnerID;
 
-			// ³»²¨ÀÏ°æ¿ì¿¡¸¸ PETlist¿¡ ³Ö´Â´Ù
+			// ë‚´êº¼ì¼ê²½ìš°ì—ë§Œ PETlistì— ë„£ëŠ”ë‹¤
 			if(g_pMainChar->m_dwServerID == dwOwnerID)
 			{
-				// PETÀÇ Á¤º¸ ¼³Á¤
+				// PETì˜ ì •ë³´ ì„¤ì •
 				sPetInfo* pPetInfo = NULL;
 				
 				//YS_0811 : BUGFIX				
@@ -2494,7 +2502,7 @@ int OnCS_NC_PETINFOLIST_ACK(CMsg &msg)
 				if ( !pPetInfo )
 					continue;
 
-				pPetInfo->m_dwIsHwan = 2;	// 2¹øÀº ºÐ½Å°Ý
+				pPetInfo->m_dwIsHwan = 2;	// 2ë²ˆì€ ë¶„ì‹ ê²©
 
 				pPetInfo->dwID				= dwID;				
 				pPetInfo->dwOwnID			= dwOwnerID;				
@@ -2527,7 +2535,7 @@ int OnCS_NC_PETINFOLIST_ACK(CMsg &msg)
 				pPetInfo->bRevolutionStep	= bRevolutionStep;				
 //				pPetInfo->bWildRate			= bWildRate;
 				pPetInfo->bAI = TRUE;						// AI ON
-				pPetInfo->AI_Type = PETAI_AUTOATTACK;		// ÀÌ°ÍÀº Ç×»ó Auto Attack
+				pPetInfo->AI_Type = PETAI_AUTOATTACK;		// ì´ê²ƒì€ í•­ìƒ Auto Attack
 
 				pBunsin->m_pPrivateData = (DWORD)pPetInfo;
 				pBunsin->m_PrivateDataDestoryer = ReleasePetInfo;	
@@ -2547,17 +2555,17 @@ int OnCS_NC_PETINFOLIST_ACK(CMsg &msg)
 			continue;
 		}
 		else 
-		if( bNpcType == 250 )	// È¯¼öÀ¯
+		if( bNpcType == 250 )	// í™˜ìˆ˜ìœ 
 		{
 
 		}
 
-		// ÀÏ¹Ý Æê
+		// ì¼ë°˜ íŽ«
 		sArrayData* pData = XiahArrayIndex::g_NpcType.GetData( bNpcType);
 		
 		if( pData == NULL)
 		{
-		//	DBG_LogFile( "¢kÀå : %d", bNpcType);
+		//	DBG_LogFile( "ì¤¸ìž¥ : %d", bNpcType);
 			continue;
 		}
 
@@ -2565,9 +2573,9 @@ int OnCS_NC_PETINFOLIST_ACK(CMsg &msg)
 		int nMeshType = pData->GetInt( 2);
 		int nTextureType = pData->GetInt( 3);
 
-		if(bRevolutionStep == 4 && bNpcType == 0) //HT_0621 : ¿µ¼öµÐ°©½Å´Ü Àû¿ë)
+		if(bRevolutionStep == 4 && bNpcType == 0) //HT_0621 : ì˜ìˆ˜ë‘”ê°‘ì‹ ë‹¨ ì ìš©)
 		{
-			// [10/31/2005] Ä³¸¯ÅÍ IDº¯°æ
+			// [10/31/2005] ìºë¦­í„° IDë³€ê²½
 			nCharID = 1133;
 
 			if(wVisualID[5])
@@ -2579,7 +2587,7 @@ int OnCS_NC_PETINFOLIST_ACK(CMsg &msg)
 
 		if( XiahGameEngine::GetCharacter( nCharID) == NULL)
 		{
-		//	DBG_LogFile( "¢kÀå : %d", bNpcType);
+		//	DBG_LogFile( "ì¤¸ìž¥ : %d", bNpcType);
 			continue;
 		}
 
@@ -2587,19 +2595,19 @@ int OnCS_NC_PETINFOLIST_ACK(CMsg &msg)
 
 		if( pResChar == NULL)
 		{
-		//	DBG_LogFile( "¢kÀå : %d", bNpcType);
+		//	DBG_LogFile( "ì¤¸ìž¥ : %d", bNpcType);
 			continue;
 		}
 		
 		if( !pResChar->GetMesh( nMeshType))
 		{
-		//	DBG_LogFile( "¢kÀå : %d", bNpcType);
+		//	DBG_LogFile( "ì¤¸ìž¥ : %d", bNpcType);
 			continue;
 		}
 
 		if( pResChar->GetMesh( nMeshType)->GetTexture( nTextureType) == NULL)
 		{
-		//	DBG_LogFile( "¢kÀå : %d", bNpcType);
+		//	DBG_LogFile( "ì¤¸ìž¥ : %d", bNpcType);
 			continue;
 		}
 
@@ -2635,7 +2643,7 @@ int OnCS_NC_PETINFOLIST_ACK(CMsg &msg)
 
 		pCharObject->SetAnimation( XiahAniType::eLAT_Stand, -1);
 
-		if(bRevolutionStep == 4 && bNpcType == 0) //HT_0621 : ¿µ¼öµÐ°©½Å´Ü Àû¿ë
+		if(bRevolutionStep == 4 && bNpcType == 0) //HT_0621 : ì˜ìˆ˜ë‘”ê°‘ì‹ ë‹¨ ì ìš©
 			SetupPET_VisualEquipement(pCharObject, wVisualID);
 
 		pCharObject->m_szObjectName = szName;
@@ -2681,7 +2689,7 @@ int OnCS_NC_PETINFOLIST_ACK(CMsg &msg)
 		pPetInfo->bRevolutionStep	=	 bRevolutionStep;
 		pPetInfo->m_dwIsHwan		=	 0;
 
-		if( bNpcType == 250 )	// È¯¼öÀ¯
+		if( bNpcType == 250 )	// í™˜ìˆ˜ìœ 
 			pPetInfo->m_dwIsHwan		= 1;
 
 		pCharObject->m_pPrivateData = (DWORD)pPetInfo;
@@ -2772,10 +2780,10 @@ int OnCS_NC_PETDETAILINFO_ACK(CMsg &msg)
 		>> wVisualID[5];
 		
 
-	// detailÁ¤º¸¸¦ ¹Þ¾ÒÀ¸´Ï ¼¼ÆÃÇØÁØ´Ù.
-	// ÀÌ¶§ DetailInfo´Â »õ·Î ²¿½Ç°æ¿ì¿¡ ÇØ´çµÇ¹Ç·Î sPetInfo¸¦ »õ·Î ¸¸µé¾î Áà¾ß ÇÑ´Ù
+	// detailì •ë³´ë¥¼ ë°›ì•˜ìœ¼ë‹ˆ ì„¸íŒ…í•´ì¤€ë‹¤.
+	// ì´ë•Œ DetailInfoëŠ” ìƒˆë¡œ ê¼¬ì‹¤ê²½ìš°ì— í•´ë‹¹ë˜ë¯€ë¡œ sPetInfoë¥¼ ìƒˆë¡œ ë§Œë“¤ì–´ ì¤˜ì•¼ í•œë‹¤
 	/*
-		²¿½Ã°Ô µÇ¸é
+		ê¼¬ì‹œê²Œ ë˜ë©´
 	*/
 	if( g_PetList.Find( dwID) == NULL)
 		return 0;
@@ -2783,8 +2791,8 @@ int OnCS_NC_PETDETAILINFO_ACK(CMsg &msg)
 	XiahObject::CXiahObject* pObject = g_PetList.Find( dwID);
 
 	/*
-		ÀÏ´Ü CHGOWNER_ACK°¡ ¿À¸é PetList¿¡ Ãß°¡µÇ¸é¼­
-		sPetInfo°¡ µé¾î°£´Ù °¡¶ó·Î.
+		ì¼ë‹¨ CHGOWNER_ACKê°€ ì˜¤ë©´ PetListì— ì¶”ê°€ë˜ë©´ì„œ
+		sPetInfoê°€ ë“¤ì–´ê°„ë‹¤ ê°€ë¼ë¡œ.
 	*/
 
 	//YS_0811 : BUGFIX
@@ -2827,7 +2835,7 @@ int OnCS_NC_PETDETAILINFO_ACK(CMsg &msg)
 	pPetInfo->i64NextLevelUpExp	= i64NextLevelUpExp;
 	pPetInfo->bRevolutionStep	= bRevolutionStep;				
 	pPetInfo->bWildRate			= bWildRate;
-	pPetInfo->bAI				= TRUE; // ÀÌÁ¦¼­¾ß AI¸¦ Åº´Ù
+	pPetInfo->bAI				= TRUE; // ì´ì œì„œì•¼ AIë¥¼ íƒ„ë‹¤
 	pPetInfo->AI_Type			= PETAI_AUTOATTACK;
 	pPetInfo->m_dwIsHwan		= 0;
 
@@ -2839,7 +2847,7 @@ int OnCS_NC_PETDETAILINFO_ACK(CMsg &msg)
 	return 0;	
 }
 
-// ¾Ö¿Ïµ¿¹° Å×ÀÌ¹Ö
+// ì• ì™„ë™ë¬¼ í…Œì´ë°
 int OnCS_NC_TAMING_ACK(CMsg &msg)
 {
 	BYTE	bResult		=0;	
@@ -2854,7 +2862,7 @@ int OnCS_NC_TAMING_ACK(CMsg &msg)
 	{
 		if( g_PetList.Find( dwObjectID) != NULL)
 		{
-			DBG_LogFile(_T("ÀÌ»óÇÑ ¾Ö¿Ïµ¿¹°"));
+			DBG_LogFile(_T("ì´ìƒí•œ ì• ì™„ë™ë¬¼"));
 		}
 
 		XiahObject::CXiahObject* pObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, dwObjectID, OBJTYPE_PET));
@@ -2865,11 +2873,11 @@ int OnCS_NC_TAMING_ACK(CMsg &msg)
 			pObject->m_pObject->m_pPrivateData = 0;
 		}
 
-		// PETÀÇ Á¤º¸ ¼³Á¤
+		// PETì˜ ì •ë³´ ì„¤ì •
 		sPetInfo* pPetInfo = new sPetInfo;
 		
 		pPetInfo->dwID = dwObjectID;
-		// PETÀÇ Info Structure
+		// PETì˜ Info Structure
 		pObject->m_pObject->m_pPrivateData = (DWORD)pPetInfo;
 		pObject->m_pObject->m_PrivateDataDestoryer = ReleasePetInfo;
 
@@ -2879,9 +2887,9 @@ int OnCS_NC_TAMING_ACK(CMsg &msg)
 			pObject->m_pObject->m_bPetPool = true;
 		}
 
-		g_PetList.AddPet( pObject);	// ÀÏ´Ü ¾Ö¿Ïµ¿¹°·Î Ãß°¡ÇØ ÁØ´Ù
+		g_PetList.AddPet( pObject);	// ì¼ë‹¨ ì• ì™„ë™ë¬¼ë¡œ ì¶”ê°€í•´ ì¤€ë‹¤
 
-		// Áö±Ý¸¸µç PETÀÇ ¼¼ºÎÁ¤º¸ ¿äÃ»
+		// ì§€ê¸ˆë§Œë“  PETì˜ ì„¸ë¶€ì •ë³´ ìš”ì²­
 		SendCS_NC_PETDETAILINFO_REQ( dwObjectID);
 		g_MainCharInfo.ShowHelpMessage( IDS_SUCC_TAME);
 		g_MainCharInfo.PlayInterfaceSound( SUCC_TAMMING_SOUND );
@@ -2943,7 +2951,7 @@ int OnCS_NC_CHGOWNER_ACK(CMsg &msg)
 	if( dwTargetOwnerID != g_pMainChar->m_dwServerID)
 		return 0;
 
-	// ÀÌ·¸°Ô ÀüÈ¯¸¸ ÇØ³õ¾Æµµ ÁÁ´Ù
+	// ì´ë ‡ê²Œ ì „í™˜ë§Œ í•´ë†“ì•„ë„ ì¢‹ë‹¤
 	XiahObject::g_XiahObjectManager.ChangeObjectID( 0, dwSourceID, bSourceType, 0, dwTargetID, bTargetType);
 	
 	return 0;
@@ -2976,9 +2984,9 @@ int OnCS_NC_NPCHP_ACK(CMsg &msg)
 
 	switch( bType )
 	{
-	case 0:		// ÀÚµ¿ È¸º¹
+	case 0:		// ìžë™ íšŒë³µ
 		break;
-	case 11:	// ¹«°ø È¸º¹.
+	case 11:	// ë¬´ê³µ íšŒë³µ.
 		{
 			_EFFECTPACKAGE* pEffectPackage = g_EffectManager.EnqOutGongPersistEffectImmediately( eJunuoum_recv );
 
@@ -2987,7 +2995,7 @@ int OnCS_NC_NPCHP_ACK(CMsg &msg)
 				pEffectPackage->pEffectRender->pPackagePair->pWorldMatrix = (MATRIX*)pCharObject->m_CharRender.GetCharTM();
 //				pEffectPackage->pEffectRender->pPackagePair->WorldMatrix = (MATRIX)pCharObject->m_ObjectTM;
 
-				// ÀÌÄÉÇØ¾ß Ä³¸¯ÅÍ°¡ ¾ø¾îÁú¶§ ÀÌÆåÆ®µµ °°ÀÌ ¾ø¾îÁø´Ù.
+				// ì´ì¼€í•´ì•¼ ìºë¦­í„°ê°€ ì—†ì–´ì§ˆë•Œ ì´íŽ™íŠ¸ë„ ê°™ì´ ì—†ì–´ì§„ë‹¤.
 				pCharObject->m_EffectPPList.push_back( pEffectPackage->pEffectRender->pPackagePair );
 			}// if
 		}
@@ -3003,7 +3011,7 @@ int OnCS_NC_NPCHP_ACK(CMsg &msg)
 }
 
 /**
- * ÆêÀÌ¸§º¯°æ
+ * íŽ«ì´ë¦„ë³€ê²½
  * \param &msg 
  * \return 
  */
@@ -3127,7 +3135,7 @@ int OnCS_NC_PETEXP_ACK(CMsg &msg)
 
 		if( pPetInfo)
 		{
-			//HT_0625 : Æê °æÇèÄ¡ 150°©ÀÚ ÀÏ °æ¿ì
+			//HT_0625 : íŽ« ê²½í—˜ì¹˜ 150ê°‘ìž ì¼ ê²½ìš°
 			if(pPetInfo->wLevel != 150)
 			{
 				pPetInfo->i64Exp += dwIncrExp;
@@ -3175,12 +3183,12 @@ int OnCS_NC_PETHP_ACK(CMsg &msg)
 			if( pCharObject == NULL )
 				return 0;
 
-			// ¾êµÎ ÀÌÆåÆ®´Ù. OnCS_IF_CHARHP_ACK ÇÏ±¸ ¶È~ °°´Ù.
+			// ì–˜ë‘ ì´íŽ™íŠ¸ë‹¤. OnCS_IF_CHARHP_ACK í•˜êµ¬ ë˜‘~ ê°™ë‹¤.
 			switch( bType )
 			{
-			case 0:		// ÀÚµ¿ È¸º¹
+			case 0:		// ìžë™ íšŒë³µ
 				break;
-				// ¹°¾à »ç¿ë
+				// ë¬¼ì•½ ì‚¬ìš©
 			case 1:		// HP
 				{
 					_EFFECTPACKAGE* pEffectPackage = g_EffectManager.EnqAppearEffectImmediately( eMulYak_HP );
@@ -3190,7 +3198,7 @@ int OnCS_NC_PETHP_ACK(CMsg &msg)
 						pEffectPackage->pEffectRender->pPackagePair->pWorldMatrix = (MATRIX*)pCharObject->m_CharRender.GetCharTM();
 //						pEffectPackage->pEffectRender->pPackagePair->WorldMatrix = (MATRIX)pCharObject->m_ObjectTM;
 
-						// ÀÌÄÉÇØ¾ß Ä³¸¯ÅÍ°¡ ¾ø¾îÁú¶§ ÀÌÆåÆ®µµ °°ÀÌ ¾ø¾îÁø´Ù.
+						// ì´ì¼€í•´ì•¼ ìºë¦­í„°ê°€ ì—†ì–´ì§ˆë•Œ ì´íŽ™íŠ¸ë„ ê°™ì´ ì—†ì–´ì§„ë‹¤.
 						pCharObject->m_EffectPPList.push_back( pEffectPackage->pEffectRender->pPackagePair );
 					}
 				}
@@ -3221,8 +3229,8 @@ int OnCS_NC_PETHP_ACK(CMsg &msg)
 					}
 				}
 				break;
-				// ¹«°ø
-			case 11:	// ÀüÀ¯À½ - Å¸ÀÎ Ä¡·á.
+				// ë¬´ê³µ
+			case 11:	// ì „ìœ ìŒ - íƒ€ì¸ ì¹˜ë£Œ.
 				{
 					_EFFECTPACKAGE* pEffectPackage = g_EffectManager.EnqOutGongPersistEffectImmediately( eJunuoum_recv );
 
@@ -3235,7 +3243,7 @@ int OnCS_NC_PETHP_ACK(CMsg &msg)
 					}// if
 				}
 				break;
-			case 12:	// ÀÌ±¤À½ - ´Ü Ä¡·á.
+			case 12:	// ì´ê´‘ìŒ - ë‹¨ ì¹˜ë£Œ.
 				{
 					_EFFECTPACKAGE* pEffectPackage = g_EffectManager.EnqOutGongPersistEffectImmediately( eLeekwangum_heal_recv );
 
@@ -3257,7 +3265,7 @@ int OnCS_NC_PETHP_ACK(CMsg &msg)
 }
 
 
-// ¾Ö¿Ïµ¿¹° ºÀÀÎ
+// ì• ì™„ë™ë¬¼ ë´‰ì¸
 int OnCS_NC_PETBONGIN_ACK(CMsg &msg)
 {
 	BYTE bResult	=0;
@@ -3276,11 +3284,11 @@ int OnCS_NC_PETBONGIN_ACK(CMsg &msg)
 	{
 		switch( bResult)
 		{
-		//ºÀÀÎÇÒ¼ö ¾ø½¿
+		//ë´‰ì¸í• ìˆ˜ ì—†ìŠ´
 		case ERR_PETBONGIN_NOTFINDPET:
 			g_MainCharInfo.ShowHelpMessage(IDS_PETBONGIN_NOTFINDPET, TEXTEFFECT_COLOR_WARNING);
 			break;
-		// ºÀÀÎ´ÜÁö¸¦ ¸øÃ£À½.
+		// ë´‰ì¸ë‹¨ì§€ë¥¼ ëª»ì°¾ìŒ.
 		case ERR_PETBONGIN_NOTFINDITEM:
 			g_MainCharInfo.ShowHelpMessage(IDS_ITEM_NOTFIND, TEXTEFFECT_COLOR_WARNING);
 			break;
@@ -3293,9 +3301,9 @@ int OnCS_NC_PETBONGIN_ACK(CMsg &msg)
 		case ERR_PETBONGIN_INVALIDITEM:
 			g_MainCharInfo.ShowHelpMessage(IDS_ITEM_NOTFIND, TEXTEFFECT_COLOR_WARNING);
 			break;
-		case ERR_PETBONGIN_LIMITLEVEL: //°©ÀÚ Á¦ÇÑ(Âø¿ë,ºÀÀÎ,ÇØÁ¦ÇÒ¶§)
+		case ERR_PETBONGIN_LIMITLEVEL: //ê°‘ìž ì œí•œ(ì°©ìš©,ë´‰ì¸,í•´ì œí• ë•Œ)
 			break;
-		case ERR_PETBONGIN_LIMITCOUNT: //ºÀÀÎÈ¸¼ö Á¦ÇÑ(ºùÁ¤ÀÇ °æ¿ì 3¸¶¸®±îÁö ºÀÀÎ°¡´É)
+		case ERR_PETBONGIN_LIMITCOUNT: //ë´‰ì¸íšŒìˆ˜ ì œí•œ(ë¹™ì •ì˜ ê²½ìš° 3ë§ˆë¦¬ê¹Œì§€ ë´‰ì¸ê°€ëŠ¥)
 			break;
 		case 8:
 			g_MainCharInfo.ShowHelpMessage(IDS_PETBONGIN_NOTBONGIN, TEXTEFFECT_COLOR_WARNING);
@@ -3306,7 +3314,7 @@ int OnCS_NC_PETBONGIN_ACK(CMsg &msg)
 	return 0;
 }
 
-// ¾Ö¿Ïµ¿¹°ÀÇ ºÀÀÎÀ» Ç®¾îÁØ´Ù
+// ì• ì™„ë™ë¬¼ì˜ ë´‰ì¸ì„ í’€ì–´ì¤€ë‹¤
 int OnCS_NC_PETBONGOUT_ACK(CMsg &msg)
 {
 	BYTE bResult;
@@ -3386,10 +3394,10 @@ int OnCS_NC_PETBONGOUT_ACK(CMsg &msg)
 			>> wVisualID[4]
 			>> wVisualID[5];
 
-		// ¸¸µé¾î ÁÖ±â
+		// ë§Œë“¤ì–´ ì£¼ê¸°
 		if( XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, dwID, OBJTYPE_PET)) != NULL)
 		{	
-			// À½.. ¼³¸¶..
+			// ìŒ.. ì„¤ë§ˆ..
 			return 0;
 		}
 
@@ -3403,9 +3411,9 @@ int OnCS_NC_PETBONGOUT_ACK(CMsg &msg)
 		int nMeshType = pData->GetInt( 2);
 		int nTextureType = pData->GetInt( 3);
 
-		if(bRevolutionStep == 4 && bNpcType == 0) //HT_0621 : ¿µ¼öµÐ°©½Å´Ü Àû¿ë)
+		if(bRevolutionStep == 4 && bNpcType == 0) //HT_0621 : ì˜ìˆ˜ë‘”ê°‘ì‹ ë‹¨ ì ìš©)
 		{
-			// [10/31/2005] Ä³¸¯ÅÍ IDº¯°æ
+			// [10/31/2005] ìºë¦­í„° IDë³€ê²½
 			nCharID = 1133;
 
 			if(wVisualID[5])
@@ -3438,7 +3446,7 @@ int OnCS_NC_PETBONGOUT_ACK(CMsg &msg)
 
 		pCharObject->SetAnimation( XiahAniType::eLAT_Stand, -1);
 
-		if(bRevolutionStep == 4 && bNpcType == 0) //HT_0621 : ¿µ¼öµÐ°©½Å´Ü Àû¿ë
+		if(bRevolutionStep == 4 && bNpcType == 0) //HT_0621 : ì˜ìˆ˜ë‘”ê°‘ì‹ ë‹¨ ì ìš©
 			SetupPET_VisualEquipement(pCharObject, wVisualID);
 
 		pCharObject->m_szObjectName = szName;
@@ -3540,8 +3548,8 @@ int OnCS_NC_PETWILDRATE_ACK(CMsg &msg)
 			g_MainCharInfo.ShowHelpMessage( temp);
 			g_MainCharInfo.ShowHelpMessage( IDS_BONGING_FEED,TEXTEFFECT_COLOR_WARNING);
 
-			//HT_CHEAT : °£À» ¾È Ã³¸ÔÀ» ¶§°¡ ÀÖÁö?? ¤Ñ¤Ñ;;
-			XiahItem::sItemInfo* pItem = g_MainCharInfo.m_pMySack[0]->FindSackItemByVisualID(g_dwPetFoodID); //µ¶¼ö¸®°£¸¸
+			//HT_CHEAT : ê°„ì„ ì•ˆ ì²˜ë¨¹ì„ ë•Œê°€ ìžˆì§€?? ã…¡ã…¡;;
+			XiahItem::sItemInfo* pItem = g_MainCharInfo.m_pMySack[0]->FindSackItemByVisualID(g_dwPetFoodID); //ë…ìˆ˜ë¦¬ê°„ë§Œ
 			if( pItem) 
 			{
 				SendCS_IM_GIVEITEM_REQ( pItem->m_bSackCount+1, pItem->m_bSackPos, pItem->m_dwItemID, OBJTYPE_PET, pPetInfo->dwID);
@@ -3553,17 +3561,17 @@ int OnCS_NC_PETWILDRATE_ACK(CMsg &msg)
 				{
 					SendCS_IM_GIVEITEM_REQ( pItem->m_bSackCount+1, pItem->m_bSackPos, pItem->m_dwItemID, OBJTYPE_PET, pPetInfo->dwID);
 				}
-				else //Çà³¶¿¡ µ¶¼ö¸®°£ÀÌ ¾øÀ»¶§ ºÀÀÎÀ» ÇÏÀÚ
+				else //í–‰ë‚­ì— ë…ìˆ˜ë¦¬ê°„ì´ ì—†ì„ë•Œ ë´‰ì¸ì„ í•˜ìž
 				{
-					XiahItem::sItemInfo* pBongInItem = g_MainCharInfo.m_pMySack[0]->FindSackItemByVisualID(g_dwPetSealID); //¿ì¼± °øÈ¥°æ
+					XiahItem::sItemInfo* pBongInItem = g_MainCharInfo.m_pMySack[0]->FindSackItemByVisualID(g_dwPetSealID); //ìš°ì„  ê³µí˜¼ê²½
 					if(pBongInItem)
 					{
-						g_MainCharInfo.ShowHelpMessage(_T("µ¶¼ö¸® °£ÀÌ ¾ø¾î¼­ ºÀÀÎÇÔ.."), TEXTEFFECT_COLOR_GAIN);
+						g_MainCharInfo.ShowHelpMessage(_T("ë…ìˆ˜ë¦¬ ê°„ì´ ì—†ì–´ì„œ ë´‰ì¸í•¨.."), TEXTEFFECT_COLOR_GAIN);
 						SendCS_NC_PETBONGIN_REQ( g_PetList.GetPetInfoByIndex(0)->dwID, pBongInItem->m_bSackCount+1, pBongInItem->m_bSackPos);
 					}
 					else
 					{
-						g_MainCharInfo.ShowHelpMessage(_T("°øÈ¥°æÀÌ ¾ø¾î¼­ ºÀÀÎÀ» ¸øÇØ.. "), TEXTEFFECT_COLOR_WARNING);
+						g_MainCharInfo.ShowHelpMessage(_T("ê³µí˜¼ê²½ì´ ì—†ì–´ì„œ ë´‰ì¸ì„ ëª»í•´.. "), TEXTEFFECT_COLOR_WARNING);
 					}
 				}
 			}
@@ -3579,7 +3587,7 @@ int OnCS_NC_PETREVOLUTION_ACK(CMsg &msg)
 	DWORD dwPetID		=0;
 	BYTE bNpcType		=0;
 	BYTE bRevolutionStep=0;
-	BYTE bPetRebirth	=0; //HO_0913_07 ¿µ¼ö °¢¼º½Å´Ü Ãß°¡ ¼­¹ö¿¡¼­ ¿ì¼± º¸³½´Ù ¹Þ¾Æ µÎ±â¸¸ ÇÏÀÚ
+	BYTE bPetRebirth	=0; //HO_0913_07 ì˜ìˆ˜ ê°ì„±ì‹ ë‹¨ ì¶”ê°€ ì„œë²„ì—ì„œ ìš°ì„  ë³´ë‚¸ë‹¤ ë°›ì•„ ë‘ê¸°ë§Œ í•˜ìž
 	BYTE bUseRenolution =0;
 
 	msg
@@ -3591,7 +3599,7 @@ int OnCS_NC_PETREVOLUTION_ACK(CMsg &msg)
 		>> bUseRenolution;
 
 
-	//HT_0622 : ¿µ¼öµÐ°©½Å´Ü Àû¿ë(¸®½ºÆ®¿¡¼­ ¸ø Ã£¾Æ¿È)
+	//HT_0622 : ì˜ìˆ˜ë‘”ê°‘ì‹ ë‹¨ ì ìš©(ë¦¬ìŠ¤íŠ¸ì—ì„œ ëª» ì°¾ì•„ì˜´)
 	//XiahObject::CXiahObject* pObject = g_PetList.Find( dwPetID);
 	XiahObject::CXiahObject* pObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, dwPetID, OBJTYPE_PET));
 
@@ -3602,7 +3610,7 @@ int OnCS_NC_PETREVOLUTION_ACK(CMsg &msg)
 
 		if( pPetInfo)
 		{
-			//HT_0714 : ÁÖÀÎ¿¡°Ô¸¸ ¸Þ½ÃÁö¸¦ »Ñ¸°´Ù. 
+			//HT_0714 : ì£¼ì¸ì—ê²Œë§Œ ë©”ì‹œì§€ë¥¼ ë¿Œë¦°ë‹¤. 
 			if(dwOwnerID == g_MainCharInfo.m_dwObjectID)
 			{
 				if(bUseRenolution)	
@@ -3628,9 +3636,9 @@ int OnCS_NC_PETREVOLUTION_ACK(CMsg &msg)
 			int nMeshType = pData->GetInt( 2);
 			int nTextureType = pData->GetInt( 3);
 
-			if(bRevolutionStep == 4 && bNpcType == 0) //HT_0621 : ¿µ¼öµÐ°©½Å´Ü Àû¿ë
+			if(bRevolutionStep == 4 && bNpcType == 0) //HT_0621 : ì˜ìˆ˜ë‘”ê°‘ì‹ ë‹¨ ì ìš©
 			{
-				// [10/31/2005] Ä³¸¯ÅÍ IDº¯°æ
+				// [10/31/2005] ìºë¦­í„° IDë³€ê²½
 				nCharID = 1133;
 			}
 
@@ -3655,7 +3663,7 @@ int OnCS_NC_PETREVOLUTION_ACK(CMsg &msg)
 
 			CXiahCharObject *pObj = reinterpret_cast<CXiahCharObject*>(pObject->m_pObject);
 
-			if(bRevolutionStep == 4 && bNpcType != 0) //HT_0621 : ¿µ¼öµÐ°©½Å´Ü Àû¿ë
+			if(bRevolutionStep == 4 && bNpcType != 0) //HT_0621 : ì˜ìˆ˜ë‘”ê°‘ì‹ ë‹¨ ì ìš©
 			{
 				WORD  wVisualID[6];
 				ZeroMemory(wVisualID, sizeof(WORD)*6);
@@ -3665,7 +3673,7 @@ int OnCS_NC_PETREVOLUTION_ACK(CMsg &msg)
 			pObj->Create( nCharID, nMeshType, nTextureType, 1);
 			pObj->Update();
 
-			if(bRevolutionStep == 4 && bNpcType == 0) //HT_0621 : ¿µ¼öµÐ°©½Å´Ü Àû¿ë
+			if(bRevolutionStep == 4 && bNpcType == 0) //HT_0621 : ì˜ìˆ˜ë‘”ê°‘ì‹ ë‹¨ ì ìš©
 			{
 				WORD  wVisualID[6];
 				ZeroMemory(wVisualID, sizeof(WORD)*6);
@@ -3855,8 +3863,8 @@ int OnCS_NC_PETPICKITEM_ACK(CMsg &msg)
 
 	if(bResult != 0)
 	{
-		// ¾Æ¸¶µµ SackÀÌ ²ËÂ÷ÀÖÀ»°ÍÀÌ´Ù!
-		// ÇØ´ç PETÀÇ AI¸¦ ÀÚ±â º¸È£·Î ¸¸µç´Ù.
+		// ì•„ë§ˆë„ Sackì´ ê½‰ì°¨ìžˆì„ê²ƒì´ë‹¤!
+		// í•´ë‹¹ PETì˜ AIë¥¼ ìžê¸° ë³´í˜¸ë¡œ ë§Œë“ ë‹¤.
 		g_PetList.Change_PET_AI_Specify(dwPetID,PETAI_AUTOATTACK);
 
 		if(bResult == 2)
@@ -3899,7 +3907,7 @@ int OnCS_NC_PETTHROWITEM_ACK(CMsg &msg)
 	return 0;
 }
 
-// SendCS_NC_PETPICKITEM_REQÀÇ °á°ú
+// SendCS_NC_PETPICKITEM_REQì˜ ê²°ê³¼
 int OnCS_NC_PETITEMADD_ACK(CMsg &msg)
 {
 	DWORD dwPetID;
@@ -3970,7 +3978,7 @@ int OnCS_NC_PETITEMDEL_ACK(CMsg &msg)
 	{
 		if( pPetInfo)
 		{
-			// ´©¼ö ¼öÁ¤
+			// ëˆ„ìˆ˜ ìˆ˜ì •
 			if( bSackID >= 1 && bSackID <= 3 && pPetInfo->m_pSack[bSackID - 1] )
                 pPetInfo->m_pSack[bSackID - 1]->DeleteItem( bSackPos, true);
 		}
@@ -3980,7 +3988,7 @@ int OnCS_NC_PETITEMDEL_ACK(CMsg &msg)
 		//YS_0812 : BUGFIX
 		if( pPetInfo && pPetInfo->m_pEquipSack )
 		{
-			// ´©¼ö ¼öÁ¤
+			// ëˆ„ìˆ˜ ìˆ˜ì •
 			pPetInfo->m_pEquipSack->DeleteItem( bSackPos, true);
 		}
 	}
@@ -3990,7 +3998,7 @@ int OnCS_NC_PETITEMDEL_ACK(CMsg &msg)
 	return 0;
 }
 
-// È¯¼öÀ¯ & ºÐ½Å°Ý
+// í™˜ìˆ˜ìœ  & ë¶„ì‹ ê²©
 int OnCS_NC_PETNEWMAKE_ACK(CMsg &msg)
 {
 	BYTE bResult;
@@ -4060,13 +4068,13 @@ int OnCS_NC_PETNEWMAKE_ACK(CMsg &msg)
 
 	bWildRate = 0;
 
-	//HT_0711 : Áø°¢¼º ¹«°ø
+	//HT_0711 : ì§„ê°ì„± ë¬´ê³µ
 	if(bNpcType == 250)
 	{
-		// È¯¼öÀ¯
+		// í™˜ìˆ˜ìœ 
 		if( g_PetList.Find( dwID) != NULL)
 		{
-			DBG_LogFile(_T("È¯¼öÀ¯´Â ÇÑ¹ø¿¡ ÇÑ¸¶¸®!!"));
+			DBG_LogFile(_T("í™˜ìˆ˜ìœ ëŠ” í•œë²ˆì— í•œë§ˆë¦¬!!"));
 		}
 
 		sArrayData *pData = XiahArrayIndex::g_NpcType.GetData( bNpcType);
@@ -4118,13 +4126,13 @@ int OnCS_NC_PETNEWMAKE_ACK(CMsg &msg)
 
 		XiahObject::CXiahObject* pPetObject = XiahObject::g_XiahObjectManager.CreateXiahObject( dwID,  OBJTYPE_PET, pObject);
 
-		// ³»²¨ÀÏ°æ¿ì¿¡¸¸ PETlist¿¡ ³Ö´Â´Ù
+		// ë‚´êº¼ì¼ê²½ìš°ì—ë§Œ PETlistì— ë„£ëŠ”ë‹¤
 		if(g_pMainChar->m_dwServerID == dwOwnID)
 		{
 
-			// PETÀÇ Á¤º¸ ¼³Á¤
+			// PETì˜ ì •ë³´ ì„¤ì •
 			sPetInfo* pPetInfo = new sPetInfo;
-			pPetInfo->m_dwIsHwan		= 1;	// ÀÌ°Ç È¯¼öÀ¯¿ë PET!
+			pPetInfo->m_dwIsHwan		= 1;	// ì´ê±´ í™˜ìˆ˜ìœ ìš© PET!
 
 			pPetInfo->dwID				= dwID;				
 			pPetInfo->dwOwnID			= dwOwnID;				
@@ -4157,7 +4165,7 @@ int OnCS_NC_PETNEWMAKE_ACK(CMsg &msg)
 			pPetInfo->bRevolutionStep	= bRevolutionStep;				
 			pPetInfo->bWildRate			= bWildRate;
 			pPetInfo->bAI				= TRUE;						// AI ON
-			pPetInfo->AI_Type			= PETAI_AUTOATTACK;		// ÀÌ°ÍÀº Ç×»ó Auto Attack
+			pPetInfo->AI_Type			= PETAI_AUTOATTACK;		// ì´ê²ƒì€ í•­ìƒ Auto Attack
 
 			pObject->m_pPrivateData		= (DWORD)pPetInfo;
 			pObject->m_PrivateDataDestoryer = ReleasePetInfo;
@@ -4173,12 +4181,12 @@ int OnCS_NC_PETNEWMAKE_ACK(CMsg &msg)
 	}
 
 
-	// ºÐ½Å°Ý
+	// ë¶„ì‹ ê²©
 	//if(bNpcType == 251 && bCurJob == 2)
 	//if(bCurJob == 2)
 	else
 	{
-		// ¿À³Ê¸¦ Ã£´Â´Ù
+		// ì˜¤ë„ˆë¥¼ ì°¾ëŠ”ë‹¤
 		XiahObject::CXiahObject* pOwner = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, dwOwnID, OBJTYPE_PC));
 
 		//YS_0805 : BUGFIX
@@ -4224,8 +4232,8 @@ int OnCS_NC_PETNEWMAKE_ACK(CMsg &msg)
 		pBunsin->m_bSubObjType  = pCharObject->m_bSubObjType;
 
 		// 2004.08.06 Changth
-		// ºÐ½Å°ÝÀÌ ¶Ù´Ï±ñ ºÐ½ÅÀÌ ¶Û¶§µµ °È´Â ¼Ò¸®°¡ ³ª´Âµ¥ ÀÌ¶§ ¿¡·¯°¡ ³­´Ù. 
-		// ±×·¡¼­ ºÐ½ÅÀÌ ¶Û¶§´Â ¼Ò¸®°¡ ¾ø°ÔÇÑ´Ù.
+		// ë¶„ì‹ ê²©ì´ ë›°ë‹ˆê¹ ë¶„ì‹ ì´ ë›¸ë•Œë„ ê±·ëŠ” ì†Œë¦¬ê°€ ë‚˜ëŠ”ë° ì´ë•Œ ì—ëŸ¬ê°€ ë‚œë‹¤. 
+		// ê·¸ëž˜ì„œ ë¶„ì‹ ì´ ë›¸ë•ŒëŠ” ì†Œë¦¬ê°€ ì—†ê²Œí•œë‹¤.
 		pBunsin->m_CharRender.EnableAnimationSound(false);
 
 		sPCVisualInfo *pVisualInfo = (sPCVisualInfo *)pCharObject->m_pPrivateData;
@@ -4239,12 +4247,12 @@ int OnCS_NC_PETNEWMAKE_ACK(CMsg &msg)
 
 		pBunsin->m_dwOwnerID = dwOwnID;
 
-		// ³»²¨ÀÏ°æ¿ì¿¡¸¸ PETlist¿¡ ³Ö´Â´Ù
+		// ë‚´êº¼ì¼ê²½ìš°ì—ë§Œ PETlistì— ë„£ëŠ”ë‹¤
 		if(g_pMainChar->m_dwServerID == dwOwnID)
 		{
-			// PETÀÇ Á¤º¸ ¼³Á¤
+			// PETì˜ ì •ë³´ ì„¤ì •
 			sPetInfo* pPetInfo = new sPetInfo;
-			pPetInfo->m_dwIsHwan		= 2;	// 2¹øÀº ºÐ½Å°Ý
+			pPetInfo->m_dwIsHwan		= 2;	// 2ë²ˆì€ ë¶„ì‹ ê²©
 
 			pPetInfo->dwID				= dwID;				
 			pPetInfo->dwOwnID			= dwOwnID;				
@@ -4277,7 +4285,7 @@ int OnCS_NC_PETNEWMAKE_ACK(CMsg &msg)
 			pPetInfo->bRevolutionStep	= bRevolutionStep;				
 			pPetInfo->bWildRate			= bWildRate;
 			pPetInfo->bAI				= TRUE;						// AI ON
-			pPetInfo->AI_Type			= PETAI_AUTOATTACK;		// ÀÌ°ÍÀº Ç×»ó Auto Attack
+			pPetInfo->AI_Type			= PETAI_AUTOATTACK;		// ì´ê²ƒì€ í•­ìƒ Auto Attack
 
 			pBunsin->m_pPrivateData = (DWORD)pPetInfo;
 			pBunsin->m_PrivateDataDestoryer = ReleasePetInfo;	
@@ -4294,10 +4302,10 @@ int OnCS_NC_PETNEWMAKE_ACK(CMsg &msg)
 	}
 	//else
 	//{
-	//	// È¯¼öÀ¯
+	//	// í™˜ìˆ˜ìœ 
 	//	if( g_PetList.Find( dwID) != NULL)
 	//	{
-	//		DBG_LogFile(_T("È¯¼öÀ¯´Â ÇÑ¹ø¿¡ ÇÑ¸¶¸®!!"));
+	//		DBG_LogFile(_T("í™˜ìˆ˜ìœ ëŠ” í•œë²ˆì— í•œë§ˆë¦¬!!"));
 	//	}
 
 	//	sArrayData *pData = XiahArrayIndex::g_NpcType.GetData( bNpcType);
@@ -4349,13 +4357,13 @@ int OnCS_NC_PETNEWMAKE_ACK(CMsg &msg)
 
 	//	XiahObject::CXiahObject* pPetObject = XiahObject::g_XiahObjectManager.CreateXiahObject( dwID,  OBJTYPE_PET, pObject);
 
-	//	// ³»²¨ÀÏ°æ¿ì¿¡¸¸ PETlist¿¡ ³Ö´Â´Ù
+	//	// ë‚´êº¼ì¼ê²½ìš°ì—ë§Œ PETlistì— ë„£ëŠ”ë‹¤
 	//	if(g_pMainChar->m_dwServerID == dwOwnID)
 	//	{
 
-	//		// PETÀÇ Á¤º¸ ¼³Á¤
+	//		// PETì˜ ì •ë³´ ì„¤ì •
 	//		sPetInfo* pPetInfo = new sPetInfo;
-	//		pPetInfo->m_dwIsHwan		= 1;	// ÀÌ°Ç È¯¼öÀ¯¿ë PET!
+	//		pPetInfo->m_dwIsHwan		= 1;	// ì´ê±´ í™˜ìˆ˜ìœ ìš© PET!
 
 	//		pPetInfo->dwID				= dwID;				
 	//		pPetInfo->dwOwnID			= dwOwnID;				
@@ -4388,7 +4396,7 @@ int OnCS_NC_PETNEWMAKE_ACK(CMsg &msg)
 	//		pPetInfo->bRevolutionStep	= bRevolutionStep;				
 	//		pPetInfo->bWildRate			= bWildRate;
 	//		pPetInfo->bAI				= TRUE;						// AI ON
-	//		pPetInfo->AI_Type			= PETAI_AUTOATTACK;		// ÀÌ°ÍÀº Ç×»ó Auto Attack
+	//		pPetInfo->AI_Type			= PETAI_AUTOATTACK;		// ì´ê²ƒì€ í•­ìƒ Auto Attack
 
 	//		pObject->m_pPrivateData		= (DWORD)pPetInfo;
 	//		pObject->m_PrivateDataDestoryer = ReleasePetInfo;
@@ -4438,7 +4446,7 @@ int OnCS_NC_PETRESTORELIST_ACK(CMsg &msg)
 
 		if(bPetCount > 6)
 		{
-			DBG_LogFile(_T("Æê º¹±¸ ¸®½ºÆ® ¼ö ÀÌ»ó"));
+			DBG_LogFile(_T("íŽ« ë³µêµ¬ ë¦¬ìŠ¤íŠ¸ ìˆ˜ ì´ìƒ"));
 			return 1;
 		}
 
@@ -4484,7 +4492,7 @@ int OnCS_NC_PETRESTORELIST_ACK(CMsg &msg)
 		}
 
 		// 2004.08.02 Changth
-		// Æê ÀÌ¸§°ú °©ÀÚ¸¦ °°ÀÌ »Ñ·ÁÁØ´Ù.  ±¤°ß (2)
+		// íŽ« ì´ë¦„ê³¼ ê°‘ìžë¥¼ ê°™ì´ ë¿Œë ¤ì¤€ë‹¤.  ê´‘ê²¬ (2)
 		for(BYTE i=0; i < bPetCount; i++)
 			strName[i].printf( "%s (%d)", (LPCTSTR)strName[i], wLevelAry[i] );
 
@@ -4500,17 +4508,17 @@ int OnCS_NC_PETRESTORELIST_ACK(CMsg &msg)
 	{
 		switch(bResult)
 		{
-		case 1:		// ´õ ÀÌ»ó ÆêÀ» °¡Áú ¼ö ¾ø´Ù.
+		case 1:		// ë” ì´ìƒ íŽ«ì„ ê°€ì§ˆ ìˆ˜ ì—†ë‹¤.
 			g_MainCharInfo.ShowHelpMessage(IDS_PETRESTORE_HASMAXPET, TEXTEFFECT_COLOR_WARNING);
 			break;
-		case 2:		// ºÎÈ°¾àÀÌ ¾Æ´Ô
+		case 2:		// ë¶€í™œì•½ì´ ì•„ë‹˜
 			g_MainCharInfo.ShowHelpMessage(IDS_PETRESTORE_NOTFITITEM, TEXTEFFECT_COLOR_WARNING);
 			break;
-		case 3:		// ³»ºÎ´íÎó
+		case 3:		// ë‚´ë¶€ëŒ„è½Ž
 			g_MainCharInfo.ShowHelpMessage(IDS_REL_ERR_INTERNAL, TEXTEFFECT_COLOR_WARNING);
 			break;
-		case 4:		// Á¸ÀçÇÏÁö ¾Ê´Â Æê
-			g_MainCharInfo.ShowHelpMessage(IDS_PETBONGIN_NOTFINDPET, TEXTEFFECT_COLOR_WARNING);	// Æê Ã£À»¼ö ¾øÀ½
+		case 4:		// ì¡´ìž¬í•˜ì§€ ì•ŠëŠ” íŽ«
+			g_MainCharInfo.ShowHelpMessage(IDS_PETBONGIN_NOTFINDPET, TEXTEFFECT_COLOR_WARNING);	// íŽ« ì°¾ì„ìˆ˜ ì—†ìŒ
 		}
 	}
 	
@@ -4613,9 +4621,9 @@ int OnCS_NC_PETRESTORE_ACK(CMsg &msg)
 			int nMeshType	= pData->GetInt( 2);
 			int nTextureType = pData->GetInt( 3);
 
-			if(bRevolutionStep == 4 && bNpcType == 0) //HT_0621 : ¿µ¼öµÐ°©½Å´Ü Àû¿ë
+			if(bRevolutionStep == 4 && bNpcType == 0) //HT_0621 : ì˜ìˆ˜ë‘”ê°‘ì‹ ë‹¨ ì ìš©
 			{
-				// [10/31/2005] Ä³¸¯ÅÍ IDº¯°æ
+				// [10/31/2005] ìºë¦­í„° IDë³€ê²½
 				nCharID		= 1133;
 				nMeshType	= 0;
 			}
@@ -4656,7 +4664,7 @@ int OnCS_NC_PETRESTORE_ACK(CMsg &msg)
 
 			pObject->SetAnimation( XiahAniType::eLAT_Stand, -1);
 
-			if(bRevolutionStep == 4 && bNpcType == 0) //HT_0621 : ¿µ¼öµÐ°©½Å´Ü Àû¿ë
+			if(bRevolutionStep == 4 && bNpcType == 0) //HT_0621 : ì˜ìˆ˜ë‘”ê°‘ì‹ ë‹¨ ì ìš©
 				SetupPET_VisualEquipement(pObject, wVisualID);
 
 			pObject->m_szObjectName = szName;
@@ -4668,11 +4676,11 @@ int OnCS_NC_PETRESTORE_ACK(CMsg &msg)
 
 			XiahObject::CXiahObject* pPetObject = XiahObject::g_XiahObjectManager.CreateXiahObject( dwID,  OBJTYPE_PET, pObject);
 
-			// ³»²¨ÀÏ°æ¿ì¿¡¸¸ PETlist¿¡ ³Ö´Â´Ù
+			// ë‚´êº¼ì¼ê²½ìš°ì—ë§Œ PETlistì— ë„£ëŠ”ë‹¤
 			if(g_pMainChar->m_dwServerID == dwOwnID)
 			{
 
-				// PETÀÇ Á¤º¸ ¼³Á¤
+				// PETì˜ ì •ë³´ ì„¤ì •
 				sPetInfo* pPetInfo = new sPetInfo;
 
 				pPetInfo->m_dwIsHwan		= 0;
@@ -4708,7 +4716,7 @@ int OnCS_NC_PETRESTORE_ACK(CMsg &msg)
 				pPetInfo->bRevolutionStep	= bRevolutionStep;				
 				pPetInfo->bWildRate			= bWildRate;
 				pPetInfo->bAI				= TRUE;					// AI ON
-				pPetInfo->AI_Type			= PETAI_AUTOATTACK;		// ÀÌ°ÍÀº Ç×»ó Auto Attack
+				pPetInfo->AI_Type			= PETAI_AUTOATTACK;		// ì´ê²ƒì€ í•­ìƒ Auto Attack
 
 				pObject->m_pPrivateData		= (DWORD)pPetInfo;
 				pObject->m_PrivateDataDestoryer = ReleasePetInfo;
@@ -4723,17 +4731,17 @@ int OnCS_NC_PETRESTORE_ACK(CMsg &msg)
 			}
 		}
 		break;
-	case 1:		// ´õ ÀÌ»ó ÆêÀ» °¡Áú ¼ö ¾ø´Ù.
+	case 1:		// ë” ì´ìƒ íŽ«ì„ ê°€ì§ˆ ìˆ˜ ì—†ë‹¤.
 		g_MainCharInfo.ShowHelpMessage(IDS_PETRESTORE_HASMAXPET, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case 2:		// ºÎÈ°¾àÀÌ ¾Æ´Ô
+	case 2:		// ë¶€í™œì•½ì´ ì•„ë‹˜
 		g_MainCharInfo.ShowHelpMessage(IDS_PETRESTORE_NOTFITITEM, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case 3:		// ³»ºÎ´íÎó
+	case 3:		// ë‚´ë¶€ëŒ„è½Ž
 		g_MainCharInfo.ShowHelpMessage(IDS_REL_ERR_INTERNAL, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case 4:		// Á¸ÀçÇÏÁö ¾Ê´Â Æê
-		g_MainCharInfo.ShowHelpMessage(IDS_PETBONGIN_NOTFINDPET, TEXTEFFECT_COLOR_WARNING);	// Æê Ã£À»¼ö ¾øÀ½
+	case 4:		// ì¡´ìž¬í•˜ì§€ ì•ŠëŠ” íŽ«
+		g_MainCharInfo.ShowHelpMessage(IDS_PETBONGIN_NOTFINDPET, TEXTEFFECT_COLOR_WARNING);	// íŽ« ì°¾ì„ìˆ˜ ì—†ìŒ
 		break;
 	default:
 		break;
@@ -4764,19 +4772,19 @@ int OnCS_NC_PREPETTRADE_ACK(CMsg &msg)
 			g_pUIManager->SetFocus(WINDOW_COMMON, window_common_edit);
 		}
 		break;
-	case ERR_PETTRADE_NOTHASPET:		// °Å·¡ÇÒ ÆêÀÌ ¾ø´Ù
+	case ERR_PETTRADE_NOTHASPET:		// ê±°ëž˜í•  íŽ«ì´ ì—†ë‹¤
 		g_MainCharInfo.ShowHelpMessage(IDS_PETTRADE_NOTHASPET, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case ERR_PETTRADE_HASPET:			// »ó´ë°¡ ÀÌ¹Ì ÆêÀ» °¡Áö°í ÀÖ´Ù.
+	case ERR_PETTRADE_HASPET:			// ìƒëŒ€ê°€ ì´ë¯¸ íŽ«ì„ ê°€ì§€ê³  ìžˆë‹¤.
 		g_MainCharInfo.ShowHelpMessage(IDS_PETTRADE_HASPET, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case ERR_PETTRADE_TRADEOTHER:		// ´Ù¸¥ »ç¶÷°ú °Å·¡Áß
+	case ERR_PETTRADE_TRADEOTHER:		// ë‹¤ë¥¸ ì‚¬ëžŒê³¼ ê±°ëž˜ì¤‘
 		g_MainCharInfo.ShowHelpMessage(IDS_PETTRADE_TRADEOTHER, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case ERR_PETTRADE_BONGIN:			// ºÀÀÎµÈ ÆêÀº °Å·¡ ºÒ°¡
+	case ERR_PETTRADE_BONGIN:			// ë´‰ì¸ëœ íŽ«ì€ ê±°ëž˜ ë¶ˆê°€
 		g_MainCharInfo.ShowHelpMessage(IDS_PETTRADE_BONGIN, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case ERR_PETTRADE_NOTMONEYENOUGH:	// »ó´ë°¡ µ·ÀÌ ºÎÁ·ÇÏ´Ù.
+	case ERR_PETTRADE_NOTMONEYENOUGH:	// ìƒëŒ€ê°€ ëˆì´ ë¶€ì¡±í•˜ë‹¤.
 		g_MainCharInfo.ShowHelpMessage(IDS_PETTRADE_NOTMONEYENOUGH, TEXTEFFECT_COLOR_WARNING);
 		break;
 	default:
@@ -4787,7 +4795,7 @@ int OnCS_NC_PREPETTRADE_ACK(CMsg &msg)
 }
 
 /**
- * Æê °Å·¡ Á¤º¸
+ * íŽ« ê±°ëž˜ ì •ë³´
  * \param &msg 
  * \return 
  */
@@ -4824,7 +4832,7 @@ int OnCS_NC_PETTRADEINFO_ACK(CMsg &msg)
 			>> wAtkRating
 			>> wAvoidRatio;
 
-		//HT_0622 : ¿µ¼öµÐ°©½Å´Ü Àû¿ëÀ¸·Î ÆÐÅ¶ ¼öÁ¤
+		//HT_0622 : ì˜ìˆ˜ë‘”ê°‘ì‹ ë‹¨ ì ìš©ìœ¼ë¡œ íŒ¨í‚· ìˆ˜ì •
 		//LPCTSTR lpstrTemp;
 
 		//switch(bType)
@@ -4875,7 +4883,7 @@ int OnCS_NC_PETTRADEINFO_ACK(CMsg &msg)
 }
 
 /**
- * Æê °Å·¡
+ * íŽ« ê±°ëž˜
  * \param &msg 
  * \return 
  */
@@ -4888,35 +4896,35 @@ int OnCS_NC_PETTRADE_ACK(CMsg &msg)
 
 	switch(bResult)
 	{
-	case ERR_PETTRADE_SUCCESS:			// Æê °Å·¡ ½ÅÃ»(»ç¿ëÇÏÁö ¾ÊÀ½)
+	case ERR_PETTRADE_SUCCESS:			// íŽ« ê±°ëž˜ ì‹ ì²­(ì‚¬ìš©í•˜ì§€ ì•ŠìŒ)
 		break;
-	case ERR_PETTRADE_OKTRADE:			// Æê °Å·¡ ½Â¶ô(»ç¿ëÇÏÁö ¾ÊÀ½)
+	case ERR_PETTRADE_OKTRADE:			// íŽ« ê±°ëž˜ ìŠ¹ë½(ì‚¬ìš©í•˜ì§€ ì•ŠìŒ)
 		break;
-	case ERR_PETTRADE_NOTHASPET:		// Æê ¾øÀ½
+	case ERR_PETTRADE_NOTHASPET:		// íŽ« ì—†ìŒ
 		g_MainCharInfo.ShowHelpMessage(IDS_PETTRADE_NOTHASPET, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case ERR_PETTRADE_HASPET:			// ÀÌ¹Ì º¸À¯
+	case ERR_PETTRADE_HASPET:			// ì´ë¯¸ ë³´ìœ 
 		g_MainCharInfo.ShowHelpMessage(IDS_PETTRADE_HASPET, TEXTEFFECT_COLOR_WARNING);		
 		break;
-	case ERR_PETTRADE_TRADEOTHER:		// °Å·¡Áß
+	case ERR_PETTRADE_TRADEOTHER:		// ê±°ëž˜ì¤‘
 		g_MainCharInfo.ShowHelpMessage(IDS_PETTRADE_TRADEOTHER, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case ERR_PETTRADE_BONGIN:			// ºÀÀÎ»óÅÂ
+	case ERR_PETTRADE_BONGIN:			// ë´‰ì¸ìƒíƒœ
 		g_MainCharInfo.ShowHelpMessage(IDS_CANNOT_DEAL_MONSTER, TEXTEFFECT_COLOR_WARNING);		
 		break;
-	case ERR_PETTRADE_NOTMONEYENOUGH:	// µ· ºÎÁ·
+	case ERR_PETTRADE_NOTMONEYENOUGH:	// ëˆ ë¶€ì¡±
 		g_MainCharInfo.ShowHelpMessage(IDS_PETTRADE_NOTMONEYENOUGH, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case ERR_PETTRADE_REFUSETRADE:		// Æê °Å·¡ °ÅºÎ(»ç¿ëÇÏÁö ¾ÊÀ½)
+	case ERR_PETTRADE_REFUSETRADE:		// íŽ« ê±°ëž˜ ê±°ë¶€(ì‚¬ìš©í•˜ì§€ ì•ŠìŒ)
 		break;
-	case ERR_PETTRADE_INTERNAL:			// ³»ºÎ ¿¡·¯
+	case ERR_PETTRADE_INTERNAL:			// ë‚´ë¶€ ì—ëŸ¬
 		g_MainCharInfo.ShowHelpMessage(IDS_REL_ERR_INTERNAL, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case ERR_PETTRADE_COMPLATE:			//°Å·¡ ¼º°ø
+	case ERR_PETTRADE_COMPLATE:			//ê±°ëž˜ ì„±ê³µ
 		g_MainCharInfo.ShowHelpMessage(IDS_PETTRADE_COMPLATE);
 		break;
 
-	case ERR_PETTRADE_OVERMONEY:		// ¼ÒÁö±Ý ÃÊ°ú
+	case ERR_PETTRADE_OVERMONEY:		// ì†Œì§€ê¸ˆ ì´ˆê³¼
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_PETTRADE_OVERMONEY, TEXTEFFECT_COLOR_WARNING);			
 		}
