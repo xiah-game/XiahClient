@@ -749,8 +749,9 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 
 				case VK_F10:
 					{
-						g_bCheat = !g_bCheat;
-						g_bCheatEtc = !g_bCheatEtc;	
+						// Auto-hunt toggle moved to F9 config window button
+						//g_bCheat = !g_bCheat;
+						//g_bCheatEtc = !g_bCheatEtc;	
 					}
 					break;
 						// Äü ½½·Ô È®Àå
@@ -1067,15 +1068,16 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 					g_MainCharInfo.m_wPosX = wPosX;
 					g_MainCharInfo.m_wPosY = wPosY;
 
-					if(g_bCheat && !g_bCheatEtc)
-					{
-						g_bCheatEtc = !g_bCheatEtc;	
-					}
-					else
-					{
-						g_bCheat = !g_bCheat;
-						g_bCheatEtc = !g_bCheatEtc;	
-					}
+					// Auto-hunt toggle moved to F9 config window button
+					//if(g_bCheat && !g_bCheatEtc)
+					//{
+					//	g_bCheatEtc = !g_bCheatEtc;	
+					//}
+					//else
+					//{
+					//	g_bCheat = !g_bCheat;
+					//	g_bCheatEtc = !g_bCheatEtc;	
+					//}
 				}
 				break;
 

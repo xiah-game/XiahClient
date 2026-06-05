@@ -713,7 +713,9 @@ LRESULT CALLBACK ConfigWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam
         
         ShowTabControls(0);
         
-        LPCTSTR pszToggleText = g_bAutoAttack ? _T("\xbd\xe1\xca\xf8\xb9\xd2\xbb\xfa") : _T("\xbf\xaa\xca\xbc\xb9\xd2\xbb\xfa");
+        // Toggle button text based on g_bCheat (master switch)
+        extern BOOL g_bCheat;
+        LPCTSTR pszToggleText = g_bCheat ? _T("\xbd\xe1\xca\xf8\xb9\xd2\xbb\xfa") : _T("\xbf\xaa\xca\xbc\xb9\xd2\xbb\xfa");
         HWND hBtnToggle = CreateWindow(_T("BUTTON"), pszToggleText, WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON, 130, 395, 110, 30, hwnd, (HMENU)ID_BUTTON_TOGGLE, NULL, NULL);
         SendMessage(hBtnToggle, WM_SETFONT, (WPARAM)hFont, TRUE);
         
@@ -739,8 +741,6 @@ LRESULT CALLBACK ConfigWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam
         if (id == ID_BUTTON_TOGGLE || id == ID_BUTTON_SAVE) {
             TCHAR szTmp[32];
             
-            BOOL bOldAutoAttack = g_bAutoAttack;
-            
             g_bAutoAttack = (SendMessage(GetDlgItem(hwnd, ID_CHECK_AUTOATTACK), BM_GETCHECK, 0, 0) == BST_CHECKED);
             g_bAutoLoot = (SendMessage(GetDlgItem(hwnd, ID_CHECK_AUTOLOOT), BM_GETCHECK, 0, 0) == BST_CHECKED);
             g_bAutoHP = (SendMessage(GetDlgItem(hwnd, ID_CHECK_AUTOHP), BM_GETCHECK, 0, 0) == BST_CHECKED);
@@ -748,13 +748,6 @@ LRESULT CALLBACK ConfigWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam
             g_bAutoMP = (SendMessage(GetDlgItem(hwnd, ID_CHECK_AUTOMP), BM_GETCHECK, 0, 0) == BST_CHECKED);
             g_bAutoBuyMP = (SendMessage(GetDlgItem(hwnd, ID_CHECK_AUTOBUYMP), BM_GETCHECK, 0, 0) == BST_CHECKED);
             g_bAutoPet = (SendMessage(GetDlgItem(hwnd, ID_CHECK_AUTOPET), BM_GETCHECK, 0, 0) == BST_CHECKED);
-            
-            if (id == ID_BUTTON_TOGGLE) {
-                g_bAutoAttack = !bOldAutoAttack;
-            }
-            
-            extern BOOL g_bCheat;
-            g_bCheat = g_bAutoAttack;
             
             GetWindowText(GetDlgItem(hwnd, ID_EDIT_HPPOTIONNAME), g_szHPPotionName, 32);
             GetWindowText(GetDlgItem(hwnd, ID_EDIT_MPPOTIONNAME), g_szMPPotionName, 32);
@@ -835,7 +828,25 @@ LRESULT CALLBACK ConfigWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam
             
             ApplyCheatConfigToMainChar();
             SaveCheatConfig();
-            DestroyWindow(hwnd);
+            
+            if (id == ID_BUTTON_TOGGLE) {
+                // Only Toggle button controls auto-hunt on/off
+                extern BOOL g_bCheat;
+                extern BOOL g_bCheatEtc;
+                g_bCheat = !g_bCheat;
+                g_bCheatEtc = g_bCheat;
+                
+                // Update button text to reflect current state
+                HWND hBtnToggle = GetDlgItem(hwnd, ID_BUTTON_TOGGLE);
+                if (hBtnToggle) {
+                    SetWindowText(hBtnToggle, g_bCheat 
+                        ? _T("\xbd\xe1\xca\xf8\xb9\xd2\xbb\xfa")
+                        : _T("\xbf\xaa\xca\xbc\xb9\xd2\xbb\xfa"));
+                }
+            } else {
+                // Save button: only save config and close
+                DestroyWindow(hwnd);
+            }
         } else if (id == ID_BUTTON_CANCEL) {
             DestroyWindow(hwnd);
         }

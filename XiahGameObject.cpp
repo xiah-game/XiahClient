@@ -3826,7 +3826,7 @@ void CXiahCharObject::RenderLegendTitle(int nNameX, int nNameY)
 
 	D3DSURFACE_DESC desc;
 	pTexture->GetLevelDesc(0, &desc);
-	float fScale = 0.4f;
+	float fScale = 1.0f;
 	float fWidth  = (float)desc.Width * fScale;
 	float fHeight = (float)desc.Height * fScale;
 
@@ -3843,14 +3843,23 @@ void CXiahCharObject::RenderLegendTitle(int nNameX, int nNameY)
 	D3DCOLOR d3dColor = D3DCOLOR_ARGB(255, 255, 255, 255);
 	Vertex[0].diffuse = Vertex[1].diffuse = Vertex[2].diffuse = Vertex[3].diffuse = d3dColor;
 
+	// Alpha Blending: ïá?àÂæøÚâ÷âÙ¥??ûúÎÃüù??
+	g_pDirect3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+	g_pDirect3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	g_pDirect3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+	// Alpha Test: discard fully transparent pixels
 	g_pDirect3DDevice->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
-	g_pDirect3DDevice->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_NOTEQUAL);
+	g_pDirect3DDevice->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
 	g_pDirect3DDevice->SetRenderState(D3DRS_ALPHAREF, 0);
 
 	g_Device.SetTexture(0, pTexture);
 	g_Device.SetFVF(D3DFVF_TLVERTEX);
 	
 	g_pDirect3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, Vertex, sizeof(VT_TLVertex));
+
+	// üá?àÂæø??
+	g_pDirect3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
+	g_pDirect3DDevice->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
 }
 
 
