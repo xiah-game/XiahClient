@@ -1,4 +1,4 @@
-﻿// Type.h: Define common type constants.
+// Type.h: Define common type constants.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -7,7 +7,7 @@
 #include <math.h>
 
 //State Point TYPE
-#define CHARMAXLEVEL		60
+#define CHARMAXLEVEL		150
 
 #define SP_DEX				(BYTE)0x01
 #define SP_STR				(BYTE)0x02

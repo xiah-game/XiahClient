@@ -1,4 +1,4 @@
-﻿癤#include "csprotocol.h"
+癤#include "csprotocol.h"
 #include "mail.h"
 
 #include ".\spirit.h"
@@ -681,7 +681,7 @@ int OnCS_IF_CHAREXP_ACK( CMsg &msg)
 		TCHAR szContent[64] = {0,};
 
 		//100솈髥 茹ц떈윬 뒟똾
-		if(g_MainCharInfo.m_wLevel < 100)
+		if(g_MainCharInfo.m_wLevel < 150)
 		{
             if(dwEventExp)
                 _stprintf( szContent, IDS_D_OBTAIN_EVENT_EXP, dwIncrExp, dwEventExp);
@@ -742,14 +742,14 @@ int OnCS_IF_CHAREXP_ACK( CMsg &msg)
 		}
 
 		//100솈髥 茹ц떈윬 뒟똾
-		if(g_MainCharInfo.m_wLevel<100)
+		if(g_MainCharInfo.m_wLevel<150)
 		{
             g_MainCharInfo.m_i64LevelExp = g_MainCharInfo.m_i64NextLevelUpExp;
             g_MainCharInfo.m_i64NextLevelUpExp = i64NextLevelUpExp;
 		}
 		else
 		{
-			g_MainCharInfo.m_wLevel=100;
+			g_MainCharInfo.m_wLevel=150;
 		}
 
 		// 役싨윹岳 阿먪뺐 솳돚髥먨븡 뒱돹뜛뵭繇섊떬 뜒뜛勇η뵭 븡佯쒑솏릟 뒟렕궨 榮궪囹띸삤 눥驛.

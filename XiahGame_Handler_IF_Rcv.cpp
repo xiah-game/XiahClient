@@ -1,4 +1,4 @@
-﻿#include "csprotocol.h"
+#include "csprotocol.h"
 #include "mail.h"
 
 #include ".\spirit.h"
@@ -681,7 +681,7 @@ int OnCS_IF_CHAREXP_ACK( CMsg &msg)
 		TCHAR szContent[64] = {0,};
 
 		//100갑자 초과시 제한
-		if(g_MainCharInfo.m_wLevel < 100)
+		if(g_MainCharInfo.m_wLevel < 150)
 		{
             if(dwEventExp)
                 _stprintf( szContent, IDS_D_OBTAIN_EVENT_EXP, dwIncrExp, dwEventExp);
@@ -742,14 +742,14 @@ int OnCS_IF_CHAREXP_ACK( CMsg &msg)
 		}
 
 		//100갑자 초과시 제한
-		if(g_MainCharInfo.m_wLevel<100)
+		if(g_MainCharInfo.m_wLevel<150)
 		{
             g_MainCharInfo.m_i64LevelExp = g_MainCharInfo.m_i64NextLevelUpExp;
             g_MainCharInfo.m_i64NextLevelUpExp = i64NextLevelUpExp;
 		}
 		else
 		{
-			g_MainCharInfo.m_wLevel=100;
+			g_MainCharInfo.m_wLevel=150;
 		}
 
 		// 엔진에 있는 포인터가 클라이언트의 데이타를 가리키면 제대로 작동하지 않음.

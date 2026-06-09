@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "XiahSocket.h"
 
@@ -81,8 +81,8 @@ namespace XiahItem
 
 		DWORD 	m_wIncrHp;
 		DWORD 	m_wIncrIp;
-		WORD 	m_wRestoreHp;
-		WORD 	m_wRestoreIp;
+		DWORD 	m_wRestoreHp;
+		DWORD 	m_wRestoreIp;
 		BYTE 	m_bModifyCnt;
 		
 		// CG_2005/01/28 : 변종아이템기능추가
