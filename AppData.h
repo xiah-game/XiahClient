@@ -1,9 +1,9 @@
-#pragma once
+ï»¿#pragma once
 //---------------------------------------------------------------------------------------
 
 #define MAX_AUTHSERVER	16
 
-// ÀÎÁõ ¼­¹öµéÀÇ Á¤º¸
+// ì¸ì¦ ì„œë²„ë“¤ì˜ ì •ë³´
 struct sAUTHSERVERLIST 
 {
 	sString		m_ServerAddress;
@@ -11,31 +11,31 @@ struct sAUTHSERVERLIST
 };
 
 //---------------------------------------------------------------------------------------
-// ±âº» ÇÁ·Î±×·¥ µ¥ÀÌÅÍ
+// ê¸°ë³¸ í”„ë¡œê·¸ë¨ ë°ì´í„°
 struct sAPPData
 {
-	// [12/16/2004] ¼ºÀÎ ¼­¹ö
+	// [12/16/2004] ì„±ì¸ ì„œë²„
 
 	HINSTANCE m_hInstance;			// Window Instance
 	HWND	  m_hWnd;				// Window Handle
-	sString   m_strAppName;			// ClientÇÁ·Î±×·¥ ÀÌ¸§
+	sString   m_strAppName;			// Clientí”„ë¡œê·¸ë¨ ì´ë¦„
 
-	sString	  m_strUserName;		// »ç¿ëÀÚ ÀÌ¸§	
-	sString	  m_strServerAddress;	// UNIT ¼­¹ö ÁÖ¼Ò
-	DWORD	  m_dwPort;				// UNIT ¼­¹ö Æ÷Æ®
-	DWORD	  m_dwKey;				// ÀÎÁõ Å°
+	sString	  m_strUserName;		// ì‚¬ìš©ì ì´ë¦„	
+	sString	  m_strServerAddress;	// UNIT ì„œë²„ ì£¼ì†Œ
+	DWORD	  m_dwPort;				// UNIT ì„œë²„ í¬íŠ¸
+	DWORD	  m_dwKey;				// ì¸ì¦ í‚¤
 
-	// ¿ùµå¿Í Ã¤³Î º¯¼ö Á¦´ë·Î »ç¿ëÇÏÀÚ!!! (Ã³À½¿¡ ¿ùµå¸¦ Ã¤³Î·Î »ç¿ëµÇ°í ÀÖ¾ú´Ù.)
-	BYTE	  m_byWorldID;			// ¿ùµå ¾ÆÀÌµğ
-	BYTE	  m_byChannelID;		// Ã¤³Î ID
+	// ì›”ë“œì™€ ì±„ë„ ë³€ìˆ˜ ì œëŒ€ë¡œ ì‚¬ìš©í•˜ì!!! (ì²˜ìŒì— ì›”ë“œë¥¼ ì±„ë„ë¡œ ì‚¬ìš©ë˜ê³  ìˆì—ˆë‹¤.)
+	BYTE	  m_byWorldID;			// ì›”ë“œ ì•„ì´ë””
+	BYTE	  m_byChannelID;		// ì±„ë„ ID
 
-	BYTE	  m_bAge;				// ³ªÀÌ
-	BYTE	  m_bAdult;				// ¼ºÀÎ ¼­¹ö (0-ÀÏ¹İ¼­¹ö, 1-¼ºÀÎ¼­¹ö)
+	BYTE	  m_bAge;				// ë‚˜ì´
+	BYTE	  m_bAdult;				// ì„±ì¸ ì„œë²„ (0-ì¼ë°˜ì„œë²„, 1-ì„±ì¸ì„œë²„)
 
-	DWORD			m_NumAuthserver;				// ÀÎÁõ ¼­¹öÀÇ °¹¼ö
-	sAUTHSERVERLIST m_AuthServer[MAX_AUTHSERVER];	// ÀÎÁõ ¼­¹öÀÇ ÁÖ¼ÒÁ¤º¸
+	DWORD			m_NumAuthserver;				// ì¸ì¦ ì„œë²„ì˜ ê°¯ìˆ˜
+	sAUTHSERVERLIST m_AuthServer[MAX_AUTHSERVER];	// ì¸ì¦ ì„œë²„ì˜ ì£¼ì†Œì •ë³´
 
-	//HT_CHEAT : ¿ÍÀÌ¾î È­¸é º¸ÀÌ±â 
+	//HT_CHEAT : ì™€ì´ì–´ í™”ë©´ ë³´ì´ê¸° 
 	BOOL		m_bWireframe;
 #ifndef MASTER
 	DWORD dwTime;
@@ -46,8 +46,8 @@ struct sAPPData
 extern sAPPData g_AppData;
 
 //---------------------------------------------------------------------------------------
-// Àü¹İÀûÀÎ °ÔÀÓ ÁøÇà»óÀÇ µ¥ÀÌÅÍ
-// °¡²û°¡´Ù º¸¸é enumµ¥ÀÌÅÍ¸¦ ¹è¿­ Index·Î ¾²´Ù°¡ Àß¸øµÇ´Â °æ¿ì°¡ Á¾Á¾ÀÖ´Ù
+// ì „ë°˜ì ì¸ ê²Œì„ ì§„í–‰ìƒì˜ ë°ì´í„°
+// ê°€ë”ê°€ë‹¤ ë³´ë©´ enumë°ì´í„°ë¥¼ ë°°ì—´ Indexë¡œ ì“°ë‹¤ê°€ ì˜ëª»ë˜ëŠ” ê²½ìš°ê°€ ì¢…ì¢…ìˆë‹¤
 enum eGameStep
 {
 	GAMESTEP_START_LOADING		= 0,
@@ -65,14 +65,14 @@ enum eGameStep
 struct sGameWorkData
 {
 	//-----------------------------------------------------	
-	int		m_GameStep_0;	// ÃÖ»óÀ§ Step
-	int		m_GameStep_1;	// ³ª¸ÓÁö´Â °¢°¢ ³»ºÎÀûÀ¸·Î ¾²±âÀ§ÇØ
+	int		m_GameStep_0;	// ìµœìƒìœ„ Step
+	int		m_GameStep_1;	// ë‚˜ë¨¸ì§€ëŠ” ê°ê° ë‚´ë¶€ì ìœ¼ë¡œ ì“°ê¸°ìœ„í•´
 	int		m_GameStep_2;
 	int		m_GameStep_3;
 
 	//-----------------------------------------------------
 
-	int		  m_nNavigationMode;		// 0 ¸¶¿ì½º , 1 Å°º¸µå	, 2 °ÔÀÓÆĞµå
+	int		  m_nNavigationMode;		// 0 ë§ˆìš°ìŠ¤ , 1 í‚¤ë³´ë“œ	, 2 ê²Œì„íŒ¨ë“œ
 };
 
 extern sGameWorkData g_GameWork;
@@ -83,7 +83,7 @@ extern sGameWorkData g_GameWork;
 							g_GameWork.m_GameStep_3 = 0;
 
 //---------------------------------------------------------------------------------------
-// Resource String Table¿¡¼­ StringÀ» ¾ò¾î ¿Â´Ù
+// Resource String Tableì—ì„œ Stringì„ ì–»ì–´ ì˜¨ë‹¤
 inline sString LoadStr(UINT id)
 {
 	sString str;

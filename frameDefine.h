@@ -1,4 +1,4 @@
-#define A_HELP 79
+﻿#define A_HELP 79
 	#define help 0 //(STATIC)
 #define DATA_WINDOW 54
 	#define data_window_back 0 //(STATIC)

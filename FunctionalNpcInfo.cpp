@@ -1,4 +1,4 @@
-#include "precompile.h"
+﻿#include "precompile.h"
 #include "functionalnpcinfo.h"
 
 BOOL ReleaseFunctionalNpcInfo(DWORD pInfo)

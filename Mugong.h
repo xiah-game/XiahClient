@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "XiahArrayIndex.h"
 
@@ -31,7 +31,7 @@ public:
 
 	void CheckMugongSelected();
 	void CheckMugongUnSelected();	
-	void RefreshMugongContent();							// ÀÚÀßÇÑ ¹«°ø ¾÷µ¥ÀÌÆ®´Â ¿©±â¼­ ´Ù ÇÏÀÚ
+	void RefreshMugongContent();							// ìì˜í•œ ë¬´ê³µ ì—…ë°ì´íŠ¸ëŠ” ì—¬ê¸°ì„œ ë‹¤ í•˜ì
 	void RefreshMugongOutside();
 	void RefreshMugongInside();
 	int	FindMugongByIndex( BYTE MugongType, BYTE Index);	
@@ -45,17 +45,17 @@ public:
 
 	DWORD FindRebirthMugongByIndex(BYTE bySeq);
 	DWORD Find2ThRebirthMugongByIndex(BYTE bySeq);
-	DWORD KeepUpIconTimer;	// HO_0702_07 µî±Ş ¾ÆÀÌÄÜ Ãß°¡ : °ÔÀÓ³» ½ÉÀÇµî±Ş Ç¥±â
+	DWORD KeepUpIconTimer;	// HO_0702_07 ë“±ê¸‰ ì•„ì´ì½˜ ì¶”ê°€ : ê²Œì„ë‚´ ì‹¬ì˜ë“±ê¸‰ í‘œê¸°
 
 
-	//HT_0403 : Áö¼ÓÇü ¹«°ø ½ÃÀü ¾ÆÀÌÄÜ 
+	//HT_0403 : ì§€ì†í˜• ë¬´ê³µ ì‹œì „ ì•„ì´ì½˜ 
 	void CreateKeepUpMugongIcon();
 	void DrawKeepUpMugongIcon();
 	void CreateKeepUpIcon();
 	void DrawKeepUpIcon();
 
-	//HT_0711 : Áø°¢¼º ¹«°ø
-	MugongMap	m_map2ThRebirthMugong;	// levelÀÌ 1ÀÌ»óÀÎ Èí¼º½Å°øÀ» ´ã´Â´Ù
+	//HT_0711 : ì§„ê°ì„± ë¬´ê³µ
+	MugongMap	m_map2ThRebirthMugong;	// levelì´ 1ì´ìƒì¸ í¡ì„±ì‹ ê³µì„ ë‹´ëŠ”ë‹¤
 
 private:
 
@@ -63,9 +63,9 @@ private:
 	void SetMugongGUI(DWORD dwMugongID, BYTE bType, BYTE bLevel);
 
 public:
-	MugongMap	m_mapMugong;			// levelÀÌ 1ÀÌ»óÀÎ ¹«°øÀ» ´ã´Â´Ù	
+	MugongMap	m_mapMugong;			// levelì´ 1ì´ìƒì¸ ë¬´ê³µì„ ë‹´ëŠ”ë‹¤	
 	
-	//HT_0403 : Áö¼ÓÇü ¹«°ø ½ÃÀü ¾ÆÀÌÄÜ
+	//HT_0403 : ì§€ì†í˜• ë¬´ê³µ ì‹œì „ ì•„ì´ì½˜
 	LPDIRECT3DVERTEXBUFFER9	m_pKeepUpVB[15];
 	LPDIRECT3DVERTEXBUFFER9	m_pKeepUpIconVB;
 };

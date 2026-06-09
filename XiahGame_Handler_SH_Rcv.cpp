@@ -1,6 +1,6 @@
-
+ï»¿
 ////////////////////////////////////////////////////////////////////////////////////////
-// YS_0304 : SHOP - °³ÀÎ»óÁ¡ ±¸ÇöÀ» À§ÇØ¼­ Ãß°¡µÇ´Â ÇÁ·ÎÅäÄÝ
+// YS_0304 : SHOP - ê°œì¸ìƒì  êµ¬í˜„ì„ ìœ„í•´ì„œ ì¶”ê°€ë˜ëŠ” í”„ë¡œí† ì½œ
 // OFFSET_CS_SH
 ////////////////////////////////////////////////////////////////////////////////////////
 int OnCS_SH_SHOPINFO_ACK(CMsg &msg)
@@ -38,7 +38,7 @@ int OnCS_SH_SHOPINFO_ACK(CMsg &msg)
 			}
 
 			CloseAllWindow();
-			SAFE_DELETE(g_MainCharInfo.m_pPersonalTradeSet);  // ¿­¸° »óÅÂ¿¡¼­ ´Ù½Ã È°¼ºÈ­½Ã ´ëºñ
+			SAFE_DELETE(g_MainCharInfo.m_pPersonalTradeSet);  // ì—´ë¦° ìƒíƒœì—ì„œ ë‹¤ì‹œ í™œì„±í™”ì‹œ ëŒ€ë¹„
 
 			g_pUIManager->SetPosition(WINDOW_PC_STORE, WINDOW_SECOND_XPOS, 0);
 
@@ -57,10 +57,10 @@ int OnCS_SH_SHOPINFO_ACK(CMsg &msg)
 	case SHOPINFO_INTERNALERROR:
 		return false;
 		break;
-	case SHOPINFO_LOADFAIL:		// »óÁ¡Á¤º¸ ÀÐ±â ½ÇÆÐ		
+	case SHOPINFO_LOADFAIL:		// ìƒì ì •ë³´ ì½ê¸° ì‹¤íŒ¨		
 		return false;
 		break;
-	case 3:						// ¾ÇÀÎÀÌ¹Ç·Î °³ÀÎ³ëÁ¡ °³¼³ ºÒ°¡
+	case 3:						// ì•…ì¸ì´ë¯€ë¡œ ê°œì¸ë…¸ì  ê°œì„¤ ë¶ˆê°€
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_NOTBADFAMESHOPRUN, TEXTEFFECT_COLOR_WARNING);
 			return false;
@@ -84,11 +84,11 @@ int OnCS_SH_SHOPINFO_ACK(CMsg &msg)
 			msg
 				>> dwItemMoney;
 
-			//HT_1116 : °¢¼ºÀÚ ¾ÆÀÌÅÛ Ãß°¡
+			//HT_1116 : ê°ì„±ìž ì•„ì´í…œ ì¶”ê°€
 			msg
 				>> pItem->m_wRebuithValue;
 
-			pItem->m_dwPrice = dwItemMoney;  // ÆÇ¸Å±Ý¾×
+			pItem->m_dwPrice = dwItemMoney;  // íŒë§¤ê¸ˆì•¡
 			pItem->m_bSackID = SACKTYPE__PERSONAL_TRADE_SET;
 
 			g_MainCharInfo.m_pPersonalTradeSet->InsertItem(bSackPos, pItem);
@@ -104,7 +104,7 @@ int OnCS_SH_SHOPINFO_ACK(CMsg &msg)
 //strName
 //StrDescription
 //dwShopMoney
-//wRemainShop						//³²Àº »óÁ¡¿ë ¾ÆÀÌÅÛ ³»±¸·Â 
+//wRemainShop						//ë‚¨ì€ ìƒì ìš© ì•„ì´í…œ ë‚´êµ¬ë ¥ 
 //bItemCnt
 //bSackPos
 //GetItemData()
@@ -148,9 +148,9 @@ int OnCS_SH_MOVESHOP_ACK(CMsg &msg)
 
 	switch(bResult)
 	{
-	case MOVESHOP_SUCCESS:	// »óÁ¡³» ¾ÆÀÌÅÛ ÀÌµ¿		
+	case MOVESHOP_SUCCESS:	// ìƒì ë‚´ ì•„ì´í…œ ì´ë™		
 		break;
-	case MOVESHOP_NOTFINDITEM:	// ¾ÆÀÌÅÛÀ» Ã£À»¼ö ¾øÀ½
+	case MOVESHOP_NOTFINDITEM:	// ì•„ì´í…œì„ ì°¾ì„ìˆ˜ ì—†ìŒ
 		{			
 			g_MainCharInfo.ShowHelpMessage(IDS_ITEM_NOTFIND);
 
@@ -158,7 +158,7 @@ int OnCS_SH_MOVESHOP_ACK(CMsg &msg)
 				g_MainCharInfo.m_pHoldItem->SetItemBackToSack();		
 		}		
 		break;
-	case MOVESHOP_NOTEMPTY:	// ¾ø´Â ¾ÆÀÌÅÛ		
+	case MOVESHOP_NOTEMPTY:	// ì—†ëŠ” ì•„ì´í…œ		
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_ITEM_NOTFIND);
 
@@ -178,7 +178,7 @@ int OnCS_SH_MOVESHOP_ACK(CMsg &msg)
 //bResult
 
 
-// Çà³¶ -> »óÁ¡
+// í–‰ë‚­ -> ìƒì 
 int OnCS_SH_REGSHOP_ACK(CMsg &msg)
 {
 	BYTE bResult	=0;
@@ -225,11 +225,11 @@ int OnCS_SH_REGSHOP_ACK(CMsg &msg)
 	return true;
 }
 //..UNITSVR->CLIENT
-//bResult,  -- 0 : SUCCESS -- 1 : ½ÇÆÐ  
+//bResult,  -- 0 : SUCCESS -- 1 : ì‹¤íŒ¨  
 //dwMoney
 
 
-// ¼³Á¤ »óÁ¡Ã¢ -> Çà³¶
+// ì„¤ì • ìƒì ì°½ -> í–‰ë‚­
 int OnCS_SH_DELSHOP_ACK(CMsg &msg)
 {
 	BYTE bResult	=0;
@@ -242,16 +242,16 @@ int OnCS_SH_DELSHOP_ACK(CMsg &msg)
 	case DELSHOP_SUCCESS:
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_DELSHOP_SUCCESS);
-			// ¾ÆÀÌÅÛÀÌ Çà³¶À¸·Î ÀÌµ¿µÊ
+			// ì•„ì´í…œì´ í–‰ë‚­ìœ¼ë¡œ ì´ë™ë¨
 		}
 		break;
 	case DELSHOP_INTERNALERROR:
 		break;
-	case DELSHOP_NOTFINDITEM:	// ¾ÆÀÌÅÛÀ» Ã£À»¼ö ¾øÀ½
+	case DELSHOP_NOTFINDITEM:	// ì•„ì´í…œì„ ì°¾ì„ìˆ˜ ì—†ìŒ
 		g_MainCharInfo.ShowHelpMessage(IM_N_ITEM);
 		
 		break;
-	case DELSHOP_FULLSACK:	// Çà³¶Ã¢ÀÌ °¡µæ
+	case DELSHOP_FULLSACK:	// í–‰ë‚­ì°½ì´ ê°€ë“
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_NO_MOVEABLE_SPACE);
 			
@@ -259,7 +259,7 @@ int OnCS_SH_DELSHOP_ACK(CMsg &msg)
 				g_MainCharInfo.m_pHoldItem->SetItemBackToSack();
 		}		
 		break;
-	case DELSHOP_NOTEMPTYSACK:	// ºó Çà³¶
+	case DELSHOP_NOTEMPTYSACK:	// ë¹ˆ í–‰ë‚­
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_NO_MOVEABLE_SPACE);
 
@@ -269,7 +269,7 @@ int OnCS_SH_DELSHOP_ACK(CMsg &msg)
 		break;
 	case DELSHOP_NOTDELSHOP:
 		g_MainCharInfo.ShowHelpMessage(IM_N_ITEM);
-		// ÀÌµ¿ ºÒ°¡´É
+		// ì´ë™ ë¶ˆê°€ëŠ¥
 		break;
 	default:
 		break;
@@ -295,8 +295,8 @@ int OnCS_SH_STATUSCHANGE_ACK(CMsg &msg)
 	{
 	case STATUSCHANGE_SUCCESS:
 		{
-			// ÆÇ¸Å ½ÃÀÛ
-			// ÆÇ¸Å ÁßÁö
+			// íŒë§¤ ì‹œìž‘
+			// íŒë§¤ ì¤‘ì§€
 
 			switch(bStatus)
 			{
@@ -324,7 +324,7 @@ int OnCS_SH_STATUSCHANGE_ACK(CMsg &msg)
 					g_MainCharInfo.CloseFrame( WINDOW_MONEY);
 
 					g_MainCharInfo.m_bPersonalTradeSell = false;
-					g_MainCharInfo.HideSack(SACKTYPE__PERSONAL_TRADE_SET);  // ¼³Á¤Ã¢ ´Ý°í
+					g_MainCharInfo.HideSack(SACKTYPE__PERSONAL_TRADE_SET);  // ì„¤ì •ì°½ ë‹«ê³ 
 
 					g_pUIManager->SetString(WINDOW_PC_STORE, pc_store_button_02, IDS_PT_SET_START);
 					g_MainCharInfo.ShowHelpMessage(IDS_USABLEEND);
@@ -346,11 +346,11 @@ int OnCS_SH_STATUSCHANGE_ACK(CMsg &msg)
 			g_MainCharInfo.ShowHelpMessage(IDS_NOTFINDSHOPRUNITEM, TEXTEFFECT_COLOR_WARNING);
 		}		
 		break;
-	case STATUSCHANGE_NOTEMPTYSACK:	// Çà³¶¿¡ ¾ÆÀÌÅÛÀÌ ¾øÀ½		
+	case STATUSCHANGE_NOTEMPTYSACK:	// í–‰ë‚­ì— ì•„ì´í…œì´ ì—†ìŒ		
 		break;
 	case STATUSCHANGE_NOTDELSHOP:
 		break;
-	case 6:							// ¾ÇÀÎÀÌ¹Ç·Î °³ÀÎ³ëÁ¡ °³¼³ ÇÒ¼ö ¾øÀ½
+	case 6:							// ì•…ì¸ì´ë¯€ë¡œ ê°œì¸ë…¸ì  ê°œì„¤ í• ìˆ˜ ì—†ìŒ
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_NOTBADFAMESHOPRUN, TEXTEFFECT_COLOR_WARNING);
 		}
@@ -362,8 +362,8 @@ int OnCS_SH_STATUSCHANGE_ACK(CMsg &msg)
 	return true;
 }
 //..UNITSVR->CLIENT
-//bResult	-- 0 : ¼º°ø      , -- 1 : °³Á¡¿ë ¾ÆÀÌÅÛ Á¸ÀçÇÏÁö ¾ÊÀ½.
-//bStatus	-- »óÁ¡ »óÅÂ 
+//bResult	-- 0 : ì„±ê³µ      , -- 1 : ê°œì ìš© ì•„ì´í…œ ì¡´ìž¬í•˜ì§€ ì•ŠìŒ.
+//bStatus	-- ìƒì  ìƒíƒœ 
 
 
 
@@ -386,7 +386,7 @@ int OnCS_SH_GETMONEY_ACK(CMsg &msg)
 	{
 	case GETMONEY_SUCCESS:
 		{
-			// µ· È¸¼ö ¸Þ½ÃÁö
+			// ëˆ íšŒìˆ˜ ë©”ì‹œì§€
 			TCHAR strTemp[128]= {0,};
 
 			_stprintf(strTemp, IDS_SHOP_GETMONEY, dwFeeMoney, dwMoney);
@@ -404,7 +404,7 @@ int OnCS_SH_GETMONEY_ACK(CMsg &msg)
 		break;
 	case GETMONEY_INTERNALERROR:
 		break;
-	case GETMONEY_OVERMONEY:	// ¼ÒÁö±Ý¾× ÃÊ°ú
+	case GETMONEY_OVERMONEY:	// ì†Œì§€ê¸ˆì•¡ ì´ˆê³¼
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_PETTRADE_OVERMONEY, TEXTEFFECT_COLOR_WARNING);			
 			g_MainCharInfo.PlayInterfaceSound(ISOUND_WARNING);
@@ -417,8 +417,8 @@ int OnCS_SH_GETMONEY_ACK(CMsg &msg)
 	return true;
 }
 //..UNITSVR->CLIENT
-//bResult -- 0 : ¼º°ø, ±× ¿Ü ½ÇÆÐ 
-//dwMoney - È¸¼öµÇ´Â µ· 
+//bResult -- 0 : ì„±ê³µ, ê·¸ ì™¸ ì‹¤íŒ¨ 
+//dwMoney - íšŒìˆ˜ë˜ëŠ” ëˆ 
 
 
 
@@ -461,13 +461,13 @@ int OnCS_SH_GETSHOPINFO_ACK(CMsg &msg)
 				msg
 					>> dwPrice;
 
-				pItem->m_dwPrice = dwPrice;  // ÆÇ¸Å±Ý¾×
+				pItem->m_dwPrice = dwPrice;  // íŒë§¤ê¸ˆì•¡
 				pItem->m_bSackID = SACKTYPE__PERSONAL_TRADE_SELL;
 
 				g_MainCharInfo.m_pPersonalTradeSell->InsertItem(bSackPos, pItem);
 			} // for(int i=0; i < bItemCnt; i++)
 
-			// °Å·¡ ½ÃÀÛ
+			// ê±°ëž˜ ì‹œìž‘
 		}
 		break;
 	case GETSHOPINFO_NOTFIND:
@@ -493,7 +493,7 @@ int OnCS_SH_GETSHOPINFO_ACK(CMsg &msg)
 
 
 /**
- * °³ÀÎ »óÁ¡ ¾ÆÀÌÅÛ ±¸ÀÔ
+ * ê°œì¸ ìƒì  ì•„ì´í…œ êµ¬ìž…
  * \param &msg 
  * \return 
  */
@@ -510,7 +510,7 @@ int OnCS_SH_BUYPCSHOP_ACK(CMsg &msg)
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_BUY_SHOP);
 
-			// ±¸ÀÔ ÇßÀ½
+			// êµ¬ìž… í–ˆìŒ
 			if( g_MainCharInfo.m_pHoldItem->IsHoldingItemItem())
 			{
 				g_MainCharInfo.m_pHoldItem->DeleteHoldItemItem();
@@ -520,9 +520,9 @@ int OnCS_SH_BUYPCSHOP_ACK(CMsg &msg)
 	case BUYPCSHOP_NOTFINDCHAR:
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_PCSHOP_NOTFINDCHAR);
-			// °³ÀÎ »óÁ¡ Ä³¸¯ÅÍ¸¦ Ã£Áö ¸øÇÔ
+			// ê°œì¸ ìƒì  ìºë¦­í„°ë¥¼ ì°¾ì§€ ëª»í•¨
 
-			// »óÁ¡ÀÌ ¾øÀ¸¹Ç·Î »óÁ¡ Á¦°Å
+			// ìƒì ì´ ì—†ìœ¼ë¯€ë¡œ ìƒì  ì œê±°
 			if( g_MainCharInfo.m_pHoldItem->IsHoldingItemItem())
 				g_MainCharInfo.m_pHoldItem->DeleteHoldItemItem();
 			g_MainCharInfo.HideSack(SACKTYPE__PERSONAL_TRADE_SELL);
@@ -531,7 +531,7 @@ int OnCS_SH_BUYPCSHOP_ACK(CMsg &msg)
 	case BUYPCSHOP_NOTFINDITEM:
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_PCSHOP_NOTFINDITEM);
-			// ¾ÆÀÌÅÛÀÌ ¾øÀ½
+			// ì•„ì´í…œì´ ì—†ìŒ
 
 			if( g_MainCharInfo.m_pHoldItem->IsHoldingItemItem())
 				g_MainCharInfo.m_pHoldItem->DeleteHoldItemItem();
@@ -540,7 +540,7 @@ int OnCS_SH_BUYPCSHOP_ACK(CMsg &msg)
 	case BUYPCSHOP_FULLSACK:
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_PCSHOP_FULLSACK);
-			// Çà³¶ÀÌ °¡µæÂü
+			// í–‰ë‚­ì´ ê°€ë“ì°¸
 
 			if( g_MainCharInfo.m_pHoldItem->IsHoldingItemItem())
 				g_MainCharInfo.m_pHoldItem->SetItemBackToSack();
@@ -558,7 +558,7 @@ int OnCS_SH_BUYPCSHOP_ACK(CMsg &msg)
 	case BUYPCSHOP_NOTMONEY:
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_SHORT_MONEY);
-			// µ· ºÎÁ·
+			// ëˆ ë¶€ì¡±
 
 			if( g_MainCharInfo.m_pHoldItem->IsHoldingItemItem())
 				g_MainCharInfo.m_pHoldItem->SetItemBackToSack();
@@ -582,7 +582,7 @@ int OnCS_SH_BUYPCSHOP_ACK(CMsg &msg)
 	return true;
 }
 //..UNITSVR->CLIENT
-//bResult -- 0 : ¼º°ø, ±×¿Ü ½ÇÆÐ 
+//bResult -- 0 : ì„±ê³µ, ê·¸ì™¸ ì‹¤íŒ¨ 
 
 
 
@@ -602,28 +602,28 @@ int OnCS_SH_ADDONSHOP_ACK(CMsg &msg)
 
 	XiahItem::GetItemData( pItem, msg);
 
-	//HT_1116 : °¢¼ºÀÚ ¾ÆÀÌÅÛ Ãß°¡
+	//HT_1116 : ê°ì„±ìž ì•„ì´í…œ ì¶”ê°€
 	msg
 		>> pItem->m_wRebuithValue;
 
 	if(g_MainCharInfo.m_pPersonalTradeSet)
 	{
-		if( bAction == 1 || bAction == 2)	// bAction == 2 ¸é ³»¿¡¼­ÀÇ ¿òÁ÷ÀÓ
+		if( bAction == 1 || bAction == 2)	// bAction == 2 ë©´ ë‚´ì—ì„œì˜ ì›€ì§ìž„
 		{
 			pItem->m_bSackID = SACKTYPE__PERSONAL_TRADE_SET;
 			pItem->m_dwPrice = dwPrice;
 
 			g_MainCharInfo.m_pPersonalTradeSet->InsertItem( bSackPos, pItem);
-		} // if( bAction == 1 || bAction == 2)	// bAction == 2 ¸é ³»¿¡¼­ÀÇ ¿òÁ÷ÀÓ
+		} // if( bAction == 1 || bAction == 2)	// bAction == 2 ë©´ ë‚´ì—ì„œì˜ ì›€ì§ìž„
 	}
 
 	return true;
 }
 //..UNITSVR->Client
-//bAction  - ADDONBANK¿Í µ¿ÀÏ 2
+//bAction  - ADDONBANKì™€ ë™ì¼ 2
 //bSackPos 
 //dwPrice
-//Item Á¤º¸..
+//Item ì •ë³´..
 
 int OnCS_SH_REMOVEFROMSHOP_ACK(CMsg &msg)
 {
@@ -642,7 +642,7 @@ int OnCS_SH_REMOVEFROMSHOP_ACK(CMsg &msg)
 	}
 	else
 	{
-		// ´©¼ö ¼öÁ¤
+		// ëˆ„ìˆ˜ ìˆ˜ì •
 		if(g_MainCharInfo.m_pPersonalTradeSet)
 			g_MainCharInfo.m_pPersonalTradeSet->DeleteItem(bSackPos, true);
 	}
@@ -693,20 +693,20 @@ int OnCS_SH_SHOPINFOCHANGE_ACK(CMsg &msg)
 	return true;
 }
 //..UNITSVR->CLIENT
-//dwMoney										//ÇöÀç SHOP¿¡ ÀúÀåµÇ¾î ÀÖ´Â ±Ý¾× 
-//wRemainShop									//ÇöÀç SHOPÀ» À§ÇØ »ç¿ëµÇ´Â ¾ÆÀÌÅÛÀÇ ³»±¸·Â 
+//dwMoney										//í˜„ìž¬ SHOPì— ì €ìž¥ë˜ì–´ ìžˆëŠ” ê¸ˆì•¡ 
+//wRemainShop									//í˜„ìž¬ SHOPì„ ìœ„í•´ ì‚¬ìš©ë˜ëŠ” ì•„ì´í…œì˜ ë‚´êµ¬ë ¥ 
 
 
 
 
 
 
-//¸Ê¿¡ ÁøÇà½Ã ³ëÁ¡ »óÅÂÀÎ PC°¡ Á¸Àç ÇÒ °æ¿ì 
+//ë§µì— ì§„í–‰ì‹œ ë…¸ì  ìƒíƒœì¸ PCê°€ ì¡´ìž¬ í•  ê²½ìš° 
 // CS_IT_CHARINFO_ACK
 /*
-// dwFame				-- ±âÁ¸ 
--- bShopStatus			-- ½Å±Ô 
--- strShopName			-- ½Å±Ô 
--- strShopDescription	-- ½Å±Ô 
-// dwMunpaID			-- ±âÁ¸ 
+// dwFame				-- ê¸°ì¡´ 
+-- bShopStatus			-- ì‹ ê·œ 
+-- strShopName			-- ì‹ ê·œ 
+-- strShopDescription	-- ì‹ ê·œ 
+// dwMunpaID			-- ê¸°ì¡´ 
 */

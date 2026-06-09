@@ -1,4 +1,4 @@
-//#include <assert.h>
+ï»¿//#include <assert.h>
 
 int OnCS_CD_ADDEQUIPMENT_ACK( CMsg &msg)
 {
@@ -53,15 +53,15 @@ int OnCS_CD_ADDEQUIPMENT_ACK( CMsg &msg)
 		CXiahCharObject* pC = (CXiahCharObject*) pObj->m_pObject;
 		if(pC == NULL) continue;
 
-		// ºĞ½Å°İÀÌ¸é ¹Ù²ãÁØ´Ù.
+		// ë¶„ì‹ ê²©ì´ë©´ ë°”ê¿”ì¤€ë‹¤.
 		if(pC->m_bObjType == OBJTYPE_PET && pC->m_dwOwnerID == dwCharID && pC->m_nCurMotionType != XiahAniType::eLAT_Die)
 		{
 			SetupPC_VisualEquipement( pC, pVisualInfo->wVisualID, pVisualInfo->bRarity, pVisualInfo->bStxType );		
 		}
 	}
 
-	// ´©°¡ ÀÌ·¸°Ô ÇßÁö? ¤Ñ,.¤Ñ;
-	// ÀÌ°É ÁÖ¼®ÇØ¼­ ¸ŞÀÎ Ä³¸¯ÅÍ°¡ ¾ÆÀÌÅÛÀ» °³Á¶ÇÏ¸é ¾ÆÀÌÅÛÀÇ µ¥ÀÌÅ¸¸¦ °»½ÅÇÑ´Ù.
+	// ëˆ„ê°€ ì´ë ‡ê²Œ í–ˆì§€? ã…¡,.ã…¡;
+	// ì´ê±¸ ì£¼ì„í•´ì„œ ë©”ì¸ ìºë¦­í„°ê°€ ì•„ì´í…œì„ ê°œì¡°í•˜ë©´ ì•„ì´í…œì˜ ë°ì´íƒ€ë¥¼ ê°±ì‹ í•œë‹¤.
 //	if( pObject != g_pMainChar)
 		SetupPC_VisualEquipement( pCharObject, pVisualInfo->wVisualID, pVisualInfo->bRarity, pVisualInfo->bStxType );
 
@@ -118,15 +118,15 @@ int OnCS_CD_CHGEQUIPMENT_ACK( CMsg &msg)
 		CXiahCharObject* pC = (CXiahCharObject*) pObj->m_pObject;
 		if(pC == NULL) continue;
 
-		// ºĞ½Å°İÀÌ¸é ¹Ù²ãÁØ´Ù.
+		// ë¶„ì‹ ê²©ì´ë©´ ë°”ê¿”ì¤€ë‹¤.
 		if(pC->m_bObjType == OBJTYPE_PET && pC->m_dwOwnerID == dwCharID && pC->m_nCurMotionType != XiahAniType::eLAT_Die)
 		{
 			SetupPC_VisualEquipement( pC, pVisualInfo->wVisualID, pVisualInfo->bRarity, pVisualInfo->bStxType );		
 		}
 	}
 
-	// ´©°¡ ÀÌ·¸°Ô ÇßÁö? ¤Ñ,.¤Ñ;
-	// ÀÌ°É ÁÖ¼®ÇØ¼­ ¸ŞÀÎ Ä³¸¯ÅÍ°¡ °³Á¶µÈ ¾ÆÀÌÅÛÀ» ¹Ù²Ù¸é ¾ÆÀÌÅÛÀÇ µ¥ÀÌÅ¸¸¦ °»½ÅÇÑ´Ù.
+	// ëˆ„ê°€ ì´ë ‡ê²Œ í–ˆì§€? ã…¡,.ã…¡;
+	// ì´ê±¸ ì£¼ì„í•´ì„œ ë©”ì¸ ìºë¦­í„°ê°€ ê°œì¡°ëœ ì•„ì´í…œì„ ë°”ê¾¸ë©´ ì•„ì´í…œì˜ ë°ì´íƒ€ë¥¼ ê°±ì‹ í•œë‹¤.
 //	if( pObject != g_pMainChar)
 		SetupPC_VisualEquipement( pCharObject, pVisualInfo->wVisualID, pVisualInfo->bRarity, pVisualInfo->bStxType );
 
@@ -178,7 +178,7 @@ int OnCS_CD_DELEQUIPMENT_ACK( CMsg &msg)
 		if(pC == NULL)
 			continue;
 
-		// ºĞ½Å°İÀÌ¸é ¹Ù²ãÁØ´Ù.
+		// ë¶„ì‹ ê²©ì´ë©´ ë°”ê¿”ì¤€ë‹¤.
 		if(pC->m_bObjType == OBJTYPE_PET && pC->m_dwOwnerID == dwCharID && pC->m_nCurMotionType != XiahAniType::eLAT_Die)
 		{
 			SetupPC_VisualEquipement( pC, pVisualInfo->wVisualID, pVisualInfo->bRarity, pVisualInfo->bStxType );		
@@ -213,14 +213,14 @@ int OnCS_CD_ACTION_ACK( CMsg &msg)
 
 		if(pCharObject != NULL)
 		{
-			if(bActionKind == 1)	// ¾É±â´Â ¾É±â À¯±â·Î °¡±â ¶«½Ã.. µû·Î Ã³¸®ÇÑ´Ù.
+			if(bActionKind == 1)	// ì•‰ê¸°ëŠ” ì•‰ê¸° ìœ ê¸°ë¡œ ê°€ê¸° ë•œì‹œ.. ë”°ë¡œ ì²˜ë¦¬í•œë‹¤.
 			{
-				// ¾É±â ´ÙÀ½Àº -> ¾É±â À¯Áö·Î..
+				// ì•‰ê¸° ë‹¤ìŒì€ -> ì•‰ê¸° ìœ ì§€ë¡œ..
 				pCharObject->SetAnimation((int)bActionType,(int)bActionType,(int)bActionKind,2,1.0f);
 			}
 			else
 			{
-				// ÄÉÁÖ¾ó ´ÙÀ½Àº Stand·Î
+				// ì¼€ì£¼ì–¼ ë‹¤ìŒì€ Standë¡œ
 				pCharObject->SetAnimation((int)bActionType,XiahAniType::eLAT_Stand,(int)bActionKind,0,1.0f);
 			}
 		}
@@ -229,11 +229,11 @@ int OnCS_CD_ACTION_ACK( CMsg &msg)
 	return 0;
 }
 
-#define FE_SOUND_1		50002232	// °Ë¿µ ¿ÀÇà ½ÃÀü »ç¿îµå
-#define FE_SOUND_2		50002233	// ¿¬¶û/¹«Åõ/¾ßÂ÷ ½ÃÀü »ç¿îµå
+#define FE_SOUND_1		50002232	// ê²€ì˜ ì˜¤í–‰ ì‹œì „ ì‚¬ìš´ë“œ
+#define FE_SOUND_2		50002233	// ì—°ë‘/ë¬´íˆ¬/ì•¼ì°¨ ì‹œì „ ì‚¬ìš´ë“œ
 
 /**
- * ±×¶§ ±×¶§ ¾÷µ¥ÀÌÆ® µÇ´Â°Í (¸í¼ºÄ¡µîµî..)
+ * ê·¸ë•Œ ê·¸ë•Œ ì—…ë°ì´íŠ¸ ë˜ëŠ”ê²ƒ (ëª…ì„±ì¹˜ë“±ë“±..)
  * \param &msg 
  * \return 
  */
@@ -266,7 +266,7 @@ int OnCS_CD_CHARUPDATE_ACK( CMsg &msg)
 
 	switch(bType)
 	{		
-		case ACT_FAME:	// ¸í¼ºÄ¡
+		case ACT_FAME:	// ëª…ì„±ì¹˜
 			{
 				pCharObject->m_dwFame = dwData1;
 
@@ -275,36 +275,36 @@ int OnCS_CD_CHARUPDATE_ACK( CMsg &msg)
 				if(g_MainCharInfo.m_dwObjectID == dwObjID)
 				{
 					if(dwData1 >= 127)
-					{   // ³ë¶ô»ö °è¿­
-						if(dwData1 >= 128 && dwData1 <= 132)		// ¼±ÀÎ 1´Ü°è
+					{   // ë…¸ë½ìƒ‰ ê³„ì—´
+						if(dwData1 >= 128 && dwData1 <= 132)		// ì„ ì¸ 1ë‹¨ê³„
 						{						
 							g_MainCharInfo.ShowHelpMessage(IDS_FAME_A1);
 						}
-						else if(dwData1 >= 133 && dwData1 <= 226)	// ¼±ÀÎ 2´Ü°è
+						else if(dwData1 >= 133 && dwData1 <= 226)	// ì„ ì¸ 2ë‹¨ê³„
 						{
 							g_MainCharInfo.ShowHelpMessage(IDS_FAME_A2);
 						}
-						else if(dwData1 >= 227)						// ¼±ÀÎ 3´Ü°è
+						else if(dwData1 >= 227)						// ì„ ì¸ 3ë‹¨ê³„
 						{
 							g_MainCharInfo.ShowHelpMessage(IDS_FAME_A3);
 						}
-						else  // Áß¸³
+						else  // ì¤‘ë¦½
 						{
 							g_MainCharInfo.ShowHelpMessage(IDS_FAME_A0);
 						}
 					} // if(dwFame >= 127)
 					else
 					{
-						// »¡°£»ö °è¿­
-						if(dwData1 <= 121 && dwData1 >= 28) // ¾ÇÀÎ 2´Ü°è
+						// ë¹¨ê°„ìƒ‰ ê³„ì—´
+						if(dwData1 <= 121 && dwData1 >= 28) // ì•…ì¸ 2ë‹¨ê³„
 						{
 							g_MainCharInfo.ShowHelpMessage(IDS_FAME_B2);
 						}
-						else if(dwData1 <= 27) // ¾ÇÀÎ 3´Ü°è
+						else if(dwData1 <= 27) // ì•…ì¸ 3ë‹¨ê³„
 						{
 							g_MainCharInfo.ShowHelpMessage(IDS_FAME_B3);
 						}
-						else  // ¾ÇÀÎ 1´Ü°è
+						else  // ì•…ì¸ 1ë‹¨ê³„
 						{
 							g_MainCharInfo.ShowHelpMessage(IDS_FAME_B1);
 						}
@@ -313,7 +313,7 @@ int OnCS_CD_CHARUPDATE_ACK( CMsg &msg)
 			}			
 			break;
 
-		case ACT_SHOPCHANGE: // °³ÀÎ »óÁ¡ »óÅÂ
+		case ACT_SHOPCHANGE: // ê°œì¸ ìƒì  ìƒíƒœ
 			{
 				pCharObject->SetAnimation(XiahAniType::eLAT_Stand, 0);
 
@@ -328,14 +328,14 @@ int OnCS_CD_CHARUPDATE_ACK( CMsg &msg)
 				}
 				else
 				{
-					DBG_Put(_T("OnCS_CD_CHARUPDATE_ACK °³ÀÎ³ëÁ¡ »óÅÂ ºñÁ¤»ó °á°ú %d"),dwData1);
-					// ºñÁ¤»ó µ¥ÀÌÅÍ
+					DBG_Put(_T("OnCS_CD_CHARUPDATE_ACK ê°œì¸ë…¸ì  ìƒíƒœ ë¹„ì •ìƒ ê²°ê³¼ %d"),dwData1);
+					// ë¹„ì •ìƒ ë°ì´í„°
 					//assert(0);
 				}
 			}
 			break;
 
-		case ACT_TRADEWARNING: // 1:1 °Å·¡½Ã ÀÚ½ÅÀÇ Çà³¶ÀÇ °ø°£ÀÌ ¾øÀ»¶§
+		case ACT_TRADEWARNING: // 1:1 ê±°ë˜ì‹œ ìì‹ ì˜ í–‰ë‚­ì˜ ê³µê°„ì´ ì—†ì„ë•Œ
 			{
 				g_pUIManager->ShowNotice( IDS_PCTRADE_FULLSACK, NOTICE_FRAME_OK);
 				g_MainCharInfo.ShowHelpMessage(IDS_FULL_SACK, 2);
@@ -346,24 +346,24 @@ int OnCS_CD_CHARUPDATE_ACK( CMsg &msg)
 
 		case ACT_SEMIPK:	// SEMI PK System
 			{
-				// SEMI PKÀÇ »óÅÂ¸¦ ÀúÀå
-				// 0 : Á¤»ó 1 : º¸¶ó»ö 2 : ±ôºıÀÓ
+				// SEMI PKì˜ ìƒíƒœë¥¼ ì €ì¥
+				// 0 : ì •ìƒ 1 : ë³´ë¼ìƒ‰ 2 : ê¹œë¹¡ì„
 				pCharObject->m_bSemiPKStatus = (BYTE)dwData1;
 			}
 			break;
 
-		case ACT_MINE:		// Ã¤Áı
+		case ACT_MINE:		// ì±„ì§‘
 			{
 				pCharObject->SetAngle(static_cast<WORD>(dwData1));
 				pCharObject->SetAnimation(XiahAniType::eLAT_Collect, 0);				
 			}
 			break;
 			
-		case ACT_FIVEELM:	// ¿ÀÇà
+		case ACT_FIVEELM:	// ì˜¤í–‰
 			{
 				if(dwData1)
 				{
-					// ÀÌÀü°Í Áö¿ìÀÚ (Áß°£¿¡ Ã¥ÀĞ´Â»ç¶÷ÀÖ´Ù.)
+					// ì´ì „ê²ƒ ì§€ìš°ì (ì¤‘ê°„ì— ì±…ì½ëŠ”ì‚¬ëŒìˆë‹¤.)
 					for(int i=0; i < 5; ++i)
 						pCharObject->m_KeepUpMugongList.Delete(FIVEELEMENT_FIRE + i);					
 
@@ -373,7 +373,7 @@ int OnCS_CD_CHARUPDATE_ACK( CMsg &msg)
 						pCharObject->m_pFEEffectPP = NULL;
 					}
 
-					// ¼ÂÆÃ
+					// ì…‹íŒ…
 					pCharObject->m_bFECur   = static_cast<BYTE>(dwData1);
 					pCharObject->m_bFELevel = static_cast<BYTE>(dwData2);
 
@@ -387,7 +387,7 @@ int OnCS_CD_CHARUPDATE_ACK( CMsg &msg)
 
 					pCharObject->m_KeepUpMugongList.Add(dwMugongID, pCharObject->m_bFELevel, dwTime);					
 					
-					// ½ÃÀü ÀÌÆåÆ®
+					// ì‹œì „ ì´í™íŠ¸
 					int nType;
 
 					switch(dwData1)
@@ -408,11 +408,11 @@ int OnCS_CD_CHARUPDATE_ACK( CMsg &msg)
 					{
 						pEffectPackage->pEffectRender->pPackagePair->pWorldMatrix = (MATRIX*)pCharObject->m_CharRender.GetCharTM();							
 
-						// ÀÌÄÉÇØ¾ß Ä³¸¯ÅÍ°¡ ¾ø¾îÁú¶§ ÀÌÆåÆ®µµ °°ÀÌ ¾ø¾îÁø´Ù.
+						// ì´ì¼€í•´ì•¼ ìºë¦­í„°ê°€ ì—†ì–´ì§ˆë•Œ ì´í™íŠ¸ë„ ê°™ì´ ì—†ì–´ì§„ë‹¤.
 						pCharObject->m_EffectPPList.push_back(pEffectPackage->pEffectRender->pPackagePair );
 					}
 
-					// ¿ÀÇà ½ÃÀü ¾Ö´Ï
+					// ì˜¤í–‰ ì‹œì „ ì• ë‹ˆ
 					switch(pCharObject->m_bSubObjType)
 					{
 						case 1:							
@@ -435,7 +435,7 @@ int OnCS_CD_CHARUPDATE_ACK( CMsg &msg)
 							break;
 					}
 
-					// ½ÃÀü »ç¿îµå
+					// ì‹œì „ ì‚¬ìš´ë“œ
 					if(pCharObject->m_bSubObjType == 1)
 					{
 						g_MainCharInfo.PlayInterfaceSound(FE_SOUND_1);
@@ -449,7 +449,7 @@ int OnCS_CD_CHARUPDATE_ACK( CMsg &msg)
 				{
 					for(int i=0; i < 5; ++i)
 					{
-						pCharObject->m_KeepUpMugongList.Delete(FIVEELEMENT_FIRE + i);									//¿ÀÇà ÀÌÆåÆ® Á¦°Å 
+						pCharObject->m_KeepUpMugongList.Delete(FIVEELEMENT_FIRE + i);									//ì˜¤í–‰ ì´í™íŠ¸ ì œê±° 
 					}
 
 					pCharObject->m_bFECur   = 0;
@@ -464,13 +464,13 @@ int OnCS_CD_CHARUPDATE_ACK( CMsg &msg)
 			}
 			break;
 
-			// CG_2005/01/28 : º¯Á¾¾ÆÀÌÅÛ±â´ÉÃß°¡
-		case ACT_CHANGECOMPLE:	// °°Àº À¯ÆÄº¯Á¾¾ÆÀÌÅÛÀ» ¼ÂÆ®·Î Ã¡À»¶§
+			// CG_2005/01/28 : ë³€ì¢…ì•„ì´í…œê¸°ëŠ¥ì¶”ê°€
+		case ACT_CHANGECOMPLE:	// ê°™ì€ ìœ íŒŒë³€ì¢…ì•„ì´í…œì„ ì…‹íŠ¸ë¡œ ì°¼ì„ë•Œ
 			{				
 				pCharObject->m_bChangeItemSet = (BYTE)dwData1;
 			}
 			break;
-		case 11:				// ¼³½Â´Ü¾à, ±â
+		case 11:				// ì„¤ìŠ¹ë‹¨ì•½, ê¸°
 			{
 				BYTE bInstanceType = static_cast<BYTE>(dwData1);
 
@@ -480,7 +480,7 @@ int OnCS_CD_CHARUPDATE_ACK( CMsg &msg)
 					{
 						pCharObject->m_bPotionEndKeepup = static_cast<BYTE>(dwData2);
 
-						if(dwData2 == 0)		// ¹Ìº¹¿ë
+						if(dwData2 == 0)		// ë¯¸ë³µìš©
 						{
 							if(pCharObject->m_pEventItemEffectPP)
 							{
@@ -488,7 +488,7 @@ int OnCS_CD_CHARUPDATE_ACK( CMsg &msg)
 								pCharObject->m_pEventItemEffectPP = NULL;
 							}
 						}
-						else if(dwData2 == 1)	// º¹¿ë
+						else if(dwData2 == 1)	// ë³µìš©
 						{
 							_EFFECTPACKAGE* pEffectPackage = g_EffectManager.EnqOutGongPersistEffectImmediately(ePotionBegine);
 
@@ -496,7 +496,7 @@ int OnCS_CD_CHARUPDATE_ACK( CMsg &msg)
 							{
 								pEffectPackage->pEffectRender->pPackagePair->pWorldMatrix = (MATRIX*)pCharObject->m_CharRender.GetCharTM();							
 
-								// ÀÌÄÉÇØ¾ß Ä³¸¯ÅÍ°¡ ¾ø¾îÁú¶§ ÀÌÆåÆ®µµ °°ÀÌ ¾ø¾îÁø´Ù.
+								// ì´ì¼€í•´ì•¼ ìºë¦­í„°ê°€ ì—†ì–´ì§ˆë•Œ ì´í™íŠ¸ë„ ê°™ì´ ì—†ì–´ì§„ë‹¤.
 								pCharObject->m_EffectPPList.push_back(pEffectPackage->pEffectRender->pPackagePair );
 							}
 						}
@@ -506,7 +506,7 @@ int OnCS_CD_CHARUPDATE_ACK( CMsg &msg)
 					{
 						pCharObject->m_bSpirit = static_cast<BYTE>(dwData2);
 
-						if(dwData2 == 0)		// ¹Ìº¹¿ë
+						if(dwData2 == 0)		// ë¯¸ë³µìš©
 						{
 							if(pCharObject->m_pSpiritEffectPP)
 							{
@@ -514,7 +514,7 @@ int OnCS_CD_CHARUPDATE_ACK( CMsg &msg)
 								pCharObject->m_pSpiritEffectPP = NULL;
 							}
 						}
-						else if(dwData2 == 1)	// º¹¿ë
+						else if(dwData2 == 1)	// ë³µìš©
 						{
 							_EFFECTPACKAGE* pEffectPackage = g_EffectManager.EnqOutGongPersistEffectImmediately(eSpiritBegine);
 
@@ -522,7 +522,7 @@ int OnCS_CD_CHARUPDATE_ACK( CMsg &msg)
 							{
 								pEffectPackage->pEffectRender->pPackagePair->pWorldMatrix = (MATRIX*)pCharObject->m_CharRender.GetCharTM();							
 
-								// ÀÌÄÉÇØ¾ß Ä³¸¯ÅÍ°¡ ¾ø¾îÁú¶§ ÀÌÆåÆ®µµ °°ÀÌ ¾ø¾îÁø´Ù.
+								// ì´ì¼€í•´ì•¼ ìºë¦­í„°ê°€ ì—†ì–´ì§ˆë•Œ ì´í™íŠ¸ë„ ê°™ì´ ì—†ì–´ì§„ë‹¤.
 								pCharObject->m_EffectPPList.push_back(pEffectPackage->pEffectRender->pPackagePair);
 							}
 						}
@@ -536,7 +536,7 @@ int OnCS_CD_CHARUPDATE_ACK( CMsg &msg)
 
 		default:
 			{
-				DBG_Put(_T("OnCS_CD_CHARUPDATE_ACK Å¸ÀÔ ÀÌ»ó %d"), bType);
+				DBG_Put(_T("OnCS_CD_CHARUPDATE_ACK íƒ€ì… ì´ìƒ %d"), bType);
 			}
 			break;
 	}

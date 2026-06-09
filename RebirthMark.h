@@ -1,4 +1,4 @@
-
+ï»¿
 
 //#include "munpamark.h"
 
@@ -18,7 +18,7 @@ protected:
 
 private:
 
-	LPDIRECT3DTEXTURE9	m_pTexture[13];		// È¯»ı ÅØ½ºÃÄ
+	LPDIRECT3DTEXTURE9	m_pTexture[13];		// í™˜ìƒ í…ìŠ¤ì³
 	LPDIRECT3DVERTEXBUFFER9	m_pVB;
 
 };

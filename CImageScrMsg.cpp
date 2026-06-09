@@ -1,4 +1,4 @@
-#include "precompile.h"
+﻿#include "precompile.h"
 #include ".\cimagescrmsg.h"
 #include "XiahObject.h"
 #include "InterfaceDefine.h"

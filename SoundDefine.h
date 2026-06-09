@@ -1,4 +1,4 @@
-
+ï»¿
 
 // Basic Button Select Sound
 #define ISOUND_SELECT_BUTTON		50000556
@@ -40,16 +40,16 @@
 #define REBUILD_ITEM_SOUND			50001224
 #define BOOK_ITEM_SOUND				50001225
 #define ETC_ITEM_SOUND				50001226
-#define USE_PORTAL_SOUND			50001221	// µ¿½ÅÁÖ ÀÌÇüºÎ
-#define SUCC_TAMMING_SOUND			50001227	// Å×ÀÌ¹Ö ¼º°ø
-#define READ_BOOK_SOUND				50001228	// ¹«°ø¼­Àû ÀÐ±â
-#define MONEY_ITEM_SOUND			50001229	// µ·
-#define FE_ITEM_SOUND				50002231	// Á¦·ÃÀÚ¿ø
+#define USE_PORTAL_SOUND			50001221	// ë™ì‹ ì£¼ ì´í˜•ë¶€
+#define SUCC_TAMMING_SOUND			50001227	// í…Œì´ë° ì„±ê³µ
+#define READ_BOOK_SOUND				50001228	// ë¬´ê³µì„œì  ì½ê¸°
+#define MONEY_ITEM_SOUND			50001229	// ëˆ
+#define FE_ITEM_SOUND				50002231	// ì œë ¨ìžì›
 
-#define ITEM_REPAIR_SOUND			50001230	// ¾ÆÀÌÅÛ ¼ö¸®
+#define ITEM_REPAIR_SOUND			50001230	// ì•„ì´í…œ ìˆ˜ë¦¬
 
 // Etc. NPC Sound
-#define NPC_SOUND_SHINJO_DIE		50001574	// ½ÅÁ¶°¡ Á×À»¶§ ³ª¿À´Â ¼Ò¸®.
+#define NPC_SOUND_SHINJO_DIE		50001574	// ì‹ ì¡°ê°€ ì£½ì„ë•Œ ë‚˜ì˜¤ëŠ” ì†Œë¦¬.
 
 // Event Item Sound
 #define	EVENT_ITEM_SOUND_ATTACK		50001576
@@ -59,7 +59,7 @@
 #define	EVENT_ITEM_SOUND_START		50001580
 
 
-// °æÇ° °°Àº ÀÌº¥Æ® ¾ÆÀÌÅÛ¿ë »ç¿îµå.
+// ê²½í’ˆ ê°™ì€ ì´ë²¤íŠ¸ ì•„ì´í…œìš© ì‚¬ìš´ë“œ.
 #define	EVENT_PREMIUMITEM_SOUND_CONGRATULATION		50001927
 #define	EVENT_PREMIUMITEM_SOUND_CLICK				50001928
 

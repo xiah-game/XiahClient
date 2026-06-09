@@ -1,22 +1,22 @@
-#define MAIN_CHAROBJECT	((CXiahCharObject*)(g_pMainChar->m_pObject))
+ï»¿#define MAIN_CHAROBJECT	((CXiahCharObject*)(g_pMainChar->m_pObject))
 
 //---------------------------------------------------------------------------------------
-// mode°ª
+// modeê°’
 /*
-	Æ¯Á¤ ¿ÀºêÁ§Æ®¸¦ Type¿¡ µû¶ó¼­ ActionµÉ ¼ö ÀÖµµ·Ï ÇÏ´Â ÇÔ¼ö
+	íŠ¹ì • ì˜¤ë¸Œì íŠ¸ë¥¼ Typeì— ë”°ë¼ì„œ Actionë  ìˆ˜ ìˆë„ë¡ í•˜ëŠ” í•¨ìˆ˜
 	Functional NPC : Ring Interface
 	PC			   : Ring Interface
-	Item		   : Áİ±â
-	NPC			   : °ø°İ(´ÜÀÏ °ø°İ)
+	Item		   : ì¤ê¸°
+	NPC			   : ê³µê²©(ë‹¨ì¼ ê³µê²©)
 
-	0 : ¿ŞÂÊ ¹öÆ°
-	1 : ¿À¸¥ÂÊ ¹öÆ°
-	2 : ±âÅ¸ (¿ŞÂÊ ¹öÆ°À» °è¼Ó ´©¸£°í ÀÖ°Å³ª, ÀÚµ¿ °ø°İµîÀÏ¶§)
-	-> ³ª¸ÓÁö´Â ¾Ë¾Æ¼­ Ãß°¡
+	0 : ì™¼ìª½ ë²„íŠ¼
+	1 : ì˜¤ë¥¸ìª½ ë²„íŠ¼
+	2 : ê¸°íƒ€ (ì™¼ìª½ ë²„íŠ¼ì„ ê³„ì† ëˆ„ë¥´ê³  ìˆê±°ë‚˜, ìë™ ê³µê²©ë“±ì¼ë•Œ)
+	-> ë‚˜ë¨¸ì§€ëŠ” ì•Œì•„ì„œ ì¶”ê°€
 */
 BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 {
-	// ValidÃ¼Å©¸¦ ÇÑ¹ø ´õ ÇØÁØ´Ù
+	// Validì²´í¬ë¥¼ í•œë²ˆ ë” í•´ì¤€ë‹¤
 	XiahObject::CXiahObject* pObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, dwObjectID, bObjType));
 
 	if( pObject == NULL)
@@ -28,10 +28,10 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 	if( !pObject->m_pObject->IsA( XiahObject::eXOT_CharObject))
 		return TRUE;
 
-	// À½
+	// ìŒ
 	if( bObjType != OBJTYPE_NPC && mode == 2)
 	{
-		// npc°¡ ¾Æ´Ñ ³ÑµéÀº ¿¬Å¸ °°Àº°Ô ¾øÀ¸´Ï±î. °è¼Ó InteractionµÇ´Â°É ¸·¾ÆÁØ´Ù
+		// npcê°€ ì•„ë‹Œ ë„˜ë“¤ì€ ì—°íƒ€ ê°™ì€ê²Œ ì—†ìœ¼ë‹ˆê¹Œ. ê³„ì† Interactionë˜ëŠ”ê±¸ ë§‰ì•„ì¤€ë‹¤
 		return TRUE;
 	}
 
@@ -46,7 +46,7 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 
 	if(pCharObject == NULL || pMainChar == NULL)
 	{
-		DBG_LogFile( _T("InteractObject ½ÇÆĞ"));
+		DBG_LogFile( _T("InteractObject ì‹¤íŒ¨"));
 		return false;
 	}
 
@@ -61,26 +61,26 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 
 	if( bObjType == OBJTYPE_PC && mode == 0)
 	{
-		// ÀÚµ¿ ¸ğµå¿¡¼­ PC¸é °è¼Ó µû¶ó´Ù´Ï±â¸¸ ÇÑ´Ù
+		// ìë™ ëª¨ë“œì—ì„œ PCë©´ ê³„ì† ë”°ë¼ë‹¤ë‹ˆê¸°ë§Œ í•œë‹¤
 		return TRUE;
 	}
 
 	float fInteractDistance = pCharObject->GetInteractionDistance( pMainChar->m_Position);
 
-	// ¿¬¼Ó °ø°İ °¡´É ½Ã°£Ã¼Å©
+	// ì—°ì† ê³µê²© ê°€ëŠ¥ ì‹œê°„ì²´í¬
 	if( g_dwCurTime - g_MainChar_PreAttackInfo.dwLastPreAttackTime > 300 &&
 		g_MainChar_PreAttackInfo.nRemainAttackCount == 0 && !bMainCharDie && fInteractDistance <= fInteractionRange)
 		bAttackable = TRUE;
 	else
 		bAttackable = FALSE;
 
-	// ÇÊ¿äÇÑ°Ç ¹Ì¸® »Ì¾ÆµĞ´Ù
+	// í•„ìš”í•œê±´ ë¯¸ë¦¬ ë½‘ì•„ë‘”ë‹¤
 	WORD wPosX;
 	WORD wPosY;
 
 	pCharObject->GetPosition( wPosX, wPosY);
 
-	// ¼±ÅÃµÈ ¿ÀºêÁ§Æ® È­¸éÁÂÇ¥
+	// ì„ íƒëœ ì˜¤ë¸Œì íŠ¸ í™”ë©´ì¢Œí‘œ
 	Vector3 scPos;
 	if( g_pCurrentCamera)
 	{
@@ -95,10 +95,10 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 			{
 				if(pCharObject->m_bTradeSell)
 				{
-					// °³ÀÎ »óÁ¡ Ä³¸¯ÅÍ
+					// ê°œì¸ ìƒì  ìºë¦­í„°
 					if( GetAsyncKeyState( VK_CONTROL) < 0)
 					{
-						if( !g_pUIManager->IsPopMenu() && !g_pUIManager->IsShow(WINDOW_NPC_TRADE))	 // ÀÌ¹Ì PopupÀÌ ¶° ÀÖÁö ¾ÊÀ¸¸é
+						if( !g_pUIManager->IsPopMenu() && !g_pUIManager->IsShow(WINDOW_NPC_TRADE))	 // ì´ë¯¸ Popupì´ ë–  ìˆì§€ ì•Šìœ¼ë©´
 						{							
 							g_pUIManager->MakePopMenu(	scPos.x, scPos.y,
 														FRAMEID_PC, 3, 
@@ -107,13 +107,13 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 														TRUE, RESID_TRADE, IDS_DEAL);
 
 							g_MainCharInfo.m_dwPickedObject = pObject->m_dwServerID;
-							g_MainCharInfo.m_bPickType = 1; // °³ÀÎ»óÁ¡ °Å·¡
+							g_MainCharInfo.m_bPickType = 1; // ê°œì¸ìƒì  ê±°ë˜
 						}
 					}
 				}
-				else // ÀÏ¹İ Ä³¸¯ÅÍ
+				else // ì¼ë°˜ ìºë¦­í„°
 				{
-					//  ÀÏ´Ü °Å·¡ÀÏ°ÇÁö¸¦ ¸ÕÀú °Ë»ç. ±×·¡¾ß ºñ¹«¿¡¼­µµ ¸Ş´º ¶á´Ù
+					//  ì¼ë‹¨ ê±°ë˜ì¼ê±´ì§€ë¥¼ ë¨¼ì € ê²€ì‚¬. ê·¸ë˜ì•¼ ë¹„ë¬´ì—ì„œë„ ë©”ë‰´ ëœ¬ë‹¤
 					if( GetAsyncKeyState( VK_CONTROL) < 0)
 					{
 						if( g_MainCharInfo.GetCurrSendChatType() == CT_WHISPER)
@@ -122,7 +122,7 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 							g_pUIManager->SetString(MAIN_CHAT, chat_name_edit, g_MainCharInfo.m_strWhisperName);					
 						}
 
-						if( !g_pUIManager->IsPopMenu() && !g_pUIManager->IsShow(WINDOW_PC_TRADE))	 // ÀÌ¹Ì PopupÀÌ ¶° ÀÖÁö ¾ÊÀ¸¸é
+						if( !g_pUIManager->IsPopMenu() && !g_pUIManager->IsShow(WINDOW_PC_TRADE))	 // ì´ë¯¸ Popupì´ ë–  ìˆì§€ ì•Šìœ¼ë©´
 						{							
 							BOOL bDawWar = FALSE;
 							if(pCharObject->m_dwPartyLeaderID == dwObjectID && g_MainCharInfo.m_pRelation->Am_I_LeaderInDan())
@@ -143,7 +143,7 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 					}
 					else	
 					{
-						// °ø°İ. ÀÏ¹İÀûÀ¸·Î ½¬ÇÁÆ®¸¦ ´­·¯¾ß ÀÏ¹İ Ä³¸¯ °ø°İÀÌ µÈ´Ù.
+						// ê³µê²©. ì¼ë°˜ì ìœ¼ë¡œ ì‰¬í”„íŠ¸ë¥¼ ëˆŒëŸ¬ì•¼ ì¼ë°˜ ìºë¦­ ê³µê²©ì´ ëœë‹¤.
 						if( ( GetAsyncKeyState( VK_SHIFT) < 0) || g_MainCharInfo.m_bIsPvPMap == TRUE)
 						{
 							if(MAIN_CHAROBJECT->GetAnimation() == XiahAniType::eLAT_Run)
@@ -151,7 +151,7 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 								SendCS_NV_ENDMOVE_REQ( g_pMainChar->m_dwServerID, pMainChar->m_Position.x, -pMainChar->m_Position.z, pMainChar->m_Position.y,CHARSTATE_NORMAL);
 							}
 
-							// ¸ŞÀÎ ÄÉ¸¯ÀÌ Å»¹éÀÎÀÌ °É¸° »óÅÂ¸é °ø°İÀ» ÇÒ ¼ö ¾ø´Ù.
+							// ë©”ì¸ ì¼€ë¦­ì´ íƒˆë°±ì¸ì´ ê±¸ë¦° ìƒíƒœë©´ ê³µê²©ì„ í•  ìˆ˜ ì—†ë‹¤.
 							if( !pMainChar->m_KeepUpMugongList.IsExist(OUTGONGID_TALBAKIN) )
 							{
 								SendCS_BT_PREATTACK_REQ( OBJTYPE_PC, g_pMainChar->m_dwServerID, pCharObject->m_bObjType, pObject->m_dwServerID,
@@ -164,7 +164,7 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 
 				if(! (GetAsyncKeyState(VK_CONTROL) < 0))
 				{
-					// ´Ü ºñ¹«. ÀÏ¶© Å¬¸¯ÀÌ °ø°İÀÌ´Ù.
+					// ë‹¨ ë¹„ë¬´. ì¼ë• í´ë¦­ì´ ê³µê²©ì´ë‹¤.
 					if( pMainChar->m_dwEnemyPartyID && pCharObject->m_dwPartyID &&
 						pMainChar->m_dwEnemyPartyID == pCharObject->m_dwPartyID   )
 					{
@@ -173,7 +173,7 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 							SendCS_NV_ENDMOVE_REQ( g_pMainChar->m_dwServerID, pMainChar->m_Position.x, -pMainChar->m_Position.z, pMainChar->m_Position.y,CHARSTATE_NORMAL);
 						}
 
-						// ¸ŞÀÎ ÄÉ¸¯ÀÌ Å»¹éÀÎÀÌ °É¸° »óÅÂ¸é °ø°İÀ» ÇÒ ¼ö ¾ø´Ù.
+						// ë©”ì¸ ì¼€ë¦­ì´ íƒˆë°±ì¸ì´ ê±¸ë¦° ìƒíƒœë©´ ê³µê²©ì„ í•  ìˆ˜ ì—†ë‹¤.
 						if( !pMainChar->m_KeepUpMugongList.IsExist(OUTGONGID_TALBAKIN) )
 						{
 							SendCS_BT_PREATTACK_REQ( OBJTYPE_PC, g_pMainChar->m_dwServerID, pCharObject->m_bObjType, pObject->m_dwServerID,
@@ -182,7 +182,7 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 						}
 					}
 
-					// ¹®ÆÄÀü °ø°İ. ÀÏ¶© Å¬¸¯ÀÌ °ø°İÀÌ´Ù.
+					// ë¬¸íŒŒì „ ê³µê²©. ì¼ë• í´ë¦­ì´ ê³µê²©ì´ë‹¤.
 					if((pMainChar->m_bWarStatus == 2) && (pMainChar->m_dwEnemyMunpaID == pCharObject->m_dwMunpaID))
 					{
 						if(MAIN_CHAROBJECT->GetAnimation() == XiahAniType::eLAT_Run)
@@ -190,7 +190,7 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 							SendCS_NV_ENDMOVE_REQ( g_pMainChar->m_dwServerID, pMainChar->m_Position.x, -pMainChar->m_Position.z, pMainChar->m_Position.y,CHARSTATE_NORMAL);
 						}
 
-						// ¸ŞÀÎ ÄÉ¸¯ÀÌ Å»¹éÀÎÀÌ °É¸° »óÅÂ¸é °ø°İÀ» ÇÒ ¼ö ¾ø´Ù.
+						// ë©”ì¸ ì¼€ë¦­ì´ íƒˆë°±ì¸ì´ ê±¸ë¦° ìƒíƒœë©´ ê³µê²©ì„ í•  ìˆ˜ ì—†ë‹¤.
 						if( !pMainChar->m_KeepUpMugongList.IsExist(OUTGONGID_TALBAKIN) )
 						{
 							SendCS_BT_PREATTACK_REQ(OBJTYPE_PC, g_pMainChar->m_dwServerID, pCharObject->m_bObjType, pObject->m_dwServerID,
@@ -199,12 +199,12 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 						}
 					}
 
-					// ¸¶Ç÷¼º ¿¡¼­¸¸ & ¹®ÆÄ´ëÀü½Ã
+					// ë§ˆí˜ˆì„± ì—ì„œë§Œ & ë¬¸íŒŒëŒ€ì „ì‹œ
 					if(XiahMap::g_XiahMap.m_MapInfo.m_dwMapID == 12 && g_MainCharInfo.m_bMunpaFight)
 					{					
 						if(pMainChar->m_dwMunpaID != pCharObject->m_dwMunpaID)
 						{
-							// ¸ŞÀÎ ÄÉ¸¯ÀÌ Å»¹éÀÎÀÌ °É¸° »óÅÂ¸é °ø°İÀ» ÇÒ ¼ö ¾ø´Ù.
+							// ë©”ì¸ ì¼€ë¦­ì´ íƒˆë°±ì¸ì´ ê±¸ë¦° ìƒíƒœë©´ ê³µê²©ì„ í•  ìˆ˜ ì—†ë‹¤.
 							if( !pMainChar->m_KeepUpMugongList.IsExist(OUTGONGID_TALBAKIN) )
 							{
 								SendCS_BT_PREATTACK_REQ(OBJTYPE_PC, g_pMainChar->m_dwServerID, pCharObject->m_bObjType, pObject->m_dwServerID,
@@ -219,17 +219,17 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 		break;
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
-	case OBJTYPE_NPC:  // NPC ÀÏ¹İ °ø°İ ÂÁ
+	case OBJTYPE_NPC:  // NPC ì¼ë°˜ ê³µê²© ì©
 		{
 			XiahItem::sItemInfo* pHoldItem = g_MainCharInfo.m_pHoldItem->GetHoldItemItem();
 
 			if( pHoldItem && pHoldItem->m_bSackID == SACKTYPE__DEFAULT)
 			{
-				// Æê¿¡ °ü·ÃµÈ ¾ÆÀÌÅÛ
+				// í«ì— ê´€ë ¨ëœ ì•„ì´í…œ
 				if( pHoldItem->m_bItemType == ITEMTYPE_NPCITEM )
 				{
-					// ±æµéÀÌ±â
-					// [6/27/2005] ÀÚ¼Ò»Ô
+					// ê¸¸ë“¤ì´ê¸°
+					// [6/27/2005] ìì†Œë¿”
 					if( pHoldItem->m_bItemKind == 0 || pHoldItem->m_bItemKind == 5)
 					{
 						if( fInteractDistance <= fInteractionRange)
@@ -240,12 +240,12 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 							g_MainCharInfo.ShowHelpMessage( IDS_GIVE_BAIT);
 							ChangeXiahCursor( eCT_General);
 
-							// ¸¶¿ì½º ÃÊ±âÈ­
+							// ë§ˆìš°ìŠ¤ ì´ˆê¸°í™”
 							XiahInput::g_bLButtonDown  = FALSE;
 							XiahInput::g_Attack_Button_On = FALSE;
 						}
 					}
-					// ¸ÔÀÌ
+					// ë¨¹ì´
 					else if( pHoldItem->m_bItemKind == 1 || pHoldItem->m_bItemKind == 2)
 					{
 						g_MainCharInfo.ShowHelpMessage(INTER_WARNNIG1);
@@ -259,10 +259,10 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 					SendCS_NV_ENDMOVE_REQ( g_pMainChar->m_dwServerID, pMainChar->m_Position.x, -pMainChar->m_Position.z, pMainChar->m_Position.y,CHARSTATE_NORMAL);
 				}
 
-				// ¸ŞÀÎ ÄÉ¸¯ÀÌ Å»¹éÀÎÀÌ °É¸° »óÅÂ¸é °ø°İÀ» ÇÒ ¼ö ¾ø´Ù.
+				// ë©”ì¸ ì¼€ë¦­ì´ íƒˆë°±ì¸ì´ ê±¸ë¦° ìƒíƒœë©´ ê³µê²©ì„ í•  ìˆ˜ ì—†ë‹¤.
 				if( !pMainChar->m_KeepUpMugongList.IsExist(OUTGONGID_TALBAKIN) )
 				{
-					// Ã¤Áı
+					// ì±„ì§‘
 					if(3 == pCharObject->m_bExSubObjType)
 					{
 						bAutoAttack = false;
@@ -272,12 +272,12 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 						WORD wCharAngle = 0;
 						pMainChar->GetAngle(wCharAngle);
 
-						// Ã¤ÁıÀ» ¾Ë¸²
+						// ì±„ì§‘ì„ ì•Œë¦¼
 						SendCS_ACTION_REQ(17, 0, wCharAngle, pObject->m_dwServerID);
 					}
 					else
 					{
-						//HT_1026 : ½ºÇÙ ¹æÁö
+						//HT_1026 : ìŠ¤í•µ ë°©ì§€
 					//	if(g_MainChar_PreAttackInfo.bPreAttackReq && g_MainChar_PreAttackInfo.bAttackReq)
 							SendCS_BT_PREATTACK_REQ( OBJTYPE_PC, g_pMainChar->m_dwServerID, pCharObject->m_bObjType, pObject->m_dwServerID,
 													wPosX, wPosY, (BYTE)pMainChar->m_Position.y, 0);
@@ -305,7 +305,7 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 		{			
 			XiahItem::sItemInfo* pHoldItem = g_MainCharInfo.m_pHoldItem->GetHoldItemItem();
 
-			// ÀÓ½Ã
+			// ì„ì‹œ
 			if(pHoldItem == NULL)
 			{
 				g_PetList.SelectPet(dwObjectID);
@@ -329,9 +329,9 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 
 					if(pPetInfo)
 					{
-						//¸ÔÀÌ
+						//ë¨¹ì´
 						if( (pPetInfo->bWildRate != 0 && pHoldItem->m_bItemKind == 1) || (pPetInfo->dwHpCur != pPetInfo->dwHpMax && pHoldItem->m_bItemKind == 2 ) 
-							|| (pHoldItem->m_bItemKind == 4) || (pHoldItem->m_bItemKind == 6) || (pHoldItem->m_bItemKind == 7 )||(pHoldItem->m_bItemKind == 8 )) //HT_0621 : ¿µ¼öµĞ°©½Å´Ü //HO_0427_07 ¿µ¼öÈ¯°ñ½Å´Ü pHoldItem->m_bItemKind == 7 ¿µ¼ö°¢¼º½Å´Ü8
+							|| (pHoldItem->m_bItemKind == 4) || (pHoldItem->m_bItemKind == 6) || (pHoldItem->m_bItemKind == 7 )||(pHoldItem->m_bItemKind == 8 )) //HT_0621 : ì˜ìˆ˜ë‘”ê°‘ì‹ ë‹¨ //HO_0427_07 ì˜ìˆ˜í™˜ê³¨ì‹ ë‹¨ pHoldItem->m_bItemKind == 7 ì˜ìˆ˜ê°ì„±ì‹ ë‹¨8
 						{
 							SendCS_IM_GIVEITEM_REQ( pHoldItem->m_bSackCount+1, pHoldItem->m_bSackPos, pHoldItem->m_dwItemID, pCharObject->m_bObjType, pObject->m_dwServerID);
 							//g_MainCharInfo.m_pHoldItem->DeleteHoldItemItem();
@@ -341,12 +341,12 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 
 							ChangeXiahCursor( eCT_General);
 
-							// ¸¶¿ì½º ÃÊ±âÈ­
+							// ë§ˆìš°ìŠ¤ ì´ˆê¸°í™”
 							XiahInput::g_bLButtonDown  = FALSE;
 							XiahInput::g_Attack_Button_On = FALSE;
 						}
-						// ±æµéÀÌ±â
-						// [6/27/2005] ÀÚ¼Ò»Ô
+						// ê¸¸ë“¤ì´ê¸°
+						// [6/27/2005] ìì†Œë¿”
 						else if( pHoldItem->m_bItemType == ITEMTYPE_NPCITEM && (pHoldItem->m_bItemKind == 0 || pHoldItem->m_bItemKind == 5))
 						{
 							g_MainCharInfo.ShowHelpMessage(INTER_WARNNIG2);
@@ -369,13 +369,13 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 
 	case OBJTYPE_FUNCTIONALNPC: // NPC
 		{
-			if( !g_pUIManager->IsPopMenu() && !g_pUIManager->IsPopSubMenu())	 // ÀÌ¹Ì PopupÀÌ ¶° ÀÖÁö ¾ÊÀ¸¸é
+			if( !g_pUIManager->IsPopMenu() && !g_pUIManager->IsPopSubMenu())	 // ì´ë¯¸ Popupì´ ë–  ìˆì§€ ì•Šìœ¼ë©´
 			{
 				sFunctionalNpcInfo* pInfo = (sFunctionalNpcInfo*)pCharObject->m_pPrivateData;
 				
 				if(pInfo == NULL)
 				{
-					DBG_LogFile( _T("InteractObject/OBJTYPE_FUNCTIONALNPC NULL°ª"));
+					DBG_LogFile( _T("InteractObject/OBJTYPE_FUNCTIONALNPC NULLê°’"));
 					break;
 				}
 				
@@ -384,17 +384,17 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 
 				switch( pInfo->m_bType)
 				{
-					case 1: //´ëÀåÀåÀÌ
-					case 2:	//ÀÇ·ù»óÀÎ
-					case 3: //ÀâÈ­»óÀÎ
-					case 4:	//º¸¼®»óÀÎ
-					case 8: //¸¸¹°»óÀÎ
+					case 1: //ëŒ€ì¥ì¥ì´
+					case 2:	//ì˜ë¥˜ìƒì¸
+					case 3: //ì¡í™”ìƒì¸
+					case 4:	//ë³´ì„ìƒì¸
+					case 8: //ë§Œë¬¼ìƒì¸
 						{
 							bSuriFlag = TRUE;
 							bGejoFlag = TRUE;
 						}					
 						break;
-					case 31://HT_0829 : ÇÁ¸®¹Ì¾ö Äù½ºÆ® (±â¿¬±Ë ÆÇ¸Å»ó)
+					case 31://HT_0829 : í”„ë¦¬ë¯¸ì—„ í€˜ìŠ¤íŠ¸ (ê¸°ì—°ê¶¤ íŒë§¤ìƒ)
 						{
 							g_pUIManager->MakePopMenu(scPos.x, scPos.y,
 													FRAMEID_NPC, 3, 
@@ -404,10 +404,10 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 
 							goto MakePopPass;
 						}
-					case 5:	//Á¦¾à»ç
+					case 5:	//ì œì•½ì‚¬
 						break;
 
-					case 6:	//¼­Á¡ÁÖÀÎ	// º¹±Ç¿ë ÀÓ½Ã´ë¿ë
+					case 6:	//ì„œì ì£¼ì¸	// ë³µê¶Œìš© ì„ì‹œëŒ€ìš©
 						{
 							g_pUIManager->MakePopMenu(scPos.x, scPos.y,
 													FRAMEID_NPC, 3, 
@@ -418,9 +418,9 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 							goto MakePopPass;
 						}
 						break;
-					case 7:	//Ã¢°íÁö±â
+					case 7:	//ì°½ê³ ì§€ê¸°
 						{
-							// º¹±¸
+							// ë³µêµ¬
 							g_pUIManager->MakePopMenu(	scPos.x, scPos.y,
 														FRAMEID_NPC, 3, 
 														TRUE, RESID_REPAIR, IDS_RECOVERY, 
@@ -431,7 +431,7 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 						}					
 						break;
 
-					// º¹¸éÀÎµé
+					// ë³µë©´ì¸ë“¤
 					case 9:
 					case 10:
 						{
@@ -444,7 +444,7 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 						}					
 						break;
 
-					case 11:	// Á¤»ç°ü
+					case 11:	// ì •ì‚¬ê´€
 						{
 							g_pUIManager->MakePopMenu(scPos.x, scPos.y,
 														FRAMEID_OFFICIAL, 3, 
@@ -455,15 +455,15 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 						}					
 						break;
 
-						// ºñ¼® À¯Çü
+						// ë¹„ì„ ìœ í˜•
 						//	12	997		0	0
 						//	13	998		0	0
 						//	14	999		0	0
 						//	15	1001	0	0
 						//	16	1002	0	0
 						//	17	1004	0	0
-					case 12:	// ¹®ÆÄ ºñ¼®
-					case 15:	// °ø¿ë ºñ¼®
+					case 12:	// ë¬¸íŒŒ ë¹„ì„
+					case 15:	// ê³µìš© ë¹„ì„
 						{
 							g_MainCharInfo.m_dwPickedObject = pInfo->m_dwObjectID;
 
@@ -471,14 +471,14 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 							{
 								if(pInfo->m_dwOwnID)
 								{
-									if(pInfo->m_bWar == 2)		// 1´ë±â 2ÀüÀï	g_MainCharInfo.m_bWar
-									{// ¹®ÆÄÀü ÁøÇàÁß
-										if(pMainChar->m_dwMunpaID != pInfo->m_dwOwnID && pMainChar->m_bWarStatus == 2)	// ºñ¼®¿¡ ÀúÀåµÈ ¹®ÆÄ¿Í ÀÚ½ÅÀÇ ¹®ÆÄ ºñ±³
+									if(pInfo->m_bWar == 2)		// 1ëŒ€ê¸° 2ì „ìŸ	g_MainCharInfo.m_bWar
+									{// ë¬¸íŒŒì „ ì§„í–‰ì¤‘
+										if(pMainChar->m_dwMunpaID != pInfo->m_dwOwnID && pMainChar->m_bWarStatus == 2)	// ë¹„ì„ì— ì €ì¥ëœ ë¬¸íŒŒì™€ ìì‹ ì˜ ë¬¸íŒŒ ë¹„êµ
 										{
-											// Àû ¹®ÆÄÀÏ¶§ °ø°İ
+											// ì  ë¬¸íŒŒì¼ë•Œ ê³µê²©
 											if(pMainChar->m_dwMunpaID == pInfo->m_dwEnemyMunpaID)
 											{
-												// ¸ŞÀÎ ÄÉ¸¯ÀÌ Å»¹éÀÎÀÌ °É¸° »óÅÂ¸é °ø°İÀ» ÇÒ ¼ö ¾ø´Ù.
+												// ë©”ì¸ ì¼€ë¦­ì´ íƒˆë°±ì¸ì´ ê±¸ë¦° ìƒíƒœë©´ ê³µê²©ì„ í•  ìˆ˜ ì—†ë‹¤.
 												if( !pMainChar->m_KeepUpMugongList.IsExist(OUTGONGID_TALBAKIN) )
 												{
 													SendCS_BT_PREATTACK_REQ(OBJTYPE_PC, g_pMainChar->m_dwServerID, pCharObject->m_bObjType, pObject->m_dwServerID,
@@ -499,7 +499,7 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 								}
 								else
 								{
-									// ¹Ì¼ÒÀ¯ ºñ¼®
+									// ë¯¸ì†Œìœ  ë¹„ì„
 									TCHAR strText[256] = {0,};
 									_stprintf(strText, IDS_STONE_PAYMENT_DES, MoneyCommaStr(30000000).data());
 									g_pUIManager->ShowNotice(strText, NOTICE_FRAME_OKCANCEL, NOTICE_FRAME_STONE_OWN);
@@ -509,10 +509,10 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 							{
 								if(pMainChar->m_bWarStatus == 2)
 								{
-									// Àû ¹®ÆÄÀÏ¶§ °ø°İ
+									// ì  ë¬¸íŒŒì¼ë•Œ ê³µê²©
 									if(pMainChar->m_dwMunpaID == pInfo->m_dwEnemyMunpaID)
 									{
-										// ¸ŞÀÎ ÄÉ¸¯ÀÌ Å»¹éÀÎÀÌ °É¸° »óÅÂ¸é °ø°İÀ» ÇÒ ¼ö ¾ø´Ù.
+										// ë©”ì¸ ì¼€ë¦­ì´ íƒˆë°±ì¸ì´ ê±¸ë¦° ìƒíƒœë©´ ê³µê²©ì„ í•  ìˆ˜ ì—†ë‹¤.
 										if( !pMainChar->m_KeepUpMugongList.IsExist(OUTGONGID_TALBAKIN) )
 										{
 											SendCS_BT_PREATTACK_REQ(OBJTYPE_PC, g_pMainChar->m_dwServerID, pCharObject->m_bObjType, pObject->m_dwServerID,
@@ -526,7 +526,7 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 							return true;
 						}
 						break;
-					case 18:	// ¿¬±İ¼ú»ç
+					case 18:	// ì—°ê¸ˆìˆ ì‚¬
 						{
 							g_pUIManager->MakePopMenu(scPos.x, scPos.y,
 													FRAMEID_ALCHEMIST, 3, 
@@ -538,7 +538,7 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 							goto MakePopPass;
 						}
 						break;
-					case 23:	// »ó¼­·É
+					case 23:	// ìƒì„œë ¹
 						{
 							g_pUIManager->MakePopMenu(scPos.x, scPos.y,
 													FRAMEID_HELP, 3, 
@@ -549,7 +549,7 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 							goto MakePopPass;
 						}
 						break;
-					case 25:	// NPC Æ÷Å» ÀÌµ¿ »ó¼­·É
+					case 25:	// NPC í¬íƒˆ ì´ë™ ìƒì„œë ¹
 						{
 							g_pUIManager->MakePopMenu(scPos.x, scPos.y,
 													FRAMEID_NPC_PORTAL, 3, 
@@ -560,7 +560,7 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 							goto MakePopPass;
 						}
 						break;
-					case 30:	// ¹®ÆÄ´ëÀü °ü¸®ÀÎ NPC (ºñ¼± Àû¿ëÁßÀÎ ³ìÁ¸ NPC ¸®¼Ò½º)
+					case 30:	// ë¬¸íŒŒëŒ€ì „ ê´€ë¦¬ì¸ NPC (ë¹„ì„  ì ìš©ì¤‘ì¸ ë…¹ì¡´ NPC ë¦¬ì†ŒìŠ¤)
 						{
 							g_pUIManager->MakePopMenu(scPos.x, scPos.y,
 													FRAMEID_CLAN_WAR, 3, 
@@ -572,7 +572,7 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 
 						}
 						break;
-					case 40:	// ¼º³à
+					case 40:	// ì„±ë…€
 						{
 							g_pUIManager->MakePopMenu(scPos.x, scPos.y,
 													FRAMEID_HELP_2, 3,
@@ -583,7 +583,7 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 							goto MakePopPass;
 						}
 						break;
-					case 32:	//HT_1116 : °¢¼ºÀÚ ¾ÆÀÌÅÛ Ãß°¡
+					case 32:	//HT_1116 : ê°ì„±ì ì•„ì´í…œ ì¶”ê°€
 						{
 							g_pUIManager->MakePopMenu(scPos.x, scPos.y,
 													FRAMEID_REBIRTHITEM, 3,
@@ -592,7 +592,7 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 													true, RESID_MIXTURE, IDS_MIXTURE);
 							goto MakePopPass;
 						}
-					case 33:	//HT_0313 : ±¤¸íÀü & ÃµÈ²Àü
+					case 33:	//HT_0313 : ê´‘ëª…ì „ & ì²œí™©ì „
 						{							
 							g_pUIManager->MakePopSubMenu(1,scPos.x + 40, scPos.y,
 										FRAMEID_SECRET, 2,
@@ -606,7 +606,7 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 						break;
 				}
 
-				// º¹±¸ È°¼ºÈ­ - ÄÚµå ÀÌµ¿
+				// ë³µêµ¬ í™œì„±í™” - ì½”ë“œ ì´ë™
 
 				g_pUIManager->MakePopMenu(	scPos.x, scPos.y,
 											FRAMEID_NPC, 3, 
@@ -614,14 +614,14 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 											bGejoFlag, RESID_MODIFY, IDS_CONVERT,
 											TRUE, RESID_TRADE, IDS_DEAL);
 
-MakePopPass:	// ÀÏ¹İ ÆË¾÷ Åë°ú
+MakePopPass:	// ì¼ë°˜ íŒì—… í†µê³¼
 
 				g_pUIManager->SetString(WINDOW_NPC_TRADE, npc_trade_window_title_back, pCharObject->m_szObjectName);
 
 				g_MainCharInfo.m_dwPickedObject = pInfo->m_dwObjectID;
 			
-				// »óÁ¡ °Å·¡ ¼º°øÇÏ°Ô µÇ¸é ´ëÈ­ µ¿ÀÛÀ» playÇØÁØ´Ù
-				// ³ªÁß¿¡ ¾ÆÀÌÅÛÀ» ±¸ÀÔÇÏ°Å³ª ÆÈ°Å³ª ÇÒ¶§¸¶´Ù ÀÌ·¸°Ô È£ÃâÇØÁÖ¸é ÁÁÀ½!!
+				// ìƒì  ê±°ë˜ ì„±ê³µí•˜ê²Œ ë˜ë©´ ëŒ€í™” ë™ì‘ì„ playí•´ì¤€ë‹¤
+				// ë‚˜ì¤‘ì— ì•„ì´í…œì„ êµ¬ì…í•˜ê±°ë‚˜ íŒ”ê±°ë‚˜ í• ë•Œë§ˆë‹¤ ì´ë ‡ê²Œ í˜¸ì¶œí•´ì£¼ë©´ ì¢‹ìŒ!!
 				pCharObject->SetAnimation( XiahAniType::eLAT_Special, XiahAniType::eLAT_Stand, 0, -1);
 				pMainChar->SetAngleTarget( pCharObject);
 				pCharObject->SetAngleTarget( pMainChar);

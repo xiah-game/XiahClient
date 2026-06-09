@@ -1,4 +1,4 @@
-// Type.h: Define common type constants.
+ï»¿// Type.h: Define common type constants.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -57,7 +57,7 @@
 #define OBJTYPE_ARROW						((BYTE)0x09)
 #define OBJTYPE_LOT							((BYTE)0x10)
 
-#define OBJTYPE_PC_TRADE_SELLING			((BYTE)0x11)  // °³ÀÎ »óÁ¡ ÆÇ¸Å
+#define OBJTYPE_PC_TRADE_SELLING			((BYTE)0x11)  // ê°œì¸ ìƒì  íŒë§¤
 
 // Character Type //////////////////////////////////////////////////////////////////////////
 #define CHARTYPE_MALE						((BYTE)0x05)
@@ -84,14 +84,14 @@
 #define SACKTYPE__PET3						((BYTE)0x10)
 #define SACKTYPE__PET_EQUIP					((BYTE)0x11)
 
-#define SACKTYPE__PERSONAL_TRADE_SET		((BYTE)0x12) // °³ÀÎ »óÁ¡ ¼³Á¤
-#define SACKTYPE__PERSONAL_TRADE_SELL		((BYTE)0x13) // °³ÀÎ »óÁ¡ ÆÇ¸Å
-#define SACKTYPE__ITEMMALL					((BYTE)0x14) // ¾ÆÀÌÅÛ¸ô Ã¢
-#define SACKTYPE__SMELT						((BYTE)0x15) // Á¶ÇÕ    - ÀÌ»óÇÏ°Ôµµ 16Áø¼öÀÎµ¥ À§ 0x10ºÎÅÍ Àú·¸°Ô ÀûÇû³ß...
-#define SACKTYPE__FIVEELEMENT_CONVERT		((BYTE)0x16) // ¿ÀÇà ¾ÆÀÌÅÛ Á¦·Ã
-#define SACKTYPE__QUICKMART					((BYTE)0x17) // ¸ÅÇ°ÆÐ
-#define SACKTYPE__COLLECTION				((BYTE)0x18) // ¾ÆÀÌÅÛ ¼öÁý
-#define SACKTYPE__SECRETROOM				((BYTE)0x19) // ±¤¸íÀü & ÃµÈ²Àü
+#define SACKTYPE__PERSONAL_TRADE_SET		((BYTE)0x12) // ê°œì¸ ìƒì  ì„¤ì •
+#define SACKTYPE__PERSONAL_TRADE_SELL		((BYTE)0x13) // ê°œì¸ ìƒì  íŒë§¤
+#define SACKTYPE__ITEMMALL					((BYTE)0x14) // ì•„ì´í…œëª° ì°½
+#define SACKTYPE__SMELT						((BYTE)0x15) // ì¡°í•©    - ì´ìƒí•˜ê²Œë„ 16ì§„ìˆ˜ì¸ë° ìœ„ 0x10ë¶€í„° ì €ë ‡ê²Œ ì í˜”ë„¹...
+#define SACKTYPE__FIVEELEMENT_CONVERT		((BYTE)0x16) // ì˜¤í–‰ ì•„ì´í…œ ì œë ¨
+#define SACKTYPE__QUICKMART					((BYTE)0x17) // ë§¤í’ˆíŒ¨
+#define SACKTYPE__COLLECTION				((BYTE)0x18) // ì•„ì´í…œ ìˆ˜ì§‘
+#define SACKTYPE__SECRETROOM				((BYTE)0x19) // ê´‘ëª…ì „ & ì²œí™©ì „
 #define SACKTYPE__SECRETROOM1				((BYTE)0x20) // 
 
 //naegong constants //////////////////////////////////////////////////////////////////////////
@@ -111,7 +111,7 @@
 #define BATTLE_DRAW							7
 #define BATTLE_REFUSE						9
 
-// ¸í¼ºÄ¡ÀÇ ÃÊ±â°ª
+// ëª…ì„±ì¹˜ì˜ ì´ˆê¸°ê°’
 #define FAME_BASE							128
 
 // Character Sack /////////////////////////////////////////////
@@ -164,7 +164,7 @@
 #define PETSACKTYPE_PETSACK2				((BYTE)2)
 #define PETSACKTYPE_PETSACK3				((BYTE)3)
 
-// TODO: Æê
+// TODO: íŽ«
 #define MAX_PETEQUIPMENT_ITEM				((BYTE)6)
 #define PETEQUIP_WEAPON						((BYTE)0)
 #define PETEQUIP_RIDING						((BYTE)1)
@@ -190,7 +190,7 @@
 
 #define NUM_ITEMTYPE						((BYTE)30)
 
-//1 ~ 10 PC Çà³¶Ã¢¿¡ ÀåÂø ÇÒ ¼ö ÀÖ´Â ¾ÆÀÌÅÛ 
+//1 ~ 10 PC í–‰ë‚­ì°½ì— ìž¥ì°© í•  ìˆ˜ ìžˆëŠ” ì•„ì´í…œ 
 #define ITEMTYPE_WEAPON						((BYTE)1)
 #define ITEMTYPE_CLOTH						((BYTE)2)
 #define ITEMTYPE_HAT						((BYTE)3)
@@ -202,7 +202,7 @@
 #define ITEMTYPE_BONGIN						((BYTE)9)
 #define ITEMTYPE_RESERVE1					((BYTE)10)
 
-//11 ~ 20 NPC Çà³¶Ã¢°ú NPC¿ë ¾ÆÀÌÅÛ ¹× ÀÌº¥Æ® ¾ÆÀÌÅÛ 
+//11 ~ 20 NPC í–‰ë‚­ì°½ê³¼ NPCìš© ì•„ì´í…œ ë° ì´ë²¤íŠ¸ ì•„ì´í…œ 
 #define ITEMTYPE_NPCRING					((BYTE)11)
 #define ITEMTYPE_NPCNECKLACE				((BYTE)12)
 #define ITEMTYPE_NPCWEAPON					((BYTE)13)
@@ -214,7 +214,7 @@
 #define ITEMTYPE_EVENT						((BYTE)19)
 #define ITEMTYPE_SURESOURCE					((BYTE)20)
 
-//21 ~ 30 ¼Ò¸ð¼º ¾ÆÀÌÅÛ 
+//21 ~ 30 ì†Œëª¨ì„± ì•„ì´í…œ 
 #define ITEMTYPE_BOOK						((BYTE)21)
 #define ITEMTYPE_PORTAL						((BYTE)22)
 #define ITEMTYPE_POTION						((BYTE)23)
@@ -225,9 +225,9 @@
 #define ITEMTYPE_RESERVE7					((BYTE)28)
 #define ITEMTYPE_MANUAL						((BYTE)29)
 #define ITEMTYPE_RESERVE9					((BYTE)30)
-#define ITEMTYPE_GOLDKEY					((BYTE)36) //HO_0828_07 È²±Ý¿­¼è Ãß°¡
+#define ITEMTYPE_GOLDKEY					((BYTE)36) //HO_0828_07 í™©ê¸ˆì—´ì‡  ì¶”ê°€
 
-//31 ~ 40 GIS¿ë ¾ÆÀÌÅÛ 
+//31 ~ 40 GISìš© ì•„ì´í…œ 
 #define ITEMTYPE_REBIRTH					((BYTE)31)
 #define ITEMTYPE_GISDURABLITY				((BYTE)32)
 #define ITEMTYPE_GISTIMELIMIT				((BYTE)33)
@@ -336,17 +336,17 @@
 #define RT_FAMILY							((BYTE)0)
 #define RT_SCHOOL							((BYTE)1)
 
-//°¡Á·°ü°èÀÇ À¯Çü
+//ê°€ì¡±ê´€ê³„ì˜ ìœ í˜•
 #define REL_PARENTHOOD						((BYTE)1)
 #define REL_SPOUSE							((BYTE)2)
 
-//FAMILY POSITION(°¡Á·³»ÀÇ Àý´ëÀû À§Ä¡)
+//FAMILY POSITION(ê°€ì¡±ë‚´ì˜ ì ˆëŒ€ì  ìœ„ì¹˜)
 #define FAMILY_NONE							((BYTE)0)
 #define FAMILY_FATHER						((BYTE)1)
 #define FAMILY_MOTHER						((BYTE)2)
 #define FAMILY_CHILD						((BYTE)3)
 
-//FAMILY RELATION(º»ÀÎÀ» Áß½ÉÀ¸·Î ÇÑ »ó´ëÀû °¡Á· °ü°è)
+//FAMILY RELATION(ë³¸ì¸ì„ ì¤‘ì‹¬ìœ¼ë¡œ í•œ ìƒëŒ€ì  ê°€ì¡± ê´€ê³„)
 #define FREL_NONE							((BYTE)0)
 #define FREL_FATHER							((BYTE)1)
 #define FREL_MOTHER							((BYTE)2)
@@ -354,7 +354,7 @@
 #define FREL_CHILD							((BYTE)4)
 #define FREL_SIBLING						((BYTE)5)
 
-//SCHOLL RELATION(º»ÀÎÀ» Áß½ÉÀ¸·Î ÇÑ »ó´ëÀû »çºÎ»çÁ¦°ü°è)
+//SCHOLL RELATION(ë³¸ì¸ì„ ì¤‘ì‹¬ìœ¼ë¡œ í•œ ìƒëŒ€ì  ì‚¬ë¶€ì‚¬ì œê´€ê³„)
 #define SREL_NONE							((BYTE)0)
 #define SREL_TEACHER						((BYTE)1)
 #define SREL_STUDENT						((BYTE)2)
@@ -382,12 +382,12 @@
 #define MUGONGTYPE_GENERAL					((BYTE)2)
 #define MUGONGTYPE_PASSIVE					((BYTE)0)
 #define MUGONGTYPE_ACTIVE					((BYTE)1)
-//HT_0711 :Áø°¢¼º ¹«°ø
+//HT_0711 :ì§„ê°ì„± ë¬´ê³µ
 #define MUGONGTYPE_2TH_REBIRTH1				((BYTE)3)
 #define MUGONGTYPE_2TH_REBIRTH2				((BYTE)4)
-// ¿ÀÇà
+// ì˜¤í–‰
 #define MUGONGTYPE_FIVEELEMENT				((BYTE)5)
-// °¢¼º ¼±¹«°ø
+// ê°ì„± ì„ ë¬´ê³µ
 #define MUGONGTYPE_REBIRTH_NEGONG			((BYTE)6)
 #define MUGONGTYPE_REBIRTH_OUTGONG			((BYTE)7)
 #define	MUGONGTYPE_SPECIAL_OUTGONG			((BYTE)8)
@@ -397,36 +397,36 @@
 
 // NPC Status -----------------------------------------------------------------
 #define MAX_STATUS				64
-#define NPCSTATUS_NONE			((BYTE)0)		// °³Ã¼ »ý¼º½Ã
-#define NPCSTATUS_INIT			((BYTE)1)		// È­¸é¿¡ ¾ÆÁ÷ ¾Èº¸ÀÌ´Â Áß
-#define NPCSTATUS_STANDING		((BYTE)2)		// ¼­ ÀÖÀ½
-#define NPCSTATUS_DIE			((BYTE)3)		// Á×¾îÀÖ´Â »óÅÂ
-#define NPCSTATUS_HIDE			((BYTE)6)		// ¼û±â
-#define NPCSTATUS_UNHIDE		((BYTE)7)		// ³ªÅ¸³ª±â
-#define NPCSTATUS_WALK			((BYTE)20)		// ÀÌµ¿Áß (¹æ¶ûÁß°ú ¼ýÀÚ°ªÀº °°´Ù)
-#define NPCSTATUS_RUN			((BYTE)21)		// ´Þ¸®±â ÀÌµ¿Áß
-#define NPCSTATUS_IDLE			((BYTE)24)		// ¾É¾Æ¼­ ÈÞ½Ä
-#define NPCSTATUS_IDLE1			((BYTE)25)		// ¾É¾Æ¼­ ÈÞ½Ä1
-#define NPCSTATUS_IDLE2			((BYTE)26)		// ¾É¾Æ¼­ ÈÞ½Ä2
-#define NPCSTATUS_WAKEUP		((BYTE)27)		// ¾ÉÀº »óÅÂ¿¡¼­ ÀÏ¾î³ª±â
-#define NPCSTATUS_MELEE			((BYTE)32)		// ±Ù°Å¸® °ø°Ý
-#define NPCSTATUS_SHOT			((BYTE)33)		// Àå°Å¸® °ø°Ý
-#define NPCSTATUS_MUGONG		((BYTE)34)		// ¹«°ø °ø°Ý
-#define NPCSTATUS_PREMELEE		(NPCSTATUS_MELEE+10)	// PRE-±Ù°Å¸®
-#define NPCSTATUS_PRESHOT		(NPCSTATUS_SHOT+10)		// PRE-Àå°Å¸®
-#define NPCSTATUS_PREMUGONG		(NPCSTATUS_MUGONG+10)	// PRE-¹«°ø
+#define NPCSTATUS_NONE			((BYTE)0)		// ê°œì²´ ìƒì„±ì‹œ
+#define NPCSTATUS_INIT			((BYTE)1)		// í™”ë©´ì— ì•„ì§ ì•ˆë³´ì´ëŠ” ì¤‘
+#define NPCSTATUS_STANDING		((BYTE)2)		// ì„œ ìžˆìŒ
+#define NPCSTATUS_DIE			((BYTE)3)		// ì£½ì–´ìžˆëŠ” ìƒíƒœ
+#define NPCSTATUS_HIDE			((BYTE)6)		// ìˆ¨ê¸°
+#define NPCSTATUS_UNHIDE		((BYTE)7)		// ë‚˜íƒ€ë‚˜ê¸°
+#define NPCSTATUS_WALK			((BYTE)20)		// ì´ë™ì¤‘ (ë°©ëž‘ì¤‘ê³¼ ìˆ«ìžê°’ì€ ê°™ë‹¤)
+#define NPCSTATUS_RUN			((BYTE)21)		// ë‹¬ë¦¬ê¸° ì´ë™ì¤‘
+#define NPCSTATUS_IDLE			((BYTE)24)		// ì•‰ì•„ì„œ íœ´ì‹
+#define NPCSTATUS_IDLE1			((BYTE)25)		// ì•‰ì•„ì„œ íœ´ì‹1
+#define NPCSTATUS_IDLE2			((BYTE)26)		// ì•‰ì•„ì„œ íœ´ì‹2
+#define NPCSTATUS_WAKEUP		((BYTE)27)		// ì•‰ì€ ìƒíƒœì—ì„œ ì¼ì–´ë‚˜ê¸°
+#define NPCSTATUS_MELEE			((BYTE)32)		// ê·¼ê±°ë¦¬ ê³µê²©
+#define NPCSTATUS_SHOT			((BYTE)33)		// ìž¥ê±°ë¦¬ ê³µê²©
+#define NPCSTATUS_MUGONG		((BYTE)34)		// ë¬´ê³µ ê³µê²©
+#define NPCSTATUS_PREMELEE		(NPCSTATUS_MELEE+10)	// PRE-ê·¼ê±°ë¦¬
+#define NPCSTATUS_PRESHOT		(NPCSTATUS_SHOT+10)		// PRE-ìž¥ê±°ë¦¬
+#define NPCSTATUS_PREMUGONG		(NPCSTATUS_MUGONG+10)	// PRE-ë¬´ê³µ
 
-// ÇÏÀ§ È£È¯¼ºÀ» À§ÇØ ¸¸µç ÄÚµå
-#define NPCSTATUS_RUNAWAY		((BYTE)10)		// µµ¸ÁÁß
-#define NPCSTATUS_HEAL			((BYTE)11)		// Ã¼·ÂÈ¸º¹Áß (µµ¸Á ¼º°øÈÄ)
-#define NPCSTATUS_WANDER		((BYTE)20)		// ¹æ¶ûÁß
-#define NPCSTATUS_WANDERRUN		((BYTE)21)		// ¹æ¶ûÁß (¶Ù¸é¼­)
-#define NPCSTATUS_WAIT			((BYTE)22)		// ´ë±â Áß (ºÎÇÏ ¿äÃ»)
-#define NPCSTATUS_COMEBACK		((BYTE)23)		// ±ÍÈ¯Áß (¹æ¶ûÈÄ)
-#define NPCSTATUS_ATTENTION		((BYTE)30)		// ÀüÅõÁß
-#define NPCSTATUS_ATTENTIONRUN	((BYTE)31)		// ÀüÅõÁß (¶Ù¸é¼­ ÀÌµ¿)
-// Client¿¡¼­ ÀÚµ¿ Ã³¸®ÇÏ±â ¶§¹®¿¡ Àü¼ÛµÇÁö ¾Ê´Â ÄÚµå
-#define NPCSTATUS_HIT			((BYTE)5)		// ¸Â´Â µ¿ÀÛ
+// í•˜ìœ„ í˜¸í™˜ì„±ì„ ìœ„í•´ ë§Œë“  ì½”ë“œ
+#define NPCSTATUS_RUNAWAY		((BYTE)10)		// ë„ë§ì¤‘
+#define NPCSTATUS_HEAL			((BYTE)11)		// ì²´ë ¥íšŒë³µì¤‘ (ë„ë§ ì„±ê³µí›„)
+#define NPCSTATUS_WANDER		((BYTE)20)		// ë°©ëž‘ì¤‘
+#define NPCSTATUS_WANDERRUN		((BYTE)21)		// ë°©ëž‘ì¤‘ (ë›°ë©´ì„œ)
+#define NPCSTATUS_WAIT			((BYTE)22)		// ëŒ€ê¸° ì¤‘ (ë¶€í•˜ ìš”ì²­)
+#define NPCSTATUS_COMEBACK		((BYTE)23)		// ê·€í™˜ì¤‘ (ë°©ëž‘í›„)
+#define NPCSTATUS_ATTENTION		((BYTE)30)		// ì „íˆ¬ì¤‘
+#define NPCSTATUS_ATTENTIONRUN	((BYTE)31)		// ì „íˆ¬ì¤‘ (ë›°ë©´ì„œ ì´ë™)
+// Clientì—ì„œ ìžë™ ì²˜ë¦¬í•˜ê¸° ë•Œë¬¸ì— ì „ì†¡ë˜ì§€ ì•ŠëŠ” ì½”ë“œ
+#define NPCSTATUS_HIT			((BYTE)5)		// ë§žëŠ” ë™ìž‘
 // ----------------------------------------------------------------------------
 
 //NPC Attack Type
@@ -448,12 +448,12 @@
 #define MAX_FARMS_PER_MUNPA					30
 #define MAX_OTHERS_PER_MUNPA				50
 
-#define LOTTYPE_FARM						((BYTE)0)		// ³óÁö
-#define LOTTYPE_OTHER						((BYTE)1)		// ºñ³óÁö
+#define LOTTYPE_FARM						((BYTE)0)		// ë†ì§€
+#define LOTTYPE_OTHER						((BYTE)1)		// ë¹„ë†ì§€
 
-#define LOTOWNER_NONE						((BYTE)0)		// ÀÓÀÚ¾øÀ½
-#define LOTOWNER_MINE						((BYTE)1)		// ³»¶¥
-#define LOTOWNER_OTHERS						((BYTE)2)		// ³²ÀÇ ¶¥
+#define LOTOWNER_NONE						((BYTE)0)		// ìž„ìžì—†ìŒ
+#define LOTOWNER_MINE						((BYTE)1)		// ë‚´ë•…
+#define LOTOWNER_OTHERS						((BYTE)2)		// ë‚¨ì˜ ë•…
 
 #define LOTSTATE_NONE						((BYTE)0)
 #define LOTSTATE_CLEAR						((BYTE)1)
@@ -461,7 +461,7 @@
 #define LOTSTATE_GROW_1						((BYTE)3)
 #define LOTSTATE_GROW_2						((BYTE)4)
 #define LOTSTATE_HARVEST					((BYTE)5)
-// NONE->°³°£->CLEAR->¸ðÁ¾->YOUNG->½Ã°£°æ°ú->GROW_1->±è¸Å±â->GROW_2->½Ã°£°æ°ú->HARVEST->Ãß¼ö->CLEAR
+// NONE->ê°œê°„->CLEAR->ëª¨ì¢…->YOUNG->ì‹œê°„ê²½ê³¼->GROW_1->ê¹€ë§¤ê¸°->GROW_2->ì‹œê°„ê²½ê³¼->HARVEST->ì¶”ìˆ˜->CLEAR
 
 // Resource Type
 #define RESTYPE_FARM						((BYTE)1)
@@ -520,7 +520,7 @@
 
 #define	DEFAULT_HVALUE						50
 
-//±âº»±â¼ú
+//ê¸°ë³¸ê¸°ìˆ 
 #define BS_BLACKSMITH						((BYTE)1)
 #define BS_COOK								((BYTE)2)
 #define BS_CLOTH							((BYTE)3)
@@ -542,7 +542,7 @@
 #define FURTYPE_ACCOUNTFUR					((BYTE)11)
 #define FURTYPE_MILEPOST					((BYTE)12)
 #define FURTYPE_MUNPA						((BYTE)13)
-#define FURTYPE_TAX							((BYTE)14)//Ãß°¡
+#define FURTYPE_TAX							((BYTE)14)//ì¶”ê°€
 #define FURTYPE_NPC							((BYTE)17)
 
 #define FURNITURE_TYPE_SAFE					123
@@ -644,16 +644,16 @@ typedef enum
 #define FELLING_TYPE6		2986
 
 //Chatting message type
-#define CT_NORMAL			((BYTE)0)//Ãª
-#define CT_WHISPER			((BYTE)1)//ÀüÀ½
-#define CT_BROADCAST		((BYTE)2)//°øÁö»çÇ×
-#define CT_MUNJU    		((BYTE)3)//¹®ÁÖ¸Þ½ÃÁö
-#define CT_BATTLE			((BYTE)4)//¹®ÆÄÀü ¸Þ¼¼Áö
-#define CT_DAN				((BYTE)5)//´Ü ¸Þ¼¼Áö
-#define CT_MUNPA_BROADCAST	((BYTE)6)//¹®ÆÄ¿øµé¿¡°Ô °íÇÔ
-#define CT_MUNPA_MUNJUSHOUT	((BYTE)7)//¹®ÁÖ »çÀÚÈÄ
+#define CT_NORMAL			((BYTE)0)//ì±—
+#define CT_WHISPER			((BYTE)1)//ì „ìŒ
+#define CT_BROADCAST		((BYTE)2)//ê³µì§€ì‚¬í•­
+#define CT_MUNJU    		((BYTE)3)//ë¬¸ì£¼ë©”ì‹œì§€
+#define CT_BATTLE			((BYTE)4)//ë¬¸íŒŒì „ ë©”ì„¸ì§€
+#define CT_DAN				((BYTE)5)//ë‹¨ ë©”ì„¸ì§€
+#define CT_MUNPA_BROADCAST	((BYTE)6)//ë¬¸íŒŒì›ë“¤ì—ê²Œ ê³ í•¨
+#define CT_MUNPA_MUNJUSHOUT	((BYTE)7)//ë¬¸ì£¼ ì‚¬ìží›„
 // CG_2005/01/19 : time message
-#define CT_TIMEMESSAGE		((BYTE)8)//¾ÕÀ¸·Î ¸ðµç ½Ã°£Á¦¾î ¸Þ¼¼Áö Ã³¸®. Áö±ÝÀº ´øÀü¿­¸²,´ÝÈû ½Ã°£ °øÁö
+#define CT_TIMEMESSAGE		((BYTE)8)//ì•žìœ¼ë¡œ ëª¨ë“  ì‹œê°„ì œì–´ ë©”ì„¸ì§€ ì²˜ë¦¬. ì§€ê¸ˆì€ ë˜ì „ì—´ë¦¼,ë‹«íž˜ ì‹œê°„ ê³µì§€
 
 #define CT_SAYITEM_CELL		((BYTE)10)
 #define CT_SAYITEM_MAP		((BYTE)11)
@@ -664,13 +664,13 @@ typedef enum
 
 
 
-//¼¼À²
+//ì„¸ìœ¨
 #define TR_LOT_FARM			20	//5%
 #define TR_LOT_OTHER		20	//5%			
 #define TR_BUILDING			12  //8%
 #define TR_PROGRESSIVE		2	//50%
 
-//°¨¼¼À²
+//ê°ì„¸ìœ¨
 
 #define TR_CHILDREN1		10	//20%
 #define TR_CHILDREN2		15  //40%
@@ -710,13 +710,13 @@ typedef enum
 #define MOVE_TOGETHER					16
 
 
-//¼ÒÀ¯ ÇüÅÂ
+//ì†Œìœ  í˜•íƒœ
 #define OWNTYPE_NONE					0
 #define OWNTYPE_PRIVATE					1
 #define OWNTYPE_MUNPA					2
 #define OWNTYPE_GM						3		//for futher use
 
-//BUILDING ¼ÒÀ¯	
+//BUILDING ì†Œìœ 	
 #define OTHERBUILDING					0
 #define MYBUILDING						1
 #define MUNPABUILDING					2
@@ -725,7 +725,7 @@ typedef enum
 //MANAGER CharID
 #define MANAGER1						5103
 						
-//¹®ÆÄ
+//ë¬¸íŒŒ
 #define MUNPA_CREATELEVEL				30
 #define MUNPA_LEVEL_DEFAULT				29
 
@@ -743,7 +743,7 @@ typedef enum
 #define ORDER_NOTHING					((BYTE)0)
 #define ORDER_MUNJU						((BYTE)1)
 
-//¹®ÆÄÀü
+//ë¬¸íŒŒì „
 #define MUNPABATTLE_TYPE_SIZE			((BYTE)3)
 #define MUNPABATTLE_TYPE_SURVIVAL		((BYTE)0)
 #define MUNPABATTLE_TYPE_SAVEMUNJU		((BYTE)1)
@@ -913,7 +913,7 @@ typedef enum
 
 #define PK_COUNT						((BYTE)5)
 
-// ÀÛ¹°Á¾·ù 
+// ìž‘ë¬¼ì¢…ë¥˜ 
 #define CROP_KIND_SSAL					1				
 #define CROP_KIND_BORI					3
 #define CROP_KIND_MIL					2
@@ -925,7 +925,7 @@ typedef enum
 #define CROP_KIND_HOBAK					79
 
 ///////////////////////////////////////////////////////////
-// QUEST °ü·Ã
+// QUEST ê´€ë ¨
 #define MAX_QUEST_DATA					((WORD)3)
 #define MAX_QUEST_LIST_DATA				((WORD)10)
 
@@ -938,50 +938,50 @@ typedef enum
 #define QUESTTYPE_ITEM					((BYTE)5)
 
 // Quest Kind
-#define QUESTKIND_SINGLE				((BYTE)0)		// ÇÑ¹ø
-#define QUESTKIND_MULTIPLE				((BYTE)1)		// ¿©·¯¹ø
+#define QUESTKIND_SINGLE				((BYTE)0)		// í•œë²ˆ
+#define QUESTKIND_MULTIPLE				((BYTE)1)		// ì—¬ëŸ¬ë²ˆ
 
-	// ¾Æ·¡ 4°³´Â, <¹ß»ý>ÀÎ °æ¿ì °¹¼ö¸¦ ÁöÁ¤ÇÒ¼ö ¾ø´Ù.
-#define QUESTKIND_KILL_TYPE				((BYTE)10)		// ¹ß»ý/¿Ï¼ö:NPC Á¾·ù »ç³É
-#define QUESTKIND_KILL_ID				((BYTE)11)		// ¹ß»ý/¿Ï¼ö:NPC ID »ç³É
-#define QUESTKIND_PET_TYPE				((BYTE)12)		// ¹ß»ý/¿Ï¼ö:NPC Á¾·ù Å×ÀÓ
-#define QUESTKIND_PET_ID				((BYTE)13)		// ¹ß»ý/¿Ï¼ö:NPC ID Å×ÀÓ
-#define QUESTKIND_PET_LEVELUP			((BYTE)14)		// (¹ß»ý)/¿Ï¼ö:Å×ÀÓ¸÷ ·¹º§¾÷
-#define QUESTKIND_KILL_PC				((BYTE)15)		// (¹ß»ý)/¿Ï¼ö:PvP ½Â¸®
+	// ì•„ëž˜ 4ê°œëŠ”, <ë°œìƒ>ì¸ ê²½ìš° ê°¯ìˆ˜ë¥¼ ì§€ì •í• ìˆ˜ ì—†ë‹¤.
+#define QUESTKIND_KILL_TYPE				((BYTE)10)		// ë°œìƒ/ì™„ìˆ˜:NPC ì¢…ë¥˜ ì‚¬ëƒ¥
+#define QUESTKIND_KILL_ID				((BYTE)11)		// ë°œìƒ/ì™„ìˆ˜:NPC ID ì‚¬ëƒ¥
+#define QUESTKIND_PET_TYPE				((BYTE)12)		// ë°œìƒ/ì™„ìˆ˜:NPC ì¢…ë¥˜ í…Œìž„
+#define QUESTKIND_PET_ID				((BYTE)13)		// ë°œìƒ/ì™„ìˆ˜:NPC ID í…Œìž„
+#define QUESTKIND_PET_LEVELUP			((BYTE)14)		// (ë°œìƒ)/ì™„ìˆ˜:í…Œìž„ëª¹ ë ˆë²¨ì—…
+#define QUESTKIND_KILL_PC				((BYTE)15)		// (ë°œìƒ)/ì™„ìˆ˜:PvP ìŠ¹ë¦¬
 
-#define QUESTKIND_BATTLE_MISS			((BYTE)20)		// (¹ß»ý)/(¿Ï¼ö):ºø³ª°¨ È½¼ö 
-#define QUESTKIND_BATTLE_HIT			((BYTE)21)		// (¹ß»ý)/(¿Ï¼ö):Ä¡¸íÀû ¸íÁß È½¼ö
+#define QUESTKIND_BATTLE_MISS			((BYTE)20)		// (ë°œìƒ)/(ì™„ìˆ˜):ë¹—ë‚˜ê° íšŸìˆ˜ 
+#define QUESTKIND_BATTLE_HIT			((BYTE)21)		// (ë°œìƒ)/(ì™„ìˆ˜):ì¹˜ëª…ì  ëª…ì¤‘ íšŸìˆ˜
 
-#define QUESTKIND_GET_MUGONG			((BYTE)30)		// ¹ß»ý/¿Ï¼ö:¹«°ø ¾ò±â
-#define QUESTKIND_JOIN_DAN				((BYTE)31)		// ¹ß»ý/¿Ï¼ö:´Ü °¡ÀÔ
-#define QUESTKIND_JOIN_MUNPA			((BYTE)32)		// ¹ß»ý/¿Ï¼ö:¹®ÆÄ °¡ÀÔ
-#define QUESTKIND_DONE_QUEST			((BYTE)33)		// ¹ß»ý:Å¸ Äù½ºÆ® ¼öÇà
+#define QUESTKIND_GET_MUGONG			((BYTE)30)		// ë°œìƒ/ì™„ìˆ˜:ë¬´ê³µ ì–»ê¸°
+#define QUESTKIND_JOIN_DAN				((BYTE)31)		// ë°œìƒ/ì™„ìˆ˜:ë‹¨ ê°€ìž…
+#define QUESTKIND_JOIN_MUNPA			((BYTE)32)		// ë°œìƒ/ì™„ìˆ˜:ë¬¸íŒŒ ê°€ìž…
+#define QUESTKIND_DONE_QUEST			((BYTE)33)		// ë°œìƒ:íƒ€ í€˜ìŠ¤íŠ¸ ìˆ˜í–‰
 
-#define QUESTKIND_GAPJA					((BYTE)40)		// ¹ß»ý:°©ÀÚ
-#define QUESTKIND_YUPA					((BYTE)41)		// ¹ß»ý/¿Ï¼ö:À¯ÆÄ
-#define QUESTKIND_SERVICE				((BYTE)42)		// ¹ß»ý/¿Ï¼ö:¸í¼ºÄ¡
-#define QUESTKIND_ATK					((BYTE)43)		// ¹ß»ý/¿Ï¼ö:°ø°Ý·Â
-#define QUESTKIND_DEF					((BYTE)44)		// ¹ß»ý/¿Ï¼ö:¹æ¾î·Â
-#define QUESTKIND_ATKRATING				((BYTE)45)		// ¹ß»ý/¿Ï¼ö:¸íÁß·ü
-#define QUESTKIND_STR					((BYTE)46)		// ¹ß»ý/¿Ï¼ö:Èû
-#define QUESTKIND_SUS					((BYTE)47)		// ¹ß»ý/¿Ï¼ö:Áö±¸·Â
-#define QUESTKIND_DEX					((BYTE)48)		// ¹ß»ý/¿Ï¼ö:¹ÎÃ¸
-#define QUESTKIND_VIT					((BYTE)49)		// ¹ß»ý/¿Ï¼ö:Áø±â
+#define QUESTKIND_GAPJA					((BYTE)40)		// ë°œìƒ:ê°‘ìž
+#define QUESTKIND_YUPA					((BYTE)41)		// ë°œìƒ/ì™„ìˆ˜:ìœ íŒŒ
+#define QUESTKIND_SERVICE				((BYTE)42)		// ë°œìƒ/ì™„ìˆ˜:ëª…ì„±ì¹˜
+#define QUESTKIND_ATK					((BYTE)43)		// ë°œìƒ/ì™„ìˆ˜:ê³µê²©ë ¥
+#define QUESTKIND_DEF					((BYTE)44)		// ë°œìƒ/ì™„ìˆ˜:ë°©ì–´ë ¥
+#define QUESTKIND_ATKRATING				((BYTE)45)		// ë°œìƒ/ì™„ìˆ˜:ëª…ì¤‘ë¥ 
+#define QUESTKIND_STR					((BYTE)46)		// ë°œìƒ/ì™„ìˆ˜:íž˜
+#define QUESTKIND_SUS					((BYTE)47)		// ë°œìƒ/ì™„ìˆ˜:ì§€êµ¬ë ¥
+#define QUESTKIND_DEX					((BYTE)48)		// ë°œìƒ/ì™„ìˆ˜:ë¯¼ì²©
+#define QUESTKIND_VIT					((BYTE)49)		// ë°œìƒ/ì™„ìˆ˜:ì§„ê¸°
 
-#define QUESTKIND_EXP					((BYTE)60)		// º¸»ó:°æÇèÄ¡
-#define QUESTKIND_TP					((BYTE)61)		// º¸»ó:¼ö·ÃÄ¡
-#define QUESTKIND_SP					((BYTE)62)		// º¸»ó:´É·ÂÄ¡
+#define QUESTKIND_EXP					((BYTE)60)		// ë³´ìƒ:ê²½í—˜ì¹˜
+#define QUESTKIND_TP					((BYTE)61)		// ë³´ìƒ:ìˆ˜ë ¨ì¹˜
+#define QUESTKIND_SP					((BYTE)62)		// ë³´ìƒ:ëŠ¥ë ¥ì¹˜
 
-#define QUESTKIND_ITEM_NORMAL			((BYTE)70)		// ¿Ï¼ö/º¸»ó:ÀÏ¹Ý ¾ÆÀÌÅÛ
-#define QUESTKIND_ITEM_RARE				((BYTE)71)		// ¿Ï¼ö:·¹¾î ¾ÆÀÌÅÛ
-#define QUESTKIND_ITEM_QUEST			((BYTE)72)		// ¿Ï¼ö/º¸»ó:Äù½ºÆ® ¾ÆÀÌÅÛ
-#define QUESTKIND_ITEM_REBUILD			((BYTE)73)		// (¹ß»ý)/¿Ï¼ö:¾ÆÀÌÅÛ °³Á¶
-#define QUESTKIND_ITEM_MONEY			((BYTE)74)		// (¹ß»ý)/¿Ï¼ö/º¸»ó:µ·
-#define QUESTKIND_ITEM_REPAIR			((BYTE)75)		// (¹ß»ý)/¿Ï¼ö:¾ÆÀÌÅÛ ¼ö¸®
-#define QUESTKIND_ITEM_EQUIP			((BYTE)76)		// (¹ß»ý)/¿Ï¼ö:¾ÆÀÌÅÛ Âø¿ë
-#define QUESTKIND_ITEM_GAMBLE			((BYTE)77)		// (¹ß»ý)/¿Ï¼ö:°×ºí ¾ÆÀÌÅÛ ±¸ÀÔ
+#define QUESTKIND_ITEM_NORMAL			((BYTE)70)		// ì™„ìˆ˜/ë³´ìƒ:ì¼ë°˜ ì•„ì´í…œ
+#define QUESTKIND_ITEM_RARE				((BYTE)71)		// ì™„ìˆ˜:ë ˆì–´ ì•„ì´í…œ
+#define QUESTKIND_ITEM_QUEST			((BYTE)72)		// ì™„ìˆ˜/ë³´ìƒ:í€˜ìŠ¤íŠ¸ ì•„ì´í…œ
+#define QUESTKIND_ITEM_REBUILD			((BYTE)73)		// (ë°œìƒ)/ì™„ìˆ˜:ì•„ì´í…œ ê°œì¡°
+#define QUESTKIND_ITEM_MONEY			((BYTE)74)		// (ë°œìƒ)/ì™„ìˆ˜/ë³´ìƒ:ëˆ
+#define QUESTKIND_ITEM_REPAIR			((BYTE)75)		// (ë°œìƒ)/ì™„ìˆ˜:ì•„ì´í…œ ìˆ˜ë¦¬
+#define QUESTKIND_ITEM_EQUIP			((BYTE)76)		// (ë°œìƒ)/ì™„ìˆ˜:ì•„ì´í…œ ì°©ìš©
+#define QUESTKIND_ITEM_GAMBLE			((BYTE)77)		// (ë°œìƒ)/ì™„ìˆ˜:ê²œë¸” ì•„ì´í…œ êµ¬ìž…
 
-// QUEST LIST »óÅÂ : CSPROTOCOL.HÀÇ QUEST_STATUS_XXXX¿Í °°¾Æ¾ß ÇÑ´Ù.
+// QUEST LIST ìƒíƒœ : CSPROTOCOL.Hì˜ QUEST_STATUS_XXXXì™€ ê°™ì•„ì•¼ í•œë‹¤.
 /*
 #define QUESTSTATUS_NEW					((BYTE)0)
 #define QUESTSTATUS_START				((BYTE)1)
@@ -989,29 +989,29 @@ typedef enum
 #define QUESTSTATUS_EXPIRE				((BYTE)3)
 #define QUESTSTATUS_SUCCESS				((BYTE)4)
 
-// QUEST °á°ú °ª
+// QUEST ê²°ê³¼ ê°’
 #define QUESTRESULT_OK					((BYTE)0)
-#define QUESTRESULT_CANT_NEW			((BYTE)1)		// ¹ß»ý Á¶°Ç ¸¸Á· ¸øÇÔ
-#define QUESTRESULT_CANT_START			((BYTE)2)		// ¼öÇà Á¶°Ç ¸¸Á· ¸øÇÔ
-#define QUESTRESULT_CANT_STOP			((BYTE)3)		// ÁßÁö ºÒ°¡´É
-#define QUESTRESULT_CANT_DONE			((BYTE)4)		// ¿Ï¼ö Á¶°Ç ¸¸Á· ¸øÇÔ
-#define QUESTRESULT_CANT_REWARD			((BYTE)5)		// º¸»ó ³»¿ª Áö±Þ ¸øÇÔ
-#define QUESTRESULT_REWARD_DROP			((BYTE)6)		// °¡¹æÀÌ ²Ë Â÷¼­, º¸»ó ¾ÆÀÌÅÛÀÌ ¶¥À¸·Î ¶³¾îÁü
-#define QUESTRESULT_ERR_INTERNAL		((BYTE)9)		// ³»ºÎ ¿¡·¯
-#define QUESTRESULT_WRN_QUESTLISTRESET	((BYTE)10)		// Äù½ºÆ® ¿Ï¼ö Á¶°Ç(QuestProcess)ÀÌ ¹Ù²î¾î¼­, °ü·Ã ÁøÇà ÀÚ·á(QuestList)¸¦ ¸ðµÎÃÊ±âÈ­ÇÑ °æ¿ì
-#define QUESTRESULT_CHANGED				((BYTE)11)		// Äù½ºÆ® Á¤º¸ º¯°æµÊ
+#define QUESTRESULT_CANT_NEW			((BYTE)1)		// ë°œìƒ ì¡°ê±´ ë§Œì¡± ëª»í•¨
+#define QUESTRESULT_CANT_START			((BYTE)2)		// ìˆ˜í–‰ ì¡°ê±´ ë§Œì¡± ëª»í•¨
+#define QUESTRESULT_CANT_STOP			((BYTE)3)		// ì¤‘ì§€ ë¶ˆê°€ëŠ¥
+#define QUESTRESULT_CANT_DONE			((BYTE)4)		// ì™„ìˆ˜ ì¡°ê±´ ë§Œì¡± ëª»í•¨
+#define QUESTRESULT_CANT_REWARD			((BYTE)5)		// ë³´ìƒ ë‚´ì—­ ì§€ê¸‰ ëª»í•¨
+#define QUESTRESULT_REWARD_DROP			((BYTE)6)		// ê°€ë°©ì´ ê½‰ ì°¨ì„œ, ë³´ìƒ ì•„ì´í…œì´ ë•…ìœ¼ë¡œ ë–¨ì–´ì§
+#define QUESTRESULT_ERR_INTERNAL		((BYTE)9)		// ë‚´ë¶€ ì—ëŸ¬
+#define QUESTRESULT_WRN_QUESTLISTRESET	((BYTE)10)		// í€˜ìŠ¤íŠ¸ ì™„ìˆ˜ ì¡°ê±´(QuestProcess)ì´ ë°”ë€Œì–´ì„œ, ê´€ë ¨ ì§„í–‰ ìžë£Œ(QuestList)ë¥¼ ëª¨ë‘ì´ˆê¸°í™”í•œ ê²½ìš°
+#define QUESTRESULT_CHANGED				((BYTE)11)		// í€˜ìŠ¤íŠ¸ ì •ë³´ ë³€ê²½ë¨
 */
 
 //YS_0304 : SHOP
-#define GISDURABLITY_SHOP				(BYTE)0		// »óÁ¡°³¼³¿ë ±â´É¼º ¾ÆÀÌÅÛ 
-#define GISDURABLITY_OPENBANK			(BYTE)1		// Ã¢°í¹®¼­
+#define GISDURABLITY_SHOP				(BYTE)0		// ìƒì ê°œì„¤ìš© ê¸°ëŠ¥ì„± ì•„ì´í…œ 
+#define GISDURABLITY_OPENBANK			(BYTE)1		// ì°½ê³ ë¬¸ì„œ
 //NIGHT_0318 : MALLITEM
-#define GISDURABLITY_SAYCELL			(BYTE)2		// ¼Ò°¢Àû
-#define GISDURABLITY_SAYMAP				(BYTE)3		// Áß°¢Àû
-#define GISDURABLITY_SAYCHANNEL			(BYTE)4		// ´ë°¢Àû
-#define GISDURABLITY_REPAIR				(BYTE)5		// ¿¬Àå
-#define GISDURABLITY_MONEYBAG			((BYTE)6)	// Àü³¶		//NIGHT_0513 : MONEYBAG
-#define GISDURABLITY_MEMO				((BYTE)7)	// Àü¼­±¸	//NIGHT_0525 : MEMO
+#define GISDURABLITY_SAYCELL			(BYTE)2		// ì†Œê°ì 
+#define GISDURABLITY_SAYMAP				(BYTE)3		// ì¤‘ê°ì 
+#define GISDURABLITY_SAYCHANNEL			(BYTE)4		// ëŒ€ê°ì 
+#define GISDURABLITY_REPAIR				(BYTE)5		// ì—°ìž¥
+#define GISDURABLITY_MONEYBAG			((BYTE)6)	// ì „ë‚­		//NIGHT_0513 : MONEYBAG
+#define GISDURABLITY_MEMO				((BYTE)7)	// ì „ì„œêµ¬	//NIGHT_0525 : MEMO
 
 #define MUNPA_ORDER_NOTHING				((BYTE)0)
 #define MUNPA_ORDER_MUNJU				((BYTE)1)

@@ -1,4 +1,4 @@
-
+ï»¿
 
 ///////////////////////////////////////////////
 // Ship
@@ -179,7 +179,7 @@ void CRelation::RefreshShipContent( BYTE byPage)
 	if(!g_pUIManager->IsShow(WINDOW_DAN) || m_eCurrType != eShip)
 		return;
 
-	// ÀÏ´Ü ÇÑ¹ø ½Ï Áö¿öÁÖ°í
+	// ì¼ë‹¨ í•œë²ˆ ì‹¹ ì§€ì›Œì£¼ê³ 
 	for(int k=0; k < 5; ++k)
 	{
 		g_pUIManager->SetString(WINDOW_DAN, dan_window_list_dummy_04 + k, _T(""));
@@ -187,7 +187,7 @@ void CRelation::RefreshShipContent( BYTE byPage)
 		g_pUIManager->SetString(WINDOW_DAN, dan_window_list_dummy_14 + k, _T(""));						
 	}
 
-	// ³»¿ëÀ» Àû¾îÁÖ±â
+	// ë‚´ìš©ì„ ì ì–´ì£¼ê¸°
 	g_pUIManager->SetString(WINDOW_DAN, dan_window_list_dummy_01, IDS_NAME);
 	g_pUIManager->SetString(WINDOW_DAN, dan_window_list_dummy_02, IDS_RELATION);
 	g_pUIManager->SetString(WINDOW_DAN, dan_window_list_dummy_03, IDS_STATUS);

@@ -1,10 +1,10 @@
-#include "precompile.h"
+ï»¿#include "precompile.h"
 #include "AppData.h"
 #include "XiahEnvInfo.h"
 
 
 /*
-	TypeÁ¤ÀÇµÈ Client¿ë µ¥ÀÌÅÍµéÀÇ ½ÇÁ¦ Global Instance°¡ ¼±¾ğµÈ ºÎºĞÀÓ
+	Typeì •ì˜ëœ Clientìš© ë°ì´í„°ë“¤ì˜ ì‹¤ì œ Global Instanceê°€ ì„ ì–¸ëœ ë¶€ë¶„ì„
 */
 
 sAPPData			g_AppData;

@@ -1,7 +1,7 @@
-extern sString MoneyCommaStr(INT64 nMoney);
+ï»¿extern sString MoneyCommaStr(INT64 nMoney);
 
 /**
- * ¾ÆÀÌÅÛ ±¸ÀÔ
+ * ì•„ì´í…œ êµ¬ì…
  * \param &msg 
  * \return 
  */
@@ -47,7 +47,7 @@ int OnCS_EC_BUYITEM_ACK( CMsg &msg)
 			g_MainCharInfo.ShowHelpMessage(str,TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case 6:		// Çà³¶ÀÌ °¡µæ
+	case 6:		// í–‰ë‚­ì´ ê°€ë“
 		{
 			TCHAR strTemp[128] = {0,};
 			_stprintf(strTemp, IDS_PC_FULLSACK, g_MainCharInfo.m_byMySackCurrIdx+1);			
@@ -68,7 +68,7 @@ int OnCS_EC_BUYITEM_ACK( CMsg &msg)
 
 
 /**
- * ¾ÆÀÌÅÛ ÆÇ¸Å
+ * ì•„ì´í…œ íŒë§¤
  * \param &msg 
  * \return 
  */
@@ -79,24 +79,24 @@ int OnCS_EC_SELLITEM_ACK( CMsg &msg)
 	//BYTE bSackPos	=0;
 
 	msg
-		//>> dwShopID		// ¹Ì»ç¿ë
+		//>> dwShopID		// ë¯¸ì‚¬ìš©
 		>> bResult;
-		//>> bSackPos;	// ¹Ì»ç¿ë  ÆĞÅ¶ Á¤¸®ÇØ¾ß °Ú´Ù
+		//>> bSackPos;	// ë¯¸ì‚¬ìš©  íŒ¨í‚· ì •ë¦¬í•´ì•¼ ê² ë‹¤
 
 	switch(bResult)
 	{
-	case 0: // ÆÇ¸Å ¿Ï·á
+	case 0: // íŒë§¤ ì™„ë£Œ
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_SELLITEM_COMPLETE);
 			g_MainCharInfo.PlayInterfaceSound(ISOUND_ITEM_LAY_SELL);
 		}
 		break;
-	case 1:	// ¾ÆÀÌÅÛ ¾øÀ½
+	case 1:	// ì•„ì´í…œ ì—†ìŒ
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_ERROR_NO_ITEM, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case 6:	// ¾ÆÀÌÅÛ ¸ô¿¡¼­ ±¸ÀÔÇÑ°ÍÀ» ÆÈ·Á°í ÇÏ¿´´Ù.
+	case 6:	// ì•„ì´í…œ ëª°ì—ì„œ êµ¬ì…í•œê²ƒì„ íŒ”ë ¤ê³  í•˜ì˜€ë‹¤.
 		{			
 			g_MainCharInfo.m_pHoldItem->SetItemBackToSack();
 
@@ -104,7 +104,7 @@ int OnCS_EC_SELLITEM_ACK( CMsg &msg)
 			g_MainCharInfo.PlayInterfaceSound( ISOUND_WARNING);
 		}
 		break;
-	case 7:	// ¼ÒÁö±İ ÃÊ°ú
+	case 7:	// ì†Œì§€ê¸ˆ ì´ˆê³¼
 		{
 			g_MainCharInfo.m_pHoldItem->SetItemBackToSack();
 
@@ -121,7 +121,7 @@ int OnCS_EC_SELLITEM_ACK( CMsg &msg)
 		break;
 	}
 
-	//HT_CHEAT : ÀÚµ¿ ÆÈ±â 
+	//HT_CHEAT : ìë™ íŒ”ê¸° 
 	if(g_MainCharInfo.m_bAutoSell)
 	{
 		g_MainCharInfo.m_bAutoSell = false;
@@ -151,7 +151,7 @@ int OnCS_EC_ASKTRADE_ACK( CMsg &msg)
 		
 		if( !g_pUIManager->ShowNotice( content, NOTICE_FRAME_OKCANCEL, NOTICE_FRAME_TRADE))
 		{
-			//Ãë¼Ò
+			//ì·¨ì†Œ
 			SendCS_EC_ASKTRADE_REQ(9, g_MainCharInfo.m_dwAskID, g_MainCharInfo.m_dwObjectID);
 		}
 		
@@ -162,7 +162,7 @@ int OnCS_EC_ASKTRADE_ACK( CMsg &msg)
 		_stprintf( content, IDS_D_CANCEL_TRADE, (LPCTSTR)g_MainCharInfo.FindNameByID( g_MainCharInfo.m_dwAskID));
 		g_MainCharInfo.ShowHelpMessage( content,TEXTEFFECT_COLOR_WARNING);
 
-		g_pUIManager->DeletePopMenu();//À½¾ß
+		g_pUIManager->DeletePopMenu();//ìŒì•¼
 
 		g_MainCharInfo.m_dwAskID = 0;
 
@@ -198,7 +198,7 @@ int OnCS_EC_TRADEOPENSACK_ACK( CMsg &msg)
 		g_MainCharInfo.ShowSack( SACKTYPE__EQUIPMENT);
 	}
 
-	g_pUIManager->DeletePopMenu(); //À½¾ß -_-
+	g_pUIManager->DeletePopMenu(); //ìŒì•¼ -_-
 	return 0;
 }
 
@@ -226,7 +226,7 @@ int OnCS_EC_TRADESACKONITEM_ACK( CMsg &msg)
 		>> dwAmount;
 	XiahItem::GetItemData( pItemInfo, msg);
 
-	//HT_1116 : °¢¼ºÀÚ ¾ÆÀÌÅÛ Ãß°¡
+	//HT_1116 : ê°ì„±ì ì•„ì´í…œ ì¶”ê°€
 	msg
 		>> pItemInfo->m_wRebuithValue;
 
@@ -238,15 +238,15 @@ int OnCS_EC_TRADESACKONITEM_ACK( CMsg &msg)
 	if( bResult !=0)
 		return 0;
 
-	// CharID°¡ ÀÚ½ÅÀÌ¸é ³» ²¨¸¦ ¿Ã¸°°æ¿ì°í
-	// RemoveFromSackÀÌ ¿À´Ï±î.. Æ®·¹ÀÌÆ®Ã¢¿¡ Ãß°¡¸¸ ÇÏ¸é µÈ´Ù.
+	// CharIDê°€ ìì‹ ì´ë©´ ë‚´ êº¼ë¥¼ ì˜¬ë¦°ê²½ìš°ê³ 
+	// RemoveFromSackì´ ì˜¤ë‹ˆê¹Œ.. íŠ¸ë ˆì´íŠ¸ì°½ì— ì¶”ê°€ë§Œ í•˜ë©´ ëœë‹¤.
 	if( dwCharID == g_MainCharInfo.m_dwObjectID) 
 	{
 		// [8/13/2004]R BUGFIX
 		if(g_MainCharInfo.m_pPcSackMine)
 			g_MainCharInfo.m_pPcSackMine->InsertItem( bDesPos, pItemInfo);
 	}
-	// ´Ù¸¥ ³ÑÀÌ¸é ±×³ÑÀÌ ¿Ã¸° °æ¿ì°ÚÁö.
+	// ë‹¤ë¥¸ ë„˜ì´ë©´ ê·¸ë„˜ì´ ì˜¬ë¦° ê²½ìš°ê² ì§€.
 	else
 	{
 		// [8/13/2004]R BUGFIX
@@ -281,17 +281,17 @@ int OnCS_EC_TRADESACKOFFITEM_ACK( CMsg &msg)
 	if(bResult != 0) 
 		return 0;
 
-	// CharID°¡ ÀÚ½ÅÀÌ¸é ³» ²¨¸¦ ³»¸°°æ¿ì°í
-	// AddOnSackÀÌ ¿À´Ï±î TradeÃ¢¿¡¼­¸¸ Áö¿ìÀÚ
+	// CharIDê°€ ìì‹ ì´ë©´ ë‚´ êº¼ë¥¼ ë‚´ë¦°ê²½ìš°ê³ 
+	// AddOnSackì´ ì˜¤ë‹ˆê¹Œ Tradeì°½ì—ì„œë§Œ ì§€ìš°ì
 	if( dwCharID == g_MainCharInfo.m_dwObjectID) 
 	{
 		if( g_MainCharInfo.m_pHoldItem)
 			g_MainCharInfo.m_pHoldItem->DeleteHoldItemItem();
 	}
-	// ´Ù¸¥ ³ÑÀÌ¸é ±×³ÑÀÌ ³»¸° °æ¿ì°ÚÁö.
+	// ë‹¤ë¥¸ ë„˜ì´ë©´ ê·¸ë„˜ì´ ë‚´ë¦° ê²½ìš°ê² ì§€.
 	else 
 	{
-		// ´©¼ö ¼öÁ¤
+		// ëˆ„ìˆ˜ ìˆ˜ì •
 		if( g_MainCharInfo.m_pPcSackOther)
 			g_MainCharInfo.m_pPcSackOther->DeleteItem( bSrcPos, true);
 	}
@@ -306,20 +306,20 @@ int OnCS_EC_TRADEITEM_ACK( CMsg &msg)
 
 	msg
 		>> bResult
-		>> dwTraderID;		// Trade Accept ÇÑ ³à¼® ¾ÆÀÌµğ
+		>> dwTraderID;		// Trade Accept í•œ ë…€ì„ ì•„ì´ë””
 
 	switch( bResult)
 	{
 	case 0:
 		{
-			// ³»°¡ µ¿ÀÇ
+			// ë‚´ê°€ ë™ì˜
 			if( dwTraderID == g_MainCharInfo.m_dwObjectID)
 			{
 				//g_pUIManager->GetFrame( WINDOW_PC_TRADE)->GetControl( pc_trade_window_button_01)
 				g_MainCharInfo.m_bTradeAgree = TRUE;
 				g_MainCharInfo.ShowHelpMessage( IDS_AGREE_TRADE);
 			}
-			// »ó´ë¹æÀÌ µ¿ÀÇ
+			// ìƒëŒ€ë°©ì´ ë™ì˜
 			else if( dwTraderID == g_MainCharInfo.m_dwAskID)
 			{
 				g_MainCharInfo.m_bTradeAgree = TRUE;
@@ -339,7 +339,7 @@ int OnCS_EC_TRADEITEM_ACK( CMsg &msg)
 
 			g_MainCharInfo.ShowHelpMessage(IDS_TRADE_CANCEL_2, TEXTEFFECT_COLOR_WARNING);
 
-			// trade Ã¢ ´İ±â
+			// trade ì°½ ë‹«ê¸°
 			g_MainCharInfo.HideSack( SACKTYPE__PC_TRADE_MINE);
 			g_MainCharInfo.HideSack( SACKTYPE__PC_TRADE_OTHER);
 
@@ -360,7 +360,7 @@ int OnCS_EC_TRADEITEM_ACK( CMsg &msg)
 			g_MainCharInfo.m_bTradeAgree = FALSE;
 
 			g_MainCharInfo.ShowHelpMessage(IDS_TRADE_CANCEL,TEXTEFFECT_COLOR_WARNING);
-			// trade Ã¢ ´İ±â
+			// trade ì°½ ë‹«ê¸°
 			g_MainCharInfo.HideSack( SACKTYPE__PC_TRADE_MINE);
 			g_MainCharInfo.HideSack( SACKTYPE__PC_TRADE_OTHER);
 			
@@ -391,7 +391,7 @@ int OnCS_EC_TRADECOMPLETE_ACK( CMsg &msg)
 		>> dwTraderID;
 
 	g_MainCharInfo.ShowHelpMessage(IDS_TRADE_COMPLETE);
-	// trade Ã¢ ´İ±â
+	// trade ì°½ ë‹«ê¸°
 	g_MainCharInfo.m_dwAskID = 0;
 	g_MainCharInfo.m_bTradeAgree = FALSE;
 
@@ -421,7 +421,7 @@ int OnCS_EC_TRADESACKONMONEY_ACK( CMsg &msg)
 
 	if( dwCharID == g_MainCharInfo.m_dwObjectID)
 	{
-		// ³» µ·
+		// ë‚´ ëˆ
 		g_MainCharInfo.m_dwMoneyOnTradeMine += dwAmount;
 		
 		g_pUIManager->SetString(WINDOW_PC_TRADE, pc_trade_window_sub_dummy_04, MoneyCommaStr(g_MainCharInfo.m_dwMoneyOnTradeMine),
@@ -429,7 +429,7 @@ int OnCS_EC_TRADESACKONMONEY_ACK( CMsg &msg)
 	}
 	else
 	{
-		// »ó´ë¹æ µ·
+		// ìƒëŒ€ë°© ëˆ
 		g_MainCharInfo.m_dwMoneyOnTradeOther += dwAmount;
 		
 		g_pUIManager->SetString(WINDOW_PC_TRADE, pc_trade_window_sub_dummy_03, MoneyCommaStr(g_MainCharInfo.m_dwMoneyOnTradeOther),
@@ -465,7 +465,7 @@ int OnCS_EC_ITEMLISTINBANK_ACK( CMsg &msg)
 	msg
 		>> bflag;
 
-	//HT_1013 : Çà³¶ ¾ÆÀÌÅÛ Àß º¸ÀÎ´Ù. 
+	//HT_1013 : í–‰ë‚­ ì•„ì´í…œ ì˜ ë³´ì¸ë‹¤. 
 	if(bflag)
 	{
 		CloseAllWindow();
@@ -480,7 +480,7 @@ int OnCS_EC_ITEMLISTINBANK_ACK( CMsg &msg)
 		>> bAction
 		>> dwItemNum;
 
-	// À©µµ¿ì TITLEÀ» ÁöÁ¤ÇÑ´Ù
+	// ìœˆë„ìš° TITLEì„ ì§€ì •í•œë‹¤
 	if(bAction == OPEN_NORMAL)
 	{
 		// none
@@ -526,13 +526,13 @@ int OnCS_EC_ADDONBANK_ACK( CMsg &msg)
 	pItem->m_bSackID = SACKTYPE__DEPOSIT;
 	g_MainCharInfo.m_pDepositSack->InsertItem( bSackPos, pItem);
 
-	if( bAction == 1)	// bAction == 2 ¸é Ã¢°í³»¿¡¼­ÀÇ ¿òÁ÷ÀÓ
+	if( bAction == 1)	// bAction == 2 ë©´ ì°½ê³ ë‚´ì—ì„œì˜ ì›€ì§ì„
 	{
 		TCHAR content[100];
 
 		DWORD theprice = (DWORD)((pItem->m_dwPrice / 100) * pItem->m_dwAmount);
 
-		// °¡°İÀÌ 0ÀÌ¾îµµ 1ÀÌ °¨¼ÒÇÑ´Ù.
+		// ê°€ê²©ì´ 0ì´ì–´ë„ 1ì´ ê°ì†Œí•œë‹¤.
 		if(theprice < 1)
 		{
 			theprice = 1;
@@ -576,7 +576,7 @@ int OnCS_EC_DRAWINBANK_ACK( CMsg &msg)
 
 	switch( bResult)
 	{
-	case ERR_DRAWINBANK_DONOTFINDSACK:		// Çà³¶¾È¿¡ µ·¾øÀ½
+	case ERR_DRAWINBANK_DONOTFINDSACK:		// í–‰ë‚­ì•ˆì— ëˆì—†ìŒ
 		_stprintf( str, IDS_PURSE_IN_LOWMONEY);		
 		break;
 	case ERR_DRAWINBANK_NOTEMPTYBANK:
@@ -672,7 +672,7 @@ int OnCS_EC_DRAWMOVEBANK_ACK( CMsg &msg)
 		_stprintf( str, IDS_ERROR, ERR_DRAWMOVEBANK_CHANGE);
 		break;
 
-	// °ø°£ºÎÁ·ÇÔ
+	// ê³µê°„ë¶€ì¡±í•¨
 	case ERR_DRAWMOVEBANK_NOTEMPTY:
 		_stprintf( str, IDS_BANKERROR4);
 		break;
@@ -791,7 +791,7 @@ int OnCS_EC_DRAWMOVEMALL_ACK( CMsg &msg)
 		_stprintf( str, IDS_ERROR, ERR_DRAWMOVEBANK_CHANGE);
 		break;
 
-		// °ø°£ºÎÁ·ÇÔ
+		// ê³µê°„ë¶€ì¡±í•¨
 	case ERR_DRAWMOVEBANK_NOTEMPTY:
 		_stprintf( str, IDS_BANKERROR4);
 		break;
@@ -840,9 +840,9 @@ int OnCS_EC_REMOVEFROMMALL_ACK( CMsg &msg)
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-// º¹±Ç
+// ë³µê¶Œ
 /**
- * º¹±Ç±¸ÀÔ
+ * ë³µê¶Œêµ¬ì…
  * \param &msg 
  * \return 
  */
@@ -855,32 +855,32 @@ int OnCS_EC_BUYLOTTO_ACK(CMsg &msg)
 
 	switch(bResult)
 	{
-	case ERR_BUYLOTTO_SUCCESS:			// ±¸ÀÔ¼º°ø
+	case ERR_BUYLOTTO_SUCCESS:			// êµ¬ì…ì„±ê³µ
 		{
 			g_pUIManager->ShowNotice(IDS_LOTTO_BUY_3);								
 		}
 		break;
-	case ERR_BUYLOTTO_NOERROR:			// ¹øÈ£¿¡·¯
+	case ERR_BUYLOTTO_NOERROR:			// ë²ˆí˜¸ì—ëŸ¬
 		{			
 			g_MainCharInfo.ShowHelpMessage(IDS_LOTTO_NUMERROR, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case ERR_BUYLOTTO_LESSMONEY:		// µ·ºÎÁ·
+	case ERR_BUYLOTTO_LESSMONEY:		// ëˆë¶€ì¡±
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_PURSE_IN_LOWMONEY, TEXTEFFECT_COLOR_WARNING);
 		}		
 		break;
-	case ERR_BUYLOTTO_NOTSALE:			// ÆÇ¸ÅÁßÁö
+	case ERR_BUYLOTTO_NOTSALE:			// íŒë§¤ì¤‘ì§€
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_LOTTO_NOTSELL, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case ERR_BUYLOTTO_NOTEMPTYSACK:		// Çà³¶°ø°£¾øÀ½
+	case ERR_BUYLOTTO_NOTEMPTYSACK:		// í–‰ë‚­ê³µê°„ì—†ìŒ
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_PCSHOP_FULLSACK, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case ERR_BUYLOTTO_INTERNALERROR:	// ³»ºÎ¿¡·¯
+	case ERR_BUYLOTTO_INTERNALERROR:	// ë‚´ë¶€ì—ëŸ¬
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_REL_ERR_INTERNAL, TEXTEFFECT_COLOR_WARNING);
 		}
@@ -893,7 +893,7 @@ int OnCS_EC_BUYLOTTO_ACK(CMsg &msg)
 }
 
 /**
- * º¹±Ç ¿¹»ó´çÃ·±İ¾× È·¶¨
+ * ë³µê¶Œ ì˜ˆìƒë‹¹ì²¨ê¸ˆì•¡ íš…ë•
  * \param &msg 
  * \return 
  */
@@ -903,8 +903,8 @@ int OnCS_EC_LOTTOSALEINFO_ACK(CMsg &msg)
 	__int64 biPrizeMoney	=0;
 
 	msg
-		>> biPreMoney		// ÀÌ¿ù±İ¾×
-		>> biPrizeMoney;	// ¿¹»ó±İ¾×
+		>> biPreMoney		// ì´ì›”ê¸ˆì•¡
+		>> biPrizeMoney;	// ì˜ˆìƒê¸ˆì•¡
 
 	g_MainCharInfo.CloseFrame(WINDOW_BOK_NUMBER);
 
@@ -916,7 +916,7 @@ int OnCS_EC_LOTTOSALEINFO_ACK(CMsg &msg)
 }
 
 /**
- * ´çÃ·¹øÈ£ È·¶¨
+ * ë‹¹ì²¨ë²ˆí˜¸ íš…ë•
  * \param &msg 
  * \return 
  */
@@ -938,7 +938,7 @@ int OnCS_EC_PRIZELOTTOINFO_ACK(CMsg &msg)
 			
 			msg
 				>> dwRound
-				>> bNum[0]	// ´çÃ·¹øÈ£
+				>> bNum[0]	// ë‹¹ì²¨ë²ˆí˜¸
 				>> bNum[1]
 				>> bNum[2]
 				>> bNum[3];
@@ -953,12 +953,12 @@ int OnCS_EC_PRIZELOTTOINFO_ACK(CMsg &msg)
 			__int64 biMoney		=0;
 			DWORD	dwPrizer	=0;
 
-			// 1µîºÎÅÍ~3µî±îÁö
+			// 1ë“±ë¶€í„°~3ë“±ê¹Œì§€
 			for(int i=0; i < 3; ++i)
 			{
 				msg
-					>> biMoney		// ´çÃ·±İ¾×
-					>> dwPrizer;	// ´çÃ·¼ö
+					>> biMoney		// ë‹¹ì²¨ê¸ˆì•¡
+					>> dwPrizer;	// ë‹¹ì²¨ìˆ˜
 
 				_stprintf(strTemp, IDS_LOTTO_PRIZEWIN_INFO, i+1, MoneyCommaStr(biMoney).data(), dwPrizer);
 				g_pUIManager->SetString(WINDOW_BOK_PRIZE, bok_prize_dummy_03+i, strTemp, 5);
@@ -967,7 +967,7 @@ int OnCS_EC_PRIZELOTTOINFO_ACK(CMsg &msg)
 			g_MainCharInfo.OpenFrame(WINDOW_BOK_PRIZE);
 		}
 		break;
-	case 1:	// Á¤º¸¾øÀ½ (Ã¹È¸)
+	case 1:	// ì •ë³´ì—†ìŒ (ì²«íšŒ)
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_LOTTO_FIRST, TEXTEFFECT_COLOR_WARNING);
 		}
@@ -980,7 +980,7 @@ int OnCS_EC_PRIZELOTTOINFO_ACK(CMsg &msg)
 }
 
 /**
- * º¹±Ç ´çÃ·±İ È¸¼ö
+ * ë³µê¶Œ ë‹¹ì²¨ê¸ˆ íšŒìˆ˜
  * \param &msg 
  * \return 
  */
@@ -995,7 +995,7 @@ int OnCS_EC_GETLOTTOMONEY_ACK(CMsg &msg)
 
 	switch(bResult)
 	{
-	case ERR_GETLOTTOMONEY_SUCCESS:			// ¼º°ø
+	case ERR_GETLOTTOMONEY_SUCCESS:			// ì„±ê³µ
 		{
 			TCHAR strTemp[128] = {0,};
 			__int64 nTempMoney = dwMoney * 1000;
@@ -1004,33 +1004,33 @@ int OnCS_EC_GETLOTTOMONEY_ACK(CMsg &msg)
 			g_MainCharInfo.ShowHelpMessage(strTemp);			
 		}
 		break;
-	case ERR_GETLOTTOMONEY_NOTFINDITEM:		// ¾ÆÀÌÅÛ Ã£À»¼ö ¾øÀ½
+	case ERR_GETLOTTOMONEY_NOTFINDITEM:		// ì•„ì´í…œ ì°¾ì„ìˆ˜ ì—†ìŒ
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_ITEM_NOTFIND, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case ERR_GETLOTTOMONEY_NOTLOTTERY:		// ¹ÌÃßÃ·
+	case ERR_GETLOTTOMONEY_NOTLOTTERY:		// ë¯¸ì¶”ì²¨
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_LOTTERY, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case ERR_GETLOTTOMONEY_NOTCHECK:		// ´çÃ·¹ÌÈ·¶¨
+	case ERR_GETLOTTOMONEY_NOTCHECK:		// ë‹¹ì²¨ë¯¸íš…ë•
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_LOTTO_NOTCHECK, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case ERR_GETLOTTOMONEY_OVERMONEY:		// Çà³¶±İ¾× ÃÊ°ú
+	case ERR_GETLOTTOMONEY_OVERMONEY:		// í–‰ë‚­ê¸ˆì•¡ ì´ˆê³¼
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_PURSE_OUT_OVERMONEY, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case ERR_GETLOTTOMONEY_OVERPRIZEMONEY:	// ´çÃ·±İ¾×ÀÌ ¸¹À½
+	case ERR_GETLOTTOMONEY_OVERPRIZEMONEY:	// ë‹¹ì²¨ê¸ˆì•¡ì´ ë§ìŒ
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_LOTTO_OVERPRIZEMONEY, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
 
-	case ERR_GETLOTTOMONEY_INTERNALERROR:	// ³»ºÎ¿¡·¯
+	case ERR_GETLOTTOMONEY_INTERNALERROR:	// ë‚´ë¶€ì—ëŸ¬
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_REL_ERR_INTERNAL, TEXTEFFECT_COLOR_WARNING);
 		}
@@ -1044,7 +1044,7 @@ int OnCS_EC_GETLOTTOMONEY_ACK(CMsg &msg)
 
 
 /**
- * º¹±Ç¾ÆÀÌÅÛ ´çÃ·¿©ºÎ È·¶¨
+ * ë³µê¶Œì•„ì´í…œ ë‹¹ì²¨ì—¬ë¶€ íš…ë•
  * \param &msg 
  * \return 
  */
@@ -1061,7 +1061,7 @@ int OnCS_EC_CHECKLOTTO_ACK(CMsg &msg)
 
 	switch(bResult)
 	{
-	case ERR_CHECKLOTTO_SUCCESS:		// ¼º°ø
+	case ERR_CHECKLOTTO_SUCCESS:		// ì„±ê³µ
 		{
 			TCHAR strTemp[128] = {0,};
 			__int64 nTempMoney = dwPrizeMoney * 1000;
@@ -1069,27 +1069,27 @@ int OnCS_EC_CHECKLOTTO_ACK(CMsg &msg)
 			g_MainCharInfo.ShowHelpMessage(strTemp);
 		}
 		break;
-	case ERR_CHECKLOTTO_NOTFINDITEM:	// ¾ÆÀÌÅÛ Ã£À»¼ö ¾øÀ½
+	case ERR_CHECKLOTTO_NOTFINDITEM:	// ì•„ì´í…œ ì°¾ì„ìˆ˜ ì—†ìŒ
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_ITEM_NOTFIND, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case ERR_CHECKLOTTO_NOTLOTTERY:		// ¹Ì´çÃ·
+	case ERR_CHECKLOTTO_NOTLOTTERY:		// ë¯¸ë‹¹ì²¨
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_NOLOTTERY, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case ERR_CHECKLOTTO_ALREADYCHECK:	// ÀÌ¹Ì È·¶¨ÇßÀ½
+	case ERR_CHECKLOTTO_ALREADYCHECK:	// ì´ë¯¸ íš…ë•í–ˆìŒ
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_LOTTO_ALREADYCHECK, TEXTEFFECT_COLOR_WARNING);			
 		}
 		break;
-	case ERR_CHECKLOTTO_INTERROR:		// ³»ºÎ¿¡·¯
+	case ERR_CHECKLOTTO_INTERROR:		// ë‚´ë¶€ì—ëŸ¬
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_REL_ERR_INTERNAL, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case ERR_CHECKLOTTO_NOTJUDGE:		// ¹ÌÃßÃ·
+	case ERR_CHECKLOTTO_NOTJUDGE:		// ë¯¸ì¶”ì²¨
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_LOTTERY, TEXTEFFECT_COLOR_WARNING);
 		}
@@ -1102,7 +1102,7 @@ int OnCS_EC_CHECKLOTTO_ACK(CMsg &msg)
 }
 
 /**
- * º¹±Ç °øÁö»çÇ×
+ * ë³µê¶Œ ê³µì§€ì‚¬í•­
  * \param &msg 
  * \return 
  */
@@ -1125,7 +1125,7 @@ int OnCS_EC_LOTTONOTICE_ACK(CMsg &msg)
 	case LOTTONOTICE_NONE:
 		break;
 
-	case LOTTONOTICE_ENDSALE:		// ÆÇ¸ÅÁ¾·á
+	case LOTTONOTICE_ENDSALE:		// íŒë§¤ì¢…ë£Œ
 		{
 			TCHAR strTemp[128] = {0,};
 			_stprintf(strTemp, IDS_LOTTO_N_END, dwData[0]);
@@ -1136,14 +1136,14 @@ int OnCS_EC_LOTTONOTICE_ACK(CMsg &msg)
 			g_MainCharInfo.SpecialChatMessage(strTemp,0);
 		}
 		break;
-	case LOTTONOTICE_LOTTERYEND:	// ÃßÃ·¿Ï·á
+	case LOTTONOTICE_LOTTERYEND:	// ì¶”ì²¨ì™„ë£Œ
 		{
 			TCHAR strTemp[128] = {0,};
 			_stprintf(strTemp, IDS_LOTTO_N_PRIZEWIN_NUM, dwData[0], dwData[1], dwData[2], dwData[3]);
 			g_MainCharInfo.SpecialChatMessage(strTemp, 0);
 		}
 		break;
-	case LOTTONOTICE_LOTTERYNOTICE:	// ´çÃ·ÀÚ°øÁö
+	case LOTTONOTICE_LOTTERYNOTICE:	// ë‹¹ì²¨ìê³µì§€
 		{
 			TCHAR strTemp[128] = {0,};
 
@@ -1151,17 +1151,17 @@ int OnCS_EC_LOTTONOTICE_ACK(CMsg &msg)
 			{
 				__int64 nTempMoney = dwData[1] * 1000;
 
-				// ´çÃ·ÀÚ °øÁö
+				// ë‹¹ì²¨ì ê³µì§€
 				_stprintf(strTemp, IDS_LOTTO_N_RANK1, dwData[0], MoneyCommaStr(nTempMoney).data());
 				g_MainCharInfo.SpecialChatMessage(strTemp, 0);							
 			}
 			else
 			{
-				// ´çÃ·ÀÚ ¾øÀ½
+				// ë‹¹ì²¨ì ì—†ìŒ
 				g_MainCharInfo.SpecialChatMessage(IDS_LOTTO_N_RANK1_NOT, 0);				
 			}
 
-			// ÀÌ¿ù±İ
+			// ì´ì›”ê¸ˆ
 			if(dwData[2])
 			{
 				__int64 nTempMoney = dwData[2] * 1000;
@@ -1170,13 +1170,13 @@ int OnCS_EC_LOTTONOTICE_ACK(CMsg &msg)
 			}
 		}
 		break;
-	case LOTTONOTICE_STARTSALE:	// ÆÇ¸Å½ÃÀÛ
+	case LOTTONOTICE_STARTSALE:	// íŒë§¤ì‹œì‘
 		{
 			TCHAR strTemp[128] = {0,};
 			_stprintf(strTemp, IDS_LOTTO_N_START, dwData[0]);
 			g_MainCharInfo.SpecialChatMessage(strTemp, 0);
 
-			if(dwData[1])	// ÀÌ¿ù±İ ÀÖÀ»°æ¿ì
+			if(dwData[1])	// ì´ì›”ê¸ˆ ìˆì„ê²½ìš°
 			{
 				__int64 nTempMoney = dwData[1] * 1000;
 				_stprintf(strTemp, IDS_LOTTO_N_CARRYFORWARD_2, MoneyCommaStr(nTempMoney).data());
@@ -1192,7 +1192,7 @@ int OnCS_EC_LOTTONOTICE_ACK(CMsg &msg)
 }
 
 /**
- * º¸Çè ¾ÆÀÌÅÛ
+ * ë³´í—˜ ì•„ì´í…œ
  * \param &msg 
  * \return 
  */
@@ -1244,7 +1244,7 @@ int OnCS_EC_GUARANTEELIST_ACK(CMsg &msg)
 
 
 /**
- * ¸ÅÇ°ÆĞ
+ * ë§¤í’ˆíŒ¨
  * \param &msg 
  * \return 
  */
@@ -1257,7 +1257,7 @@ int OnCS_EC_QUICKMART_ACK(CMsg &msg)
 
 	switch(bResult)
 	{
-	case 0:		// ¿­±â
+	case 0:		// ì—´ê¸°
 		{
 			 CloseAllWindow();
 
@@ -1267,14 +1267,14 @@ int OnCS_EC_QUICKMART_ACK(CMsg &msg)
 			g_MainCharInfo.ShowSack(SACKTYPE__QUICKMART);
 		}
 		break;
-	case 1:		// ÀÌ¹Ì ¿­·ÁÀÖÀ½
+	case 1:		// ì´ë¯¸ ì—´ë ¤ìˆìŒ
 		{
 			g_MainCharInfo.ShowSack(SACKTYPE__QUICKMART);
 
-			// TODO: ¹®±¸
+			// TODO: ë¬¸êµ¬
 		}
 		break;
-	case 255:	// ½Ã½ºÅÛ ´íÎó
+	case 255:	// ì‹œìŠ¤í…œ ëŒ„è½
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_REL_ERR_INTERNAL, TEXTEFFECT_COLOR_WARNING);
 		}

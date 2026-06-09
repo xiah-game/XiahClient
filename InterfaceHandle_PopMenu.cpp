@@ -1,4 +1,4 @@
-#include "XiahArrayIndex.h"
+ï»¿#include "XiahArrayIndex.h"
 #include "Helper.h"
 
 extern sString MoneyCommaStr(INT64 nMoney);
@@ -7,7 +7,7 @@ extern sString MoneyCommaStr(INT64 nMoney);
 // PopMenu Frame
 //////////////////////////////////////////////////////////
 /**
- * »ó´ë¹æ ÆË¸Þ´º
+ * ìƒëŒ€ë°© íŒë©”ë‰´
  * \param lParam 
  */
 void ProcessPopMenuPc( LPARAM lParam)
@@ -15,7 +15,7 @@ void ProcessPopMenuPc( LPARAM lParam)
 	int controlID = LOWORD( lParam);
 	//int eventType = HIWORD( lParam);
 
-	// ¸ÅÇ°ÆÐ
+	// ë§¤í’ˆíŒ¨
 	if(g_MainCharInfo.m_pQuickMart)
 	{		
 		g_MainCharInfo.HideSack(SACKTYPE__QUICKMART, FALSE);		
@@ -23,7 +23,7 @@ void ProcessPopMenuPc( LPARAM lParam)
 
 	switch( controlID)
 	{
-	case 0:	// ´Ü ºñ¹«
+	case 0:	// ë‹¨ ë¹„ë¬´
 		{
 			if(g_MainCharInfo.m_pRelation->Am_I_LeaderInDan())
 			{
@@ -35,7 +35,7 @@ void ProcessPopMenuPc( LPARAM lParam)
 		}
 		break;
 
-	case 1:	// °ü°è
+	case 1:	// ê´€ê³„
 		{
 			sRect rtTemp;
 			g_pUIManager->GetRegionData(FRAMEID_PC, 1, rtTemp);
@@ -51,7 +51,7 @@ void ProcessPopMenuPc( LPARAM lParam)
 		}
 		break;
 
-	case 2:	// °Å·¡
+	case 2:	// ê±°ëž˜
 		if(!g_MainCharInfo.m_dwAskID)
 		{
 			if(g_MainCharInfo.m_bPickType == 0)
@@ -69,7 +69,7 @@ void ProcessPopMenuPc( LPARAM lParam)
 				if(g_MainCharInfo.m_pChat->GetChatType() == LARGECHAT)
 					g_MainCharInfo.m_pChat->SetChatType( SMALLCHAT);
 
-				// °³ÀÎ »óÁ¡ °Å·¡
+				// ê°œì¸ ìƒì  ê±°ëž˜
 				SendCS_SH_GETSHOPINFO_REQ(g_MainCharInfo.m_dwPickedObject);
 
 				g_pUIManager->DeletePopMenu();
@@ -83,7 +83,7 @@ void ProcessPopMenuPc( LPARAM lParam)
 				if(g_MainCharInfo.m_pChat->GetChatType() == LARGECHAT)
 					g_MainCharInfo.m_pChat->SetChatType( SMALLCHAT);
 
-				// °³ÀÎ »óÁ¡ °Å·¡
+				// ê°œì¸ ìƒì  ê±°ëž˜
 				SendCS_SH_GETSHOPINFO_REQ(g_MainCharInfo.m_dwPickedObject);
 			} // if(g_MainCharInfo.m_bPickType == 1)
 			else
@@ -99,7 +99,7 @@ void ProcessPopMenuPc( LPARAM lParam)
 }
 
 /**
- * NPC ÆË¾÷
+ * NPC íŒì—…
  * \param lParam 
  */
 void ProcessPopMenuNpc( LPARAM lParam)
@@ -134,7 +134,7 @@ void ProcessPopMenuNpc( LPARAM lParam)
 		return;
 	}
 	
-	// ¸ÅÇ°ÆÐ
+	// ë§¤í’ˆíŒ¨
 	if(g_MainCharInfo.m_pQuickMart)
 	{		
 		g_MainCharInfo.HideSack(SACKTYPE__QUICKMART, FALSE);		
@@ -142,37 +142,37 @@ void ProcessPopMenuNpc( LPARAM lParam)
 
 	switch( controlID)
 	{
-	case 0:	// ¼ö¸®
+	case 0:	// ìˆ˜ë¦¬
 		{
 			bool bTemp = true;
 
 			switch( pInfo->m_bType)
 			{
-			case 1: //´ëÀåÀåÀÌ
+			case 1: //ëŒ€ìž¥ìž¥ì´
 				{
 					g_MainCharInfo.ShowHelpMessage( IDS_REPAIR_WEAPON);
 					//pCharObject->SetChatBox(timeGetTime(), IDS_REPAIR_WEAPON, 111);
 				}				
 				break;
-			case 2:	//ÀÇ·ù»óÀÎ
+			case 2:	//ì˜ë¥˜ìƒì¸
 				{
 					g_MainCharInfo.ShowHelpMessage( IDS_REPAIR_CLOTH);
 					//pCharObject->SetChatBox(timeGetTime(), IDS_REPAIR_CLOTH, 111);
 				}				
 				break;		
-			case 3: //ÀâÈ­»óÀÎ
+			case 3: //ìž¡í™”ìƒì¸
 				{
 					g_MainCharInfo.ShowHelpMessage( IDS_REPAIR_JABWHA);
 					//pCharObject->SetChatBox(timeGetTime(), IDS_REPAIR_JABWHA, 111);
 				}				
 				break;
-			case 4:	//º¸¼®»óÀÎ
+			case 4:	//ë³´ì„ìƒì¸
 				{
 					g_MainCharInfo.ShowHelpMessage( IDS_REPAIR_JEWERY);
 					//pCharObject->SetChatBox(timeGetTime(), IDS_REPAIR_JEWERY, 111);
 				}
 				break;
-			case 7:	// Ã¢°íÁö±â - º¸Çè ¾ÆÀÌÅÛ º¹±¸
+			case 7:	// ì°½ê³ ì§€ê¸° - ë³´í—˜ ì•„ì´í…œ ë³µêµ¬
 				{
 					bTemp = false;
 					SendCS_EC_GUARANTEELIST_REQ();
@@ -199,26 +199,26 @@ void ProcessPopMenuNpc( LPARAM lParam)
 			}			
 		}
 		break;
-	case 1:	// °³Á¶
+	case 1:	// ê°œì¡°
 		{
 			bool bItemMall = false;
 
 			switch( pInfo->m_bType)
 			{
-			case 1: //´ëÀåÀåÀÌ
+			case 1: //ëŒ€ìž¥ìž¥ì´
 				g_MainCharInfo.ShowHelpMessage( IDS_CONVERT_SWORD);
 				break;
-			case 2:	//ÀÇ·ù»óÀÎ
+			case 2:	//ì˜ë¥˜ìƒì¸
 				g_MainCharInfo.ShowHelpMessage( IDS_CONVERT_CLOTH);
 				break;	
-			case 3: //ÀâÈ­»óÀÎ
+			case 3: //ìž¡í™”ìƒì¸
 				g_MainCharInfo.ShowHelpMessage( IDS_CONVERT_JABWHA);
 				break;
-			case 4:	//º¸¼®»óÀÎ
+			case 4:	//ë³´ì„ìƒì¸
 				g_MainCharInfo.ShowHelpMessage( IDS_CONVERT_JEWERY);
 				break;
 
-			case 6:	//¼­Á¡ÁÖÀÎ - º¹±Ç
+			case 6:	//ì„œì ì£¼ì¸ - ë³µê¶Œ
 				{
 					pCharObject->SetChatBox(timeGetTime(), IDS_LOTTO_NPC, 111);
 
@@ -234,7 +234,7 @@ void ProcessPopMenuNpc( LPARAM lParam)
 
 				}
 				break;
-			case 7: // Ã¢°íÁö±â - ¾ÆÀÌÅÛ ¸ô
+			case 7: // ì°½ê³ ì§€ê¸° - ì•„ì´í…œ ëª°
 				{
 					bItemMall = true;
 
@@ -252,10 +252,10 @@ void ProcessPopMenuNpc( LPARAM lParam)
 		}
 		break;
 
-	case 2:	// °Å·¡
+	case 2:	// ê±°ëž˜
 		switch( pInfo->m_bType)
 		{
-		case 7:	//Ã¢°íÁö±â
+		case 7:	//ì°½ê³ ì§€ê¸°
 			{
 				SendCS_EC_ITEMLISTINBANK_REQ( g_MainCharInfo.m_dwPickedObject);
 				g_MainCharInfo.ShowHelpMessage(IDS_START_NPC_DEAL);
@@ -272,13 +272,13 @@ void ProcessPopMenuNpc( LPARAM lParam)
 					bool bSuccess = false;
 					int nTotal = pQuestScript->GetInt(3);
 
-					for(int i=0; i < nTotal; ) // °°Àº npc°¡ ÀÖ±â¿¡ µ¹¸é¼­ °Ë»ç
+					for(int i=0; i < nTotal; ) // ê°™ì€ npcê°€ ìžˆê¸°ì— ëŒë©´ì„œ ê²€ì‚¬
 					{
 						sQuestInfo* pQuestInfo = g_MainCharInfo.m_pQuest->FindQuest(pQuestScript->GetInt(1));
 
 						if(pQuestInfo)
 						{
-							if(pQuestInfo->m_bProcessType == pQuestScript->GetInt(2)) // ÇöÀç »óÅÂ¿Í °°Àº°Í
+							if(pQuestInfo->m_bProcessType == pQuestScript->GetInt(2)) // í˜„ìž¬ ìƒíƒœì™€ ê°™ì€ê²ƒ
 							{
 								TCHAR strTemp[256]= {0,};
 
@@ -291,15 +291,15 @@ void ProcessPopMenuNpc( LPARAM lParam)
 						}
 
 						++i;
-						pQuestScript = XiahArrayIndex::g_QuestScript.GetSkipData(i, g_MainCharInfo.m_dwPickedObject); // i¹øÂ° ÀÌÈÄ ÀÎµ¦½º
+						pQuestScript = XiahArrayIndex::g_QuestScript.GetSkipData(i, g_MainCharInfo.m_dwPickedObject); // ië²ˆì§¸ ì´í›„ ì¸ë±ìŠ¤
 					}
 
-					if(pInfo->m_bType == 9 || pInfo->m_bType == 10) // º¹¸éÀÎ Àü¿ë ·çÆ¾
+					if(pInfo->m_bType == 9 || pInfo->m_bType == 10) // ë³µë©´ì¸ ì „ìš© ë£¨í‹´
 					{
 						if(!bSuccess)
 							pCharObject->SetChatBox( timeGetTime(), IDS_QUEST_NPC, 111);
 						else
-							// ¼­¹ö¿¡¼­ Äù½ºÆ® °Ë»ç ¶§¹®¿¡ Àü¼Û
+							// ì„œë²„ì—ì„œ í€˜ìŠ¤íŠ¸ ê²€ì‚¬ ë•Œë¬¸ì— ì „ì†¡
 							SendCS_NC_FUNCTIONALNPCITEMLIST_REQ( XiahMap::g_XiahMap.m_MapInfo.m_dwMapID, g_MainCharInfo.m_dwPickedObject, 0);
 						break;
 					}
@@ -336,7 +336,7 @@ void ProcessPopMenuPet( LPARAM lParam)
 	int controlID = LOWORD( lParam);
 	int eventType = HIWORD( lParam);
 
-	// ¸ÅÇ°ÆÐ
+	// ë§¤í’ˆíŒ¨
 	if(g_MainCharInfo.m_pQuickMart)
 	{		
 		g_MainCharInfo.HideSack(SACKTYPE__QUICKMART, FALSE);		
@@ -344,7 +344,7 @@ void ProcessPopMenuPet( LPARAM lParam)
 
 	switch( controlID)
 	{
-	case 0:	// »óÅÂ
+	case 0:	// ìƒíƒœ
 		ProcessClickPetInfoButton();
 		g_pUIManager->DeletePopMenu();
 		break;
@@ -362,7 +362,7 @@ void ProcessPopMenuPet( LPARAM lParam)
 											TRUE, FRAMEID_POPUP_SUBMENU, IDS_ITEM_COLLECT_M);
 		}
 		break;
-	case 2:	// Æ¯¼ö
+	case 2:	// íŠ¹ìˆ˜
 		{
 			sRect rtTemp;
 
@@ -398,7 +398,7 @@ void ProcessPopMenuPet( LPARAM lParam)
 
 
 /**
- * ¹®ÆÄ ºñ¼® ¸µ ¸Þ´º
+ * ë¬¸íŒŒ ë¹„ì„ ë§ ë©”ë‰´
  * \param lParam 
  */
 void ProcessPopMenuStone(LPARAM lParam)
@@ -406,7 +406,7 @@ void ProcessPopMenuStone(LPARAM lParam)
 	int nControlID = LOWORD(lParam);
 	//int nEventType = HIWORD(lParam);
 
-	// ¸ÅÇ°ÆÐ
+	// ë§¤í’ˆíŒ¨
 	if(g_MainCharInfo.m_pQuickMart)
 	{		
 		g_MainCharInfo.HideSack(SACKTYPE__QUICKMART, FALSE);		
@@ -414,7 +414,7 @@ void ProcessPopMenuStone(LPARAM lParam)
 
 	switch(nControlID)
 	{
-	case 0:		// °ü¸®
+	case 0:		// ê´€ë¦¬
 		{
 			sRect rtTemp;
 			g_pUIManager->GetRegionData(FRAMEID_STONE, 0, rtTemp);
@@ -427,18 +427,18 @@ void ProcessPopMenuStone(LPARAM lParam)
 										TRUE, FRAMEID_POPUP_SUBMENU, IDS_STONE_MUNPA_BBS);
 		}
 		break;
-	case 1:		// °æÁ¦
+	case 1:		// ê²½ì œ
 		{
 			sRect rtTemp;
 			g_pUIManager->GetRegionData(FRAMEID_STONE, 1, rtTemp);
 
 			g_pUIManager->MakePopSubMenu(1, rtTemp.right, rtTemp.bottom,
 											FRAMEID_STONE_SUB_2, 2, 
-											FALSE, FRAMEID_POPUP_SUBMENU, IDS_STONE_MUNPA_BANK,		// ¹®ÆÄ Ã¢°í
-											FALSE, FRAMEID_POPUP_SUBMENU, IDS_STONE_MUNPA_SHOP);	// ¹®ÆÄ »óÁ¡
+											FALSE, FRAMEID_POPUP_SUBMENU, IDS_STONE_MUNPA_BANK,		// ë¬¸íŒŒ ì°½ê³ 
+											FALSE, FRAMEID_POPUP_SUBMENU, IDS_STONE_MUNPA_SHOP);	// ë¬¸íŒŒ ìƒì 
 		}
 		break;
-	case 2:		// ½ÅÃ»
+	case 2:		// ì‹ ì²­
 		{
 			sRect rtTemp;
 			g_pUIManager->GetRegionData(FRAMEID_STONE, 2, rtTemp);
@@ -454,7 +454,7 @@ void ProcessPopMenuStone(LPARAM lParam)
 }
 
 /**
- * Á¤»ç°ü NPC ¸µ ¸Þ´º
+ * ì •ì‚¬ê´€ NPC ë§ ë©”ë‰´
  * \param lParam 
  */
 void ProcessPopMenuOfficial(LPARAM lParam)
@@ -462,7 +462,7 @@ void ProcessPopMenuOfficial(LPARAM lParam)
 	const int nControlID = LOWORD(lParam);
 	const int nEventType = HIWORD(lParam);
 
-	// ¸ÅÇ°ÆÐ
+	// ë§¤í’ˆíŒ¨
 	if(g_MainCharInfo.m_pQuickMart)
 	{		
 		g_MainCharInfo.HideSack(SACKTYPE__QUICKMART, FALSE);		
@@ -470,9 +470,9 @@ void ProcessPopMenuOfficial(LPARAM lParam)
 
 	switch(nControlID)
 	{
-	case 0:		// ´ëÈ­
+	case 0:		// ëŒ€í™”
 		break;
-	case 1:		// ±âºÎ
+	case 1:		// ê¸°ë¶€
 		{
 			g_MainCharInfo.OpenFrame(WINDOW_MUNPA_DONATE);
 
@@ -483,7 +483,7 @@ void ProcessPopMenuOfficial(LPARAM lParam)
 			g_pUIManager->SetData(WINDOW_MUNPA_DONATE, munpa_donate_button_01, CURRENT_INDEX, 2);
 		}
 		break;
-	case 2:		// ¸éÁË
+	case 2:		// ë©´ì£„
 		break;
 	default:
 		break;
@@ -493,7 +493,7 @@ void ProcessPopMenuOfficial(LPARAM lParam)
 }
 
 /**
- * ¿¬±Ý¼ú»ç NPC ¸µ ¸Þ´º
+ * ì—°ê¸ˆìˆ ì‚¬ NPC ë§ ë©”ë‰´
  * \param lParam 
  */
 void ProcessPopMenuAlchemist(LPARAM lParam)
@@ -501,7 +501,7 @@ void ProcessPopMenuAlchemist(LPARAM lParam)
 	const int nControlID = LOWORD(lParam);
 	const int nEventType = HIWORD(lParam);
 
-	// ¸ÅÇ°ÆÐ
+	// ë§¤í’ˆíŒ¨
 	if(g_MainCharInfo.m_pQuickMart)
 	{		
 		g_MainCharInfo.HideSack(SACKTYPE__QUICKMART, FALSE);		
@@ -509,11 +509,11 @@ void ProcessPopMenuAlchemist(LPARAM lParam)
 
 	switch(nControlID)
 	{
-		case 0:		// ´ëÈ­
+		case 0:		// ëŒ€í™”
 			break;
-		case 1:		// Á¦·Ã
+		case 1:		// ì œë ¨
 			{
-				// ¿ÀÇà Á¦·Ã
+				// ì˜¤í–‰ ì œë ¨
 				CloseAllWindow();
 
 				g_MainCharInfo.ShowSack(SACKTYPE__FIVEELEMENT_CONVERT);
@@ -521,7 +521,7 @@ void ProcessPopMenuAlchemist(LPARAM lParam)
 				g_MainCharInfo.ShowSack(SACKTYPE__EQUIPMENT);
 			}
 			break;
-		case 2:		// Á¶ÇÕ
+		case 2:		// ì¡°í•©
 			{
 				CloseAllWindow();
 
@@ -539,14 +539,14 @@ void ProcessPopMenuAlchemist(LPARAM lParam)
 
 
 /**
- * »ó¼­·É NPC ¸µ ¸Þ´º
+ * ìƒì„œë ¹ NPC ë§ ë©”ë‰´
  * \param lParam 
  */
 void ProcessPopMenuHelp(LPARAM lParam)
 {
 	const int nControlID = LOWORD(lParam);
 
-	// ¸ÅÇ°ÆÐ
+	// ë§¤í’ˆíŒ¨
 	if(g_MainCharInfo.m_pQuickMart)
 	{		
 		g_MainCharInfo.HideSack(SACKTYPE__QUICKMART, FALSE);		
@@ -554,7 +554,7 @@ void ProcessPopMenuHelp(LPARAM lParam)
 
 	switch(nControlID)
 	{
-	case 0:		// ´ëÈ­
+	case 0:		// ëŒ€í™”
 		{
 			CloseAllWindow();
 
@@ -567,11 +567,11 @@ void ProcessPopMenuHelp(LPARAM lParam)
 			g_Helper.SetSelectID(0);
 		}
 		break;
-	case 1:		// ÆÄ¹ß
+	case 1:		// íŒŒë°œ
 		{
 		}
 		break;
-	case 2:		// °Å·¡
+	case 2:		// ê±°ëž˜
 		{
 		}
 		break;
@@ -584,7 +584,7 @@ void ProcessPopMenuHelp(LPARAM lParam)
 
 
 /**
- * NPC Æ÷Å» ÀÌµ¿ »ó¼­·É
+ * NPC í¬íƒˆ ì´ë™ ìƒì„œë ¹
  * \param lParam 
  */
 void ProcessPopMenuNpcPortal(LPARAM lParam)
@@ -595,7 +595,7 @@ void ProcessPopMenuNpcPortal(LPARAM lParam)
 	{
 	case 0:
 		break;
-	case 1:	// ÀÌµ¿
+	case 1:	// ì´ë™
 		{
 			CloseAllWindow();
 
@@ -635,7 +635,7 @@ void ProcessPopMenuNpcPortal(LPARAM lParam)
 }
 
 /**
- * ¼º³à
+ * ì„±ë…€
  * \param lParam 
  */
 void ProcessPopMenuHelp2(LPARAM lParam)
@@ -659,7 +659,7 @@ void ProcessPopMenuHelp2(LPARAM lParam)
 
 	switch(nControlID)
 	{
-	case 0:		// ´ëÈ­
+	case 0:		// ëŒ€í™”
 		{
 			sArrayData* pQuestScript = XiahArrayIndex::g_QuestScript.GetData(g_MainCharInfo.m_dwPickedObject);
 
@@ -668,13 +668,13 @@ void ProcessPopMenuHelp2(LPARAM lParam)
 				bool bSuccess = false;
 				int nTotal = pQuestScript->GetInt(3);
 
-				for(int i=0; i < nTotal; ) // °°Àº npc°¡ ÀÖ±â¿¡ µ¹¸é¼­ °Ë»ç
+				for(int i=0; i < nTotal; ) // ê°™ì€ npcê°€ ìžˆê¸°ì— ëŒë©´ì„œ ê²€ì‚¬
 				{
 					sQuestInfo* pQuestInfo = g_MainCharInfo.m_pQuest->FindQuest(pQuestScript->GetInt(1));
 
 					if(pQuestInfo)
 					{
-						if(pQuestInfo->m_bProcessType == pQuestScript->GetInt(2)) // ÇöÀç »óÅÂ¿Í °°Àº°Í
+						if(pQuestInfo->m_bProcessType == pQuestScript->GetInt(2)) // í˜„ìž¬ ìƒíƒœì™€ ê°™ì€ê²ƒ
 						{
 							TCHAR strTemp[256]= {0,};
 
@@ -687,7 +687,7 @@ void ProcessPopMenuHelp2(LPARAM lParam)
 					}
 
 					++i;
-					pQuestScript = XiahArrayIndex::g_QuestScript.GetSkipData(i, g_MainCharInfo.m_dwPickedObject); // i¹øÂ° ÀÌÈÄ ÀÎµ¦½º
+					pQuestScript = XiahArrayIndex::g_QuestScript.GetSkipData(i, g_MainCharInfo.m_dwPickedObject); // ië²ˆì§¸ ì´í›„ ì¸ë±ìŠ¤
 				}
 
 				sQuestInfo* pQuestInfo = g_MainCharInfo.m_pQuest->FindQuest(1008);
@@ -706,7 +706,7 @@ void ProcessPopMenuHelp2(LPARAM lParam)
 						//}
 						//else
 						//{
-						// ¼­¹ö¿¡¼­ Äù½ºÆ® °Ë»ç ¶§¹®¿¡ Àü¼Û
+						// ì„œë²„ì—ì„œ í€˜ìŠ¤íŠ¸ ê²€ì‚¬ ë•Œë¬¸ì— ì „ì†¡
 						SendCS_NC_FUNCTIONALNPCITEMLIST_REQ( XiahMap::g_XiahMap.m_MapInfo.m_dwMapID, g_MainCharInfo.m_dwPickedObject, 0);
 						//}
 					}					
@@ -730,7 +730,7 @@ void ProcessPopMenuHelp2(LPARAM lParam)
 }
 
 /**
- * ¹®ÆÄ´ëÀü °ü¸®ÀÎ
+ * ë¬¸íŒŒëŒ€ì „ ê´€ë¦¬ì¸
  */
 void ProcessPopMenuClanWar(LPARAM lParam)
 {
@@ -740,7 +740,7 @@ void ProcessPopMenuClanWar(LPARAM lParam)
 
 	switch(nControlID)
 	{
-	case 0:	// ¸Ê Áö¿ª ÀÌµ¿
+	case 0:	// ë§µ ì§€ì—­ ì´ë™
 		{
 			CloseAllWindow();
 
@@ -758,7 +758,7 @@ void ProcessPopMenuClanWar(LPARAM lParam)
 			g_pUIManager->SetString(WINDOW_PORTAL, window_portal_button3, IDS_CLANWAR_NPC_PORTAL_03);
 			g_pUIManager->SetString(WINDOW_PORTAL, window_portal_button4, IDS_CLANWAR_NPC_PORTAL_04);
 			
-			g_pUIManager->SetString(WINDOW_PORTAL, window_portal_button5, IDS_CLANWAR_NPC_PORTAL_05); //HO_0906_07 ¹®ÆÄ´ëÀü °ü¸®ÀÎ Æ÷Å»±â´É Ãß°¡ : ¸¶Ç÷Áø Áö¿ª
+			g_pUIManager->SetString(WINDOW_PORTAL, window_portal_button5, IDS_CLANWAR_NPC_PORTAL_05); //HO_0906_07 ë¬¸íŒŒëŒ€ì „ ê´€ë¦¬ì¸ í¬íƒˆê¸°ëŠ¥ ì¶”ê°€ : ë§ˆí˜ˆì§„ ì§€ì—­
 
 			g_pUIManager->Show(WINDOW_PORTAL, window_portal_button3);
 			g_pUIManager->Show(WINDOW_PORTAL, window_portal_button4);
@@ -773,12 +773,12 @@ void ProcessPopMenuClanWar(LPARAM lParam)
 			g_MainCharInfo.OpenFrame(WINDOW_PORTAL);
 		}
 		break;
-	case 1:		// ¹®ÆÄ´ëÀü ¿ì½Â »ó±Ý
+	case 1:		// ë¬¸íŒŒëŒ€ì „ ìš°ìŠ¹ ìƒê¸ˆ
 		{
 			SendCS_WR_REWARD_REQ(0);
 		}
 		break;
-	case 2:		// ¹®ÆÄ´ëÀü Âü°¡ ½ÅÃ»
+	case 2:		// ë¬¸íŒŒëŒ€ì „ ì°¸ê°€ ì‹ ì²­
 		{	
 			g_pUIManager->ShowNotice(IDS_CLAN_WAR_APPLY, NOTICE_FRAME_OKCANCEL, NOTICE_FRAME_CLAN_WAR_APPLY);
 		}
@@ -792,7 +792,7 @@ void ProcessPopMenuClanWar(LPARAM lParam)
 
 /**
  * //HT_1116
- * \param lParam (È²±Ã¹«°ü Å½¶û)
+ * \param lParam (í™©ê¶ë¬´ê´€ íƒëž‘)
  */
 void ProcessPopMenuRebirthItem(LPARAM lParam)
 {
@@ -800,7 +800,7 @@ void ProcessPopMenuRebirthItem(LPARAM lParam)
 
 	switch(nControlID)
 	{
-	case 0:	// ´ëÈ­	
+	case 0:	// ëŒ€í™”	
 		{
 			CloseAllWindow();
 
@@ -809,11 +809,11 @@ void ProcessPopMenuRebirthItem(LPARAM lParam)
 				g_MainCharInfo.m_pChat->SetChatType(SMALLCHAT);
 			}
 
-			g_Helper.TalkShow(99);//HO_0410_07 »ó¼­·É °¡ÀÌµå ¾÷µ¥ÀÌÆ® : ±âÁ¸ (19)¿¡¼­ ¸®½ºÆ® Ãß°¡·Î 99·Î º¯°æ
+			g_Helper.TalkShow(99);//HO_0410_07 ìƒì„œë ¹ ê°€ì´ë“œ ì—…ë°ì´íŠ¸ : ê¸°ì¡´ (19)ì—ì„œ ë¦¬ìŠ¤íŠ¸ ì¶”ê°€ë¡œ 99ë¡œ ë³€ê²½
 			g_Helper.SetSelectID(99);
 		}
 		break;
-	case 1: // Á¦·Ã
+	case 1: // ì œë ¨
 		{
 			CloseAllWindow();
 
@@ -822,7 +822,7 @@ void ProcessPopMenuRebirthItem(LPARAM lParam)
 			g_MainCharInfo.ShowSack(SACKTYPE__EQUIPMENT);
 		}
 		break;
-	case 2: // Á¶ÇÕ	
+	case 2: // ì¡°í•©	
 		{
 			CloseAllWindow();
 
@@ -840,7 +840,7 @@ void ProcessPopMenuRebirthItem(LPARAM lParam)
 
 
 /**
- * //HT_0313 : ±¤¸íÀü & ÃµÈ²Àü
+ * //HT_0313 : ê´‘ëª…ì „ & ì²œí™©ì „
  * \param lParam 
  */
 void ProcessPopMenuSecretRoom(LPARAM lParam)
@@ -849,7 +849,7 @@ void ProcessPopMenuSecretRoom(LPARAM lParam)
 
 	switch(nControlID)
 	{
-	case 0:	// ±¤¸íÀü	
+	case 0:	// ê´‘ëª…ì „	
 		{
 			CloseAllWindow();
 
@@ -861,7 +861,7 @@ void ProcessPopMenuSecretRoom(LPARAM lParam)
 			g_Helper.TalkListShow(111);
 		}
 		break;
-	case 1: // ÃµÈ²Àü
+	case 1: // ì²œí™©ì „
 		{
 			CloseAllWindow();
 
@@ -890,7 +890,7 @@ void ProcessPopMenuRelation( LPARAM lParam)
 
 	switch( controlID)
 	{
-	case 0:	// ´Ü
+	case 0:	// ë‹¨
 		{
 			if( g_MainCharInfo.m_pRelation->Am_I_InDan())
 			{
@@ -912,7 +912,7 @@ void ProcessPopMenuRelation( LPARAM lParam)
 		}
 		break;
 
-	case 1:	// °ü°è´Ü
+	case 1:	// ê´€ê³„ë‹¨
 		{
 			if(g_MainCharInfo.m_pRelation->Am_I_InDan())
 			{
@@ -934,28 +934,28 @@ void ProcessPopMenuRelation( LPARAM lParam)
 		}
 		break;
 
-	case 2:	// ¹®ÆÄ
+	case 2:	// ë¬¸íŒŒ
 		{
 			SendCS_RL_ASKMUNWON_REQ( ACT_ASKMUNWON_REQUEST, g_MainCharInfo.m_dwObjectID, g_MainCharInfo.m_dwPickedObject);
 			g_MainCharInfo.ShowHelpMessage( ( IDS_SEND_INVITE_CLAN_MSG));
 		}
 		break;
 
-	case 3:	// Ä£±¸
+	case 3:	// ì¹œêµ¬
 		{
 			SendCS_RL_ASKRELATION_REQ( RELATION_TYPE_BUDDY, RELATION_STEP_ASK, g_MainCharInfo.m_dwObjectID, g_MainCharInfo.m_dwPickedObject );
 			g_MainCharInfo.ShowHelpMessage( ( IDS_SEND_INVITE_FRIEND_MSG ) );
 		}		
 		break;
 
-	case 4:	// Á¦ÀÚ
+	case 4:	// ì œìž
 		{
 			SendCS_RL_ASKRELATION_REQ( RELATION_TYPE_TEACHER, RELATION_STEP_ASK, g_MainCharInfo.m_dwObjectID, g_MainCharInfo.m_dwPickedObject );
 			g_MainCharInfo.ShowHelpMessage( ( IDS_REL_SEND_ASK_DISCIPLE_MSG ) );
 		}		
 		break;
 
-	case 5:	// ¿¬ÀÎ
+	case 5:	// ì—°ì¸
 		{
 			SendCS_RL_ASKRELATION_REQ( RELATION_TYPE_LOVER, RELATION_STEP_ASK, g_MainCharInfo.m_dwObjectID, g_MainCharInfo.m_dwPickedObject );
 			g_MainCharInfo.ShowHelpMessage( ( IDS_REL_SEND_ASK_LOVER_MSG ) );
@@ -973,31 +973,31 @@ void ProcessPopMenuAI( LPARAM lParam)
 	int eventType = HIWORD( lParam);
 
 /*
-#define	PETAI_NONE				0	// ¾Æ¹«°Íµµ ¾ø½¿ (PC¸¦ µû¶ó ´Ù´Ô)
-#define	PETAI_SELFGUARD			1	// ÀÚ±â º¸È£	(±âº»»óÅÂÀÓ)
-#define	PETAI_AUTOATTACK		2	// ÀÚµ¿°ø°Ý
-#define	PETAI_GUARD				3	// ´ë»óº¸È£
-#define	PETAI_TARGETATTACK		4	// ´ë»ó°ø°Ý
-#define	PETAI_TAKEITEM			5	// ¾ÆÀÌÅÛ ¼öÁý
-#define	PETAI_SPECIALATTACK		6	// ¹«°ø°ø°Ý
+#define	PETAI_NONE				0	// ì•„ë¬´ê²ƒë„ ì—†ìŠ´ (PCë¥¼ ë”°ë¼ ë‹¤ë‹˜)
+#define	PETAI_SELFGUARD			1	// ìžê¸° ë³´í˜¸	(ê¸°ë³¸ìƒíƒœìž„)
+#define	PETAI_AUTOATTACK		2	// ìžë™ê³µê²©
+#define	PETAI_GUARD				3	// ëŒ€ìƒë³´í˜¸
+#define	PETAI_TARGETATTACK		4	// ëŒ€ìƒê³µê²©
+#define	PETAI_TAKEITEM			5	// ì•„ì´í…œ ìˆ˜ì§‘
+#define	PETAI_SPECIALATTACK		6	// ë¬´ê³µê³µê²©
 */
 
 	switch( controlID)
 	{
-	case 0:	// È£Ãâ
+	case 0:	// í˜¸ì¶œ
 		g_PetList.Change_PET_AI(PETAI_CALLTOME);
 		break;
-	case 1: // µ¿¹Ý°ø°Ý
+	case 1: // ë™ë°˜ê³µê²©
 		g_PetList.Change_PET_AI(PETAI_AUTOATTACK);		
 		break;
-	case 2: // ÁöÁ¤°ø°Ý
+	case 2: // ì§€ì •ê³µê²©
 		g_PetList.Change_PET_AI(PETAI_TARGETATTACK);
 		g_bCommandAI = TRUE;
 		g_dwCommandType = PETAI_TARGETATTACK;
 		break;
-	case 3:	// ¹«°ø°ø°Ý
+	case 3:	// ë¬´ê³µê³µê²©
 		break;
-	case 4:	// ¾ÆÀÌÅÛ¼öÁý
+	case 4:	// ì•„ì´í…œìˆ˜ì§‘
 		g_PetList.Change_PET_AI(PETAI_TAKEITEM);
 		break;
 	}
@@ -1013,15 +1013,15 @@ void ProcessPopMenuSpecial( LPARAM lParam)
 
 	switch( controlID)
 	{
-	case 0:	// ¹è³¶¿­±â
+	case 0:	// ë°°ë‚­ì—´ê¸°
 		ProcessClickPetSackButton();		
 		break;
 
-	case 1:	// ³õ¾ÆÁÖ±â
+	case 1:	// ë†“ì•„ì£¼ê¸°
 		SendCS_NC_STATUSCHANGE_REQ( OBJTYPE_PET, g_MainCharInfo.m_dwPickedObject, NPCSTATUS_DIE, 0);
 		//g_MainCharInfo.ShowHelpMessage( IDS_FREE_PET);	
 
-		// ºÀÀÎÇÏ±â
+		// ë´‰ì¸í•˜ê¸°
 		/*
 		XiahItem::sItemInfo* pInfo = g_MainCharInfo.m_pMySack[g_MainCharInfo.m_byMySackCurrIdx]->FindSackItemByVisualID( 9200);
 		if( pInfo)
@@ -1041,7 +1041,7 @@ void ProcessPopMenuSpecial( LPARAM lParam)
 
 
 /**
- * ¹®ÆÄÀü ºñ¼® ¼­ºê °ü¸®
+ * ë¬¸íŒŒì „ ë¹„ì„ ì„œë¸Œ ê´€ë¦¬
  * \param lParam 
  */
 void ProcessPopMenuStoneSub1(LPARAM lParam)
@@ -1051,12 +1051,12 @@ void ProcessPopMenuStoneSub1(LPARAM lParam)
 
 	switch(nControlID)
 	{
-	case 0:		// ¹®ÆÄ ¹®Àå »èÁ¦
+	case 0:		// ë¬¸íŒŒ ë¬¸ìž¥ ì‚­ì œ
 		{
 			g_pUIManager->ShowNotice(IDS_MUNPAMARK_DEL, NOTICE_FRAME_OKCANCEL, NOTICE_FRAME_MARK_DEL);
 		}
 		break;
-	case 1:		// ¹®ÆÄ ¹®Àå µî·Ï
+	case 1:		// ë¬¸íŒŒ ë¬¸ìž¥ ë“±ë¡
 		{
 			TCHAR strFile[128] = {0,};
 			_stprintf(strFile, "mark.bmp");
@@ -1065,7 +1065,7 @@ void ProcessPopMenuStoneSub1(LPARAM lParam)
 			D3DXIMAGE_INFO imageinfo;
 
 Check:	// goto
-			// ÆÄÀÏ °Ë»ç			
+			// íŒŒì¼ ê²€ì‚¬			
 			if(FAILED(D3DXGetImageInfoFromFile(strFile, &imageinfo)))
 			{
 				if(bCheck)
@@ -1074,7 +1074,7 @@ Check:	// goto
 					break;
 				}
 
-				// mark.bmp.bmp ÆÄÀÏµµ °Ë»ç (ÀÏºÎ À¯Àú°¡ ÆÄÀÏÀ» ÀÌ·¸°Ô ¸¸µå´Â °æ¿ì°¡ ÀÖ´Ù.)
+				// mark.bmp.bmp íŒŒì¼ë„ ê²€ì‚¬ (ì¼ë¶€ ìœ ì €ê°€ íŒŒì¼ì„ ì´ë ‡ê²Œ ë§Œë“œëŠ” ê²½ìš°ê°€ ìžˆë‹¤.)
 				_stprintf(strFile, "mark.bmp.bmp");
 				bCheck = true;
 
@@ -1119,12 +1119,12 @@ Check:	// goto
 			g_MainCharInfo.OpenFrame(MESSAGE_WINDOW_MARK);
 		}
 		break;
-	case 2:		// ¹®ÆÄºñ¼® Æ÷±â
+	case 2:		// ë¬¸íŒŒë¹„ì„ í¬ê¸°
 		{
 			g_pUIManager->ShowNotice(IDS_STONE_DELETE, NOTICE_FRAME_OKCANCEL, NOTICE_FRAME_STONE_RESIGN);
 		}
 		break;
-	case 3:		// ¹®ÆÄ °Ô½ÃÆÇ
+	case 3:		// ë¬¸íŒŒ ê²Œì‹œíŒ
 		{
 			XiahObject::CXiahObject* pObject = XiahObject::g_XiahObjectManager.FindXiahObject(MAKEOBJECTID( 0, g_MainCharInfo.m_dwPickedObject, OBJTYPE_FUNCTIONALNPC));
 			if(pObject == NULL) break;
@@ -1148,7 +1148,7 @@ Check:	// goto
 }
 
 /**
- * ¹®ÆÄÀü ºñ¼® ¼­ºê °æÁ¦	- ÇöÀç ±â´É ¹Ì»ç¿ë
+ * ë¬¸íŒŒì „ ë¹„ì„ ì„œë¸Œ ê²½ì œ	- í˜„ìž¬ ê¸°ëŠ¥ ë¯¸ì‚¬ìš©
  * \param lParam 
  */
 void ProcessPopMenuStoneSub2(LPARAM lParam)
@@ -1158,9 +1158,9 @@ void ProcessPopMenuStoneSub2(LPARAM lParam)
 
 	switch(nControlID)
 	{
-	case 0:		// ¹®ÆÄ Ã¢°í
+	case 0:		// ë¬¸íŒŒ ì°½ê³ 
 		break;
-	case 1:		// ¹®ÆÄ »óÁ¡
+	case 1:		// ë¬¸íŒŒ ìƒì 
 		break;
 	} // switch(nControlID)
 
@@ -1169,7 +1169,7 @@ void ProcessPopMenuStoneSub2(LPARAM lParam)
 }
 
 /**
- * ¹®ÆÄÀü ºñ¼® ¼­ºê ½ÅÃ»
+ * ë¬¸íŒŒì „ ë¹„ì„ ì„œë¸Œ ì‹ ì²­
  * \param lParam 
  */
 void ProcessPopMenuStoneSub3(LPARAM lParam)
@@ -1179,9 +1179,9 @@ void ProcessPopMenuStoneSub3(LPARAM lParam)
 
 	switch(nControlID)
 	{
-	case 0:		// ¹®ÆÄÀü ½ÅÃ»
+	case 0:		// ë¬¸íŒŒì „ ì‹ ì²­
 		{
-			// È·¶¨
+			// íš…ë•
 			XiahObject::CXiahObject* pObject = XiahObject::g_XiahObjectManager.FindXiahObject(MAKEOBJECTID( 0, g_MainCharInfo.m_dwPickedObject, OBJTYPE_FUNCTIONALNPC));
 			if(pObject == NULL) return;
 			if(pObject->m_pObject == NULL) return;
@@ -1198,7 +1198,7 @@ void ProcessPopMenuStoneSub3(LPARAM lParam)
 			g_pUIManager->SetString(WINDOW_MUNPA_WAR_PETITION, munpa_war_petition_select_dummy_02, IDS_MUNPA_WAR_STONE_1, 5);
 		}
 		break;
-	case 1:		// ¹®¿ø °¡ÀÔ ½ÅÃ»
+	case 1:		// ë¬¸ì› ê°€ìž… ì‹ ì²­
 		{
 			XiahObject::CXiahObject* pObject = XiahObject::g_XiahObjectManager.FindXiahObject(MAKEOBJECTID( 0, g_MainCharInfo.m_dwPickedObject, OBJTYPE_FUNCTIONALNPC));
 			if(pObject == NULL) return;
@@ -1212,7 +1212,7 @@ void ProcessPopMenuStoneSub3(LPARAM lParam)
 			g_MainCharInfo.ShowHelpMessage( ( IDS_SEND_INVITE_CLAN_MSG));
 		}
 		break;
-	case 2:		// µ¿¸Í ½ÅÃ»	- ¹Ì»ç¿ë
+	case 2:		// ë™ë§¹ ì‹ ì²­	- ë¯¸ì‚¬ìš©
 		break;
 	} // switch(nControlID)
 
@@ -1235,7 +1235,7 @@ void ProcessPopMenuBongInItem( LPARAM lParam)
 		DBG_LogFile( _T("ProcessPopMenuBongInItem fail"));
 	}
 
-	// ºÀÀÎÇÏ·Á¸é ÆêÀÌ ÀÖ¾î¾ß ÇÑ´Ù.
+	// ë´‰ì¸í•˜ë ¤ë©´ íŽ«ì´ ìžˆì–´ì•¼ í•œë‹¤.
 	//YS_0812 : BUGFIX
 	if( g_PetList.size() > controlID )
 	{		
@@ -1257,7 +1257,7 @@ void ProcessPopMenuBongInItem( LPARAM lParam)
 }
 
 /**
- * ¾ÆÀÌÅÛ¸ô Àü³¶ ÄÞº¸
+ * ì•„ì´í…œëª° ì „ë‚­ ì½¤ë³´
  * \param lParam 
  */
 void ProcessPopMenuPurseItem(LPARAM lParam)
@@ -1265,10 +1265,10 @@ void ProcessPopMenuPurseItem(LPARAM lParam)
 	const int nControlID = LOWORD(lParam);
 	const int nEventType = HIWORD(lParam);
 
-	// TODO: ¾Æ·¡ ÀÔ/Ãâ±Ý ÀÌº¥Æ® Å¸ÀÔÀ¸·Î ¹Ù²Ü°Í
+	// TODO: ì•„ëž˜ ìž…/ì¶œê¸ˆ ì´ë²¤íŠ¸ íƒ€ìž…ìœ¼ë¡œ ë°”ê¿€ê²ƒ
 	switch(nControlID)
 	{
-	case 0:	// ÀÔ±Ý
+	case 0:	// ìž…ê¸ˆ
 		{
 			g_pUIManager->SetString(WINDOW_PURSE, window_purse_dummy_02, IDS_PURSE_IN);
 			g_pUIManager->Hide(WINDOW_PURSE, window_purse_dummy_03);
@@ -1277,7 +1277,7 @@ void ProcessPopMenuPurseItem(LPARAM lParam)
 		}
 		break;
 
-	case 1:	// Ãâ±Ý
+	case 1:	// ì¶œê¸ˆ
 		{
 			g_pUIManager->SetString(WINDOW_PURSE, window_purse_dummy_01, IDS_PURSE_OUT_DES);
 			g_pUIManager->SetString(WINDOW_PURSE, window_purse_dummy_02, IDS_PURSE_OUT);
@@ -1287,7 +1287,7 @@ void ProcessPopMenuPurseItem(LPARAM lParam)
 		}
 		break;
 
-	default:	// ¿¡·¯ ¸Þ½ÃÁö
+	default:	// ì—ëŸ¬ ë©”ì‹œì§€
 		break;
 	}
 
@@ -1301,7 +1301,7 @@ void ProcessPopMenuPurseItem(LPARAM lParam)
 
 
 /**
- * ´ëÀü ½Ã°£ ¼³Á¤
+ * ëŒ€ì „ ì‹œê°„ ì„¤ì •
  * \param lParam 
  */
 void ProcessPopMenuWarDay(LPARAM lParam)
@@ -1339,7 +1339,7 @@ void ProcessPopMenuWarDay(LPARAM lParam)
 }
 
 /**
- * ¹®ÆÄ ºñ¼® ÀÌÀü ¼³Á¤
+ * ë¬¸íŒŒ ë¹„ì„ ì´ì „ ì„¤ì •
  * \param lParam 
  */
 void ProcessPopMenuStoneMove(LPARAM lParam)
@@ -1364,7 +1364,7 @@ void ProcessPopMenuStoneMove(LPARAM lParam)
 }
 
 /**
-* °³ÀÎ °Å·¡ Á¾·ù ¼±ÅÃ
+* ê°œì¸ ê±°ëž˜ ì¢…ë¥˜ ì„ íƒ
 * \param lParam 
 */
 void ProcessPopMenuPcTrade(LPARAM lParam)
@@ -1373,11 +1373,11 @@ void ProcessPopMenuPcTrade(LPARAM lParam)
 
 	switch(nControlID)
 	{
-	case 0:		// ÀÏ¹Ý °Å·¡
+	case 0:		// ì¼ë°˜ ê±°ëž˜
 		SendCS_EC_ASKTRADE_REQ( 0, g_MainCharInfo.m_dwObjectID, g_MainCharInfo.m_dwPickedObject);
 		g_MainCharInfo.ShowHelpMessage(IDS_SEND_TRADE);
 		break;
-	case 1:		// Æê °Å·¡
+	case 1:		// íŽ« ê±°ëž˜
 		{
 			if(g_PetList.size())
 			{
@@ -1396,7 +1396,7 @@ void ProcessPopMenuPcTrade(LPARAM lParam)
 }
 
 /**
-* Æê º¹±¸ ¸®½ºÆ® (5°³)
+* íŽ« ë³µêµ¬ ë¦¬ìŠ¤íŠ¸ (5ê°œ)
 * \param lParam 
 */
 void ProcessPopMenuRevival(LPARAM lParam)
@@ -1426,7 +1426,7 @@ void ProcessPopMenuRevival(LPARAM lParam)
 }
 
 /**
- * ºùÁ¤ ºÀÀÎ
+ * ë¹™ì • ë´‰ì¸
  * \param lParam 
  */
 void ProcessPopMenuCryolite(LPARAM lParam)
@@ -1438,7 +1438,7 @@ void ProcessPopMenuCryolite(LPARAM lParam)
 }
 
 /**
- * º¹±Ç - ±¸¸Å,´çÃ·¹øÈ£È·¶¨
+ * ë³µê¶Œ - êµ¬ë§¤,ë‹¹ì²¨ë²ˆí˜¸íš…ë•
  * \param lParam 
  */
 void ProcessPopMenuLotto(LPARAM lParam)
@@ -1447,7 +1447,7 @@ void ProcessPopMenuLotto(LPARAM lParam)
 
 	switch(nControlID)
 	{
-	case 0:	// ±¸¸Å
+	case 0:	// êµ¬ë§¤
 		{
 			g_MainCharInfo.OpenFrame(WINDOW_BOK_NUMBER);
 
@@ -1456,7 +1456,7 @@ void ProcessPopMenuLotto(LPARAM lParam)
 
 		}
 		break;
-	case 1:	// ´çÃ·¹øÈ£È·¶¨
+	case 1:	// ë‹¹ì²¨ë²ˆí˜¸íš…ë•
 		{
 			SendCS_EC_PRIZELOTTOINFO_REQ(1);
 		}
@@ -1470,7 +1470,7 @@ void ProcessPopMenuLotto(LPARAM lParam)
 }
 
 /**
- * º¹±Ç¾ÆÀÌÅÛ ´çÃ· È·¶¨/´çÃ·±Ý ¼ö·É
+ * ë³µê¶Œì•„ì´í…œ ë‹¹ì²¨ íš…ë•/ë‹¹ì²¨ê¸ˆ ìˆ˜ë ¹
  * \param lParam 
  */
 void ProcessPopMenuLottoCheck(LPARAM lParam)
@@ -1479,7 +1479,7 @@ void ProcessPopMenuLottoCheck(LPARAM lParam)
 
 	switch(nControlID)
 	{
-	case 0:	// º¹±Ç¾ÆÀÌÅÛ ´çÃ· È·¶¨
+	case 0:	// ë³µê¶Œì•„ì´í…œ ë‹¹ì²¨ íš…ë•
 		{
 			SendCS_EC_CHECKLOTTO_REQ(g_MainCharInfo.m_dwResItemID,
 									g_MainCharInfo.m_ReairSackID,
@@ -1487,7 +1487,7 @@ void ProcessPopMenuLottoCheck(LPARAM lParam)
 
 		}
 		break;
-	case 1:	// ´çÃ·±Ý ¼ö·É
+	case 1:	// ë‹¹ì²¨ê¸ˆ ìˆ˜ë ¹
 		{
 			g_pUIManager->SetString(WINDOW_MONEY, money_window_dummy_01, IDS_LOTTO_RECEIVE);
 			g_pUIManager->SetString(WINDOW_MONEY, money_window_dummy_02, IDS_LOTTO_RECEIVE_INFO);

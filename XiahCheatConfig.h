@@ -1,10 +1,11 @@
-#ifndef __XIAH_CHEAT_CONFIG_H__
+﻿#ifndef __XIAH_CHEAT_CONFIG_H__
 #define __XIAH_CHEAT_CONFIG_H__
 
 #include <windows.h>
 
 extern BOOL g_bAutoAttack;
 extern BOOL g_bAutoLoot;
+extern int  g_nAttackMode;  // 0=Physical, 1=Skill
 extern BOOL g_bAutoHP;
 extern int  g_nHPPercent;
 extern TCHAR g_szHPPotionName[32];

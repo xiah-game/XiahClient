@@ -1,4 +1,4 @@
-#include "precompile.h"
+ï»¿#include "precompile.h"
 #include "XiahGameStartLoad.h"
 #include "Fade.h"
 #include "XiahCursor.h"
@@ -18,12 +18,12 @@
 
 #pragma comment(lib, "d3dx9.lib")
 
-// ·Î°íÀÇ »ç¿îµå
+// ë¡œê³ ì˜ ì‚¬ìš´ë“œ
 #define SOUNDFX_LOGO1	50001214
 #define SOUNDFX_LOGO2	50001215
 #define LOGO1			50001038
 #define LOGO2			50001039
-#define	LOGO3_CHINA		50001317	// Áß±¹¿ë °æ°í¸Ş¼¼Áö
+#define	LOGO3_CHINA		50001317	// ì¤‘êµ­ìš© ê²½ê³ ë©”ì„¸ì§€
 
 CXiahGameStartLoad*			g_StartLoad = NULL;
 
@@ -114,7 +114,7 @@ BOOL CXiahGameStartLoad::Init()
 	m_pVB2->Unlock();
 
 	// texture
-	// ¿©±â¼­ ÅØ½ºÃÄ¸¦ ´Üµ¶À¸·Î ÀĞÀÚ.
+	// ì—¬ê¸°ì„œ í…ìŠ¤ì³ë¥¼ ë‹¨ë…ìœ¼ë¡œ ì½ì.
 	int nPakFileCount = 1;
 
 	LPCTSTR pPakFileList[] =
@@ -178,9 +178,9 @@ BOOL CXiahGameStartLoad::Update()
 			m_byCurStep = eStartLoad_TaewoolLogoFadeIn;
 		}
 
-		if( GetAsyncKeyState( VK_ESCAPE ) < 0 )			// EscÅ°°¡ µé¾î¿À¸é ½ºÅµ.
+		if( GetAsyncKeyState( VK_ESCAPE ) < 0 )			// Escí‚¤ê°€ ë“¤ì–´ì˜¤ë©´ ìŠ¤í‚µ.
 		{
-			Fade::StartFade( 0, 0, NULL, 3000 );		// ÀÏ´Ü °Å¸İ°Ô.
+			Fade::StartFade( 0, 0, NULL, 3000 );		// ì¼ë‹¨ ê±°ë©“ê²Œ.
 
 			m_byCurStep = eStartLoad_XiahLogoFadeIn;
 			m_dwElapsedTime = 9200;
@@ -193,9 +193,9 @@ BOOL CXiahGameStartLoad::Update()
 			m_byCurStep = eStartLoad_XiahLogoFadeOut;
 		}
 
-		if( GetAsyncKeyState( VK_ESCAPE ) < 0 )			// EscÅ°°¡ µé¾î¿À¸é ½ºÅµ.
+		if( GetAsyncKeyState( VK_ESCAPE ) < 0 )			// Escí‚¤ê°€ ë“¤ì–´ì˜¤ë©´ ìŠ¤í‚µ.
 		{
-			Fade::StartFade( 0, 0, NULL, 500 );		// ÀÏ´Ü °Å¸İ°Ô.
+			Fade::StartFade( 0, 0, NULL, 500 );		// ì¼ë‹¨ ê±°ë©“ê²Œ.
 
 			m_byCurStep = eStartLoad_XiahLogoFadeIn;
 			m_dwElapsedTime = 9200;
@@ -217,17 +217,17 @@ BOOL CXiahGameStartLoad::Update()
 
 #ifdef _CHINA_
 		// FOR Chinese version
-		if( GetAsyncKeyState( VK_ESCAPE ) < 0 )			// EscÅ°°¡ µé¾î¿À¸é ½ºÅµ.
+		if( GetAsyncKeyState( VK_ESCAPE ) < 0 )			// Escí‚¤ê°€ ë“¤ì–´ì˜¤ë©´ ìŠ¤í‚µ.
 		{
-			Fade::StartFade( 0, 0, NULL, 500 );		// ÀÏ´Ü °Å¸İ°Ô.
+			Fade::StartFade( 0, 0, NULL, 500 );		// ì¼ë‹¨ ê±°ë©“ê²Œ.
 
 			m_byCurStep = eStartLoad_China_WarnningIn;
 			m_dwElapsedTime = 9200;
 		}
 #else
-		if( GetAsyncKeyState( VK_ESCAPE ) < 0 )			// EscÅ°°¡ µé¾î¿À¸é ½ºÅµ.
+		if( GetAsyncKeyState( VK_ESCAPE ) < 0 )			// Escí‚¤ê°€ ë“¤ì–´ì˜¤ë©´ ìŠ¤í‚µ.
 		{
-			Fade::StartFade( 0, 0, NULL, 3000 );		// ÀÏ´Ü °Å¸İ°Ô.
+			Fade::StartFade( 0, 0, NULL, 3000 );		// ì¼ë‹¨ ê±°ë©“ê²Œ.
 
 			m_byCurStep = eStartLoad_XiahLogoFadeIn;
 			m_dwElapsedTime = 9200;
@@ -244,9 +244,9 @@ BOOL CXiahGameStartLoad::Update()
 			m_byCurStep = eStartLoad_China_WarnningIn;
 		}
 
-		if( GetAsyncKeyState( VK_ESCAPE ) < 0 )			// EscÅ°°¡ µé¾î¿À¸é ½ºÅµ.
+		if( GetAsyncKeyState( VK_ESCAPE ) < 0 )			// Escí‚¤ê°€ ë“¤ì–´ì˜¤ë©´ ìŠ¤í‚µ.
 		{
-			Fade::StartFade( 0, 0, NULL, 3000 );		// ÀÏ´Ü °Å¸İ°Ô.
+			Fade::StartFade( 0, 0, NULL, 3000 );		// ì¼ë‹¨ ê±°ë©“ê²Œ.
 
 			m_byCurStep = eStartLoad_China_WarnningIn;
 			m_dwElapsedTime = 9200;
@@ -258,9 +258,9 @@ BOOL CXiahGameStartLoad::Update()
 			m_byCurStep = eStartLoad_XiahLogoFadeIn;
 		}
 
-		if( GetAsyncKeyState( VK_ESCAPE ) < 0 )			// EscÅ°°¡ µé¾î¿À¸é ½ºÅµ.
+		if( GetAsyncKeyState( VK_ESCAPE ) < 0 )			// Escí‚¤ê°€ ë“¤ì–´ì˜¤ë©´ ìŠ¤í‚µ.
 		{
-			Fade::StartFade( 0, 0, NULL, 3000 );		// ÀÏ´Ü °Å¸İ°Ô.
+			Fade::StartFade( 0, 0, NULL, 3000 );		// ì¼ë‹¨ ê±°ë©“ê²Œ.
 
 			m_byCurStep = eStartLoad_XiahLogoFadeIn;
 			m_dwElapsedTime = 9200;
@@ -269,7 +269,7 @@ BOOL CXiahGameStartLoad::Update()
 		break;
 
 	///////////////////////////////////////
-	// Áß±¹¿ë °æ°í ¸Ş¼¼Áö Ãß°¡
+	// ì¤‘êµ­ìš© ê²½ê³  ë©”ì„¸ì§€ ì¶”ê°€
 	///////////////////////////////////////
 	case eStartLoad_China_WarnningIn:
 		if( m_dwElapsedTime >= 9200 )
@@ -283,21 +283,21 @@ BOOL CXiahGameStartLoad::Update()
 	case eStartLoad_China_WarnningOut:
 		if( m_dwElapsedTime >= 12500 )
 		{
-			Fade::StartFade( 0, TRUE, NULL, 3000 );		// ÀÏ´Ü °Å¸İ°Ô.
+			Fade::StartFade( 0, TRUE, NULL, 3000 );		// ì¼ë‹¨ ê±°ë©“ê²Œ.
 
 			m_byCurStep = eStartLoad_China_WarnningOut;
 		}
 
 		break;
 	///////////////////////////////////////
-	// Áß±¹¿ë °æ°í ¸Ş¼¼Áö Ãß°¡
+	// ì¤‘êµ­ìš© ê²½ê³  ë©”ì„¸ì§€ ì¶”ê°€
 	///////////////////////////////////////
 
 
 	case eStartLoad_Load1:
-		{	// ÀÌÁ¦ ½ÇÁúÀûÀÎ ·ÎµùÀ» ½ÃÀÛÇÏÀÚ.
+		{	// ì´ì œ ì‹¤ì§ˆì ì¸ ë¡œë”©ì„ ì‹œì‘í•˜ì.
 
-			// ½ÃÀÛ ¹è°æÀ½¾Ç
+			// ì‹œì‘ ë°°ê²½ìŒì•…
 			Play_BGM(_T("sound\\bgm\\intro01.mp3"),1);
 
 			if( !InitXiahCursor())
@@ -321,7 +321,7 @@ BOOL CXiahGameStartLoad::Update()
 				break;
 			}
 
-			// Pak File List´Â ÀÓ½Ã·Î
+			// Pak File ListëŠ” ì„ì‹œë¡œ
 			int nPakFileCount = 0;
 			LPCTSTR pPakFileList[512];
 			FILE* fpPak = fopen("packages_xpk.txt", "r");
@@ -349,12 +349,12 @@ BOOL CXiahGameStartLoad::Update()
 
 			g_XiahEnvInfo.m_FogColor = D3DCOLOR_XRGB( 0, 0, 0 );
 
-			// ÀÎÅÍÆäÀÌ½º
+			// ì¸í„°í˜ì´ìŠ¤
 			g_pUIManager = new XiahGameEngine::CUIManager();
 			if(!g_pUIManager->FileLoad(LoadStr(IDS_DATA_FILE_XIAH_FMR), LoadStr(IDS_DATA_FILE_XIAH_CMR)))
 			{
 				bFailToLoad = true;
-				MessageBox( GetForegroundWindow(), _T("ÀÎÅÍÆäÀÌ½º ·Îµù ½ÇÆĞ"), START_ERROR0, MB_OK);
+				MessageBox( GetForegroundWindow(), _T("ì¸í„°í˜ì´ìŠ¤ ë¡œë”© ì‹¤íŒ¨"), START_ERROR0, MB_OK);
 				break;
 			}
 
@@ -362,7 +362,7 @@ BOOL CXiahGameStartLoad::Update()
 			
 			RegisterInterfaceHandler();
 
-			// 2004.07.20 ÀÌº¥Æ®¿ë ·ÎµùÈ­¸é
+			// 2004.07.20 ì´ë²¤íŠ¸ìš© ë¡œë”©í™”ë©´
 			/*
 			if( rand() % 2 )
 				g_pUIManager->ForwardShow( EVENT_LOADING_1 );
@@ -370,9 +370,9 @@ BOOL CXiahGameStartLoad::Update()
 				g_pUIManager->ForwardShow( EVENT_LOADING_2 );
 			*/
 
-			g_pUIManager->ForwardShow(LOADING_IMAGE3);; //HO_0702_07 µî±ŞÇ¥½Ã : µî±ŞÇ¥½Ã¿Í ÇÔ°Ô ½ºÅ¸Æ®·Îµù°ú °ÔÀÓ·Îµù ºÎºĞÀÌ µ¿ÀÏ ÀÌ¹ÌÁö·Î Ã³¸®µÈ´Ù.
+			g_pUIManager->ForwardShow(LOADING_IMAGE3);; //HO_0702_07 ë“±ê¸‰í‘œì‹œ : ë“±ê¸‰í‘œì‹œì™€ í•¨ê²Œ ìŠ¤íƒ€íŠ¸ë¡œë”©ê³¼ ê²Œì„ë¡œë”© ë¶€ë¶„ì´ ë™ì¼ ì´ë¯¸ì§€ë¡œ ì²˜ë¦¬ëœë‹¤.
 
-			//µî±ŞÇ¥½Ã Àû¿ëÀü ÄÚµå ³ªÁß¿¡ Áö¿ö ¹ö¸®ÀÚ ..; µî±ŞÇ¥½Ã Àü¿¡´Â ³ªÀÌ ±¸ºĞÀÌ ÀÖ¾ù´Ù...
+			//ë“±ê¸‰í‘œì‹œ ì ìš©ì „ ì½”ë“œ ë‚˜ì¤‘ì— ì§€ì›Œ ë²„ë¦¬ì ..; ë“±ê¸‰í‘œì‹œ ì „ì—ëŠ” ë‚˜ì´ êµ¬ë¶„ì´ ìˆì—‡ë‹¤...
 			//if(g_AppData.m_bAdult)
 			//	g_pUIManager->ForwardShow(LOADING_IMAGE2);
 			//else
@@ -380,7 +380,7 @@ BOOL CXiahGameStartLoad::Update()
 
 			//g_pUIManager->ForwardShow(LOADING_IMAGE3);
 
-			// ·Îµù È­¸éÀÌ ¼­¼­È÷ º¸ÀÌµµ·Ï ÇÑ´Ù.
+			// ë¡œë”© í™”ë©´ì´ ì„œì„œíˆ ë³´ì´ë„ë¡ í•œë‹¤.
 			m_byCurStep = eStartLoad_LoadLogoFadeIn;
 			m_dwBackTime = m_dwElapsedTime;
 			Fade::StartFade( 0, 0, NULL, 2000 );
@@ -390,8 +390,8 @@ BOOL CXiahGameStartLoad::Update()
 		break;
 	case eStartLoad_Load2:
 		{
-			// [12/13/2004] DB³¯¶ó°¬±â¿¡..
-			// Ä³¸¯ÅÍ Á¤º¸
+			// [12/13/2004] DBë‚ ë¼ê°”ê¸°ì—..
+			// ìºë¦­í„° ì •ë³´
 			int nXpcFileCount = 0;
 			LPCTSTR pCharacterFileList[256];
 			FILE* fpXpc = fopen("packages_xpc.txt", "r");
@@ -417,7 +417,7 @@ BOOL CXiahGameStartLoad::Update()
 				break;
 			}
 
-			// [12/17/2004] DB ³¯¶ó°¡¼­ »ç¿îµå µû·Î °£´Ù
+			// [12/17/2004] DB ë‚ ë¼ê°€ì„œ ì‚¬ìš´ë“œ ë”°ë¡œ ê°„ë‹¤
 			LPCTSTR pSoundPakList[] =
 			{
 				_T("sound\\character\\sound.xps"),
@@ -431,7 +431,7 @@ BOOL CXiahGameStartLoad::Update()
 				break;
 			}
 
-			// Char EffectÁ¤º¸
+			// Char Effectì •ë³´
 			g_EffectManager.Initialize( g_pDirect3DDevice, 0, 0 );
 			if( !g_EffectManager.LoadXiahEffectPackage(_T("character\\chareffect.xpe")))
 			{
@@ -440,7 +440,7 @@ BOOL CXiahGameStartLoad::Update()
 				break;
 			}
 
-			// [12/10/2004] DB°¡ ³¯¶ó°¡¼­ ÀÌÆåÆ®ÆÄÀÏÀ» µû·Î °£´Ù.
+			// [12/10/2004] DBê°€ ë‚ ë¼ê°€ì„œ ì´í™íŠ¸íŒŒì¼ì„ ë”°ë¡œ ê°„ë‹¤.
 			if( !g_EffectManager.LoadXiahEffectPackage(_T("character\\chareffect2.xpe"), 2))
 			{
 				MessageBox( GetForegroundWindow(), START_ERROR8, START_ERROR0, MB_OK);
@@ -448,7 +448,7 @@ BOOL CXiahGameStartLoad::Update()
 				break;
 			}
 
-			// [03/20/2007] DB°íÀåÀ¸·Î ÀÌÆåÆ® »õ·Î ¹­¾î¼­ Ã³¸®ÇÑ´Ù.
+			// [03/20/2007] DBê³ ì¥ìœ¼ë¡œ ì´í™íŠ¸ ìƒˆë¡œ ë¬¶ì–´ì„œ ì²˜ë¦¬í•œë‹¤.
 			if( !g_EffectManager.LoadXiahEffectPackage(_T("character\\chareffect3.xpe"), 3))
 			{
 				MessageBox( GetForegroundWindow(), START_ERROR8, START_ERROR0, MB_OK);
@@ -456,7 +456,7 @@ BOOL CXiahGameStartLoad::Update()
 				break;
 			}
 
-			// Tile EffectÁ¤º¸
+			// Tile Effectì •ë³´
 			if( !g_EffectManager.LoadXiahTileEffectPackage(_T("map\\tileeffect.xpe")))
 			{
 				MessageBox( GetForegroundWindow(), START_ERROR9, START_ERROR0, MB_OK);
@@ -467,7 +467,7 @@ BOOL CXiahGameStartLoad::Update()
 			// Load Dummy Ani character and load extra effect
 			ManageExtraEffect();
 
-			// ¸Ê ±âº» Á¤º¸
+			// ë§µ ê¸°ë³¸ ì •ë³´
 			LPCTSTR pMapeFileList[ 5] =
 			{
 				_T("map\\tile.idx"),
@@ -484,38 +484,38 @@ BOOL CXiahGameStartLoad::Update()
 				break;
 			}
 
-			// CG_2005/05/26 : ½ºÄ«ÀÌ¸Ê Ã¼ÀÎÁö
+			// CG_2005/05/26 : ìŠ¤ì¹´ì´ë§µ ì²´ì¸ì§€
 			if( !g_Sky.Load(/* "map\\Sky.txt" */) )
 			{
-				DBG_LogFile( _T("g_Sky.Create ½ÇÆĞ"));
+				DBG_LogFile( _T("g_Sky.Create ì‹¤íŒ¨"));
 			}
 
 			/*
 			if(!g_SkyBox.Create())
 			{
-				DBG_LogFile( _T("g_SkyBOX.Create ½ÇÆĞ"));
+				DBG_LogFile( _T("g_SkyBOX.Create ì‹¤íŒ¨"));
 			}
 
-			// ¹è°æÀÇ SKYBOX ÅØ½ºÃ³ ¼³Á¤ ()
+			// ë°°ê²½ì˜ SKYBOX í…ìŠ¤ì²˜ ì„¤ì • ()
 			g_SkyBox.ChangeSkyMap(3);
 
-			// ÇØ, ´Ş, º°
+			// í•´, ë‹¬, ë³„
 			if(!g_SkyStar.Create())
 			{
-				DBG_LogFile( _T("g_SkyStar.Create ½ÇÆĞ"));
+				DBG_LogFile( _T("g_SkyStar.Create ì‹¤íŒ¨"));
 			}
 			*/
 
 			// RAIN INIT
 			if(!g_RainSnow.Init())
 			{
-				DBG_LogFile( _T("g_RainSnow.Init ½ÇÆĞ"));
+				DBG_LogFile( _T("g_RainSnow.Init ì‹¤íŒ¨"));
 			}
 
-			// Å¸°İ ¼ıÀÚ, Miss, Hit ÀÌÆåÆ®.
+			// íƒ€ê²© ìˆ«ì, Miss, Hit ì´í™íŠ¸.
 			if(!g_HitEffect.Init())
 			{
-				DBG_LogFile( _T("g_HitEffect.Init ½ÇÆĞ"));
+				DBG_LogFile( _T("g_HitEffect.Init ì‹¤íŒ¨"));
 			}
 
 			// Game Step
@@ -529,7 +529,7 @@ BOOL CXiahGameStartLoad::Update()
 
 			XiahNetwork::g_XiahSocketOnConnected = OnConnectedToServer;
 
-			// È¯°æ Á¤º¸ ¼¼ÆÃ
+			// í™˜ê²½ ì •ë³´ ì„¸íŒ…
 			g_XiahEnvInfo.m_bFog			= TRUE;
 			g_XiahEnvInfo.m_bAmhukmuFog		= FALSE;
 			g_XiahEnvInfo.m_DiffuseColor	= D3DCOLOR_XRGB(255, 255, 255);
@@ -556,21 +556,21 @@ BOOL CXiahGameStartLoad::Update()
 			g_XiahEnvInfo.m_SkyColorUp		= D3DCOLOR_XRGB( 0, 0, 0 );
 			*/
 
-			// ºñ°¡ ¿Ã¶§ Æ÷±×°¡ ½Ã°£¿¡ µû¶ó¼­ ¼­¼­È÷ º¯ÇÏµµ·Ï ÇÏ±â À§ÇØ.
+			// ë¹„ê°€ ì˜¬ë•Œ í¬ê·¸ê°€ ì‹œê°„ì— ë”°ë¼ì„œ ì„œì„œíˆ ë³€í•˜ë„ë¡ í•˜ê¸° ìœ„í•´.
 			g_XiahChangeEnvInfo.bChangeStart = false;
 			g_MainCharInfo.Create();
 
-			// Auth Server¿¡ Á¢¼Ó			
+			// Auth Serverì— ì ‘ì†			
 			if(ConnectAuthServer() == FALSE)
 			{
 				bFailToLoad = true;
 				break;
 			}
 
-			// ¸¶Áö¸·À¸·Î ÀÚ½ÅÀÇ µ¥ÀÌÅ¸ »èÁ¦
+			// ë§ˆì§€ë§‰ìœ¼ë¡œ ìì‹ ì˜ ë°ì´íƒ€ ì‚­ì œ
 			if(!Release())
 			{
-				DBG_LogFile( _T("CXiahGameStartLoad::Update / Release ½ÇÆĞ"));
+				DBG_LogFile( _T("CXiahGameStartLoad::Update / Release ì‹¤íŒ¨"));
 			}
 
 			m_byCurStep = eStartLoad_End;
@@ -582,13 +582,13 @@ BOOL CXiahGameStartLoad::Update()
 
 	if(!Fade::UpdateFade())
 	{
-		DBG_LogFile( _T("CXiahGameStartLoad::Update / Fade::UpdateFade ½ÇÆĞ"));
+		DBG_LogFile( _T("CXiahGameStartLoad::Update / Fade::UpdateFade ì‹¤íŒ¨"));
 	}
 
 	if( bFailToLoad )
 	{
 		MessageBox( GetForegroundWindow(), START_ERROR13, START_ERROR0, MB_OK);
-		DBG_LogFile( _T("Xiah °ÔÀÓ ÃÊ±âÈ­ ½ÇÆĞ"));
+		DBG_LogFile( _T("Xiah ê²Œì„ ì´ˆê¸°í™” ì‹¤íŒ¨"));
 		PostQuitMessage( 0);
 		return FALSE;
 	}
@@ -634,11 +634,11 @@ BOOL CXiahGameStartLoad::Render()
 		if( m_dwElapsedTime >= 9200 )
 		{
 			m_byCurStep = eStartLoad_Load1;
-			//			Fade::StartFade( 0, 0, NULL, 1500 );	// ´Ù½Ã Fade OutÀ» ÇØ¾ß Diffuse¶«½Ã ·ÎµùÈ­¸éÀÌ º¸ÀÎ´Ù.
-			// ÀÌ¶§ ·Î°í ÅØ½ºÃÄ¸¦ ¸±¸®ÁîÇÑ´Ù.
+			//			Fade::StartFade( 0, 0, NULL, 1500 );	// ë‹¤ì‹œ Fade Outì„ í•´ì•¼ Diffuseë•œì‹œ ë¡œë”©í™”ë©´ì´ ë³´ì¸ë‹¤.
+			// ì´ë•Œ ë¡œê³  í…ìŠ¤ì³ë¥¼ ë¦´ë¦¬ì¦ˆí•œë‹¤.
 			if(!XiahPak::UninitializeXiahPak())
 			{
-				DBG_LogFile( _T("CXiahGameStartLoad::Render ½ÇÆĞ"));
+				DBG_LogFile( _T("CXiahGameStartLoad::Render ì‹¤íŒ¨"));
 			}
 		}
 #endif
@@ -659,11 +659,11 @@ BOOL CXiahGameStartLoad::Render()
 		if( m_dwElapsedTime >= 16000 )
 		{
 			m_byCurStep = eStartLoad_Load1;
-			//			Fade::StartFade( 0, 0, NULL, 1500 );	// ´Ù½Ã Fade OutÀ» ÇØ¾ß Diffuse¶«½Ã ·ÎµùÈ­¸éÀÌ º¸ÀÎ´Ù.
-			// ÀÌ¶§ ·Î°í ÅØ½ºÃÄ¸¦ ¸±¸®ÁîÇÑ´Ù.
+			//			Fade::StartFade( 0, 0, NULL, 1500 );	// ë‹¤ì‹œ Fade Outì„ í•´ì•¼ Diffuseë•œì‹œ ë¡œë”©í™”ë©´ì´ ë³´ì¸ë‹¤.
+			// ì´ë•Œ ë¡œê³  í…ìŠ¤ì³ë¥¼ ë¦´ë¦¬ì¦ˆí•œë‹¤.
 			if(!XiahPak::UninitializeXiahPak())
 			{
-				DBG_LogFile( _T("CXiahGameStartLoad::Render ½ÇÆĞ"));
+				DBG_LogFile( _T("CXiahGameStartLoad::Render ì‹¤íŒ¨"));
 			}
 		}
 #endif
@@ -675,7 +675,7 @@ BOOL CXiahGameStartLoad::Render()
 			m_byCurStep = eStartLoad_Load2;
 		}
 
-		// 2004.07.20 ÀÌº¥Æ®¿ë ·ÎµùÈ­¸é
+		// 2004.07.20 ì´ë²¤íŠ¸ìš© ë¡œë”©í™”ë©´
 		/*
 		if( rand() % 2 )
 			g_pUIManager->ForwardShow( EVENT_LOADING_1 );
@@ -690,7 +690,7 @@ BOOL CXiahGameStartLoad::Render()
 
 	case eStartLoad_Load2:
 	case eStartLoad_End:
-		// 2004.07.20 ÀÌº¥Æ®¿ë ·ÎµùÈ­¸é
+		// 2004.07.20 ì´ë²¤íŠ¸ìš© ë¡œë”©í™”ë©´
 		/*
 		if( rand() % 2 )
 			g_pUIManager->ForwardShow( EVENT_LOADING_1 );
@@ -705,7 +705,7 @@ BOOL CXiahGameStartLoad::Render()
 
 	if(!Fade::RenderFade())
 	{
-		DBG_LogFile( _T("CXiahGameStartLoad::Render ½ÇÆĞ"));
+		DBG_LogFile( _T("CXiahGameStartLoad::Render ì‹¤íŒ¨"));
 
 		//		return false;
 	}
@@ -715,7 +715,7 @@ BOOL CXiahGameStartLoad::Render()
 
 #include <time.h>
 
-// AuthServer·ÎÀÇ Á¢¼Ó
+// AuthServerë¡œì˜ ì ‘ì†
 BOOL CXiahGameStartLoad::ConnectAuthServer()
 {
 	BOOL ret;
@@ -724,13 +724,13 @@ BOOL CXiahGameStartLoad::ConnectAuthServer()
 	int	Order[64] = {0,};
 	int num = g_AppData.m_NumAuthserver;
 
-	// Â÷·¹´ë·Î ½Ãµµ!
+	// ì°¨ë ˆëŒ€ë¡œ ì‹œë„!
 	while(1)
 	{
 		if(Count >= g_AppData.m_NumAuthserver)
 		{
 			MessageBox( GetForegroundWindow(), START_ERROR12, START_ERROR0, MB_OK);
-			DBG_Put(_T("·şÎñÆ÷Á¬½ÓÊ§°Ü"));
+			DBG_Put(_T("ë¥©è›Ÿí¬ì ¯ìŒˆå‘µê²¨"));
 			ret = FALSE;
 			break;
 		}

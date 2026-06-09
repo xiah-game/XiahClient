@@ -1,4 +1,4 @@
-#include "precompile.h"
+﻿#include "precompile.h"
 #include "XiahCamera.h"
 #include "XiahGameObject.h"
 #include "XiahEnvInfo.h"

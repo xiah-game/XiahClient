@@ -1,4 +1,4 @@
-#include "FrameDefine.h"
+ï»¿#include "FrameDefine.h"
 #include "PopMenuDefine.h"
 #include "PositionDefine.h"
 #include "SoundDefine.h"
@@ -11,8 +11,8 @@
 
 extern CUIManager* g_pUIManager;
 
-#define POTION_VISUALID_1	20000	//È£Ç÷´Ü
-#define POTION_VISUALID_2	21000	//±ÝÃ¢¾à
+#define POTION_VISUALID_1	20000	//í˜¸í˜ˆë‹¨
+#define POTION_VISUALID_2	21000	//ê¸ˆì°½ì•½
 
 #define TEXTEFFECT_COLOR_GENERAL	0
 #define TEXTEFFECT_COLOR_GAIN		1

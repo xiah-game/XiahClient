@@ -1,7 +1,7 @@
-#pragma once
+ï»¿#pragma once
 
 
-// È­¸é ¹øÂ½È¿°ú¸¦ À§ÇÑ Å¬·¡½º
+// í™”ë©´ ë²ˆì©íš¨ê³¼ë¥¼ ìœ„í•œ í´ë˜ìŠ¤
 
 class	cEFFECT_SPOT
 {
@@ -9,14 +9,14 @@ public :
 	cEFFECT_SPOT();
 	~cEFFECT_SPOT();
 
-	// ¹øÂ½ ½Ã°£, »ö±ò
+	// ë²ˆì© ì‹œê°„, ìƒ‰ê¹”
 	BOOL Start(D3DCOLOR color,DWORD time = 1000);
 	
 	BOOL Update();
 	void Render();
 
 private :
-	DWORD	AxisTime;			// ±âÁØ½Ã°£
+	DWORD	AxisTime;			// ê¸°ì¤€ì‹œê°„
 	DWORD	FadeTimeLength;
 	
 	D3DCOLOR FadeColor;

@@ -1,4 +1,4 @@
-// Normal Window
+ï»¿// Normal Window
 #define WINDOW_FIRST_XPOS				740
 #define WINDOW_SECOND_XPOS				460
 
@@ -33,13 +33,13 @@
 #define MAIN_FRAME_IP_BARTYPE			1
 
 // WINDOW_BUTTON_GROUP
-//HO_0413_07 Äü °¡ÀÌµå ¾÷µ¥ÀÌÆ® : ¹öÆ° Ãß°¡·Î ÀÎÇÑ ½Ã½ºÅÛ ±×·ì¹öÆ°À» ÀüÃ¼ ±æÀÌ 142, ¹öÆ°´ç °¡·Î,¼¼·Î35 Å×µÎ¸®´Â 2·Î °è»êÇÏ¿´À½
-#define WINDOW_BUTTON_GROUP_XPOS		190//Äü °¡ÀÌµå ¹öÆ° Ãß°¡·Î ÀÎÇÑ À©µµ¿ì ±×·ì¹öÆ° À§Ä¡ ¼öÁ¤
-//#define WINDOW_BUTTON_GROUP_XPOS		51//Äü °¡ÀÌµå ¹öÆ° Ãß°¡Àü À§Ä¡
+//HO_0413_07 í€µ ê°€ì´ë“œ ì—…ë°ì´íŠ¸ : ë²„íŠ¼ ì¶”ê°€ë¡œ ì¸í•œ ì‹œìŠ¤í…œ ê·¸ë£¹ë²„íŠ¼ì„ ì „ì²´ ê¸¸ì´ 142, ë²„íŠ¼ë‹¹ ê°€ë¡œ,ì„¸ë¡œ35 í…Œë‘ë¦¬ëŠ” 2ë¡œ ê³„ì‚°í•˜ì˜€ìŒ
+#define WINDOW_BUTTON_GROUP_XPOS		190//í€µ ê°€ì´ë“œ ë²„íŠ¼ ì¶”ê°€ë¡œ ì¸í•œ ìœˆë„ìš° ê·¸ë£¹ë²„íŠ¼ ìœ„ì¹˜ ìˆ˜ì •
+//#define WINDOW_BUTTON_GROUP_XPOS		51//í€µ ê°€ì´ë“œ ë²„íŠ¼ ì¶”ê°€ì „ ìœ„ì¹˜
 #define WINDOW_BUTTON_GROUP_YPOS		681
 
-// SYSTEM_BUTTON_GROUP(±âÁ¸¿¡´Â À©µµ¿ì ±×·ì¹öÆ°¿Í ½Ã½ºÅÛ ±×·ì¹öÆ°ÀÌ µ¿ÀÏ ¶óÀÎ ÀÌ±â¿¡ SYSTEM_BUTTON_GROUP_YPOS ¾øÀÌ WINDOW_BUTTON_GROUP_YPOS¸¦ ÀÌ¿ëÇßÀ¸³ª Äü °¡ÀÌµå ¹öÆ° Ãß°¡·Î ÀÎÇÏ¿© »õ·Î ¼³Á¤ÇØÁÜ)
-#define SYSTEM_BUTTON_GROUP_YPOS		645//HO_0413_07 Äü °¡ÀÌµå ¾÷µ¥ÀÌÆ® : ¹öÆ° Ãß°¡·Î »õ·Î ¼³Á¤
+// SYSTEM_BUTTON_GROUP(ê¸°ì¡´ì—ëŠ” ìœˆë„ìš° ê·¸ë£¹ë²„íŠ¼ì™€ ì‹œìŠ¤í…œ ê·¸ë£¹ë²„íŠ¼ì´ ë™ì¼ ë¼ì¸ ì´ê¸°ì— SYSTEM_BUTTON_GROUP_YPOS ì—†ì´ WINDOW_BUTTON_GROUP_YPOSë¥¼ ì´ìš©í–ˆìœ¼ë‚˜ í€µ ê°€ì´ë“œ ë²„íŠ¼ ì¶”ê°€ë¡œ ì¸í•˜ì—¬ ìƒˆë¡œ ì„¤ì •í•´ì¤Œ)
+#define SYSTEM_BUTTON_GROUP_YPOS		645//HO_0413_07 í€µ ê°€ì´ë“œ ì—…ë°ì´íŠ¸ : ë²„íŠ¼ ì¶”ê°€ë¡œ ìƒˆë¡œ ì„¤ì •
 
 
 // PET_BUTTON_GROUP

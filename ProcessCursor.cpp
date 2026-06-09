@@ -1,7 +1,7 @@
-//---------------------------------------------------------------------------------------
+ï»¿//---------------------------------------------------------------------------------------
 BOOL ProcessCursor()
 {
-	// PET AI ¸í·É¿¡ µû¸¥ Ä¿¼­ÀÇ º¯È­
+	// PET AI ëª…ë ¹ì— ë”°ë¥¸ ì»¤ì„œì˜ ë³€í™”
 	if(g_bCommandAI)
 	{
 		switch(g_dwCommandType)
@@ -12,7 +12,7 @@ BOOL ProcessCursor()
 			case PETAI_SPECIALATTACK :
 			break;
 			
-			// ´ë»ó°ø°Ý
+			// ëŒ€ìƒê³µê²©
 			case PETAI_TARGETATTACK	:
 			{
 				ChangeXiahCursor( eCT_Attack_Over);
@@ -41,7 +41,7 @@ BOOL ProcessCursor()
 				}
 				else
 				{
-					// ¾ßÂ÷°¡ ±Í½Ä ´ë¹ýÀ» ½èÀ»¶© ¾È¹Ù²ï´Ù.
+					// ì•¼ì°¨ê°€ ê·€ì‹ ëŒ€ë²•ì„ ì¼ì„ë• ì•ˆë°”ë€ë‹¤.
 					if( MAIN_CHAROBJECT->m_bSubObjType == 4 &&
 						MAIN_CHAROBJECT->m_KeepUpMugongList.IsExist(OUTGONGID_GYUISIKDAEBUB) )
 					{

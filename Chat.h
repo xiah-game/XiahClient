@@ -1,4 +1,4 @@
-
+ï»¿
 #pragma once
 
 #include <deque>
@@ -37,11 +37,11 @@ class CChat
 {
 private:
 	ChatList	m_listChat;
-	BYTE		m_byType;					// ¸î °³±îÁöÀÇ ChatMsg¸¦ º¸¿©ÁÙ°ÇÁö
+	BYTE		m_byType;					// ëª‡ ê°œê¹Œì§€ì˜ ChatMsgë¥¼ ë³´ì—¬ì¤„ê±´ì§€
 	sRect		m_rtRegion[ LARGECHATSIZE];
 	CText2D		m_text2D[ LARGECHATSIZE];
 
-	BOOL		m_bChatFlag;			// ÇöÀç ¿¡µğÆÃÁßÀÌ´Ù:TRUE
+	BOOL		m_bChatFlag;			// í˜„ì¬ ì—ë””íŒ…ì¤‘ì´ë‹¤:TRUE
 	DWORD		m_dwTimeInterval;
 public:
 	// get

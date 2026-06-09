@@ -1,20 +1,20 @@
-#pragma once
+ï»¿#pragma once
 
 #include "CharacterInfo.h"
 
 //#define LIGHTSET
 
 /*
-	¹°·Ğ MainWindow¿¡ ´Ù Áı¾î ³Ö¾îµµ µÇ´Â°ÅÁö¸¸, MainWindowÇÁ·Î±×·¥ÀÌ ³Ê¹« º¹ÀâÇØÁö´Â °É ¹æÁö ÇÏ±â À§ÇØ
+	ë¬¼ë¡  MainWindowì— ë‹¤ ì§‘ì–´ ë„£ì–´ë„ ë˜ëŠ”ê±°ì§€ë§Œ, MainWindowí”„ë¡œê·¸ë¨ì´ ë„ˆë¬´ ë³µì¡í•´ì§€ëŠ” ê±¸ ë°©ì§€ í•˜ê¸° ìœ„í•´
 
 
 */
 #define COLOR_PICKCURSOR D3DCOLOR_XRGB( 255, 255, 128)
 
-extern BOOL InitXiahGame();		// °ÔÀÓ ÃÊ±âÈ­
-extern BOOL CloseXiahGame();	// °ÔÀÓ Á¾·á (¼­¹ö ¿¬°á ²÷±â°Å³ª, Map¿¡¼­ MainInterface·Î ³ª¿Ã¶§´Â ¾Æ´Ô!!!)
+extern BOOL InitXiahGame();		// ê²Œì„ ì´ˆê¸°í™”
+extern BOOL CloseXiahGame();	// ê²Œì„ ì¢…ë£Œ (ì„œë²„ ì—°ê²° ëŠê¸°ê±°ë‚˜, Mapì—ì„œ MainInterfaceë¡œ ë‚˜ì˜¬ë•ŒëŠ” ì•„ë‹˜!!!)
 extern BOOL LoopXiahGame_BeforeRender();
-extern BOOL LoopXiahGame();		// °ÔÀÓ Main Loop
+extern BOOL LoopXiahGame();		// ê²Œì„ Main Loop
 
 extern BOOL LoopXiahGamePreShadow();	// Pre Shadow Making
 extern BOOL ManageExtraEffect();
@@ -25,9 +25,9 @@ extern sString MoneyCommaStr(INT64 nMoney);
 extern LPCTSTR GetMapName(DWORD dwMapID);
 extern LPCTSTR GetMapSmallName(DWORD dwMapID);
 
-extern BOOL	g_XiahGameStarted;	// º» °ÔÀÓÀÌ ½ÃÀÛ µÇ¾ú³ª?
-extern float g_fix;				// °æ»ç¿À¸£±â ÆÄ¶ó¸ŞÅÍ
-extern long g_quickslot;		// PAD¶§¹®¿¡ ³ÖÀº quick slot ¹øÈ£
+extern BOOL	g_XiahGameStarted;	// ë³¸ ê²Œì„ì´ ì‹œì‘ ë˜ì—ˆë‚˜?
+extern float g_fix;				// ê²½ì‚¬ì˜¤ë¥´ê¸° íŒŒë¼ë©”í„°
+extern long g_quickslot;		// PADë•Œë¬¸ì— ë„£ì€ quick slot ë²ˆí˜¸
 
 extern XiahGameEngine::Map::CMapDecal	g_PickCursor;
 extern DWORD   dwSelObjectID;

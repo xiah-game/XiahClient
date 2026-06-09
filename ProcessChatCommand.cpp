@@ -1,4 +1,4 @@
-#include "precompile.h"
+ï»¿#include "precompile.h"
 #include "XiahGame_Main.h"
 #include "XiahGameObject.h"
 #include "XiahCamera.h"
@@ -60,7 +60,7 @@ BOOL ProcessChatCommand(LPCTSTR pCommand)
 	}
 
 #ifndef MASTER
-	// ÀÏ´Ü ÇÏ³ª´Ù
+	// ì¼ë‹¨ í•˜ë‚˜ë‹¤
 	if( g_CommandList[ 0] == _T("/portal_move"))
 	{
 		int wPosX = _tstoi( (LPCTSTR)g_CommandList[ 1]);

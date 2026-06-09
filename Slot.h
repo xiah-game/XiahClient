@@ -1,6 +1,6 @@
-#pragma once
+ï»¿#pragma once
 
-// Äü ½½·Ô È®Àå
+// í€µ ìŠ¬ë¡¯ í™•ì¥
 #define MAX_SLOT	10 //5
 
 
@@ -20,10 +20,10 @@ public:
 	void CheckSlotSelected();
 	void SetSlotToolTip( BYTE bySlotIndex);
 
-	// Äü ½½·Ô È®Àå
+	// í€µ ìŠ¬ë¡¯ í™•ì¥
 	void ChangeSlot(BYTE bySlot = 255);
 
-	// ½½·Ô¿¡ ¹«¾ùÀÌ µé¾îÀÖ´Â°¡¸¦ °Ë»ç
+	// ìŠ¬ë¡¯ì— ë¬´ì—‡ì´ ë“¤ì–´ìˆëŠ”ê°€ë¥¼ ê²€ì‚¬
 	DWORD CheckQuickSlot(int i);
 
 	BOOL SelectSlot( BYTE bySlotIndex);
@@ -39,7 +39,7 @@ public:
 
 private:
 
-	BYTE	m_byCurrentSlotGroup;	// ÇöÀç ½½·Ô ±×·ì (5°³¾¿ ±×·ì)
+	BYTE	m_byCurrentSlotGroup;	// í˜„ì¬ ìŠ¬ë¡¯ ê·¸ë£¹ (5ê°œì”© ê·¸ë£¹)
 	BYTE	m_byCurrentSlotIndex;	
 	DWORD	m_dwSlot[MAX_SLOT];		// slot
 

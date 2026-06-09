@@ -1,4 +1,4 @@
-#include "xiahbgmcore.h"
+﻿#include "xiahbgmcore.h"
 
 extern BOOL FadeTrigger_MainCharMapEnterAfterDie(DWORD nIndex);
 

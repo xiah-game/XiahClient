@@ -1,4 +1,4 @@
-#include "XiahCheatConfig.h"
+﻿#include "XiahCheatConfig.h"
 #include <tchar.h>
 #include <stdio.h>
 #include <commctrl.h>
@@ -22,6 +22,7 @@
 // Global variables with default values
 BOOL g_bAutoAttack = TRUE;
 BOOL g_bAutoLoot = TRUE;
+int  g_nAttackMode = 0;  // 0=Physical, 1=Skill
 
 BOOL g_bAutoHP = TRUE;
 int  g_nHPPercent = 50;
@@ -138,6 +139,8 @@ enum {
     ID_TABCONTROL = 1000,
     ID_CHECK_AUTOATTACK = 1001,
     ID_CHECK_AUTOLOOT,
+    ID_RADIO_PHYSICAL,
+    ID_RADIO_SKILL,
     ID_CHECK_AUTOHP,
     ID_EDIT_HPPERCENT,
     ID_EDIT_HPPOTIONNAME,
@@ -192,6 +195,7 @@ void LoadCheatConfig() {
     
     g_bAutoAttack = GetPrivateProfileInt(_T("CHEAT"), _T("AutoAttack"), 1, szIniFile);
     g_bAutoLoot = GetPrivateProfileInt(_T("CHEAT"), _T("AutoLoot"), 1, szIniFile);
+    g_nAttackMode = GetPrivateProfileInt(_T("CHEAT"), _T("AttackMode"), 0, szIniFile);
     
     g_bAutoHP = GetPrivateProfileInt(_T("CHEAT"), _T("AutoHP"), 1, szIniFile);
     g_nHPPercent = GetPrivateProfileInt(_T("CHEAT"), _T("HPPercent"), 50, szIniFile);
@@ -274,6 +278,8 @@ void SaveCheatConfig() {
     WritePrivateProfileString(_T("CHEAT"), _T("AutoAttack"), szVal, szIniFile);
     _sntprintf(szVal, 32, _T("%d"), g_bAutoLoot);
     WritePrivateProfileString(_T("CHEAT"), _T("AutoLoot"), szVal, szIniFile);
+    _sntprintf(szVal, 32, _T("%d"), g_nAttackMode);
+    WritePrivateProfileString(_T("CHEAT"), _T("AttackMode"), szVal, szIniFile);
     
     _sntprintf(szVal, 32, _T("%d"), g_bAutoHP);
     WritePrivateProfileString(_T("CHEAT"), _T("AutoHP"), szVal, szIniFile);
@@ -433,8 +439,18 @@ LRESULT CALLBACK ConfigWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam
         tie.pszText = _T("\xca\xdb\xc2\xf4\xc9\xe8\xd6\xc3");
         TabCtrl_InsertItem(hTab, 2, &tie);
         
-        hCtrl = CreateWindow(_T("BUTTON"), _T("\xd7\xd4\xb6\xaf\xd1\xb0\xd5\xd2\xb9\xd6\xce\xef\xb4\xf2\xb9\xd6\x20\x28\xd6\xf7\xb9\xd2\xbb\xfa\xbf\xaa\xb9\xd8\x20\x46\x39\x29"), WS_VISIBLE | WS_CHILD | BS_AUTOCHECKBOX, 25, 45, 300, 20, hwnd, (HMENU)ID_CHECK_AUTOATTACK, NULL, NULL);
+        hCtrl = CreateWindow(_T("BUTTON"), _T("\xd7\xd4\xb6\xaf\xd1\xb0\xd5\xd2\xb9\xd6\xce\xef\xb4\xf2\xb9\xd6"), WS_VISIBLE | WS_CHILD | BS_AUTOCHECKBOX, 25, 45, 185, 20, hwnd, (HMENU)ID_CHECK_AUTOATTACK, NULL, NULL);
         SendMessage(hCtrl, BM_SETCHECK, g_bAutoAttack ? BST_CHECKED : BST_UNCHECKED, 0);
+        SendMessage(hCtrl, WM_SETFONT, (WPARAM)hFont, TRUE);
+        g_hTab0Controls[g_nTab0Count++] = hCtrl;
+        
+        hCtrl = CreateWindow(_T("BUTTON"), _T("\xce\xef\xc0\xed\xb9\xa5\xbb\xf7"), WS_VISIBLE | WS_CHILD | BS_AUTORADIOBUTTON | WS_GROUP, 220, 45, 80, 20, hwnd, (HMENU)ID_RADIO_PHYSICAL, NULL, NULL);
+        SendMessage(hCtrl, BM_SETCHECK, (g_nAttackMode == 0) ? BST_CHECKED : BST_UNCHECKED, 0);
+        SendMessage(hCtrl, WM_SETFONT, (WPARAM)hFont, TRUE);
+        g_hTab0Controls[g_nTab0Count++] = hCtrl;
+        
+        hCtrl = CreateWindow(_T("BUTTON"), _T("\xbc\xbc\xc4\xdc\xb9\xa5\xbb\xf7"), WS_VISIBLE | WS_CHILD | BS_AUTORADIOBUTTON, 305, 45, 80, 20, hwnd, (HMENU)ID_RADIO_SKILL, NULL, NULL);
+        SendMessage(hCtrl, BM_SETCHECK, (g_nAttackMode == 1) ? BST_CHECKED : BST_UNCHECKED, 0);
         SendMessage(hCtrl, WM_SETFONT, (WPARAM)hFont, TRUE);
         g_hTab0Controls[g_nTab0Count++] = hCtrl;
         
@@ -743,6 +759,7 @@ LRESULT CALLBACK ConfigWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam
             
             g_bAutoAttack = (SendMessage(GetDlgItem(hwnd, ID_CHECK_AUTOATTACK), BM_GETCHECK, 0, 0) == BST_CHECKED);
             g_bAutoLoot = (SendMessage(GetDlgItem(hwnd, ID_CHECK_AUTOLOOT), BM_GETCHECK, 0, 0) == BST_CHECKED);
+            g_nAttackMode = (SendMessage(GetDlgItem(hwnd, ID_RADIO_SKILL), BM_GETCHECK, 0, 0) == BST_CHECKED) ? 1 : 0;
             g_bAutoHP = (SendMessage(GetDlgItem(hwnd, ID_CHECK_AUTOHP), BM_GETCHECK, 0, 0) == BST_CHECKED);
             g_bAutoBuyHP = (SendMessage(GetDlgItem(hwnd, ID_CHECK_AUTOBUYHP), BM_GETCHECK, 0, 0) == BST_CHECKED);
             g_bAutoMP = (SendMessage(GetDlgItem(hwnd, ID_CHECK_AUTOMP), BM_GETCHECK, 0, 0) == BST_CHECKED);
@@ -834,7 +851,10 @@ LRESULT CALLBACK ConfigWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam
                 extern BOOL g_bCheat;
                 extern BOOL g_bCheatEtc;
                 g_bCheat = !g_bCheat;
-                g_bCheatEtc = g_bCheat;
+                // 物理攻击模式(g_nAttackMode==0): g_bCheatEtc=FALSE → 走 else if(g_bCheat) 分支执行 ProcessAutoAttack
+                // 技能攻击模式(g_nAttackMode==1): g_bCheatEtc=TRUE  → 走 if(g_bCheatEtc) 分支执行原地施法
+                extern int g_nAttackMode;
+                g_bCheatEtc = (g_nAttackMode == 1) ? g_bCheat : FALSE;
                 
                 // Update button text to reflect current state
                 HWND hBtnToggle = GetDlgItem(hwnd, ID_BUTTON_TOGGLE);
@@ -844,7 +864,14 @@ LRESULT CALLBACK ConfigWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam
                         : _T("\xbf\xaa\xca\xbc\xb9\xd2\xbb\xfa"));
                 }
             } else {
-                // Save button: only save config and close
+                // Save button: save config, sync mode if hunting, then close
+                extern BOOL g_bCheat;
+                extern BOOL g_bCheatEtc;
+                extern int g_nAttackMode;
+                if (g_bCheat) {
+                    // 挂机中切换模式：实时同步 g_bCheatEtc
+                    g_bCheatEtc = (g_nAttackMode == 1) ? TRUE : FALSE;
+                }
                 DestroyWindow(hwnd);
             }
         } else if (id == ID_BUTTON_CANCEL) {

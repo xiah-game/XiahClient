@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "XiahGame_StepObject.h"
 #include "CharacterInfo.h"
@@ -8,11 +8,11 @@ typedef std::list<XiahObject::CXiahObject *> VISIBLE_XIAHOBJECT_LIST;
 
 typedef std::list<CText2D*> TEXT2DLIST;
 
-#define ADJUST_SYNCMOVE_THRESOLD 5	// 5 GridÀÌ»ó Â÷ÀÌ ³ª¸é º¸Á¤
+#define ADJUST_SYNCMOVE_THRESOLD 5	// 5 Gridì´ìƒ ì°¨ì´ ë‚˜ë©´ ë³´ì •
 
 #define XIAH_STATIC_TRIGGER_COUNT 10
 
-#define	XIAH_PORTAL_NPC_MAX		20	// ÇÑ ¸Ê¿¡ ÃÖ´ë Æ÷Å»ÀÌ 10°³·Î ÇÑÁ¤ÇÑ´Ù.
+#define	XIAH_PORTAL_NPC_MAX		20	// í•œ ë§µì— ìµœëŒ€ í¬íƒˆì´ 10ê°œë¡œ í•œì •í•œë‹¤.
 
 typedef std::list<XiahObject::CXiahObject*> sVisibleCharLIST;
 
@@ -39,37 +39,37 @@ public:
 	BOOL ReleasePortalNPC();
 
 public:
-	// µğ¹ö±ë¿ë
+	// ë””ë²„ê¹…ìš©
 #ifndef MASTER
 	//CText2D g_tHelp[22];
 	CText2D g_tHelp[8];
 #endif
 
 public:
-	// È­¸é¿¡ º¸ÀÌ´Â Object List
+	// í™”ë©´ì— ë³´ì´ëŠ” Object List
 //	VISIBLE_XIAHOBJECT_LIST	m_VisibleXiahObjectList;
 	VISIBLE_XIAHOBJECT_LIST	m_VisibleXiahObjectListNoAlpha;
 	VISIBLE_XIAHOBJECT_LIST	m_VisibleXiahObjectListAlphaTest;
 
 public:
-	// Client Main Char Ã³¸®¿ë
+	// Client Main Char ì²˜ë¦¬ìš©
 
 
-	// Æ÷Å» Functional NPC. ¸Ê ¾îµğ¿¡¼­µµ º¸¿©¾ß ÇÏ¹Ç·Î, Client Character
+	// í¬íƒˆ Functional NPC. ë§µ ì–´ë””ì—ì„œë„ ë³´ì—¬ì•¼ í•˜ë¯€ë¡œ, Client Character
 	XiahObject::CXiahObject*	m_pPortalNPC[ XIAH_PORTAL_NPC_MAX ];
 	int							m_nPortalNPCCount;
 
-	// È­¸é¿¡ º¸ÀÌ´Â Ä³¸¯ÅÍµéÀÇ ÀÌ¸§
+	// í™”ë©´ì— ë³´ì´ëŠ” ìºë¦­í„°ë“¤ì˜ ì´ë¦„
 	TEXT2DLIST		m_VisibleXiahCharObjectNameList;
 	sVisibleCharLIST m_VisibleXiahCharObjectList;
 	sVisibleCharLIST m_PetObjectList;
 
 public:
-	// ÀÌ°Ç Ä«¸Ş¶ó¸¦ Á÷Á¢ ¿òÁ÷ÀÌ´Â ºÎºĞÀ¸·Î ½ºÅ©¸°¼¦ Àü¿ë ±â´É.
+	// ì´ê±´ ì¹´ë©”ë¼ë¥¼ ì§ì ‘ ì›€ì§ì´ëŠ” ë¶€ë¶„ìœ¼ë¡œ ìŠ¤í¬ë¦°ìƒ· ì „ìš© ê¸°ëŠ¥.
 	BOOL	m_bOnlyCameraMoveForTest;
 	float	m_fOnlyCameraMoveY;
 
-	// ¸ÅÇÁ·¹ÀÓ¸¶´Ù ¾÷µ¥ÀÌÆ®°¡ ÇÊ¿ä ¾ø´Â °ÍµéÀ» À§ÇÑ Å¸ÀÌ¸Ó
+	// ë§¤í”„ë ˆì„ë§ˆë‹¤ ì—…ë°ì´íŠ¸ê°€ í•„ìš” ì—†ëŠ” ê²ƒë“¤ì„ ìœ„í•œ íƒ€ì´ë¨¸
 	DWORD	m_Timer_UpdateMinimap;	// MINI MAP
 	DWORD	m_Timer_UpdateSkyStar;	// Sky Star
 };
@@ -77,7 +77,7 @@ public:
 
 extern BOOL CreateMainChar();
 
-// staticalÇÑ Æ®¸®°Åµé
+// staticalí•œ íŠ¸ë¦¬ê±°ë“¤
 extern CStaticTrigger* g_StaticTriggerList[ XIAH_STATIC_TRIGGER_COUNT];
 extern int OnCollided_MainChar(unsigned long);
 extern int OnTimer_MainChar(unsigned long);
@@ -97,8 +97,8 @@ struct sMainChar_PreAttackInfo
 	BYTE	bAttackHeight;
 	BYTE	bAttackMode;
 	DWORD	dwLastPreAttackTime;
-	int		nRemainAttackCount;	// Attack_Ack¸¦ º¸³»¾ßÇÒ ¼ıÀÚ
-	BOOL	bPreAttackReq;		//HT_1026 : ½ºÇÙ ¹æÁö
+	int		nRemainAttackCount;	// Attack_Ackë¥¼ ë³´ë‚´ì•¼í•  ìˆ«ì
+	BOOL	bPreAttackReq;		//HT_1026 : ìŠ¤í•µ ë°©ì§€
 	BOOL	bAttackReq;
 };
 
@@ -115,7 +115,7 @@ struct sMainChar_MugongPreAttackInfo
 	WORD  wTargetPosX;
 	WORD  wTargetPosY;
 	BYTE  bTargetHeight;
-	int		nRemainAttackCount;	// Attack_Ack¸¦ º¸³»¾ßÇÒ ¼ıÀÚ
+	int		nRemainAttackCount;	// Attack_Ackë¥¼ ë³´ë‚´ì•¼í•  ìˆ«ì
 };
 
 extern sMainChar_PreAttackInfo g_MainChar_PreAttackInfo;

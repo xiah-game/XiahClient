@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "ItemInfo.h"
 #include "XiahObjectType.h"
@@ -9,11 +9,11 @@ typedef vector< LPDIRECT3DVERTEXBUFFER9 > ItemVB;
 typedef vector< LPDIRECT3DTEXTURE9 > ItemTex;
 typedef vector< sRect* > ItemRt;
 
-#define DEFAULT_CELL_XSIZE			38		// cell ÀÇ X size
-#define DEFAULT_CELL_YSIZE			38		// cell ÀÇ Y size
+#define DEFAULT_CELL_XSIZE			38		// cell ì˜ X size
+#define DEFAULT_CELL_YSIZE			38		// cell ì˜ Y size
 
-#define OPEN_NORMAL			1		// NPC¸¦ ÅëÇÏ¿© ¿­¾ú´Ù
-#define OPEN_ITEM			2		// ITEMÀ» ÅëÇÏ¿© ¿­¾ú´Ù
+#define OPEN_NORMAL			1		// NPCë¥¼ í†µí•˜ì—¬ ì—´ì—ˆë‹¤
+#define OPEN_ITEM			2		// ITEMì„ í†µí•˜ì—¬ ì—´ì—ˆë‹¤
 
 /*
 Sack
@@ -45,13 +45,13 @@ public:
 	virtual void DrawSack();
 
 	BOOL IsShow() { return m_bShow;};
-	BOOL CheckItemSelected();						// m_HoldItemÀÌ ¾øÀ»¶§ ¸¶¿ì½º°¡ ³õÀÏ¶§ ÀÚ±â sackÀÇ ¾î¶² item¿¡¼­ ³õ¿©Á³´ÂÁö
+	BOOL CheckItemSelected();						// m_HoldItemì´ ì—†ì„ë•Œ ë§ˆìš°ìŠ¤ê°€ ë†“ì¼ë•Œ ìê¸° sackì˜ ì–´ë–¤ itemì—ì„œ ë†“ì—¬ì¡ŒëŠ”ì§€
 	BOOL CheckItemSelectedByLButton();
 	BOOL CheckItemSelectedByRButton();
-	virtual BOOL CheckItemUnSelected();				// m_HoldItemÀÌ ÀÖÀ»¶§ ¸¶¿ì½º°¡ ³õÀÏ¶§ ÀÚ±â sackÀÇ ¾î¶² pos¿¡¼­ ³õ¿©Á³´ÂÁö
+	virtual BOOL CheckItemUnSelected();				// m_HoldItemì´ ìˆì„ë•Œ ë§ˆìš°ìŠ¤ê°€ ë†“ì¼ë•Œ ìê¸° sackì˜ ì–´ë–¤ posì—ì„œ ë†“ì—¬ì¡ŒëŠ”ì§€
 
 	virtual BOOL InsertItem(BYTE bSackPos, XiahItem::sItemInfo* pItem);
-	// ´©¼ö ¼öÁ¤
+	// ëˆ„ìˆ˜ ìˆ˜ì •
 	virtual void DeleteItem(BYTE bSackPos, bool bDelete = false);
 
 	virtual XiahItem::sItemInfo* FindSackItemByPos( int nPosition);
@@ -89,10 +89,10 @@ private:
 	BOOL ProcessItemUnSelected_Default_Pet( BYTE byPosition, XiahItem::sItemInfo* pHoldItem);
 	BOOL ProcessItemUnSelected_Default_PetEquip( BYTE byPosition, XiahItem::sItemInfo* pHoldItem);
 	bool ProcessItemUnSelected_Default_Personal_Trade_Set(BYTE byPosition, XiahItem::sItemInfo* pHoldItem);
-	bool ProcessItemUnSelected_Default_Smelt(BYTE byPosition, XiahItem::sItemInfo* pHoldItem);		// Á¶ÇÕ
-	bool ProcessItemUnSelected_Default_FE_Convert(BYTE byPosition, XiahItem::sItemInfo* pHoldItem);	// ¿ÀÇà Á¦·Ã
-	bool ProcessItemUnSelected_Default_QuickMart(BYTE byPosition, XiahItem::sItemInfo* pHoldItem);	// ¸ÅÇ°ÆĞ
-	bool ProcessItemUnSelected_Default_Collection(BYTE byPosition, XiahItem::sItemInfo* pHoldItem);	// ¾ÆÀÌÅÛ ¼öÁı
+	bool ProcessItemUnSelected_Default_Smelt(BYTE byPosition, XiahItem::sItemInfo* pHoldItem);		// ì¡°í•©
+	bool ProcessItemUnSelected_Default_FE_Convert(BYTE byPosition, XiahItem::sItemInfo* pHoldItem);	// ì˜¤í–‰ ì œë ¨
+	bool ProcessItemUnSelected_Default_QuickMart(BYTE byPosition, XiahItem::sItemInfo* pHoldItem);	// ë§¤í’ˆíŒ¨
+	bool ProcessItemUnSelected_Default_Collection(BYTE byPosition, XiahItem::sItemInfo* pHoldItem);	// ì•„ì´í…œ ìˆ˜ì§‘
 
 	BOOL ProcessItemUnSelected_Default_To_Itemmall(BYTE byPosition, XiahItem::sItemInfo* pHoldItem);
 	BOOL ProcessItemUnSelected_Equip_Default( BYTE byPosition, XiahItem::sItemInfo* pHoldItem);
@@ -108,7 +108,7 @@ private:
 	bool ProcessItemUnSelected_Personal_TradeSell_Default(BYTE byPosition, XiahItem::sItemInfo* pHoldItem);
 	bool ProcessItemUnSelected_Personal_Trade_Set_Default(BYTE byPosition, XiahItem::sItemInfo* pHoldItem);
 	bool ProcessItemUnSelected_Personal_Trade_Set_Trade_Set(BYTE byPosition, XiahItem::sItemInfo* pHoldItem);	
-	bool ProcessItemUnSelected_Collection_Default(BYTE byPosition, XiahItem::sItemInfo* pHoldItem);	// ¾ÆÀÌÅÛ ¼öÁı
+	bool ProcessItemUnSelected_Collection_Default(BYTE byPosition, XiahItem::sItemInfo* pHoldItem);	// ì•„ì´í…œ ìˆ˜ì§‘
 
 	// ITEMMALL -> DEFAULT SACK
 	BOOL ProcessItemUnSelected_Itemmall_To_Default(BYTE byPosition, XiahItem::sItemInfo* pHoldItem);
@@ -132,21 +132,21 @@ protected:
 	int						m_nCurToolTipItemPos;
 	int						m_nPrevToolTipItemPos;
 
-	BYTE					m_bySackTotalSize;		// sack¿¡ µé¾î°¡´Â cellÀÇ °³¼ö
+	BYTE					m_bySackTotalSize;		// sackì— ë“¤ì–´ê°€ëŠ” cellì˜ ê°œìˆ˜
 	BYTE					m_bySackType;			// sack type
-	sRect					m_SackRt;				// sack ¿µ¿ª
+	sRect					m_SackRt;				// sack ì˜ì—­
 
-	ItemList				m_vecItem;				// °¢ item info
-	ItemVB					m_vecItemVB;			// °¢ item vb
-	ItemTex					m_vecItemTex;			// °¢ item texture
-	ItemRt					m_vecItemRt;			// °¢ item ¿µ¿ª
+	ItemList				m_vecItem;				// ê° item info
+	ItemVB					m_vecItemVB;			// ê° item vb
+	ItemTex					m_vecItemTex;			// ê° item texture
+	ItemRt					m_vecItemRt;			// ê° item ì˜ì—­
 
-	ItemVB					m_vecItemSocketVB;		// °¢ ¾ÆÀÌÅÛ ¼ÒÄÏ
-	ItemVB					m_vecSocketItem1VB;		// ¼ÒÄÏ ¾ÆÀÌÅÛ
-	ItemVB					m_vecSocketItem2VB;		// ¼ÒÄÏ ¾ÆÀÌÅÛ
-	ItemVB					m_vecSocketItem3VB;		// ¼ÒÄÏ ¾ÆÀÌÅÛ
-	ItemVB					m_vecRBSocketItemVB;	//HT_1116 : °¢¼ºÀÚ ¾ÆÀÌÅÛ Ãß°¡ (¼ÒÄÏ)
-	ItemVB					m_vecRBItemStoneVB;		//HT_1116 : °¢¼ºÀÚ ¾ÆÀÌÅÛ Ãß°¡ (¿¬È¯¼®)
+	ItemVB					m_vecItemSocketVB;		// ê° ì•„ì´í…œ ì†Œì¼“
+	ItemVB					m_vecSocketItem1VB;		// ì†Œì¼“ ì•„ì´í…œ
+	ItemVB					m_vecSocketItem2VB;		// ì†Œì¼“ ì•„ì´í…œ
+	ItemVB					m_vecSocketItem3VB;		// ì†Œì¼“ ì•„ì´í…œ
+	ItemVB					m_vecRBSocketItemVB;	//HT_1116 : ê°ì„±ì ì•„ì´í…œ ì¶”ê°€ (ì†Œì¼“)
+	ItemVB					m_vecRBItemStoneVB;		//HT_1116 : ê°ì„±ì ì•„ì´í…œ ì¶”ê°€ (ì—°í™˜ì„)
 
 };
 

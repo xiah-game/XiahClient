@@ -1,4 +1,4 @@
-#pragma	   once
+ï»¿#pragma	   once
 //
 //	SYSTEM UTILITY CORE
 //
@@ -178,7 +178,7 @@ public :
 
 
 	unsigned long	m_processorSpeed;	// CPU SPEED!
-	unsigned	long	m_physicalMemory	;	// ÇÇÁöÄÃ
+	unsigned	long	m_physicalMemory	;	// í”¼ì§€ì»¬
 	unsigned	long	m_totalMemory;				// total mem
 	unsigned	long	m_platform;
 

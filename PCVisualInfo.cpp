@@ -1,4 +1,4 @@
-#include "precompile.h"
+﻿#include "precompile.h"
 #include "PCVisualInfo.h"
 
 BOOL ReleasePCVisualnfo(DWORD pInfo)

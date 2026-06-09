@@ -1,6 +1,6 @@
-#include "XiahCheatConfig.h"
+ï»¿#include "XiahCheatConfig.h"
 /*
-	¿ìÀ¡~~~ ¶±´ë ÀïÀÌ ÄÚµå µÆ´Ù~~
+	ìš°ì›©~~~ ë–¡ëŒ€ ìŸì´ ì½”ë“œ ëë‹¤~~
 */
 #include "XiahGameMain.h"
 #include "XiahInput.h"
@@ -26,9 +26,9 @@ BOOL		bMainCharDie;
 DWORD		dwSelObjectID		= 0;
 DWORD		dwSelObjectType		= 0;
 
-BOOL		bAutoAttack			= FALSE;	// ÀÚµ¿°ø°İ
-BOOL		bAutoNavigation		= FALSE;	// ¿ÀºêÁ§Æ® µû¶ó°¡±â
-BOOL		bAutoNormalAttack	= FALSE;	// ÀÚµ¿ °ø°İ ÇÃ·¡±×°¡ ¾Æ´Ï¶ó ¹öÆ°À» ´©¸£°í ÀÖ´Â µ¿¾È¿¡ °è¼Ó °ø°İÇÏµµ·Ï 
+BOOL		bAutoAttack			= FALSE;	// ìë™ê³µê²©
+BOOL		bAutoNavigation		= FALSE;	// ì˜¤ë¸Œì íŠ¸ ë”°ë¼ê°€ê¸°
+BOOL		bAutoNormalAttack	= FALSE;	// ìë™ ê³µê²© í”Œë˜ê·¸ê°€ ì•„ë‹ˆë¼ ë²„íŠ¼ì„ ëˆ„ë¥´ê³  ìˆëŠ” ë™ì•ˆì— ê³„ì† ê³µê²©í•˜ë„ë¡ 
 float		fInteractionRange	= 9;
 BOOL		bCursorOnField		= FALSE;
 CXiahCharObject* pMouseOnCharObject = NULL;
@@ -36,9 +36,9 @@ BYTE			 bMouseOnObjectType = 255;
 
 DWORD		g_dwSelectMugongID = 0;
 
-// ¶óÀÌÆ® ¼ÂÆÃ¿ë
+// ë¼ì´íŠ¸ ì…‹íŒ…ìš©
 #ifdef LIGHTSET
-// ¶óÀÌÆ® Å×½ºÆ®¿ë »©¾ßÇÔ
+// ë¼ì´íŠ¸ í…ŒìŠ¤íŠ¸ìš© ë¹¼ì•¼í•¨
 unsigned char lightR = 255;
 unsigned char lightG = 255;
 unsigned char lightB = 255;
@@ -63,14 +63,14 @@ unsigned char skyB3 = 255;
 int light_mode = 0;
 #endif
 
-// AUTO TARGET¿ë
+// AUTO TARGETìš©
 static BOOL	g_AutoTarget = FALSE;
 static XiahObject::CXiahObject* AutoTargetObj = NULL;
 
-// HP °ü·ÃÇÏ¿© Áøµ¿
+// HP ê´€ë ¨í•˜ì—¬ ì§„ë™
 static	DWORD	LastRumble = 0;
 
-// ÆĞµå·Î ¸Ş´º¿­±â
+// íŒ¨ë“œë¡œ ë©”ë‰´ì—´ê¸°
 static BOOL	PadMenuOpend = FALSE;
 static long SelPadMenu = 0;
 
@@ -94,10 +94,10 @@ void ChangingMoving(CXiahCharObject *pMainChar, Vector3 vTarget);
 void ProcessRButtonDown( CXiahCharObject *pMainChar, BOOL bMouseOnObjectType);
 void ProcessAutoAttack( CXiahCharObject *pMainChar);
 void ProcessAutoTarget(CXiahCharObject *pMainChar);	// AUTO TARGET
-void ProcessQuickSlot();	// PAD¿ë Quick Slot
-void ProcessUseHPMP();		// HP,MP »ç¿ë(PAD¿ë)
-void ProcessRumble();		// Áøµ¿!
-void ProcessMenu();			// PAD·Î ¸Ş´º È£Ãâ
+void ProcessQuickSlot();	// PADìš© Quick Slot
+void ProcessUseHPMP();		// HP,MP ì‚¬ìš©(PADìš©)
+void ProcessRumble();		// ì§„ë™!
+void ProcessMenu();			// PADë¡œ ë©”ë‰´ í˜¸ì¶œ
 void LIghtSetup();
 
 /*************************************************************************************************************
@@ -115,16 +115,16 @@ void LIghtSetup();
 BOOL ProcessMainChar()
 {
 
-	if(g_MainCharInfo.m_bPersonalTradeSell) // °³ÀÎ»óÁ¡ °³¼³ÁßÀÌ¸é Ä³¸¯ÅÍ °»½Å¸¸
+	if(g_MainCharInfo.m_bPersonalTradeSell) // ê°œì¸ìƒì  ê°œì„¤ì¤‘ì´ë©´ ìºë¦­í„° ê°±ì‹ ë§Œ
 	{
-		// ÄÉ·ºÅÍÀÇ »óÅÂ¸¦ Update
+		// ì¼€ë ‰í„°ì˜ ìƒíƒœë¥¼ Update
 		((CXiahCharObject *)g_pMainChar->m_pObject)->Update(true);
 
 		return true;
 	}
 
 	static Vector3 pre_pos;
-	// ÀÓ½Ã ¶óÀÌÆ® ¼ÂÆÃ¿ë
+	// ì„ì‹œ ë¼ì´íŠ¸ ì…‹íŒ…ìš©
 #ifdef LIGHTSET
 	LIghtSetup();
 #endif
@@ -142,7 +142,7 @@ BOOL ProcessMainChar()
 		pMainChar->m_bShowManaGage = FALSE;
 	}
 
-	// Ä³¸¯ÅÍ°¡ Á×¾ú´Â°¡?
+	// ìºë¦­í„°ê°€ ì£½ì—ˆëŠ”ê°€?
 	bMainCharDie = pMainChar->m_nCurMotionType == XiahAniType::eLAT_Die && (pMainChar->m_nCurAniIndex == 0 || Fade::g_bFadeStart);
 	bMainCharDie = g_MainCharInfo.m_bMainCharDie;
 
@@ -155,12 +155,12 @@ BOOL ProcessMainChar()
 		bAutoNormalAttack	= FALSE;
 	}
 
-	// Ä³¸¯ÅÍ°¡ ¿òÁ÷ÀÌ°í ÀÖ´ÂÁßÀÎ°¡?
+	// ìºë¦­í„°ê°€ ì›€ì§ì´ê³  ìˆëŠ”ì¤‘ì¸ê°€?
 	bMove = pMainChar->m_bTargetMove 
 		    && (pMainChar->m_nCurMotionType == XiahAniType::eLAT_Run || pMainChar->m_nCurMotionType == XiahAniType::eLAT_Mugong)
 			&& !bMainCharDie;
 
-	// ¼±ÅÃµÈ ¿ÀºêÁ§Æ®
+	// ì„ íƒëœ ì˜¤ë¸Œì íŠ¸
 	XiahObject::CXiahObject* pSelObject	= NULL;
 	CXiahCharObject* pSelCharObject = NULL;
 	
@@ -177,7 +177,7 @@ BOOL ProcessMainChar()
 		}
 		else
 		{
-			// »ç¶óÁ® ¹ö·È±º ÃÊ±âÈ­¸¦ È®½ÇÇØ ÇØÁÖÀÚ
+			// ì‚¬ë¼ì ¸ ë²„ë ¸êµ° ì´ˆê¸°í™”ë¥¼ í™•ì‹¤í•´ í•´ì£¼ì
 			dwSelObjectID = 0;
 			dwSelObjectType = 0;
 			bAutoAttack			= FALSE;
@@ -186,7 +186,7 @@ BOOL ProcessMainChar()
 		}
 	}
 
-	// ¸¶¿ì½º ¿Ã·ÁÁø ¿ÀºêÁ§Æ®
+	// ë§ˆìš°ìŠ¤ ì˜¬ë ¤ì§„ ì˜¤ë¸Œì íŠ¸
 	if( XiahObject::g_pMouseOnObject != NULL)
 	{
 		if( XiahObject::g_pMouseOnObject->m_pObject->IsA( XiahObject::eXOT_CharObject))
@@ -201,22 +201,22 @@ BOOL ProcessMainChar()
 		bMouseOnObjectType = 255;
 	}
 
-	// PortalÀÌµ¿ Ã¼Å©
+	// Portalì´ë™ ì²´í¬
 	if(	CheckPortalMove( pMainChar))
 		return TRUE;
 	
-	// Ä«¸Ş¶ó Update¿©ºÎ
+	// ì¹´ë©”ë¼ Updateì—¬ë¶€
 	if( bMove) 
 		g_XiahCamera.m_bNeedUpdate = TRUE;
 
 	/***********************************************************
-		³í¸®Àû µ¿ÀÛ ´ÜÀ§·Î Ã³¸®µÇ´ø ÄÚµå¸¦ ÀÔ·Â´ÜÀ§·Î Á¤¸®ÇÏ°Ù´Ù
+		ë…¼ë¦¬ì  ë™ì‘ ë‹¨ìœ„ë¡œ ì²˜ë¦¬ë˜ë˜ ì½”ë“œë¥¼ ì…ë ¥ë‹¨ìœ„ë¡œ ì •ë¦¬í•˜ê²Ÿë‹¤
 
-		¹«Áö Çò°¥·Á¼­ ÁÖ¼®À» ¿­½ÉÈ÷ ´Ş±â·Î ÇßÀ½
+		ë¬´ì§€ í—·ê°ˆë ¤ì„œ ì£¼ì„ì„ ì—´ì‹¬íˆ ë‹¬ê¸°ë¡œ í–ˆìŒ
 	*************************************************************/
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
-	// PAD¿ë Autotarget Update
+	// PADìš© Autotarget Update
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	//if(XiahGameEngine::g_cj)
@@ -227,7 +227,7 @@ BOOL ProcessMainChar()
 	//	ProcessRumble();
 
 	//	ProcessMenu();
-	//	ProcessQuickSlot();	// ÀÌ°Ç MENU ´ÙÀ½À¸·Î ¿Í¾ßÇÑ´Ù. ¸Ş´º¿¡¼­ ½½·Ô»ç¿ë ¹öÆ°À» ¸·¾Æ¾ßÇÏ´Â °æ¿ì°¡ ÀÖ´Ù.
+	//	ProcessQuickSlot();	// ì´ê±´ MENU ë‹¤ìŒìœ¼ë¡œ ì™€ì•¼í•œë‹¤. ë©”ë‰´ì—ì„œ ìŠ¬ë¡¯ì‚¬ìš© ë²„íŠ¼ì„ ë§‰ì•„ì•¼í•˜ëŠ” ê²½ìš°ê°€ ìˆë‹¤.
 	//}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -236,7 +236,7 @@ BOOL ProcessMainChar()
 
 	BOOL bCursorOnRepair = FALSE;
 		
-	// Ä¿¼­ º¯°æ
+	// ì»¤ì„œ ë³€ê²½
 	if( !g_pUIManager->IsMouseOnFrame())
 	{
 		if( g_CursorType != eCT_Repair)
@@ -246,19 +246,19 @@ BOOL ProcessMainChar()
 		else if( XiahInput::g_bLButtonUp)
 		{
 			ChangeXiahCursor( eCT_General);
-			bCursorOnRepair = TRUE;		// °íÄ¡´ÂÁßÀÎ ¾ÆÀÌÄÜÀº ¹Ù´Ú¿¡ ÇÑ¹ø Âï¾úÀ»¶§ ¿òÁ÷ÀÌÁö ¾Ê°í Ä¿¼­¸¸ ¹Ù²ãÁÖ±â À§ÇØ
+			bCursorOnRepair = TRUE;		// ê³ ì¹˜ëŠ”ì¤‘ì¸ ì•„ì´ì½˜ì€ ë°”ë‹¥ì— í•œë²ˆ ì°ì—ˆì„ë•Œ ì›€ì§ì´ì§€ ì•Šê³  ì»¤ì„œë§Œ ë°”ê¿”ì£¼ê¸° ìœ„í•´
 		}
 	}
-	else if( g_CursorType != eCT_General)	//ÇÁ·¹ÀÓ¹Û¿¡¼­ Ä¿¼­°¡ ÀÏ¹İÄ¿¼­°¡ ¾Æ´Ï´Ù°¡ Àçºü¸£°Ô ÇÁ·¹ÀÓÀ¸·Î À§Ä¡ÇÏ¸é ÀÏ¹İÄ¿¼­·Î µÇµ¹¾Æ°¡Áö ¾Æ´ÏÇÏ¹Ç·Î
+	else if( g_CursorType != eCT_General)	//í”„ë ˆì„ë°–ì—ì„œ ì»¤ì„œê°€ ì¼ë°˜ì»¤ì„œê°€ ì•„ë‹ˆë‹¤ê°€ ì¬ë¹ ë¥´ê²Œ í”„ë ˆì„ìœ¼ë¡œ ìœ„ì¹˜í•˜ë©´ ì¼ë°˜ì»¤ì„œë¡œ ë˜ëŒì•„ê°€ì§€ ì•„ë‹ˆí•˜ë¯€ë¡œ
 	{
 		if( g_CursorType != eCT_Repair)
 			ChangeXiahCursor( eCT_General);
 	}
 
-	bCursorOnField = !g_pUIManager->IsMouseOnFrame() &&					// ¸¶¿ì½º°¡ ÀÎÅÍÆäÀÌ½º »ó¿¡ ÀÖ´ÂÁö
-					 !g_MainCharInfo.m_pHoldItem->IsHoldingItem() &&	// ¾ÆÀÌÅÛ µå·¹±ë ÁßÀÎÁö
-					 !g_pUIManager->IsNotice() &&						// ¸Ş¼¼Áö ¹Ú½º°¡ ¶° ÀÖ´ÂÁö
-					 !bCursorOnRepair;	 								// ¹º°¡¸¦ °íÄ¡´Â ÁßÀÎÁö
+	bCursorOnField = !g_pUIManager->IsMouseOnFrame() &&					// ë§ˆìš°ìŠ¤ê°€ ì¸í„°í˜ì´ìŠ¤ ìƒì— ìˆëŠ”ì§€
+					 !g_MainCharInfo.m_pHoldItem->IsHoldingItem() &&	// ì•„ì´í…œ ë“œë ˆê¹… ì¤‘ì¸ì§€
+					 !g_pUIManager->IsNotice() &&						// ë©”ì„¸ì§€ ë°•ìŠ¤ê°€ ë–  ìˆëŠ”ì§€
+					 !bCursorOnRepair;	 								// ë­”ê°€ë¥¼ ê³ ì¹˜ëŠ” ì¤‘ì¸ì§€
 
 	if( g_MainCharInfo.m_pHoldItem->GetHoldItemItem() &&
 		g_MainCharInfo.m_pHoldItem->GetHoldItemItem()->m_bItemType == ITEMTYPE_NPCITEM &&
@@ -267,12 +267,12 @@ BOOL ProcessMainChar()
 		bCursorOnField = TRUE;
 	}
 
-	// LButtonUp.¹öÆ° ´­¸²ÀÌ ³¡³µÀ»¶§, ¹öÆ°À» ¶ç¾úÀ»¶§
+	// LButtonUp.ë²„íŠ¼ ëˆŒë¦¼ì´ ëë‚¬ì„ë•Œ, ë²„íŠ¼ì„ ë„ì—ˆì„ë•Œ
 	if( XiahInput::g_bLButtonUp) 
 		ProcessLbuttonUp();
 
 	//if((XiahInput::g_bLButtonDown || XiahInput::g_Attack_Button_On) && bCursorOnField && !bMainCharDie && !g_AutoTarget)
-	//HT_CHEAT : °ÔÀÓ ÆĞµå »èÁ¦
+	//HT_CHEAT : ê²Œì„ íŒ¨ë“œ ì‚­ì œ
 	if((XiahInput::g_bLButtonDown ) && bCursorOnField && !bMainCharDie && !g_AutoTarget)
 	{
 		g_dwSelectMugongID = 0;
@@ -282,12 +282,12 @@ BOOL ProcessMainChar()
 	}
 
 
-	// LbuttonOn. ¸¶¿ì½º¸¦ °è¼Ó ´©¸£°í ÀÖÀ»¶§´Â InteractionÀ» ¿©·¯¹ø ½ÃÄÑÁØ´Ù
+	// LbuttonOn. ë§ˆìš°ìŠ¤ë¥¼ ê³„ì† ëˆ„ë¥´ê³  ìˆì„ë•ŒëŠ” Interactionì„ ì—¬ëŸ¬ë²ˆ ì‹œì¼œì¤€ë‹¤
 	if( XiahInput::g_bLButtonOn && bCursorOnField && bAutoNormalAttack && !bAutoAttack && !bMainCharDie)
 		InteractObject( dwSelObjectID, dwSelObjectType, 2);
 
-	// RButtonDown.À» ´­·¶À»¶§
-	//HT_CHEAT : °ÔÀÓ ÆĞµå »èÁ¦
+	// RButtonDown.ì„ ëˆŒë €ì„ë•Œ
+	//HT_CHEAT : ê²Œì„ íŒ¨ë“œ ì‚­ì œ
 	if((XiahInput::g_bRButtonDown) && bCursorOnField && !bMainCharDie)
 	{
 		if(g_IsFocus)
@@ -321,59 +321,63 @@ BOOL ProcessMainChar()
 	// others need update
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// ±×¸²ÀÚ
+	// ê·¸ë¦¼ì
 	if( (g_PickCursor.IsValid() && pMainChar->m_bTargetMove) | g_AutoTarget)
 		XiahMap::g_XiahMap.m_pMapRender->AddVisibalMapDecal( &g_PickCursor);
 
-	// ¿òÁ÷ÀÌ´Â µµÁßÀÌ¶ó¸é ¼­¹ö¿¡ SyncMove¸¦ º¸³»ÁÜ
+	// ì›€ì§ì´ëŠ” ë„ì¤‘ì´ë¼ë©´ ì„œë²„ì— SyncMoveë¥¼ ë³´ë‚´ì¤Œ
 	if( g_dwCurTime - MoveTime > 1400 && bMove && pMainChar->m_nCurMotionType != XiahAniType::eLAT_Mugong)
 	{
 		ProcessCharIsMoving( pMainChar);
 	}
 	
-	// ÀÚµ¿ ÀÌµ¿
+	// ìë™ ì´ë™
 	if( bAutoNavigation)
 		ProcessAutoNavigation(1);
 
 
-//HT_CHEAT : ÀÚµ¿ °ø°İ
-	// ÀÚµ¿ °ø°İ&& g_bCheatEtc&& g_bCheatEtc
+//HT_CHEAT : ìë™ ê³µê²©
+	// ìë™ ê³µê²©&& g_bCheatEtc&& g_bCheatEtc
 	if(g_bCheatEtc)
 	{
-		DWORD a = g_dwCurTime;
 		if(g_dwCurTime - g_dwCheatTime > (1000 * g_MainCharInfo.m_byCheatTime))
 		{
-	//		WORD wPosX;
-	//		WORD wPosY;
-			BYTE bAttackHeight;
-
-			DWORD dwMugongID = 0;	// ¼±ÅÃµÈ ¹«°ø
-			dwMugongID = g_MainCharInfo.m_pSlot->GetActiveSlot();
+			// ä¼˜å…ˆç”¨è¾…åŠ©é¢æ¿é…ç½®çš„æ”»å‡»æŠ€èƒ½ï¼Œæœªé…ç½®åˆ™å›é€€åˆ°Sæ§½ä½
+			extern DWORD g_dwAttackSkillID;
+			DWORD dwMugongID = (g_dwAttackSkillID > 0) ? g_dwAttackSkillID : g_MainCharInfo.m_pSlot->GetActiveSlot();
 
 			if(dwMugongID)
 			{
 				g_dwCheatTime = g_dwCurTime;
 
+				// ä»æ¸²æŸ“å¯¹è±¡è·å–å®æ—¶åæ ‡ï¼ˆè€Œé g_MainCharInfo ç¼“å­˜å€¼ï¼‰
 				CXiahCharObject *pCharObject = (CXiahCharObject*)g_pMainChar->m_pObject;
-				pCharObject->SetPosition( g_MainCharInfo.m_wPosX, g_MainCharInfo.m_wPosY);
-				bAttackHeight = (int)pCharObject->m_Position.y;
-			
+				WORD wPosX, wPosY;
+				pCharObject->GetPosition(wPosX, wPosY);
+				BYTE bAttackHeight = (int)pCharObject->m_Position.y;
+
+				SendCS_NV_ENDMOVE_REQ(g_pMainChar->m_dwServerID, pCharObject->m_Position.x, -pCharObject->m_Position.z, pCharObject->m_Position.y, CHARSTATE_NORMAL);
+
 				SendCS_BT_MUGONGPREATTACK_REQ(dwMugongID,
 												OBJTYPE_PC,
 												g_pMainChar->m_dwServerID,
-												g_MainCharInfo.m_wPosX,
-												g_MainCharInfo.m_wPosY,
+												wPosX,
+												wPosY,
 												bAttackHeight,
 												0,
 												0,
-												0,
-												0,
-												0);
-
+												wPosX,
+												wPosY,
+												bAttackHeight);
 			}
 			else
 			{
-				g_MainCharInfo.ShowHelpMessage(_T("<<¼±ÅÃÇÑ ¹«°øÀÌ ¾øÀ½>>"), TEXTEFFECT_COLOR_WARNING); 
+				// æ¯10ç§’åªæç¤ºä¸€æ¬¡ï¼Œé¿å…åˆ·å±
+				static DWORD s_dwLastWarnTime = 0;
+				if (g_dwCurTime - s_dwLastWarnTime > 10000) {
+					g_MainCharInfo.ShowHelpMessage(_T("<<è¯·é€‰æ‹©æ­¦åŠŸ>>"), TEXTEFFECT_COLOR_WARNING);
+					s_dwLastWarnTime = g_dwCurTime;
+				}
 			}
 		}
 	}
@@ -381,7 +385,7 @@ BOOL ProcessMainChar()
 	{
 		ProcessAutoAttack( pMainChar);
 
-		//Æê ÀÚµ¿ ¸ÔÀÌ ¹× ¾ß»ı¼º 
+		//í« ìë™ ë¨¹ì´ ë° ì•¼ìƒì„± 
 		if(g_PetList.size() > 0)
 		{
 			WORD wPosX, wPosY;
@@ -390,16 +394,16 @@ BOOL ProcessMainChar()
 			CXiahCharObject *pCharObject = (CXiahCharObject*)pObject->m_pObject;
 			pCharObject->GetPosition( wPosX, wPosY);
 
-			if(pPetInfo->m_dwIsHwan == 0) //¶Ë°³ ÀÏ °æ¿ì¸¸ Ã³¸® 
+			if(pPetInfo->m_dwIsHwan == 0) //ë˜¥ê°œ ì¼ ê²½ìš°ë§Œ ì²˜ë¦¬ 
 			{
 				if( (pPetInfo->dwHpCur < pPetInfo->dwHpMax) )
 				{
-					SendCS_BT_MUGONGPREATTACK_REQ(OUTGONGID_JUNYUUM, 1, g_MainCharInfo.m_dwObjectID, 1,1,1, OBJTYPE_PET, pPetInfo->dwID, wPosX, wPosY, 1);//Æê Ã¼·ÂÀº ÀüÀ¯À½À¸·Î È¸º¹ ½ÃÅ²´Ù.
+					SendCS_BT_MUGONGPREATTACK_REQ(OUTGONGID_JUNYUUM, 1, g_MainCharInfo.m_dwObjectID, 1,1,1, OBJTYPE_PET, pPetInfo->dwID, wPosX, wPosY, 1);//í« ì²´ë ¥ì€ ì „ìœ ìŒìœ¼ë¡œ íšŒë³µ ì‹œí‚¨ë‹¤.
 				}
 
-				if( pPetInfo->bWildRate > g_nPetWildRate ) //¾ß»ı¼º
+				if( pPetInfo->bWildRate > g_nPetWildRate ) //ì•¼ìƒì„±
 				{
-					XiahItem::sItemInfo* pItem = g_MainCharInfo.m_pMySack[0]->FindSackItemByVisualID(g_dwPetFoodID); //µ¶¼ö¸®°£¸¸
+					XiahItem::sItemInfo* pItem = g_MainCharInfo.m_pMySack[0]->FindSackItemByVisualID(g_dwPetFoodID); //ë…ìˆ˜ë¦¬ê°„ë§Œ
 					if( pItem) 
 					{
 						SendCS_IM_GIVEITEM_REQ( pItem->m_bSackCount+1, pItem->m_bSackPos, pItem->m_dwItemID, OBJTYPE_PET, pPetInfo->dwID);
@@ -411,12 +415,12 @@ BOOL ProcessMainChar()
 						{
 							SendCS_IM_GIVEITEM_REQ( pItem->m_bSackCount+1, pItem->m_bSackPos, pItem->m_dwItemID, OBJTYPE_PET, pPetInfo->dwID);
 						}
-						else //Çà³¶¿¡ µ¶¼ö¸®°£ÀÌ ¾øÀ»¶§ ºÀÀÎÀ» ÇÏÀÚ
+						else //í–‰ë‚­ì— ë…ìˆ˜ë¦¬ê°„ì´ ì—†ì„ë•Œ ë´‰ì¸ì„ í•˜ì
 						{
-							XiahItem::sItemInfo* pBongInItem = g_MainCharInfo.m_pMySack[0]->FindSackItemByVisualID(g_dwPetSealID); //¿ì¼± °øÈ¥°æ
+							XiahItem::sItemInfo* pBongInItem = g_MainCharInfo.m_pMySack[0]->FindSackItemByVisualID(g_dwPetSealID); //ìš°ì„  ê³µí˜¼ê²½
 							if(pBongInItem)
 							{
-								g_MainCharInfo.ShowHelpMessage(_T("µ¶¼ö¸® °£ÀÌ ¾ø¾î¼­ ºÀÀÎÇÔ.."), TEXTEFFECT_COLOR_GAIN);
+								g_MainCharInfo.ShowHelpMessage(_T("æ²¡æœ‰é¥²æ–™ï¼Œæ­£åœ¨å°å°å® ç‰©.."), TEXTEFFECT_COLOR_GAIN);
 								SendCS_NC_PETBONGIN_REQ( g_PetList.GetPetInfoByIndex(0)->dwID, pBongInItem->m_bSackCount+1, pBongInItem->m_bSackPos);
 								dwSelObjectID = 0;
 								dwSelObjectType = 0;
@@ -424,7 +428,7 @@ BOOL ProcessMainChar()
 							}
 							else
 							{
-								g_MainCharInfo.ShowHelpMessage(_T("°øÈ¥°æÀÌ ¾ø¾î¼­ ºÀÀÎÀ» ¸øÇØ.. "), TEXTEFFECT_COLOR_WARNING);
+								g_MainCharInfo.ShowHelpMessage(_T("æ²¡æœ‰å°å°çŸ³ï¼Œæ— æ³•å°å°å® ç‰©.."), TEXTEFFECT_COLOR_WARNING);
 								dwSelObjectID = 0;
 								dwSelObjectType = 0;
 								ProcessAutoAttack( pMainChar);
@@ -454,7 +458,7 @@ BOOL ProcessMainChar()
 
 	if(g_bCheat)
 	{
-		//¾ÆÀÌÅÛ Áİ±â 
+		//ì•„ì´í…œ ì¤ê¸° 
 		for(XiahObject::CXiahObjectManager::iterator it = XiahObject::g_XiahObjectManager.begin();
 			it != XiahObject::g_XiahObjectManager.end();
 			++it)
@@ -497,7 +501,7 @@ BOOL ProcessMainChar()
 			}
 		}
 
-		//¹°¾à ¸Ô±â 
+		//ë¬¼ì•½ ë¨¹ê¸° 
 		if(g_bAutoHP && g_MainCharInfo.m_dwHpCur < ((g_MainCharInfo.m_dwHpMax * g_nHPPercent) / 100))
 		{
 			XiahItem::sItemInfo* pItem = FindSackItemByName(g_szHPPotionName);
@@ -507,7 +511,7 @@ BOOL ProcessMainChar()
 			}
 			else
 			{
-				pItem = g_MainCharInfo.m_pMySack[0]->FindSackItemByVisualID(22200); //¹«±¸¿µ´Ü
+				pItem = g_MainCharInfo.m_pMySack[0]->FindSackItemByVisualID(22200); //ë¬´êµ¬ì˜ë‹¨
 				if( pItem)
 					SendCS_IM_USEITEM_REQ( pItem->m_bSackCount+1, pItem->m_bSackPos, pItem->m_dwItemID);
 			}
@@ -522,13 +526,13 @@ BOOL ProcessMainChar()
 			}
 			else
 			{
-				pItem = g_MainCharInfo.m_pMySack[0]->FindSackItemByVisualID( 22200);//¹«±¸¿µ´Ü
+				pItem = g_MainCharInfo.m_pMySack[0]->FindSackItemByVisualID( 22200);//ë¬´êµ¬ì˜ë‹¨
 				if( pItem)
 					SendCS_IM_USEITEM_REQ( pItem->m_bSackCount+1, pItem->m_bSackPos, pItem->m_dwItemID);
 			}
 		}
 		
-		//HT_CHEAT : ÀÚµ¿ ÆÇ¸Å
+		//HT_CHEAT : ìë™ íŒë§¤
 		/*if(g_MainCharInfo.m_bAutoSell)
 		{
 			XiahItem::sItemInfo* pItemInfo = NULL;
@@ -559,7 +563,7 @@ BOOL ProcessMainChar()
 		ProcessAutoSell();
 	}
 
-	//HT_CHEAT : ÀÚµ¿ ÆÇ¸Å
+	//HT_CHEAT : ìë™ íŒë§¤
 	if(g_MainCharInfo.m_bAutoSell)
 	{
 		XiahItem::sItemInfo* pItemInfo = NULL;
@@ -579,14 +583,14 @@ BOOL ProcessMainChar()
 		}
 	}
 
-	// ÄÉ·ºÅÍÀÇ »óÅÂ¸¦ Update
+	// ì¼€ë ‰í„°ì˜ ìƒíƒœë¥¼ Update
 	pMainChar->Update(TRUE);
 
 	// Xiah BGM Update
 	ProcessXiahBGM(FALSE);
 
-	// PET AIÃ³¸®
-	//HT_CHEAT : Æê »ç³É ÇÒ°Ô ¾øÀ» °æ¿ì ÃÊ±âÈ­
+	// PET AIì²˜ë¦¬
+	//HT_CHEAT : í« ì‚¬ëƒ¥ í• ê²Œ ì—†ì„ ê²½ìš° ì´ˆê¸°í™”
 	if(!g_PetList.UpdatePet())
 	{
 		dwSelObjectID = 0;
@@ -627,7 +631,7 @@ BOOL CheckPortalMove( CXiahCharObject *pMainChar)
 		if( pPortal)
 		{
 			SendCS_NV_ENDMOVE_REQ( g_pMainChar->m_dwServerID, pMainChar->m_Position.x, -pMainChar->m_Position.z, pMainChar->m_Position.y,CHARSTATE_NORMAL);
-			// Æ÷Å»¿¡ ´ê¾ÒÀ¸´Ï ¸ØÃßÀÚ
+			// í¬íƒˆì— ë‹¿ì•˜ìœ¼ë‹ˆ ë©ˆì¶”ì
 			pMainChar->SetAnimation( XiahAniType::eLAT_Stand, 0);
 			bMove = FALSE;
 
@@ -646,11 +650,11 @@ void ProcessLbuttonUp()
 {
 	if( bMove)
 	{	
-		// navigationÇÏ·Á ÇÒ¶§, pop menu°¡ ¶° ÀÖÀ¸¸é ¾ø¾ÖÁÖÀÚ
+		// navigationí•˜ë ¤ í• ë•Œ, pop menuê°€ ë–  ìˆìœ¼ë©´ ì—†ì• ì£¼ì
 		g_pUIManager->DeletePopMenu();
 		g_pUIManager->DeletePopSubMenu();
 
-		// navigationÇÏ·Á ÇÒ¶§, Ä³¸¯ÅÍ°¡ pickÇÑ object ´Â 0
+		// navigationí•˜ë ¤ í• ë•Œ, ìºë¦­í„°ê°€ pickí•œ object ëŠ” 0
 		g_MainCharInfo.m_dwPickedObject = 0;
 
 		g_MainCharInfo.HideSack( SACKTYPE__NPC_TRADE);
@@ -658,7 +662,7 @@ void ProcessLbuttonUp()
 		g_MainCharInfo.HideSack( SACKTYPE__ITEMMALL);
 		g_MainCharInfo.HideSack( SACKTYPE__DEPOSIT);
 		g_MainCharInfo.HideSack( SACKTYPE__MODIFY);
-		// ¸ÅÇ°ÆĞ
+		// ë§¤í’ˆíŒ¨
 		g_MainCharInfo.HideSack(SACKTYPE__QUICKMART);
 		g_MainCharInfo.HideSack(SACKTYPE__SECRETROOM);
 		g_MainCharInfo.HideSack(SACKTYPE__SMELT);
@@ -672,17 +676,17 @@ void ProcessLbuttonUp()
 
 
 
-// PET¿¡°Ô AI Commnad½ÃÀÇ Ã³¸®
+// PETì—ê²Œ AI Commnadì‹œì˜ ì²˜ë¦¬
 BOOL SubProcessCommandAI(DWORD dwSelObjectID,DWORD dwSelObjectType)
 {
 	if(g_bCommandAI == TRUE && g_dwCommandType != PETAI_NONE)
 	{
 		switch(g_dwCommandType)
 		{
-			// ´ë»ó°ø°İ
+			// ëŒ€ìƒê³µê²©
 			case PETAI_TARGETATTACK :
                 // 2004.07.30 Changth
-				// ¾ÆÁ÷Àº ÆêÀ» °ø°İÇÒ ¼ö ¾ø´Ù.
+				// ì•„ì§ì€ í«ì„ ê³µê²©í•  ìˆ˜ ì—†ë‹¤.
 				if(dwSelObjectType == OBJTYPE_NPC || dwSelObjectType == OBJTYPE_PC ) // || dwSelObjectType == OBJTYPE_PET )
 				{
 					g_PetList.Change_PET_AI(PETAI_TARGETATTACK,dwSelObjectID,NULL,dwSelObjectType,NULL);
@@ -711,14 +715,14 @@ BOOL SubProcessCommandAI(DWORD dwSelObjectID,DWORD dwSelObjectType)
 void ProcessLButtonDown( CXiahCharObject *pMainChar, CXiahCharObject* pMouseOnCharObject)
 /////////////////////////////////////////////////////////////////////////////////////////
 {
-	// ¸ŞÀÎ Ä³¸¯ÀÌ ±İ³ª¼ö¿¡ °É·Á¼­ ¿òÁ÷ÀÏ ¼ö ¾ø´Â »óÅÂ´Ù.
+	// ë©”ì¸ ìºë¦­ì´ ê¸ˆë‚˜ìˆ˜ì— ê±¸ë ¤ì„œ ì›€ì§ì¼ ìˆ˜ ì—†ëŠ” ìƒíƒœë‹¤.
 	if( pMainChar->m_KeepUpMugongList.IsExist(OUTGONGID_KUMNASU) )
 	{
 		bMove = FALSE;
 		return;
 	}
 
-	//HT_0530 °¢¼º ºù·æ ¹«°øÀÌ °É¸®¸é ¸ø ¿òÁ÷ÀÎ´Ù.
+	//HT_0530 ê°ì„± ë¹™ë£¡ ë¬´ê³µì´ ê±¸ë¦¬ë©´ ëª» ì›€ì§ì¸ë‹¤.
 	if( pMainChar->m_KeepUpMugongList.IsExist(BING_DRAGONSINJANG ) || pMainChar->m_KeepUpMugongList.IsExist(BING_DRAGONSUNGCHEON ) )
 	{
 		bMove = FALSE;
@@ -729,22 +733,22 @@ void ProcessLButtonDown( CXiahCharObject *pMainChar, CXiahCharObject* pMouseOnCh
 		return;
 
 	// 2004.08.03 Changth
-	// ¾ßÂ÷ÀÇ ÀÚ±â »óÅÂ ¹«°ø¿¡ Å¸ÀÓ Æ®¸®°Å°¡ µé¾î°¡¼­ ÀÌ·¸°Ô ÇØÁà¾ß ÇÑ´Ù.
-	// ½ÃÀü Áß¿¡´Â ¾ÆÁ÷ ¹«°øÀÌ °É¸° »óÅÂ°¡ ¾Æ´Ï¹Ç·Î Å¬¶óÀÌ¾ğÆ®°¡ ÀÚÃ¼ÀûÀ¸·Î ÇØ°á.
+	// ì•¼ì°¨ì˜ ìê¸° ìƒíƒœ ë¬´ê³µì— íƒ€ì„ íŠ¸ë¦¬ê±°ê°€ ë“¤ì–´ê°€ì„œ ì´ë ‡ê²Œ í•´ì¤˜ì•¼ í•œë‹¤.
+	// ì‹œì „ ì¤‘ì—ëŠ” ì•„ì§ ë¬´ê³µì´ ê±¸ë¦° ìƒíƒœê°€ ì•„ë‹ˆë¯€ë¡œ í´ë¼ì´ì–¸íŠ¸ê°€ ìì²´ì ìœ¼ë¡œ í•´ê²°.
 	if( pMainChar->m_bSubObjType == 4 )
 	{
-		// ¾ßÂ÷°¡ ±¤¸¶µ¶°øÀÏ¶§, ½ÃÀü Áß¿¡ ¿òÁ÷ÀÌ¸é ´Ù½Ã ÇØÁ¦ÇÑ´Ù.
+		// ì•¼ì°¨ê°€ ê´‘ë§ˆë…ê³µì¼ë•Œ, ì‹œì „ ì¤‘ì— ì›€ì§ì´ë©´ ë‹¤ì‹œ í•´ì œí•œë‹¤.
 		if( pMainChar->m_bNowGwangmadokgong &&
-			!pMainChar->m_KeepUpMugongList.IsExist(OUTGONGID_GWANGMADOKGONG) ) // ¹«°ø ¸®½ºÆ®¿¡ ¾øÀ¸´Ï±ñ ¾ÆÁ÷ ¾È°É¸° »óÅÂ´Ù.
+			!pMainChar->m_KeepUpMugongList.IsExist(OUTGONGID_GWANGMADOKGONG) ) // ë¬´ê³µ ë¦¬ìŠ¤íŠ¸ì— ì—†ìœ¼ë‹ˆê¹ ì•„ì§ ì•ˆê±¸ë¦° ìƒíƒœë‹¤.
 			pMainChar->m_bNowGwangmadokgong = false;
 
-		// ±Í½Ä´ë¹ı, ½ÃÀü Áß¿¡ Å¬¸¯ ¾ÈµÈ´Ù.
+		// ê·€ì‹ëŒ€ë²•, ì‹œì „ ì¤‘ì— í´ë¦­ ì•ˆëœë‹¤.
 		if( pMainChar->m_bNowGyuisikdaebub &&
 			!pMainChar->m_KeepUpMugongList.IsExist(OUTGONGID_GYUISIKDAEBUB) )
 			return;
 	}
 
- 	// ÀÌµ¿ÇÑ´Ù´øÁö, °ø°İÀÌ ½ÃÀÛµÈ´Ù´øÁö, ¾ÆÀÌÅÛÀ» Áİ´Â´Ù´øÁö
+ 	// ì´ë™í•œë‹¤ë˜ì§€, ê³µê²©ì´ ì‹œì‘ëœë‹¤ë˜ì§€, ì•„ì´í…œì„ ì¤ëŠ”ë‹¤ë˜ì§€
 	bAutoNavigation = FALSE;
 	bAutoAttack		= FALSE;
 
@@ -753,30 +757,30 @@ void ProcessLButtonDown( CXiahCharObject *pMainChar, CXiahCharObject* pMouseOnCh
 	g_MainChar_PreAttackInfo.dwLastPreAttackTime = 0;
 	g_MainChar_PreAttackInfo.nRemainAttackCount = 0;
 
-	// 0.3ÃÊ ¾È¿¡ Å¬¸¯À» ¸·´Â´Ù!
+	// 0.3ì´ˆ ì•ˆì— í´ë¦­ì„ ë§‰ëŠ”ë‹¤!
 	if(g_dwCurTime - ClickTime < 300) return;
 	ClickTime = g_dwCurTime;
 
-	 // Ä¿¼­°¡ ¿ÀºêÁ§Æ®¸¦ °¡¸®Å°°í ÀÖÀ»¶§
+	 // ì»¤ì„œê°€ ì˜¤ë¸Œì íŠ¸ë¥¼ ê°€ë¦¬í‚¤ê³  ìˆì„ë•Œ
 	if( XiahObject::g_pMouseOnObject && pMouseOnCharObject)
 	{
-		// ÇöÀç ¿¡´Ï¸ŞÀÌ¼ÇÀÌ °æ°øÁßÀÏ¶§ÀÇ ClickÀ» ¿øÃµºÀ¼â ÇÑ´Ù.
-		// °æ°øÀÌ °è¼Ó³ª°¡´Â °ÍÀ» ¸·´Âµ¥ »ç¿ë! (Anitype 305 -> °æ°øÀÌ´Ù.)
+		// í˜„ì¬ ì—ë‹ˆë©”ì´ì…˜ì´ ê²½ê³µì¤‘ì¼ë•Œì˜ Clickì„ ì›ì²œë´‰ì‡„ í•œë‹¤.
+		// ê²½ê³µì´ ê³„ì†ë‚˜ê°€ëŠ” ê²ƒì„ ë§‰ëŠ”ë° ì‚¬ìš©! (Anitype 305 -> ê²½ê³µì´ë‹¤.)
 		CXiahCharObject* pMainChar = (CXiahCharObject*)g_pMainChar->m_pObject;
 		if(pMainChar->m_nCurMotionType == XiahAniType::eLAT_Mugong && pMainChar->m_nCurAniType == 305)
 			return;
 
 		// 2004.08.03 Changth
-		// ±Í½Ä ´ë¹ı Áß¿¡´Â °ø°İÀÌ ¾ÈµÈ´Ù. ¾ÆÅÛµµ ¸øÁİ´Â´Ù.
+		// ê·€ì‹ ëŒ€ë²• ì¤‘ì—ëŠ” ê³µê²©ì´ ì•ˆëœë‹¤. ì•„í…œë„ ëª»ì¤ëŠ”ë‹¤.
 		if( pMainChar->m_bSubObjType == 4 && 
 			pMainChar->m_KeepUpMugongList.IsExist(OUTGONGID_GYUISIKDAEBUB) )
 			return;
 
-		// Å¸°ÙÀ» ¹Ù²ãÁØ´Ù
+		// íƒ€ê²Ÿì„ ë°”ê¿”ì¤€ë‹¤
 		dwSelObjectID		= XiahObject::g_pMouseOnObject->m_dwServerID;
 		dwSelObjectType		= pMouseOnCharObject->m_bObjType;
 
-		// °ø°İÀÏ¶§´Â ¹üÀ§¸¦ ¹Ù²ãÁØ´Ù
+		// ê³µê²©ì¼ë•ŒëŠ” ë²”ìœ„ë¥¼ ë°”ê¿”ì¤€ë‹¤
 		if( dwSelObjectType == OBJTYPE_NPC)
 			fInteractionRange = g_MainCharInfo.m_wAttackRange;
 		else
@@ -785,15 +789,15 @@ void ProcessLButtonDown( CXiahCharObject *pMainChar, CXiahCharObject* pMouseOnCh
 		
 		if( !(GetAsyncKeyState( VK_MENU) < 0)) 
 		{
-			// ALT¸¦ ¾È´©¸§
+			// ALTë¥¼ ì•ˆëˆ„ë¦„
 			if(SubProcessCommandAI(dwSelObjectID,dwSelObjectType) == FALSE)
 			{
 				bAutoNavigation = TRUE;
-				if(/* GetAsyncKeyState( VK_CONTROL) < 0 &&*/ dwSelObjectType == OBJTYPE_NPC)	// ¿øÅ¬¸¯À¸·Î ÀÚµ¿ °ø°İ
+				if(/* GetAsyncKeyState( VK_CONTROL) < 0 &&*/ dwSelObjectType == OBJTYPE_NPC)	// ì›í´ë¦­ìœ¼ë¡œ ìë™ ê³µê²©
 				{
 					bAutoAttack = TRUE;
 				}
-				if( dwSelObjectType == OBJTYPE_NPC)	// npcÀÏ°æ¿ì ÀÚµ¿ °ø°İ¸ğµåÀüÈ¯
+				if( dwSelObjectType == OBJTYPE_NPC)	// npcì¼ê²½ìš° ìë™ ê³µê²©ëª¨ë“œì „í™˜
 				{
 					bAutoNormalAttack = TRUE;
 				}
@@ -817,15 +821,15 @@ void ProcessLButtonDown( CXiahCharObject *pMainChar, CXiahCharObject* pMouseOnCh
 		}
 		else
 		{
-			// ALT ´©¸§
+			// ALT ëˆ„ë¦„
 			// 2004.07.30 Changth
-			// ¾ÆÁ÷Àº ÆêÀ» °ø°İÇÒ ¼ö ¾ø´Ù.
+			// ì•„ì§ì€ í«ì„ ê³µê²©í•  ìˆ˜ ì—†ë‹¤.
 			if( (dwSelObjectType == OBJTYPE_NPC ||
 				 dwSelObjectType == OBJTYPE_PC   ) && // ||
 //				 dwSelObjectType == OBJTYPE_PET  ) &&
 				 g_PetList.size() > 0)
 			{
-				// ÁöÁ¤ °ø°İ
+				// ì§€ì • ê³µê²©
 				g_PetList.Change_PET_AI(PETAI_TARGETATTACK);
 				g_bCommandAI = TRUE;
 				g_dwCommandType = PETAI_TARGETATTACK;
@@ -834,7 +838,7 @@ void ProcessLButtonDown( CXiahCharObject *pMainChar, CXiahCharObject* pMouseOnCh
 			else
 			if( dwSelObjectType == OBJTYPE_ITEM && g_PetList.size() > 0)
 			{
-				// ¾ÆÀÌÅÛ ¼öÁı
+				// ì•„ì´í…œ ìˆ˜ì§‘
 				g_PetList.Change_PET_AI(PETAI_TAKEITEM);
 			}
 		}
@@ -844,10 +848,10 @@ void ProcessLButtonDown( CXiahCharObject *pMainChar, CXiahCharObject* pMouseOnCh
 		if(SubProcessCommandAI(dwSelObjectID,dwSelObjectType) == FALSE)
 		{
 			XiahMap::g_XiahMap.GetPickPosition(vTarget);
-			// ±× À§Ä¡·Î ÀÌµ¿
+			// ê·¸ ìœ„ì¹˜ë¡œ ì´ë™
 			if( pMainChar->m_bTargetMove)
 			{
-				// °æ°øÁßÀÏ °æ¿ì¿¡ ¶¥À» ÂïÀ¸¸é ÀÏ´Ü ¸ØÃß¾î ¼­¹ö¿¡ À§Ä¡¸¦ º¸Á¤ÇÏ°Ô ÇÑ´Ù
+				// ê²½ê³µì¤‘ì¼ ê²½ìš°ì— ë•…ì„ ì°ìœ¼ë©´ ì¼ë‹¨ ë©ˆì¶”ì–´ ì„œë²„ì— ìœ„ì¹˜ë¥¼ ë³´ì •í•˜ê²Œ í•œë‹¤
 				CXiahCharObject* pMainChar = (CXiahCharObject*)g_pMainChar->m_pObject;
 				if(pMainChar->m_nCurMotionType == XiahAniType::eLAT_Mugong && pMainChar->m_nCurAniType == 305)
 				{
@@ -859,15 +863,15 @@ void ProcessLButtonDown( CXiahCharObject *pMainChar, CXiahCharObject* pMouseOnCh
 			}
 
 			WORD angle;
-			// ALT¸¦ ´©¸£¸é ¾Ö¿Ïµ¿¹° Á¶Á¤¸ğµå
+			// ALTë¥¼ ëˆ„ë¥´ë©´ ì• ì™„ë™ë¬¼ ì¡°ì •ëª¨ë“œ
 			if( GetAsyncKeyState( VK_MENU) < 0 && g_PetList.size() > 0)
 			{
-				// ¾Ö¿Ïµ¿¹° È£Ãâ
+				// ì• ì™„ë™ë¬¼ í˜¸ì¶œ
 				g_PetList.Change_PET_AI(PETAI_CALLTOME);
 
 				if(pMainChar->m_nCurMotionType == XiahAniType::eLAT_Run || pMainChar->m_nCurMotionType == XiahAniType::eLAT_Mugong)
 				{
-					// RS [7/5/2005] ¹ö±× ¼öÁ¤
+					// RS [7/5/2005] ë²„ê·¸ ìˆ˜ì •
 					if(g_MainCharInfo.m_bFastMove)
 					{
 						pMainChar->SetAnimation( XiahAniType::eLAT_Mugong, g_MainCharInfo.m_nFastIndex, 0.7f);
@@ -879,13 +883,13 @@ void ProcessLButtonDown( CXiahCharObject *pMainChar, CXiahCharObject* pMouseOnCh
 						pMainChar->m_CharRender.SetAnimationSpeed( fMoveSpeed);
 					}
 
-					// ´Ş¸®°í ÀÖ´øÁß
+					// ë‹¬ë¦¬ê³  ìˆë˜ì¤‘
 					pMainChar->SetAngleTarget( vTarget);
 					pMainChar->GetAngle( angle);
 					pMainChar->Update(1);
 					pMainChar->SetTargetMove( vTarget.x, -vTarget.z, eLBP_CharNavigation, 0);
 
-					// ¿òÁ÷ÀÓÀ» ³¯·ÁÁØ´Ù.
+					// ì›€ì§ì„ì„ ë‚ ë ¤ì¤€ë‹¤.
 					{
 						ChangingMoving(pMainChar,vTarget);
 					}
@@ -895,24 +899,24 @@ void ProcessLButtonDown( CXiahCharObject *pMainChar, CXiahCharObject* pMouseOnCh
 			{
 				bMove = TRUE;
 
-				// POINT¸¦ MARKÇÏ°í!
+				// POINTë¥¼ MARKí•˜ê³ !
 //				g_PickCursor.Create( XiahPak::GetTexture( 50000396), vTarget.x, vTarget.z, 6, COLOR_PICKCURSOR);
-				// À§Ä¡ Ä¿¼­°¡ ¸Ê ¿ÀºêÁ§Æ® À§¿¡ Á¸ÀçÇÏ´ÂÁö °Ë»çÇÑ´Ù.
+				// ìœ„ì¹˜ ì»¤ì„œê°€ ë§µ ì˜¤ë¸Œì íŠ¸ ìœ„ì— ì¡´ì¬í•˜ëŠ”ì§€ ê²€ì‚¬í•œë‹¤.
 				Vector3 vMainCharSize = pMainChar->m_LocalBound.Size();
 				g_PickCursor.Create( XiahPak::GetTexture( 50000396), vTarget.x, vTarget.z, 6, COLOR_PICKCURSOR, TRUE, 0, TRUE, vTarget.y, vMainCharSize.y, pMainChar->m_Position.y );
 				g_PickCursor.SetRotate(0.03490658f); // _PI / 90.0f
 
-				// PC¸¦ ¿òÁ÷ÀÌµµ·Ï ÇÑ´Ù.
+				// PCë¥¼ ì›€ì§ì´ë„ë¡ í•œë‹¤.
 				if(pMainChar->m_nCurMotionType != XiahAniType::eLAT_Run)
 				{
-					// ¸ØÃçÀÖ¾ú´Ù
+					// ë©ˆì¶°ìˆì—ˆë‹¤
 					if(g_MainCharInfo.m_bFastMove)
 					{
 						pMainChar->SetAnimation( XiahAniType::eLAT_Mugong, g_MainCharInfo.m_nFastIndex, 0.7f);
 					}
 					else
 					{
-						// ÇöÀç ¾ßÂ÷°¡ ±Í½Ä ´ë¹ıÀ» ¾²°í ÀÖ´ÂÁö È·¶¨ÇÑ´Ù.
+						// í˜„ì¬ ì•¼ì°¨ê°€ ê·€ì‹ ëŒ€ë²•ì„ ì“°ê³  ìˆëŠ”ì§€ íš…ë•í•œë‹¤.
 						if( pMainChar->m_bSubObjType == 4 &&
 							pMainChar->m_KeepUpMugongList.IsExist(OUTGONGID_GYUISIKDAEBUB) )
 						{
@@ -931,7 +935,7 @@ void ProcessLButtonDown( CXiahCharObject *pMainChar, CXiahCharObject* pMouseOnCh
 								pMainChar->m_CharRender.SetLoopAnimation( FALSE);
 
 								float fMoveSpeed = (float)(g_MainCharInfo.m_bWalkSpeed + g_MainCharInfo.m_bPlusSpeed) / 9.0f;
-								pMainChar->m_CharRender.SetAnimationSpeed( fMoveSpeed );	// Á» ´À¸®³×.
+								pMainChar->m_CharRender.SetAnimationSpeed( fMoveSpeed );	// ì¢€ ëŠë¦¬ë„¤.
 							}
 						}
 						else
@@ -957,12 +961,12 @@ void ProcessLButtonDown( CXiahCharObject *pMainChar, CXiahCharObject* pMouseOnCh
 						pMainChar->SetAnimation( XiahAniType::eLAT_Mugong, g_MainCharInfo.m_nFastIndex, 0.7f);
 					}
 
-					// ´Ş¸®°í ÀÖ´øÁß
+					// ë‹¬ë¦¬ê³  ìˆë˜ì¤‘
 					pMainChar->SetAngleTarget( vTarget);
 					pMainChar->GetAngle( angle);
 					pMainChar->Update(1);
 					pMainChar->SetTargetMove( vTarget.x, -vTarget.z, eLBP_CharNavigation, 0);
-					// ¿òÁ÷ÀÓÀ» ³¯·ÁÁØ´Ù.
+					// ì›€ì§ì„ì„ ë‚ ë ¤ì¤€ë‹¤.
 					{
 						ChangingMoving(pMainChar,vTarget);
 					}
@@ -976,13 +980,13 @@ void ProcessLButtonDown( CXiahCharObject *pMainChar, CXiahCharObject* pMouseOnCh
 void ProcessCharIsMoving( CXiahCharObject *pMainChar)
 /////////////////////////////////////////////////////
 {
-	// ¿òÁ÷ÀÏ¶§ ¸Ê°£ ÀÌµ¿À» ±¸ÇöÇØÁÖ´Â°Ô Á¦ÀÏ ÁÁÀ»µí ÇÏ´Ù
+	// ì›€ì§ì¼ë•Œ ë§µê°„ ì´ë™ì„ êµ¬í˜„í•´ì£¼ëŠ”ê²Œ ì œì¼ ì¢‹ì„ë“¯ í•˜ë‹¤
 	float angle = 90-pMainChar->m_Angle * 57.29577951f;  // 180.0f / _PI => 57.29577951f
 
 	if( angle < 0)
 		angle += 360;
 
-	// ¿òÁ÷ÀÓÀÇ Sync¸¦ ³¯·ÁÁØ´Ù.
+	// ì›€ì§ì„ì˜ Syncë¥¼ ë‚ ë ¤ì¤€ë‹¤.
 	if(!g_bCheat)
 		SendCS_NV_SYNCMOVE_REQ( g_pMainChar->m_dwServerID, pMainChar->m_Position.x, -pMainChar->m_Position.z, pMainChar->m_Position.y,
 								vTarget.x, -vTarget.z, vTarget.y, angle, CHARSTATE_NORMAL, 9);
@@ -995,7 +999,7 @@ void ProcessCharIsMoving( CXiahCharObject *pMainChar)
 void ChangingMoving(CXiahCharObject *pMainChar, Vector3 vTarget)
 /////////////////////////////////////////////////////
 {
-	// ¿òÁ÷ÀÏ¶§ ¸Ê°£ ÀÌµ¿À» ±¸ÇöÇØÁÖ´Â°Ô Á¦ÀÏ ÁÁÀ»µí ÇÏ´Ù
+	// ì›€ì§ì¼ë•Œ ë§µê°„ ì´ë™ì„ êµ¬í˜„í•´ì£¼ëŠ”ê²Œ ì œì¼ ì¢‹ì„ë“¯ í•˜ë‹¤
 	float angle = 90-pMainChar->m_Angle * 57.29577951f;
 
 
@@ -1021,10 +1025,10 @@ void ProcessRButtonDown( CXiahCharObject *pMainChar, BOOL bMouseOnObjectType)
 
 	static DWORD lastMugongTime = 0;
 
-	DWORD dwMugongID = 0;	// ¼±ÅÃµÈ ¹«°ø
+	DWORD dwMugongID = 0;	// ì„ íƒëœ ë¬´ê³µ
 
-	//dwMugongID = 7;// ÀÏ´Ü ±â¼¼¹è°­À¸·Ô!
-	// dwMugongID = 0 ÀÌ¸é activemugong ¾øÀ½.
+	//dwMugongID = 7;// ì¼ë‹¨ ê¸°ì„¸ë°°ê°•ìœ¼ë¡¯!
+	// dwMugongID = 0 ì´ë©´ activemugong ì—†ìŒ.
 	dwMugongID = g_MainCharInfo.m_pSlot->GetActiveSlot();
 
 	if( !dwMugongID)
@@ -1060,7 +1064,7 @@ void ProcessRButtonDown( CXiahCharObject *pMainChar, BOOL bMouseOnObjectType)
 		wTargetPosY = -vPickPos.z;
 		bTargetHeight = bAttackHeight;
 
-		// Auto¸ğµå ÃÊ±âÈ­
+		// Autoëª¨ë“œ ì´ˆê¸°í™”
 		dwSelObjectID = 0;
 		dwSelObjectType = 0;
 		bAutoAttack			= FALSE;
@@ -1070,7 +1074,7 @@ void ProcessRButtonDown( CXiahCharObject *pMainChar, BOOL bMouseOnObjectType)
 		g_MainChar_PreAttackInfo.dwLastPreAttackTime = 0;
 
 
-		// Å¸ÄÏ Á¤º¸°¡ ÀÖÀ¸¸é ³Ö¾îÁØ´Ù
+		// íƒ€ì¼“ ì •ë³´ê°€ ìˆìœ¼ë©´ ë„£ì–´ì¤€ë‹¤
 		if( XiahObject::g_pMouseOnObject)
 		{
 			XiahObject::CXiahObject_Basic *pBasicObject = XiahObject::g_pMouseOnObject->m_pObject;
@@ -1101,7 +1105,7 @@ void ProcessRButtonDown( CXiahCharObject *pMainChar, BOOL bMouseOnObjectType)
 						{
 							sFunctionalNpcInfo* pInfo = (sFunctionalNpcInfo*)pCharObject->m_pPrivateData;
 
-							if ( NULL != pInfo && pInfo->m_bKind == 100 )	// ¹®ÆÄ ºñ¼®ÀÏ‹š
+							if ( NULL != pInfo && pInfo->m_bKind == 100 )	// ë¬¸íŒŒ ë¹„ì„ì¼ë–„
 							{
 								bDefType = pBasicObject->m_bObjType;
 								dwDefID = XiahObject::g_pMouseOnObject->m_dwServerID;
@@ -1116,7 +1120,7 @@ void ProcessRButtonDown( CXiahCharObject *pMainChar, BOOL bMouseOnObjectType)
 			}
 		};
 
-		// °æ°ø
+		// ê²½ê³µ
 		if( dwMugongID == OUTGONGID_ILYUIDOGANG	 || 
 			dwMugongID == OUTGONGID_YUESUSINYUNG || 
 			dwMugongID == OUTGONGID_JILPUNGBO	 ||
@@ -1129,10 +1133,10 @@ void ProcessRButtonDown( CXiahCharObject *pMainChar, BOOL bMouseOnObjectType)
 			pCharObject->SetAngleTarget( wTargetPosX, wTargetPosY);
 		}
 
-		if( dwMugongID == OUTGONGID_UNKIHAENG ||	 // ¿î±âÇà
-			dwMugongID == OUTGONGID_JOSIKSUL ||		// Á¶½Ä¼ú
-			dwMugongID == OUTGONGID_WHANSUYUO ||	// È¯¼öÀ¯
-			dwMugongID == OUTGONGID_KIYOESUL )		// ±â¿ä¼ú
+		if( dwMugongID == OUTGONGID_UNKIHAENG ||	 // ìš´ê¸°í–‰
+			dwMugongID == OUTGONGID_JOSIKSUL ||		// ì¡°ì‹ìˆ 
+			dwMugongID == OUTGONGID_WHANSUYUO ||	// í™˜ìˆ˜ìœ 
+			dwMugongID == OUTGONGID_KIYOESUL )		// ê¸°ìš”ìˆ 
 		{
 			bDefType = OBJTYPE_PC;
 			dwDefID = g_pMainChar->m_dwServerID;
@@ -1143,15 +1147,15 @@ void ProcessRButtonDown( CXiahCharObject *pMainChar, BOOL bMouseOnObjectType)
 
 		BOOL bAttackAvailable = TRUE;
 
-		// ¸ŞÀÎ ÄÉ¸¯ÀÌ Å»¹éÀÎÀÌ °É¸° »óÅÂ¸é °ø°İÀ» ÇÒ ¼ö ¾ø´Ù.
+		// ë©”ì¸ ì¼€ë¦­ì´ íƒˆë°±ì¸ì´ ê±¸ë¦° ìƒíƒœë©´ ê³µê²©ì„ í•  ìˆ˜ ì—†ë‹¤.
 		if( pMainChar->m_KeepUpMugongList.IsExist(OUTGONGID_TALBAKIN) )
 			bAttackAvailable = FALSE;
 
-		// ¸ŞÀÎ ÄÉ¸¯ÀÌ ±Í½Ä´ë¹ıÀ» ¾²°í ÀÖÀ¸¸é °ğ¹Ù·Î °ø°İÀ» ÇÒ ¼ö ¾ø´Ù.
+		// ë©”ì¸ ì¼€ë¦­ì´ ê·€ì‹ëŒ€ë²•ì„ ì“°ê³  ìˆìœ¼ë©´ ê³§ë°”ë¡œ ê³µê²©ì„ í•  ìˆ˜ ì—†ë‹¤.
 		if( pMainChar->m_KeepUpMugongList.IsExist(OUTGONGID_GYUISIKDAEBUB) )
 			bAttackAvailable = FALSE;
 
-		// ¸ŞÀÎ ÄÉ¸¯ÀÌ ±¤¸¶µ¶°øÀ» ¾²°í ÀÖÀ¸¸é ¶Ç´Ù½Ã ÇÒ ÇÊ¿ä°¡ ¾ø´Ù.
+		// ë©”ì¸ ì¼€ë¦­ì´ ê´‘ë§ˆë…ê³µì„ ì“°ê³  ìˆìœ¼ë©´ ë˜ë‹¤ì‹œ í•  í•„ìš”ê°€ ì—†ë‹¤.
 		if( dwMugongID == OUTGONGID_GWANGMADOKGONG &&
 			pMainChar->m_KeepUpMugongList.IsExist(OUTGONGID_GWANGMADOKGONG) )
 			bAttackAvailable = FALSE;
@@ -1199,10 +1203,10 @@ void ProcessAutoAttack( CXiahCharObject *pMainChar)
 		if( pCharObject->m_bObjType == OBJTYPE_NPC && pCharObject->m_nCurMotionType == XiahAniType::eLAT_Die )
 			continue;
 
-		if( pCharObject->m_bObjType == OBJTYPE_NPC && pCharObject->m_bSubObjType == 187 ) //ºÒ»çÁ¶´Â »èÁ¦
+		if( pCharObject->m_bObjType == OBJTYPE_NPC && pCharObject->m_bSubObjType == 187 ) //ë¶ˆì‚¬ì¡°ëŠ” ì‚­ì œ
 			continue;
 
-		if( pCharObject->m_bObjType == OBJTYPE_NPC && pCharObject->m_bExSubObjType != 255) //ÆÄ±«¿ë NPC »èÁ¦
+		if( pCharObject->m_bObjType == OBJTYPE_NPC && pCharObject->m_bExSubObjType != 255) //íŒŒê´´ìš© NPC ì‚­ì œ
 			continue;
 		
 		
@@ -1217,12 +1221,12 @@ void ProcessAutoAttack( CXiahCharObject *pMainChar)
 		}
 	}
 	
-	//HT_CHEAT : Æê »ç³É Ã³¸®
+	//HT_CHEAT : í« ì‚¬ëƒ¥ ì²˜ë¦¬
 	sPetInfo* pPetInfo = g_PetList.GetCurrentPet();
 	
 	if( pPetInfo && dwSelObjectID != 0 && dwSelObjectType != 0 )
 	{
-		if( g_PetList.size() == 0 )//|| pPetInfo->bWildRate > 60 && pPetInfo->m_dwIsHwan == 0) //ÆêÀÌ ¾øÀ¸¸é ³»°¡ »ç³ÉÁß. ¸¸¾à ÆêÀº ÀÖ´Âµ¥ ¸ÔÀÌ ºÎÁ·À¸·Î ¾ß»ı¼º Áõ°¡ÇÏ¸é ³»°¡ »ç³ÉÇØ¾ßÁö..
+		if( g_PetList.size() == 0 )//|| pPetInfo->bWildRate > 60 && pPetInfo->m_dwIsHwan == 0) //í«ì´ ì—†ìœ¼ë©´ ë‚´ê°€ ì‚¬ëƒ¥ì¤‘. ë§Œì•½ í«ì€ ìˆëŠ”ë° ë¨¹ì´ ë¶€ì¡±ìœ¼ë¡œ ì•¼ìƒì„± ì¦ê°€í•˜ë©´ ë‚´ê°€ ì‚¬ëƒ¥í•´ì•¼ì§€..
 		{
 			if(pSelCharObject)
 			{
@@ -1237,9 +1241,9 @@ void ProcessAutoAttack( CXiahCharObject *pMainChar)
 				ProcessAutoNavigation( 0);
 			}
 		}
-		else //ÆêÀÌ ÀÖÀ» °æ¿ì 
+		else //í«ì´ ìˆì„ ê²½ìš° 
 		{
-			if( pPetInfo->m_dwIsHwan == 2) //ºĞ½Å°İÀº °°ÀÌ »ç³É Á» ÇØÁÖÁö..
+			if( pPetInfo->m_dwIsHwan == 2) //ë¶„ì‹ ê²©ì€ ê°™ì´ ì‚¬ëƒ¥ ì¢€ í•´ì£¼ì§€..
 			{
 				if(g_MainCharInfo.m_bCheat && pSelCharObject)
 				{
@@ -1259,14 +1263,14 @@ void ProcessAutoAttack( CXiahCharObject *pMainChar)
 					ProcessAutoNavigation( 0);
 				}
 			}
-			else if( pPetInfo->m_dwIsHwan == 1) //È¯¼ö ÀÏ ¶§´Â °¡¸¸È÷ ÀÖÀÚ
+			else if( pPetInfo->m_dwIsHwan == 1) //í™˜ìˆ˜ ì¼ ë•ŒëŠ” ê°€ë§Œíˆ ìˆì
 			{
 				g_PetList.Change_PET_AI(PETAI_TARGETATTACK);
 				g_bCommandAI = TRUE;
 				g_dwCommandType = PETAI_TARGETATTACK;
 				SubProcessCommandAI(dwSelObjectID,dwSelObjectType);
 			}
-			else //Æê »ç³É ¸ğµå´Ù (¶Ë°³)
+			else //í« ì‚¬ëƒ¥ ëª¨ë“œë‹¤ (ë˜¥ê°œ)
 			{
 				if(pPetInfo->bWildRate < 60)
 				{
@@ -1292,7 +1296,7 @@ void ProcessAutoAttack( CXiahCharObject *pMainChar)
 			}
 		}
 	}
-	else if(pSelCharObject)//ÆêÀÌ ¾øÀ¸¸é ³»°¡ »ç³É
+	else if(pSelCharObject)//í«ì´ ì—†ìœ¼ë©´ ë‚´ê°€ ì‚¬ëƒ¥
 	{
 		fInteractionRange = g_MainCharInfo.m_wAttackRange;
 		
@@ -1310,13 +1314,13 @@ void ProcessAutoAttack( CXiahCharObject *pMainChar)
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-// GAME PADÁö¿øÀ» À§ÇÑ AUTO TARGETÀ» ¸¸µç´Ù.
+// GAME PADì§€ì›ì„ ìœ„í•œ AUTO TARGETì„ ë§Œë“ ë‹¤.
 void UpdateAutoTarget(CXiahCharObject *pMainChar)
 {
 	float min_len = 1000.0f;
 	AutoTargetObj = NULL;
 
-	// µ¹¸é¼­ »Ì¾Æ³»ÀÚ!
+	// ëŒë©´ì„œ ë½‘ì•„ë‚´ì!
 	XiahObject::CXiahObjectManager::iterator it;
 	for(it = XiahObject::g_XiahObjectManager.begin(); it != XiahObject::g_XiahObjectManager.end(); it++)
 	{
@@ -1326,7 +1330,7 @@ void UpdateAutoTarget(CXiahCharObject *pMainChar)
 		float Len;
 		switch( pCharObject->m_bObjType)
 		{
-		// ¿¡³Ê¹ÌÀÌ´Ù. Ãß°¡!
+		// ì—ë„ˆë¯¸ì´ë‹¤. ì¶”ê°€!
 		case OBJTYPE_NPC:
 			{
 				if(pCharObject->m_nCurMotionType == XiahAniType::eLAT_Die) continue;
@@ -1341,7 +1345,7 @@ void UpdateAutoTarget(CXiahCharObject *pMainChar)
 
 			}
 			break;
-		// ¾ÆÀÌÅÛÀÌ´Ù. Ãß°¡!
+		// ì•„ì´í…œì´ë‹¤. ì¶”ê°€!
 		case OBJTYPE_FUNCTIONALNPC:
 		case OBJTYPE_ITEM:
 			{
@@ -1358,8 +1362,8 @@ void UpdateAutoTarget(CXiahCharObject *pMainChar)
 	}
 }
 
-// AUTO Target ÁøÇà
-//HT_CHEAT : °ÔÀÓ ÆĞµå »èÁ¦
+// AUTO Target ì§„í–‰
+//HT_CHEAT : ê²Œì„ íŒ¨ë“œ ì‚­ì œ
 void ProcessAutoTarget(CXiahCharObject *pMainChar)
 {
 	//CXiahCharObject* pCharObject = NULL;
@@ -1372,10 +1376,10 @@ void ProcessAutoTarget(CXiahCharObject *pMainChar)
 	////	return; 
 	////}
 
-	//// target ¹öÆ° Å¬¸¯ÇÏ¸é ´ÙÀ½À» Ã£´Â´Ù. (Ã£¾Æ¼­ Ç¥½Ã)
+	//// target ë²„íŠ¼ í´ë¦­í•˜ë©´ ë‹¤ìŒì„ ì°¾ëŠ”ë‹¤. (ì°¾ì•„ì„œ í‘œì‹œ)
 	//if(XiahInput::g_Lock_Button_On && !XiahInput::g_Attack_Button_On)
 	//{
-	////	UpdateAutoTarget(pMainChar); //°ÔÀÓ ÆĞµå 
+	////	UpdateAutoTarget(pMainChar); //ê²Œì„ íŒ¨ë“œ 
 	//	if(AutoTargetObj == NULL)
 	//	{
 	//		g_AutoTarget = FALSE;
@@ -1384,7 +1388,7 @@ void ProcessAutoTarget(CXiahCharObject *pMainChar)
 	//	}
 
 	//	g_AutoTarget = TRUE;
-	//	//g_MainCharInfo.ShowHelpMessage( "Å¸°Ù ÁöÁ¤!");
+	//	//g_MainCharInfo.ShowHelpMessage( "íƒ€ê²Ÿ ì§€ì •!");
 	//	pCharObject = (CXiahCharObject*) AutoTargetObj->m_pObject;
 	//	g_PickCursor.Create( XiahPak::GetTexture( 50000396), pCharObject->m_Position.x, pCharObject->m_Position.z, 6, COLOR_PICKCURSOR);
 	//	g_PickCursor.SetRotate(0.03490658f); // _PI / 90.0f
@@ -1394,7 +1398,7 @@ void ProcessAutoTarget(CXiahCharObject *pMainChar)
 
 	//if(!AutoTargetObj) return;
 
-	//// targetÀ» °ø°İÇÑ´Ù.
+	//// targetì„ ê³µê²©í•œë‹¤.
 	//pCharObject = (CXiahCharObject*) AutoTargetObj->m_pObject;
 	//if(pCharObject != NULL && AutoTargetObj != NULL && XiahInput::g_Lock_Button_On && XiahInput::g_Attack_Button_On)
 	//{
@@ -1402,7 +1406,7 @@ void ProcessAutoTarget(CXiahCharObject *pMainChar)
 	//	dwSelObjectID		= AutoTargetObj->m_dwServerID;
 	//	dwSelObjectType		= pCharObject->m_bObjType;
 
-	//	// npcÀÏ°æ¿ì ÀÚµ¿ °ø°İ¸ğµåÀüÈ¯
+	//	// npcì¼ê²½ìš° ìë™ ê³µê²©ëª¨ë“œì „í™˜
 	//	if( dwSelObjectType == OBJTYPE_NPC && pCharObject->m_nCurMotionType != XiahAniType::eLAT_Die)
 	//	{
 	//		bAutoNavigation = TRUE;
@@ -1421,7 +1425,7 @@ void ProcessAutoTarget(CXiahCharObject *pMainChar)
 	//		ProcessAutoNavigation( 0);
 	//	}
 
-	//	// item ÀÏ°æ¿ì ÀÚµ¿ ¼öÁı¸ğµå
+	//	// item ì¼ê²½ìš° ìë™ ìˆ˜ì§‘ëª¨ë“œ
 	//	if( dwSelObjectType == OBJTYPE_ITEM )
 	//	{
 	//		bAutoNavigation = TRUE;
@@ -1438,11 +1442,11 @@ void ProcessAutoTarget(CXiahCharObject *pMainChar)
 	//}
 }
 
-// PAD¿ë HP,MP ¹°¾à »ç¿ë
+// PADìš© HP,MP ë¬¼ì•½ ì‚¬ìš©
 //void ProcessUseHPMP()
 //{
 //	XiahItem::sItemInfo* pItem = NULL;
-//	// HP »ç¿ë
+//	// HP ì‚¬ìš©
 //	if(XiahInput::g_HP_Button_On)
 //	{
 //		for(int i=0;i<2;i++)
@@ -1456,7 +1460,7 @@ void ProcessAutoTarget(CXiahCharObject *pMainChar)
 //		}
 //	}
 //
-//	// MP »ç¿ë
+//	// MP ì‚¬ìš©
 //F1 :
 //	if(XiahInput::g_MP_Button_On)
 //	{
@@ -1473,7 +1477,7 @@ void ProcessAutoTarget(CXiahCharObject *pMainChar)
 //}
 
 
-// HP °ü·ÃÇÏ¿© Áøµ¿!
+// HP ê´€ë ¨í•˜ì—¬ ì§„ë™!
 void ProcessRumble()
 {
 	//if(g_MainCharInfo.m_dwHpCur == 0 || g_cj == NULL)
@@ -1508,7 +1512,7 @@ void ProcessRumble()
 
 const int m_x_pos[9] = { 96, 130, 163, 198 , 232, 271, 306, 340, 374 };
 
-// PAD·Î ¸Ş´º¸¦ ¿¬´Ù!
+// PADë¡œ ë©”ë‰´ë¥¼ ì—°ë‹¤!
 void ProcessMenu()
 {
 	//if(XiahInput::g_Menu_Button_On)
@@ -1531,18 +1535,18 @@ void ProcessMenu()
 	//if(XiahInput::g_Menu_Button_On && PadMenuOpend)
 	//{
 	//	// OPEN MENU
-	//	g_pUIManager->Show(WINDOW_BUTTON_GROUP_01); // °ÔÀÓ ¸Ş´º
-	//	g_pUIManager->Show(SYSTEM_BUTTON_GROUP_01); // ½Ã½ºÅÛ ¸Ş´º
+	//	g_pUIManager->Show(WINDOW_BUTTON_GROUP_01); // ê²Œì„ ë©”ë‰´
+	//	g_pUIManager->Show(SYSTEM_BUTTON_GROUP_01); // ì‹œìŠ¤í…œ ë©”ë‰´
 	//}
 	//else
 	//if(XiahInput::g_Menu_Button_On && !PadMenuOpend)
 	//{
 	//	// CLOSE MENU
-	//	g_pUIManager->Hide(WINDOW_BUTTON_GROUP_01); // °ÔÀÓ ¸Ş´º
-	//	g_pUIManager->Hide(SYSTEM_BUTTON_GROUP_01); // ½Ã½ºÅÛ ¸Ş´º
+	//	g_pUIManager->Hide(WINDOW_BUTTON_GROUP_01); // ê²Œì„ ë©”ë‰´
+	//	g_pUIManager->Hide(SYSTEM_BUTTON_GROUP_01); // ì‹œìŠ¤í…œ ë©”ë‰´
 	//}
 
-	//// Ä¿¼­¸¦ °íÁ¤!
+	//// ì»¤ì„œë¥¼ ê³ ì •!
 	//if(PadMenuOpend)
 	//{
 	//	SetCursorPos(m_x_pos[SelPadMenu],700);	
@@ -1551,73 +1555,73 @@ void ProcessMenu()
 	//	{
 	//		switch(SelPadMenu)
 	//		{
-	//			case 0:	// Çà³¶
+	//			case 0:	// í–‰ë‚­
 	//				ProcessClickSackButton();
-	//				g_pUIManager->Hide(WINDOW_BUTTON_GROUP_01); // °ÔÀÓ ¸Ş´º
-	//				g_pUIManager->Hide(SYSTEM_BUTTON_GROUP_01); // ½Ã½ºÅÛ ¸Ş´º
+	//				g_pUIManager->Hide(WINDOW_BUTTON_GROUP_01); // ê²Œì„ ë©”ë‰´
+	//				g_pUIManager->Hide(SYSTEM_BUTTON_GROUP_01); // ì‹œìŠ¤í…œ ë©”ë‰´
 	//				PadMenuOpend = FALSE;
 	//				break;
-	//			case 1:	// Ä³¸¯ÅÍÁ¤º¸
+	//			case 1:	// ìºë¦­í„°ì •ë³´
 	//				if(!g_MainCharInfo.m_bPersonalTradeSell)
 	//				{
 	//					ProcessClickCharInfoButton();
-	//					g_pUIManager->Hide(WINDOW_BUTTON_GROUP_01); // °ÔÀÓ ¸Ş´º
-	//					g_pUIManager->Hide(SYSTEM_BUTTON_GROUP_01); // ½Ã½ºÅÛ ¸Ş´º
+	//					g_pUIManager->Hide(WINDOW_BUTTON_GROUP_01); // ê²Œì„ ë©”ë‰´
+	//					g_pUIManager->Hide(SYSTEM_BUTTON_GROUP_01); // ì‹œìŠ¤í…œ ë©”ë‰´
 	//					PadMenuOpend = FALSE;
 	//				} // if(!g_MainCharInfo.m_bPersonalTradeSell)
 	//				break;
-	//			case 2:	// ¹«°ø
+	//			case 2:	// ë¬´ê³µ
 	//				if(!g_MainCharInfo.m_bPersonalTradeSell)
 	//				{					
 	//					ProcessClickMugongButton( 1);
-	//					g_pUIManager->Hide(WINDOW_BUTTON_GROUP_01); // °ÔÀÓ ¸Ş´º
-	//					g_pUIManager->Hide(SYSTEM_BUTTON_GROUP_01); // ½Ã½ºÅÛ ¸Ş´º
+	//					g_pUIManager->Hide(WINDOW_BUTTON_GROUP_01); // ê²Œì„ ë©”ë‰´
+	//					g_pUIManager->Hide(SYSTEM_BUTTON_GROUP_01); // ì‹œìŠ¤í…œ ë©”ë‰´
 	//					PadMenuOpend = FALSE;
 	//				} // if(!g_MainCharInfo.m_bPersonalTradeSell)
 	//				break;
-	//			case 3:	// °ü°è
+	//			case 3:	// ê´€ê³„
 	//				if(!g_MainCharInfo.m_bPersonalTradeSell)
 	//				{					
 	//					ProcessClickRelationButton( eDAN);
-	//					g_pUIManager->Hide(WINDOW_BUTTON_GROUP_01); // °ÔÀÓ ¸Ş´º
-	//					g_pUIManager->Hide(SYSTEM_BUTTON_GROUP_01); // ½Ã½ºÅÛ ¸Ş´º
+	//					g_pUIManager->Hide(WINDOW_BUTTON_GROUP_01); // ê²Œì„ ë©”ë‰´
+	//					g_pUIManager->Hide(SYSTEM_BUTTON_GROUP_01); // ì‹œìŠ¤í…œ ë©”ë‰´
 	//					PadMenuOpend = FALSE;
 	//				} // if(!g_MainCharInfo.m_bPersonalTradeSell)
 	//				break;
-	//			case 4:	// ±â¿¬
+	//			case 4:	// ê¸°ì—°
 	//				if(!g_MainCharInfo.m_bPersonalTradeSell)
 	//				{
 	//					ProcessClickQuestButton();
-	//					g_pUIManager->Hide(WINDOW_BUTTON_GROUP_01); // °ÔÀÓ ¸Ş´º
-	//					g_pUIManager->Hide(SYSTEM_BUTTON_GROUP_01); // ½Ã½ºÅÛ ¸Ş´º
+	//					g_pUIManager->Hide(WINDOW_BUTTON_GROUP_01); // ê²Œì„ ë©”ë‰´
+	//					g_pUIManager->Hide(SYSTEM_BUTTON_GROUP_01); // ì‹œìŠ¤í…œ ë©”ë‰´
 	//					PadMenuOpend = FALSE;
 	//				}
 	//				break;
 
-	//			case 5:	// ¹Ì´Ï¸Ê
+	//			case 5:	// ë¯¸ë‹ˆë§µ
 	//				g_MainCharInfo.ShowMiniMap( TRUE);
-	//				g_pUIManager->Hide(WINDOW_BUTTON_GROUP_01); // °ÔÀÓ ¸Ş´º
-	//				g_pUIManager->Hide(SYSTEM_BUTTON_GROUP_01); // ½Ã½ºÅÛ ¸Ş´º
+	//				g_pUIManager->Hide(WINDOW_BUTTON_GROUP_01); // ê²Œì„ ë©”ë‰´
+	//				g_pUIManager->Hide(SYSTEM_BUTTON_GROUP_01); // ì‹œìŠ¤í…œ ë©”ë‰´
 	//				PadMenuOpend = FALSE;
 	//				break;
-	//			case 6:	// ÇïÇÁ
+	//			case 6:	// í—¬í”„
 	//				g_MainCharInfo.OpenFrame( A_HELP);
-	//				g_pUIManager->Hide(WINDOW_BUTTON_GROUP_01); // °ÔÀÓ ¸Ş´º
-	//				g_pUIManager->Hide(SYSTEM_BUTTON_GROUP_01); // ½Ã½ºÅÛ ¸Ş´º
+	//				g_pUIManager->Hide(WINDOW_BUTTON_GROUP_01); // ê²Œì„ ë©”ë‰´
+	//				g_pUIManager->Hide(SYSTEM_BUTTON_GROUP_01); // ì‹œìŠ¤í…œ ë©”ë‰´
 	//				PadMenuOpend = FALSE;
 	//				break;
-	//			case 7:	// ¿É¼Ç
+	//			case 7:	// ì˜µì…˜
 	//				if(!g_MainCharInfo.m_bPersonalTradeSell)
 	//				{					
 	//					ProcessClickOptionButton();
-	//					g_pUIManager->Hide(WINDOW_BUTTON_GROUP_01); // °ÔÀÓ ¸Ş´º
-	//					g_pUIManager->Hide(SYSTEM_BUTTON_GROUP_01); // ½Ã½ºÅÛ ¸Ş´º
+	//					g_pUIManager->Hide(WINDOW_BUTTON_GROUP_01); // ê²Œì„ ë©”ë‰´
+	//					g_pUIManager->Hide(SYSTEM_BUTTON_GROUP_01); // ì‹œìŠ¤í…œ ë©”ë‰´
 	//					PadMenuOpend = FALSE;
 	//				} // if(!g_MainCharInfo.m_bPersonalTradeSell)
 	//				break;
-	//			case 8:	// ³¡³»±â
-	//				g_pUIManager->Hide(WINDOW_BUTTON_GROUP_01); // °ÔÀÓ ¸Ş´º
-	//				g_pUIManager->Hide(SYSTEM_BUTTON_GROUP_01); // ½Ã½ºÅÛ ¸Ş´º
+	//			case 8:	// ëë‚´ê¸°
+	//				g_pUIManager->Hide(WINDOW_BUTTON_GROUP_01); // ê²Œì„ ë©”ë‰´
+	//				g_pUIManager->Hide(SYSTEM_BUTTON_GROUP_01); // ì‹œìŠ¤í…œ ë©”ë‰´
 	//				PadMenuOpend = FALSE;
 	//				PostMessage( g_AppData.m_hWnd, WM_CLOSE, 0, 0);
 	//				break;
@@ -1626,10 +1630,10 @@ void ProcessMenu()
 	//}
 }
 
-// PAD»ç¿ë½ÃÀÇ Quick Slot
+// PADì‚¬ìš©ì‹œì˜ Quick Slot
 void ProcessQuickSlot()
 {
-	// <- ¹æÇâÀüÈ¯
+	// <- ë°©í–¥ì „í™˜
 	//if(XiahInput::g_Sel_Right_Down)
 	//{
 	//	DBG_Put(_T("FUCK1"));
@@ -1649,7 +1653,7 @@ void ProcessQuickSlot()
 	//	}
 	//}
 
-	//// -> ¹æÇâÀüÈ¯
+	//// -> ë°©í–¥ì „í™˜
 	//if(XiahInput::g_Sel_Left_Down)
 	//{
 	//	DBG_Put(_T("FUCK2"));
@@ -1671,7 +1675,7 @@ void ProcessQuickSlot()
 }
 
 #ifdef LIGHTSET
-// ¶óÀÌÆ® ¼³Á¤ ÀÓ½Ã ÄÚµå
+// ë¼ì´íŠ¸ ì„¤ì • ì„ì‹œ ì½”ë“œ
 void LIghtSetup()
 {
 	// Mode
@@ -1783,22 +1787,22 @@ void LIghtSetup()
 	switch(light_mode)
 	{
 		case 0 :
-		strFPS.printf( _T("(¶óÀÌÆ®) R(%d) G(%d) B(%d) F(%f)"), lightR,lightG,lightB ,g_XiahEnvInfo.m_fFogDensity);
+		strFPS.printf( _T("(ë¼ì´íŠ¸) R(%d) G(%d) B(%d) F(%f)"), lightR,lightG,lightB ,g_XiahEnvInfo.m_fFogDensity);
 		break;
 
 		case 1 :
-		strFPS.printf( _T("(Æ÷±×) R(%d) G(%d) B(%d) F(%f)"), flightR,flightG,flightB ,g_XiahEnvInfo.m_fFogDensity);
+		strFPS.printf( _T("(í¬ê·¸) R(%d) G(%d) B(%d) F(%f)"), flightR,flightG,flightB ,g_XiahEnvInfo.m_fFogDensity);
 		break;
 
 		case 2 :
-			strFPS.printf( _T("(¹Ù´Ú) R(%d) G(%d) B(%d)"), skyR1,skyG1,skyB1);
+			strFPS.printf( _T("(ë°”ë‹¥) R(%d) G(%d) B(%d)"), skyR1,skyG1,skyB1);
 			break;
 
 		case 3 :
-			strFPS.printf( _T("(Áß°£) R(%d) G(%d) B(%d)"), skyR2,skyG2,skyB2);
+			strFPS.printf( _T("(ì¤‘ê°„) R(%d) G(%d) B(%d)"), skyR2,skyG2,skyB2);
 			break;
 		case 4 :
-			strFPS.printf( _T("(À§) R(%d) G(%d) B(%d)"), skyR3,skyG3,skyB3);
+			strFPS.printf( _T("(ìœ„) R(%d) G(%d) B(%d)"), skyR3,skyG3,skyB3);
 			break;
 	}
 

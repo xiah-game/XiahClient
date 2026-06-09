@@ -1,4 +1,4 @@
-#include "precompile.h"
+ï»¿#include "precompile.h"
 #include "XiahNetworkHandler.h"
 #include "XiahSocket.h"
 
@@ -96,8 +96,8 @@ void RegisterNetworkHandler_Main()
 	XiahNetwork::RegisterHandler( CS_NV_SYNCMOVE_ACK,				OnCS_NV_SYNCMOVE_ACK);
 	XiahNetwork::RegisterHandler( CS_NV_ENDMOVE_ACK,				OnCS_NV_ENDMOVE_ACK);
 	XiahNetwork::RegisterHandler( CS_NV_SETPOSITION_ACK,			OnCS_NV_SETPOSITION_ACK);
-	XiahNetwork::RegisterHandler(CS_NV_QUICKMOVE_ACK,				OnCS_NV_QUICKMOVE_ACK);		// NPC Æ÷Å» ÀÌµ¿
-	XiahNetwork::RegisterHandler(CS_NV_PRIVATEPORTAL_ACK,			OnCS_NV_PRIVATEPORTAL_ACK);	// ¹®ÆÄ´ëÀü NPC Æ÷Å» ÀÌµ¿	
+	XiahNetwork::RegisterHandler(CS_NV_QUICKMOVE_ACK,				OnCS_NV_QUICKMOVE_ACK);		// NPC í¬íƒˆ ì´ë™
+	XiahNetwork::RegisterHandler(CS_NV_PRIVATEPORTAL_ACK,			OnCS_NV_PRIVATEPORTAL_ACK);	// ë¬¸íŒŒëŒ€ì „ NPC í¬íƒˆ ì´ë™	
 
 	XiahNetwork::RegisterHandler( CS_BT_CHANGEMODE_ACK,				OnCS_BT_CHANGEMODE_ACK);
 	XiahNetwork::RegisterHandler( CS_BT_PREATTACK_ACK,				OnCS_BT_PREATTACK_ACK);	
@@ -175,7 +175,7 @@ void RegisterNetworkHandler_Main()
 	XiahNetwork::RegisterHandler( CS_IF_CHARHP_ACK,					OnCS_IF_CHARHP_ACK);
 	XiahNetwork::RegisterHandler( CS_IF_CHAREXP_ACK,				OnCS_IF_CHAREXP_ACK);
 	XiahNetwork::RegisterHandler( CS_IF_FAMEINFO_ACK,				OnCS_IF_FAMEINFO_ACK);
-	// ÆÄÆ¼
+	// íŒŒí‹°
 	XiahNetwork::RegisterHandler( CS_IF_ASKPARTY_ACK,				OnCS_IF_ASKPARTY_ACK);
 	XiahNetwork::RegisterHandler( CS_IF_CREATEPARTY_ACK,			OnCS_IF_CREATEPARTY_ACK);
 	XiahNetwork::RegisterHandler( CS_IF_ENTERPARTY_ACK,				OnCS_IF_ENTERPARTY_ACK);
@@ -186,21 +186,21 @@ void RegisterNetworkHandler_Main()
 	XiahNetwork::RegisterHandler( CS_IF_CHANGEPARTYLEADER_ACK,		OnCS_IF_CHANGEPARTYLEADER_ACK);
 	XiahNetwork::RegisterHandler( CS_IF_DESTROYPARTY_ACK,			OnCS_IF_DESTROYPARTY_ACK);
 	XiahNetwork::RegisterHandler( CS_IF_BANISHPARTY_ACK,			OnCS_IF_BANISHPARTY_ACK);
-	// Ä£±¸
+	// ì¹œêµ¬
 	XiahNetwork::RegisterHandler( CS_IF_ASKADDBUDDY_ACK,			OnCS_IF_ASKADDBUDDY_ACK);
 	XiahNetwork::RegisterHandler( CS_IF_ADDBUDDY_ACK,				OnCS_IF_ADDBUDDY_ACK);
 	XiahNetwork::RegisterHandler( CS_IF_DELBUDDY_ACK,				OnCS_IF_DELBUDDY_ACK);
 	XiahNetwork::RegisterHandler( CS_IF_BUDDYLIST_ACK,				OnCS_IF_BUDDYLIST_ACK);
 	XiahNetwork::RegisterHandler( CS_IF_CHANGEBUDDYCONNECT_ACK,		OnCS_IF_CHANGEBUDDYCONNECT_ACK);
 	XiahNetwork::RegisterHandler( CS_IF_BUDDYPOSITION_ACK,			OnCS_IF_BUDDYPOSITION_ACK);
-	//¾Ö¿Ïµ¿¹°
+	//ì• ì™„ë™ë¬¼
 	XiahNetwork::RegisterHandler( CS_IF_PETLIST_ACK,				OnCS_IF_PETLIST_ACK);
-	//º¸»ó
+	//ë³´ìƒ
 	XiahNetwork::RegisterHandler( CS_IF_CHARTPSP_ACK,				OnCS_IF_CHARTPSP_ACK);
-	// ¿ÀÇà
+	// ì˜¤í–‰
 	XiahNetwork::RegisterHandler(CS_IF_EXECFIVEELM_ACK,				OnCS_IF_EXECFIVEELM_ACK);
 	XiahNetwork::RegisterHandler(CS_IF_CHANGEFIVEELM_ACK,			OnCS_IF_CHANGEFIVEELM_ACK);
-	// ´Ü °æÇèÄ¡ ºĞ¹è
+	// ë‹¨ ê²½í—˜ì¹˜ ë¶„ë°°
 	XiahNetwork::RegisterHandler(CS_IF_PARTYSHARE_ACK,				OnCS_IF_PARTYSHARE_ACK);
 
 	XiahNetwork::RegisterHandler(CS_IF_STAMINA_ACK,					OnCS_IF_STAMINA_ACK);
@@ -229,7 +229,7 @@ void RegisterNetworkHandler_Main()
 	XiahNetwork::RegisterHandler( CS_IM_REMARKITEM_ACK,				OnCS_IM_REMARKITEM_ACK);
 	XiahNetwork::RegisterHandler( CS_IM_MONEYBAG_ACK,				OnCS_IM_MONEYBAG_ACK);
 
-	// Àü¼­±¸
+	// ì „ì„œêµ¬
 	XiahNetwork::RegisterHandler( CS_IM_MEMOLIST_ACK,				OnCS_IM_MEMOLIST_ACK);
 	XiahNetwork::RegisterHandler( CS_IM_SENDMEMO_ACK,				OnCS_IM_SENDMEMO_ACK);
 	XiahNetwork::RegisterHandler( CS_IM_NEWMEMO_ACK,				OnCS_IM_NEWMEMO_ACK);
@@ -240,27 +240,27 @@ void RegisterNetworkHandler_Main()
 
 	XiahNetwork::RegisterHandler( CS_IM_PETITEMINFO_ACK,			OnCS_IM_PETITEMINFO_ACK);
 	
-	// Á¶ÇÕ
+	// ì¡°í•©
 	XiahNetwork::RegisterHandler(CS_IM_PUZZLEITEM_ACK,				OnCS_IM_PUZZLEITEM_ACK);
 	XiahNetwork::RegisterHandler(CS_IM_REJOINITEM_ACK,				OnCS_IM_REJOINITEM_ACK);
 	XiahNetwork::RegisterHandler(CS_IM_GATHERITEM_ACK,				OnCS_IM_GATHERITEM_ACK);	
-	XiahNetwork::RegisterHandler(CS_IM_VARIENTITEM_ACK,				OnCS_IM_VARIENTITEM_ACK);		// °¡·¡¶±
-	XiahNetwork::RegisterHandler(CS_IM_REWARDGUARANTEE_ACK,			OnCS_IM_REWARDGUARANTEE_ACK);	// º¸Çè ¾ÆÀÌÅÛ º¹±¸,¼Ò¸ê
-	XiahNetwork::RegisterHandler(CS_IM_EVENTPUZZLE_ACK,				OnCS_IM_EVENTPUZZLE_ACK);		// ÀÌ¹ÌÁö Á¶ÇÕ
+	XiahNetwork::RegisterHandler(CS_IM_VARIENTITEM_ACK,				OnCS_IM_VARIENTITEM_ACK);		// ê°€ë˜ë–¡
+	XiahNetwork::RegisterHandler(CS_IM_REWARDGUARANTEE_ACK,			OnCS_IM_REWARDGUARANTEE_ACK);	// ë³´í—˜ ì•„ì´í…œ ë³µêµ¬,ì†Œë©¸
+	XiahNetwork::RegisterHandler(CS_IM_EVENTPUZZLE_ACK,				OnCS_IM_EVENTPUZZLE_ACK);		// ì´ë¯¸ì§€ ì¡°í•©
 	XiahNetwork::RegisterHandler(CS_IM_MIXITEM_ACK,					OnCS_IM_MIXITEM_ACK);			
-	XiahNetwork::RegisterHandler(CS_IM_MAKEREPAIRHAMMER_ACK,		OnCS_IM_MAKEREPAIRHAMMER_ACK);	// ¸ÁÄ¡ Á¶ÇÕ	
+	XiahNetwork::RegisterHandler(CS_IM_MAKEREPAIRHAMMER_ACK,		OnCS_IM_MAKEREPAIRHAMMER_ACK);	// ë§ì¹˜ ì¡°í•©	
 
-	// ¾ÆÀÌÅÛ ¼öÁı
+	// ì•„ì´í…œ ìˆ˜ì§‘
 	XiahNetwork::RegisterHandler(CS_IM_MOVEINCOLLECTITEM_ACK,		OnCS_IM_MOVEINCOLLECTITEM_ACK);
 	XiahNetwork::RegisterHandler(CS_IM_MOVEOUTCOLLECTITEM_ACK,		OnCS_IM_MOVEOUTCOLLECTITEM_ACK);
 
-	XiahNetwork::RegisterHandler(CS_IM_QUESTROLL_ACK,				OnCS_IM_QUESTROLL_ACK);			//HT_0829 : ÇÁ¸®¹Ì¾ö Äù½ºÆ® 
+	XiahNetwork::RegisterHandler(CS_IM_QUESTROLL_ACK,				OnCS_IM_QUESTROLL_ACK);			//HT_0829 : í”„ë¦¬ë¯¸ì—„ í€˜ìŠ¤íŠ¸ 
 
-	// ÀÌº¥Æ® ¾ÆÀÌÅÛ ÀåÂø
+	// ì´ë²¤íŠ¸ ì•„ì´í…œ ì¥ì°©
 	XiahNetwork::RegisterHandler(CS_NV_EVENTTIME_ACK,				OnCS_NV_EVENTTIME_ACK);
 	XiahNetwork::RegisterHandler(CS_NV_RUNEVENTINFO_ACK,			OnCS_NV_RUNEVENTINFO_ACK);
 	XiahNetwork::RegisterHandler(CS_NV_CHANGEEVENTINFO_ACK,			OnCS_NV_CHANGEEVENTINFO_ACK);
-	XiahNetwork::RegisterHandler(CS_NV_CHARPREMIUM_ACK,				OnCS_NV_CHARPREMIUM_ACK);		//HT_0122 : ±â°£Á¦ ÇÁ¸®¹Ì¾ö ¾ÆÀÌÅÛ Ãß°¡
+	XiahNetwork::RegisterHandler(CS_NV_CHARPREMIUM_ACK,				OnCS_NV_CHARPREMIUM_ACK);		//HT_0122 : ê¸°ê°„ì œ í”„ë¦¬ë¯¸ì—„ ì•„ì´í…œ ì¶”ê°€
 
 	XiahNetwork::RegisterHandler( CS_CD_ADDEQUIPMENT_ACK,			OnCS_CD_ADDEQUIPMENT_ACK);
 	XiahNetwork::RegisterHandler( CS_CD_CHGEQUIPMENT_ACK,			OnCS_CD_CHGEQUIPMENT_ACK);
@@ -299,8 +299,8 @@ void RegisterNetworkHandler_Main()
 	XiahNetwork::RegisterHandler( CS_EC_CHECKLOTTO_ACK,				OnCS_EC_CHECKLOTTO_ACK);
 	XiahNetwork::RegisterHandler( CS_EC_LOTTONOTICE_ACK,			OnCS_EC_LOTTONOTICE_ACK);	
 	
-	XiahNetwork::RegisterHandler( CS_EC_GUARANTEELIST_ACK,			OnCS_EC_GUARANTEELIST_ACK);	// º¸Çè ¾ÆÀÌÅÛ
-	XiahNetwork::RegisterHandler( CS_EC_QUICKMART_ACK,				OnCS_EC_QUICKMART_ACK);		// ¸ÅÇ°ÆĞ	
+	XiahNetwork::RegisterHandler( CS_EC_GUARANTEELIST_ACK,			OnCS_EC_GUARANTEELIST_ACK);	// ë³´í—˜ ì•„ì´í…œ
+	XiahNetwork::RegisterHandler( CS_EC_QUICKMART_ACK,				OnCS_EC_QUICKMART_ACK);		// ë§¤í’ˆíŒ¨	
 	
 	XiahNetwork::RegisterHandler( CS_EV_TIME_ACK,					OnCS_EV_TIME_ACK);
 	XiahNetwork::RegisterHandler( CS_EV_WEATHER_ACK,				OnCS_EV_WEATHER_ACK);
@@ -341,7 +341,7 @@ void RegisterNetworkHandler_Main()
 	XiahNetwork::RegisterHandler( CS_RL_ADDRELATION_ACK,			OnCS_RL_ADDRELATION_ACK);
 	XiahNetwork::RegisterHandler( CS_RL_DELRELATION_ACK,			OnCS_RL_DELRELATION_ACK);
 	XiahNetwork::RegisterHandler( CS_RL_CHGRELATION_ACK,			OnCS_RL_CHGRELATION_ACK);
-	// Àı¿¬ºÎ
+	// ì ˆì—°ë¶€
 	XiahNetwork::RegisterHandler(CS_RL_BREAKRELATIONITEM_ACK,		OnCS_RL_BREAKRELATIONITEM_ACK);
 
 
@@ -352,15 +352,15 @@ void RegisterNetworkHandler_Main()
 	XiahNetwork::RegisterHandler( CS_QS_DELETE_ACK,					OnCS_QS_DELETE_ACK);
 
 	// WR
-	// ¹®ÆÄÀü
+	// ë¬¸íŒŒì „
 	XiahNetwork::RegisterHandler( CS_WR_MUNPASTONELIST_ACK,			OnCS_WR_MUNPASTONELIST_ACK);
 	XiahNetwork::RegisterHandler( CS_WR_STONESTATUSCHANGE_ACK,		OnCS_WR_STONESTATUSCHANGE_ACK);
 	XiahNetwork::RegisterHandler( CS_WR_PRECHALLENGEWAR_ACK,		OnCS_WR_PRECHALLENGEWAR_ACK);
 	XiahNetwork::RegisterHandler( CS_WR_CHALLENGEWAR_ACK,			OnCS_WR_CHALLENGEWAR_ACK);
 	XiahNetwork::RegisterHandler( CS_WR_WARSTATUS_ACK,				OnCS_WR_WARSTATUS_ACK);	
-	XiahNetwork::RegisterHandler( CS_WR_APPLYWAR_ACK,				OnCS_WR_APPLYWAR_ACK);			// ¹®ÆÄ´ëÀü Âü°¡ ½ÅÃ»
-	XiahNetwork::RegisterHandler( CS_WR_WORLDWARMESSAGE_ACK,		OnCS_WR_WORLDWARMESSAGE_ACK);	// ¹®ÆÄ´ëÀü ¹ß»ı½Ã »óÈ²°ú ¸Ş½ÃÁö
-	XiahNetwork::RegisterHandler( CS_WR_WORLDWARPOINT_ACK,		    OnCS_WR_WORLDWARPOINT_ACK);		// ÇöÀç1À§¹®ÆÄ¿Í ÀÚ½ÅÀÇ¹®ÆÄ Æ÷ÀÎÆ®
+	XiahNetwork::RegisterHandler( CS_WR_APPLYWAR_ACK,				OnCS_WR_APPLYWAR_ACK);			// ë¬¸íŒŒëŒ€ì „ ì°¸ê°€ ì‹ ì²­
+	XiahNetwork::RegisterHandler( CS_WR_WORLDWARMESSAGE_ACK,		OnCS_WR_WORLDWARMESSAGE_ACK);	// ë¬¸íŒŒëŒ€ì „ ë°œìƒì‹œ ìƒí™©ê³¼ ë©”ì‹œì§€
+	XiahNetwork::RegisterHandler( CS_WR_WORLDWARPOINT_ACK,		    OnCS_WR_WORLDWARPOINT_ACK);		// í˜„ì¬1ìœ„ë¬¸íŒŒì™€ ìì‹ ì˜ë¬¸íŒŒ í¬ì¸íŠ¸
 
 	XiahNetwork::RegisterHandler( CS_OP_SETOPTION_ACK,				OnCS_OP_SETOPTION_ACK);
 	XiahNetwork::RegisterHandler( CS_OP_OPTIONLIST_ACK,				OnCS_OP_OPTIONLIST_ACK);
@@ -368,10 +368,10 @@ void RegisterNetworkHandler_Main()
 	XiahNetwork::RegisterHandler( CS_CH_SYSTEMMESSAGE_ACK,			OnCS_CH_SYSTEMMESSAGE_ACK);
 
 //	XiahNetwork::RegisterHandler( CS_WR_LORDMUNPA_REQ,			OnCS_CH_SYSTEMMESSAGE_ACK);
-	XiahNetwork::RegisterHandler( CS_WR_LORDMUNPA_ACK,				OnCS_WR_LORDMUNPA_ACK);			// ¹®ÆÄ´ëÀü ¿ì½Â ¹®ÆÄ ID
-	XiahNetwork::RegisterHandler( CS_WR_REWARD_ACK,					OnCS_WR_REWARD_ACK);			// ¹®ÆÄ´ëÀü »ó±İ¼ö·É
+	XiahNetwork::RegisterHandler( CS_WR_LORDMUNPA_ACK,				OnCS_WR_LORDMUNPA_ACK);			// ë¬¸íŒŒëŒ€ì „ ìš°ìŠ¹ ë¬¸íŒŒ ID
+	XiahNetwork::RegisterHandler( CS_WR_REWARD_ACK,					OnCS_WR_REWARD_ACK);			// ë¬¸íŒŒëŒ€ì „ ìƒê¸ˆìˆ˜ë ¹
 
-	// »óÁ¡
+	// ìƒì 
 	XiahNetwork::RegisterHandler( CS_SH_SHOPINFO_ACK,			OnCS_SH_SHOPINFO_ACK);
 	XiahNetwork::RegisterHandler( CS_SH_SETSHOP_ACK,			OnCS_SH_SETSHOP_ACK);
 	XiahNetwork::RegisterHandler( CS_SH_MOVESHOP_ACK,			OnCS_SH_MOVESHOP_ACK);
@@ -389,24 +389,24 @@ void RegisterNetworkHandler_Main()
 //	XiahNetwork::RegisterHandler( CS_IM_MAKEUNIONITEM_REQ,		OnCS_IM_MAKEUNIONITEM_REQ);
 	XiahNetwork::RegisterHandler( CS_IM_MAKEUNIONITEM_ACK,		OnCS_IM_MAKEUNIONITEM_ACK);
 
-	//HO_0404_07 È¯¹è ½Ã½ºÅÛÃß°¡
+	//HO_0404_07 í™˜ë°° ì‹œìŠ¤í…œì¶”ê°€
 	XiahNetwork::RegisterHandler( CS_IT_INSTANCE_ACK,			OnCS_IT_INSTANCE_ACK);	
 
-	//°¢¼ºÁ¦ »ç¿ë
+	//ê°ì„±ì œ ì‚¬ìš©
 	XiahNetwork::RegisterHandler( CS_IM_REBIRTH_ACK,			OnCS_IM_REBIRTH_ACK);
 	XiahNetwork::RegisterHandler( CS_IM_MAKEREBIRTHITEM_ACK,	OnCS_IM_MAKEREBIRTHITEM_ACK);
 	
-	XiahNetwork::RegisterHandler( CS_IM_GIVEPOWERITEM_ACK,		OnCS_IM_GIVEPOWERITEM_ACK); //HO_0427_07 ¿µ¼öÈ¯°ñ½Å´Ü
+	XiahNetwork::RegisterHandler( CS_IM_GIVEPOWERITEM_ACK,		OnCS_IM_GIVEPOWERITEM_ACK); //HO_0427_07 ì˜ìˆ˜í™˜ê³¨ì‹ ë‹¨
 	
-	XiahNetwork::RegisterHandler( CS_IM_GOLDBOX_ACK,			OnCS_IM_GOLDBOX_ACK); //HO_0828_07 È²±İ¿­¼è Ãß°¡
+	XiahNetwork::RegisterHandler( CS_IM_GOLDBOX_ACK,			OnCS_IM_GOLDBOX_ACK); //HO_0828_07 í™©ê¸ˆì—´ì‡  ì¶”ê°€
 
-	//HO_0227_07 ±¤¸íÀü,ÃµÈ²Àü ÀÌº¥Æ® Ãß°¡
-	XiahNetwork::RegisterHandler( CS_WR_CHAMBEROFSECRETMESSAGE_ACK,		OnCS_WR_CHAMBEROFSECRETMESSAGE_ACK);//±¤¸íÀü(ºñ¹ĞÀÇ ¹æ) ½Ã½ºÅÛ¸Ş¼¼Áö
-	XiahNetwork::RegisterHandler( CS_WR_APPLYSECRETREADY_ACK,			OnCS_WR_APPLYSECRETREADY_ACK);		//±¤¸íÀü(ºñ¹ĞÀÇ ¹æ) Âü¿© ½ÅÃ» ¹öÆ° Å¬¸¯½Ã
-	XiahNetwork::RegisterHandler( CS_WR_APPLYSECRET_ACK,				OnCS_WR_APPLYSECRET_ACK);			//±¤¸íÀü(ºñ¹ĞÀÇ ¹æ) ½ÅÃ»
-	XiahNetwork::RegisterHandler( CS_NV_SECRETADVENTURE_ACK,			OnCS_NV_SECRETADVENTURE_ACK);		//±¤¸íÀü(ºñ¹ĞÀÇ ¹æ) ÀÔÀå
-	XiahNetwork::RegisterHandler( CS_WR_BLOODDEVILMESSAGE_ACK,			OnCS_WR_BLOODDEVILMESSAGE_ACK);		//ÃµÈ²Àü(¸¶Ç÷ÃµÈ²ÀÇ ¹æ) ½Ã½ºÅÛ¸Ş¼¼Áö
-	XiahNetwork::RegisterHandler( CS_WR_APPLYDEVILREADY_ACK,			OnCS_WR_APPLYDEVILREADY_ACK);		//ÃµÈ²Àü(¸¶Ç÷ÃµÈ²ÀÇ ¹æ) Âü¿© ½ÅÃ» ¹öÆ° Å¬¸¯½Ã
-	XiahNetwork::RegisterHandler( CS_WR_APPLYDEVIL_ACK,					OnCS_WR_APPLYDEVIL_ACK);			//ÃµÈ²Àü(¸¶Ç÷ÃµÈ²ÀÇ ¹æ) ½ÅÃ»	
-	XiahNetwork::RegisterHandler( CS_NV_DEVILADVENTURE_ACK,				OnCS_NV_DEVILADVENTURE_ACK);		//ÃµÈ²Àü(¸¶Ç÷ÃµÈ²ÀÇ ¹æ) ÀÔÀå
+	//HO_0227_07 ê´‘ëª…ì „,ì²œí™©ì „ ì´ë²¤íŠ¸ ì¶”ê°€
+	XiahNetwork::RegisterHandler( CS_WR_CHAMBEROFSECRETMESSAGE_ACK,		OnCS_WR_CHAMBEROFSECRETMESSAGE_ACK);//ê´‘ëª…ì „(ë¹„ë°€ì˜ ë°©) ì‹œìŠ¤í…œë©”ì„¸ì§€
+	XiahNetwork::RegisterHandler( CS_WR_APPLYSECRETREADY_ACK,			OnCS_WR_APPLYSECRETREADY_ACK);		//ê´‘ëª…ì „(ë¹„ë°€ì˜ ë°©) ì°¸ì—¬ ì‹ ì²­ ë²„íŠ¼ í´ë¦­ì‹œ
+	XiahNetwork::RegisterHandler( CS_WR_APPLYSECRET_ACK,				OnCS_WR_APPLYSECRET_ACK);			//ê´‘ëª…ì „(ë¹„ë°€ì˜ ë°©) ì‹ ì²­
+	XiahNetwork::RegisterHandler( CS_NV_SECRETADVENTURE_ACK,			OnCS_NV_SECRETADVENTURE_ACK);		//ê´‘ëª…ì „(ë¹„ë°€ì˜ ë°©) ì…ì¥
+	XiahNetwork::RegisterHandler( CS_WR_BLOODDEVILMESSAGE_ACK,			OnCS_WR_BLOODDEVILMESSAGE_ACK);		//ì²œí™©ì „(ë§ˆí˜ˆì²œí™©ì˜ ë°©) ì‹œìŠ¤í…œë©”ì„¸ì§€
+	XiahNetwork::RegisterHandler( CS_WR_APPLYDEVILREADY_ACK,			OnCS_WR_APPLYDEVILREADY_ACK);		//ì²œí™©ì „(ë§ˆí˜ˆì²œí™©ì˜ ë°©) ì°¸ì—¬ ì‹ ì²­ ë²„íŠ¼ í´ë¦­ì‹œ
+	XiahNetwork::RegisterHandler( CS_WR_APPLYDEVIL_ACK,					OnCS_WR_APPLYDEVIL_ACK);			//ì²œí™©ì „(ë§ˆí˜ˆì²œí™©ì˜ ë°©) ì‹ ì²­	
+	XiahNetwork::RegisterHandler( CS_NV_DEVILADVENTURE_ACK,				OnCS_NV_DEVILADVENTURE_ACK);		//ì²œí™©ì „(ë§ˆí˜ˆì²œí™©ì˜ ë°©) ì…ì¥
 }

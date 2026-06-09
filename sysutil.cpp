@@ -1,4 +1,4 @@
-#include "precompile.h"
+ï»¿#include "precompile.h"
 #include "sysutil.h"
 
 float cTimer::s_invSecondsFrequency = 0.0f;
@@ -163,19 +163,19 @@ unsigned long	cSysutil::availableMemory()
 	return(MemStatus.dwAvailPhys);
 }
 
-// OS Á¤º¸¸¦ ¾ò´Â´Ù
+// OS ì •ë³´ë¥¼ ì–»ëŠ”ë‹¤
 unsigned long cSysutil::GetFlatform()
 {
 	return	m_platform;
 }
 
-// CPUÀÇ CLOCKÀ» ¾ò´Â´Ù
+// CPUì˜ CLOCKì„ ì–»ëŠ”ë‹¤
 unsigned long cSysutil::GetCpuClock()
 {
 	return (unsigned long)(m_processorSpeed / 1000);
 }
 
-// TOTAL MEMORY¸¦ ¾ò´Â´Ù
+// TOTAL MEMORYë¥¼ ì–»ëŠ”ë‹¤
 unsigned long cSysutil::GetTotalMem()
 {
 	return m_totalMemory;

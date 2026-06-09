@@ -1,4 +1,4 @@
-#include "precompile.h"
+ï»¿#include "precompile.h"
 #include "XiahObject.h"
 #include "XiahGame_Pet.h"
 
@@ -18,21 +18,21 @@ CXiahCharPool		g_XiahNpcPool;
 CXiahCharPool		g_XiahPetPool;
 
 //---------------------------------------------------------------------------------------
-// XiahObject »ý¼ºÀÚ
+// XiahObject ìƒì„±ìž
 CXiahObject::CXiahObject()
 {
 	m_pObject = NULL;
 }
 
 //---------------------------------------------------------------------------------------
-// XiahObject ¼Ò¸êÀÚ
+// XiahObject ì†Œë©¸ìž
 CXiahObject::~CXiahObject()
 {
 	Release();
 }
 
 //---------------------------------------------------------------------------------------
-// XiahObject °´Ã¼ ¼Ò¸ê
+// XiahObject ê°ì²´ ì†Œë©¸
 BOOL CXiahObject::Release()
 {
 	//YS_0728 : BUGFIX
@@ -57,7 +57,7 @@ BOOL CXiahObject::Release()
 }
 
 //---------------------------------------------------------------------------------------
-// XiahObject °´Ã¼ »ý¼º
+// XiahObject ê°ì²´ ìƒì„±
 BOOL CXiahObject::Create(CXiahObject_Basic *pObject)
 {
 	DBG_Assert( pObject != NULL);
@@ -69,7 +69,7 @@ BOOL CXiahObject::Create(CXiahObject_Basic *pObject)
 
 		if(fp == NULL)
 		{
-			DBG_LogFile( _T("CXiahObject::Create/ fopen ½ÇÆÐ"));
+			DBG_LogFile( _T("CXiahObject::Create/ fopen ì‹¤íŒ¨"));
 
 			//return false;
 		}
@@ -102,7 +102,7 @@ BOOL CXiahObject::Create(CXiahObject_Basic *pObject)
 CXiahObject g_XiahObjectInstanceList[ CLIENT_OBJECT_MAX];		
 
 //---------------------------------------------------------------------------------------
-//	¿ÀºêÁ§Æ® ¸Þ³×Àú OBJECT POOL »ç¿ë
+//	ì˜¤ë¸Œì íŠ¸ ë©”ë„¤ì € OBJECT POOL ì‚¬ìš©
 //---------------------------------------------------------------------------------------
 CXiahObjectManager::CXiahObjectManager()
 {
@@ -112,7 +112,7 @@ CXiahObjectManager::CXiahObjectManager()
 
 		if(pObject == NULL)
 		{
-			DBG_LogFile( _T("CXiahObjectManager ½ÇÆÐ"));
+			DBG_LogFile( _T("CXiahObjectManager ì‹¤íŒ¨"));
 		}
 	
 		pObject->m_dwClientID = i + 1;
@@ -128,32 +128,32 @@ CXiahObjectManager::~CXiahObjectManager()
 }
 
 //---------------------------------------------------------------------------------------
-//	ºñ¿öÁø OBJECT¸¦ ¾ò¾î³½´Ù!
+//	ë¹„ì›Œì§„ OBJECTë¥¼ ì–»ì–´ë‚¸ë‹¤!
 //---------------------------------------------------------------------------------------
 CXiahObject *CXiahObjectManager::GetFreeObject()
 {
-	if( m_FreeObjectList.size() == 0)	// m_FreeObjectList´Â ºñ¿öÁ®¼­ ´ë±âÁßÀÎ OBJECT
+	if( m_FreeObjectList.size() == 0)	// m_FreeObjectListëŠ” ë¹„ì›Œì ¸ì„œ ëŒ€ê¸°ì¤‘ì¸ OBJECT
 		return NULL;
 
-	CXiahObject *pObject = m_FreeObjectList.front();	// ¾Õ¿¡¼­ ÇÏ³ª ¾ò¾î³½´Ù
+	CXiahObject *pObject = m_FreeObjectList.front();	// ì•žì—ì„œ í•˜ë‚˜ ì–»ì–´ë‚¸ë‹¤
 
 	if(pObject == NULL)
 	{
-		DBG_LogFile( _T("GetFreeObject ½ÇÆÐ"));
+		DBG_LogFile( _T("GetFreeObject ì‹¤íŒ¨"));
 	}
 
-	m_FreeObjectList.pop_front();	// ¾ò¾î³½ ¿ÀºêÁ§À» ¸®½ºÆ®¿¡¼­ »«´Ù
+	m_FreeObjectList.pop_front();	// ì–»ì–´ë‚¸ ì˜¤ë¸Œì ì„ ë¦¬ìŠ¤íŠ¸ì—ì„œ ëº€ë‹¤
 	return pObject;
 }
 
 //---------------------------------------------------------------------------------------
-//	ÇØÁ¦ÇÑ ¿ÀºêÁ§ ¹ÝÈ¯
+//	í•´ì œí•œ ì˜¤ë¸Œì  ë°˜í™˜
 //---------------------------------------------------------------------------------------
 BOOL CXiahObjectManager::ReleaseObject(CXiahObject *pObject)
 {
 	if(!pObject)
 	{
-		DBG_LogFile( _T("ReleaseObject ½ÇÆÐ"));
+		DBG_LogFile( _T("ReleaseObject ì‹¤íŒ¨"));
 	}
 
 	if( g_pMouseOnObject == pObject)
@@ -169,19 +169,19 @@ BOOL CXiahObjectManager::ReleaseObject(CXiahObject *pObject)
 //---------------------------------------------------------------------------------------
 CXiahObject *CXiahObjectManager::CreateXiahObject(DWORD ServerID,BYTE bObjType,CXiahObject_Basic *pInfo)
 {
-	// ºó ¿ÀºêÁ§À» ¾ò¾î¿À°í
+	// ë¹ˆ ì˜¤ë¸Œì ì„ ì–»ì–´ì˜¤ê³ 
 	CXiahObject *pObject = GetFreeObject();
 
 #ifdef TRACE_LOG
 	if(pObject == NULL || pInfo == NULL)
 	{
-		DBG_LogFile( _T("CreateXiahObject ½ÇÆÐ"));
+		DBG_LogFile( _T("CreateXiahObject ì‹¤íŒ¨"));
 	}
 #endif
 
 	pObject->m_dwServerID = ServerID;
 
-	// CXiahObject¿¡ CXiahObject_Basic Á¤º¸¸¦ ³Ö°í
+	// CXiahObjectì— CXiahObject_Basic ì •ë³´ë¥¼ ë„£ê³ 
 	if( !pObject->Create( pInfo))
 	{
 		ReleaseObject( pObject);	
@@ -195,7 +195,7 @@ CXiahObject *CXiahObjectManager::CreateXiahObject(DWORD ServerID,BYTE bObjType,C
 
 	insert( value_type( pObject->m_ddwObjectID, pObject));
 
-	// ¾Æ½Î, ÀÌ°É·Î °í»ýÀ» ´ú¾ú´Ù.
+	// ì•„ì‹¸, ì´ê±¸ë¡œ ê³ ìƒì„ ëœì—ˆë‹¤.
 	pInfo->m_dwXiahObjectID = pObject->m_ddwObjectID;
 
 	return pObject;
@@ -266,7 +266,7 @@ BOOL CXiahObjectManager::Release()
 	{
 		if(false)
 		{
-			DBG_LogFile( _T("CXiahObjectManager::Release ½ÇÆÐ"));
+			DBG_LogFile( _T("CXiahObjectManager::Release ì‹¤íŒ¨"));
 		}
 
 		ReleaseObject( it->second);
@@ -282,9 +282,9 @@ BOOL CXiahObjectManager::ChangeToClientObject(CXiahObject *pObject)
 	iterator it = find( pObject->m_ddwObjectID);
 
 	DBG_Assert( it != end());
-	if(it != end()) erase( it);	// ÀÏ´Ü Áö¿öÁÖ°í
+	if(it != end()) erase( it);	// ì¼ë‹¨ ì§€ì›Œì£¼ê³ 
 
-	// ID¸¦ ´Ù½Ã ¸¸µé¾î ÁØ´Ù
+	// IDë¥¼ ë‹¤ì‹œ ë§Œë“¤ì–´ ì¤€ë‹¤
 	pObject->m_dwServerID = 0;
 	pObject->m_ddwObjectID = MAKEOBJECTID( pObject->m_dwClientID, 0, 0);
 
@@ -303,7 +303,7 @@ BOOL CXiahObjectManager::ReleaseAllObjectExceptMainChar()
 
 		if(pObject == NULL)
 		{
-			DBG_LogFile( _T("CXiahObjectManager::ReleaseAllObjectExceptMainChar ½ÇÆÐ"));
+			DBG_LogFile( _T("CXiahObjectManager::ReleaseAllObjectExceptMainChar ì‹¤íŒ¨"));
 
 			continue;
 		}
@@ -318,7 +318,7 @@ BOOL CXiahObjectManager::ReleaseAllObjectExceptMainChar()
 	{
 		if(false)
 		{
-			DBG_LogFile( _T("CXiahObjectManager::ReleaseAllObjectExceptMainChar ½ÇÆÐ"));
+			DBG_LogFile( _T("CXiahObjectManager::ReleaseAllObjectExceptMainChar ì‹¤íŒ¨"));
 
 			continue;
 		}
@@ -344,11 +344,11 @@ BOOL CXiahObjectManager::ChangeObjectID(DWORD dwSourceClientID,DWORD dwSourceSer
 
 	if(pObject == NULL)
 	{
-		DBG_LogFile( _T("CXiahObjectManager::ChangeObjectID ½ÇÆÐ"));
+		DBG_LogFile( _T("CXiahObjectManager::ChangeObjectID ì‹¤íŒ¨"));
 		return FALSE;
 	}
 	
-	// ÀÏ´Ü Áö¿ì°í
+	// ì¼ë‹¨ ì§€ìš°ê³ 
 	erase( it);
 
 	pObject->m_dwClientID = dwTargetClientID;
@@ -356,7 +356,7 @@ BOOL CXiahObjectManager::ChangeObjectID(DWORD dwSourceClientID,DWORD dwSourceSer
 	pObject->m_pObject->m_bObjType = bTargetType;
 
 	pObject->m_ddwObjectID = MAKEOBJECTID( dwTargetClientID, dwTargetServerID, bTargetType);
-	// ´Ù½Ã µî·Ï
+	// ë‹¤ì‹œ ë“±ë¡
 	insert( value_type( pObject->m_ddwObjectID, pObject));
 
 	return TRUE;

@@ -1,8 +1,8 @@
-
+Ôªø
 extern LPCTSTR GetMapSmallName(DWORD dwMapID);
 
 /**
- * πÆ∆ƒ ∫ÒºÆ ∏ÆΩ∫∆Æ
+ * Î¨∏Ìåå ÎπÑÏÑù Î¶¨Ïä§Ìä∏
  * \param &msg 
  * \return 
  */
@@ -54,7 +54,7 @@ int OnCS_WR_MUNPASTONELIST_ACK(CMsg &msg)
 
 		g_MainCharInfo.m_MunpaStonIDList.push_back( dwStoneID );
 
-		// ∫ÒºÆ ∏∏µÈ±‚
+		// ÎπÑÏÑù ÎßåÎì§Í∏∞
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
 		int nMeshType = 0;
 
@@ -66,7 +66,7 @@ int OnCS_WR_MUNPASTONELIST_ACK(CMsg &msg)
 
 			CXiahCharObject* pCharObject = reinterpret_cast<CXiahCharObject*>(pFindObject->m_pObject);
 
-			// πÆ∆ƒ¿¸¿Ã æ∆¥— ªÛ≈¬¿œãö.
+			// Î¨∏ÌååÏ†ÑÏù¥ ÏïÑÎãå ÏÉÅÌÉúÏùºÎñÑ.
 			if( bWar == 0 )
 			{
 				sArrayData *pData = XiahArrayIndex::g_FunctionalNpcType.GetData(bType);
@@ -106,15 +106,15 @@ int OnCS_WR_MUNPASTONELIST_ACK(CMsg &msg)
 					pInfo->m_bType			= bType;
 					pInfo->m_bKind			= bKind;
 					pInfo->m_szName			= strName;
-					pInfo->m_dwOwnID		= dwOwnerMunpaID;	// πÆ∆ƒ ID
+					pInfo->m_dwOwnID		= dwOwnerMunpaID;	// Î¨∏Ìåå ID
 					pInfo->m_bMainStone		= bMainStone;
 					pInfo->m_bWar			= bWar;
 					pInfo->m_dwEnemyMunpaID = dwEnemyMunpaID;
 				}				
 			}
-			else	// πÆ∆ƒ¿¸¿œ∂ß.
+			else	// Î¨∏ÌååÏ†ÑÏùºÎïå.
 			{
-				// «ˆ¿Á ∏ﬁΩ¨ ªÛ≈¬
+				// ÌòÑÏû¨ Î©îÏâ¨ ÏÉÅÌÉú
 				sArrayData *pData = XiahArrayIndex::g_FunctionalNpcType.GetData(bType);
 
 				if(pData == NULL) continue;
@@ -153,7 +153,7 @@ int OnCS_WR_MUNPASTONELIST_ACK(CMsg &msg)
 					pInfo->m_bType		= bType;
 					pInfo->m_bKind		= bKind;
 					pInfo->m_szName		= strName;
-					pInfo->m_dwOwnID	= dwOwnerMunpaID;	// πÆ∆ƒ ID
+					pInfo->m_dwOwnID	= dwOwnerMunpaID;	// Î¨∏Ìåå ID
 					pInfo->m_bMainStone = bMainStone;
 					pInfo->m_bWar		= bWar;
 					pInfo->m_dwEnemyMunpaID = dwEnemyMunpaID;
@@ -161,28 +161,28 @@ int OnCS_WR_MUNPASTONELIST_ACK(CMsg &msg)
 			}
 
 			// Effect
-			// ƒ≥∏Ø≈Õ ≈¯ø° ¿Ã∆Â∆Æ∞° µÓ∑œµ«æÓ ¿÷¥¬µ•, µÓ∑œ º¯º≠∞° ¡ﬂø‰«œ¥Ÿ.
-			// √ππ¯¬∞∞° Normal, µŒπ¯¬∞∞° »Æ¡§, ººπ¯¬∞∞° ¡¯«‡1¿Ã¥Ÿ.
-			// ∂««— ∞¯øÎ ∫ÒºÆ¿∫ Normal¿Ã æ¯¥Ÿ.
+			// Ï∫êÎ¶≠ÌÑ∞ Ìà¥Ïóê Ïù¥ÌéôÌä∏Í∞Ä Îì±Î°ùÎêòÏñ¥ ÏûàÎäîÎç∞, Îì±Î°ù ÏàúÏÑúÍ∞Ä Ï§ëÏöîÌïòÎã§.
+			// Ï≤´Î≤àÏß∏Í∞Ä Normal, ÎëêÎ≤àÏß∏Í∞Ä ÌôïÏ†ï, ÏÑ∏Î≤àÏß∏Í∞Ä ÏßÑÌñâ1Ïù¥Îã§.
+			// ÎòêÌïú Í≥µÏö© ÎπÑÏÑùÏùÄ NormalÏù¥ ÏóÜÎã§.
 			if( nMeshType != 2 )
 			{
 				switch( bWar )
 				{
 				case 0:	// Normal
 					{
-						if( bType >= 12 && bType <= 14 )	// ∞Ì¿Ø
-							pCharObject->m_CharRender.MakeMeshEffect();	// √ππ¯¬∞ ¿Ã∆Â∆Æ
+						if( bType >= 12 && bType <= 14 )	// Í≥†Ïú†
+							pCharObject->m_CharRender.MakeMeshEffect();	// Ï≤´Î≤àÏß∏ Ïù¥ÌéôÌä∏
 					}
 					break;
-				case 1:	// »Æ¡§
+				case 1:	// ÌôïÏ†ï
 					{
-						if( bType >= 12 && bType <= 14 )	// ∞Ì¿Ø
+						if( bType >= 12 && bType <= 14 )	// Í≥†Ïú†
 							pCharObject->m_CharRender.MakeMeshEffect(1);
-						else	// ∞¯øÎ
+						else	// Í≥µÏö©
 							pCharObject->m_CharRender.MakeMeshEffect();
 					}
 					break;
-				case 2:	// ¡¯«‡1
+				case 2:	// ÏßÑÌñâ1
 					{
 						if( bType >= 12 && bType <= 14 )
 						{
@@ -210,14 +210,14 @@ int OnCS_WR_MUNPASTONELIST_ACK(CMsg &msg)
 
 		if(pData == NULL)
 		{
-			DBG_Put(_T("≥Õ ¥©±∏≥ƒ?"));
+			DBG_Put(_T("ÎÑå ÎàÑÍµ¨ÎÉê?"));
 			continue;
 		}
 
 		int nCharID = pData->GetInt(1);
 		if(XiahGameEngine::GetCharacter(nCharID) == NULL)
 		{
-			DBG_Put(_T("«™«Ê ¥ı øÏ≥¢¥¬ ≥—¿Ã≥◊"));
+			DBG_Put(_T("Ìë∏Ìóê Îçî Ïö∞ÎÅºÎäî ÎÑòÏù¥ÎÑ§"));
 			continue;
 		}
 
@@ -257,7 +257,7 @@ int OnCS_WR_MUNPASTONELIST_ACK(CMsg &msg)
 		pInfo->m_bType		= bType;
 		pInfo->m_bKind		= bKind;
 		pInfo->m_szName		= strName;
- 		pInfo->m_dwOwnID	= dwOwnerMunpaID;	// πÆ∆ƒ ID
+ 		pInfo->m_dwOwnID	= dwOwnerMunpaID;	// Î¨∏Ìåå ID
 		pInfo->m_bMainStone = bMainStone;
 		pInfo->m_bWar		= bWar;
 		pInfo->m_dwEnemyMunpaID = dwEnemyMunpaID;
@@ -268,28 +268,28 @@ int OnCS_WR_MUNPASTONELIST_ACK(CMsg &msg)
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		// Effect
-		// ƒ≥∏Ø≈Õ ≈¯ø° ¿Ã∆Â∆Æ∞° µÓ∑œµ«æÓ ¿÷¥¬µ•, µÓ∑œ º¯º≠∞° ¡ﬂø‰«œ¥Ÿ.
-		// √ππ¯¬∞∞° Normal, µŒπ¯¬∞∞° »Æ¡§, ººπ¯¬∞∞° ¡¯«‡1¿Ã¥Ÿ.
-		// ∂««— ∞¯øÎ ∫ÒºÆ¿∫ Normal¿Ã æ¯¥Ÿ.
+		// Ï∫êÎ¶≠ÌÑ∞ Ìà¥Ïóê Ïù¥ÌéôÌä∏Í∞Ä Îì±Î°ùÎêòÏñ¥ ÏûàÎäîÎç∞, Îì±Î°ù ÏàúÏÑúÍ∞Ä Ï§ëÏöîÌïòÎã§.
+		// Ï≤´Î≤àÏß∏Í∞Ä Normal, ÎëêÎ≤àÏß∏Í∞Ä ÌôïÏ†ï, ÏÑ∏Î≤àÏß∏Í∞Ä ÏßÑÌñâ1Ïù¥Îã§.
+		// ÎòêÌïú Í≥µÏö© ÎπÑÏÑùÏùÄ NormalÏù¥ ÏóÜÎã§.
 		if( nMeshType != 2 )
 		{
 			switch( bWar )
 			{
 			case 0:	// Normal
 				{
-					if( bType >= 12 && bType <= 14 )	// ∞Ì¿Ø
-						pObject->m_CharRender.MakeMeshEffect();	// √ππ¯¬∞ ¿Ã∆Â∆Æ
+					if( bType >= 12 && bType <= 14 )	// Í≥†Ïú†
+						pObject->m_CharRender.MakeMeshEffect();	// Ï≤´Î≤àÏß∏ Ïù¥ÌéôÌä∏
 				}
 				break;
-			case 1:	// »Æ¡§
+			case 1:	// ÌôïÏ†ï
 				{
-					if( bType >= 12 && bType <= 14 )	// ∞Ì¿Ø
+					if( bType >= 12 && bType <= 14 )	// Í≥†Ïú†
 						pObject->m_CharRender.MakeMeshEffect(1);
-					else	// ∞¯øÎ
+					else	// Í≥µÏö©
 						pObject->m_CharRender.MakeMeshEffect();
 				}
 				break;
-			case 2:	// ¡¯«‡1
+			case 2:	// ÏßÑÌñâ1
 				{
 					if( bType >= 12 && bType <= 14 )
 					{
@@ -315,13 +315,13 @@ int OnCS_WR_MUNPASTONELIST_ACK(CMsg &msg)
 }
 
 /**
- * πÆ∆ƒ ∫ÒºÆ ∞ªΩ≈
+ * Î¨∏Ìåå ÎπÑÏÑù Í∞±Ïã†
  * \param &msg 
  * \return 
  */
 int OnCS_WR_STONESTATUSCHANGE_ACK(CMsg &msg)
 {
-	// πÆ∆ƒ ∫ÒºÆ¿Ã æ¯æÓ¡˙∂ß πﬁ¥¬¥Ÿ.
+	// Î¨∏Ìåå ÎπÑÏÑùÏù¥ ÏóÜÏñ¥ÏßàÎïå Î∞õÎäîÎã§.
 	DWORD dwStoneID = 0;
 	BYTE bStatus = 0;
 	WORD wMaxHP = 0;
@@ -370,12 +370,12 @@ int OnCS_WR_STONESTATUSCHANGE_ACK(CMsg &msg)
 		if( !pResChar->GetMesh( 2 )) return TRUE;
 		if( pResChar->GetMesh( 2 )->GetTexture( 0 ) == NULL) return TRUE;
 
-		// µŒπ¯¬∞ ∏ﬁΩ√∑Œ πŸ≤„¡ÿ¥Ÿ. ±◊ ¿¸ø° « ø‰«— µ•¿Ã≈∏ πÈæ˜.
+		// ÎëêÎ≤àÏß∏ Î©îÏãúÎ°ú Î∞îÍøîÏ§ÄÎã§. Í∑∏ Ï†ÑÏóê ÌïÑÏöîÌïú Îç∞Ïù¥ÌÉÄ Î∞±ÏóÖ.
 		float fAngle = pCharObject->m_Angle;
 		float fX =  pCharObject->m_Position.x;
 		float fZ = -pCharObject->m_Position.z;
 		
-		// µŒπ¯¬∞ ∏ﬁΩ√∑Œ πŸ≤„¡ÿ¥Ÿ.
+		// ÎëêÎ≤àÏß∏ Î©îÏãúÎ°ú Î∞îÍøîÏ§ÄÎã§.
 		pCharObject->Create( nCharID, 2, 0, -1);
 		pCharObject->m_pAniType = NULL;
 
@@ -392,7 +392,7 @@ int OnCS_WR_STONESTATUSCHANGE_ACK(CMsg &msg)
 }
 
 /**
- * πÆ∆ƒ ¿¸¿Ô Ω≈√ª√¢¿« ¡§∫∏
+ * Î¨∏Ìåå Ï†ÑÏüÅ Ïã†Ï≤≠Ï∞ΩÏùò Ï†ïÎ≥¥
  * \param &msg 
  * \return 
  */
@@ -405,7 +405,7 @@ int OnCS_WR_PRECHALLENGEWAR_ACK(CMsg &msg)
 
 	switch(bResult)
 	{
-	case 0:	// º∫∞¯
+	case 0:	// ÏÑ±Í≥µ
 		{
 			std::map<int, sMunpaWarDay*>::iterator iter = g_MainCharInfo.m_pRelation->m_mMunpaWarDayList.begin();
 
@@ -442,28 +442,28 @@ int OnCS_WR_PRECHALLENGEWAR_ACK(CMsg &msg)
 			g_MainCharInfo.OpenFrame(WINDOW_MUNPA_WAR_PETITION);
 		}
 		break;
-	case 1:	// ¿ÃπÃ ¿¸¿Ô¡ﬂ
+	case 1:	// Ïù¥ÎØ∏ Ï†ÑÏüÅÏ§ë
 		g_MainCharInfo.ShowHelpMessage(IDS_MUNPA_WAR_ALREADY, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case 2:	// ∏Ìº∫¿Ã ≥∑æ∆º≠ ¿¸¿Ô ∫“∞°
+	case 2:	// Î™ÖÏÑ±Ïù¥ ÎÇÆÏïÑÏÑú Ï†ÑÏüÅ Î∂àÍ∞Ä
 		g_MainCharInfo.ShowHelpMessage(IDS_MUNPA_FAME_LOW, TEXTEFFECT_COLOR_WARNING);		
 		break;
-	case 3:	// Ω√Ω∫≈€ ø°∑Ø
+	case 3:	// ÏãúÏä§ÌÖú ÏóêÎü¨
 		g_MainCharInfo.ShowHelpMessage(IDS_INTERNAL_ERROR);
 		break;
-	case 4:	// ¿¸¿Ô ¿Øøπ±‚∞£
+	case 4:	// Ï†ÑÏüÅ Ïú†ÏòàÍ∏∞Í∞Ñ
 		g_MainCharInfo.ShowHelpMessage(IDS_M_WAR_TERMOFVALIDITY);
 		break;
-	case 5:	// πÆ¡÷∏∏ ∞°¥…
+	case 5:	// Î¨∏Ï£ºÎßå Í∞ÄÎä•
 		g_MainCharInfo.ShowHelpMessage(IDS_ONLY_MUNJU, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case 6:	// µ∑ æ¯¿Ω
+	case 6:	// Îèà ÏóÜÏùå
 		g_MainCharInfo.ShowHelpMessage(IDS_PURSE_IN_LOWMONEY, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case 7:	// «ÿ¥Á √§≥Œ
+	case 7:	// Ìï¥Îãπ Ï±ÑÎÑê
 		g_MainCharInfo.ShowHelpMessage(IDS_ONLY_CHANNEL, TEXTEFFECT_COLOR_WARNING);
 		break;
-	case 8:	// ¥Ÿ∏• πÆ∆ƒ∏∏ Ω≈√ª∞°¥…
+	case 8:	// Îã§Î•∏ Î¨∏ÌååÎßå Ïã†Ï≤≠Í∞ÄÎä•
 		g_MainCharInfo.ShowHelpMessage(IDS_E_M_WAR, TEXTEFFECT_COLOR_WARNING);
 		break;
 	default:
@@ -474,7 +474,7 @@ int OnCS_WR_PRECHALLENGEWAR_ACK(CMsg &msg)
 }
 
 /**
- * πÆ∆ƒ ¿¸¿Ô Ω≈√ª ∞·∞˙
+ * Î¨∏Ìåå Ï†ÑÏüÅ Ïã†Ï≤≠ Í≤∞Í≥º
  * \param &msg 
  * \return 
  */
@@ -487,10 +487,10 @@ int OnCS_WR_CHALLENGEWAR_ACK(CMsg &msg)
 
 	switch(bResult)
 	{
-	case 0:	// º∫∞¯
+	case 0:	// ÏÑ±Í≥µ
 		g_MainCharInfo.ShowHelpMessage(IDS_SEND_BATTLE);
 		break;
-	case 1:	// Ω√Ω∫≈€ ø°∑Ø
+	case 1:	// ÏãúÏä§ÌÖú ÏóêÎü¨
 		g_MainCharInfo.ShowHelpMessage(IDS_INTERNAL_ERROR);
 		break;
 
@@ -502,7 +502,7 @@ int OnCS_WR_CHALLENGEWAR_ACK(CMsg &msg)
 }
 
 /**
- * πÆ∆ƒ ¿¸¿Ô ªÛ≈¬
+ * Î¨∏Ìåå Ï†ÑÏüÅ ÏÉÅÌÉú
  * \param &msg 
  * \return 
  */
@@ -517,7 +517,7 @@ int OnCS_WR_WARSTATUS_ACK(CMsg &msg)
 	sString strMunpaName;
 
 	//UnitSvr -> Client
-	//bStatus - 0 : º±∆˜, 1: Ω√¿€, 2 : ¡æ∑· 
+	//bStatus - 0 : ÏÑ†Ìè¨, 1: ÏãúÏûë, 2 : Ï¢ÖÎ£å 
 	//bWarResult : if ( bStatus == 2 ) 0 - Draw, 1 - ChallengeMunpa Win, 2 - ChallengeMunpa Loss
 	//strChallengeMunpaName,
 	//strMunpaName,
@@ -534,7 +534,7 @@ int OnCS_WR_WARSTATUS_ACK(CMsg &msg)
 
 	switch(bStatus)
 	{
-	case 0:	// º±∆˜
+	case 0:	// ÏÑ†Ìè¨
 		{
 			TCHAR strTemp[256] = {0,};
 			_stprintf(strTemp, IDS_MUNPA_WAR, GETMONTH(dwBattleTime)+1, GETDAY(dwBattleTime)+1, GETHOUR(dwBattleTime), (LPCTSTR)strChallengeMunpa, (LPCTSTR)strMunpaName);
@@ -542,7 +542,7 @@ int OnCS_WR_WARSTATUS_ACK(CMsg &msg)
 		}
 		break;
 
-	case 1:	// Ω√¿€
+	case 1:	// ÏãúÏûë
 		{
 			LPCTSTR lpStrTemp[2];
 
@@ -557,7 +557,7 @@ int OnCS_WR_WARSTATUS_ACK(CMsg &msg)
 		}
 		break;
 
-	case 2:	// ¡æ∑·
+	case 2:	// Ï¢ÖÎ£å
 		{
 			TCHAR strTemp[256] = {0,};
 			_stprintf(strTemp, IDS_MUNPA_WAR_END, (LPCTSTR)strChallengeMunpa, (LPCTSTR)strMunpaName);
@@ -565,16 +565,16 @@ int OnCS_WR_WARSTATUS_ACK(CMsg &msg)
 
 			switch(bWarResult)
 			{
-			case 0:	// π´Ω¬∫Œ
+			case 0:	// Î¨¥ÏäπÎ∂Ä
 				g_MainCharInfo.SpecialChatMessage(IDS_MUNPA_WAR_DRAW, 0);
 				break;
 
-			case 1:	// µµ¿¸πÆ∆ƒ Ω¬∏Æ
+			case 1:	// ÎèÑÏ†ÑÎ¨∏Ìåå ÏäπÎ¶¨
 				_stprintf(strTemp, IDS_MUNPA_WAR_WIN, (LPCTSTR)strChallengeMunpa);
 				g_MainCharInfo.SpecialChatMessage(strTemp, 0);
 				break;
 
-			case 2:	// µµ¿¸πÆ∆ƒ ∆–πË 
+			case 2:	// ÎèÑÏ†ÑÎ¨∏Ìåå Ìå®Î∞∞ 
 				_stprintf(strTemp, IDS_MUNPA_WAR_WIN, (LPCTSTR)strChallengeMunpa);
 				g_MainCharInfo.SpecialChatMessage(strTemp, 0);
 				break;
@@ -584,7 +584,7 @@ int OnCS_WR_WARSTATUS_ACK(CMsg &msg)
 			}
 		}
 		break;
-	case 3:	// ¥Î±‚
+	case 3:	// ÎåÄÍ∏∞
 		{
 			LPCTSTR lpStrTemp[2];
 
@@ -607,7 +607,7 @@ int OnCS_WR_WARSTATUS_ACK(CMsg &msg)
 }
 
 /**
- * πÆ∆ƒ¥Î¿¸ ¬¸∞° Ω≈√ª
+ * Î¨∏ÌååÎåÄÏ†Ñ Ï∞∏Í∞Ä Ïã†Ï≤≠
  * \param &msg 
  * \return 
  */
@@ -620,42 +620,42 @@ int OnCS_WR_APPLYWAR_ACK(CMsg &msg)
 
 	switch(bResult)
 	{
-	case ERR_APPLYWAR_SUCCESS:			// º∫∞¯
+	case ERR_APPLYWAR_SUCCESS:			// ÏÑ±Í≥µ
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_APPLYWAR_SUCCESS);
 		}
 		break;
-	case ERR_APPLYWAR_WRONGTERM:		// Ω≈√ª±‚∞£æ∆¥‘
+	case ERR_APPLYWAR_WRONGTERM:		// Ïã†Ï≤≠Í∏∞Í∞ÑÏïÑÎãò
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_APPLYWAR_WRONGTERM, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case ERR_APPLYWAR_NOTMUNJU:			// πÆ¡÷∏∏ Ω≈√ª ∞°¥… (πÆ¡÷æ∆¥‘)
+	case ERR_APPLYWAR_NOTMUNJU:			// Î¨∏Ï£ºÎßå Ïã†Ï≤≠ Í∞ÄÎä• (Î¨∏Ï£ºÏïÑÎãò)
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_ONLY_MUNJU, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case ERR_APPLYWAR_NOTENOUGHMONEY:	// Ω≈√ª ±›æ◊ ∫Œ¡∑
+	case ERR_APPLYWAR_NOTENOUGHMONEY:	// Ïã†Ï≤≠ Í∏àÏï° Î∂ÄÏ°±
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_APPLYWAR_NOTENOUGHMONEY, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case ERR_APPLYWAR_NOTENOUGHMUNWON:	// πÆ∆ƒø¯ ∫Œ¡∑
+	case ERR_APPLYWAR_NOTENOUGHMUNWON:	// Î¨∏ÌååÏõê Î∂ÄÏ°±
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_APPLYWAR_NOTENOUGHMUNWON, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case ERR_APPLYWAR_ALREADY:			// ¿ÃπÃ Ω≈√ª «ﬂ¿Ω
+	case ERR_APPLYWAR_ALREADY:			// Ïù¥ÎØ∏ Ïã†Ï≤≠ ÌñàÏùå
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_APPLYWAR_ALREADY, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case ERR_APPLYWAR_EXCESSMUNPA:		// Ω≈√ª πÆ∆ƒºˆ √ ∞˙ (50∞≥ πÆ∆ƒ∏∏ ∞°¥…)
+	case ERR_APPLYWAR_EXCESSMUNPA:		// Ïã†Ï≤≠ Î¨∏ÌååÏàò Ï¥àÍ≥º (50Í∞ú Î¨∏ÌååÎßå Í∞ÄÎä•)
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_APPLYWAR_EXCESSMUNPA, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case ERR_APPLYWAR_STRAIGHTWIN:		//HT_0911 : ¡ˆπÆ¿¸ ∞≥º±ªÁ«◊ (3ø¨º”øÏΩ¬¿∏∑Œ Ω≈√ª ∫“∞°)
+	case ERR_APPLYWAR_STRAIGHTWIN:		//HT_0911 : ÏßÄÎ¨∏Ï†Ñ Í∞úÏÑ†ÏÇ¨Ìï≠ (3Ïó∞ÏÜçÏö∞ÏäπÏúºÎ°ú Ïã†Ï≤≠ Î∂àÍ∞Ä)
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_APPLYWAR_STRAIGHTWIN, TEXTEFFECT_COLOR_WARNING);
 		}
@@ -670,7 +670,7 @@ int OnCS_WR_APPLYWAR_ACK(CMsg &msg)
 
 
 /**
- * ¿¸¿Ô ªÛ≈¬
+ * Ï†ÑÏüÅ ÏÉÅÌÉú
  * \param &msg 
  * \return 
  */
@@ -702,10 +702,10 @@ int OnCS_WR_WORLDWARMESSAGE_ACK(CMsg &msg)
 		break;
 	case WWM_WARSTART:
 		{
-			// 2√§≥Œ ø°º≠∏∏
+			// 2Ï±ÑÎÑê ÏóêÏÑúÎßå
 			if(g_AppData.m_byChannelID == 2)
 			{
-				// πÆ∆ƒ¥Î¿¸ Ω√¿€
+				// Î¨∏ÌååÎåÄÏ†Ñ ÏãúÏûë
 				g_MainCharInfo.m_bMunpaFight = true;			    
 			}			
 
@@ -719,7 +719,7 @@ int OnCS_WR_WORLDWARMESSAGE_ACK(CMsg &msg)
 		break;
 	case WWM_WAREND:
 		{
-			// πÆ∆ƒ¥Î¿¸ ≥°
+			// Î¨∏ÌååÎåÄÏ†Ñ ÎÅù
 			g_MainCharInfo.m_bMunpaFight = false;
 
 			sString strLordMunpaName;
@@ -753,17 +753,17 @@ int OnCS_WR_WORLDWARMESSAGE_ACK(CMsg &msg)
 		break;
 	case WWM_WARTIME:
 		{
-			// 2√§≥Œ ø°º≠∏∏
+			// 2Ï±ÑÎÑê ÏóêÏÑúÎßå
 			if(g_AppData.m_byChannelID == 2)
 			{
-				// πÆ∆ƒ¥Î¿¸ Ω√¿€
+				// Î¨∏ÌååÎåÄÏ†Ñ ÏãúÏûë
 				g_MainCharInfo.m_bMunpaFight = true;			    
 			}
 
 			g_MainCharInfo.SpecialChatMessage(IDS_WARTIME, 0);
 		}
 		break;
-	case WWM_STONECOMING:		//HT_0911 : ¡ˆπÆ¿¸ ∞≥º±ªÁ«◊ ( ±ÿ¡¯ √‚∏Ù )
+	case WWM_STONECOMING:		//HT_0911 : ÏßÄÎ¨∏Ï†Ñ Í∞úÏÑ†ÏÇ¨Ìï≠ ( Í∑πÏßÑ Ï∂úÎ™∞ )
 		{
 			g_MainCharInfo.SpecialChatMessage(IDS_WORLDWAR_COMING, 0);
 		}
@@ -777,13 +777,13 @@ int OnCS_WR_WORLDWARMESSAGE_ACK(CMsg &msg)
 }
 
 /**
- * ¿¸¿Ô ¡°ºˆ
+ * Ï†ÑÏüÅ Ï†êÏàò
  * \param &msg 
  * \return 
  */
 int OnCS_WR_WORLDWARPOINT_ACK(CMsg &msg)
 {
-	//HT_0911 : ¡ˆπÆ¿¸ ∞≥º±ªÁ«◊
+	//HT_0911 : ÏßÄÎ¨∏Ï†Ñ Í∞úÏÑ†ÏÇ¨Ìï≠
 
 	DWORD dwMyPoint		= 0;
 	DWORD dwFirstPoint	= 0;
@@ -797,11 +797,11 @@ int OnCS_WR_WORLDWARPOINT_ACK(CMsg &msg)
 	msg
         >> dwMyPoint
 		>> dwFirstPoint
-		>> strFirstMunpaName	//1µÓ
+		>> strFirstMunpaName	//1Îì±
 		>> dwSecondPoint
-		>> strSecondMunpaName	//2µÓ
+		>> strSecondMunpaName	//2Îì±
 		>> dwThirdPoint
-		>> strThirdMunpaName	//3µÓ
+		>> strThirdMunpaName	//3Îì±
 		>> wMin;
 				
 	TCHAR strTemp[256] = {0,};
@@ -834,20 +834,20 @@ int OnCS_WR_WORLDWARPOINT_ACK(CMsg &msg)
 }
 
 /**
- * øÏΩ¬ πÆ∆ƒ∏Ì
+ * Ïö∞Ïäπ Î¨∏ÌååÎ™Ö
  * \param &msg 
  * \return 
  */
 int OnCS_WR_LORDMUNPA_ACK(CMsg &msg)
 {
 	msg
-		>> g_MainCharInfo.m_dwLordMunpaID;	//øÏΩ¬ πÆ∆ƒ æ∆¿Ãµ∏¶ ¿˙¿Â.
+		>> g_MainCharInfo.m_dwLordMunpaID;	//Ïö∞Ïäπ Î¨∏Ìåå ÏïÑÏù¥ÎîîÎ•º Ï†ÄÏû•.
 	
 	return 0;
 }
 
 /**
- * πÆ∆ƒ¿¸ ∫∏ªÛ
+ * Î¨∏ÌååÏ†Ñ Î≥¥ÏÉÅ
  * \param &msg 
  * \return 
  */
@@ -864,34 +864,34 @@ int OnCS_WR_REWARD_ACK(CMsg &msg)
 	{
 	case ERR_REWARD_SUCCESS:
 		{
-			g_MainCharInfo.ShowHelpMessage(IDS_WORLDWARREWARD_RESULT_00);	//ªÛ±›¿ª ºˆ∑…«œø¥Ω¿¥œ¥Ÿ.
+			g_MainCharInfo.ShowHelpMessage(IDS_WORLDWARREWARD_RESULT_00);	//ÏÉÅÍ∏àÏùÑ ÏàòÎ†πÌïòÏòÄÏäµÎãàÎã§.
 		}
 		break;
 	case ERR_REWARD_NOPRIZE:
 		{
-			g_pUIManager->ShowNotice(IDS_WORLDWARREWARD_RESULT_01);			//πÆ∆ƒ¥Î¿¸ ¡æ∑·Ω√ ªÛ±› ¡ˆ±ﬁ
+			g_pUIManager->ShowNotice(IDS_WORLDWARREWARD_RESULT_01);			//Î¨∏ÌååÎåÄÏ†Ñ Ï¢ÖÎ£åÏãú ÏÉÅÍ∏à ÏßÄÍ∏â
 		}
 		break;
 	case ERR_REWARD_NOTHAVEAUTHORITY:
 		{
-			g_MainCharInfo.ShowHelpMessage(IDS_WORLDWARREWARD_RESULT_02, TEXTEFFECT_COLOR_WARNING);	//øÏΩ¬ πÆ∆ƒ¿« πÆ¡÷∏∏ ºˆ∑… ∞°¥…
+			g_MainCharInfo.ShowHelpMessage(IDS_WORLDWARREWARD_RESULT_02, TEXTEFFECT_COLOR_WARNING);	//Ïö∞Ïäπ Î¨∏ÌååÏùò Î¨∏Ï£ºÎßå ÏàòÎ†π Í∞ÄÎä•
 		}
 		break;
 	case ERR_REWARD_MONEYLIMIT:
 		{
-			g_MainCharInfo.ShowHelpMessage(IDS_WORLDWARREWARD_RESULT_03, TEXTEFFECT_COLOR_WARNING);	//º“¡ˆ±›æ◊ √ ∞˙
+			g_MainCharInfo.ShowHelpMessage(IDS_WORLDWARREWARD_RESULT_03, TEXTEFFECT_COLOR_WARNING);	//ÏÜåÏßÄÍ∏àÏï° Ï¥àÍ≥º
 		}
 		break;
 	case ERR_REWARD_ALREADYGET:
 		{
-			g_pUIManager->ShowNotice(IDS_WORLDWARREWARD_RESULT_04);			//ªÛ±›ºˆ∑…»ƒ ∂« ∏µπˆ∆∞ ¥≠∑∂¿ª∂ß..(ªÛ±› ¡ˆ±ﬁ øœ∑·)
+			g_pUIManager->ShowNotice(IDS_WORLDWARREWARD_RESULT_04);			//ÏÉÅÍ∏àÏàòÎ†πÌõÑ Îòê ÎßÅÎ≤ÑÌäº ÎàåÎ†ÄÏùÑÎïå..(ÏÉÅÍ∏à ÏßÄÍ∏â ÏôÑÎ£å)
 		}
 		break;
 	case 10:
 		{
 			TCHAR strTemp[256] = {0,};
 			_stprintf(strTemp, IDS_WORLDWARREWARD_RESULT_10, MoneyCommaStr(dwRewardMoney).data());
-			g_pUIManager->ShowNotice(strTemp, NOTICE_FRAME_OKCANCEL, NOTICE_FRAME_CLAN_WAR_REWARD);	//ªÛ±› %d¿¸
+			g_pUIManager->ShowNotice(strTemp, NOTICE_FRAME_OKCANCEL, NOTICE_FRAME_CLAN_WAR_REWARD);	//ÏÉÅÍ∏à %dÏ†Ñ
 		}
 		break;
 
@@ -902,8 +902,8 @@ int OnCS_WR_REWARD_ACK(CMsg &msg)
 	return 0;
 }
 
-//HO_0227_07 ±§∏Ì¿¸,√µ»≤¿¸ ¿Ã∫•∆Æ √ﬂ∞°
-int OnCS_WR_CHAMBEROFSECRETMESSAGE_ACK(CMsg &msg)//±§∏Ì¿¸(∫Òπ–¿« πÊ) Ω√Ω∫≈€ ∏ﬁºº¡ˆ
+//HO_0227_07 Í¥ëÎ™ÖÏ†Ñ,Ï≤úÌô©Ï†Ñ Ïù¥Î≤§Ìä∏ Ï∂îÍ∞Ä
+int OnCS_WR_CHAMBEROFSECRETMESSAGE_ACK(CMsg &msg)//Í¥ëÎ™ÖÏ†Ñ(ÎπÑÎ∞ÄÏùò Î∞©) ÏãúÏä§ÌÖú Î©îÏÑ∏ÏßÄ
 {
 	BYTE bResult = 0;
 	sString senderName		= _T("");	
@@ -916,19 +916,19 @@ int OnCS_WR_CHAMBEROFSECRETMESSAGE_ACK(CMsg &msg)//±§∏Ì¿¸(∫Òπ–¿« πÊ) Ω√Ω∫≈€ ∏ﬁºº
 	{
 	case WWM_SECRETPREPAREREADY:
 		{		
-	//		g_MainCharInfo.SpecialChatMessage(IDS_SECRETPREPAREREADY, TEXTEFFECT_COLOR_GAIN); //¿Ã∫•∆Æ Ω≈√ª 10∫–¿¸
+	//		g_MainCharInfo.SpecialChatMessage(IDS_SECRETPREPAREREADY, TEXTEFFECT_COLOR_GAIN); //Ïù¥Î≤§Ìä∏ Ïã†Ï≤≠ 10Î∂ÑÏ†Ñ
 		}
 		break;
 
 	case WWM_SECRETPREPARESTART:
 		{
-			g_MainCharInfo.SpecialChatMessage(IDS_SECRETPREPARESTART, TEXTEFFECT_COLOR_GAIN); //¿Ã∫•∆Æ Ω≈√ª Ω√¿€
+			g_MainCharInfo.SpecialChatMessage(IDS_SECRETPREPARESTART, TEXTEFFECT_COLOR_GAIN); //Ïù¥Î≤§Ìä∏ Ïã†Ï≤≠ ÏãúÏûë
 		}
 		break;
 
 	case WWM_SECRETPREPAREEND:
 		{	
-			g_MainCharInfo.SpecialChatMessage(IDS_SECRETPREPAREEND, TEXTEFFECT_COLOR_GAIN); //¿Ã∫•∆Æ Ω≈√ª ≥°
+			g_MainCharInfo.SpecialChatMessage(IDS_SECRETPREPAREEND, TEXTEFFECT_COLOR_GAIN); //Ïù¥Î≤§Ìä∏ Ïã†Ï≤≠ ÎÅù
 		}
 		break;
 
@@ -936,37 +936,37 @@ int OnCS_WR_CHAMBEROFSECRETMESSAGE_ACK(CMsg &msg)//±§∏Ì¿¸(∫Òπ–¿« πÊ) Ω√Ω∫≈€ ∏ﬁºº
 		{	
 	//		TCHAR szContent[128] = {0,};
 	//		_stprintf( szContent, IDS_APPLYSECRET, (LPCTSTR)senderName);
-	//		g_MainCharInfo.SpecialChatMessage(szContent, TEXTEFFECT_COLOR_GAIN);//¥©∞°Ω≈√ª«ﬂ¥Ÿ Ω√Ω∫≈€∏ﬁΩ√¡ˆ
+	//		g_MainCharInfo.SpecialChatMessage(szContent, TEXTEFFECT_COLOR_GAIN);//ÎàÑÍ∞ÄÏã†Ï≤≠ÌñàÎã§ ÏãúÏä§ÌÖúÎ©îÏãúÏßÄ
 		}
 		break;
 
 	case WWM_SECRETSTARTREADY:
 		{
-	//		g_MainCharInfo.SpecialChatMessage(IDS_SECRETSTARTREADY, TEXTEFFECT_COLOR_GAIN); //¿Ã∫•∆Æ Ω√¿€ 5∫–¿¸
+	//		g_MainCharInfo.SpecialChatMessage(IDS_SECRETSTARTREADY, TEXTEFFECT_COLOR_GAIN); //Ïù¥Î≤§Ìä∏ ÏãúÏûë 5Î∂ÑÏ†Ñ
 		}
 		break;
 	
 	case WWM_SECRETSTART:
 		{
-			g_MainCharInfo.SpecialChatMessage(IDS_SECRETSTART, TEXTEFFECT_COLOR_GAIN); //¿Ã∫•∆Æ Ω√¿€
+			g_MainCharInfo.SpecialChatMessage(IDS_SECRETSTART, TEXTEFFECT_COLOR_GAIN); //Ïù¥Î≤§Ìä∏ ÏãúÏûë
 		}
 		break;
 
 	case WWM_SECRETENDREADY:
 		{
-			g_MainCharInfo.SpecialChatMessage(IDS_SECRETENDREADY, TEXTEFFECT_COLOR_GAIN); //¿Ã∫•∆Æ ¡æ∑· 10∫–¿¸
+			g_MainCharInfo.SpecialChatMessage(IDS_SECRETENDREADY, TEXTEFFECT_COLOR_GAIN); //Ïù¥Î≤§Ìä∏ Ï¢ÖÎ£å 10Î∂ÑÏ†Ñ
 		}
 		break;
 
 	case WWM_SECRETEND:
 		{
-			g_MainCharInfo.SpecialChatMessage(IDS_SECRETEND, TEXTEFFECT_COLOR_GAIN); //¿Ã∫•∆Æ ¡æ∑·
+			g_MainCharInfo.SpecialChatMessage(IDS_SECRETEND, TEXTEFFECT_COLOR_GAIN); //Ïù¥Î≤§Ìä∏ Ï¢ÖÎ£å
 		}
 		break;
 
 	case WWM_SECRETTIME:
 		{
-			g_MainCharInfo.SpecialChatMessage(IDS_SECRETTIME, TEXTEFFECT_COLOR_GAIN); //¿Ã∫•∆Æ ¡¯«‡¡ﬂ
+			g_MainCharInfo.SpecialChatMessage(IDS_SECRETTIME, TEXTEFFECT_COLOR_GAIN); //Ïù¥Î≤§Ìä∏ ÏßÑÌñâÏ§ë
 		}
 		break;
 
@@ -978,7 +978,7 @@ int OnCS_WR_CHAMBEROFSECRETMESSAGE_ACK(CMsg &msg)//±§∏Ì¿¸(∫Òπ–¿« πÊ) Ω√Ω∫≈€ ∏ﬁºº
 
 }
 
-int OnCS_WR_APPLYSECRETREADY_ACK(CMsg &msg)//±§∏Ì¿¸(∫Òπ–¿« πÊ) ¬¸ø© Ω≈√ª πˆ∆∞ ≈¨∏ØΩ√
+int OnCS_WR_APPLYSECRETREADY_ACK(CMsg &msg)//Í¥ëÎ™ÖÏ†Ñ(ÎπÑÎ∞ÄÏùò Î∞©) Ï∞∏Ïó¨ Ïã†Ï≤≠ Î≤ÑÌäº ÌÅ¥Î¶≠Ïãú
 {
 	BYTE SecretCnt;
 	TCHAR szTip[256] = {0,};
@@ -992,7 +992,7 @@ int OnCS_WR_APPLYSECRETREADY_ACK(CMsg &msg)//±§∏Ì¿¸(∫Òπ–¿« πÊ) ¬¸ø© Ω≈√ª πˆ∆∞ ≈¨
 	return 0;
 }
 
-int OnCS_WR_APPLYSECRET_ACK(CMsg &msg)//±§∏Ì¿¸(∫Òπ–¿« πÊ) Ω≈√ª
+int OnCS_WR_APPLYSECRET_ACK(CMsg &msg)//Í¥ëÎ™ÖÏ†Ñ(ÎπÑÎ∞ÄÏùò Î∞©) Ïã†Ï≤≠
 {
 	BYTE bResult = 0;
 
@@ -1005,44 +1005,44 @@ int OnCS_WR_APPLYSECRET_ACK(CMsg &msg)//±§∏Ì¿¸(∫Òπ–¿« πÊ) Ω≈√ª
 	{
 	case ERR_APPLYSECRET_SUCCESS:
 		{		
-			g_MainCharInfo.ShowHelpMessage(IDS_APPLYSECRET_SUCCESS_01, TEXTEFFECT_COLOR_GENERAL); //º∫∞¯
+			g_MainCharInfo.ShowHelpMessage(IDS_APPLYSECRET_SUCCESS_01, TEXTEFFECT_COLOR_GENERAL); //ÏÑ±Í≥µ
 			g_MainCharInfo.ShowHelpMessage(IDS_APPLYSECRET_SUCCESS_02, TEXTEFFECT_COLOR_GENERAL); 
 		}
 		break;
 
 	case ERR_APPLYSECRET_WRONGTERM:
 		{
-			g_MainCharInfo.ShowHelpMessage(IDS_APPLYSECRET_WRONGTERM, TEXTEFFECT_COLOR_WARNING); //±‚∞£æ∆¥‘
+			g_MainCharInfo.ShowHelpMessage(IDS_APPLYSECRET_WRONGTERM, TEXTEFFECT_COLOR_WARNING); //Í∏∞Í∞ÑÏïÑÎãò
 		}
 		break;
 
 	case ERR_APPLYSECRET_NOTLEVEL:
 		{	
-			g_MainCharInfo.ShowHelpMessage(IDS_APPLYSECRET_NOTLEVEL, TEXTEFFECT_COLOR_WARNING); //∑π∫ß¡¶«—
+			g_MainCharInfo.ShowHelpMessage(IDS_APPLYSECRET_NOTLEVEL, TEXTEFFECT_COLOR_WARNING); //Î†àÎ≤®Ï†úÌïú
 		}
 		break;
 
 	case ERR_APPLYSECRET_NOTENOUGHMONEY:
 		{	
-			g_MainCharInfo.ShowHelpMessage(IDS_APPLYSECRET_NOTENOUGHMONEY, TEXTEFFECT_COLOR_WARNING); //±›¿¸∫Œ¡∑
+			g_MainCharInfo.ShowHelpMessage(IDS_APPLYSECRET_NOTENOUGHMONEY, TEXTEFFECT_COLOR_WARNING); //Í∏àÏ†ÑÎ∂ÄÏ°±
 		}
 		break;
 
 	case ERR_APPLYSECRET_ALREADY:
 		{			
-			g_MainCharInfo.ShowHelpMessage(IDS_APPLYSECRET_ALREADY, TEXTEFFECT_COLOR_WARNING); //¿ÃπÃΩ≈√ª
+			g_MainCharInfo.ShowHelpMessage(IDS_APPLYSECRET_ALREADY, TEXTEFFECT_COLOR_WARNING); //Ïù¥ÎØ∏Ïã†Ï≤≠
 		}
 		break;
 
 	case ERR_APPLYSECRET_EXCESSCHAR:
 		{
-			g_MainCharInfo.ShowHelpMessage(IDS_APPLYSECRET_EXCESSCHAR_01, TEXTEFFECT_COLOR_WARNING); //¿Œø¯¡¶«—
+			g_MainCharInfo.ShowHelpMessage(IDS_APPLYSECRET_EXCESSCHAR_01, TEXTEFFECT_COLOR_WARNING); //Ïù∏ÏõêÏ†úÌïú
 			g_MainCharInfo.ShowHelpMessage(IDS_APPLYSECRET_EXCESSCHAR_02, TEXTEFFECT_COLOR_WARNING); 
 		}
 		break;
 	case ERR_APPLYSECRET_SACK:		
 		{
-			g_MainCharInfo.ShowHelpMessage(IDS_APPLYSECRET_SACKFULL, TEXTEFFECT_COLOR_WARNING); //HT_0417 : «‡≥∂¿Ã ∞°µÊ ¬˜ ¿÷¿ª ∞ÊøÏ
+			g_MainCharInfo.ShowHelpMessage(IDS_APPLYSECRET_SACKFULL, TEXTEFFECT_COLOR_WARNING); //HT_0417 : ÌñâÎÇ≠Ïù¥ Í∞ÄÎìù Ï∞® ÏûàÏùÑ Í≤ΩÏö∞
 		}
 		break;
 	
@@ -1053,7 +1053,7 @@ int OnCS_WR_APPLYSECRET_ACK(CMsg &msg)//±§∏Ì¿¸(∫Òπ–¿« πÊ) Ω≈√ª
 	return 0;
 }
 
-int OnCS_WR_BLOODDEVILMESSAGE_ACK(CMsg &msg)//√µ»≤¿¸(∏∂«˜√µ»≤¿« πÊ) Ω√Ω∫≈€∏ﬁºº¡ˆ
+int OnCS_WR_BLOODDEVILMESSAGE_ACK(CMsg &msg)//Ï≤úÌô©Ï†Ñ(ÎßàÌòàÏ≤úÌô©Ïùò Î∞©) ÏãúÏä§ÌÖúÎ©îÏÑ∏ÏßÄ
 {
 	BYTE bResult = 0;
 	sString senderName		= _T("");	
@@ -1067,19 +1067,19 @@ int OnCS_WR_BLOODDEVILMESSAGE_ACK(CMsg &msg)//√µ»≤¿¸(∏∂«˜√µ»≤¿« πÊ) Ω√Ω∫≈€∏ﬁºº¡ˆ
 	{
 	case WWM_DEVILPREPAREREADY:
 		{		
-	//		g_MainCharInfo.SpecialChatMessage(IDS_DEVILPREPAREREADY, TEXTEFFECT_COLOR_GAIN); //¿Ã∫•∆Æ Ω≈√ª 10∫–¿¸
+	//		g_MainCharInfo.SpecialChatMessage(IDS_DEVILPREPAREREADY, TEXTEFFECT_COLOR_GAIN); //Ïù¥Î≤§Ìä∏ Ïã†Ï≤≠ 10Î∂ÑÏ†Ñ
 		}
 		break;
 
 	case WWM_DEVILPREPARESTART:
 		{
-			g_MainCharInfo.SpecialChatMessage(IDS_DEVILPREPARESTART, TEXTEFFECT_COLOR_GAIN); //¿Ã∫•∆Æ Ω≈√ª Ω√¿€
+			g_MainCharInfo.SpecialChatMessage(IDS_DEVILPREPARESTART, TEXTEFFECT_COLOR_GAIN); //Ïù¥Î≤§Ìä∏ Ïã†Ï≤≠ ÏãúÏûë
 		}
 		break;
 
 	case WWM_DEVILPREPAREEND:
 		{	
-			g_MainCharInfo.SpecialChatMessage(IDS_DEVILPREPAREEND, TEXTEFFECT_COLOR_GAIN); //¿Ã∫•∆Æ Ω≈√ª ≥°
+			g_MainCharInfo.SpecialChatMessage(IDS_DEVILPREPAREEND, TEXTEFFECT_COLOR_GAIN); //Ïù¥Î≤§Ìä∏ Ïã†Ï≤≠ ÎÅù
 		}
 		break;
 
@@ -1087,37 +1087,37 @@ int OnCS_WR_BLOODDEVILMESSAGE_ACK(CMsg &msg)//√µ»≤¿¸(∏∂«˜√µ»≤¿« πÊ) Ω√Ω∫≈€∏ﬁºº¡ˆ
 		{
 	//		TCHAR szContent[128] = {0,};
 	//		_stprintf( szContent, IDS_APPLYSECRET, (LPCTSTR)senderName);
-	//		g_MainCharInfo.SpecialChatMessage(szContent, TEXTEFFECT_COLOR_GAIN);//¥©∞°Ω≈√ª«ﬂ¥Ÿ Ω√Ω∫≈€∏ﬁΩ√¡ˆ
+	//		g_MainCharInfo.SpecialChatMessage(szContent, TEXTEFFECT_COLOR_GAIN);//ÎàÑÍ∞ÄÏã†Ï≤≠ÌñàÎã§ ÏãúÏä§ÌÖúÎ©îÏãúÏßÄ
 		}
 		break;
 
 	case WWM_DEVILSTARTREADY:
 		{			
-	//		g_MainCharInfo.SpecialChatMessage(IDS_DEVILSTARTREADY, TEXTEFFECT_COLOR_GAIN); //¿Ã∫•∆Æ Ω√¿€ 15∫– ¿¸
+	//		g_MainCharInfo.SpecialChatMessage(IDS_DEVILSTARTREADY, TEXTEFFECT_COLOR_GAIN); //Ïù¥Î≤§Ìä∏ ÏãúÏûë 15Î∂Ñ Ï†Ñ
 		}
 		break;
 
 	case WWM_DEVILSTART:
 		{
-			g_MainCharInfo.SpecialChatMessage(IDS_DEVILSTART, TEXTEFFECT_COLOR_GAIN); //¿Ã∫•∆Æ Ω√¿€
+			g_MainCharInfo.SpecialChatMessage(IDS_DEVILSTART, TEXTEFFECT_COLOR_GAIN); //Ïù¥Î≤§Ìä∏ ÏãúÏûë
 		}
 		break;
 	
 	case WWM_DEVILENDREADY:
 		{
-			g_MainCharInfo.SpecialChatMessage(IDS_DEVILENDREADY, TEXTEFFECT_COLOR_GAIN); //¿Ã∫•∆Æ ¡æ∑· 5∫–¿¸
+			g_MainCharInfo.SpecialChatMessage(IDS_DEVILENDREADY, TEXTEFFECT_COLOR_GAIN); //Ïù¥Î≤§Ìä∏ Ï¢ÖÎ£å 5Î∂ÑÏ†Ñ
 		}
 		break;
 
 	case WWM_DEVILEND:
 		{
-			g_MainCharInfo.SpecialChatMessage(IDS_DEVILEND, TEXTEFFECT_COLOR_GAIN); //¿Ã∫•∆Æ ¡æ∑·
+			g_MainCharInfo.SpecialChatMessage(IDS_DEVILEND, TEXTEFFECT_COLOR_GAIN); //Ïù¥Î≤§Ìä∏ Ï¢ÖÎ£å
 		}
 		break;
 
 	case WWM_DEVILTIME:
 		{
-			g_MainCharInfo.SpecialChatMessage(IDS_DEVILTIME, TEXTEFFECT_COLOR_GAIN); //¿Ã∫•∆Æ ¡¯«‡¡ﬂ¿Ã¥Ÿ.
+			g_MainCharInfo.SpecialChatMessage(IDS_DEVILTIME, TEXTEFFECT_COLOR_GAIN); //Ïù¥Î≤§Ìä∏ ÏßÑÌñâÏ§ëÏù¥Îã§.
 		}
 		break;
 	default:
@@ -1127,7 +1127,7 @@ int OnCS_WR_BLOODDEVILMESSAGE_ACK(CMsg &msg)//√µ»≤¿¸(∏∂«˜√µ»≤¿« πÊ) Ω√Ω∫≈€∏ﬁºº¡ˆ
 	return 0;
 }
 
-int OnCS_WR_APPLYDEVILREADY_ACK(CMsg &msg)//√µ»≤¿¸(∏∂«˜√µ»≤¿« πÊ) ¬¸ø© Ω≈√ª πˆ∆∞ ≈¨∏ØΩ√
+int OnCS_WR_APPLYDEVILREADY_ACK(CMsg &msg)//Ï≤úÌô©Ï†Ñ(ÎßàÌòàÏ≤úÌô©Ïùò Î∞©) Ï∞∏Ïó¨ Ïã†Ï≤≠ Î≤ÑÌäº ÌÅ¥Î¶≠Ïãú
 {
 	BYTE DevilCnt;
 	TCHAR szTip[256] = {0,};
@@ -1141,7 +1141,7 @@ int OnCS_WR_APPLYDEVILREADY_ACK(CMsg &msg)//√µ»≤¿¸(∏∂«˜√µ»≤¿« πÊ) ¬¸ø© Ω≈√ª πˆ∆∞
 	return 0;	
 }
 
-int OnCS_WR_APPLYDEVIL_ACK(CMsg &msg)//√µ»≤¿¸(∏∂«˜√µ»≤¿« πÊ) Ω≈√ª
+int OnCS_WR_APPLYDEVIL_ACK(CMsg &msg)//Ï≤úÌô©Ï†Ñ(ÎßàÌòàÏ≤úÌô©Ïùò Î∞©) Ïã†Ï≤≠
 {
 	BYTE bResult = 0;
 	
@@ -1154,38 +1154,38 @@ int OnCS_WR_APPLYDEVIL_ACK(CMsg &msg)//√µ»≤¿¸(∏∂«˜√µ»≤¿« πÊ) Ω≈√ª
 	{
 	case ERR_APPLYDEVIL_SUCCESS:
 		{		
-			g_MainCharInfo.ShowHelpMessage(IDS_APPLYDEVIL_SUCCESS_01, TEXTEFFECT_COLOR_GENERAL); //º∫∞¯
+			g_MainCharInfo.ShowHelpMessage(IDS_APPLYDEVIL_SUCCESS_01, TEXTEFFECT_COLOR_GENERAL); //ÏÑ±Í≥µ
 			g_MainCharInfo.ShowHelpMessage(IDS_APPLYDEVIL_SUCCESS_02, TEXTEFFECT_COLOR_GENERAL);
 		}
 		break;
 
 	case ERR_APPLYDEVIL_WRONGTERM:
 		{
-			g_MainCharInfo.ShowHelpMessage(IDS_APPLYDEVIL_WRONGTERM, TEXTEFFECT_COLOR_WARNING); //±‚∞£æ∆¥‘
+			g_MainCharInfo.ShowHelpMessage(IDS_APPLYDEVIL_WRONGTERM, TEXTEFFECT_COLOR_WARNING); //Í∏∞Í∞ÑÏïÑÎãò
 		}
 		break;
 
 	case ERR_APPLYDEVIL_NOTLEVEL:
 		{	
-			g_MainCharInfo.ShowHelpMessage(IDS_APPLYDEVIL_NOTLEVEL, TEXTEFFECT_COLOR_WARNING); //∑π∫ß¡¶«—
+			g_MainCharInfo.ShowHelpMessage(IDS_APPLYDEVIL_NOTLEVEL, TEXTEFFECT_COLOR_WARNING); //Î†àÎ≤®Ï†úÌïú
 		}
 		break;
 
 	case ERR_APPLYDEVIL_HAVENOTITEM:
 		{	
-			g_MainCharInfo.ShowHelpMessage(IDS_APPLYDEVIL_HAVENOTITEM, TEXTEFFECT_COLOR_WARNING); //∏∂±≥√µ∆–æ¯¿Ω
+			g_MainCharInfo.ShowHelpMessage(IDS_APPLYDEVIL_HAVENOTITEM, TEXTEFFECT_COLOR_WARNING); //ÎßàÍµêÏ≤úÌå®ÏóÜÏùå
 		}
 		break;
 
 	case ERR_APPLYDEVIL_ALREADY:
 		{			
-			g_MainCharInfo.ShowHelpMessage(IDS_APPLYDEVIL_ALREADY, TEXTEFFECT_COLOR_WARNING); //¿ÃπÃΩ≈√ª
+			g_MainCharInfo.ShowHelpMessage(IDS_APPLYDEVIL_ALREADY, TEXTEFFECT_COLOR_WARNING); //Ïù¥ÎØ∏Ïã†Ï≤≠
 		}
 		break;
 
 	case ERR_APPLYDEVIL_EXCESSCHAR:
 		{
-			g_MainCharInfo.ShowHelpMessage(IDS_APPLYDEVIL_EXCESSCHAR_01, TEXTEFFECT_COLOR_WARNING); //¿Œø¯¡¶«—
+			g_MainCharInfo.ShowHelpMessage(IDS_APPLYDEVIL_EXCESSCHAR_01, TEXTEFFECT_COLOR_WARNING); //Ïù∏ÏõêÏ†úÌïú
 			g_MainCharInfo.ShowHelpMessage(IDS_APPLYDEVIL_EXCESSCHAR_02, TEXTEFFECT_COLOR_WARNING); 
 		}
 		break;

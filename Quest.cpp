@@ -1,4 +1,4 @@
-#include "precompile.h"
+ï»¿#include "precompile.h"
 #include "resource.h"
 #include "AppData.h"
 #include "Quest.h"
@@ -79,7 +79,7 @@ CQuest::~CQuest()
 		m_pVB = NULL;
 	}
 
-	//HT_0824 : Äù½ºÆ® µµ¿ì¹Ì Ãß°¡
+	//HT_0824 : í€˜ìŠ¤íŠ¸ ë„ìš°ë¯¸ ì¶”ê°€
 	nSize = m_sQuestHelp.m_vQuestCoordinate.size();
 
 	for(register int i=0; i < nSize; ++i)
@@ -185,7 +185,7 @@ void CQuest::InsertQuest( DWORD dwQuestID, QUESTSTATUS_TYPE eType, sString szQue
 
 		m_vTotalQuest.push_back( pQuest);
 		//m_vQuest.push_back( pQuest);
-		UpdateQuest();	//HT_0914 : ±â¿¬Ã¢ ¹× ³¶ ¾ÆÀÌÅÛ °³¼± »çÇ×
+		UpdateQuest();	//HT_0914 : ê¸°ì—°ì°½ ë° ë‚­ ì•„ì´í…œ ê°œì„  ì‚¬í•­
 
 		InsertQuestDesc( dwQuestID);
 
@@ -295,10 +295,10 @@ void CQuest::Refresh()
 
 	SetCurrIndex( m_wCurrQuestIndex, &m_rtRegion[m_wCurrQuestIndex]);	
 */
-	//if(Áö±İ ´©¸¥ ¹øÆ® ¹øÈ£ ==0 )
+	//if(ì§€ê¸ˆ ëˆ„ë¥¸ ë²ˆíŠ¸ ë²ˆí˜¸ ==0 )
 		
 	//else if((==1)
-	//	UpdateQuest1();	//HT_0914 : ±â¿¬Ã¢ ¹× ³¶ ¾ÆÀÌÅÛ °³¼± »çÇ×
+	//	UpdateQuest1();	//HT_0914 : ê¸°ì—°ì°½ ë° ë‚­ ì•„ì´í…œ ê°œì„  ì‚¬í•­
 
 	sRect rtRect;
 	g_pUIManager->GetRegionData(WINDOW_QUEST_01, quest_window_01_dummy_01, rtRect);
@@ -381,14 +381,14 @@ void CQuest::RefreshQuestContent()
 	TCHAR strFame[64]={0,};	
 	//BYTE byType;
 
-	//HT_0911 : ÇÁ¸®¹Ì¾ö Äù½ºÆ® ¼ö·ÃÄ¡ 
+	//HT_0911 : í”„ë¦¬ë¯¸ì—„ í€˜ìŠ¤íŠ¸ ìˆ˜ë ¨ì¹˜ 
 	//_stprintf( strFame, IDS_QUEST_SP, g_MainCharInfo.m_dwPremiumSP);
 	//g_pUIManager->SetString(WINDOW_QUEST_01, quest_window_fame_dumy_01, strFame, 11);
 
 	//_stprintf( strFame, IDS_QUEST_TP, g_MainCharInfo.m_dwPremiumTP);
 	//g_pUIManager->SetString(WINDOW_QUEST_01, quest_window_fame_dumy_02, strFame, 11);
 
-	//if( g_MainCharInfo.m_dwFame > 126)//HO_0810_07 Äù½ºÆ® ¹æ½Ä º¯°æÀ¸·Î ´õÀÌ»ó »ç¿ëÇÏÁö ¾Ê´Â´Ù. ½ÃÀÛ
+	//if( g_MainCharInfo.m_dwFame > 126)//HO_0810_07 í€˜ìŠ¤íŠ¸ ë°©ì‹ ë³€ê²½ìœ¼ë¡œ ë”ì´ìƒ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ”ë‹¤. ì‹œì‘
 	//{
 	//	g_pUIManager->SetString(WINDOW_QUEST_01, quest_window_fame_dumy_01, IDS_FAME, 0);
 
@@ -404,7 +404,7 @@ void CQuest::RefreshQuestContent()
 
 	//	byType = 1;
 	//}
-	//g_pUIManager->SetString(WINDOW_QUEST_01, quest_window_fame_dumy_02, strFame, byType);//HO_0810_07 Äù½ºÆ® ¹æ½Ä º¯°æÀ¸·Î ´õÀÌ»ó »ç¿ëÇÏÁö ¾Ê´Â´Ù. ³¡
+	//g_pUIManager->SetString(WINDOW_QUEST_01, quest_window_fame_dumy_02, strFame, byType);//HO_0810_07 í€˜ìŠ¤íŠ¸ ë°©ì‹ ë³€ê²½ìœ¼ë¡œ ë”ì´ìƒ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ”ë‹¤. ë
 	_stprintf( strFame, IDS_QUEST_ALL);
 	g_pUIManager->SetString(WINDOW_QUEST_01, quest_window_01_button_01, strFame);
 	_stprintf( strFame, IDS_QUEST_PROGRESS);
@@ -438,9 +438,9 @@ void CQuest::RefreshQuestContent()
 
 	switch( m_byCurrContent)
 	{
-	case eContent: // ³»¿ë
+	case eContent: // ë‚´ìš©
 		{
-			// ¹®ÀÚ¿­ ¼³Á¤ ( | ´Â ´ÙÀ½Çà )
+			// ë¬¸ìì—´ ì„¤ì • ( | ëŠ” ë‹¤ìŒí–‰ )
 			register int len = m_vQuest[ m_wCurrQuestIndex]->m_szContent.length();
 
 			memcpy( temp, m_vQuest[ m_wCurrQuestIndex]->m_szContent, len);
@@ -491,9 +491,9 @@ void CQuest::RefreshQuestContent()
 			}
 		}
 		break;
-	case eCondition: // ¿Ï¼öÁ¶°Ç
+	case eCondition: // ì™„ìˆ˜ì¡°ê±´
 		{	
-			// [3/30/2004] ½ºÅ©·Ñ ¹®Á¦ ¼öÁ¤
+			// [3/30/2004] ìŠ¤í¬ë¡¤ ë¬¸ì œ ìˆ˜ì •
 			int nTotalLine = m_vQuest[ m_wCurrQuestIndex]->m_bConditionNum;
 
 			g_pUIManager->SetData(WINDOW_QUEST_01, quest_window_01_scrollbar2, SCROLL_TOTAL, nTotalLine);
@@ -523,9 +523,9 @@ void CQuest::RefreshQuestContent()
 			}
 		}
 		break;
-	case eReward: // º¸»ó³»¿ª
+	case eReward: // ë³´ìƒë‚´ì—­
 		{
-			// [3/30/2004] ½ºÅ©·Ñ ¹®Á¦ ¼öÁ¤
+			// [3/30/2004] ìŠ¤í¬ë¡¤ ë¬¸ì œ ìˆ˜ì •
 			int nTotalLine = m_vQuest[ m_wCurrQuestIndex]->m_bRewardNum;
 
 			g_pUIManager->SetData(WINDOW_QUEST_01, quest_window_01_scrollbar2, SCROLL_TOTAL, nTotalLine);
@@ -571,7 +571,7 @@ void CQuest::ChangeStatus( DWORD dwQuestID, QUESTSTATUS_TYPE eType, BYTE bRepeat
 
 DWORD CQuest::GetCurrQuestID()
 {
-	// ¾Æ¹«°Íµµ ¾øÀ»½Ã
+	// ì•„ë¬´ê²ƒë„ ì—†ì„ì‹œ
 	if(m_vQuest.size() < 1)
 		return 0;
 
@@ -584,7 +584,7 @@ DWORD CQuest::GetCurrQuestID()
 void CQuest::DeleteQuest(DWORD dwQuestID)
 {
 
-	VQUEST::iterator iter = m_vQuest.begin(); //HO_0820_07 Äù½ºÆ® ºĞ·ù : Áö¿ï¶§´Â.. m_vQuest¸¦ ÂüÁ¶ ÇØ¾ß ÇÑ´Ù.(»èÁ¦½Ã ¹Ğ¾î ¿Ã¸®±âÀ§ÇØ) 
+	VQUEST::iterator iter = m_vQuest.begin(); //HO_0820_07 í€˜ìŠ¤íŠ¸ ë¶„ë¥˜ : ì§€ìš¸ë•ŒëŠ”.. m_vQuestë¥¼ ì°¸ì¡° í•´ì•¼ í•œë‹¤.(ì‚­ì œì‹œ ë°€ì–´ ì˜¬ë¦¬ê¸°ìœ„í•´) 
 
 	for( ; iter != m_vQuest.end(); ++iter)
 	{
@@ -603,7 +603,7 @@ void CQuest::DeleteQuest(DWORD dwQuestID)
 	}	
 }
 
-//HT_0914 : ±â¿¬Ã¢ ¹× ³¶ ¾ÆÀÌÅÛ °³¼± »çÇ×
+//HT_0914 : ê¸°ì—°ì°½ ë° ë‚­ ì•„ì´í…œ ê°œì„  ì‚¬í•­
 void CQuest::UpdateQuest()
 {
 	BYTE i = 0;
@@ -728,7 +728,7 @@ void CQuest::SetQuestDestination(DWORD QuestID, BYTE ProcessCount)
 		{
 			SetQuestProcessKind(ProcessKind, TargetID,&TempQuestcoordinate);
 		} 
-		else //ÇÑ ´Ü°è¿¡ ¿Ï¼ö Á¶°ÇÀÌ ¿©·¯ °³ÀÎ °æ¿ì
+		else //í•œ ë‹¨ê³„ì— ì™„ìˆ˜ ì¡°ê±´ì´ ì—¬ëŸ¬ ê°œì¸ ê²½ìš°
 		{
 			for(int i = Pline; i >= 1; i--)
 			{
@@ -751,7 +751,7 @@ void CQuest::SetQuestProcessKind(int nProcessKind, int nTergetID, VQUESTCOORDINA
 {
 	switch(nProcessKind)
 	{
-	case 10:	//¸ó½ºÅÍ Å¸ÀÔ
+	case 10:	//ëª¬ìŠ¤í„° íƒ€ì…
 		{
 			m_sQuestHelp.m_byShowType = 1;
 
@@ -781,7 +781,7 @@ void CQuest::SetQuestProcessKind(int nProcessKind, int nTergetID, VQUESTCOORDINA
 			}
 		}
 		break;
-	case 11:	//¸ó½ºÅÍ ¾ÆÀÌµğ
+	case 11:	//ëª¬ìŠ¤í„° ì•„ì´ë””
 		{
 			m_sQuestHelp.m_byShowType = 2;
 			sArrayData* pQuestMon = XiahArrayIndex::g_QuestMonList.GetData(nTergetID);
@@ -795,7 +795,7 @@ void CQuest::SetQuestProcessKind(int nProcessKind, int nTergetID, VQUESTCOORDINA
 			TempQuestcoordinate->push_back(pQuestcoordinate);
 		}
 		break;
-	case 16:	//NPC Å¸ÀÓ
+	case 16:	//NPC íƒ€ì„
 		{
 			m_sQuestHelp.m_byShowType = 3;
 			sArrayData* pQuestNPC = XiahArrayIndex::g_QuestNPCList.GetData(nTergetID);
@@ -824,7 +824,7 @@ void CQuest::SetQuestProcessKind(int nProcessKind, int nTergetID, VQUESTCOORDINA
 			}
 		}
 		break;
-	case 17:	//NPC ¾ÆÀÌµğ
+	case 17:	//NPC ì•„ì´ë””
 		{
 			m_sQuestHelp.m_byShowType = 3;
 			sArrayData* pQuestNPC = XiahArrayIndex::g_QuestNPCList.GetData(nTergetID);

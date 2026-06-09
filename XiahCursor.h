@@ -1,8 +1,8 @@
-#pragma once
+Ôªø#pragma once
 
 enum eXiahCursorType
 {
-	eCT_General = 0,	// ¿œπ› ƒøº≠
+	eCT_General = 0,	// ÏùºÎ∞ò Ïª§ÏÑú
 	eCT_Attack_Over = 1,
 	eCT_Attack_Clic = 2,
 	eCT_PickUp = 3,

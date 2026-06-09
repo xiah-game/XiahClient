@@ -1,11 +1,11 @@
-#pragma once
+ï»¿#pragma once
 
 #include "NetMsg.h"
 
 /*
 	namespace XiahNetwork
 
-	Network°ü·ÃÇÑ Ã³¸®´Â ¸ğµÎ XiahNetworkÀÌ¶ó´Â namespace¿¡ Æ÷ÇÔµÇ¾î Á¤ÀÇµÇ°í ¼±¾ğµÈ´Ù
+	Networkê´€ë ¨í•œ ì²˜ë¦¬ëŠ” ëª¨ë‘ XiahNetworkì´ë¼ëŠ” namespaceì— í¬í•¨ë˜ì–´ ì •ì˜ë˜ê³  ì„ ì–¸ëœë‹¤
 */
 
 
@@ -14,9 +14,9 @@ namespace XiahNetwork
 {
 	typedef int (*XIAH_NETWORK_RECEIVE_FUNCTION)(CMsg &msg);
 
-	BOOL InitializeNetworkHandler();		// Network HandlerÃÊ±âÈ­
-	BOOL UninitializeNetworkHandler();	// Network HandlerÇØÁ¦
+	BOOL InitializeNetworkHandler();		// Network Handlerì´ˆê¸°í™”
+	BOOL UninitializeNetworkHandler();	// Network Handlerí•´ì œ
 
-	// Handler µî·Ï
+	// Handler ë“±ë¡
 	BOOL RegisterHandler(WORD nMessageID,XIAH_NETWORK_RECEIVE_FUNCTION function);
 };

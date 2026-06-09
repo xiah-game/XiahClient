@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "XiahGame_StepObject.h"
 
@@ -6,13 +6,13 @@ enum eGameStartLoadEnum
 {
 	eStartLoad_Start,
 
-	eStartLoad_TaewoolLogoFadeOut,	// ÀÌ¸§À» Àß¸ø ºÙÀÓ.
+	eStartLoad_TaewoolLogoFadeOut,	// ì´ë¦„ì„ ì˜ëª» ë¶™ì„.
 	eStartLoad_TaewoolLogoFadeIn,
 
 	eStartLoad_XiahLogoFadeOut,
 	eStartLoad_XiahLogoFadeIn,
 
-	eStartLoad_China_WarnningIn,	// Áß±¹¿ë °æ°í ¸Ş¼¼Áö 
+	eStartLoad_China_WarnningIn,	// ì¤‘êµ­ìš© ê²½ê³  ë©”ì„¸ì§€ 
 	eStartLoad_China_WarnningOut,
 
 	eStartLoad_Load1,
@@ -24,7 +24,7 @@ enum eGameStartLoadEnum
 
 
 //////////////////////////////////////////////////////////////////////////
-// ÀÌ³à¼®ÀÌ ·Î°í Ãâ·Â ¹× Ã· ·ÎµùÀ» ´ã´çÇÑ´Ù. 
+// ì´ë…€ì„ì´ ë¡œê³  ì¶œë ¥ ë° ì²¨ ë¡œë”©ì„ ë‹´ë‹¹í•œë‹¤. 
 class CXiahGameStartLoad : public CXiahGame_StepObject
 {
 	LPDIRECT3DVERTEXBUFFER9		m_pVB1;		// Taewool Logo

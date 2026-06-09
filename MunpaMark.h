@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <map>
 
@@ -8,9 +8,9 @@ class CMunpaMark
 public:
 	struct sMark
 	{
-		int					nDemandCount;	// ¿äÃ»¼ö
-		bool				bDemand;		// ¼­¹ö¿¡ ¿äÃ» ¿©ºÎ
-		LPDIRECT3DTEXTURE9	pTexture;		// ¸¶Å© ÅØ½ºÃÄ
+		int					nDemandCount;	// ìš”ì²­ìˆ˜
+		bool				bDemand;		// ì„œë²„ì— ìš”ì²­ ì—¬ë¶€
+		LPDIRECT3DTEXTURE9	pTexture;		// ë§ˆí¬ í…ìŠ¤ì³
 
 		sMark() : nDemandCount(0), bDemand(false), pTexture(NULL)
 		{

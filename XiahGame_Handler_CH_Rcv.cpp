@@ -1,4 +1,4 @@
-#include "CurseFilter.h"
+ï»¿#include "CurseFilter.h"
 
 extern LPCTSTR GetMapName(DWORD dwMapID);
 
@@ -15,7 +15,7 @@ int OnCS_CH_CHAT_ACK( CMsg &msg)
 		>> sender
 		>> type;
 
-	// CG_1217 : ¹®ÆÄÀü½Ã ÇÑ½Ã°£µÚ¿¡ ºñ¼® ¶§¸±¼öÀÖ´Ù´Â ¸Þ¼¼ÁöÃâ·Â
+	// CG_1217 : ë¬¸íŒŒì „ì‹œ í•œì‹œê°„ë’¤ì— ë¹„ì„ ë•Œë¦´ìˆ˜ìžˆë‹¤ëŠ” ë©”ì„¸ì§€ì¶œë ¥
 	if( type != CT_BATTLE && type != CT_TIMEMESSAGE )
 	{
 		msg
@@ -43,7 +43,7 @@ int OnCS_CH_CHAT_ACK( CMsg &msg)
 
 			TCHAR strTemp[ 256 ] = { 0, };
 
-			// [3/14/2005] ´ë·ÃÀå ¸Þ½ÃÁöÃß°¡ 3,4
+			// [3/14/2005] ëŒ€ë ¨ìž¥ ë©”ì‹œì§€ì¶”ê°€ 3,4
 			switch( dwMsgType )
 			{
 				case 1:	_stprintf( strTemp, IDS_DUNJEON_START );		break;
@@ -61,7 +61,7 @@ int OnCS_CH_CHAT_ACK( CMsg &msg)
 	case CT_SAYITEM_CELL:
 	case CT_SAYITEM_MAP:
 	case CT_SAYITEM_CHANNEL:
-	case 15:	// È²±Ý°¢Àû
+	case 15:	// í™©ê¸ˆê°ì 
 		{
 			DWORD dwMapID = -1;
 			WORD wPosX = 0;
@@ -90,7 +90,7 @@ int OnCS_CH_CHAT_ACK( CMsg &msg)
 			return 0;
 		}
 		break;
-	case CT_EVENTMSG: // ÀÌº¥Æ® ¸Þ½ÃÁö
+	case CT_EVENTMSG: // ì´ë²¤íŠ¸ ë©”ì‹œì§€
 		{
 			BYTE bEventKind = 0;
 			BYTE bCanUser	= 0;
@@ -166,7 +166,7 @@ int OnCS_CH_CHAT_ACK( CMsg &msg)
 
 			switch(bCanUser)
 			{
-			case 1:// 1 : °Ë¿µ, 2 : ¿¬¶û, 3 : ¹«Åõ, 4 : ¾ßÂ÷
+			case 1:// 1 : ê²€ì˜, 2 : ì—°ëž‘, 3 : ë¬´íˆ¬, 4 : ì•¼ì°¨
 				{
 					LPCTSTR lpStrTempChar;
 
@@ -232,7 +232,7 @@ int OnCS_CH_CHAT_ACK( CMsg &msg)
 		}
 		break;
 
-	// ÀÏ¹Ý Ãª
+	// ì¼ë°˜ ì±—
 	/*
 	case CT_NORMAL:
 		{
@@ -241,20 +241,20 @@ int OnCS_CH_CHAT_ACK( CMsg &msg)
 		break;
 	*/
 
-	// ÀÌº¥Æ®¿ë ¾ÆÀÌÅÛÀ» È¹µæÇßÀ»¶§. .. ¸¶¿ì½º µî °æÇ°.
+	// ì´ë²¤íŠ¸ìš© ì•„ì´í…œì„ íšë“í–ˆì„ë•Œ. .. ë§ˆìš°ìŠ¤ ë“± ê²½í’ˆ.
 
-	//HO_0706_07 ¾óÀ½ ÀÌº¥Æ® : ÀÌº¥Æ®°ü·Ã ¾ÆÀÌÅÛ È¹µæ½Ã ÀüÃ¼ °øÁö ¶ß´Â°Ô ·¢¹ß»ýÀ» À¯µµ ÇÑ´Ù°í ÇØ¼­ ÁÖ¼® Ã³¸®ÇÔ °³ÀÎ ¸Þ¼¼Áö·Î ¹Ù²ÙÀÚ..
-	//ÀÌº¥Æ® ¾ÆÀÌÅÛ È¹µæ½Ã °øÁö Ãâ·ÂÀº ÀÌ¹ø ÀÌº¥Æ® È·¶¨ÈÄ ¾ÕÀ¸·ÎÀÇ ÀÌº¥Æ® »óÈ²¿¡ µû¶ó.... º¯È­ÇÑ´Ù´Â...
+	//HO_0706_07 ì–¼ìŒ ì´ë²¤íŠ¸ : ì´ë²¤íŠ¸ê´€ë ¨ ì•„ì´í…œ íšë“ì‹œ ì „ì²´ ê³µì§€ ëœ¨ëŠ”ê²Œ ëž™ë°œìƒì„ ìœ ë„ í•œë‹¤ê³  í•´ì„œ ì£¼ì„ ì²˜ë¦¬í•¨ ê°œì¸ ë©”ì„¸ì§€ë¡œ ë°”ê¾¸ìž..
+	//ì´ë²¤íŠ¸ ì•„ì´í…œ íšë“ì‹œ ê³µì§€ ì¶œë ¥ì€ ì´ë²ˆ ì´ë²¤íŠ¸ íš…ë•í›„ ì•žìœ¼ë¡œì˜ ì´ë²¤íŠ¸ ìƒí™©ì— ë”°ë¼.... ë³€í™”í•œë‹¤ëŠ”...
 	case CT_GETEVENTITEM:
 		{
 			TCHAR szContent[150] = {0,};
-		//	_stprintf( szContent, IDS_EVENTITEM_OBTAIN, (LPCTSTR)senderName, (LPCTSTR)content ); //HO_0706_07 ±âÁ¸¿¡´Â ½ºÆä¼È ¸Þ¼¼Áö »ç¿ë
+		//	_stprintf( szContent, IDS_EVENTITEM_OBTAIN, (LPCTSTR)senderName, (LPCTSTR)content ); //HO_0706_07 ê¸°ì¡´ì—ëŠ” ìŠ¤íŽ˜ì…œ ë©”ì„¸ì§€ ì‚¬ìš©
 		//	g_MainCharInfo.SpecialChatMessage(szContent, 6);
 
 			_stprintf( szContent, IDS_D_OBTAIN_ITEM,(LPCTSTR)content );
 			g_MainCharInfo.ShowHelpMessage(szContent, TEXTEFFECT_COLOR_GAIN);
 
-			// ÀÌ¶§ »ç¿îµåµµ ÀÖ´Ù.
+			// ì´ë•Œ ì‚¬ìš´ë“œë„ ìžˆë‹¤.
 			g_MainCharInfo.PlayInterfaceSound( EVENT_PREMIUMITEM_SOUND_CONGRATULATION );
 
 			return 0;
@@ -263,11 +263,11 @@ int OnCS_CH_CHAT_ACK( CMsg &msg)
 		break;
 	}
 
-	// [4/19/2005] °øÁö»çÇ× Á¦¿Ü
+	// [4/19/2005] ê³µì§€ì‚¬í•­ ì œì™¸
 	if(CT_BROADCAST != type)
 	{
-		// [3/14/2005] Àü ¸Þ½ÃÁö ÇÊÅÍ¸µ
-		// ¿å¼³ ¹æÁö
+		// [3/14/2005] ì „ ë©”ì‹œì§€ í•„í„°ë§
+		// ìš•ì„¤ ë°©ì§€
 		TCHAR strTemp[100] = {0,};		
 		memcpy(strTemp, content.data(), strlen(content.data()));
 		content.printf("%s", ConvertString(strTemp, 100));
@@ -287,13 +287,13 @@ int OnCS_CH_SYSTEMMESSAGE_ACK( CMsg &msg)
 
 	switch( bResult)
 	{
-	case 1://½ºÇí
-	case 2://ÆÐÅ¶Á¶ÀÛ
-	case 3://Àß¸øµÈÆÐÅ¶
+	case 1://ìŠ¤í—¥
+	case 2://íŒ¨í‚·ì¡°ìž‘
+	case 3://ìž˜ëª»ëœíŒ¨í‚·
 		g_pUIManager->ShowNotice(CH_WARNNIG1, NOTICE_FRAME_OK, NOTICE_FRAME_UNEXPECTED_TERMINATE);
 		break;
 
-	case 4://Á¡°Ë
+	case 4://ì ê²€
 		g_pUIManager->ShowNotice(CH_WARNNIG2, NOTICE_FRAME_OKCANCEL);
 		break;
 	case 9:// TOO BUSY

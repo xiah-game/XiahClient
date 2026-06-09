@@ -1,4 +1,4 @@
-#include "precompile.h"
+ï»¿#include "precompile.h"
 #include "AppData.h"
 #include "XiahSocket.h"
 #include "XiahNetworkHandler.h"
@@ -9,7 +9,7 @@ using namespace XiahNetwork;
 
 
 //---------------------------------------------------------------------------------------
-// Network Message IDº°·Î ¿¬°áµÇ´Â ÇÔ¼öµéÀ» ºÙ¿©³õÀº hash_map Å¬·¡½º
+// Network Message IDë³„ë¡œ ì—°ê²°ë˜ëŠ” í•¨ìˆ˜ë“¤ì„ ë¶™ì—¬ë†“ì€ hash_map í´ë˜ìŠ¤
 
 namespace XiahNetwork
 {
@@ -32,7 +32,7 @@ public:
 
 CMessageMap	g_MessageMap;
 //----------------------------------------------------------------------------------------------------------------------
-// Handler µî·Ï
+// Handler ë“±ë¡
 BOOL RegisterHandler(WORD nMessageID,XIAH_NETWORK_RECEIVE_FUNCTION function)
 {
 	DBG_Assert( g_MessageMap.GetHandler( nMessageID) == NULL);
@@ -43,20 +43,20 @@ BOOL RegisterHandler(WORD nMessageID,XIAH_NETWORK_RECEIVE_FUNCTION function)
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-// ³×Æ®¿÷À¸·Î ºÎÅÍ ¹ŞÀº ¸Ş¼¼Áö¸¦ °¢°¢ÀÇ Handler·Î Àü´Ş
+// ë„¤íŠ¸ì›ìœ¼ë¡œ ë¶€í„° ë°›ì€ ë©”ì„¸ì§€ë¥¼ ê°ê°ì˜ Handlerë¡œ ì „ë‹¬
 BOOL DispatchMessage(CMsg &msg)
 {
 	CMessageMap::iterator it = g_MessageMap.find( msg.ID());
 
 	if( it == g_MessageMap.end())
 	{
-		DBG_Put( _T("¾Ë¼ö ¾ø´Â ³×Æ®¿÷ ¸Ş¼¼Áö : 0x%X"), msg.ID());
+		DBG_Put( _T("ì•Œìˆ˜ ì—†ëŠ” ë„¤íŠ¸ì› ë©”ì„¸ì§€ : 0x%X"), msg.ID());
 		return  FALSE;
 	}
 	
 //	DBG_Assert( it != g_MessageMap.end());
 
-	// ¿Ö °°Àº °Ë»ç ·çÆ¾ÀÌ 2°³ ÀÖÀ»±î...
+	// ì™œ ê°™ì€ ê²€ì‚¬ ë£¨í‹´ì´ 2ê°œ ìˆì„ê¹Œ...
 	/*
 	if( it == g_MessageMap.end())
 		return FALSE;
@@ -74,7 +74,7 @@ BOOL DispatchMessage(CMsg &msg)
 
 
 //----------------------------------------------------------------------------------------------------------------------
-// ¿¹±âÄ¡ ¸øÇÑ »óÈ²¿¡¼­ ¿¬°áÀÌ ÇØÁ¦ µÇ¾ú´Ù
+// ì˜ˆê¸°ì¹˜ ëª»í•œ ìƒí™©ì—ì„œ ì—°ê²°ì´ í•´ì œ ë˜ì—ˆë‹¤
 void Disconnected()
 {	
 	if( g_pUIManager)
@@ -93,7 +93,7 @@ void Disconnected()
 }
 
 //---------------------------------------------------------------------------------------
-// ³×Æ®¿÷ ÇÚµé·¯ ÃÊ±âÈ­
+// ë„¤íŠ¸ì› í•¸ë“¤ëŸ¬ ì´ˆê¸°í™”
 BOOL InitializeNetworkHandler()
 {
 	g_XiahSocketReceivedFunction			= DispatchMessage;
@@ -106,7 +106,7 @@ BOOL InitializeNetworkHandler()
 }
 
 //----------------------------------------------------------------------------------------------------------------------
-// ³×Æ®¿÷ ÇÚµé·¯ ÇØÁ¦
+// ë„¤íŠ¸ì› í•¸ë“¤ëŸ¬ í•´ì œ
 BOOL UninitializeNetworkHandler()
 {
 	if( !UnitializeXiahClientSocket())

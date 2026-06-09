@@ -1,4 +1,4 @@
-#include "precompile.h"
+ï»¿#include "precompile.h"
 #include "resource.h"
 #include "AppData.h"
 #include "chat.h"
@@ -93,7 +93,7 @@ void CChat::SetChatType( BYTE byType)
 
 void CChat::SetChatMsg( DWORD dwSender, BYTE type, sString content, sString SenderName, DWORD listner, sString listnerName)
 {	
-	// ³» ±Ó¸» ¸®½ºÆ®¿¡ ¾ø´Â ³ÑÀº ³Ö¾îÁÖ±â(¾È³Ö¾îÁàµµ µÇÁö¸¸, ±×·³ ±Ó¸» º¸³¾¶§¸¶´Ù ¼­¹ö¿¡¼­ °è¼Ó Ã£°ÚÁö? ¼­¹ö ÆÛÆ÷¸Õ½º À§ÇÏ¿©)
+	// ë‚´ ê·“ë§ ë¦¬ìŠ¤íŠ¸ì— ì—†ëŠ” ë„˜ì€ ë„£ì–´ì£¼ê¸°(ì•ˆë„£ì–´ì¤˜ë„ ë˜ì§€ë§Œ, ê·¸ëŸ¼ ê·“ë§ ë³´ë‚¼ë•Œë§ˆë‹¤ ì„œë²„ì—ì„œ ê³„ì† ì°¾ê² ì§€? ì„œë²„ í¼í¬ë¨¼ìŠ¤ ìœ„í•˜ì—¬)
 	if( type == CT_WHISPER)
 	{
 		if( !listner)
@@ -119,7 +119,7 @@ void CChat::SetChatMsg( DWORD dwSender, BYTE type, sString content, sString Send
 		}
 	}
 
-	// ¸»Ç³¼±
+	// ë§í’ì„ 
 	if( type == CT_NORMAL && g_info.m_bHideChat)
 	{
 		XiahObject::CXiahObject *pXiahObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, dwSender, OBJTYPE_PC));
@@ -133,7 +133,7 @@ void CChat::SetChatMsg( DWORD dwSender, BYTE type, sString content, sString Send
 		}
 	}
 	
-	// listChat¿¡ chat message ³Ö±â
+	// listChatì— chat message ë„£ê¸°
 	sString buff;
 	switch( type)
 	{
@@ -167,7 +167,7 @@ void CChat::SetChatMsg( DWORD dwSender, BYTE type, sString content, sString Send
 	pChat->szContent = buff;
 	pChat->byType = type;
 
-	// ¸¶Áö¸· ±Ó¼Ó¸» »ó´ë ´Ğ³×ÀÓ ±â¾ï , ÇöÀç ±Ó¼Ó¸» »óÅÂÀÏ¶§´Â ¹«½Ã
+	// ë§ˆì§€ë§‰ ê·“ì†ë§ ìƒëŒ€ ë‹‰ë„¤ì„ ê¸°ì–µ , í˜„ì¬ ê·“ì†ë§ ìƒíƒœì¼ë•ŒëŠ” ë¬´ì‹œ
 	if(type == CT_WHISPER && g_MainCharInfo.m_szNickName != SenderName && g_MainCharInfo.GetCurrSendChatType() != CT_WHISPER)
 	{
 		g_MainCharInfo.m_strWhisperName = SenderName;

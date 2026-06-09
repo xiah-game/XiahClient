@@ -1,4 +1,4 @@
-
+ï»¿
 //////////////////////////////////////////////////////////
 // Notice
 //////////////////////////////////////////////////////////
@@ -77,8 +77,8 @@ void ProcessNoticeFrameTrade( int controlID)
 
 void ProcessNoticeFrameAskParty( int controlID)
 {
-	// 1 : ¼ö¶ô
-	// 9 : °ÅÀı
+	// 1 : ìˆ˜ë½
+	// 9 : ê±°ì ˆ
 	switch( controlID)
 	{
 	case message_window_2_button_01:
@@ -92,8 +92,8 @@ void ProcessNoticeFrameAskParty( int controlID)
 
 void ProcessNoticeFrameInviteParty( int controlID)
 {
-	// 1 : ¼ö¶ô
-	// 9 : °ÅÀı
+	// 1 : ìˆ˜ë½
+	// 9 : ê±°ì ˆ
 	switch( controlID)
 	{
 	case message_window_2_button_01:
@@ -107,8 +107,8 @@ void ProcessNoticeFrameInviteParty( int controlID)
 
 void ProcessNoticeFrameAskBuddy( int controlID)
 {
-	// 1 : ¼ö¶ô
-	// 9 : °ÅÀı
+	// 1 : ìˆ˜ë½
+	// 9 : ê±°ì ˆ
 	switch( controlID)
 	{
 	case message_window_2_button_01:
@@ -248,7 +248,7 @@ void ProcessNoticeFrameFound(int controlID)
 	}
 }
 
-void ProcessNoticeFrameQuestDel(const int controlID)  // Äù½ºÆ® »èÁ¦½Ã
+void ProcessNoticeFrameQuestDel(const int controlID)  // í€˜ìŠ¤íŠ¸ ì‚­ì œì‹œ
 {
 	switch( controlID)
 	{
@@ -264,7 +264,7 @@ void ProcessNoticeFrameQuestDel(const int controlID)  // Äù½ºÆ® »èÁ¦½Ã
 }
 
 
-void ProcessNoticeDanWarAsk(const int controlID)		// ´Ü ÀüÅõ (´Üºñ¹«) ¿©ºÎ
+void ProcessNoticeDanWarAsk(const int controlID)		// ë‹¨ ì „íˆ¬ (ë‹¨ë¹„ë¬´) ì—¬ë¶€
 {
 	CXiahCharObject* pMainChar = reinterpret_cast<CXiahCharObject*>( g_pMainChar->m_pObject);	
 
@@ -279,7 +279,7 @@ void ProcessNoticeDanWarAsk(const int controlID)		// ´Ü ÀüÅõ (´Üºñ¹«) ¿©ºÎ
 	}
 }
 
-void ProcessNoticeStoneOwn(const int nControlID)		// ¹®ÆÄ ºñ¼® ¼ÒÀ¯
+void ProcessNoticeStoneOwn(const int nControlID)		// ë¬¸íŒŒ ë¹„ì„ ì†Œìœ 
 {
 	switch(nControlID)
 	{
@@ -297,7 +297,7 @@ void ProcessNoticeStoneOwn(const int nControlID)		// ¹®ÆÄ ºñ¼® ¼ÒÀ¯
 	}
 }
 
-void ProcessNoticeStoneResign(const int nControlID)		// ¹®ÆÄ ºñ¼® Æ÷±â
+void ProcessNoticeStoneResign(const int nControlID)		// ë¬¸íŒŒ ë¹„ì„ í¬ê¸°
 {
 	switch(nControlID)
 	{
@@ -325,7 +325,7 @@ void ProcessNoticeStoneResign(const int nControlID)		// ¹®ÆÄ ºñ¼® Æ÷±â
 
 
 /**
- * °ü°è
+ * ê´€ê³„
  * \param nControlID 
  */
 void ProcessNoticeAskRelation(const int nControlID)
@@ -336,19 +336,19 @@ void ProcessNoticeAskRelation(const int nControlID)
 		{
 			switch( g_MainCharInfo.m_byRelationStep )
 			{
-			case 1:	// ÀÎ¿¬ ¸¸µé¶§
+			case 1:	// ì¸ì—° ë§Œë“¤ë•Œ
 				SendCS_RL_ASKRELATION_REQ(g_MainCharInfo.m_byRelationType, RELATION_STEP_ACCEPT, g_MainCharInfo.m_dwAskID, g_MainCharInfo.m_dwObjectID);
 				break;
-			case 2:	// ÀÎ¿¬ ¾ø¾Ù‹š.
+			case 2:	// ì¸ì—° ì—†ì•¨ë–„.
 				SendCS_RL_BREAKRELATION_REQ(g_MainCharInfo.m_byRelationType, RELATION_STEP_ACCEPT, g_MainCharInfo.m_dwAskID, g_MainCharInfo.m_dwObjectID);
 				break;
-			case 3:	// ÀÎ¿¬ ¾ø¾Ù¶§ °­Çà. 
+			case 3:	// ì¸ì—° ì—†ì•¨ë•Œ ê°•í–‰. 
 				SendCS_RL_BREAKRELATION_REQ(g_MainCharInfo.m_byRelationType, RELATION_STEP_CONFIRM, g_MainCharInfo.m_dwObjectID, g_MainCharInfo.m_dwAskID );
 				break;
 			};
 		}
 		break;
-	case message_window_2_button_02:	// °ÅÀıÀÌ±º.
+	case message_window_2_button_02:	// ê±°ì ˆì´êµ°.
 		switch( g_MainCharInfo.m_byRelationStep )
 		{
 		case 1:
@@ -378,7 +378,7 @@ void ProcessNoticeAffinity(const int nControlID)
 }
 
 /**
- * °³ÀÎ ³ëÁ¡ È·¶¨
+ * ê°œì¸ ë…¸ì  íš…ë•
  * \param nControlID 
  */
 void ProcessNoticePtBuy(const int nControlID)
@@ -391,16 +391,16 @@ void ProcessNoticePtBuy(const int nControlID)
 			{
 				XiahItem::sItemInfo* pHoldItem = g_MainCharInfo.m_pHoldItem->GetHoldItemItem();
 
-				// [1/12/2005] °Å·¡ È·¶¨
+				// [1/12/2005] ê±°ë˜ íš…ë•
 				if(pHoldItem)
 				{
-					if(pHoldItem->m_dwPrice >= g_MainCharInfo.m_dwBuyLimit && g_MainCharInfo.m_dwBuyLimit)	// ÃÊ°ú
+					if(pHoldItem->m_dwPrice >= g_MainCharInfo.m_dwBuyLimit && g_MainCharInfo.m_dwBuyLimit)	// ì´ˆê³¼
 					{
 						g_pUIManager->ShowNotice(IDS_LIMIT_PTBUY, NOTICE_FRAME_OKCANCEL, NOTICE_FRAME_LIMIT_PT_BUY, XiahInput::g_ptMouse.x - 270, XiahInput::g_ptMouse.y-90);
 
 						return;
 					}
-					else	// ±¸ÀÔ°¡´É
+					else	// êµ¬ì…ê°€ëŠ¥
 					{
 						SendCS_SH_BUYPCSHOP_REQ(g_MainCharInfo.m_dwPickedObject,
 												pHoldItem->m_bSackPos,
@@ -434,14 +434,14 @@ void ProcessNoticePtBuy(const int nControlID)
 }
 
 /**
- * Àü¼­±¸ »èÁ¦ ¿©ºÎ
+ * ì „ì„œêµ¬ ì‚­ì œ ì—¬ë¶€
  * \param nControlID 
  */
 void ProcessNoticeMailDelete(const int nControlID)
 {
 	switch(nControlID)
 	{
-	case message_window_2_button_01:	// È·¶¨
+	case message_window_2_button_01:	// íš…ë•
 		{
 			g_MainCharInfo.OpenFrame(WINDOW_MAIL_SELECT);
 			g_Mail.Delete_RecvMail();
@@ -461,18 +461,18 @@ void ProcessNoticeMailDelete(const int nControlID)
 
 
 /**
-* Àü¼­±¸ Àü¼Û ¿©ºÎ
+* ì „ì„œêµ¬ ì „ì†¡ ì—¬ë¶€
 * \param nControlID 
 */
 void ProcessNoticeMailSend(const int nControlID)
 {
 	switch(nControlID)
 	{
-	case message_window_2_button_01:	// È·¶¨
+	case message_window_2_button_01:	// íš…ë•
 		{
 			g_MainCharInfo.OpenFrame(WINDOW_MAIL_SELECT);
 
-			// Àü¼ÛÀÏ¶§
+			// ì „ì†¡ì¼ë•Œ
 			TCHAR strTo[64] = {0,};
 			TCHAR strTitle[64] = {0,};
 			g_pUIManager->GetString(WINDOW_MAIL, window_mail_top_edit_01, strTo, GET_STRING);
@@ -493,14 +493,14 @@ void ProcessNoticeMailSend(const int nControlID)
 					_ftcscat(strMix, strTemp);
 				} // for(int i=0; i < 7; ++i)
 
-				// CheckµÈ »ç¶÷µé ÇÑÅ× Àü¼­¸¦ ³¯¸°´Ù.
+				// Checkëœ ì‚¬ëŒë“¤ í•œí…Œ ì „ì„œë¥¼ ë‚ ë¦°ë‹¤.
 				g_Mail.Assign_Content(strTitle,strMix);
 				g_Mail.SendMail();
 
-				// ¼öµ¿À¸·Î ÀÔ·ÂÇÑ »ç¶÷¿¡°Ô ³¯¸°´Ù
+				// ìˆ˜ë™ìœ¼ë¡œ ì…ë ¥í•œ ì‚¬ëŒì—ê²Œ ë‚ ë¦°ë‹¤
 				g_Mail.SendMailToOne(strTo);
 
-				// À©µµ¸¦ Áö¿ì°í ´İ´Â´Ù.
+				// ìœˆë„ë¥¼ ì§€ìš°ê³  ë‹«ëŠ”ë‹¤.
 				g_pUIManager->SetString(WINDOW_MAIL, window_mail_top_edit_01, _T(""));
 				g_pUIManager->SetString(WINDOW_MAIL, window_mail_top_edit_02, _T(""));
 
@@ -528,14 +528,14 @@ void ProcessNoticeMailSend(const int nControlID)
 }
 
 /**
-* Æê ºÎÈ° ¿©ºÎ
+* í« ë¶€í™œ ì—¬ë¶€
 * \param nControlID 
 */
 void ProcessNoticePetRevival(int nControlID)
 {
 	switch(nControlID)
 	{
-	case message_window_2_button_01:	// È·¶¨
+	case message_window_2_button_01:	// íš…ë•
 		{
 			map<BYTE, sPetRevival*>::iterator iter = g_PetList.m_mPetRevivalList.find(g_MainCharInfo.m_nTempValue);
 
@@ -556,14 +556,14 @@ void ProcessNoticePetRevival(int nControlID)
 }
 
 /**
-* ºùÁ¤¿¡ Æê ºÀÀÎ ¿©ºÎ
+* ë¹™ì •ì— í« ë´‰ì¸ ì—¬ë¶€
 * \param nControlID 
 */
 void ProcessNoticePetBongin(int nControlID)
 {
 	switch(nControlID)
 	{
-	case message_window_2_button_01:	// È·¶¨
+	case message_window_2_button_01:	// íš…ë•
 		{
 			XiahItem::sItemInfo* pInfo = g_MainCharInfo.m_pMySack[ g_MainCharInfo.m_byMySackCurrIdx]->FindSackItemByID( g_MainCharInfo.m_dwCurrentSelectedBongInItem);
 
@@ -579,7 +579,7 @@ void ProcessNoticePetBongin(int nControlID)
 			}
 		}
 		break;
-	case message_window_2_button_02:	// Ãë¼Ò
+	case message_window_2_button_02:	// ì·¨ì†Œ
 		{
 		}
 		break;
@@ -589,19 +589,19 @@ void ProcessNoticePetBongin(int nControlID)
 }
 
 /**
- * °ü°è ´Ü
+ * ê´€ê³„ ë‹¨
  * \param nControlID 
  */
 void ProcessNoticeRelAskParty(int nControlID)
 {
 	switch(nControlID)
 	{
-	case message_window_2_button_01:	// ½ÂÀÎ
+	case message_window_2_button_01:	// ìŠ¹ì¸
 		{
 			SendCS_IF_ASKPARTY_REQ(g_MainCharInfo.m_dwAskID, g_MainCharInfo.m_dwObjectID, 1, 1);
 		}
 		break;
-	case message_window_2_button_02:	// °ÅÀı
+	case message_window_2_button_02:	// ê±°ì ˆ
 		{
 			SendCS_IF_ASKPARTY_REQ(g_MainCharInfo.m_dwAskID, g_MainCharInfo.m_dwObjectID, 9, 1);
 		}
@@ -613,14 +613,14 @@ void ProcessNoticeRelAskParty(int nControlID)
 }
 
 /**
- * ¹®ÁÖÀÌ¾ç
+ * ë¬¸ì£¼ì´ì–‘
  * \param nControlID 
  */
 void ProcessNoticeRelinquish(int nControlID)
 {
 	switch(nControlID)
 	{
-	case message_window_2_button_01:	// ½ÂÀÎ
+	case message_window_2_button_01:	// ìŠ¹ì¸
 		{
 			DWORD dwMunwonID = g_MainCharInfo.m_pRelation->GetCurrRelation();
 			sClanWonInfo* pInfo = g_MainCharInfo.m_pRelation->FindClanInfoByID(dwMunwonID);
@@ -640,14 +640,14 @@ void ProcessNoticeRelinquish(int nControlID)
 }
 
 /**
- * ¹®ÆÄÅ»Åğ
+ * ë¬¸íŒŒíƒˆí‡´
  * \param nControlID 
  */
 void ProcessNoticeLeave(int nControlID)
 {
 	switch(nControlID)
 	{
-	case message_window_2_button_01:	// Å»Åğ
+	case message_window_2_button_01:	// íƒˆí‡´
 		{
 			sClanWonInfo* pClan = g_MainCharInfo.m_pRelation->FindClanInfoByID(g_MainCharInfo.m_dwObjectID);
 
@@ -666,14 +666,14 @@ void ProcessNoticeLeave(int nControlID)
 }
 
 /**
- * ¹®ÆÄ¹®Àå »èÁ¦¿©ºÎ
+ * ë¬¸íŒŒë¬¸ì¥ ì‚­ì œì—¬ë¶€
  * \param nControlID 
  */
 void ProcessNoticeMarkDel(int nControlID)
 {
 	switch(nControlID)
 	{
-	case message_window_2_button_01:	// »èÁ¦
+	case message_window_2_button_01:	// ì‚­ì œ
 		{
 			CXiahCharObject* pMainChar = reinterpret_cast<CXiahCharObject*>(g_pMainChar->m_pObject);
 
@@ -691,7 +691,7 @@ void ProcessNoticeMarkDel(int nControlID)
 }
 
 /**
- * ÀÏ¹İ ±¸¸Å Á¦ÇÑ½Ã
+ * ì¼ë°˜ êµ¬ë§¤ ì œí•œì‹œ
  * \param nControlID 
  */
 void ProcessNoticeLimitBuy(int nControlID)
@@ -704,7 +704,7 @@ void ProcessNoticeLimitBuy(int nControlID)
 
 			if(pHoldItem)
 			{
-				if( pHoldItem->m_bItemType == ITEMTYPE_POTION || pHoldItem->m_bItemType == ITEMTYPE_PORTAL || pHoldItem->m_bItemType == ITEMTYPE_GOLDKEY) //HO_0828_07 È²±İ¿­¼è Ãß°¡
+				if( pHoldItem->m_bItemType == ITEMTYPE_POTION || pHoldItem->m_bItemType == ITEMTYPE_PORTAL || pHoldItem->m_bItemType == ITEMTYPE_GOLDKEY) //HO_0828_07 í™©ê¸ˆì—´ì‡  ì¶”ê°€
 				{
 					SendCS_EC_BUYITEM_REQ(	g_MainCharInfo.m_dwPickedObject, 
 											pHoldItem->m_wRefID,
@@ -743,7 +743,7 @@ void ProcessNoticeLimitBuy(int nControlID)
 }
 
 /**
- * °³ÀÎ ³ëÁ¡ ±¸¸Å Á¦ÇÑ½Ã
+ * ê°œì¸ ë…¸ì  êµ¬ë§¤ ì œí•œì‹œ
  * \param nControlID 
  */
 void ProcessNoticeLimitPtBuy(int nControlID)
@@ -780,7 +780,7 @@ void ProcessNoticeLimitPtBuy(int nControlID)
 }
 
 /**
- * ÆÇ¸Å Á¦ÇÑ½Ã
+ * íŒë§¤ ì œí•œì‹œ
  * \param nControlID 
  */
 void ProcessNoticeLimitSell(int nControlID)
@@ -814,7 +814,7 @@ void ProcessNoticeLimitSell(int nControlID)
 }
 
 /**
- * ¾ÆÀÌÅÛ º¹±¸
+ * ì•„ì´í…œ ë³µêµ¬
  * \param nControlID 
  */
 void ProcessNoticeRecovery1(int nControlID)
@@ -834,7 +834,7 @@ void ProcessNoticeRecovery1(int nControlID)
 }
 
 /**
- * ¾ÆÀÌÅÛ º¹±¸ - ¼Ò¸ê
+ * ì•„ì´í…œ ë³µêµ¬ - ì†Œë©¸
  * \param nControlID 
  */
 void ProcessNoticeRecovery2(int nControlID)
@@ -854,7 +854,7 @@ void ProcessNoticeRecovery2(int nControlID)
 }
 
 /**
- * Àı¿¬ºÎ ¼±ÅÃ (»çºÎ»çÁ¦, ¿¬ÀÎ)
+ * ì ˆì—°ë¶€ ì„ íƒ (ì‚¬ë¶€ì‚¬ì œ, ì—°ì¸)
  * \param nControlID 
  */
 void ProcessNoticeServerRelation1(int nControlID)
@@ -879,7 +879,7 @@ void ProcessNoticeServerRelation1(int nControlID)
 }
 
 /**
- * Àı¿¬ºÎ È·¶¨
+ * ì ˆì—°ë¶€ íš…ë•
  * \param nControlID 
  */
 void ProcessNoticeServerRelation2(int nControlID)
@@ -922,7 +922,7 @@ void ProcessNoticeServerRelation2(int nControlID)
 }
 
 /**
- * ¹®ÆÄ´ëÀü Âü¿© ½ÅÃ»
+ * ë¬¸íŒŒëŒ€ì „ ì°¸ì—¬ ì‹ ì²­
  * \param nControlID 
  */
 void ProcessNoticeClanWarApply(int nControlID)
@@ -958,7 +958,7 @@ void ProcessNoticeClanWarReward(int nControlID)
     }
 }
 
-void ProcessNoticeMuGongApply(int nControlID)	//HO_0329_07 ¹«°ø ½Àµæ ¿©ºÎ Ãß°¡
+void ProcessNoticeMuGongApply(int nControlID)	//HO_0329_07 ë¬´ê³µ ìŠµë“ ì—¬ë¶€ ì¶”ê°€
 {
 	switch(nControlID)
 	{
@@ -998,7 +998,7 @@ void ProcessNoticeReBirthApply(int nControlID)
 }
 */
 
-void ProcessNoticeDanCommit(int nControlID)	//HT_0423 : ´ÜÁÖ À§ÀÓ
+void ProcessNoticeDanCommit(int nControlID)	//HT_0423 : ë‹¨ì£¼ ìœ„ì„
 {
 	switch(nControlID)
 	{
@@ -1019,7 +1019,7 @@ void ProcessNoticeDanCommit(int nControlID)	//HT_0423 : ´ÜÁÖ À§ÀÓ
 }
 
 /**
- * //HO_0816_07 Á¾·á ±â´É Ãß°¡
+ * //HO_0816_07 ì¢…ë£Œ ê¸°ëŠ¥ ì¶”ê°€
  * \param nControlID 
  */
 void ProcessNoticeEndGame(int nControlID)
@@ -1035,7 +1035,7 @@ void ProcessNoticeEndGame(int nControlID)
 }
 
 /**
- * //HO_0816_07 ¾ÆÀÌÅÛ µå¶ø½Ã È·¶¨
+ * //HO_0816_07 ì•„ì´í…œ ë“œëì‹œ íš…ë•
  * \param nControlID 
  */
 void ProcessNoticeItemDrop(int nControlID)
@@ -1059,7 +1059,7 @@ void ProcessNoticeWindow2( LPARAM lParam)
 
 	switch( eventType)
 	{
-	case NOTICE_FRAME_PT_BUY:					// °³ÀÎ ³ëÁ¡ ±¸ÀÔ ¿©ºÎ
+	case NOTICE_FRAME_PT_BUY:					// ê°œì¸ ë…¸ì  êµ¬ì… ì—¬ë¶€
 		{
 			g_pUIManager->HideNotice(MESSAGE_WINDOW_2BUTTON);
 			g_pUIManager->DeletePopMenu();
@@ -1070,20 +1070,20 @@ void ProcessNoticeWindow2( LPARAM lParam)
 			return;
 		}		
 		break;
-	case NOTICE_FRAME_LIMIT_BUY:				// ÀÏ¹İ ±¸¸Å Á¦ÇÑ½Ã
+	case NOTICE_FRAME_LIMIT_BUY:				// ì¼ë°˜ êµ¬ë§¤ ì œí•œì‹œ
 		ProcessNoticeLimitBuy(controlID);
 		break;
-	case NOTICE_FRAME_LIMIT_PT_BUY:				// °³ÀÎ ³ëÁ¡ ±¸¸Å Á¦ÇÑ½Ã
+	case NOTICE_FRAME_LIMIT_PT_BUY:				// ê°œì¸ ë…¸ì  êµ¬ë§¤ ì œí•œì‹œ
 		ProcessNoticeLimitPtBuy(controlID);
 		break;
-	case NOTICE_FRAME_LIMIT_SELL:				// ÆÇ¸Å Á¦ÇÑ½Ã
+	case NOTICE_FRAME_LIMIT_SELL:				// íŒë§¤ ì œí•œì‹œ
 		ProcessNoticeLimitSell(controlID);
 		break;
 
-	case NOTICE_FRAME_TRADE:					// °Å·¡
+	case NOTICE_FRAME_TRADE:					// ê±°ë˜
 		ProcessNoticeFrameTrade( controlID);		
 		break;
-	case NOTICE_FRAME_ASKPARTY:					// ÀÏ¹İ´Ü
+	case NOTICE_FRAME_ASKPARTY:					// ì¼ë°˜ë‹¨
 		ProcessNoticeFrameAskParty( controlID);
 		break;
 	case NOTICE_FRAME_INVITEPARTY:
@@ -1113,16 +1113,16 @@ void ProcessNoticeWindow2( LPARAM lParam)
 	case NOTICE_FRAME_FOUNT:
 		ProcessNoticeFrameFound(controlID);
 		break;
-	case NOTICE_FRAME_QUEST_DEL:				// Äù½ºÆ® »èÁ¦
+	case NOTICE_FRAME_QUEST_DEL:				// í€˜ìŠ¤íŠ¸ ì‚­ì œ
 		ProcessNoticeFrameQuestDel(controlID);
 		break;
-	case NOTICE_FRAME_DAN_WAR_ASK:				// ´Ü ÀüÅõ ¿©ºÎ
+	case NOTICE_FRAME_DAN_WAR_ASK:				// ë‹¨ ì „íˆ¬ ì—¬ë¶€
 		ProcessNoticeDanWarAsk(controlID);
 		break;
-	case NOTICE_FRAME_STONE_OWN:				// ¹®ÆÄ ºñ¼® ¼ÒÀ¯
+	case NOTICE_FRAME_STONE_OWN:				// ë¬¸íŒŒ ë¹„ì„ ì†Œìœ 
 		ProcessNoticeStoneOwn(controlID);
 		break;
-	case NOTICE_FRAME_STONE_RESIGN:				// ¹®ÆÄ ºñ¼® Æ÷±â
+	case NOTICE_FRAME_STONE_RESIGN:				// ë¬¸íŒŒ ë¹„ì„ í¬ê¸°
 		ProcessNoticeStoneResign(controlID);
 		break;
 	case NOTICE_FRAME_ASKRELATION:
@@ -1131,37 +1131,37 @@ void ProcessNoticeWindow2( LPARAM lParam)
 	case NOTICE_FRAME_AFFINITY:
 		ProcessNoticeAffinity(controlID);
 		break;
-	case NOTICE_FRAME_MAIL_DELETE:				// Àü¼­±¸ »èÁ¦ ¿©ºÎ
+	case NOTICE_FRAME_MAIL_DELETE:				// ì „ì„œêµ¬ ì‚­ì œ ì—¬ë¶€
 		ProcessNoticeMailDelete(controlID);
 		break;
 	case NOTICE_FRAME_MAIL_SEND:
 		ProcessNoticeMailSend(controlID);
 		break;
-	case NOTICE_FRAME_PET_REVIVAL:				// Æê ºÎÈ° ¿©ºÎ
+	case NOTICE_FRAME_PET_REVIVAL:				// í« ë¶€í™œ ì—¬ë¶€
 		ProcessNoticePetRevival(controlID);
 		break;
-	case NOTICE_FRAME_PET_BONGIN:				// ºùÁ¤¿¡ Æê ºÀÀÎ ¿©ºÎ
+	case NOTICE_FRAME_PET_BONGIN:				// ë¹™ì •ì— í« ë´‰ì¸ ì—¬ë¶€
 		ProcessNoticePetBongin(controlID);
 		break;
-	case NOTICE_FRAME_RELATION_ASKPARTY:		// °ü°è´Ü
+	case NOTICE_FRAME_RELATION_ASKPARTY:		// ê´€ê³„ë‹¨
 		ProcessNoticeRelAskParty(controlID);
 		break;
-	case NOTICE_FRAME_RELINQUISH:				// ¹®ÁÖÀÌ¾ç
+	case NOTICE_FRAME_RELINQUISH:				// ë¬¸ì£¼ì´ì–‘
 		ProcessNoticeRelinquish(controlID);
 		break;
-	case NOTICE_FRAME_LEAVE:					// ¹®ÆÄÅ»Åğ
+	case NOTICE_FRAME_LEAVE:					// ë¬¸íŒŒíƒˆí‡´
 		ProcessNoticeLeave(controlID);
 		break;
-	case NOTICE_FRAME_MARK_DEL:					// ¹®ÆÄ¹®Àå »èÁ¦¿©ºÎ
+	case NOTICE_FRAME_MARK_DEL:					// ë¬¸íŒŒë¬¸ì¥ ì‚­ì œì—¬ë¶€
 		ProcessNoticeMarkDel(controlID);
 		break;
-	case NOTICE_FRAME_RECOVERY1:				// ¾ÆÀÌÅÛ º¹±¸
+	case NOTICE_FRAME_RECOVERY1:				// ì•„ì´í…œ ë³µêµ¬
 		ProcessNoticeRecovery1(controlID);
 		break;
-	case NOTICE_FRAME_RECOVERY2:				// ¾ÆÀÌÅÛ º¹±¸ - ¼Ò¸ê
+	case NOTICE_FRAME_RECOVERY2:				// ì•„ì´í…œ ë³µêµ¬ - ì†Œë©¸
 		ProcessNoticeRecovery2(controlID);
 		break;
-	case NOTICE_FRAME_SEVER_RELATION1:			// Àı¿¬ºÎ ¼±ÅÃ
+	case NOTICE_FRAME_SEVER_RELATION1:			// ì ˆì—°ë¶€ ì„ íƒ
 		{
 			g_pUIManager->HideNotice(MESSAGE_WINDOW_2BUTTON);
 			ProcessNoticeServerRelation1(controlID);
@@ -1169,7 +1169,7 @@ void ProcessNoticeWindow2( LPARAM lParam)
 			return;
 		}		
 		break;
-	case NOTICE_FRAME_SEVER_RELATION2:			// Àı¿¬ºÎ - È·¶¨
+	case NOTICE_FRAME_SEVER_RELATION2:			// ì ˆì—°ë¶€ - íš…ë•
 		{
 			g_pUIManager->HideNotice(MESSAGE_WINDOW_2BUTTON);
 			ProcessNoticeServerRelation2(controlID);
@@ -1177,17 +1177,17 @@ void ProcessNoticeWindow2( LPARAM lParam)
 			return;
 		}		
 		break;
-	case NOTICE_FRAME_CLAN_WAR_APPLY:			// ¹®ÆÄ´ëÀü Âü¿© ½ÅÃ»
+	case NOTICE_FRAME_CLAN_WAR_APPLY:			// ë¬¸íŒŒëŒ€ì „ ì°¸ì—¬ ì‹ ì²­
 		{
 			ProcessNoticeClanWarApply(controlID);
 		}
 		break;
-	case NOTICE_FRAME_CLAN_WAR_REWARD:			// ¹®ÆÄ´ëÀü ¿ì½Â »ó±İ
+	case NOTICE_FRAME_CLAN_WAR_REWARD:			// ë¬¸íŒŒëŒ€ì „ ìš°ìŠ¹ ìƒê¸ˆ
 		{
 			ProcessNoticeClanWarReward(controlID);
 		}
 		break;
-	case NOTICE_FRAME_MUGONG:	//HO_0329_07 ¹«°ø ½Àµæ ¿©ºÎ Ãß°¡
+	case NOTICE_FRAME_MUGONG:	//HO_0329_07 ë¬´ê³µ ìŠµë“ ì—¬ë¶€ ì¶”ê°€
 		{
 			ProcessNoticeMuGongApply(controlID);
 		}
@@ -1202,15 +1202,15 @@ void ProcessNoticeWindow2( LPARAM lParam)
 			ProcessNoticeDanCommit(controlID);
 		}
 		break;
-	case NOTICE_FRAME_ENDGAME:					//HO_0816_07 Á¾·á ±â´É Ãß°¡
+	case NOTICE_FRAME_ENDGAME:					//HO_0816_07 ì¢…ë£Œ ê¸°ëŠ¥ ì¶”ê°€
 		ProcessNoticeEndGame(controlID);
 		break;
-	case NOTICE_FRAME_ITEMDROP:					//HO_0816_07 ¾ÆÀÌÅÛ µå¶ø½Ã È·¶¨
+	case NOTICE_FRAME_ITEMDROP:					//HO_0816_07 ì•„ì´í…œ ë“œëì‹œ íš…ë•
 		ProcessNoticeItemDrop(controlID);
 		break;
 	//default:
-	//	return;									//HO_0816_07 Á¦¸ñÀ» ´©¸£¸é switch¹®À» °ÅÄ£ÈÄ ¹ØÀÇ ¸í·ÉÀÌ ¼öÇàµÈ´Ù(ÆË¸Ş´º°¡ Áö¿öÁø´Ù ±×·¯¸é ¾ÈµÉÅÙµ¥...±×·¡¼­ default¸¦ Ãß°¡Çß´Ù..)
-	//	break;									//HO_0827_07 µğÆúÆ®·Î ¸·±â¿¡´Â ´Ù¸¥ ¿¡·¯ »çÇ×ÀÌ ¸î°¡Áö ÀÖ´Ù... ÁÖ¼®Ã³¸® ..;
+	//	return;									//HO_0816_07 ì œëª©ì„ ëˆ„ë¥´ë©´ switchë¬¸ì„ ê±°ì¹œí›„ ë°‘ì˜ ëª…ë ¹ì´ ìˆ˜í–‰ëœë‹¤(íŒë©”ë‰´ê°€ ì§€ì›Œì§„ë‹¤ ê·¸ëŸ¬ë©´ ì•ˆë í…ë°...ê·¸ë˜ì„œ defaultë¥¼ ì¶”ê°€í–ˆë‹¤..)
+	//	break;									//HO_0827_07 ë””í´íŠ¸ë¡œ ë§‰ê¸°ì—ëŠ” ë‹¤ë¥¸ ì—ëŸ¬ ì‚¬í•­ì´ ëª‡ê°€ì§€ ìˆë‹¤... ì£¼ì„ì²˜ë¦¬ ..;
 	}	
 
 	g_pUIManager->HideNotice(MESSAGE_WINDOW_2BUTTON);

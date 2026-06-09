@@ -1,4 +1,4 @@
-int OnCS_QS_CHANGE_ACK( CMsg &msg)
+ï»¿int OnCS_QS_CHANGE_ACK( CMsg &msg)
 {
 	DWORD dwQuestID				=0;	
 	DWORD dwProcessCurrAmount	=0;
@@ -27,10 +27,10 @@ int OnCS_QS_CHANGE_ACK( CMsg &msg)
 		>> bProcessNum
 		>> bResultNum;
 
-	//HT_0914 : ±â¿¬Ã¢ ¹× ³¶ ¾ÆÀÌÅÛ °³¼± »çÇ×
+	//HT_0914 : ê¸°ì—°ì°½ ë° ë‚­ ì•„ì´í…œ ê°œì„  ì‚¬í•­
 	BYTE bReStatus = 0;
 
-	switch(bStatus)	//Äù½ºÆ® Á¤·ÄÀ» À§ÇØ ¼ø¼­¸¦ ¹Ù²ãÁØ´Ù..(¼­¹ö¿Í »óÅÂ °ªÀÌ ´Ù¸§)
+	switch(bStatus)	//í€˜ìŠ¤íŠ¸ ì •ë ¬ì„ ìœ„í•´ ìˆœì„œë¥¼ ë°”ê¿”ì¤€ë‹¤..(ì„œë²„ì™€ ìƒíƒœ ê°’ì´ ë‹¤ë¦„)
 	{
 	case 0:
 		bReStatus = 2;	
@@ -40,7 +40,7 @@ int OnCS_QS_CHANGE_ACK( CMsg &msg)
 		break;
 	case 2:
 		bReStatus = 0;
-	//	g_MainCharInfo.m_pQuest->m_sQuestHelp.m_bStart = true;			//HT_0824 : Äù½ºÆ® µµ¿ì¹Ì Ãß°¡
+	//	g_MainCharInfo.m_pQuest->m_sQuestHelp.m_bStart = true;			//HT_0824 : í€˜ìŠ¤íŠ¸ ë„ìš°ë¯¸ ì¶”ê°€
 	//	g_MainCharInfo.m_pQuest->m_sQuestHelp.m_dwQuestID = dwQuestID;
 		g_MainCharInfo.m_pQuest->SetQuestDestination(dwQuestID,bProcessType);
 		break;
@@ -63,7 +63,7 @@ int OnCS_QS_CHANGE_ACK( CMsg &msg)
 			if( pQuest->m_eStatus != eSuccess && bReStatus == eSuccess)
 			{
 				g_MainCharInfo.ShowHelpMessage( IDS_QUEST_DONE);
-				g_MainCharInfo.m_pQuest->m_sQuestHelp.m_bStart = false;			//HT_0824 : Äù½ºÆ® µµ¿ì¹Ì Ãß°¡
+				g_MainCharInfo.m_pQuest->m_sQuestHelp.m_bStart = false;			//HT_0824 : í€˜ìŠ¤íŠ¸ ë„ìš°ë¯¸ ì¶”ê°€
 			}
 			else if (bReStatus == eNew)
 				g_MainCharInfo.ShowHelpMessage( IDS_QUEST_RE);
@@ -119,7 +119,7 @@ int OnCS_QS_CHANGE_ACK( CMsg &msg)
 	if(!g_pMainChar)
 		return 0;
 
-	// ¸í¼ºÄ¡ »ö
+	// ëª…ì„±ì¹˜ ìƒ‰
 	CXiahCharObject *pObject = (CXiahCharObject*)g_pMainChar->m_pObject;
 
 	if(pObject)
@@ -163,10 +163,10 @@ int OnCS_QS_LIST_ACK( CMsg &msg)
 			>> bProcessNum
 			>> bResultNum;
 
-		//HT_0914 : ±â¿¬Ã¢ ¹× ³¶ ¾ÆÀÌÅÛ °³¼± »çÇ×
+		//HT_0914 : ê¸°ì—°ì°½ ë° ë‚­ ì•„ì´í…œ ê°œì„  ì‚¬í•­
 		BYTE bReStatus = 0;
 
-		switch(bStatus)//Äù½ºÆ® Á¤·ÄÀ» À§ÇØ ¼ø¼­¸¦ ¹Ù²ãÁØ´Ù..(¼­¹ö¿Í »óÅÂ °ªÀÌ ´Ù¸§)
+		switch(bStatus)//í€˜ìŠ¤íŠ¸ ì •ë ¬ì„ ìœ„í•´ ìˆœì„œë¥¼ ë°”ê¿”ì¤€ë‹¤..(ì„œë²„ì™€ ìƒíƒœ ê°’ì´ ë‹¤ë¦„)
 		{
 		case 0:
 			bReStatus = 2;
@@ -176,7 +176,7 @@ int OnCS_QS_LIST_ACK( CMsg &msg)
 			break;
 		case 2:
 			bReStatus = 0;
-		//	g_MainCharInfo.m_pQuest->m_sQuestHelp.m_bStart = true;			//HT_0824 : Äù½ºÆ® µµ¿ì¹Ì Ãß°¡
+		//	g_MainCharInfo.m_pQuest->m_sQuestHelp.m_bStart = true;			//HT_0824 : í€˜ìŠ¤íŠ¸ ë„ìš°ë¯¸ ì¶”ê°€
 		//	g_MainCharInfo.m_pQuest->m_sQuestHelp.m_dwQuestID = dwQuestID;
 			g_MainCharInfo.m_pQuest->SetQuestDestination(dwQuestID,bProcessType);
 			break;
@@ -228,7 +228,7 @@ int OnCS_QS_LIST_ACK( CMsg &msg)
 	if(!g_pMainChar)
 		return 0;
 
-	// ¸í¼ºÄ¡ »ö
+	// ëª…ì„±ì¹˜ ìƒ‰
 	CXiahCharObject *pObject = (CXiahCharObject*)g_pMainChar->m_pObject;
 
 	if(pObject)
@@ -254,9 +254,9 @@ int OnCS_QS_START_ACK( CMsg &msg)
 		sQuestInfo* pQuest = g_MainCharInfo.m_pQuest->FindQuest( dwQuestID);
 		if( pQuest)
 		{
-			//g_MainCharInfo.RefreshQuest(); //HO_0820_07 Äù½ºÆ® ºÐ·ù ¼öÁ¤ Àü ÄÚµå
+			//g_MainCharInfo.RefreshQuest(); //HO_0820_07 í€˜ìŠ¤íŠ¸ ë¶„ë¥˜ ìˆ˜ì • ì „ ì½”ë“œ
 			
-			pQuest->m_eStatus = eStart; //HO_0820_07 Äù½ºÆ® ºÐ·ù ¼öÁ¤
+			pQuest->m_eStatus = eStart; //HO_0820_07 í€˜ìŠ¤íŠ¸ ë¶„ë¥˜ ìˆ˜ì •
 			g_MainCharInfo.m_pQuest->UpdateQuest();
 			g_pUIManager->SetData(WINDOW_QUEST_01, quest_window_01_button_01, CURRENT_INDEX, 2);
 			g_pUIManager->SetData(WINDOW_QUEST_01, quest_window_01_button_02, CURRENT_INDEX, -1);
@@ -272,25 +272,25 @@ int OnCS_QS_START_ACK( CMsg &msg)
 
 	switch( bResult)
 	{
-	case QUESTRESULT_CANT_NEW:	//¹ß»ý Á¶°Ç ¸¸Á· ¸øÇÔ
+	case QUESTRESULT_CANT_NEW:	//ë°œìƒ ì¡°ê±´ ë§Œì¡± ëª»í•¨
 		_stprintf( temp, IDS_START_CONDITION_NOT, dwQuestID);
 		break;
-	case QUESTRESULT_CANT_START: //¼öÇà Á¶°Ç ¸¸Á· ¸øÇÔ
+	case QUESTRESULT_CANT_START: //ìˆ˜í–‰ ì¡°ê±´ ë§Œì¡± ëª»í•¨
 		_stprintf( temp, IDS_DO_CONDITION_NOT, dwQuestID);
 		break;
-	case QUESTRESULT_CANT_STOP: //¸ØÃâ¼ö ¾ø´Â Äù½ºÆ®
+	case QUESTRESULT_CANT_STOP: //ë©ˆì¶œìˆ˜ ì—†ëŠ” í€˜ìŠ¤íŠ¸
 		_stprintf( temp, IDS_CANNOT_STOP_QUEST, dwQuestID);
 		break;
-	case QUESTRESULT_CANT_DONE: //¿Ï¼ö Á¶°Ç ¸¸Á· ¸øÇÔ
+	case QUESTRESULT_CANT_DONE: //ì™„ìˆ˜ ì¡°ê±´ ë§Œì¡± ëª»í•¨
 		_stprintf( temp, IDS_COMPLETION_NOT, dwQuestID);
 		break;
-	case QUESTRESULT_CANT_REWARD: //º¸»ó ³»¿ª Áö±Þ ¸øÇÔ
+	case QUESTRESULT_CANT_REWARD: //ë³´ìƒ ë‚´ì—­ ì§€ê¸‰ ëª»í•¨
 		_stprintf( temp, IDS_REWARD_CANNOT, dwQuestID);
 		break;
 	case QUESTRESULT_REWARD_DROP:
 		_stprintf( temp, IDS_BAG_FULL, dwQuestID);
 		break;
-	case QUESTRESULT_ERR_INTERNAL: //³»ºÎ ¿¡·¯
+	case QUESTRESULT_ERR_INTERNAL: //ë‚´ë¶€ ì—ëŸ¬
 		_stprintf( temp, IDS_INTERNAL_ERROR, dwQuestID);
 		break;
 	default:
@@ -316,7 +316,7 @@ int OnCS_QS_STOP_ACK( CMsg &msg)
 
 	if( !bResult)
 	{
-		g_MainCharInfo.m_pQuest->m_sQuestHelp.m_bStart = false;			//HT_0824 : Äù½ºÆ® µµ¿ì¹Ì Ãß°¡
+		g_MainCharInfo.m_pQuest->m_sQuestHelp.m_bStart = false;			//HT_0824 : í€˜ìŠ¤íŠ¸ ë„ìš°ë¯¸ ì¶”ê°€
 
 		_stprintf( temp, IDS_QUEST_STOP, dwQuestID);
 		sQuestInfo* pQuest = g_MainCharInfo.m_pQuest->FindQuest( dwQuestID);
@@ -333,25 +333,25 @@ int OnCS_QS_STOP_ACK( CMsg &msg)
 
 	switch( bResult)
 	{
-	case QUESTRESULT_CANT_NEW:	//¹ß»ý Á¶°Ç ¸¸Á· ¸øÇÔ
+	case QUESTRESULT_CANT_NEW:	//ë°œìƒ ì¡°ê±´ ë§Œì¡± ëª»í•¨
 		_stprintf( temp, IDS_START_CONDITION_NOT, dwQuestID);
 		break;
-	case QUESTRESULT_CANT_START: //¼öÇà Á¶°Ç ¸¸Á· ¸øÇÔ
+	case QUESTRESULT_CANT_START: //ìˆ˜í–‰ ì¡°ê±´ ë§Œì¡± ëª»í•¨
 		_stprintf( temp, IDS_DO_CONDITION_NOT, dwQuestID);
 		break;
-	case QUESTRESULT_CANT_STOP: //¸ØÃâ¼ö ¾ø´Â Äù½ºÆ®
+	case QUESTRESULT_CANT_STOP: //ë©ˆì¶œìˆ˜ ì—†ëŠ” í€˜ìŠ¤íŠ¸
 		_stprintf( temp, IDS_CANNOT_STOP_QUEST, dwQuestID);
 		break;
-	case QUESTRESULT_CANT_DONE: //¿Ï¼ö Á¶°Ç ¸¸Á· ¸øÇÔ
+	case QUESTRESULT_CANT_DONE: //ì™„ìˆ˜ ì¡°ê±´ ë§Œì¡± ëª»í•¨
 		_stprintf( temp, IDS_COMPLETION_NOT, dwQuestID);
 		break;
-	case QUESTRESULT_CANT_REWARD: //º¸»ó ³»¿ª Áö±Þ ¸øÇÔ
+	case QUESTRESULT_CANT_REWARD: //ë³´ìƒ ë‚´ì—­ ì§€ê¸‰ ëª»í•¨
 		_stprintf( temp, IDS_REWARD_CANNOT, dwQuestID);
 		break;
 	case QUESTRESULT_REWARD_DROP:
 		_stprintf( temp, IDS_BAG_FULL, dwQuestID);
 		break;
-	case QUESTRESULT_ERR_INTERNAL: //³»ºÎ ¿¡·¯
+	case QUESTRESULT_ERR_INTERNAL: //ë‚´ë¶€ ì—ëŸ¬
 		_stprintf( temp, IDS_INTERNAL_ERROR, dwQuestID);
 		break;
 	default:
@@ -383,7 +383,7 @@ int OnCS_QS_DONE_ACK( CMsg &msg)
 		sQuestInfo* pQuest = g_MainCharInfo.m_pQuest->FindQuest( dwQuestID);
 		if( pQuest)
 		{
-			g_MainCharInfo.m_pQuest->m_sQuestHelp.m_bStart = false;			//HT_0824 : Äù½ºÆ® µµ¿ì¹Ì Ãß°¡
+			g_MainCharInfo.m_pQuest->m_sQuestHelp.m_bStart = false;			//HT_0824 : í€˜ìŠ¤íŠ¸ ë„ìš°ë¯¸ ì¶”ê°€
 
 			pQuest->m_eStatus = eSuccess;
 			g_MainCharInfo.RefreshQuest();
@@ -391,7 +391,7 @@ int OnCS_QS_DONE_ACK( CMsg &msg)
 
 			if(g_pMainChar)
 			{
-				// ¸í¼ºÄ¡ »ö
+				// ëª…ì„±ì¹˜ ìƒ‰
 				CXiahCharObject *pObject = (CXiahCharObject*)g_pMainChar->m_pObject;
 
 				if(pObject)
@@ -406,25 +406,25 @@ int OnCS_QS_DONE_ACK( CMsg &msg)
 
 	switch( bResult)
 	{
-	case QUESTRESULT_CANT_NEW:		//¹ß»ý Á¶°Ç ¸¸Á· ¸øÇÔ
+	case QUESTRESULT_CANT_NEW:		//ë°œìƒ ì¡°ê±´ ë§Œì¡± ëª»í•¨
 		_stprintf( temp, IDS_START_CONDITION_NOT, dwQuestID);
 		break;
-	case QUESTRESULT_CANT_START:	//¼öÇà Á¶°Ç ¸¸Á· ¸øÇÔ
+	case QUESTRESULT_CANT_START:	//ìˆ˜í–‰ ì¡°ê±´ ë§Œì¡± ëª»í•¨
 		_stprintf( temp, IDS_DO_CONDITION_NOT, dwQuestID);
 		break;
-	case QUESTRESULT_CANT_STOP:		//¸ØÃâ¼ö ¾ø´Â Äù½ºÆ®
+	case QUESTRESULT_CANT_STOP:		//ë©ˆì¶œìˆ˜ ì—†ëŠ” í€˜ìŠ¤íŠ¸
 		_stprintf( temp, IDS_CANNOT_STOP_QUEST, dwQuestID);
 		break;
-	case QUESTRESULT_CANT_DONE:		//¿Ï¼ö Á¶°Ç ¸¸Á· ¸øÇÔ
+	case QUESTRESULT_CANT_DONE:		//ì™„ìˆ˜ ì¡°ê±´ ë§Œì¡± ëª»í•¨
 		_stprintf( temp, IDS_COMPLETION_NOT, dwQuestID);
 		break;
-	case QUESTRESULT_CANT_REWARD:	//º¸»ó ³»¿ª Áö±Þ ¸øÇÔ
+	case QUESTRESULT_CANT_REWARD:	//ë³´ìƒ ë‚´ì—­ ì§€ê¸‰ ëª»í•¨
 		_stprintf( temp, IDS_REWARD_CANNOT, dwQuestID);
 		break;
 	case QUESTRESULT_REWARD_DROP:
 		_stprintf( temp, IDS_BAG_FULL, dwQuestID);
 		break;
-	case QUESTRESULT_ERR_INTERNAL:	//³»ºÎ ¿¡·¯
+	case QUESTRESULT_ERR_INTERNAL:	//ë‚´ë¶€ ì—ëŸ¬
 		_stprintf( temp, IDS_INTERNAL_ERROR, dwQuestID);
 		break;
 	default:
@@ -449,19 +449,19 @@ int OnCS_QS_DELETE_ACK(CMsg &msg)
 
 	switch( bResult)
 	{
-	case QUESTRESULT_OK:	//¹ß»ý Á¶°Ç ¸¸Á· ¸øÇÔ
+	case QUESTRESULT_OK:	//ë°œìƒ ì¡°ê±´ ë§Œì¡± ëª»í•¨
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_DELETED);
 			g_MainCharInfo.m_pQuest->DeleteQuest(dwQuestID);
 			
-			//g_MainCharInfo.m_pQuest->UpdateQuest(); //HO_0820_07 Äù½ºÆ® ºÐ·ù ¼öÁ¤
+			//g_MainCharInfo.m_pQuest->UpdateQuest(); //HO_0820_07 í€˜ìŠ¤íŠ¸ ë¶„ë¥˜ ìˆ˜ì •
 			//g_pUIManager->SetData(WINDOW_QUEST_01, quest_window_01_button_01, CURRENT_INDEX, 2);
 			//g_pUIManager->SetData(WINDOW_QUEST_01, quest_window_01_button_02, CURRENT_INDEX, -1);
 			//g_pUIManager->SetData(WINDOW_QUEST_01, quest_window_01_button_03, CURRENT_INDEX, -1);
 			//g_pUIManager->SetData(WINDOW_QUEST_01, quest_window_01_button_04, CURRENT_INDEX, -1);
 		}
 		break;
-	case QUESTRESULT_CANT_DELETE: //¼öÇà Á¶°Ç ¸¸Á· ¸øÇÔ
+	case QUESTRESULT_CANT_DELETE: //ìˆ˜í–‰ ì¡°ê±´ ë§Œì¡± ëª»í•¨
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_DELETE_FAIL);
 		}

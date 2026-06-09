@@ -1,4 +1,4 @@
-
+ï»¿
 #include "precompile.h"
 #include "RebirthMark.h"
 #include <assert.h>
@@ -29,7 +29,7 @@ void RebirthMark::Init()
 	{
 		m_pTexture[i+6] = XiahPak::GetTexture(1610 + (i*2), TRUE);	    
 	}
-	//HT_1023 : ¿î¿µÀÚ ¸¶Å© Ãß°¡
+	//HT_1023 : ìš´ì˜ì ë§ˆí¬ ì¶”ê°€
 	m_pTexture[12] = XiahPak::GetTexture(50003115, TRUE);	    
 }
 
@@ -47,7 +47,7 @@ void RebirthMark::Release()
 	{
 		XiahPak::ReleaseRes(1610 + (i*2));		
 	}
-	//HT_1023 : ¿î¿µÀÚ ¸¶Å© Ãß°¡
+	//HT_1023 : ìš´ì˜ì ë§ˆí¬ ì¶”ê°€
 	XiahPak::ReleaseRes(50003115);
 }
 
@@ -61,7 +61,7 @@ void RebirthMark::RenderMark(int nMarkID, int nX, int nY)
 	float fY = nY - 0.5f;
 
 	VT_TLVertex	Vertex[4];
-	//HT_1023 : ¿î¿µÀÚ ¸¶Å© Ãß°¡
+	//HT_1023 : ìš´ì˜ì ë§ˆí¬ ì¶”ê°€
 	if(nMarkID != 13)
 	{
 		Vertex[ 0].pos = Vector4( fX,		fY,			0, 1);

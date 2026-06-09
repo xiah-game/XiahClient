@@ -1,4 +1,4 @@
-#include "precompile.h"
+ï»¿#include "precompile.h"
 
 #include "CharacterInfo.h"
 #include "XiahGameObject.h"
@@ -60,7 +60,7 @@ namespace Minimap
 	pVertex += 4;\
 	pIndex += 6;
 
-//HT_0824 : Äù½ºÆ® µµ¿ì¹Ì Ãß°¡
+//HT_0824 : í€˜ìŠ¤íŠ¸ ë„ìš°ë¯¸ ì¶”ê°€
 #define APPEND_ICON2( xsize, ysize, index, color)	\
 	icon_pos[ 0] = Vector3(  - (xsize) / 2, + (ysize) / 2, 0);\
 	icon_pos[ 1] = Vector3(  - (xsize) / 2, - (ysize) / 2, 0);\
@@ -104,60 +104,60 @@ namespace Minimap
 	pVertex += 4;\
 	pIndex += 6;
 
-	// RESPACKER¿¡¼­ ID¸¦ È·¶¨ÇÏ±â ¹Ù¶÷.
+	// RESPACKERì—ì„œ IDë¥¼ íš…ë•í•˜ê¸° ë°”ëžŒ.
 	long g_MiniMapTextureID[15] = 
 	{
-		50003258,	// ±â¾Ï
-		50003260,	// È­»ê
-		50003262,	// ºùÇÏ
-		50003256,	// »ç¸·
-		50003264,	// ´Ë
-		50003254,	// ÃÊ¿ø
-		50003266,	// °í»ê
+		50003258,	// ê¸°ì•”
+		50003260,	// í™”ì‚°
+		50003262,	// ë¹™í•˜
+		50003256,	// ì‚¬ë§‰
+		50003264,	// ëŠª
+		50003254,	// ì´ˆì›
+		50003266,	// ê³ ì‚°
 		0,
-		50003256,	// [10/4/2005] ÀÌº¥Æ® ¸Ê - »ç¸·
+		50003256,	// [10/4/2005] ì´ë²¤íŠ¸ ë§µ - ì‚¬ë§‰
 		50003268,	// Battle1
-		50003271,	// ´øÀü1
-		50002866,	// ¸¶Ç÷¼º
-		50003270,	// ±¤¸íÀü
-		50003273,	// ÃµÈ²Àü
-		50003283,	// È­¿°°î // HO_0727_07 È­¿°°îÃß°¡
+		50003271,	// ë˜ì „1
+		50002866,	// ë§ˆí˜ˆì„±
+		50003270,	// ê´‘ëª…ì „
+		50003273,	// ì²œí™©ì „
+		50003283,	// í™”ì—¼ê³¡ // HO_0727_07 í™”ì—¼ê³¡ì¶”ê°€
 	};
 
 	long g_MiniMapTextureID_text[15] = 
 	{
-		50003259,	// ±â¾Ï
-		50003261,	// È­»ê
-		50003263,	// ºùÇÏ
-		50003257,	// »ç¸·
-		50003265,	// ´Ë
-		50003255,	// ÃÊ¿ø
-		50003267,	// °í»ê
+		50003259,	// ê¸°ì•”
+		50003261,	// í™”ì‚°
+		50003263,	// ë¹™í•˜
+		50003257,	// ì‚¬ë§‰
+		50003265,	// ëŠª
+		50003255,	// ì´ˆì›
+		50003267,	// ê³ ì‚°
 		0,
-		50003256,	// [10/4/2005] ÀÌº¥Æ® ¸Ê - »ç¸·
+		50003256,	// [10/4/2005] ì´ë²¤íŠ¸ ë§µ - ì‚¬ë§‰
 		50003268,	// Battle1
-		50003271,	// ´øÀü1
-		50002866,	// ¸¶Ç÷¼º
-		50003270,	// ±¤¸íÀü
-		50003273,	// ÃµÈ²Àü
-		50003284,	// È­¿°°î // HO_0727_07 È­¿°°îÃß°¡
+		50003271,	// ë˜ì „1
+		50002866,	// ë§ˆí˜ˆì„±
+		50003270,	// ê´‘ëª…ì „
+		50003273,	// ì²œí™©ì „
+		50003284,	// í™”ì—¼ê³¡ // HO_0727_07 í™”ì—¼ê³¡ì¶”ê°€
 	};
 
-	IDirect3DTexture9* g_pMainTexture = NULL;		// »ªÆÇ
-	IDirect3DTexture9* g_pMainTexture_text = NULL;	// »ªÆÇ2
+	IDirect3DTexture9* g_pMainTexture = NULL;		// ë¹½íŒ
+	IDirect3DTexture9* g_pMainTexture_text = NULL;	// ë¹½íŒ2
 
 	IDirect3DTexture9* g_pIconTexture = NULL;
-	IDirect3DTexture9* g_CompassTexture = NULL;// ³ªÄ§¹Ý
+	IDirect3DTexture9* g_CompassTexture = NULL;// ë‚˜ì¹¨ë°˜
 
-	DWORD			   g_dwMiniMapID;	// Mimap°»½Å¿ë
+	DWORD			   g_dwMiniMapID;	// Mimapê°±ì‹ ìš©
 	
 	LPDIRECT3DVERTEXBUFFER9	m_VB1;
 	LPDIRECT3DVERTEXBUFFER9	m_VB2;
 
-	sRect			   g_rcWindow;	// ¹Ì´Ï¸ÊÀÌ º¸¿©Áú ¿µ¿ª
+	sRect			   g_rcWindow;	// ë¯¸ë‹ˆë§µì´ ë³´ì—¬ì§ˆ ì˜ì—­
 
-	#define MAX_MINIMAP_ICON	300		// À½
-	#define COMPASS_SIZE		64		// ³ªÄ§¹Ý »çÀÌÁî
+	#define MAX_MINIMAP_ICON	300		// ìŒ
+	#define COMPASS_SIZE		64		// ë‚˜ì¹¨ë°˜ ì‚¬ì´ì¦ˆ
 
 	IDirect3DVertexBuffer9* g_pIconVertexBuffer = NULL;
 	IDirect3DVertexBuffer9* g_CompassVertexBuffer = NULL;
@@ -198,7 +198,7 @@ namespace Minimap
 		}
 
 		g_nIconCount = 0;
-		g_ZoomScale = 0.392f;	// °æÇèÀû¼öÄ¡ -_-;
+		g_ZoomScale = 0.392f;	// ê²½í—˜ì ìˆ˜ì¹˜ -_-;
 
 		return TRUE;
 	}
@@ -244,13 +244,13 @@ namespace Minimap
 	 */
 	BOOL UpdateMinimap()
 	{
-		// Real MAPÀÇ Å©±â
+		// Real MAPì˜ í¬ê¸°
 		g_Realmap_width = (float)XiahMap::g_XiahMap.m_MapInfo.m_wWidth;
 		g_Realmap_height = (float)XiahMap::g_XiahMap.m_MapInfo.m_wHeight;
 
 		if( g_pMainTexture == NULL || g_pMainTexture_text == NULL || g_dwMiniMapID != XiahMap::g_XiahMap.m_MapInfo.m_dwMapID)
 		{
-			if( g_pMainTexture != NULL) // ±âÁ¸²¨´Â Áö¿öÁØ´Ù
+			if( g_pMainTexture != NULL) // ê¸°ì¡´êº¼ëŠ” ì§€ì›Œì¤€ë‹¤
 			{
 				XiahPak::ReleaseRes( g_MiniMapTextureID[ g_dwMiniMapID - 1]);
 				XiahPak::ReleaseRes( g_MiniMapTextureID_text[ g_dwMiniMapID - 1]);
@@ -261,7 +261,7 @@ namespace Minimap
 			g_pMainTexture_text = XiahPak::GetTexture( g_MiniMapTextureID_text[ g_dwMiniMapID - 1], TRUE);
 		}
 
-		// ³ªÄ§¹Ý texture
+		// ë‚˜ì¹¨ë°˜ texture
 		if(!g_CompassTexture)
 		{
 			g_CompassTexture = XiahPak::GetTexture( g_pUIManager->GetData(MINIMAP_WINDOW, minimap_window_direction, GET_TEXTURE), TRUE);
@@ -272,7 +272,7 @@ namespace Minimap
 			g_pIconTexture = XiahPak::GetTexture( 50003274);
 		}
 
-		if( g_pMainChar == NULL)	// Ä³¸¯ÅÍ°¡ ¸¸µé¾î Áú¶§ ±îÁö ±â´Ù¸²
+		if( g_pMainChar == NULL)	// ìºë¦­í„°ê°€ ë§Œë“¤ì–´ ì§ˆë•Œ ê¹Œì§€ ê¸°ë‹¤ë¦¼
 			return TRUE;
 
 
@@ -280,7 +280,7 @@ namespace Minimap
 
 		if( g_MainCharInfo.m_bChangMinimap)
 		{
-			if( s_curMapSize)  //ÀüÃ¼ ¹Ì´Ï¸Ê	
+			if( s_curMapSize)  //ì „ì²´ ë¯¸ë‹ˆë§µ	
 			{
 				//g_fMinimapAlpha += 0.3f * g_fFrameScale;
 				g_fMinimapAlpha = 1.0f;
@@ -291,7 +291,7 @@ namespace Minimap
 					g_MainCharInfo.m_bChangMinimap = FALSE;
 				}
 			}
-			else			//ÀÛÀº ¹Ì´Ï¸Ê
+			else			//ìž‘ì€ ë¯¸ë‹ˆë§µ
 			{
 				//g_fMinimapAlpha -= 0.3f * g_fFrameScale;
 				g_fMinimapAlpha = 0;
@@ -306,13 +306,13 @@ namespace Minimap
 #ifdef _DEBUG_CHEAT
 		CXiahGame_Main *pGameMainStep = (CXiahGame_Main*)g_GameStep[ 3];			
 		g_bCheat = FALSE;
-		pGameMainStep->g_tHelp[6].SetText( 200,80 , "ÁßÁö", GetFont("å®‹ä½“", 14), D3DCOLOR_XRGB( 0, 255, 255), 15);
+		pGameMainStep->g_tHelp[6].SetText( 200,80 , "ì¤‘ì§€", GetFont("ï¥´ë—¤íª", 14), D3DCOLOR_XRGB( 0, 255, 255), 15);
 #endif
 
 #ifdef TRACE_LOG
 		if(pControl == NULL)
 		{
-			DBG_LogFile( _T("UpdateMinimap ½ÇÆÐ"));
+			DBG_LogFile( _T("UpdateMinimap ì‹¤íŒ¨"));
 		}
 #endif
 		sRect rcMini;
@@ -375,7 +375,7 @@ namespace Minimap
 		pos[ 2] = Vector3( 512, 512, 0);
 		pos[ 3] = Vector3( 512, 0, 0);
 
-		// COMPASS Áß¾ÓÁß½É Rotate¸¦ À§ÇÏ¿© ÁÂÇ¥ÀÌµ¿.
+		// COMPASS ì¤‘ì•™ì¤‘ì‹¬ Rotateë¥¼ ìœ„í•˜ì—¬ ì¢Œí‘œì´ë™.
 		pos2[0] = Vector3( -(COMPASS_SIZE/2), (COMPASS_SIZE/2), 0);
 		pos2[1] = Vector3( -(COMPASS_SIZE/2), -(COMPASS_SIZE/2), 0);
 		pos2[2] = Vector3( (COMPASS_SIZE/2), (COMPASS_SIZE/2), 0);
@@ -385,7 +385,7 @@ namespace Minimap
 #ifdef TRACE_LOG
 		if(pObject == NULL)
 		{
-			DBG_LogFile( _T("UpdateMinimap ½ÇÆÐ"));
+			DBG_LogFile( _T("UpdateMinimap ì‹¤íŒ¨"));
 		}
 #endif
 
@@ -429,21 +429,21 @@ namespace Minimap
 		{
 			if(!g_fMinimapAlpha)
 			{
-				// MAP Ãâ·Â
+				// MAP ì¶œë ¥
 				pos[i].x = (int)pos[ i].x + g_rcWindow.Center().x - 0.5f;
 				pos[i].y = (int)pos[ i].y + g_rcWindow.Center().y - 0.5f;
 
-				// COMPASS Ãâ·Â
-				// Áß¾ÓÁß½ÉÀ¸·Î ÀÌµ¿ÇÑ COMPASS¸¦ È¸ÀüÇÑ´Ù
+				// COMPASS ì¶œë ¥
+				// ì¤‘ì•™ì¤‘ì‹¬ìœ¼ë¡œ ì´ë™í•œ COMPASSë¥¼ íšŒì „í•œë‹¤
 				pos2[i] *= rotM;
-				// Ãâ·ÂÀ»À§ÇÏ¿© ÁÂÇ¥¸¦ º¸Á¤ÇÑ´Ù.
+				// ì¶œë ¥ì„ìœ„í•˜ì—¬ ì¢Œí‘œë¥¼ ë³´ì •í•œë‹¤.
 				pos2[i].x += rcMini.left + (COMPASS_SIZE/2);
 				pos2[i].y += rcMini.top + (COMPASS_SIZE/2);
 
 			}
 			else
 			{
-				// FULL SIZE  MAP Ãâ·Â
+				// FULL SIZE  MAP ì¶œë ¥
 				pos[i].x += rcMini.left;
 				pos[i].y += rcMini.top;
 			}
@@ -462,7 +462,7 @@ namespace Minimap
 		if( g_pIconVertexBuffer == NULL || g_pIconIndexBuffer == NULL || g_CompassVertexBuffer == NULL)
 			return TRUE;
 
-		// ¸ðµç ¿ÀºêÁ§Æ®¿¡ ´ëÇØ¼­ µ¹¾Æº¼±î? ²ÙÀ¡~
+		// ëª¨ë“  ì˜¤ë¸Œì íŠ¸ì— ëŒ€í•´ì„œ ëŒì•„ë³¼ê¹Œ? ê¾¸ì›©~
 
 		VT_TLVertex *pVertex = NULL;
 		VT_TLVertex *pVertex2 = NULL;
@@ -472,7 +472,7 @@ namespace Minimap
 		Matrix4x4 char_rotM;
 		Vector3 icon_pos[ 4];
 
-		// ³ª¸¦ ÂïÀÚ!
+		// ë‚˜ë¥¼ ì°ìž!
 		x = 0; y = 0;
 
 		g_CompassVertexBuffer->Lock( 0, 0, (void **)&pVertex2, 0);
@@ -550,10 +550,10 @@ namespace Minimap
 			APPEND_ICON( 6, 6, 0, D3DCOLOR_XRGB( 255, 255, 255));
 		}
 
-		// ´Ù¸¥¾Öµé
+		// ë‹¤ë¥¸ì• ë“¤
 		if( !g_fMinimapAlpha)
 		{
-			// ¸ÞÀÎ Ä³¸¯ÅÍ°¡ ¾ÏÈæ¹«¿¡ °É¸®¸é ¾Æ¿¹ ¾È±×¸°´Ù.
+			// ë©”ì¸ ìºë¦­í„°ê°€ ì•”í‘ë¬´ì— ê±¸ë¦¬ë©´ ì•„ì˜ˆ ì•ˆê·¸ë¦°ë‹¤.
 			if( !g_XiahEnvInfo.m_bAmhukmuFog )
 			{
 #ifdef _DEBUG_CHEAT	
@@ -589,15 +589,15 @@ namespace Minimap
 						{
 						case OBJTYPE_PC:
 							{
-								// ´ÜÀÎ°¡¸¦ °Ë»çÇÑ´Ù.
+								// ë‹¨ì¸ê°€ë¥¼ ê²€ì‚¬í•œë‹¤.
 								if(g_MainCharInfo.m_pRelation->FindDanInfoByID(pXiahObject->m_dwServerID) == NULL)
 								{
-									// ´ÜÀÌ ¾Æ´Ï¸é Á¤»ó Ãâ·Â
+									// ë‹¨ì´ ì•„ë‹ˆë©´ ì •ìƒ ì¶œë ¥
 									APPEND_ICON( 4, 4, 1, D3DCOLOR_XRGB( 0, 0, 255));
 								}
 								else
 								{
-									// ´Ü ÀÏ°æ¿ì
+									// ë‹¨ ì¼ê²½ìš°
 									APPEND_ICON( 4, 4, 1, D3DCOLOR_XRGB( 0, 255, 255));
 								}
 #ifdef _DEBUG_CHEAT	
@@ -609,11 +609,11 @@ namespace Minimap
 
 							case OBJTYPE_NPC:
 							{
-								// HIDE »óÅÂÀÇ ³ðÀº ±×¸®Áö ¾Ê´Â´Ù
+								// HIDE ìƒíƒœì˜ ë†ˆì€ ê·¸ë¦¬ì§€ ì•ŠëŠ”ë‹¤
 								if(pXiahCharObject->m_bObjStatus == NPCSTATUS_HIDE)
 									continue;
 
-								// ±¤¹°Àº »ö ±³Ã¼
+								// ê´‘ë¬¼ì€ ìƒ‰ êµì²´
 								if(pXiahCharObject->m_bExSubObjType == 3)
 								{
 									APPEND_ICON( 4, 4, 1, D3DCOLOR_XRGB(255, 120, 0));
@@ -626,23 +626,23 @@ namespace Minimap
 									}
 									else if(pXiahCharObject->m_nCurMotionType != XiahAniType::eLAT_Die && g_bScreenShot)
 									{
-										APPEND_ICON( 4, 4, 1, D3DCOLOR_XRGB( 255, 0, 0)); //HO_0509_07 ¿ÀÅä´ëÃ³¹æ¾È : ½º¼¦À¸·Î »ö»óÀ» ¾Ë¾Æ³»Áö ¸øÇÏµµ·Ï »ö»óÀ» º¯°æ
+										APPEND_ICON( 4, 4, 1, D3DCOLOR_XRGB( 255, 0, 0)); //HO_0509_07 ì˜¤í† ëŒ€ì²˜ë°©ì•ˆ : ìŠ¤ìƒ·ìœ¼ë¡œ ìƒ‰ìƒì„ ì•Œì•„ë‚´ì§€ ëª»í•˜ë„ë¡ ìƒ‰ìƒì„ ë³€ê²½
 									}
 									else
 									{									
-										APPEND_ICON( 4, 4, 1, D3DCOLOR_XRGB( 240, 0, 5)); //HO_0509_07 ¿ÀÅä´ëÃ³¹æ¾È : ¸ó½ºÅÍ¸¦ ¹Ì´Ï¸Ê »óÀÇ »¡°£Á¡À¸·Î ÀÎ½ÄÇÏ¿© »ö»óÀ» ¹Ù²Ù¾îÁÜ....  ±âÁ¸»ö»ó( 255, 0, 0)
+										APPEND_ICON( 4, 4, 1, D3DCOLOR_XRGB( 240, 0, 5)); //HO_0509_07 ì˜¤í† ëŒ€ì²˜ë°©ì•ˆ : ëª¬ìŠ¤í„°ë¥¼ ë¯¸ë‹ˆë§µ ìƒì˜ ë¹¨ê°„ì ìœ¼ë¡œ ì¸ì‹í•˜ì—¬ ìƒ‰ìƒì„ ë°”ê¾¸ì–´ì¤Œ....  ê¸°ì¡´ìƒ‰ìƒ( 255, 0, 0)
 									}
 
 								}							
 							}
 							break;
-						//case OBJTYPE_NPC: //HO_0525_07 ¿ÀÅä´ëÃ³¹æ¾È : ±âÁ¸ÄÚµå
+						//case OBJTYPE_NPC: //HO_0525_07 ì˜¤í† ëŒ€ì²˜ë°©ì•ˆ : ê¸°ì¡´ì½”ë“œ
 						//	{
-						//		// HIDE »óÅÂÀÇ ³ðÀº ±×¸®Áö ¾Ê´Â´Ù
+						//		// HIDE ìƒíƒœì˜ ë†ˆì€ ê·¸ë¦¬ì§€ ì•ŠëŠ”ë‹¤
 						//		if(pXiahCharObject->m_bObjStatus == NPCSTATUS_HIDE)
 						//			continue;
 
-						//		// ±¤¹°Àº »ö ±³Ã¼
+						//		// ê´‘ë¬¼ì€ ìƒ‰ êµì²´
 						//		if(pXiahCharObject->m_bExSubObjType == 3)
 						//		{
 						//			APPEND_ICON( 4, 4, 1, D3DCOLOR_XRGB(255, 120, 0));
@@ -673,11 +673,11 @@ namespace Minimap
 							}
 							break;
 
-						case OBJTYPE_ITEM:				// ¾ÆÀÌÅÛ
+						case OBJTYPE_ITEM:				// ì•„ì´í…œ
 							APPEND_ICON( 2, 2, 1, D3DCOLOR_XRGB( 255, 255, 0));
 							break;
 
-						case OBJTYPE_FUNCTIONALNPC:		// ±â´É NPC
+						case OBJTYPE_FUNCTIONALNPC:		// ê¸°ëŠ¥ NPC
 							APPEND_ICON( 4, 4, 3, D3DCOLOR_XRGB( 255, 255, 255));
 							break;
 
@@ -694,17 +694,17 @@ namespace Minimap
 				if(nCount == 0)
 				{
 					g_bCheat = TRUE;
-					pGameMainStep->g_tHelp[6].SetText( 200,80 , "»ç³É", GetFont("å®‹ä½“", 14), D3DCOLOR_XRGB( 0, 255, 255), 15);
+					pGameMainStep->g_tHelp[6].SetText( 200,80 , "ì‚¬ëƒ¥", GetFont("ï¥´ë—¤íª", 14), D3DCOLOR_XRGB( 0, 255, 255), 15);
 				}
 				else
 				{
 					g_bCheat = FALSE;
-					pGameMainStep->g_tHelp[6].SetText( 200,80 , "»ç¶÷ÀÖ´Ù", GetFont("å®‹ä½“", 14), D3DCOLOR_XRGB( 0, 255, 255), 15);
+					pGameMainStep->g_tHelp[6].SetText( 200,80 , "ì‚¬ëžŒìžˆë‹¤", GetFont("ï¥´ë—¤íª", 14), D3DCOLOR_XRGB( 0, 255, 255), 15);
 				}
 #endif
 			}
 		}
-		else if(g_MainCharInfo.m_pQuest->m_sQuestHelp.m_bStart)//HT_0824 : Äù½ºÆ® µµ¿ì¹Ì Ãß°¡
+		else if(g_MainCharInfo.m_pQuest->m_sQuestHelp.m_bStart)//HT_0824 : í€˜ìŠ¤íŠ¸ ë„ìš°ë¯¸ ì¶”ê°€
 		{
 			BYTE ShowType = g_MainCharInfo.m_pQuest->m_sQuestHelp.m_byShowType;
 
@@ -748,7 +748,7 @@ namespace Minimap
 
 	BOOL RenderMinimap()
 	{
-		if( g_pMainChar == NULL)	// Ä³¸¯ÅÍ°¡ ¸¸µé¾î Áú¶§ ±îÁö ±â´Ù¸²
+		if( g_pMainChar == NULL)	// ìºë¦­í„°ê°€ ë§Œë“¤ì–´ ì§ˆë•Œ ê¹Œì§€ ê¸°ë‹¤ë¦¼
 			return TRUE;
 		
 		D3DVIEWPORT9 pre_view, view;
@@ -790,7 +790,7 @@ namespace Minimap
 		g_pDirect3DDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 0, 2);
 
 
-		// ¿ÀºêÁ§Æ®
+		// ì˜¤ë¸Œì íŠ¸
 		if( g_pIconVertexBuffer == NULL || g_pIconIndexBuffer == NULL)
 		{
 			g_pDirect3DDevice->SetViewport( &pre_view);

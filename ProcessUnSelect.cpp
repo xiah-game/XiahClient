@@ -1,4 +1,4 @@
-
+ï»¿
 /**
  *
  * \param byPosition 
@@ -85,7 +85,7 @@ BOOL CSack::ProcessSackUnSelected( BYTE byPosition)
 		return TRUE;
 	}
 
-	// ÀÓ½Ã¶ø´Ï´Ù
+	// ï¿½Ó½Ã¶ï¿½ï¿½Ï´ï¿½
 	if( !(bDesID == SACKTYPE__DEFAULT || bDesID == SACKTYPE__EQUIPMENT))
 	{
 		if( pHoldItem->m_bItemType == ITEMTYPE_BONGIN && pHoldItem->m_dwNpcID && (pHoldItem->m_wLevel != 2 && pHoldItem->m_wLevel != 3))
@@ -97,13 +97,13 @@ BOOL CSack::ProcessSackUnSelected( BYTE byPosition)
 	}
 	
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
-	// ¿©±â´Â ±âº» Çà³¶¿¡¼­ ´Ù¸¥ ÂÊÀ¸·Î ÀÌµ¿
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº» ï¿½à³¶ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
 
 	if( bSrcID == SACKTYPE__DEFAULT && bDesID == SACKTYPE__DEFAULT)
 		return ProcessItemUnSelected_Default_Default( byPosition, pHoldItem);
 	else if( bSrcID == SACKTYPE__DEFAULT && bDesID == SACKTYPE__NPC_TRADE)
 		return ProcessItemUnSelected_Default_Shop( byPosition, pHoldItem);
-	else if( bSrcID == SACKTYPE__DEFAULT && bDesID == SACKTYPE__PC_TRADE_MINE)		// º»ÀÎÇà³¶->°Å·¡Ã¢
+	else if( bSrcID == SACKTYPE__DEFAULT && bDesID == SACKTYPE__PC_TRADE_MINE)		// ï¿½ï¿½ï¿½ï¿½ï¿½à³¶->ï¿½Å·ï¿½Ã¢
 		return ProcessItemUnSelected_Default_TradeMine( byPosition, pHoldItem);
 	else if( bSrcID == SACKTYPE__DEFAULT && bDesID == SACKTYPE__DEPOSIT)
 		return ProcessItemUnSelected_Default_Deposit( byPosition, pHoldItem);
@@ -115,21 +115,21 @@ BOOL CSack::ProcessSackUnSelected( BYTE byPosition)
 		return ProcessItemUnSelected_Default_Pet( byPosition, pHoldItem);
 	else if( bSrcID == SACKTYPE__DEFAULT && bDesID == SACKTYPE__PET_EQUIP)
 		return ProcessItemUnSelected_Default_PetEquip( byPosition, pHoldItem);
-	else if( bSrcID == SACKTYPE__DEFAULT && bDesID == SACKTYPE__PERSONAL_TRADE_SET) // º»ÀÎ->°³ÀÎ»óÁ¡¼³Á¤
+	else if( bSrcID == SACKTYPE__DEFAULT && bDesID == SACKTYPE__PERSONAL_TRADE_SET) // ï¿½ï¿½ï¿½ï¿½->ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		return ProcessItemUnSelected_Default_Personal_Trade_Set(byPosition, pHoldItem);
 	else if( bSrcID == SACKTYPE__DEFAULT && bDesID == SACKTYPE__ITEMMALL)			// DEFAULT -> ITEMMALL
 		return ProcessItemUnSelected_Default_To_Itemmall(byPosition, pHoldItem);
-	else if(bSrcID == SACKTYPE__DEFAULT && bDesID == SACKTYPE__SMELT)				// º»ÀÎ -> Á¶ÇÕ
+	else if(bSrcID == SACKTYPE__DEFAULT && bDesID == SACKTYPE__SMELT)				// ï¿½ï¿½ï¿½ï¿½ -> ï¿½ï¿½ï¿½ï¿½
 		return ProcessItemUnSelected_Default_Smelt(byPosition, pHoldItem);
-	else if(bSrcID == SACKTYPE__DEFAULT && bDesID == SACKTYPE__FIVEELEMENT_CONVERT)	// º»ÀÎ -> ¿ÀÇà Á¦·Ã
+	else if(bSrcID == SACKTYPE__DEFAULT && bDesID == SACKTYPE__FIVEELEMENT_CONVERT)	// ï¿½ï¿½ï¿½ï¿½ -> ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		return ProcessItemUnSelected_Default_FE_Convert(byPosition, pHoldItem);
-	else if(bSrcID == SACKTYPE__DEFAULT && bDesID == SACKTYPE__QUICKMART)			// º»ÀÎ -> ¸ÅÇ°ÆÐ
+	else if(bSrcID == SACKTYPE__DEFAULT && bDesID == SACKTYPE__QUICKMART)			// ï¿½ï¿½ï¿½ï¿½ -> ï¿½ï¿½Ç°ï¿½ï¿½
 		return ProcessItemUnSelected_Default_QuickMart(byPosition, pHoldItem);
-	else if(bSrcID == SACKTYPE__DEFAULT && bDesID == SACKTYPE__COLLECTION)			// º»ÀÎ -> ¾ÆÀÌÅÛ ¼öÁý
+	else if(bSrcID == SACKTYPE__DEFAULT && bDesID == SACKTYPE__COLLECTION)			// ï¿½ï¿½ï¿½ï¿½ -> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		return ProcessItemUnSelected_Default_Collection(byPosition, pHoldItem);
 	
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
-	// À§¿¡¼­ ÇÑ°Å ÀÌ¿ÜÀÇ °Í
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ°ï¿½ ï¿½Ì¿ï¿½ï¿½ï¿½ ï¿½ï¿½
 
 	else if( bSrcID == SACKTYPE__EQUIPMENT && bDesID == SACKTYPE__EQUIPMENT)
 		return ProcessItemUnSelected_Equip_Equip( byPosition, pHoldItem);
@@ -151,17 +151,17 @@ BOOL CSack::ProcessSackUnSelected( BYTE byPosition)
 		return ProcessItemUnSelected_PetEquip_default( byPosition, pHoldItem);
 	else if( bSrcID == SACKTYPE__PET && bDesID == SACKTYPE__PET)
 		return ProcessItemUnSelected_Pet_Pet( byPosition, pHoldItem);
-	else if( bSrcID == SACKTYPE__PERSONAL_TRADE_SELL && bDesID == SACKTYPE__DEFAULT)			// Å¸ °³ÀÎ»óÁ¡=>º»ÀÎ (±¸ÀÔ)
+	else if( bSrcID == SACKTYPE__PERSONAL_TRADE_SELL && bDesID == SACKTYPE__DEFAULT)			// Å¸ ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½=>ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½)
 		return ProcessItemUnSelected_Personal_TradeSell_Default(byPosition, pHoldItem);
-	else if( bSrcID == SACKTYPE__PERSONAL_TRADE_SET && bDesID == SACKTYPE__DEFAULT)				// °³ÀÎ»óÁ¡¼³Á¤ => º»ÀÎÇà³¶
+	else if( bSrcID == SACKTYPE__PERSONAL_TRADE_SET && bDesID == SACKTYPE__DEFAULT)				// ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ => ï¿½ï¿½ï¿½ï¿½ï¿½à³¶
 		return ProcessItemUnSelected_Personal_Trade_Set_Default(byPosition, pHoldItem);
-	else if( bSrcID == SACKTYPE__PERSONAL_TRADE_SET && bDesID == SACKTYPE__PERSONAL_TRADE_SET)  // °³ÀÎ»óÁ¡¼³Á¤ => °³ÀÎ»óÁ¡¼³Á¤
+	else if( bSrcID == SACKTYPE__PERSONAL_TRADE_SET && bDesID == SACKTYPE__PERSONAL_TRADE_SET)  // ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ => ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		return ProcessItemUnSelected_Personal_Trade_Set_Trade_Set(byPosition, pHoldItem);
-	else if( bSrcID == SACKTYPE__ITEMMALL && bDesID == SACKTYPE__DEFAULT)						// ¾ÆÀÌÅÛ ¸ô¿¡¼­ Çà³¶À¸·Î
+	else if( bSrcID == SACKTYPE__ITEMMALL && bDesID == SACKTYPE__DEFAULT)						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½à³¶ï¿½ï¿½ï¿½ï¿½
 		return ProcessItemUnSelected_Itemmall_To_Default(byPosition, pHoldItem);
-	else if( bSrcID == SACKTYPE__ITEMMALL && bDesID == SACKTYPE__ITEMMALL)						// ¾ÆÀÌÅÛ ¸ô¿¡¼­ ¾ÆÀÌ¸á¸ô·Î ÀÚ¸®ÀÌµ¿
+	else if( bSrcID == SACKTYPE__ITEMMALL && bDesID == SACKTYPE__ITEMMALL)						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Ú¸ï¿½ï¿½Ìµï¿½
 		return ProcessItemUnSelected_Itemmall_To_Itemmall(byPosition, pHoldItem);
-	else if(bSrcID == SACKTYPE__COLLECTION && bDesID == SACKTYPE__DEFAULT)						// ¾ÆÀÌÅÛ ¼öÁý -> Çà³¶
+	else if(bSrcID == SACKTYPE__COLLECTION && bDesID == SACKTYPE__DEFAULT)						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ -> ï¿½à³¶
 		return ProcessItemUnSelected_Collection_Default(byPosition, pHoldItem);
 
 	return TRUE;
@@ -233,10 +233,10 @@ BOOL CSack::ProcessItemUnSelected_Default_Default( BYTE byPosition, XiahItem::sI
 	{
 		dwDesItemID = pDesItem->m_dwItemID;
 
-		// ¹°¾à, µ¿½ÅÁÖÀÏ¶§.
+		// ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½.
 		if( ( pHoldItem->m_bItemType == ITEMTYPE_POTION && pDesItem->m_bItemType == ITEMTYPE_POTION  && pHoldItem->m_wRefID == pDesItem->m_wRefID   ) ||
             ( pHoldItem->m_bItemType == ITEMTYPE_PORTAL && pDesItem->m_bItemType == ITEMTYPE_PORTAL  && pHoldItem->m_wRefID == pDesItem->m_wRefID   ) ||
-			( pHoldItem->m_bItemType == ITEMTYPE_GOLDKEY && pDesItem->m_bItemType == ITEMTYPE_GOLDKEY  && pHoldItem->m_wRefID == pDesItem->m_wRefID   ) ) //HO_0828_07 È²±Ý¿­¼è Ãß°¡
+			( pHoldItem->m_bItemType == ITEMTYPE_GOLDKEY && pDesItem->m_bItemType == ITEMTYPE_GOLDKEY  && pHoldItem->m_wRefID == pDesItem->m_wRefID   ) ) //HO_0828_07 È²ï¿½Ý¿ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 		{
 			SendCS_IM_MERGERES_REQ( pHoldItem->m_bSackCount+1,
 									pHoldItem->m_bSackPos, 
@@ -287,7 +287,7 @@ BOOL CSack::ProcessItemUnSelected_Default_Default( BYTE byPosition, XiahItem::sI
 			{
 				//g_MainCharInfo.ShowHelpMessage( IDS_OVER_AMOUNT,TEXTEFFECT_COLOR_WARNING);
 				//g_MainCharInfo.OpenFrame( WINDOW_VOLUME, 2);
-				// warning ³»Áö ¸»°í move ½ÃÅ°±â
+				// warning ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ move ï¿½ï¿½Å°ï¿½ï¿½
 				SendCS_IM_MOVE_REQ( pHoldItem->m_bSackCount+1,//pHoldItem->m_bSackID, 
 								pHoldItem->m_bSackPos, 
 								pHoldItem->m_dwItemID,
@@ -325,7 +325,7 @@ BOOL CSack::ProcessItemUnSelected_Default_Default( BYTE byPosition, XiahItem::sI
 }
 
 /**
- * º»ÀÎÇà³¶->NPCÇà³¶ (ÆÈ±â)
+ * ï¿½ï¿½ï¿½ï¿½ï¿½à³¶->NPCï¿½à³¶ (ï¿½È±ï¿½)
  * \param byPosition 
  * \param pHoldItem 
  * \return 
@@ -467,14 +467,14 @@ BOOL CSack::ProcessItemUnSelected_Default_Deposit( BYTE byPosition, XiahItem::sI
 }
 
 /**
- * °³Á¶
+ * ï¿½ï¿½ï¿½ï¿½
  * \param byPosition 
  * \param pHoldItem 
  * \return 
  */
 BOOL CSack::ProcessItemUnSelected_Default_Modify( BYTE byPosition, XiahItem::sItemInfo* pHoldItem)
 {
-	// °³Á¶ ÇÏ°íÀÚ ÇÏ´Â ¾ÆÀÌÅÛ Ã¼Å©
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ï°ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 	if( byPosition == 0)
 	{
 		XiahObject::CXiahObject* pObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, g_MainCharInfo.m_dwPickedObject, OBJTYPE_FUNCTIONALNPC));
@@ -500,7 +500,7 @@ BOOL CSack::ProcessItemUnSelected_Default_Modify( BYTE byPosition, XiahItem::sIt
 
 		switch( pInfo->m_bType)
 		{
-		case 1: //´ëÀåÀåÀÌ
+		case 1: //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			if( pHoldItem->m_bItemType != ITEMTYPE_WEAPON)
 			{
 				g_MainCharInfo.ShowHelpMessage(IDS_ONLY_SWORD, TEXTEFFECT_COLOR_WARNING);
@@ -508,7 +508,7 @@ BOOL CSack::ProcessItemUnSelected_Default_Modify( BYTE byPosition, XiahItem::sIt
 				return TRUE;
 			}
 			break;
-		case 2: //ÀÇ·ù»óÀÎ
+		case 2: //ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
 			if( pHoldItem->m_bItemType != ITEMTYPE_CLOTH)
 			{
 				g_MainCharInfo.ShowHelpMessage(IDS_ONLY_CLOTH, TEXTEFFECT_COLOR_WARNING);
@@ -516,7 +516,7 @@ BOOL CSack::ProcessItemUnSelected_Default_Modify( BYTE byPosition, XiahItem::sIt
 				return TRUE;
 			}
 			break;
-		case 3: //ÀâÈ­»óÀÎ
+		case 3: //ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½
 			if( !(pHoldItem->m_bItemType == ITEMTYPE_HAT ||
 				pHoldItem->m_bItemType == ITEMTYPE_SHOE))
 			{
@@ -525,7 +525,7 @@ BOOL CSack::ProcessItemUnSelected_Default_Modify( BYTE byPosition, XiahItem::sIt
 				return TRUE;
 			}
 			break;
-		case 4:	//º¸¼®»óÀÎ
+		case 4:	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			if( !(pHoldItem->m_bItemType == ITEMTYPE_RING ||
 				pHoldItem->m_bItemType == ITEMTYPE_NECKLACE))
 			{
@@ -538,17 +538,18 @@ BOOL CSack::ProcessItemUnSelected_Default_Modify( BYTE byPosition, XiahItem::sIt
 
 		SendCS_IM_REBUILDITEMTERM_REQ( pHoldItem->m_dwItemID, pHoldItem->m_bSackCount+1, pHoldItem->m_bSackPos);
 	}
-	// °³Á¶Àç·á Ã¼Å©
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 	else
 	{
-		// ¸ÞÀÎ Àç·á°¡ ÀÖ´Â°¡?
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½á°¡ ï¿½Ö´Â°ï¿½?
 		XiahItem::sItemInfo* pItem = g_MainCharInfo.m_pModifySack->FindSackItemByPos( 0);
 		if( pItem)
 		{
 			DWORD dwResourceIDConstraint =0;
 			BYTE bIsDividedRes = 0;
+			BYTE bPrevItemKind = 0;  // Anti-Break: track previous item kind for mix-placement
 
-			// ÀÚ±âº¸´Ù ¼øÀ§°¡ ³·Àº Ã¢¿¡ ¹º°¡°¡ ¾øÀ¸¸é ¸®ÅÏ
+			// ï¿½Ú±âº¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			for( int i=1; i < byPosition; ++i)
 			{
 				XiahItem::sItemInfo* pItem = g_MainCharInfo.m_pModifySack->FindSackItemByPos( i);
@@ -558,19 +559,20 @@ BOOL CSack::ProcessItemUnSelected_Default_Modify( BYTE byPosition, XiahItem::sIt
 					g_MainCharInfo.m_pHoldItem->SetItemBackToSack();
 					return TRUE;
 				}
-				// ¹º°¡°¡ ÀÖÀ¸¸é ±× ³ÑÀÇ ¾ÆÀÌµð¸¸ ´Ù¸¥ Ã¢¿¡ µé¾î°¥ ¼ö ÀÖ´Ù
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Ù¸ï¿½ Ã¢ï¿½ï¿½ ï¿½ï¿½î°¥ ï¿½ï¿½ ï¿½Ö´ï¿½
 				else
 				{
 					dwResourceIDConstraint = pItem->m_wRefID; // m_dwItemID;
 					bIsDividedRes = pItem->m_bIsDividedRes;
+					bPrevItemKind = pItem->m_bItemKind;  // Anti-Break: record kind of previous slot item
 				}
 			}
 
 			if( !dwResourceIDConstraint)
 			{
-				// [10/26/2004] °³Á¶ °¡´É¿©ºÎ
-				// [5/18/2005] º¸Çè ¾ÆÀÌÅÛ
-				// HT_1116 : °¢¼ºÀÚ ¾ÆÀÌÅÛ Ãß°¡ 
+				// [10/26/2004] ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½É¿ï¿½ï¿½ï¿½
+				// [5/18/2005] ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				// HT_1116 : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ 
 				if( (pHoldItem->m_bItemType == ITEMTYPE_REBUILDRES && 
 					1 != pHoldItem->m_bIsDividedRes && 
 					!(pHoldItem->m_bItemKind >= 5 && pHoldItem->m_bItemKind <= 6 ) &&
@@ -578,7 +580,7 @@ BOOL CSack::ProcessItemUnSelected_Default_Modify( BYTE byPosition, XiahItem::sIt
 					pHoldItem->m_bItemKind != 17) 
 					|| (pHoldItem->m_bItemType == ITEMTYPE_POTION && pHoldItem->m_bItemKind == 1) )
 				{
-					// °³Á¶Àç·á ³ÖÀ»Ã¢¿¡ ¹º°¡°¡ ÀÖÀ¸¸é ¿ø·¡ À§Ä¡·Î µ¹·ÁÁÖ°í
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö°ï¿½
 					XiahItem::sItemInfo* pItem = g_MainCharInfo.m_pModifySack->FindSackItemByPos( byPosition);
 					if( pItem)
 					{
@@ -587,7 +589,7 @@ BOOL CSack::ProcessItemUnSelected_Default_Modify( BYTE byPosition, XiahItem::sIt
 						g_MainCharInfo.m_pModifySack->DeleteItem( byPosition);
 					}
 
-					// È¦µå¾ÆÀÌÅÛ ³Ö¾îÁÖ±â
+					// È¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½Ö±ï¿½
 					g_MainCharInfo.m_pHoldItem->GetHoldItemItem()->m_bSackID = SACKTYPE__MODIFY;
 					g_MainCharInfo.m_pHoldItem->GetHoldItemItem()->m_bSackIDPrev = g_MainCharInfo.m_pHoldItem->GetHoldItemItem()->m_bSackCount;
 					g_MainCharInfo.m_pHoldItem->GetHoldItemItem()->m_bSackPosPrev = g_MainCharInfo.m_pHoldItem->GetHoldItemItem()->m_bSackPos;
@@ -603,9 +605,14 @@ BOOL CSack::ProcessItemUnSelected_Default_Modify( BYTE byPosition, XiahItem::sIt
 			}
 			else
 			{
-				if( pHoldItem->m_wRefID == dwResourceIDConstraint && pHoldItem->m_bIsDividedRes == bIsDividedRes)
+// Anti-Break Talisman (bKind=99): allow mixing with crystals in rebuild slots
+				BOOL bIsAntiBreak = (pHoldItem->m_bItemType == ITEMTYPE_REBUILDRES && pHoldItem->m_bItemKind == 99);
+				BOOL bPrevIsAntiBreak = (bPrevItemKind == 99);
+
+				if( (pHoldItem->m_wRefID == dwResourceIDConstraint && pHoldItem->m_bIsDividedRes == bIsDividedRes)
+					|| bIsAntiBreak || bPrevIsAntiBreak)
 				{
-					// °³Á¶Àç·á ³ÖÀ»Ã¢¿¡ ¹º°¡°¡ ÀÖÀ¸¸é ¿ø·¡ À§Ä¡·Î µ¹·ÁÁÖ°í
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö°ï¿½
 					XiahItem::sItemInfo* pItem = g_MainCharInfo.m_pModifySack->FindSackItemByPos( byPosition);
 					if( pItem)
 					{
@@ -614,7 +621,7 @@ BOOL CSack::ProcessItemUnSelected_Default_Modify( BYTE byPosition, XiahItem::sIt
 						g_MainCharInfo.m_pModifySack->DeleteItem( byPosition);
 					}
 
-					// È¦µå¾ÆÀÌÅÛ ³Ö¾îÁÖ±â
+					// È¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½Ö±ï¿½
 					g_MainCharInfo.m_pHoldItem->GetHoldItemItem()->m_bSackID = SACKTYPE__MODIFY;
 					g_MainCharInfo.m_pHoldItem->GetHoldItemItem()->m_bSackIDPrev = g_MainCharInfo.m_pHoldItem->GetHoldItemItem()->m_bSackCount;
 					g_MainCharInfo.m_pHoldItem->GetHoldItemItem()->m_bSackPosPrev = g_MainCharInfo.m_pHoldItem->GetHoldItemItem()->m_bSackPos;
@@ -692,7 +699,7 @@ bool CSack::ProcessItemUnSelected_Default_Personal_Trade_Set(BYTE byPosition, Xi
 // Default -> Itemm mall
 BOOL CSack::ProcessItemUnSelected_Default_To_Itemmall(BYTE byPosition, XiahItem::sItemInfo* pHoldItem)
 {
-	// ÀÌ°ÍÀº 100% ¿¡·¯´Ù! ÀÌ·¯¸é ¾ÈµÈ´Ù.
+	// ï¿½Ì°ï¿½ï¿½ï¿½ 100% ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½! ï¿½Ì·ï¿½ï¿½ï¿½ ï¿½ÈµÈ´ï¿½.
 	g_MainCharInfo.m_pHoldItem->SetItemBackToSack();
 	g_MainCharInfo.PlayInterfaceSound( ISOUND_WARNING);
 
@@ -702,7 +709,7 @@ BOOL CSack::ProcessItemUnSelected_Default_To_Itemmall(BYTE byPosition, XiahItem:
 
 
 /**
- * °³ÀÎ»óÁ¡¿¡¼­ ±¸ÀÔ
+ * ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
  * \param byPosition 
  * \param pHoldItem 
  * \return 
@@ -722,7 +729,7 @@ bool CSack::ProcessItemUnSelected_Personal_TradeSell_Default(BYTE byPosition, Xi
 }
 
 /**
- * °³ÀÎ»óÁ¡ ¼³Á¤¿¡¼­ º»ÀÎÇà³¶
+ * ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½à³¶
  * \param byPosition 
  * \param pHoldItem 
  * \return 
@@ -731,7 +738,7 @@ bool CSack::ProcessItemUnSelected_Personal_Trade_Set_Default(BYTE byPosition, Xi
 {
 	g_MainCharInfo.m_pHoldItem->m_bBackPosition = byPosition;
 
-	// °³ÀÎ»óÁ¡¼³Á¤=>º»ÀÎÇà³¶
+	// ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=>ï¿½ï¿½ï¿½ï¿½ï¿½à³¶
 	SendCS_SH_DELSHOP_REQ(pHoldItem->m_bSackPos,
 						  pHoldItem->m_dwItemID,
 						  g_MainCharInfo.m_byMySackCurrIdx+1,
@@ -740,7 +747,7 @@ bool CSack::ProcessItemUnSelected_Personal_Trade_Set_Default(BYTE byPosition, Xi
 	return true;
 }
 
-// °³ÀÎ»óÁ¡³» ¾ÆÀÌÅÛ ÀÌµ¿
+// ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
 bool CSack::ProcessItemUnSelected_Personal_Trade_Set_Trade_Set(BYTE byPosition, XiahItem::sItemInfo* pHoldItem)
 {
 	XiahItem::sItemInfo* pDesItem = FindSackItemByPos( byPosition);
@@ -823,7 +830,7 @@ BOOL CSack::ProcessItemUnSelected_Pet_Pet( BYTE byPosition, XiahItem::sItemInfo*
 }
 
 /**
- * NPC -> ±¸ÀÔ
+ * NPC -> ï¿½ï¿½ï¿½ï¿½
  * \param byPosition 
  * \param pHoldItem 
  * \return 
@@ -833,11 +840,11 @@ BOOL CSack::ProcessItemUnSelected_Shop_Default( BYTE byPosition, XiahItem::sItem
 	DWORD Amount = g_MainCharInfo.m_dwVolumeSplitAmount;
 	if(0 == Amount)
 	{
-		// ÇÑ°³ »ì¶§ ¹«Á¶°Ç 1°³·Î Áý´Â´Ù
+		// ï¿½Ñ°ï¿½ ï¿½ì¶§ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½
 		Amount = 1;
 	}
 
-	// ¼ö·®À» ³ÖÀÚ!
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!
 	//if(pHoldItem->m_dwAmount != 10)
 	//	g_MainCharInfo.m_pHoldItem->GetHoldItemItem()->m_dwAmount = Amount;
 	if(pHoldItem->m_dwAmount == 10)
@@ -845,7 +852,7 @@ BOOL CSack::ProcessItemUnSelected_Shop_Default( BYTE byPosition, XiahItem::sItem
 	else
 		g_MainCharInfo.m_pHoldItem->GetHoldItemItem()->m_dwBuyCount = Amount;
 
-	// °Å·¡ ¿É¼Ç
+	// ï¿½Å·ï¿½ ï¿½É¼ï¿½
 	if(pHoldItem->m_dwPrice >= g_MainCharInfo.m_dwBuyLimit && g_MainCharInfo.m_dwBuyLimit)
 	{
 		g_MainCharInfo.m_pHoldItem->SetDrawFlag(false);
@@ -854,7 +861,7 @@ BOOL CSack::ProcessItemUnSelected_Shop_Default( BYTE byPosition, XiahItem::sItem
 	}
 	else
 	{
-		if( pHoldItem->m_bItemType == ITEMTYPE_POTION || pHoldItem->m_bItemType == ITEMTYPE_PORTAL || pHoldItem->m_bItemType == ITEMTYPE_GOLDKEY || (pHoldItem->m_bItemType == ITEMTYPE_EVENT && pHoldItem->m_bItemKind == 11)) //HO_0828_07 È²±Ý¿­¼è Ãß°¡
+		if( pHoldItem->m_bItemType == ITEMTYPE_POTION || pHoldItem->m_bItemType == ITEMTYPE_PORTAL || pHoldItem->m_bItemType == ITEMTYPE_GOLDKEY || (pHoldItem->m_bItemType == ITEMTYPE_EVENT && pHoldItem->m_bItemKind == 11)) //HO_0828_07 È²ï¿½Ý¿ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 		{
 			SendCS_EC_BUYITEM_REQ(	g_MainCharInfo.m_dwPickedObject, 
 									pHoldItem->m_wRefID,
@@ -943,7 +950,7 @@ BOOL CSack::ProcessItemUnSelected_Itemmall_To_Default( BYTE byPosition, XiahItem
 }
 
 
-// ITEMMALL -> ITEMMALL ÀÌµ¿
+// ITEMMALL -> ITEMMALL ï¿½Ìµï¿½
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 BOOL CSack::ProcessItemUnSelected_Itemmall_To_Itemmall( BYTE byPosition, XiahItem::sItemInfo* pHoldItem)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -984,7 +991,7 @@ BOOL CSack::ProcessItemUnSelected_Deposit_Deposit( BYTE byPosition, XiahItem::sI
 }
 
 /**
- * Çà³¶ -> Á¶ÇÕ Ã¢
+ * ï¿½à³¶ -> ï¿½ï¿½ï¿½ï¿½ Ã¢
  * \param byPosition 
  * \param pHoldItem 
  * \return 
@@ -993,7 +1000,7 @@ bool CSack::ProcessItemUnSelected_Default_Smelt(BYTE byPosition, XiahItem::sItem
 {	
 	XiahItem::sItemInfo* pItem = g_MainCharInfo.m_pSmeltSack->FindSackItemByPos(byPosition);
 
-	// ÇØ´ç À§Ä¡¿¡ ¾ÆÀÌÅÛÀÌ ÀÖÀ»½Ã µ¹·ÁÁÖ±â
+	// ï¿½Ø´ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
 	if(pItem)
 	{	
 		g_MainCharInfo.m_pHoldItem->SetItemBackToSack();
@@ -1001,7 +1008,7 @@ bool CSack::ProcessItemUnSelected_Default_Smelt(BYTE byPosition, XiahItem::sItem
 		return false;
 	}
 
-	// ¸ð¼­¸® °Ë»ç
+	// ï¿½ð¼­¸ï¿½ ï¿½Ë»ï¿½
 	if(5 == byPosition || 11 == byPosition || 17 == byPosition || (18 <= byPosition && 23 >= byPosition))
 	{
 		if(2 == pHoldItem->m_bSackSizeX || 2 == pHoldItem->m_bSackSizeY)
@@ -1012,10 +1019,10 @@ bool CSack::ProcessItemUnSelected_Default_Smelt(BYTE byPosition, XiahItem::sItem
 		}
 	}
 
-	// 1 x 1 Á¦¿ÜÇÑ ¾ÆÀÌÅÛ ÁÖÀ§ ¾ÆÀÌÅÛ°ú °ãÄ¡´ÂÁö °Ë»ç
+	// 1 x 1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û°ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
 	if(1 != pHoldItem->m_bSackSizeX || 1 != pHoldItem->m_bSackSizeY)
 	{
-		// ¿·
+		// ï¿½ï¿½
 		if(5 != byPosition || 11 != byPosition || 17 != byPosition || 23 != byPosition)
 		{
 			pItem = g_MainCharInfo.m_pSmeltSack->FindSackItemByPos(byPosition + 1);
@@ -1028,7 +1035,7 @@ bool CSack::ProcessItemUnSelected_Default_Smelt(BYTE byPosition, XiahItem::sItem
 			}
 		}
 
-		// ¾Æ·¡
+		// ï¿½Æ·ï¿½
 		pItem = g_MainCharInfo.m_pSmeltSack->FindSackItemByPos(byPosition + 6);
 
 		if(pItem)
@@ -1038,7 +1045,7 @@ bool CSack::ProcessItemUnSelected_Default_Smelt(BYTE byPosition, XiahItem::sItem
 			return false;
 		}
 
-		// ´ë°¢¼± ¾Æ·¡
+		// ï¿½ë°¢ï¿½ï¿½ ï¿½Æ·ï¿½
 		pItem = g_MainCharInfo.m_pSmeltSack->FindSackItemByPos(byPosition + 7);
 
 		if(pItem)
@@ -1049,8 +1056,8 @@ bool CSack::ProcessItemUnSelected_Default_Smelt(BYTE byPosition, XiahItem::sItem
 		}
 	}
 
-	// »ç½Å¼Â Á¶ÇÕÀ» À§ÇØ¼­ »èÁ¦
-	//// º¯Á¾ ¾ÆÀÌÅÛ °Ë»ç (2°³ ÀÌ»ó °Ë»ç) 
+	// ï¿½ï¿½Å¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½
+	//// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ (2ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½Ë»ï¿½) 
 	//int nCount =0;
 	//for(int i=0; i < 24; ++i)
 	//{
@@ -1058,7 +1065,7 @@ bool CSack::ProcessItemUnSelected_Default_Smelt(BYTE byPosition, XiahItem::sItem
 
 	//	if(pItem)
 	//	{
-	//		// ÈæÁ¤,¼ÒÁ¤,Ç÷Á¤, Èæº¸, ¼Òº¸, Ç÷º¸, ÈæÆí, ¼ÒÆí, Ç÷Æí
+	//		// ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½, ï¿½æº¸, ï¿½Òºï¿½, ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½
 	//		if(pItem->m_bItemType == ITEMTYPE_REBUILDRES && (pItem->m_bItemKind >= 1 && pItem->m_bItemKind <= 3))
 	//		{
 	//			++nCount;
@@ -1075,7 +1082,7 @@ bool CSack::ProcessItemUnSelected_Default_Smelt(BYTE byPosition, XiahItem::sItem
 	//	}
 	//}
 
-	//// ÀÌ¹Ì º¯Á¾ ¾ÆÀÌÅÛ ¿Ã·È´Âµ¥... ´Ù¸¥ Á¾·ù ¿Ã¸±½Ã
+	//// ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·È´Âµï¿½... ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¸ï¿½ï¿½ï¿½
 	//if(nCount)
 	//{
 	//	g_MainCharInfo.ShowHelpMessage(IDS_MIXTURE_BADITEM, TEXTEFFECT_COLOR_WARNING);					
@@ -1086,7 +1093,7 @@ bool CSack::ProcessItemUnSelected_Default_Smelt(BYTE byPosition, XiahItem::sItem
 	//}
 
 
-	// È¦µå¾ÆÀÌÅÛ ³Ö¾îÁÖ±â
+	// È¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½Ö±ï¿½
 	pHoldItem->m_bSackID	  = SACKTYPE__SMELT;
 	pHoldItem->m_bSackIDPrev  = pHoldItem->m_bSackCount;
 	pHoldItem->m_bSackPosPrev = pHoldItem->m_bSackPos;
@@ -1095,7 +1102,7 @@ bool CSack::ProcessItemUnSelected_Default_Smelt(BYTE byPosition, XiahItem::sItem
 	{
 		g_MainCharInfo.m_pHoldItem->EmptyHoldItemItem();
 	}
-	else	// ÀÌ»óÇÑ À§Ä¡ÀÏ½Ã
+	else	// ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Ï½ï¿½
 	{
 		pHoldItem->m_bSackID = SACKTYPE__DEFAULT;
 		g_MainCharInfo.m_pHoldItem->SetItemBackToSack();
@@ -1106,14 +1113,14 @@ bool CSack::ProcessItemUnSelected_Default_Smelt(BYTE byPosition, XiahItem::sItem
 
 
 /**
- * Çà³¶->Á¦·Ã   ¿ÀÇà Á¦·Ã
+ * ï¿½à³¶->ï¿½ï¿½ï¿½ï¿½   ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
  * \param byPosition 
  * \param pHoldItem 
  * \return 
  */
 bool CSack::ProcessItemUnSelected_Default_FE_Convert(BYTE byPosition, XiahItem::sItemInfo* pHoldItem)
 {
-	// °³Á¶ ÇÏ°íÀÚ ÇÏ´Â ¾ÆÀÌÅÛ Ã¼Å©
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ï°ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 	if(byPosition == 0)
 	{
 		switch(pHoldItem->m_bItemType)
@@ -1162,13 +1169,13 @@ bool CSack::ProcessItemUnSelected_Default_FE_Convert(BYTE byPosition, XiahItem::
 
 		SendCS_IM_REBUILDITEMTERM_REQ(pHoldItem->m_dwItemID, pHoldItem->m_bSackCount+1, pHoldItem->m_bSackPos);
 	}
-	// °³Á¶Àç·á Ã¼Å©
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
 	else
 	{		
 		if(!g_MainCharInfo.m_pFEConvert)
 			return true;
 
-		// Á¦·Ã ¾ÆÀÌÅÛ È·¶¨
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È·ï¿½ï¿½
 		XiahItem::sItemInfo* pOriginalItem = g_MainCharInfo.m_pFEConvert->FindSackItemByPos(0);
 
 		if(pOriginalItem)
@@ -1176,7 +1183,7 @@ bool CSack::ProcessItemUnSelected_Default_FE_Convert(BYTE byPosition, XiahItem::
 			DWORD dwResourceIDConstraint =0;
 
 			int nCount = 1;
-			// ÀÚ±âº¸´Ù ¼øÀ§°¡ ³·Àº Ã¢¿¡ ¹º°¡°¡ ¾øÀ¸¸é ¸®ÅÏ
+			// ï¿½Ú±âº¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			for(int i=1; i < byPosition; ++i)
 			{
 				XiahItem::sItemInfo* pItem = g_MainCharInfo.m_pFEConvert->FindSackItemByPos(i);
@@ -1188,7 +1195,7 @@ bool CSack::ProcessItemUnSelected_Default_FE_Convert(BYTE byPosition, XiahItem::
 					g_MainCharInfo.m_pHoldItem->SetItemBackToSack();
 					return true;
 				}
-				// ¹º°¡°¡ ÀÖÀ¸¸é ±× ³ÑÀÇ ¾ÆÀÌµð¸¸ ´Ù¸¥ Ã¢¿¡ µé¾î°¥ ¼ö ÀÖ´Ù
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Ù¸ï¿½ Ã¢ï¿½ï¿½ ï¿½ï¿½î°¥ ï¿½ï¿½ ï¿½Ö´ï¿½
 				else
 				{
 					dwResourceIDConstraint = pItem->m_wRefID;
@@ -1198,11 +1205,11 @@ bool CSack::ProcessItemUnSelected_Default_FE_Convert(BYTE byPosition, XiahItem::
 
 			if(!dwResourceIDConstraint)
 			{
-				// [10/26/2004] °³Á¶ °¡´É¿©ºÎ
+				// [10/26/2004] ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½É¿ï¿½ï¿½ï¿½
 				if( pHoldItem->m_bItemType == ITEMTYPE_REBUILDRES && 0 == pHoldItem->m_bIsDividedRes
 					&& pHoldItem->m_bItemKind >= 5 &&  pHoldItem->m_bItemKind <= 6)
 				{
-					// °³Á¶Àç·á ³ÖÀ»Ã¢¿¡ ¹º°¡°¡ ÀÖÀ¸¸é ¿ø·¡ À§Ä¡·Î µ¹·ÁÁÖ°í
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö°ï¿½
 					XiahItem::sItemInfo* pItem = g_MainCharInfo.m_pFEConvert->FindSackItemByPos(byPosition);
 
 					if(pItem)
@@ -1212,7 +1219,7 @@ bool CSack::ProcessItemUnSelected_Default_FE_Convert(BYTE byPosition, XiahItem::
 						g_MainCharInfo.m_pFEConvert->DeleteItem(byPosition);
 					}
 
-					// È¦µå¾ÆÀÌÅÛ ³Ö¾îÁÖ±â
+					// È¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½Ö±ï¿½
 					pHoldItem->m_bSackID		= SACKTYPE__MODIFY;
 					pHoldItem->m_bSackIDPrev	= pHoldItem->m_bSackCount;
 					pHoldItem->m_bSackPosPrev	= pHoldItem->m_bSackPos;
@@ -1228,10 +1235,10 @@ bool CSack::ProcessItemUnSelected_Default_FE_Convert(BYTE byPosition, XiahItem::
 						g_pUIManager->SetString(WINDOW_FIVEELEMENTS_CONVERT, fiveelements_convert_window_dumy_05, strMoney);
 					}					
 				}
-				//HT_1116 : °¢¼ºÀÚ ¾ÆÀÌÅÛ Ãß°¡
+				//HT_1116 : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 				else if(pHoldItem->m_bItemType == ITEMTYPE_REBUILDRES && (pHoldItem->m_bItemKind == 17 || pHoldItem->m_bItemKind == 16))//&& 0 == pHoldItem->m_bIsDividedRes && pHoldItem->m_bItemKind == 17)
 				{
-					// °³Á¶Àç·á ³ÖÀ»Ã¢¿¡ ¹º°¡°¡ ÀÖÀ¸¸é ¿ø·¡ À§Ä¡·Î µ¹·ÁÁÖ°í
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö°ï¿½
 					XiahItem::sItemInfo* pItem = g_MainCharInfo.m_pFEConvert->FindSackItemByPos(byPosition);
 
 					if(pItem)
@@ -1241,7 +1248,7 @@ bool CSack::ProcessItemUnSelected_Default_FE_Convert(BYTE byPosition, XiahItem::
 						g_MainCharInfo.m_pFEConvert->DeleteItem(byPosition);
 					}
 
-					// È¦µå¾ÆÀÌÅÛ ³Ö¾îÁÖ±â
+					// È¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½Ö±ï¿½
 					pHoldItem->m_bSackID		= SACKTYPE__MODIFY;
 					pHoldItem->m_bSackIDPrev	= pHoldItem->m_bSackCount;
 					pHoldItem->m_bSackPosPrev	= pHoldItem->m_bSackPos;
@@ -1254,7 +1261,7 @@ bool CSack::ProcessItemUnSelected_Default_FE_Convert(BYTE byPosition, XiahItem::
 						TCHAR strMoney[128] = {0,};
 						INT64 n64Money = 0;
 						
-						//HT_1116 : °¢¼ºÀÚ ¾ÆÀÌÅÛ Ãß°¡
+						//HT_1116 : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 						if(pHoldItem->m_bItemType == 25 && pHoldItem->m_bItemKind == 17)
 							n64Money = 2000000;
 						else
@@ -1275,7 +1282,7 @@ bool CSack::ProcessItemUnSelected_Default_FE_Convert(BYTE byPosition, XiahItem::
 			{
 				if(pHoldItem->m_wRefID == dwResourceIDConstraint)
 				{
-					// °³Á¶Àç·á ³ÖÀ»Ã¢¿¡ ¹º°¡°¡ ÀÖÀ¸¸é ¿ø·¡ À§Ä¡·Î µ¹·ÁÁÖ°í
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö°ï¿½
 					XiahItem::sItemInfo* pItem = g_MainCharInfo.m_pFEConvert->FindSackItemByPos(byPosition);
 					if(pItem)
 					{
@@ -1284,7 +1291,7 @@ bool CSack::ProcessItemUnSelected_Default_FE_Convert(BYTE byPosition, XiahItem::
 						g_MainCharInfo.m_pFEConvert->DeleteItem(byPosition);
 					}
 
-					// È¦µå¾ÆÀÌÅÛ ³Ö¾îÁÖ±â
+					// È¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½Ö±ï¿½
 					pHoldItem->m_bSackID		= SACKTYPE__MODIFY;
 					pHoldItem->m_bSackIDPrev	= pHoldItem->m_bSackCount;
 					pHoldItem->m_bSackPosPrev	= pHoldItem->m_bSackPos;
@@ -1319,7 +1326,7 @@ bool CSack::ProcessItemUnSelected_Default_FE_Convert(BYTE byPosition, XiahItem::
 }
 
 /**
- * ¸ÅÇ°ÆÐ ( Çà³¶ -> ¸ÅÇ°ÆÐ)
+ * ï¿½ï¿½Ç°ï¿½ï¿½ ( ï¿½à³¶ -> ï¿½ï¿½Ç°ï¿½ï¿½)
  * \param byPosition 
  * \param pHoldItem 
  * \return 
@@ -1345,7 +1352,7 @@ bool CSack::ProcessItemUnSelected_Default_QuickMart(BYTE byPosition, XiahItem::s
 }
 
 /**
-* Çà³¶ -> ¾ÆÀÌÅÛ ¼öÁý
+* ï¿½à³¶ -> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 * \param byPosition 
 * \param pHoldItem 
 * \return 
@@ -1359,7 +1366,7 @@ bool CSack::ProcessItemUnSelected_Default_Collection(BYTE byPosition, XiahItem::
 }
 
 /**
-* ¾ÆÀÌÅÛ ¼öÁý -> Çà³¶
+* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ -> ï¿½à³¶
 * \param byPosition 
 * \param pHoldItem 
 * \return 

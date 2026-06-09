@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "NetMsg.h"
 
@@ -6,30 +6,30 @@ namespace XiahNetwork
 {
 
 /*
-	XiahÀÇ Client¿ë Socket Class
+	Xiahì˜ Clientìš© Socket Class
 
-	c socket ½ºÅ¸ÀÏ·Î½á
+	c socket ìŠ¤íƒ€ì¼ë¡œì¨
 
-	none-block socketÀÌ´Ù
+	none-block socketì´ë‹¤
 */
 
 	// Message Receive Handler Function
 	typedef BOOL (*XIAH_SOCKET_RECEIVE_FUNCTION)(CMsg &msg);
-	// ¿¬°áÀÌ °©ÀÚ±â Á¾·á µÇ¾úÀ»¶§ È£ÃâµÇ´Â ÇÔ¼ö
+	// ì—°ê²°ì´ ê°‘ìê¸° ì¢…ë£Œ ë˜ì—ˆì„ë•Œ í˜¸ì¶œë˜ëŠ” í•¨ìˆ˜
 	typedef void (*XIAH_SOCKET_ON_UNEXPECTEDLY_DISCONNECTED)(void);
 	typedef void (*XIAH_SCOKET_ON_CONNECTED)(void);
 
-	// Client SocketÃÊ±âÈ­ (WSASocketStartup°°Àº°É È£ÃâÇØÁØ´Ù)
+	// Client Socketì´ˆê¸°í™” (WSASocketStartupê°™ì€ê±¸ í˜¸ì¶œí•´ì¤€ë‹¤)
 	BOOL InitializeXiahClientSocket();
-	// Client SocketÇØÁ¦
+	// Client Socketí•´ì œ
 	BOOL UnitializeXiahClientSocket();
-	// Network Message¸¦ ¼­¹ö¿¡ º¸³½´Ù
+	// Network Messageë¥¼ ì„œë²„ì— ë³´ë‚¸ë‹¤
 	BOOL SendNetMsg(CMsg &msg);
-	// ¼­¹ö¿¡ Á¢¼ÓÇÑ´Ù
+	// ì„œë²„ì— ì ‘ì†í•œë‹¤
 	BOOL ConnectToServer(LPCTSTR server_address,int nPort);
-	// ¼­¹ö¿ÍÀÇ ¿¬°áÀ» ²÷´Â´Ù
+	// ì„œë²„ì™€ì˜ ì—°ê²°ì„ ëŠëŠ”ë‹¤
 	BOOL DisconnectFromServer();
-	// Network MessageÃ³¸®¸¦ ÇÑ´Ù. (selectÇØ¼­ ¸Ş¼¼Áö¸¦ ¹ŞÀ¸¸é Ã³¸®ÇÑ´Ù)
+	// Network Messageì²˜ë¦¬ë¥¼ í•œë‹¤. (selectí•´ì„œ ë©”ì„¸ì§€ë¥¼ ë°›ìœ¼ë©´ ì²˜ë¦¬í•œë‹¤)
 	BOOL ProcessNetworkMessage();
 
 	extern XIAH_SCOKET_ON_CONNECTED					 g_XiahSocketOnConnected;

@@ -1,9 +1,19 @@
-﻿BOOL SetupPC_VisualEquipement(CXiahCharObject* pObject, WORD* pVisualList, BYTE* pRarityList, BYTE* pStxTypeList)
+﻿// 装备外观加载调试日志（Release 关闭）
+static void LogEquipVisual(const char* fmt, ...) {}
+
+BOOL SetupPC_VisualEquipement(CXiahCharObject* pObject, WORD* pVisualList, BYTE* pRarityList, BYTE* pStxTypeList)
 {
 	XiahItem::sItemInfo info;
 
 	// CG_2005/01/27 : 변종아이템기능추가
 	int nCharID = pObject->m_CharRender.GetCharID();
+
+	// ===== 调试日志：输出全部穿戴位 VisualID =====
+	LogEquipVisual("======== SetupPC_VisualEquipement ========\n");
+	LogEquipVisual("  CharRenderID=%d  SubObjType=%d\n", nCharID, pObject->m_bSubObjType);
+	const char* slotNames[] = {"WEAPON","HAT","CLOTH","SHOE","PROTECTOR","RING","NECLACE","CLOAK","BONGIN","(9)","KEY"};
+	for (int _i = 0; _i < 11; _i++)
+		LogEquipVisual("  Slot[%d]=%s  VID=%d\n", _i, slotNames[_i], (int)pVisualList[_i]);
 
 	if( pVisualList[ EQUIPPOS_CLOTH] != 0)
 	{
@@ -11,6 +21,8 @@
 
 		if( XiahItem::SetItemVisualData( &info))
 		{
+			LogEquipVisual("  [CLOTH] VID=%d -> CharID=%d Mesh=%d Tex=%d (eLBP_Protector)\n",
+				info.m_wVisualID, info.m_nEquipCharID, info.m_nEquipMeshType, info.m_nEquipTextureType);
 			pObject->AttachChildCharRender( eLBP_Protector, info.m_nEquipCharID, info.m_nEquipMeshType, info.m_nEquipTextureType);
 		}
 	}
@@ -35,7 +47,56 @@
 
 		if( XiahItem::SetItemVisualData( &info))
 		{
+			LogEquipVisual("  [CLOTH-Default] VID=%d -> CharID=%d Mesh=%d Tex=%d (eLBP_Protector)\n",
+				info.m_wVisualID, info.m_nEquipCharID, info.m_nEquipMeshType, info.m_nEquipTextureType);
 			pObject->AttachChildCharRender( eLBP_Protector, info.m_nEquipCharID, info.m_nEquipMeshType, info.m_nEquipTextureType);
+		}
+	}
+
+	// 披风渲染：根据披风模型是否和主角色模型相同，采用不同的渲染策略
+	// - 同模型（云朗867/夜叉906 等）：只换贴图层3，衣服和披风共存
+	// - 不同模型（剑侠790→1253 等）：走 eLBP_Protector 重建模型
+	if( pVisualList[ EQUIPPOS_CLOAK] != 0)
+	{
+		info.m_wVisualID = pVisualList[ EQUIPPOS_CLOAK];
+
+		if( XiahItem::SetItemVisualData( &info))
+		{
+			int nCurrentCharID = pObject->m_CharRender.GetCharID();
+
+			if( info.m_nEquipCharID == nCurrentCharID)
+			{
+				// 同模型：只换贴图层3（披风/斗篷专属层），保留层0（衣服层）
+				LogEquipVisual("  [CLOAK] VID=%d -> CharID=%d Mesh=%d Tex=%d (同模型, ChangeTexture layer 3)\n",
+					info.m_wVisualID, info.m_nEquipCharID, info.m_nEquipMeshType, info.m_nEquipTextureType);
+
+				CRes_Character* pCloakChar = XiahGameEngine::GetCharacter( info.m_nEquipCharID);
+				if( pCloakChar)
+				{
+					Res_Mesh* pCloakMesh = pCloakChar->GetMesh( info.m_nEquipMeshType);
+					if( pCloakMesh)
+					{
+						Res_CharTexture* pCloakTex = pCloakMesh->GetTexture( info.m_nEquipTextureType);
+						if( pCloakTex && pCloakTex->texture_sub_count >= 4)
+						{
+							pObject->m_CharRender.ChangeTexture( 3, pCloakTex->texture_sub_ptr[ 3].texture_id);
+						}
+						else if( pCloakTex && pCloakTex->texture_sub_count >= 1)
+						{
+							pObject->m_CharRender.ChangeTexture( 3, pCloakTex->texture_sub_ptr[ 0].texture_id);
+						}
+					}
+				}
+			}
+			else
+			{
+				// 独立3D模型（如剑侠盾牌 CharID=1253）：挂载到左手骨骼点
+				// 不同职业的 CLOAK 栏位可以是不同形态的物品（披风/盾牌等），
+				// 独立模型挂载到 eLBP_LeftHand，和武器（eLBP_RightHand）搭配
+				LogEquipVisual("  [CLOAK] VID=%d -> CharID=%d Mesh=%d Tex=%d (独立模型, eLBP_LeftHand)\n",
+					info.m_wVisualID, info.m_nEquipCharID, info.m_nEquipMeshType, info.m_nEquipTextureType);
+				pObject->AttachChildCharRender( eLBP_LeftHand, info.m_nEquipCharID, info.m_nEquipMeshType, info.m_nEquipTextureType);
+			}
 		}
 	}
 
@@ -120,6 +181,8 @@
 				case 1:	// 검영
 				case 2:	// 연랑
 				case 3:	// 무투
+					LogEquipVisual("  [WEAPON] VID=%d -> CharID=%d Mesh=%d Tex=%d Effect=%d (eLBP_RightHand)\n",
+						info.m_wVisualID, info.m_nEquipCharID, info.m_nEquipMeshType, info.m_nEquipTextureType, nEffectIndex);
 					pObject->AttachChildCharRender( eLBP_RightHand, info.m_nEquipCharID, info.m_nEquipMeshType, info.m_nEquipTextureType, nEffectIndex );
 					break;
 				case 4:// 야차는 양손 무기이다.
@@ -190,6 +253,8 @@
 			info.m_wVisualID = pVisualList[ EQUIPPOS_HAT];
 			if( XiahItem::SetItemVisualData( &info))
 			{
+				LogEquipVisual("  [HAT] VID=%d -> CharID=%d Mesh=%d Tex=%d (eLBP_Head)\n",
+					info.m_wVisualID, info.m_nEquipCharID, info.m_nEquipMeshType, info.m_nEquipTextureType);
 				pObject->AttachChildCharRender( eLBP_Head, info.m_nEquipCharID, info.m_nEquipMeshType, info.m_nEquipTextureType);
 			}
 		}
@@ -222,6 +287,8 @@
 			info.m_wVisualID = pVisualList[ EQUIPPOS_HAT]; 
 			if( XiahItem::SetItemVisualData( &info ))
 			{
+				LogEquipVisual("  [HAT-Other] VID=%d -> CharID=%d Mesh=%d Tex=%d (eLBP_Head)\n",
+					info.m_wVisualID, info.m_nEquipCharID, info.m_nEquipMeshType, info.m_nEquipTextureType);
 				pObject->AttachChildCharRender( eLBP_Head, info.m_nEquipCharID, info.m_nEquipMeshType, info.m_nEquipTextureType);
 			}
 		}
@@ -254,6 +321,8 @@
 
 		if( XiahItem::SetItemVisualData( &info))
 		{
+			LogEquipVisual("  [SHOE] VID=%d -> CharID=%d Mesh=%d Tex=%d (eLBP_Shoe, 换贴图)\n",
+				info.m_wVisualID, info.m_nEquipCharID, info.m_nEquipMeshType, info.m_nEquipTextureType);
 			pObject->AttachChildCharRender( eLBP_Shoe, info.m_nEquipCharID, info.m_nEquipMeshType, info.m_nEquipTextureType);
 		}
 	}
@@ -278,6 +347,11 @@
 	}
 
 	pObject->EnableGlowEffect( pObject->m_bGlowEnable);
+	LogEquipVisual("  [CLOAK] VID=%d (已实现渲染, EQUIPPOS_CLOAK=7)\n", (int)pVisualList[EQUIPPOS_CLOAK]);
+	LogEquipVisual("  [PROTECTOR] VID=%d (未实现渲染, EQUIPPOS_PROTECTOR=4)\n", (int)pVisualList[EQUIPPOS_PROTECTOR]);
+	LogEquipVisual("  [RING] VID=%d (无外观, EQUIPPOS_RING=5)\n", (int)pVisualList[EQUIPPOS_RING]);
+	LogEquipVisual("  [NECLACE] VID=%d (无外观, EQUIPPOS_NECLACE=6)\n", (int)pVisualList[EQUIPPOS_NECLACE]);
+	LogEquipVisual("========================================\n\n");
 
 	int nNewTitleID = (int)pVisualList[8];
 	if (g_pMainChar && pObject == (CXiahCharObject*)g_pMainChar->m_pObject)

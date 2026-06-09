@@ -1,6 +1,6 @@
-#include "precompile.h"
+ï»¿#include "precompile.h"
 #include "AppData.h"
-#include "resource.h"	// ¿ø·¡ precompile¿¡ ³ÖÀ»±î »ı°¢Çß´Âµ¥. ±×³É..
+#include "resource.h"	// ì›ë˜ precompileì— ë„£ì„ê¹Œ ìƒê°í–ˆëŠ”ë°. ê·¸ëƒ¥..
 
 #include "XiahGame_Intro.h"
 #include "XiahObjectType.h"
@@ -46,8 +46,8 @@ void ProcessInterfaceHanler( int nFrameID, LPARAM lParam)
 
 	if( it == g_InterfaceMap.end())
 	{
-		DBG_Put(_T("¾Ë¼ö ¾ø´Â ÀÎÅÍÆäÀÌ½º ÇÁ·¹ÀÓ ¾ÆÀÌµğ : 0x%X"), nFrameID);
-		DBG_LogFile( _T("¾Ë¼ö ¾ø´Â ÀÎÅÍÆäÀÌ½º ÇÁ·¹ÀÓ ¾ÆÀÌµğ fail %d"), nFrameID);
+		DBG_Put(_T("ì•Œìˆ˜ ì—†ëŠ” ì¸í„°í˜ì´ìŠ¤ í”„ë ˆì„ ì•„ì´ë”” : 0x%X"), nFrameID);
+		DBG_LogFile( _T("ì•Œìˆ˜ ì—†ëŠ” ì¸í„°í˜ì´ìŠ¤ í”„ë ˆì„ ì•„ì´ë”” fail %d"), nFrameID);
 		return;
 	}	
 
@@ -88,20 +88,20 @@ void RegisterInterfaceHandler()
 	RegistInterfaceHandler( PET_BUTTON_GROUP,		ProcessPetButtonGroup);
 	RegistInterfaceHandler( MAIN_CHAT,				ProcessMainChat);
 	//RegistInterfaceHandler( MESSENGER_CHANNEL,		ProcessMessengerChannel);
-	RegistInterfaceHandler(SPIRIT,					ProcessSpirit);				// ±â
-	RegistInterfaceHandler(HELP_BUTTON,				ProcessHELPER);				//HO_0413_07 Äü °¡ÀÌµå ¾÷µ¥ÀÌÆ® 
+	RegistInterfaceHandler(SPIRIT,					ProcessSpirit);				// ê¸°
+	RegistInterfaceHandler(HELP_BUTTON,				ProcessHELPER);				//HO_0413_07 í€µ ê°€ì´ë“œ ì—…ë°ì´íŠ¸ 
 
 	// WINDOW
 	RegistInterfaceHandler( WINDOW_CHARACTER,		ProcessWindowCharacter);
 	RegistInterfaceHandler( DRG_ITEM_WINDOW,		ProcessWindowItem);	
 	RegistInterfaceHandler( WINDOW_OUTSIDE,			ProcessWindowOutSide);
 	RegistInterfaceHandler( WINDOW_INSIDE,			ProcessWindowInSide);
-	RegistInterfaceHandler( WINDOW_SKILL,			ProcessWindowSkill);	// °¢¼º 
-	RegistInterfaceHandler(WINDOW_FIVEELEMENTS,		ProcessWindowFiveElement);				// ¿ÀÇà
-	RegistInterfaceHandler(WINDOW_FIVEELEMENTS_CONVERT,	ProcessWindowFiveElementConvert);	// ¿ÀÇà Á¦·Ã
+	RegistInterfaceHandler( WINDOW_SKILL,			ProcessWindowSkill);	// ê°ì„± 
+	RegistInterfaceHandler(WINDOW_FIVEELEMENTS,		ProcessWindowFiveElement);				// ì˜¤í–‰
+	RegistInterfaceHandler(WINDOW_FIVEELEMENTS_CONVERT,	ProcessWindowFiveElementConvert);	// ì˜¤í–‰ ì œë ¨
 
 	RegistInterfaceHandler( WINDOW_DAN,				ProcessWindowDan);
-	RegistInterfaceHandler(WINDOW_DAN_NEW,			ProcessWindowDanNew);					// ´Ü °æÇèÄ¡ ºĞ¹è
+	RegistInterfaceHandler(WINDOW_DAN_NEW,			ProcessWindowDanNew);					// ë‹¨ ê²½í—˜ì¹˜ ë¶„ë°°
 	RegistInterfaceHandler( WINDOW_MUNPA,			ProcessWindowClan);
 	RegistInterfaceHandler( WINDOW_MUNPA_FOUND,		ProcessWindowClanFound);
 	RegistInterfaceHandler( WINDOW_NEW_TAMING,		ProcessWindowTaming);
@@ -114,20 +114,20 @@ void RegisterInterfaceHandler()
 	RegistInterfaceHandler( WINDOW_NAME_CONFER,		ProcessWindowNameConfer);
 	RegistInterfaceHandler( NAME_CHANNEL,			ProcessNameChannel);
 	RegistInterfaceHandler( WINDOW_QUEST_01,			ProcessWindowQuest);
-	RegistInterfaceHandler(WINDOW_OPTION_01,		ProcessWindowOption1);	// °ÔÀÓ ¿É¼Ç
-	RegistInterfaceHandler(WINDOW_OPTION_02,		ProcessWindowOption2);	// È¯°æ ¿É¼Ç
-	RegistInterfaceHandler(WINDOW_OPTION_03,		ProcessWindowOption3);	// °Å·¡ ¿É¼Ç
+	RegistInterfaceHandler(WINDOW_OPTION_01,		ProcessWindowOption1);	// ê²Œì„ ì˜µì…˜
+	RegistInterfaceHandler(WINDOW_OPTION_02,		ProcessWindowOption2);	// í™˜ê²½ ì˜µì…˜
+	RegistInterfaceHandler(WINDOW_OPTION_03,		ProcessWindowOption3);	// ê±°ë˜ ì˜µì…˜
 	RegistInterfaceHandler(TAP_NPC_TRADE_4,			ProcessTabNpcTramde4);
 	RegistInterfaceHandler(WINDOW_CLOSE,			ProcessWindowClose);
 
-	RegistInterfaceHandler( WINDOW_PC_STORE,		ProcessWindowPcStore);	// °³ÀÎ »óÁ¡
+	RegistInterfaceHandler( WINDOW_PC_STORE,		ProcessWindowPcStore);	// ê°œì¸ ìƒì 
 	RegistInterfaceHandler( WINDOW_MONEY,			ProcessWindowMoney);
 	
 	RegistInterfaceHandler( GAK_MESSAGE_WINDOW,		ProcessWindowGakMessage);
 	RegistInterfaceHandler( WINDOW_DONGSIN,			ProcessWindowDongSin);
 
-	RegistInterfaceHandler(WINDOW_DAN_WAR,			ProcessWindowDanWar);	// ´Ü ºñ¹«
-	RegistInterfaceHandler(WINDOW_PURSE,			ProcessWindowPurse);	// Àü³¶
+	RegistInterfaceHandler(WINDOW_DAN_WAR,			ProcessWindowDanWar);	// ë‹¨ ë¹„ë¬´
+	RegistInterfaceHandler(WINDOW_PURSE,			ProcessWindowPurse);	// ì „ë‚­
 
 	RegistInterfaceHandler(WINDOW_MUNPA_BBS_TOP,	ProcessWindowMunpaBBSTop);
 	RegistInterfaceHandler(WINDOW_MUNPA_BBS_LIST,	ProcessWindowMunpaBBSList);
@@ -135,7 +135,7 @@ void RegisterInterfaceHandler()
 	RegistInterfaceHandler(WINDOW_MUNPA_BBS_WRITE,	ProcessWindowMunpaBBSWrite);
 	RegistInterfaceHandler(WINDOW_MUNPA_DONATE,		ProcessWindowMunpaDonate);
 	RegistInterfaceHandler(WINDOW_MUNPA_WAR_PETITION, ProcessWindowMunpaWarPetition);
-	RegistInterfaceHandler(MESSAGE_WINDOW_MARK,		ProcessWindowMark);		// ¹®ÆÄ¹®Àå
+	RegistInterfaceHandler(MESSAGE_WINDOW_MARK,		ProcessWindowMark);		// ë¬¸íŒŒë¬¸ì¥
 
 	RegistInterfaceHandler(WINDOW_MAIL,				ProcessWindowMail);
 	RegistInterfaceHandler(WINDOW_MAIL_SELECT,		ProcessWindowMailSelect);
@@ -144,26 +144,26 @@ void RegisterInterfaceHandler()
 	RegistInterfaceHandler(WINDOW_COMMON,			ProcessWindowCommon);
 	RegistInterfaceHandler(WINDOW_PET_TRADE,		ProcessWindowPetTrade);
 
-	RegistInterfaceHandler(WINDOW_BOK_NUMBER,		ProcessWindowBokNumber);		// º¹±Ç¹øÈ£¼±ÅÃ
-	RegistInterfaceHandler(WINDOW_BOK_PRIZE,		ProcessWindowBokPrize);			// ´çÃ·¹øÈ£È·¶¨
+	RegistInterfaceHandler(WINDOW_BOK_NUMBER,		ProcessWindowBokNumber);		// ë³µê¶Œë²ˆí˜¸ì„ íƒ
+	RegistInterfaceHandler(WINDOW_BOK_PRIZE,		ProcessWindowBokPrize);			// ë‹¹ì²¨ë²ˆí˜¸íš…ë•
 
-	RegistInterfaceHandler(WINDOW_SMELT,			ProcessWindowSmelt);			// Á¶ÇÕÃ¢
+	RegistInterfaceHandler(WINDOW_SMELT,			ProcessWindowSmelt);			// ì¡°í•©ì°½
 
-	// µµ¿ì¹Ì NPC
-	RegistInterfaceHandler(WINDOW_HELPER_LIST2,		ProcessWindowHelperList);	// ´ëÈ­ ¸®½ºÆ®
-	//HO_0410_07 »ó¼­·É °¡ÀÌµå ¾÷µ¥ÀÌÆ®
-	RegistInterfaceHandler(WINDOW_HELPER_SCRIPT,	ProcessWindowTamRangScript);	// »ó¼­·É °¡ÀÌµå ¾÷µ¥ÀÌÆ® : Å½¶û ´ëÈ­¿ëÀ¸·Î º¯È¯
-	RegistInterfaceHandler(WINDOW_HELPER_LIST0,		ProcessWindowQuickScript);		// HO_0413_07 Äü °¡ÀÌµå ¾÷µ¥ÀÌÆ® : Äü °¡ÀÌµå ³»¿ë
-	RegistInterfaceHandler(WINDOW_HELPER_LIST1,		ProcessWindowHelperList);		// ´ëÈ­ ¸®½ºÆ®
-	RegistInterfaceHandler(WINDOW_HELPER_LIST,		ProcessWindowHelperScript);		// ´ëÈ­ ³»¿ë
-	RegistInterfaceHandler(WINDOW_PORTAL,			ProcessWindowPortal);			// NPC Æ÷Å» ÀÌµ¿
+	// ë„ìš°ë¯¸ NPC
+	RegistInterfaceHandler(WINDOW_HELPER_LIST2,		ProcessWindowHelperList);	// ëŒ€í™” ë¦¬ìŠ¤íŠ¸
+	//HO_0410_07 ìƒì„œë ¹ ê°€ì´ë“œ ì—…ë°ì´íŠ¸
+	RegistInterfaceHandler(WINDOW_HELPER_SCRIPT,	ProcessWindowTamRangScript);	// ìƒì„œë ¹ ê°€ì´ë“œ ì—…ë°ì´íŠ¸ : íƒë‘ ëŒ€í™”ìš©ìœ¼ë¡œ ë³€í™˜
+	RegistInterfaceHandler(WINDOW_HELPER_LIST0,		ProcessWindowQuickScript);		// HO_0413_07 í€µ ê°€ì´ë“œ ì—…ë°ì´íŠ¸ : í€µ ê°€ì´ë“œ ë‚´ìš©
+	RegistInterfaceHandler(WINDOW_HELPER_LIST1,		ProcessWindowHelperList);		// ëŒ€í™” ë¦¬ìŠ¤íŠ¸
+	RegistInterfaceHandler(WINDOW_HELPER_LIST,		ProcessWindowHelperScript);		// ëŒ€í™” ë‚´ìš©
+	RegistInterfaceHandler(WINDOW_PORTAL,			ProcessWindowPortal);			// NPC í¬íƒˆ ì´ë™
 	
-	RegistInterfaceHandler(WINDOW_RECOVERY,			ProcessWindowRecovery);			// ¾ÆÀÌÅÛ º¹±¸
+	RegistInterfaceHandler(WINDOW_RECOVERY,			ProcessWindowRecovery);			// ì•„ì´í…œ ë³µêµ¬
 
-	RegistInterfaceHandler(WINDOW_COLLECTION,		ProcessWindowCollection);		// ¾ÆÀÌÅÛ ¼öÁı
+	RegistInterfaceHandler(WINDOW_COLLECTION,		ProcessWindowCollection);		// ì•„ì´í…œ ìˆ˜ì§‘
 
-	RegistInterfaceHandler(WINDOW_SECRET_CHECK,		ProcessWindowSecretMove);		//HT_0313 : ±¤¸íÀü & ÃµÈ²Àü (ÀÌµ¿)	
-	RegistInterfaceHandler(WINDOW_SECRET_INFORMATION,		ProcessWindowSecretApplication);		//HT_0313 : ±¤¸íÀü & ÃµÈ²Àü (Âü¿©)	
+	RegistInterfaceHandler(WINDOW_SECRET_CHECK,		ProcessWindowSecretMove);		//HT_0313 : ê´‘ëª…ì „ & ì²œí™©ì „ (ì´ë™)	
+	RegistInterfaceHandler(WINDOW_SECRET_INFORMATION,		ProcessWindowSecretApplication);		//HT_0313 : ê´‘ëª…ì „ & ì²œí™©ì „ (ì°¸ì—¬)	
 
 
 	// NOTICE
@@ -174,13 +174,13 @@ void RegisterInterfaceHandler()
 	RegistInterfaceHandler(FRAMEID_NPC,				ProcessPopMenuNpc);			// NPC
 	RegistInterfaceHandler(FRAMEID_PET,				ProcessPopMenuPet);			// PET
 	RegistInterfaceHandler(FRAMEID_STONE,			ProcessPopMenuStone);		// STONE
-	RegistInterfaceHandler(FRAMEID_OFFICIAL,		ProcessPopMenuOfficial);	// Á¤»ç°ü
-	RegistInterfaceHandler(FRAMEID_ALCHEMIST,		ProcessPopMenuAlchemist);	// ¿¬±İ¼ú»ç
-	RegistInterfaceHandler(FRAMEID_HELP,			ProcessPopMenuHelp);		// »ó¼­·É
-	RegistInterfaceHandler(FRAMEID_NPC_PORTAL,		ProcessPopMenuNpcPortal);	// NPC Æ÷Å» ÀÌµ¿ »ó¼­·É	
-	RegistInterfaceHandler(FRAMEID_HELP_2,			ProcessPopMenuHelp2);		// ¼º³à
-	RegistInterfaceHandler(FRAMEID_CLAN_WAR,		ProcessPopMenuClanWar);		// ¹®ÆÄ´ëÀü °ü¸®ÀÎ
-	RegistInterfaceHandler(FRAMEID_REBIRTHITEM,		ProcessPopMenuRebirthItem);	//HT_1116 : °¢¼ºÀÚ ¾ÆÀÌÅÛ Ãß°¡
+	RegistInterfaceHandler(FRAMEID_OFFICIAL,		ProcessPopMenuOfficial);	// ì •ì‚¬ê´€
+	RegistInterfaceHandler(FRAMEID_ALCHEMIST,		ProcessPopMenuAlchemist);	// ì—°ê¸ˆìˆ ì‚¬
+	RegistInterfaceHandler(FRAMEID_HELP,			ProcessPopMenuHelp);		// ìƒì„œë ¹
+	RegistInterfaceHandler(FRAMEID_NPC_PORTAL,		ProcessPopMenuNpcPortal);	// NPC í¬íƒˆ ì´ë™ ìƒì„œë ¹	
+	RegistInterfaceHandler(FRAMEID_HELP_2,			ProcessPopMenuHelp2);		// ì„±ë…€
+	RegistInterfaceHandler(FRAMEID_CLAN_WAR,		ProcessPopMenuClanWar);		// ë¬¸íŒŒëŒ€ì „ ê´€ë¦¬ì¸
+	RegistInterfaceHandler(FRAMEID_REBIRTHITEM,		ProcessPopMenuRebirthItem);	//HT_1116 : ê°ì„±ì ì•„ì´í…œ ì¶”ê°€
 
 	
 	// POP SUBMENU
@@ -191,27 +191,27 @@ void RegisterInterfaceHandler()
 	RegistInterfaceHandler(FRAMEID_STONE_SUB_2,		ProcessPopMenuStoneSub2);
 	RegistInterfaceHandler(FRAMEID_STONE_SUB_3,		ProcessPopMenuStoneSub3);
 	RegistInterfaceHandler(FRAMEID_PC_TRADE,		ProcessPopMenuPcTrade);	
-	RegistInterfaceHandler(FRAMEID_LOTTO,			ProcessPopMenuLotto);		// º¹±Ç
-	RegistInterfaceHandler(FRAMEID_SECRET,			ProcessPopMenuSecretRoom);	//HT_0313 : ±¤¸íÀü & ÃµÈ²Àü
+	RegistInterfaceHandler(FRAMEID_LOTTO,			ProcessPopMenuLotto);		// ë³µê¶Œ
+	RegistInterfaceHandler(FRAMEID_SECRET,			ProcessPopMenuSecretRoom);	//HT_0313 : ê´‘ëª…ì „ & ì²œí™©ì „
 
 	// POP SUBMENU(COMBO)
-	RegistInterfaceHandler(FRAMEID_BONBINITEM,		ProcessPopMenuBongInItem);	// ºÀÀÎ
-	RegistInterfaceHandler(FRAMEID_CRYOLITE,		ProcessPopMenuCryolite);	// ºùÁ¤ ºÀÀÎ
-	RegistInterfaceHandler(FRAMEID_PURSE,			ProcessPopMenuPurseItem);	// Àü³¶ ÄŞº¸
+	RegistInterfaceHandler(FRAMEID_BONBINITEM,		ProcessPopMenuBongInItem);	// ë´‰ì¸
+	RegistInterfaceHandler(FRAMEID_CRYOLITE,		ProcessPopMenuCryolite);	// ë¹™ì • ë´‰ì¸
+	RegistInterfaceHandler(FRAMEID_PURSE,			ProcessPopMenuPurseItem);	// ì „ë‚­ ì½¤ë³´
 
-	RegistInterfaceHandler(FRAMEID_WAR_DAY,			ProcessPopMenuWarDay);		// ´ëÀü ½Ã°£
-	RegistInterfaceHandler(FRAMEID_STONE_MOVE,		ProcessPopMenuStoneMove);	// ¹®ÆÄ ºñ¼® ÀÌÀü
+	RegistInterfaceHandler(FRAMEID_WAR_DAY,			ProcessPopMenuWarDay);		// ëŒ€ì „ ì‹œê°„
+	RegistInterfaceHandler(FRAMEID_STONE_MOVE,		ProcessPopMenuStoneMove);	// ë¬¸íŒŒ ë¹„ì„ ì´ì „
 
-	RegistInterfaceHandler(FRAMEID_REVIVAL,			ProcessPopMenuRevival);		// Æê º¹±¸ ¸®½ºÆ®
+	RegistInterfaceHandler(FRAMEID_REVIVAL,			ProcessPopMenuRevival);		// í« ë³µêµ¬ ë¦¬ìŠ¤íŠ¸
 
-	RegistInterfaceHandler(FRAMEID_LOTTOCHECK,		ProcessPopMenuLottoCheck);	// º¹±Ç¾ÆÀÌÅÛ ´çÃ·È·¶¨/´çÃ·±İ¼ö·É
+	RegistInterfaceHandler(FRAMEID_LOTTOCHECK,		ProcessPopMenuLottoCheck);	// ë³µê¶Œì•„ì´í…œ ë‹¹ì²¨íš…ë•/ë‹¹ì²¨ê¸ˆìˆ˜ë ¹
 }
 
 
 
 
 
-// Interface¸ğµâ¿¡¼­ º¸³»¿Â ¸Ş½ÃÁö¸¦ Ã³¸®ÇÏ´Â ÇÔ¼ö
+// Interfaceëª¨ë“ˆì—ì„œ ë³´ë‚´ì˜¨ ë©”ì‹œì§€ë¥¼ ì²˜ë¦¬í•˜ëŠ” í•¨ìˆ˜
 LRESULT ProcessInterfaceMessage( WPARAM wParam,LPARAM lParam)
 {
 	BeginScene();

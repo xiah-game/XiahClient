@@ -1,8 +1,8 @@
-#pragma once
+ï»¿#pragma once
 
-// ¿å¼³ ÇÊÅÍ¸µ
+// ìš•ì„¤ í•„í„°ë§
 
-// ¿å¼³ Á¤ÀÇ ÆÄÀÏ ·Îµå
+// ìš•ì„¤ ì •ì˜ íŒŒì¼ ë¡œë“œ
 extern bool LoadCurses(const char *filename);
 extern bool UnloadCurses();
 extern bool IsCurse(const char *str);

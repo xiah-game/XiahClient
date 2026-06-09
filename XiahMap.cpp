@@ -1,11 +1,11 @@
-#include "precompile.h"
+ï»¿#include "precompile.h"
 #include "XiahMap.h"
 #include "XiahArrayIndex.h"
 #include "XiahEnvInfo.h"
 
 #include "XiahGameObject.h"
 
-// TODO: Áö¿ï°Í - ±¤¿ø ¼³Á¤ Å×½ºÆ®¿ë
+// TODO: ì§€ìš¸ê²ƒ - ê´‘ì› ì„¤ì • í…ŒìŠ¤íŠ¸ìš©
 //#include "XiahGameMain.h"
 
 #define	FOGCHANGETIME	10000.0f
@@ -40,7 +40,7 @@ BOOL CXiahMap::CreateMap( DWORD dwMapID, LPCTSTR szMapName, BYTE bType, WORD wWi
 
 	if(pData == NULL)
 	{
-		DBG_LogFile( _T("CXiahMap::CreateMap ½ÇÆĞ"));
+		DBG_LogFile( _T("CXiahMap::CreateMap ì‹¤íŒ¨"));
 
 		return false;
 	}
@@ -61,8 +61,8 @@ BOOL CXiahMap::CreateMap( DWORD dwMapID, LPCTSTR szMapName, BYTE bType, WORD wWi
 
 BOOL CXiahMap::ReleaseMap()
 {
-	// 3D¿£ÁøÀ» »ç¿ëÇÏ¿© MapÀ» ÃÊ±âÈ­ÇÑ´Ù
-	// ¿£Áø¿¡¼­´Â Æ¯º°È÷ UnloadÇÒ²« ¾øÀ»µí
+	// 3Dì—”ì§„ì„ ì‚¬ìš©í•˜ì—¬ Mapì„ ì´ˆê¸°í™”í•œë‹¤
+	// ì—”ì§„ì—ì„œëŠ” íŠ¹ë³„íˆ Unloadí• ê»€ ì—†ì„ë“¯
 	m_bCreated = FALSE;
 
 	if(m_pMapRender)
@@ -79,14 +79,14 @@ BOOL CXiahMap::Update()
 	if( !m_bCreated)
 		return TRUE;
 
-	// ÇöÀçÀÇ Æ÷±×¿Í ¶óÀÌÆ®°¡ ¼­¼­È÷ º¯ÇÏµµ·Ï ÇÏ±â À§ÇØ
+	// í˜„ì¬ì˜ í¬ê·¸ì™€ ë¼ì´íŠ¸ê°€ ì„œì„œíˆ ë³€í•˜ë„ë¡ í•˜ê¸° ìœ„í•´
 	ChangeXiahEnvInfo();
 
 	Light::CLight *pLight = Light::g_LightManager.GetGlobalLight();
 
 	if(pLight == NULL)
 	{
-		DBG_LogFile( _T("CXiahMap::Update ½ÇÆĞ"));
+		DBG_LogFile( _T("CXiahMap::Update ì‹¤íŒ¨"));
 	}
 
 	pLight->m_Light.Diffuse.r = (float)GetBValue( g_XiahEnvInfo.m_DiffuseColor) / 255.0f;
@@ -99,7 +99,7 @@ BOOL CXiahMap::Update()
 	pLight->m_Light.Ambient.b = pLight->m_Light.Diffuse.b * 0.7f;
 	pLight->m_Light.Ambient.a = 1;
 
-	// SKY BOXÀÇ »ö Àû¿ëÇÑ´Ù.
+	// SKY BOXì˜ ìƒ‰ ì ìš©í•œë‹¤.
 	//g_SkyBox.SetColor( g_XiahEnvInfo.m_SkyColorUp, g_XiahEnvInfo.m_SkyColorMiddle, g_XiahEnvInfo.m_SkyColorBottom );
 	//g_SkyBox.SetFogEnable( g_XiahEnvInfo.m_bAmhukmuFog );
 
@@ -160,7 +160,7 @@ sPortalInfo* CXiahMap::IntersectPortal(WORD wPosX,WORD wPosY)
 
 		if(false)
 		{
-			DBG_LogFile( _T("CXiahMap::IntersectPortal ½ÇÆĞ"));
+			DBG_LogFile( _T("CXiahMap::IntersectPortal ì‹¤íŒ¨"));
 		}
 
 		if( portal.m_bLinkType == 99)
@@ -175,7 +175,7 @@ sPortalInfo* CXiahMap::IntersectPortal(WORD wPosX,WORD wPosY)
 	return NULL;
 }
 
-BOOL CXiahMap::GetPickPosition(Vector3 &pos)	// Á¹¶ó ´À¸² ÁÖÀÇ ¹Ù¶÷
+BOOL CXiahMap::GetPickPosition(Vector3 &pos)	// ì¡¸ë¼ ëŠë¦¼ ì£¼ì˜ ë°”ëŒ
 {
 	if( g_pCurrentCamera == NULL)
 		return FALSE;
@@ -194,20 +194,20 @@ BOOL CXiahMap::GetPickPosition(Vector3 &pos)	// Á¹¶ó ´À¸² ÁÖÀÇ ¹Ù¶÷
 	Vector3 delta = (end - start) / PICK_DETAIL;
 
 	// 2004_04_20 Changth :
-	// ¿ÀºêÁ§Æ® Ãæµ¹ °Ë»ç¸¦ Á»´õ Á¤È®ÇÏ°Ô ÇØÁÖÁö. ÀÏ´Ü ¼Óµµ´Â ³ªÁß¹®Á¦´Ù.
-	// ¿ø·¡´Â, ÃÖÁ¾ start À§Ä¡¸¸À¸·Î ¸Ê ¿ÀºêÁ§Æ® ¸®½ºÆ®¸¦ °¡Á®¿Ô´Âµ¥, ºÒ¸íÈ®ÇØ¼­
-	// °Ë»öµÇ´Â ¸ğµç ¸Ê ¼¿ÀÇ ¸Ş½Ã ºí¶ôÀ» °Ë»çÇÑ´Ù.
+	// ì˜¤ë¸Œì íŠ¸ ì¶©ëŒ ê²€ì‚¬ë¥¼ ì¢€ë” ì •í™•í•˜ê²Œ í•´ì£¼ì§€. ì¼ë‹¨ ì†ë„ëŠ” ë‚˜ì¤‘ë¬¸ì œë‹¤.
+	// ì›ë˜ëŠ”, ìµœì¢… start ìœ„ì¹˜ë§Œìœ¼ë¡œ ë§µ ì˜¤ë¸Œì íŠ¸ ë¦¬ìŠ¤íŠ¸ë¥¼ ê°€ì ¸ì™”ëŠ”ë°, ë¶ˆëª…í™•í•´ì„œ
+	// ê²€ìƒ‰ë˜ëŠ” ëª¨ë“  ë§µ ì…€ì˜ ë©”ì‹œ ë¸”ë½ì„ ê²€ì‚¬í•œë‹¤.
 	int nStartXAry[ PICK_DETAIL ];
 	int nStartZAry[ PICK_DETAIL ];
 	int nSearchCount;
 
-	// À½!! Terrain Check
+	// ìŒ!! Terrain Check
 	BOOL bPositionFind = FALSE;
 	for(int i = 0; i < PICK_DETAIL; i++)
 	{
 		float height = XiahGameEngine::Map::g_MapRes.GetHeight( start.x, start.z);
 
-		// ¸¶¿ì½º ½ÃÀÛ, ³¡ À§Ä¡·Î Åõ¿µµÇ´Â ¸ğµç À§Ä¡¸¦ ÀúÀåÇÑ´Ù.
+		// ë§ˆìš°ìŠ¤ ì‹œì‘, ë ìœ„ì¹˜ë¡œ íˆ¬ì˜ë˜ëŠ” ëª¨ë“  ìœ„ì¹˜ë¥¼ ì €ì¥í•œë‹¤.
 		if(  start.x > 0 &&  start.x < XiahMap::g_XiahMap.m_MapInfo.m_wWidth &&
 			-start.z > 0 && -start.z < XiahMap::g_XiahMap.m_MapInfo.m_wHeight  )
 		{
@@ -231,24 +231,24 @@ BOOL CXiahMap::GetPickPosition(Vector3 &pos)	// Á¹¶ó ´À¸² ÁÖÀÇ ¹Ù¶÷
 
 	if( !bPositionFind ) return FALSE;
 
-	// Ã£¾ÆÁø start À§Ä¡¿¡¼­ °°Àº ¸Ê¼¿°ú °°Àº ¸Ş½Ã ºí¶ôÀ¸·Î ±¸ºĞÇÏÀÚ.
+	// ì°¾ì•„ì§„ start ìœ„ì¹˜ì—ì„œ ê°™ì€ ë§µì…€ê³¼ ê°™ì€ ë©”ì‹œ ë¸”ë½ìœ¼ë¡œ êµ¬ë¶„í•˜ì.
 	int mapcell_x;
 	int mapcell_y;
 	int meshblock_x;
 	int meshblock_y;
-	int mapcellx_ary[ PICK_DETAIL ];	// ºñ±³ÇÏ±â À§ÇØ ÀúÀåµÇ´Â º¯¼öµé
+	int mapcellx_ary[ PICK_DETAIL ];	// ë¹„êµí•˜ê¸° ìœ„í•´ ì €ì¥ë˜ëŠ” ë³€ìˆ˜ë“¤
 	int mapcelly_ary[ PICK_DETAIL ];
 	int meshblockx_ary[ PICK_DETAIL ];
 	int meshblocky_ary[ PICK_DETAIL ];
 	int nMapCellMeshBlockCount = 0;
 
-	// ÃÖÁ¾ À§Ä¡ º¯¼ö
+	// ìµœì¢… ìœ„ì¹˜ ë³€ìˆ˜
 	int nTargetXAry[ PICK_DETAIL ];
 	int nTargetZAry[ PICK_DETAIL ];
 
 	for(int k=0; k<nSearchCount; k++)
 	{
-		// ¸Ê ¼¿ À§Ä¡, ¸Ş½Ã ºí¶ô À§Ä¡ °è»ê
+		// ë§µ ì…€ ìœ„ì¹˜, ë©”ì‹œ ë¸”ë½ ìœ„ì¹˜ ê³„ì‚°
 		mapcell_x = nStartXAry[k] / 256;
 		mapcell_y = nStartZAry[k] / 256;
 
@@ -267,7 +267,7 @@ BOOL CXiahMap::GetPickPosition(Vector3 &pos)	// Á¹¶ó ´À¸² ÁÖÀÇ ¹Ù¶÷
 
 			nMapCellMeshBlockCount++;
 		}
-		else // Áßº¹µÈ°ÍÀÌ ÀÖ³ª º¼±î?
+		else // ì¤‘ë³µëœê²ƒì´ ìˆë‚˜ ë³¼ê¹Œ?
 		{
 			bool bFind = false;
 			for(int kk=0; kk<nMapCellMeshBlockCount; kk++)
@@ -297,9 +297,9 @@ BOOL CXiahMap::GetPickPosition(Vector3 &pos)	// Á¹¶ó ´À¸² ÁÖÀÇ ¹Ù¶÷
 		}
 	}// for
 
-	// Ã£¾ÆÁø ¼­·Î ´Ù¸¥ ¸Ê¼¿°ú ¸Ş½Ã ºí¶ô¿¡¼­ ¿ÀºêÁ§Æ®¸¦ °Ë»çÇÑ´Ù. ±×·¡¾ß Á¤È®ÇÏÁö.
+	// ì°¾ì•„ì§„ ì„œë¡œ ë‹¤ë¥¸ ë§µì…€ê³¼ ë©”ì‹œ ë¸”ë½ì—ì„œ ì˜¤ë¸Œì íŠ¸ë¥¼ ê²€ì‚¬í•œë‹¤. ê·¸ë˜ì•¼ ì •í™•í•˜ì§€.
 	// 2004_04_19 Changth :
-	// ÀÌÁ¦, Ä³¸¯ÅÍ°¡ ´Ù¸® À§¿¡ ÀÖÀ»¶§, ¾û¶×ÇÑ °÷À¸·Î °¡Áö¾Ê°í Á¦´ë·Î ÀÌµ¿ÇÏµµ·Ï ¿ÀºêÁ§Æ®µµ °Ë»çÇÑ´Ù.
+	// ì´ì œ, ìºë¦­í„°ê°€ ë‹¤ë¦¬ ìœ„ì— ìˆì„ë•Œ, ì—‰ëš±í•œ ê³³ìœ¼ë¡œ ê°€ì§€ì•Šê³  ì œëŒ€ë¡œ ì´ë™í•˜ë„ë¡ ì˜¤ë¸Œì íŠ¸ë„ ê²€ì‚¬í•œë‹¤.
 	// object check
 	for(int kk=0; kk<nMapCellMeshBlockCount; kk++)
 	{
@@ -313,7 +313,7 @@ BOOL CXiahMap::GetPickPosition(Vector3 &pos)	// Á¹¶ó ´À¸² ÁÖÀÇ ¹Ù¶÷
 				XiahGameEngine::Map::CMapObjectRender *pObject = *it;
 
 				int box_count = pObject->GetCollideBoxCount();
-				if( box_count != 1 )	// ½Ã°£ °ü°è»ó Ãæµ¹ ¹Ú½º°¡ 1°³ÀÎ°Í ¸¸ °Ë»çÇÑ´Ù.
+				if( box_count != 1 )	// ì‹œê°„ ê´€ê³„ìƒ ì¶©ëŒ ë°•ìŠ¤ê°€ 1ê°œì¸ê²ƒ ë§Œ ê²€ì‚¬í•œë‹¤.
 					continue;
 
 				BBoxOBB3* map_object_bound = pObject->GetCollideBoxList();
@@ -322,17 +322,17 @@ BOOL CXiahMap::GetPickPosition(Vector3 &pos)	// Á¹¶ó ´À¸² ÁÖÀÇ ¹Ù¶÷
 				Vector3 vV2 = map_object_bound->m_BBoxAABB.m_vMax;
 
 				CXiahCharObject *pCharObject = (CXiahCharObject*)g_pMainChar->m_pObject;
-				// Ä³¸¯ÅÍ º¸´Ù ³ôÀÌ ÀÖÀ¸¸é ±»ÀÌ ÇÒ ÇÊ¿ä°¡ ¾øÁö.
+				// ìºë¦­í„° ë³´ë‹¤ ë†’ì´ ìˆìœ¼ë©´ êµ³ì´ í•  í•„ìš”ê°€ ì—†ì§€.
 				if( vV2.y > pCharObject->m_Position.y + 10 )
 					continue;
 
 				XiahGameEngine::Face3 face[2];
 
-				// Ãæµ¹ ¹Ú½ºÀÇ À­¸é
+				// ì¶©ëŒ ë°•ìŠ¤ì˜ ìœ—ë©´
 				face[0] = Face3( Vector3(vV1.x, vV2.y, vV1.z), Vector3(vV1.x, vV2.y, vV2.z), Vector3(vV2.x, vV2.y, vV1.z) );
 				face[1] = Face3( Vector3(vV1.x, vV2.y, vV2.z), Vector3(vV2.x, vV2.y, vV2.z), Vector3(vV2.x, vV2.y, vV1.z) );
 
-				// Á÷¼±ÀÌ ¸éÀ» Åë°úÇÏ´Â°¡?
+				// ì§ì„ ì´ ë©´ì„ í†µê³¼í•˜ëŠ”ê°€?
 				Vector3 vDelta;
 				Vector3 vCollide;
 				Vector3 vStartCollidePoint;
@@ -375,7 +375,7 @@ BOOL CXiahMap::GetPickPosition(Vector3 &pos)	// Á¹¶ó ´À¸² ÁÖÀÇ ¹Ù¶÷
 
 /*
 	// 2004_04_19 Changth :
-	// ÀÌÁ¦, Ä³¸¯ÅÍ°¡ ´Ù¸® À§¿¡ ÀÖÀ»¶§, ¾û¶×ÇÑ °÷À¸·Î °¡Áö¾Ê°í Á¦´ë·Î ÀÌµ¿ÇÏµµ·Ï ¿ÀºêÁ§Æ®µµ °Ë»çÇÑ´Ù.
+	// ì´ì œ, ìºë¦­í„°ê°€ ë‹¤ë¦¬ ìœ„ì— ìˆì„ë•Œ, ì—‰ëš±í•œ ê³³ìœ¼ë¡œ ê°€ì§€ì•Šê³  ì œëŒ€ë¡œ ì´ë™í•˜ë„ë¡ ì˜¤ë¸Œì íŠ¸ë„ ê²€ì‚¬í•œë‹¤.
 	// object check
 	if( bPositionFind &&
 		 start.x > 0 &&  start.x < XiahMap::g_XiahMap.m_MapInfo.m_wWidth &&
@@ -391,7 +391,7 @@ BOOL CXiahMap::GetPickPosition(Vector3 &pos)	// Á¹¶ó ´À¸² ÁÖÀÇ ¹Ù¶÷
 				XiahGameEngine::Map::CMapObjectRender *pObject = *it;
 
 				int box_count = pObject->GetCollideBoxCount();
-				if( box_count != 1 )	// ½Ã°£ °ü°è»ó Ãæµ¹ ¹Ú½º°¡ 1°³ÀÎ°Í ¸¸ °Ë»çÇÑ´Ù.
+				if( box_count != 1 )	// ì‹œê°„ ê´€ê³„ìƒ ì¶©ëŒ ë°•ìŠ¤ê°€ 1ê°œì¸ê²ƒ ë§Œ ê²€ì‚¬í•œë‹¤.
 					continue;
 
 				BBoxOBB3* map_object_bound = pObject->GetCollideBoxList();
@@ -401,11 +401,11 @@ BOOL CXiahMap::GetPickPosition(Vector3 &pos)	// Á¹¶ó ´À¸² ÁÖÀÇ ¹Ù¶÷
 
 				XiahGameEngine::Face3 face[2];
 
-				// Ãæµ¹ ¹Ú½ºÀÇ À­¸é
+				// ì¶©ëŒ ë°•ìŠ¤ì˜ ìœ—ë©´
 				face[0] = Face3( Vector3(vV1.x, vV2.y, vV1.z), Vector3(vV1.x, vV2.y, vV2.z), Vector3(vV2.x, vV2.y, vV1.z) );
 				face[1] = Face3( Vector3(vV1.x, vV2.y, vV2.z), Vector3(vV2.x, vV2.y, vV2.z), Vector3(vV2.x, vV2.y, vV1.z) );
 
-				// Á÷¼±ÀÌ ¸éÀ» Åë°úÇÏ´Â°¡?
+				// ì§ì„ ì´ ë©´ì„ í†µê³¼í•˜ëŠ”ê°€?
 				Vector3 vDelta;
 				Vector3 vCollide;
 				Vector3 vStartCollidePoint;
@@ -452,7 +452,7 @@ BOOL CXiahMap::GetPickPosition(Vector3 &pos)	// Á¹¶ó ´À¸² ÁÖÀÇ ¹Ù¶÷
 
 BOOL CXiahMap::RenderPortal()
 {
-	// Æ÷Å»Àº ÀÌÆåÆ®·Î
+	// í¬íƒˆì€ ì´í™íŠ¸ë¡œ
 	return TRUE;
 
 	//////////////////////////////////////////////////////////////////////
@@ -476,7 +476,7 @@ BOOL CXiahMap::RenderPortal()
 	{
 		sPortalInfo &portal = *it;
 
-		// ¹®ÆÄ¸Ê ÀÌµ¿ Æ÷Å».
+		// ë¬¸íŒŒë§µ ì´ë™ í¬íƒˆ.
 		if( portal.m_bLinkType == 9 ) continue;
 	
 		BBoxAABB3 box;
@@ -512,10 +512,10 @@ BOOL CXiahMap::ClearAllDecal()
 
 BOOL CXiahMap::ChangeXiahEnvInfo()
 {
-	// ÇöÀçÀÇ Æ÷±×¿Í ¶óÀÌÆ®°¡ ¼­¼­È÷ º¯ÇÏµµ·Ï ÇÏ±â À§ÇØ
-	// ºñ°¡ ¿Ã¶§ Æ÷±×°¡ ½Ã°£¿¡ µû¶ó¼­ ¼­¼­È÷ º¯ÇÏµµ·Ï ÇÏ±â À§ÇØ.
+	// í˜„ì¬ì˜ í¬ê·¸ì™€ ë¼ì´íŠ¸ê°€ ì„œì„œíˆ ë³€í•˜ë„ë¡ í•˜ê¸° ìœ„í•´
+	// ë¹„ê°€ ì˜¬ë•Œ í¬ê·¸ê°€ ì‹œê°„ì— ë”°ë¼ì„œ ì„œì„œíˆ ë³€í•˜ë„ë¡ í•˜ê¸° ìœ„í•´.
 
-	// ÀÌ°ÍÀº ¶óÀÌÆ® ¼ÂÆÃ¿ë
+	// ì´ê²ƒì€ ë¼ì´íŠ¸ ì…‹íŒ…ìš©
 #ifdef LIGHTSET
 	g_XiahChangeEnvInfo.bChangeStart = false;
 	return TRUE;
@@ -541,20 +541,20 @@ BOOL CXiahMap::ChangeXiahEnvInfo()
 
 BOOL CXiahMap::ChangeXiahEnvInfoData(D3DCOLOR& color, int nType)
 {
-	// ÇöÀç °ª
+	// í˜„ì¬ ê°’
 	int nR = GetBValue( color );
 	int nG = GetGValue( color );
 	int nB = GetRValue( color );
 
-	// º¯È­µÉ °ª.
+	// ë³€í™”ë  ê°’.
 	int nRGap = g_XiahChangeEnvInfo.nR[nType] - nR;
 	int nGGap = g_XiahChangeEnvInfo.nG[nType] - nG;
 	int nBGap = g_XiahChangeEnvInfo.nB[nType] - nB;
 
-	// »õ·Î¿î Áõ°¨Ä¡
+	// ìƒˆë¡œìš´ ì¦ê°ì¹˜
 	if( g_XiahChangeEnvInfo.fRGap[nType] == -300 )
 	{
-		// ÁöÁ¤µÈ ½Ã°£ µ¿¾È ¼­¼­È÷ º¯ÇÏµµ·Ï ÇÑ´Ù.
+		// ì§€ì •ëœ ì‹œê°„ ë™ì•ˆ ì„œì„œíˆ ë³€í•˜ë„ë¡ í•œë‹¤.
 		float fValue = (float)nRGap / FOGCHANGETIME * 33.0f * g_fFrameScale;
 
 		g_XiahChangeEnvInfo.fRGap[nType] = fValue;
@@ -577,7 +577,7 @@ BOOL CXiahMap::ChangeXiahEnvInfoData(D3DCOLOR& color, int nType)
 		g_XiahChangeEnvInfo.fBGapSum[nType] = nB;
 	}
 
-	// °ª º¯È­. ÀüÃ¼ Áõ°¨°ª°ú ÇöÀç º¯È­µÉ °ªÀ» ºñ±³ÇÑ´Ù.
+	// ê°’ ë³€í™”. ì „ì²´ ì¦ê°ê°’ê³¼ í˜„ì¬ ë³€í™”ë  ê°’ì„ ë¹„êµí•œë‹¤.
 	if( fabs(g_XiahChangeEnvInfo.fRGap[nType]) < abs(nRGap) )
 		g_XiahChangeEnvInfo.fRGapSum[nType] += g_XiahChangeEnvInfo.fRGap[nType];
 
@@ -594,7 +594,7 @@ BOOL CXiahMap::ChangeXiahEnvInfoData(D3DCOLOR& color, int nType)
 	// Setting
 	color = D3DCOLOR_XRGB( nR, nG, nB );
 
-	// ºñ±³
+	// ë¹„êµ
 	if( g_XiahChangeEnvInfo.nR[nType] == nR &&
 		g_XiahChangeEnvInfo.nG[nType] == nG &&
 		g_XiahChangeEnvInfo.nB[nType] == nB   ) 
@@ -605,7 +605,7 @@ BOOL CXiahMap::ChangeXiahEnvInfoData(D3DCOLOR& color, int nType)
 
 BOOL CXiahMap::ChangeXiahEnvInfoDensity()
 {
-	// »õ·Î¿î Áõ°¨Ä¡
+	// ìƒˆë¡œìš´ ì¦ê°ì¹˜
 	float fDensityGap = g_XiahChangeEnvInfo.fFogDensity - g_XiahEnvInfo.m_fFogDensity;
 
 	if( g_XiahChangeEnvInfo.fFogDensityGap == -300 )
@@ -615,13 +615,13 @@ BOOL CXiahMap::ChangeXiahEnvInfoDensity()
 		g_XiahChangeEnvInfo.fFogDensityGap = fValue;
 	}
 
-	// °ª º¯È­. ÀüÃ¼ Áõ°¨°ª°ú ÇöÀç º¯È­µÉ °ªÀ» ºñ±³ÇÑ´Ù.
+	// ê°’ ë³€í™”. ì „ì²´ ì¦ê°ê°’ê³¼ í˜„ì¬ ë³€í™”ë  ê°’ì„ ë¹„êµí•œë‹¤.
 	if( fabs(g_XiahChangeEnvInfo.fFogDensityGap) < fabs(fDensityGap) ) 
 		g_XiahEnvInfo.m_fFogDensity += g_XiahChangeEnvInfo.fFogDensityGap;
 	else
 		g_XiahEnvInfo.m_fFogDensity = g_XiahChangeEnvInfo.fFogDensity;
 
-	// ºñ±³
+	// ë¹„êµ
 	if( g_XiahChangeEnvInfo.fFogDensity == g_XiahEnvInfo.m_fFogDensity )
 		return FALSE;
 

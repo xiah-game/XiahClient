@@ -1,9 +1,9 @@
-#pragma once
+О╩©#pragma once
 #include <Windows.h>
 #include "fmod.h"
 #include "fmod_errors.h"
 
-// ╩Себ
+// Л┐│М┐°
 #define	BGM_PLAYING		0
 #define	BGM_STOPED		1
 #define	BGM_ENDPLAY		2

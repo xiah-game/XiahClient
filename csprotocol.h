@@ -1,4 +1,4 @@
-// CSProtocol.h: Define server/client message id
+ï»¿// CSProtocol.h: Define server/client message id
 //		Rev : 0.007
 //		Date : 07/25/2000
 //
@@ -9,7 +9,7 @@
 
 #define OFFSET_CS							(0x3101)
 
-//HO_1001_07 : ÇÁ·ÎÅäÄÝ ¹Ù²Ù¾î º¸ÀÚ À¯ÀúÁß ´©±º°¡°¡ Àå³­À» Ä¡³× .... : 1001_07Àü¿¡´Â ÁÖ¼®
+//HO_1001_07 : í”„ë¡œí† ì½œ ë°”ê¾¸ì–´ ë³´ìž ìœ ì €ì¤‘ ëˆ„êµ°ê°€ê°€ ìž¥ë‚œì„ ì¹˜ë„¤ .... : 1001_07ì „ì—ëŠ” ì£¼ì„
 //#define OFFSET_CS_IT						(OFFSET_CS + 0x0000)
 //#define OFFSET_CS_NV						(OFFSET_CS + 0x0100)
 //#define OFFSET_CS_IM						(OFFSET_CS + 0x0200)
@@ -31,7 +31,7 @@
 //#define OFFSET_CS_QS						(OFFSET_CS + 0x1200)
 //#define OFFSET_CS_SH						(OFFSET_CS + 0x1300)
 
-//HO_1001_07 : ÇÁ·ÎÅäÄÝ ¹Ù²Ù¾î º¸ÀÚ À¯ÀúÁß ´©±º°¡°¡ Àå³­À» Ä¡³× .... : 1001_07Àü¿¡´Â »ç¿ë
+//HO_1001_07 : í”„ë¡œí† ì½œ ë°”ê¾¸ì–´ ë³´ìž ìœ ì €ì¤‘ ëˆ„êµ°ê°€ê°€ ìž¥ë‚œì„ ì¹˜ë„¤ .... : 1001_07ì „ì—ëŠ” ì‚¬ìš©
 #define OFFSET_CS_IT						(OFFSET_CS + 0x1300)
 #define OFFSET_CS_NV						(OFFSET_CS + 0x1200)
 #define OFFSET_CS_IM						(OFFSET_CS + 0x1100)
@@ -182,7 +182,7 @@
 #define CS_IT_SELECTSPACE_REQ				(OFFSET_CS_IT + 58)
 #define CS_IT_SELECTSPACE_ACK				(OFFSET_CS_IT + 59)
 
-//HO_0404_07 È¯¹è ½Ã½ºÅÛÃß°¡
+//HO_0404_07 í™˜ë°° ì‹œìŠ¤í…œì¶”ê°€
 #define CS_IT_INSTANCE_ACK					(OFFSET_CS_IT + 61)
 #define ERR_IT_INSTANCE_FAIL					((BYTE) 0)
 #define ERR_IT_INSTANCE_INSERT					((BYTE) 1)
@@ -193,7 +193,7 @@
 #define ERR_IT_INSTANCE_RESTRICTION				((BYTE) 254)
 #define ERR_IT_INSTANCE_ACTIVE					((BYTE) 255)
 
-//JK_1125 :  ÆÐ½º¿öµå ºÐ¸®
+//JK_1125 :  íŒ¨ìŠ¤ì›Œë“œ ë¶„ë¦¬
 #define CS_IT_CHANGEPW_REQ					(OFFSET_CS_IT + 62)
 #define CS_IT_CHANGEPW_ACK					(OFFSET_CS_IT + 63)
 
@@ -224,11 +224,11 @@
 #define CS_NV_MAPMOVE_ACK					(OFFSET_CS_NV + 7)
 	#define ERR_CANNOTENTER_DUNGEON				((BYTE)10)
 	#define ERR_CANNOTENTER_BATTLEZONE			((BYTE)11)
-	#define	ERR_CANNOTENTER_MABLOOD				((BYTE)12)    // ½Å±ÔÃß°¡(°©ÀÚÁ¦ÇÑÀ¸·Î ÀÌµ¿ºÒ°¡)
-	#define	ERR_CANNOTMOVE_MABLOOD				((BYTE)13)    // ½Å±¸Ãß°¡(ÀÌ Áö¿ª¿¡¼­ »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.)
+	#define	ERR_CANNOTENTER_MABLOOD				((BYTE)12)    // ì‹ ê·œì¶”ê°€(ê°‘ìžì œí•œìœ¼ë¡œ ì´ë™ë¶ˆê°€)
+	#define	ERR_CANNOTMOVE_MABLOOD				((BYTE)13)    // ì‹ êµ¬ì¶”ê°€(ì´ ì§€ì—­ì—ì„œ ì‚¬ìš©í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.)
 	#define ERR_CANNOTENTER_NOAUTHORITY			((BYTE)14)
 	#define ERR_CANNOTENTER_WARREADY			((BYTE)15)
-	#define ERR_CANNOTENTER_DEVILREADY			((BYTE)16)    //HO_0227_07 ±¤¸íÀü,ÃµÈ²Àü ÀÌº¥Æ® Ãß°¡(ÃµÈ²Àü µ¿½ÅÁÖ)
+	#define ERR_CANNOTENTER_DEVILREADY			((BYTE)16)    //HO_0227_07 ê´‘ëª…ì „,ì²œí™©ì „ ì´ë²¤íŠ¸ ì¶”ê°€(ì²œí™©ì „ ë™ì‹ ì£¼)
 
 
 #define CS_NV_MAPLEAVE_REQ					(OFFSET_CS_NV + 8) 
@@ -261,18 +261,18 @@
 //EVENTTYPE - { NOW, MAX }
 
 #define CS_NV_RUNEVENTINFO_ACK				(OFFSET_CS_NV + 23)
-//bRunEvent		- ÇöÀç ÀÌº¥Æ® ¼ö 
-//bEventKind	- ÀÌº¥Æ® Á¾·ù 
-//dwEventCharID - ÀÌº¥Æ® °³ÃÖÀÚ Ä³¸¯ÅÍ ¾ÆÀÌµð
-//dwEffectValue - ÀÌº¥Æ® È¿°ú °ª (´ÜÀ§ %)
-//strCharName   - ÀÌº¥Æ® °³ÃÖÀÚ ÀÌ¸§ 
-//bCanUser      - ÀÌº¥Æ® Âü°¡ÇÒ ¼ö ÀÖ´À À¯Àú (0 = ALL, 1 = ÇØ´çÀ¯ÆÄ, 2 = ¹®ÆÄ¸¸, 3 = ´Ü )
-//dwUserType    - À¯ÆÄÀÏ°æ¿ì À¯ÆÄ Á¾·ù, ¹®ÆÄÀÏ °æ¿ì ¹®ÆÄ ¾ÆÀÌµð.
-//strMunpaName  - ¹®ÆÄÀÏ °æ¿ì ¹®ÆÄ¸í;
+//bRunEvent		- í˜„ìž¬ ì´ë²¤íŠ¸ ìˆ˜ 
+//bEventKind	- ì´ë²¤íŠ¸ ì¢…ë¥˜ 
+//dwEventCharID - ì´ë²¤íŠ¸ ê°œìµœìž ìºë¦­í„° ì•„ì´ë””
+//dwEffectValue - ì´ë²¤íŠ¸ íš¨ê³¼ ê°’ (ë‹¨ìœ„ %)
+//strCharName   - ì´ë²¤íŠ¸ ê°œìµœìž ì´ë¦„ 
+//bCanUser      - ì´ë²¤íŠ¸ ì°¸ê°€í•  ìˆ˜ ìžˆëŠ ìœ ì € (0 = ALL, 1 = í•´ë‹¹ìœ íŒŒ, 2 = ë¬¸íŒŒë§Œ, 3 = ë‹¨ )
+//dwUserType    - ìœ íŒŒì¼ê²½ìš° ìœ íŒŒ ì¢…ë¥˜, ë¬¸íŒŒì¼ ê²½ìš° ë¬¸íŒŒ ì•„ì´ë””.
+//strMunpaName  - ë¬¸íŒŒì¼ ê²½ìš° ë¬¸íŒŒëª…;
 
 #define CS_NV_CHANGEEVENTINFO_ACK			(OFFSET_CS_NV + 24)
 //bEventStatus  - 0, EVENTSTATUS_START, 1, EVENTSTATUS_END
-//bEventKind	- ÀÌº¥Æ® Á¾·ù 
+//bEventKind	- ì´ë²¤íŠ¸ ì¢…ë¥˜ 
 //if ( EVENTSTATUS_START )
 //dwEventCharID
 //dwEffectValue
@@ -281,7 +281,7 @@
 //dwUserType
 //strMunpaName;
 
-// [6/3/2005] NPC Æ÷Å» ÀÌµ¿
+// [6/3/2005] NPC í¬íƒˆ ì´ë™
 #define CS_NV_QUICKMOVE_REQ					(OFFSET_CS_NV + 25)
 #define CS_NV_QUICKMOVE_ACK					(OFFSET_CS_NV + 26)
 	#define ERR_QUICKMOVE_SUCCESS				((BYTE)0)
@@ -289,25 +289,25 @@
 	#define ERR_QUICKMOVE_BADAREA				((BYTE)3)
 	#define ERR_QUICKMOVE_INTERNAL				((BYTE)255)
 
-//Àü¿ëÆ÷ÅÐÀÌµ¿
+//ì „ìš©í¬í„¸ì´ë™
 #define CS_NV_PRIVATEPORTAL_REQ				(OFFSET_CS_NV + 27)
 #define CS_NV_PRIVATEPORTAL_ACK				(OFFSET_CS_NV + 28)
 	#define ERR_MOVE_SUCCESS				((BYTE)0)
-	#define ERR_MOVE_WARPERIOD				((BYTE)1) // ÀüÀï±â°£
-	#define ERR_MOVE_NOTLORDMUNPA			((BYTE)2) // ¿ì½Â¹®ÆÄ¿ø¾Æ´Ô
-	#define ERR_MOVE_NOTINENTRY				((BYTE)3) // °ü°è ¾ø´Â »ç¶÷ ÀÌµ¿ ºÒ°¡
-	#define ERR_MOVE_NOTENOUGHLEVEL			((BYTE)4) // °©ÀÚ ¹Ì¸¸
-	#define ERR_MOVE_NOTWARCHANNELID		((BYTE)5) // 2¹ø Ã¤³Î ¾Æ´Ô
-	#define ERR_MOVE_NOTWAR					((BYTE)6) //HO_0906_07 ¹®ÆÄ´ëÀü °ü¸®ÀÎ Æ÷Å»±â´É Ãß°¡ : ¸¶Ç÷Áø Áö¿ª //ÀüÀï Áß¿¡´Â ¸¶Ç÷Áø ÀÌµ¿ Æ÷Å»À» »ç¿ëÇÏ½Ç ¼ö ¾ø½À´Ï´Ù.
+	#define ERR_MOVE_WARPERIOD				((BYTE)1) // ì „ìŸê¸°ê°„
+	#define ERR_MOVE_NOTLORDMUNPA			((BYTE)2) // ìš°ìŠ¹ë¬¸íŒŒì›ì•„ë‹˜
+	#define ERR_MOVE_NOTINENTRY				((BYTE)3) // ê´€ê³„ ì—†ëŠ” ì‚¬ëžŒ ì´ë™ ë¶ˆê°€
+	#define ERR_MOVE_NOTENOUGHLEVEL			((BYTE)4) // ê°‘ìž ë¯¸ë§Œ
+	#define ERR_MOVE_NOTWARCHANNELID		((BYTE)5) // 2ë²ˆ ì±„ë„ ì•„ë‹˜
+	#define ERR_MOVE_NOTWAR					((BYTE)6) //HO_0906_07 ë¬¸íŒŒëŒ€ì „ ê´€ë¦¬ì¸ í¬íƒˆê¸°ëŠ¥ ì¶”ê°€ : ë§ˆí˜ˆì§„ ì§€ì—­ //ì „ìŸ ì¤‘ì—ëŠ” ë§ˆí˜ˆì§„ ì´ë™ í¬íƒˆì„ ì‚¬ìš©í•˜ì‹¤ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.
 
-//HT_0122 : ±â°£Á¦ ÇÁ¸®¹Ì¾ö ¾ÆÀÌÅÛ Ãß°¡
+//HT_0122 : ê¸°ê°„ì œ í”„ë¦¬ë¯¸ì—„ ì•„ì´í…œ ì¶”ê°€
 #define CS_NV_CHARPREMIUM_REQ				(OFFSET_CS_NV + 31)
 #define CS_NV_CHARPREMIUM_ACK				(OFFSET_CS_NV + 32)
-	#define ERR_CHARPREMIUM_SUCCESS				((BYTE)0)	//¼º°ø
+	#define ERR_CHARPREMIUM_SUCCESS				((BYTE)0)	//ì„±ê³µ
 	#define ERR_CHARPREMIUM_1					((BYTE)1)	//
 	#define ERR_CHARPREMIUM_2					((BYTE)2)	//
 	#define ERR_CHARPREMIUM_3					((BYTE)3)	//
-	#define ERR_CHARPREMIUM_INTERNAL			((BYTE)255)	//³»ºÎ´íÎó(°ü¸®ÀÚ¿¡ ¹®ÀÇ)
+	#define ERR_CHARPREMIUM_INTERNAL			((BYTE)255)	//ë‚´ë¶€ëŒ„è½Ž(ê´€ë¦¬ìžì— ë¬¸ì˜)
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 // Item message
@@ -315,8 +315,8 @@
 #define CS_IM_PICK_REQ						(OFFSET_CS_IM + 0)
 #define CS_IM_PICK_ACK						(OFFSET_CS_IM + 1)
 	#define ERR_PICK_FULLSACK				((BYTE)1)
-	#define ERR_PICK_OVERMONEY				((BYTE)2)//¼ÒÁö±Ý¾× ÃÊ°ú
-	#define ERR_PICK_NOAUTHORITY			((BYTE)3)//È¹µæ±ÇÇÑ¾øÀ½	
+	#define ERR_PICK_OVERMONEY				((BYTE)2)//ì†Œì§€ê¸ˆì•¡ ì´ˆê³¼
+	#define ERR_PICK_NOAUTHORITY			((BYTE)3)//íšë“ê¶Œí•œì—†ìŒ	
 
 #define CS_IM_THROW_REQ						(OFFSET_CS_IM + 2)
 
@@ -338,9 +338,9 @@
 	#define ERR_NOTMOVEINTERNALERROR		(BYTE)14
 	#define ERR_NOTMOVEOVERMAXEVENT			(BYTE)15
 	#define ERR_NOTMOVECHANGEEVENTITEM		(BYTE)16
-	// CG_2005/01/28 : º¯Á¾¾ÆÀÌÅÛ±â´ÉÃß°¡
-	#define ERR_CITEM_NOTINSAMECHARTYPE		(BYTE)19	//º¯Á¾ ¿Ê°ú ¸ðÀÚ´Â µ¿ÀÏ °è¿­ ÀÏ °æ¿ì¸¸ ÀåÂø °¡´ÉÇÔ.
-	#define ERR_CITEM_NOTOUTSAMECHARTYPE	(BYTE)20	//º¯Á¾ ¿Ê¿¡ ´ëÇÏ¿© Å»Âø ÇÒ °æ¿ì º¯Á¾ ¸ðÀÚºÎÅÍ Å»Âø ÇØ¾ß ÇÔ.
+	// CG_2005/01/28 : ë³€ì¢…ì•„ì´í…œê¸°ëŠ¥ì¶”ê°€
+	#define ERR_CITEM_NOTINSAMECHARTYPE		(BYTE)19	//ë³€ì¢… ì˜·ê³¼ ëª¨ìžëŠ” ë™ì¼ ê³„ì—´ ì¼ ê²½ìš°ë§Œ ìž¥ì°© ê°€ëŠ¥í•¨.
+	#define ERR_CITEM_NOTOUTSAMECHARTYPE	(BYTE)20	//ë³€ì¢… ì˜·ì— ëŒ€í•˜ì—¬ íƒˆì°© í•  ê²½ìš° ë³€ì¢… ëª¨ìžë¶€í„° íƒˆì°© í•´ì•¼ í•¨.
 
 
 #define CS_IM_NEWITEM_REQ					(OFFSET_CS_IM + 14)
@@ -369,7 +369,7 @@
 
 #define ERR_READRESULT_SUCCESS				((BYTE)0)
 #define ERR_READRESULT_FAIL					((BYTE)1)
-#define ERR_READRESULT_NOTPROPER			((BYTE)2)//¼ºÇâÀÌ ´Ù¸¦
+#define ERR_READRESULT_NOTPROPER			((BYTE)2)//ì„±í–¥ì´ ë‹¤ë¥¼
 
 #define CS_IM_WANNARECEIVE_ACK				(OFFSET_CS_IM + 31)
 
@@ -458,20 +458,20 @@
 	#define ERR_MELTINGITEM_NEEDEMPTYSACK		((BYTE)12)		//NIGHT_0512 : MELTING
 	#define ERR_MELTINGITEM_SUCCESS				((BYTE)13)		//NIGHT_0512 : MELTING
 	#define ERR_MELTINGITEM_FAIL				((BYTE)14)		//NIGHT_0512 : MELTING
-	#define ERR_REBUILDITEM_NOTSLOTITEM			((BYTE)15)  //±â°ø(±¸¸Û)À» ¶ÕÀ»¼ö ¾ø´Â ¾ÆÀÌÅÛ
-	#define ERR_REBUILDITEM_MAXSLOT				((BYTE)16)  //±â°øÀ» ´õÀÌ»ó ¶ÕÀ» ¼ö ¾ø´Ù.
-	#define ERR_REBUILDITEM_NOTFOUNDSLOT		((BYTE)17)  //±â°øÀÌ ¾ø´Ù
-	#define ERR_REBUILDITEM_FULLSLOTFIVEELM		((BYTE)18)  //ºñ¾îÀÖ´Â ±â°øÀÌ ¾ø´Ù.
-	#define ERR_REBUILDITEM_NOTFOUNDFIVEELM		((BYTE)19)  //¿ÀÇà¼Ó¼ºÀÌ ¾ø´Ù(¿ÀÇà¼Ó¼ºÁ¦°Å½Ã)
-	#define ERR_REBUILDITEM_MADESLOTFAIL		((BYTE)20)  //±â°øÀ» ¶Õ±â ½ÇÆÐ(+,¼º,Á¦ÇÑ¿ä±¸Ä¡ °¨¼Ò½ÃÅ²´Ù)
-	#define ERR_CHANGEITEM_SUCCESS				((BYTE)21)	// CG_2005/01/28 : º¯Á¾¾ÆÀÌÅÛ±â´ÉÃß°¡
-	#define ERR_CHANGEITEM_CHANGED				((BYTE)22)	// CG_2005/01/28 : º¯Á¾¾ÆÀÌÅÛ±â´ÉÃß°¡
-	#define ERR_CHANGEITEM_CANTCHANGE			((BYTE)23)	// CG_2005/01/28 : º¯Á¾¾ÆÀÌÅÛ±â´ÉÃß°¡
-	#define ERR_CHANGEITEM_FAIL					((BYTE)24)	// CG_2005/01/28 : º¯Á¾¾ÆÀÌÅÛ±â´ÉÃß°¡
-	#define ERR_CHANGEITEM_DONOTREBUILD			((BYTE)25)	//°³Á¶ÇÒ ÇÊ¿ä¾ø½¿(°³Á¶ÇØºÁ¾ß È¿°ú ¾ø´Ù)
-	#define ERR_GUARANTEEITEM_SUCCESS			((BYTE)30)	// º¸Çè »óÇ° µî·Ï ¿Ï·á
-	#define ERR_REBIRTHITEM_OVERSOURCE			((BYTE)26)  //°³Á¶ ÀÚ¿øÀº 1°³¸¸.. 
-	#define ERR_REBIRTHITEM_REMAKEFAIL			((BYTE)27)  //ºÒ»çÇö´Ü »ç¿ë½Ã ¿ÀÇà±â°ø¸¸ ÀÖ°Å³ª °¢¼º±â°øÀÌ ºñ¾î ÀÖÀ» °æ¿ì
+	#define ERR_REBUILDITEM_NOTSLOTITEM			((BYTE)15)  //ê¸°ê³µ(êµ¬ë©)ì„ ëš«ì„ìˆ˜ ì—†ëŠ” ì•„ì´í…œ
+	#define ERR_REBUILDITEM_MAXSLOT				((BYTE)16)  //ê¸°ê³µì„ ë”ì´ìƒ ëš«ì„ ìˆ˜ ì—†ë‹¤.
+	#define ERR_REBUILDITEM_NOTFOUNDSLOT		((BYTE)17)  //ê¸°ê³µì´ ì—†ë‹¤
+	#define ERR_REBUILDITEM_FULLSLOTFIVEELM		((BYTE)18)  //ë¹„ì–´ìžˆëŠ” ê¸°ê³µì´ ì—†ë‹¤.
+	#define ERR_REBUILDITEM_NOTFOUNDFIVEELM		((BYTE)19)  //ì˜¤í–‰ì†ì„±ì´ ì—†ë‹¤(ì˜¤í–‰ì†ì„±ì œê±°ì‹œ)
+	#define ERR_REBUILDITEM_MADESLOTFAIL		((BYTE)20)  //ê¸°ê³µì„ ëš«ê¸° ì‹¤íŒ¨(+,ì„±,ì œí•œìš”êµ¬ì¹˜ ê°ì†Œì‹œí‚¨ë‹¤)
+	#define ERR_CHANGEITEM_SUCCESS				((BYTE)21)	// CG_2005/01/28 : ë³€ì¢…ì•„ì´í…œê¸°ëŠ¥ì¶”ê°€
+	#define ERR_CHANGEITEM_CHANGED				((BYTE)22)	// CG_2005/01/28 : ë³€ì¢…ì•„ì´í…œê¸°ëŠ¥ì¶”ê°€
+	#define ERR_CHANGEITEM_CANTCHANGE			((BYTE)23)	// CG_2005/01/28 : ë³€ì¢…ì•„ì´í…œê¸°ëŠ¥ì¶”ê°€
+	#define ERR_CHANGEITEM_FAIL					((BYTE)24)	// CG_2005/01/28 : ë³€ì¢…ì•„ì´í…œê¸°ëŠ¥ì¶”ê°€
+	#define ERR_CHANGEITEM_DONOTREBUILD			((BYTE)25)	//ê°œì¡°í•  í•„ìš”ì—†ìŠ´(ê°œì¡°í•´ë´ì•¼ íš¨ê³¼ ì—†ë‹¤)
+	#define ERR_GUARANTEEITEM_SUCCESS			((BYTE)30)	// ë³´í—˜ ìƒí’ˆ ë“±ë¡ ì™„ë£Œ
+	#define ERR_REBIRTHITEM_OVERSOURCE			((BYTE)26)  //ê°œì¡° ìžì›ì€ 1ê°œë§Œ.. 
+	#define ERR_REBIRTHITEM_REMAKEFAIL			((BYTE)27)  //ë¶ˆì‚¬í˜„ë‹¨ ì‚¬ìš©ì‹œ ì˜¤í–‰ê¸°ê³µë§Œ ìžˆê±°ë‚˜ ê°ì„±ê¸°ê³µì´ ë¹„ì–´ ìžˆì„ ê²½ìš°
 
 #define CS_IM_ITEMINFO_REQ							(OFFSET_CS_IM + 68)
 #define CS_IM_ITEMINFO_ACK							(OFFSET_CS_IM + 69)
@@ -489,10 +489,10 @@
 	#define ERR_REPAIRWITHITEM_NOTREPAIR			((BYTE)8)
 	//IS_1103 : ADDCORD
 	#define	ERR_REPARIITEM_NOTREPAIRITEM			((BYTE)9)
-	// CG_2005/01/28 : º¯Á¾¾ÆÀÌÅÛ±â´ÉÃß°¡
-	#define	ERR_REPARIITEM_NOTCITEM_INEQUIP			((BYTE)10)	//ÀåÂø ÁßÀÎ º¯Á¾¾ÆÀÌÅÛÀº ¼ö¸® ºÒ°¡ 
-	#define	ERR_REPARIITEM_REBACKITEM				((BYTE)11)	//º¯Á¾¾ÆÀÌÅÛ ¼ö¸®°¡´É È½¼ö ÃÊ°ú·Î ÀÎÇÏ¿© ¿ø¾ÆÀÌÅÛÀ¸·Î º¹¿ø µÇ¾ú½À´Ï´Ù
-	#define	ERR_REPARIITEM_BONGINITEM				((BYTE)12)	//HT_0410 : ½Å±Ô ºùÁ¤·ù Ãß°¡
+	// CG_2005/01/28 : ë³€ì¢…ì•„ì´í…œê¸°ëŠ¥ì¶”ê°€
+	#define	ERR_REPARIITEM_NOTCITEM_INEQUIP			((BYTE)10)	//ìž¥ì°© ì¤‘ì¸ ë³€ì¢…ì•„ì´í…œì€ ìˆ˜ë¦¬ ë¶ˆê°€ 
+	#define	ERR_REPARIITEM_REBACKITEM				((BYTE)11)	//ë³€ì¢…ì•„ì´í…œ ìˆ˜ë¦¬ê°€ëŠ¥ íšŸìˆ˜ ì´ˆê³¼ë¡œ ì¸í•˜ì—¬ ì›ì•„ì´í…œìœ¼ë¡œ ë³µì› ë˜ì—ˆìŠµë‹ˆë‹¤
+	#define	ERR_REPARIITEM_BONGINITEM				((BYTE)12)	//HT_0410 : ì‹ ê·œ ë¹™ì •ë¥˜ ì¶”ê°€
 #define CS_IM_REMARKITEM_REQ						(OFFSET_CS_IM + 72)
 	#define ACT_REMARKITEM_PORTAL					((BYTE)1)
 #define CS_IM_REMARKITEM_ACK						(OFFSET_CS_IM + 73)
@@ -501,7 +501,7 @@
 	#define ERR_REMARKITEM_INVALIDITEM				((BYTE)2)
 	#define ERR_REMARKITEM_INVALIDPOSITION			((BYTE)3)
 	#define ERR_REMARKITEM_FAIL						((BYTE)4)
-//NIGHT_0513 : MOENYBAG Àü³¶
+//NIGHT_0513 : MOENYBAG ì „ë‚­
 #define CS_IM_MONEYBAG_REQ							(OFFSET_CS_IM + 74)
 	#define ACT_MONEYBAG_INPUT						((BYTE)1)
 	#define ACT_MONEYBAG_OUTPUT						((BYTE)2)
@@ -522,7 +522,7 @@
 	#define ERR_MONEYBAG_OUT_OVERMONEY				((BYTE)6)
 	#define ERR_MONEYBAG_OUT_OVERDUR				((BYTE)7)
 	#define ERR_MONEYBAG_ERROR						((BYTE)8)
-	#define ERR_MONEYBAG_IN_OVERMONEY2				((BYTE)9)//HO_0918_07 ÃÊº¸ÀÚ¿ë Àü³¶ Ãß°¡ : Àü³¶(¼Ò)
+	#define ERR_MONEYBAG_IN_OVERMONEY2				((BYTE)9)//HO_0918_07 ì´ˆë³´ìžìš© ì „ë‚­ ì¶”ê°€ : ì „ë‚­(ì†Œ)
 //NIGHT_0525 : MEMO
 #define CS_IM_MEMOLIST_REQ							(OFFSET_CS_IM + 76)
 #define CS_IM_MEMOLIST_ACK							(OFFSET_CS_IM + 77)
@@ -544,7 +544,7 @@
 	#define ERR_DELETEMEMO_SUCCESS					((BYTE)0)
 	#define ERR_DELETEMEMO_ERROR					((BYTE)1)
 
-//HK_0630 : New Mugong : ÅõÃ´¹«°­À¸·Î ´âÀº °æ¿ì ³»±¸·Â º¸³»ÁÜ
+//HK_0630 : New Mugong : íˆ¬ì²™ë¬´ê°•ìœ¼ë¡œ ë‹³ì€ ê²½ìš° ë‚´êµ¬ë ¥ ë³´ë‚´ì¤Œ
 #define CS_IM_DAMAGE_ACK							(OFFSET_CS_IM + 86)
 //		BYTE bSackPos
 //		WORD wDamageCur
@@ -559,12 +559,12 @@
 	#define ERR_PUZZLEITEM_SUCCESS				((BYTE)0)
 	#define ERR_PUZZLEITEM_NOTFOUNDITEM			((BYTE)1)
 	#define ERR_PUZZLEITEM_NOTFOUNDRES			((BYTE)2)
-	#define ERR_PUZZLEITEM_NEEDJOINITEM			((BYTE)3)	//Á¶ÇÕÀÌ ¸ðÀÚ¸¦¶§
-	#define ERR_PUZZLEITEM_BADITEM				((BYTE)4)	//´Ù¸¥Á¶ÇÕÀÌ ÀÖÀ»¶§
-	#define ERR_PUZZLEITEM_NOTJOINITEM			((BYTE)5)	//Á¶ÇÕÀÚ¿øÀÌ ¾Æ´Ï´Ù
-	#define ERR_PUZZLEITEM_NOTPUZZLEITEM		((BYTE)6)	//Á¶ÇÕ¾ÆÀÌÅÛ ¾Æ´Ï´Ù(bType != 19)
-	#define ERR_PUZZLEITEM_ALREADYJOIN			((BYTE)7)	//ÀÌ¹Ì Á¶ÇÕ¾ÆÀÌÅÛÀÌ µÇ¾ú´Ù
-	#define ERR_PUZZLEITEM_OVERFULLRES			((BYTE)8)	//ÀÚ¿øÀÌ ³ÑÄ¥¶§
+	#define ERR_PUZZLEITEM_NEEDJOINITEM			((BYTE)3)	//ì¡°í•©ì´ ëª¨ìžë¥¼ë•Œ
+	#define ERR_PUZZLEITEM_BADITEM				((BYTE)4)	//ë‹¤ë¥¸ì¡°í•©ì´ ìžˆì„ë•Œ
+	#define ERR_PUZZLEITEM_NOTJOINITEM			((BYTE)5)	//ì¡°í•©ìžì›ì´ ì•„ë‹ˆë‹¤
+	#define ERR_PUZZLEITEM_NOTPUZZLEITEM		((BYTE)6)	//ì¡°í•©ì•„ì´í…œ ì•„ë‹ˆë‹¤(bType != 19)
+	#define ERR_PUZZLEITEM_ALREADYJOIN			((BYTE)7)	//ì´ë¯¸ ì¡°í•©ì•„ì´í…œì´ ë˜ì—ˆë‹¤
+	#define ERR_PUZZLEITEM_OVERFULLRES			((BYTE)8)	//ìžì›ì´ ë„˜ì¹ ë•Œ
 	#define ERR_PUZZLEITEM_INTERNALERROR		((BYTE)9)
 
 //IS_1019 : REJOIN
@@ -572,11 +572,11 @@
 #define CS_IM_REJOINITEM_ACK				(OFFSET_CS_IM + 91)
 	#define ERR_REJOINITEM_SUCCESS				((BYTE) 0)
 	#define ERR_REJOINITEM_FAIL					((BYTE) 1)
-	#define ERR_REJOINITEM_NOTFOUNDRES			((BYTE) 2)	//ÀÚ¿øÀÌ ¸ðÀÚ¸¦¶§
-	#define ERR_REJOINITEM_OTHRERESOURCE		((BYTE) 3)	//¼­·Î´Ù¸¥ ÆíºÐÀÏ¶§
-	#define ERR_REJOINITEM_BADRESOURCE			((BYTE) 4)	//Á¶ÇÕ ¾ÆÀÌÅÛÀÌ ¾Æ´Ò¶§
-	#define ERR_REJOINITEM_NOTEMPTYSACK			((BYTE) 5)	//Çà¶û°ø°£ÀÌ ¾ø´Ù.
-	#define ERR_REJOINITEM_OVERFULLRES			((BYTE) 6)	//ÀÚ¿øÀÌ ³ÑÄ¥¶§
+	#define ERR_REJOINITEM_NOTFOUNDRES			((BYTE) 2)	//ìžì›ì´ ëª¨ìžë¥¼ë•Œ
+	#define ERR_REJOINITEM_OTHRERESOURCE		((BYTE) 3)	//ì„œë¡œë‹¤ë¥¸ íŽ¸ë¶„ì¼ë•Œ
+	#define ERR_REJOINITEM_BADRESOURCE			((BYTE) 4)	//ì¡°í•© ì•„ì´í…œì´ ì•„ë‹ë•Œ
+	#define ERR_REJOINITEM_NOTEMPTYSACK			((BYTE) 5)	//í–‰ëž‘ê³µê°„ì´ ì—†ë‹¤.
+	#define ERR_REJOINITEM_OVERFULLRES			((BYTE) 6)	//ìžì›ì´ ë„˜ì¹ ë•Œ
 	#define ERR_REJOINITEM_INTERNALERROR		((BYTE) 9)
 
 
@@ -586,8 +586,8 @@
 	#define ERR_GATHERITEM_SUCCESS				((BYTE) 0)
 	#define ERR_GATHERITEM_FAIL					((BYTE) 1)
 	#define ERR_GATHERITEM_LIMITLEVEL			((BYTE) 2)
-	#define ERR_GATHERITEM_NOTFOUNDITEM			((BYTE) 3)	// Ã¤Áýµµ±¸°¡ ¾Æ´Ï´Ù.
-	#define ERR_GATHERITEM_NOTFOUNDOBJECT		((BYTE) 4)	// Ã¤ÁýÀ» ÇÒ ¼ö ¾ø´Ù.
+	#define ERR_GATHERITEM_NOTFOUNDITEM			((BYTE) 3)	// ì±„ì§‘ë„êµ¬ê°€ ì•„ë‹ˆë‹¤.
+	#define ERR_GATHERITEM_NOTFOUNDOBJECT		((BYTE) 4)	// ì±„ì§‘ì„ í•  ìˆ˜ ì—†ë‹¤.
 	#define ERR_GATHERITEM_INTERNALERROR		((BYTE) 9)
 
 //IS_0201 : NEWYEAR
@@ -595,32 +595,32 @@
 #define CS_IM_VARIENTITEM_ACK				(OFFSET_CS_IM + 95)
 	#define ERR_VARIENTITEM_SUCCESS				((BYTE) 0)
 	#define ERR_VARIENTITEM_FAIL				((BYTE) 1)
-	#define ERR_VARIENTITEM_NOTFOUNDRES			((BYTE) 2)	//ÀÚ¿øÀÌ ¸ðÀÚ¸¦¶§
-	#define ERR_VARIENTITEM_OVERFULLRES			((BYTE) 3)	//ÀÚ¿øÀÌ ³ÑÄ¥¶§
-	#define ERR_VARIENTITEM_OTHRERESOURCE		((BYTE) 4)	//Á¶ÇÕ ¾ÆÀÌÅÛÀÌ ¾Æ´Ò¶§
-	#define ERR_VARIENTITEM_BADRESOURCE			((BYTE) 5)	//Á¾·ù°¡ ´Ù¸¦¶§
-	#define ERR_VARIENTITEM_ALREADY				((BYTE) 6)	//ÀÌ¹ÌÁ¶ÇÕµÈ°Í(´õÀÌ»ó ¾ÈµÊ)
+	#define ERR_VARIENTITEM_NOTFOUNDRES			((BYTE) 2)	//ìžì›ì´ ëª¨ìžë¥¼ë•Œ
+	#define ERR_VARIENTITEM_OVERFULLRES			((BYTE) 3)	//ìžì›ì´ ë„˜ì¹ ë•Œ
+	#define ERR_VARIENTITEM_OTHRERESOURCE		((BYTE) 4)	//ì¡°í•© ì•„ì´í…œì´ ì•„ë‹ë•Œ
+	#define ERR_VARIENTITEM_BADRESOURCE			((BYTE) 5)	//ì¢…ë¥˜ê°€ ë‹¤ë¥¼ë•Œ
+	#define ERR_VARIENTITEM_ALREADY				((BYTE) 6)	//ì´ë¯¸ì¡°í•©ëœê²ƒ(ë”ì´ìƒ ì•ˆë¨)
 	
-	//HT_0707 Èæº¸ º¯Á¾°³Á¶
-	#define ERR_VARIENTITEM_MAX					((BYTE) 7)	//Èæº¸ º¯Á¾°³Á¶ ÃÖ´ë°ª(´õÀÌ»ó ¾ÈµÊ)
-	#define ERR_VARIENTITEM_ABILITYMAX			((BYTE) 8)	//Èæº¸ º¯Á¾°³Á¶ ÃÖ´ë°ª(´É·ÂÄ¡ ÃÖ´ë°ªÀÏ °æ¿ì)
-	#define ERR_VARIENTITEM_RATEMAX				((BYTE) 13)	//Èæº¸ º¯Á¾°³Á¶ ÃÖ´ë°ª(Ãß°¡ ¼º°ø·ü ÃÖ´ë°ªÀÏ °æ¿ì)
+	//HT_0707 í‘ë³´ ë³€ì¢…ê°œì¡°
+	#define ERR_VARIENTITEM_MAX					((BYTE) 7)	//í‘ë³´ ë³€ì¢…ê°œì¡° ìµœëŒ€ê°’(ë”ì´ìƒ ì•ˆë¨)
+	#define ERR_VARIENTITEM_ABILITYMAX			((BYTE) 8)	//í‘ë³´ ë³€ì¢…ê°œì¡° ìµœëŒ€ê°’(ëŠ¥ë ¥ì¹˜ ìµœëŒ€ê°’ì¼ ê²½ìš°)
+	#define ERR_VARIENTITEM_RATEMAX				((BYTE) 13)	//í‘ë³´ ë³€ì¢…ê°œì¡° ìµœëŒ€ê°’(ì¶”ê°€ ì„±ê³µë¥  ìµœëŒ€ê°’ì¼ ê²½ìš°)
 
-	#define ERR_VARIENTITEM_INTERNALERROR		((BYTE) 9)	//³»ºÎ´íÎó
+	#define ERR_VARIENTITEM_INTERNALERROR		((BYTE) 9)	//ë‚´ë¶€ëŒ„è½Ž
 
-	//HT_0523 ¿¥ÆÄ½º ÀÌº¥Æ® 
-	#define ERR_VARIENTITEM_COUPON_SUCCESS		((BYTE) 10) // ÄíÆùµî·Ï¼º°ø
-	#define ERR_VARIENTITEM_COUPON_TOOMANY		((BYTE) 11) // 1°³¾¿ µî·Ï °¡´ÉÇÕ´Ï´Ù.(±¸¼º¿ä¼Ò°¡ ¸¹Àº°æ¿ì)
-	#define ERR_VARIENTITEM_COUPON_FAIL			((BYTE) 12) // ÄíÆùµî·Ï½ÇÆÐ
+	//HT_0523 ì— íŒŒìŠ¤ ì´ë²¤íŠ¸ 
+	#define ERR_VARIENTITEM_COUPON_SUCCESS		((BYTE) 10) // ì¿ í°ë“±ë¡ì„±ê³µ
+	#define ERR_VARIENTITEM_COUPON_TOOMANY		((BYTE) 11) // 1ê°œì”© ë“±ë¡ ê°€ëŠ¥í•©ë‹ˆë‹¤.(êµ¬ì„±ìš”ì†Œê°€ ë§Žì€ê²½ìš°)
+	#define ERR_VARIENTITEM_COUPON_FAIL			((BYTE) 12) // ì¿ í°ë“±ë¡ì‹¤íŒ¨
 
-//IS_0511 : º¸Çè»óÇ°
+//IS_0511 : ë³´í—˜ìƒí’ˆ
 #define CS_IM_REWARDGUARANTEE_REQ			(OFFSET_CS_IM + 96)
 #define CS_IM_REWARDGUARANTEE_ACK			(OFFSET_CS_IM + 97)
-	#define ERR_REWARDGUARANTEE_SUCCESS			((BYTE) 0)//º¹±¸¼º°ø
-	#define ERR_REWARDGUARANTEE_DELETED			((BYTE) 1)//¿µ±¸»èÁ¦µÇ¾ú½À´Ï´Ù.
-	#define ERR_REWARDGUARANTEE_NOTFOUND		((BYTE) 2)//Á¸ÀçÇÏÁö ¾Ê´Â ¾ÆÀÌÅÛ
-	#define ERR_REWARDGUARANTEE_INSERTFAIL		((BYTE) 3)//ÀÚ¸®°¡ ºÎÁ·
-	#define ERR_REWARDGUARANTEE_INTERNALERROR	((BYTE) 255)//½Ã½ºÅÛ ´íÎó(°ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇÏ½Ê½Ã¿À)
+	#define ERR_REWARDGUARANTEE_SUCCESS			((BYTE) 0)//ë³µêµ¬ì„±ê³µ
+	#define ERR_REWARDGUARANTEE_DELETED			((BYTE) 1)//ì˜êµ¬ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.
+	#define ERR_REWARDGUARANTEE_NOTFOUND		((BYTE) 2)//ì¡´ìž¬í•˜ì§€ ì•ŠëŠ” ì•„ì´í…œ
+	#define ERR_REWARDGUARANTEE_INSERTFAIL		((BYTE) 3)//ìžë¦¬ê°€ ë¶€ì¡±
+	#define ERR_REWARDGUARANTEE_INTERNALERROR	((BYTE) 255)//ì‹œìŠ¤í…œ ëŒ„è½Ž(ê´€ë¦¬ìžì—ê²Œ ë¬¸ì˜í•˜ì‹­ì‹œì˜¤)
 
 #define CS_IM_EVENTPUZZLE_REQ				(OFFSET_CS_IM + 98)
 #define CS_IM_EVENTPUZZLE_ACK				(OFFSET_CS_IM + 99)
@@ -630,7 +630,7 @@
 #define CS_IM_MIXITEM_REQ					(OFFSET_CS_IM + 100)
 #define CS_IM_MIXITEM_ACK					(OFFSET_CS_IM + 101)
 
-//JK_1209 : ¼öÁý½Ã½ºÅÛ
+//JK_1209 : ìˆ˜ì§‘ì‹œìŠ¤í…œ
 #define CS_IM_MOVEINCOLLECTITEM_REQ			(OFFSET_CS_IM + 102)
 #define CS_IM_MOVEINCOLLECTITEM_ACK			(OFFSET_CS_IM + 103)
 	#define ERR_MOVEINCOLLECT_SUCCESS			((BYTE) 0)
@@ -640,7 +640,7 @@
 	#define REE_MOVEINCOLLECT_INTERNALERROR		((BYTE) 4)
 	#define ERR_MOVEINCOLLECT_NOVALUE			((BYTE) 5)
 
-//JK_1209 : ¼öÁý½Ã½ºÅÛ
+//JK_1209 : ìˆ˜ì§‘ì‹œìŠ¤í…œ
 #define CS_IM_MOVEOUTCOLLECTITEM_REQ		(OFFSET_CS_IM + 104)
 #define CS_IM_MOVEOUTCOLLECTITEM_ACK		(OFFSET_CS_IM + 105)
 	#define ERR_MOVEOUTCOLLECT_SUCCESS			((BYTE) 0)
@@ -649,13 +649,13 @@
 	#define	ERR_MOVEOUTCOLLECT_FULLSACK			((BYTE) 3)
 	#define REE_MOVEOUTCOLLECT_INTERNALERROR	((BYTE) 4)
 
-//¸ÁÄ¡ Á¶ÇÕ
+//ë§ì¹˜ ì¡°í•©
 #define CS_IM_MAKEREPAIRHAMMER_REQ		(OFFSET_CS_IM + 106)
 #define CS_IM_MAKEREPAIRHAMMER_ACK		(OFFSET_CS_IM + 107)
 	#define	ERR_MAKEREPAIRHAMMER_SUCCESS		((BYTE) 0)
 	#define ERR_MAKEREPAIRHAMMER_FAIL			((BYTE) 1)
 
-//HT_0829 : ÇÁ¸®¹Ì¾ö Äù½ºÆ® 
+//HT_0829 : í”„ë¦¬ë¯¸ì—„ í€˜ìŠ¤íŠ¸ 
 #define CS_IM_QUESTROLL_ACK					(OFFSET_CS_IM + 112)
 	#define ERR_QUEST_CONDITION					((BYTE) 1)
 	#define	ERR_QUEST_HOLD						((BYTE) 2)
@@ -664,7 +664,7 @@
 #define CS_IM_MAKEUNIONITEM_REQ				(OFFSET_CS_IM + 108)
 //dwShopID
 //bItemCount
-//bItemCount ¸¸Å­
+//bItemCount ë§Œí¼
 //{
 //	DWORD dwItemID
 //	BYTE  bSackID
@@ -672,12 +672,12 @@
 //}
 
 #define CS_IM_MAKEUNIONITEM_ACK				(OFFSET_CS_IM + 109)
-	#define ERR_MAKEUNIONITEM_SUCCESS			((BYTE) 0)	//»ý»ê Á¶ÇÕ ¼º°ø.
-	#define ERR_MAKEUNIONITEM_FAIL				((BYTE) 1)	//»ý»ê Á¶ÇÕ ½ÇÆÐ.
-	#define ERR_MAKEUNIONITEM_CANT				((BYTE) 2)	//±¸¼º¿ä¼Ò°¡ ¸ÂÁö ¾Ê½À´Ï´Ù.
-	#define ERR_MAKEUNIONITEM_INTERNALERROR		((BYTE) 4)	//³»ºÎ¿¡·¯
+	#define ERR_MAKEUNIONITEM_SUCCESS			((BYTE) 0)	//ìƒì‚° ì¡°í•© ì„±ê³µ.
+	#define ERR_MAKEUNIONITEM_FAIL				((BYTE) 1)	//ìƒì‚° ì¡°í•© ì‹¤íŒ¨.
+	#define ERR_MAKEUNIONITEM_CANT				((BYTE) 2)	//êµ¬ì„±ìš”ì†Œê°€ ë§žì§€ ì•ŠìŠµë‹ˆë‹¤.
+	#define ERR_MAKEUNIONITEM_INTERNALERROR		((BYTE) 4)	//ë‚´ë¶€ì—ëŸ¬
 
-//°¢¼ºÁ¦ »ç¿ë
+//ê°ì„±ì œ ì‚¬ìš©
 #define CS_IM_REBIRTH_REQ					(OFFSET_CS_IM + 110)
 #define CS_IM_REBIRTH_ACK					(OFFSET_CS_IM + 111)
 	#define ERR_REBIRTH_SUCCESS					((BYTE) 0)
@@ -685,9 +685,9 @@
 	#define ERR_REBIRTH_STEP					((BYTE) 2)
 	#define ERR_REBIRTH_SPACE					((BYTE) 3)
 	#define ERR_REBIRTH_INTERNAL				((BYTE) 4)
-	#define ERR_2TH_REBIRTH_SPACE				((BYTE) 6) //HO_0730_07 Áø°¢¼º ÆÐÅ¶Ãß°¡
+	#define ERR_2TH_REBIRTH_SPACE				((BYTE) 6) //HO_0730_07 ì§„ê°ì„± íŒ¨í‚·ì¶”ê°€
 
-//HT_1116 : °¢¼ºÀÚ ¾ÆÀÌÅÛ Ãß°¡
+//HT_1116 : ê°ì„±ìž ì•„ì´í…œ ì¶”ê°€
 #define CS_IM_MAKEREBIRTHITEM_REQ			(OFFSET_CS_IM + 113)
 #define CS_IM_MAKEREBIRTHITEM_ACK			(OFFSET_CS_IM + 114)
 	#define ERR_REBIRTH_SUCCESS					((BYTE) 0)
@@ -695,20 +695,20 @@
 	#define ERR_REBIRTH_FAIL					((BYTE) 2)
 	#define ERR_REBIRTH_OVERCREATE				((BYTE) 3)
 
-#define CS_IM_GIVEPOWERITEM_ACK				(OFFSET_CS_IM + 115) //HO_0427_07 ¿µ¼öÈ¯°ñ½Å´Ü Ãß°¡
+#define CS_IM_GIVEPOWERITEM_ACK				(OFFSET_CS_IM + 115) //HO_0427_07 ì˜ìˆ˜í™˜ê³¨ì‹ ë‹¨ ì¶”ê°€
 	#define ERR_GIVEPOWER_ATT					((BYTE) 1)
 	#define ERR_GIVEPOWER_DEF					((BYTE) 2)
 	#define ERR_GIVEPOWER_AGI					((BYTE) 3)
 	#define ERR_GIVEPOWER_LIFE					((BYTE) 4)
-	//HO_0913_07 ¿µ¼ö °¢¼º½Å´Ü Ãß°¡	
+	//HO_0913_07 ì˜ìˆ˜ ê°ì„±ì‹ ë‹¨ ì¶”ê°€	
 	#define ERR_PET_REBIRTH						((BYTE) 5)
 	#define ERR_MONSTER_NOTREBIRTH				((BYTE) 7)	
 
 
-#define CS_IM_GOLDBOX_ACK					(OFFSET_CS_IM + 116) //HO_0828_07 È²±Ý¿­¼è Ãß°¡
-	#define ERR_GOLDBOX_SUCCESS					((BYTE)0)	//¼º°ø 
-	#define ERR_GOLDBOX_NOTENOUGH				((BYTE)1)	//È²±Ý»óÀÚ(5Ä­ÀÖ¾î¾ßµÊ) 
-	#define ERR_GOLDBOX_NOTKEY					((BYTE)2)	//È²±Ý¿­¼è°¡ ºÎÁ·ÇÔ 
+#define CS_IM_GOLDBOX_ACK					(OFFSET_CS_IM + 116) //HO_0828_07 í™©ê¸ˆì—´ì‡  ì¶”ê°€
+	#define ERR_GOLDBOX_SUCCESS					((BYTE)0)	//ì„±ê³µ 
+	#define ERR_GOLDBOX_NOTENOUGH				((BYTE)1)	//í™©ê¸ˆìƒìž(5ì¹¸ìžˆì–´ì•¼ë¨) 
+	#define ERR_GOLDBOX_NOTKEY					((BYTE)2)	//í™©ê¸ˆì—´ì‡ ê°€ ë¶€ì¡±í•¨ 
 //////////////////////////////////////////////////////////////////////
 // Environment message
 
@@ -763,14 +763,14 @@
 
 #define CS_BT_SETPOWER_REQ					(OFFSET_CS_BT + 26)
 
-// ¼ö·Ã °á°ú Error Code
-#define ERR_EXEC_SUCCESS			  ((BYTE)0)		// ¼º°ø
-#define ERR_EXEC_MAXLIMIT			  ((BYTE)1)		// ÇÑ°èÄ¡±îÁö ¼ö·Ã
-#define ERR_EXEC_MINLIMIT			  ((BYTE)2)		// ¼ö·Ã ¿ä°ÇÀÌ ¾ÈµÊ
-#define ERR_EXEC_SP					  ((BYTE)3)		// SP ºÎÁ·
-#define ERR_EXEC_TP					  ((BYTE)4)		// TP ºÎÁ·
-#define ERR_EXEC_INVALIDMUGONG		  ((BYTE)5)		// ÇØ´çµÇ´Â MUGONG ¾øÀ½
-#define ERR_EXEC_FAIL				  ((BYTE)255)	// ½ÇÆÐ
+// ìˆ˜ë ¨ ê²°ê³¼ Error Code
+#define ERR_EXEC_SUCCESS			  ((BYTE)0)		// ì„±ê³µ
+#define ERR_EXEC_MAXLIMIT			  ((BYTE)1)		// í•œê³„ì¹˜ê¹Œì§€ ìˆ˜ë ¨
+#define ERR_EXEC_MINLIMIT			  ((BYTE)2)		// ìˆ˜ë ¨ ìš”ê±´ì´ ì•ˆë¨
+#define ERR_EXEC_SP					  ((BYTE)3)		// SP ë¶€ì¡±
+#define ERR_EXEC_TP					  ((BYTE)4)		// TP ë¶€ì¡±
+#define ERR_EXEC_INVALIDMUGONG		  ((BYTE)5)		// í•´ë‹¹ë˜ëŠ” MUGONG ì—†ìŒ
+#define ERR_EXEC_FAIL				  ((BYTE)255)	// ì‹¤íŒ¨
 
 #define CS_BT_EXECSP_REQ					(OFFSET_CS_BT + 28)
 #define CS_BT_EXECSP_ACK					(OFFSET_CS_BT + 29)  
@@ -896,7 +896,7 @@
 	//strData1 -> strEnemyMunpaName
 	#define ACT_MINE						((BYTE)7)
 	#define ACT_FIVEELM						((BYTE)8)
-	// CG_2005/01/28 : º¯Á¾¾ÆÀÌÅÛ±â´ÉÃß°¡
+	// CG_2005/01/28 : ë³€ì¢…ì•„ì´í…œê¸°ëŠ¥ì¶”ê°€
 	#define ACT_CHANGECOMPLE				((BYTE)9)  
 
 //////////////////////////////////////////////////////////////////////
@@ -1205,15 +1205,15 @@
 //	CLIENT
 //Remark :
 #define ERR_BUILD_SUCCESS					((BYTE)0)
-#define ERR_BUILD_NOTINLOT					((BYTE)1)	// »ç¿ëÀÚÀÇ Lot ¹üÀ§ ¾È¿¡ ÀÖÁö ¾ÊÀ½
-#define ERR_BUILD_TEMPLATE					((BYTE)2)	// ¾ø´Â Template
-#define	ERR_BUILD_INVALIDLOT				((BYTE)3)	// ÁýÀ» ÁöÀ» ¼ö ¾ø´Â Lot ¶Ç´Â ¾ø´Â Lot
+#define ERR_BUILD_NOTINLOT					((BYTE)1)	// ì‚¬ìš©ìžì˜ Lot ë²”ìœ„ ì•ˆì— ìžˆì§€ ì•ŠìŒ
+#define ERR_BUILD_TEMPLATE					((BYTE)2)	// ì—†ëŠ” Template
+#define	ERR_BUILD_INVALIDLOT				((BYTE)3)	// ì§‘ì„ ì§€ì„ ìˆ˜ ì—†ëŠ” Lot ë˜ëŠ” ì—†ëŠ” Lot
 #define ERR_BUILD_NOTPLAIN                  ((BYTE)4)   
 #define ERR_BUILD_NOTENOUGHMONEY            ((BYTE)5)
 #define ERR_BUILD_TOOYOUNG					((BYTE)6)
 #define ERR_BUILD_NOTENOUGHRES				((BYTE)7)
 #define ERR_BUILD_FREEUSER					((BYTE)8)
-#define ERR_BUILD_INVALIDTEMPLATE			((BYTE)9)   // TEMPLATE ³í¸® ´íÎó
+#define ERR_BUILD_INVALIDTEMPLATE			((BYTE)9)   // TEMPLATE ë…¼ë¦¬ ëŒ„è½Ž
 #define ERR_BUILD_INTERNALERROR				((BYTE)255)   
 
 #define CS_BD_TEMPLATEINFO_REQ				(OFFSET_CS_BD + 4)
@@ -1392,9 +1392,9 @@
 //Arguments :
 //	DWORD	MugongID
 //  STRING  Name
-//	BYTE	IncrSpeed			¼ÓµµÁõ°¡ : X
+//	BYTE	IncrSpeed			ì†ë„ì¦ê°€ : X
 //  BYTE    JumpLevel
-//	WORD	DecIpOnRun			³»°ø¼Ò¸ð : X
+//	WORD	DecIpOnRun			ë‚´ê³µì†Œëª¨ : X
 //  WORD    DecIpOnJump
 //Source :
 //	UNITSVR
@@ -1405,8 +1405,8 @@
 #define CS_IF_EXPGENERALMUGONG_ACK			(OFFSET_CS_IF + 11) 
 //Arguments :
 //  DWORD	MugongID
-//  WORD	Skill			¼÷·Ãµµ: x
-//  WORD    Exp				°æÇèÄ¡: x
+//  WORD	Skill			ìˆ™ë ¨ë„: x
+//  WORD    Exp				ê²½í—˜ì¹˜: x
 //Source :
 //  UNITSVR
 //Target :
@@ -1426,10 +1426,10 @@
 
 #define CS_IF_CHARPWR_ACK					(OFFSET_CS_IF + 13) 
 //Arguments :
-//	DWORD	AtkPower		°ø°Ý·Â
-//	DWORD	DefPower		¹æ¾î·Â
-//	WORD	HValue			Çö¹¦À²
-//  BYTE    Permanent		·¹º§¾÷ È¿°ú
+//	DWORD	AtkPower		ê³µê²©ë ¥
+//	DWORD	DefPower		ë°©ì–´ë ¥
+//	WORD	HValue			í˜„ë¬˜ìœ¨
+//  BYTE    Permanent		ë ˆë²¨ì—… íš¨ê³¼
 //	WORD	Level
 //Source :
 //	UNITSVR
@@ -1531,7 +1531,7 @@
 
 #define CS_IF_WARNINGCHARDIE_ACK				(OFFSET_CS_IF + 59)
 //Arguments :
-//	BYTE	WarningType		0 : 1³â¸¶´Ù  1 : 10ÀÏ¸¶´Ù
+//	BYTE	WarningType		0 : 1ë…„ë§ˆë‹¤  1 : 10ì¼ë§ˆë‹¤
 //	WORD	LifeLengh
 //Source :
 //	UNITSVR
@@ -1555,7 +1555,7 @@
 	#define HM_BOSSKILL							((WORD)2)
 	#define	HM_PKDROP							((WORD)3)
 	#define	HM_PARTYBATTLEMONEY					((WORD)4)			//NIGHT_0422 : PARTYBATTLE
-	#define HM_BLOODDEVIL						((WORD)7)			//HO_0313_07 ±¤¸íÀü ¾÷µ¥ÀÌÆ®·Î ÀÎÇÑ Ãß°¡
+	#define HM_BLOODDEVIL						((WORD)7)			//HO_0313_07 ê´‘ëª…ì „ ì—…ë°ì´íŠ¸ë¡œ ì¸í•œ ì¶”ê°€
 
 #define CS_IF_LAYERMSG_ACK						(OFFSET_CS_IF + 63)
 //Argument :
@@ -1648,7 +1648,7 @@
 
 #define CS_IF_CHANGEPARTYLEADER_REQ			(OFFSET_CS_IF + 87)
 #define CS_IF_CHANGEPARTYLEADER_ACK			(OFFSET_CS_IF + 88)
-//HO_0420_07 ÆÐÅ¶Ãß°¡
+//HO_0420_07 íŒ¨í‚·ì¶”ê°€
 	#define ERR_CHANGEPARTYLEADER_SUCCESS		((BYTE)0)
 	#define ERR_CHANGEPARTYLEADER_FAIL			((BYTE)1)
 
@@ -1717,21 +1717,21 @@
 	#define ERR_CHANGEFIVEELM_SUCCESS				((BYTE)0)
 	#define ERR_CHANGEFIVEELM_ONAIR					((BYTE)1)
 
-// [6/1/2005] ´Ü °æÇèÄ¡ ºÐ¹è
+// [6/1/2005] ë‹¨ ê²½í—˜ì¹˜ ë¶„ë°°
 #define CS_IF_PARTYSHARE_REQ				(OFFSET_CS_IF + 115)
 #define CS_IF_PARTYSHARE_ACK				(OFFSET_CS_IF + 116)
 
-//IS_0812 : ÀÎ½ºÅÏ½º
+//IS_0812 : ì¸ìŠ¤í„´ìŠ¤
 #define CS_IF_STAMINA_REQ					(OFFSET_CS_IF + 117)
 #define CS_IF_STAMINA_ACK					(OFFSET_CS_IF + 118)
 
-//IS_0812 : ÀÎ½ºÅÏ½º
+//IS_0812 : ì¸ìŠ¤í„´ìŠ¤
 #define CS_IF_EXECSTAMINA_REQ				(OFFSET_CS_IF + 119)
 #define CS_IF_EXECSTAMINA_ACK				(OFFSET_CS_IF + 120)
 	#define ERR_EXECSTAMINA_SUCCESS				((BYTE)0)
-	#define ERR_EXECSTAMINA_NEEDSTAMINA			((BYTE)1)//±â ºÎÁ·
+	#define ERR_EXECSTAMINA_NEEDSTAMINA			((BYTE)1)//ê¸° ë¶€ì¡±
 
-//HT_0720 : ¿ÀÇà °³¼± »çÇ×
+//HT_0720 : ì˜¤í–‰ ê°œì„  ì‚¬í•­
 #define CS_IF_ENDFIVEELM_REQ				(OFFSET_CS_IF + 121)
 //////////////////////////////////////////////////////////////////////
 //  Relation Message
@@ -2126,7 +2126,7 @@
 
 #define ERR_ENDRELATION_SUCCESS				((BYTE)0)
 #define ERR_ENDRELATION_NOSUCHTARGET		((BYTE)1)
-#define ERR_ENDRELATION_NORELATION			((BYTE)2)/*Target°ú °ü°è¾ø½¿*/
+#define ERR_ENDRELATION_NORELATION			((BYTE)2)/*Targetê³¼ ê´€ê³„ì—†ìŠ´*/
 #define ERR_ENDRELATION_CANTENDREL			((BYTE)3)
 #define ERR_ENDRELATION_NEEDTIME			((BYTE)4)
 #define ERR_ENDRELATION_INTERNALERROR		((BYTE)255)
@@ -2194,7 +2194,7 @@
 	#define ERR_ADDMUNWON_DONOT_FIND			((BYTE) 4)
 	#define ERR_ADDMUNWON_MAX					((BYTE) 5)
 	#define ERR_ADDMUNWON_ERROR					((BYTE) 6)
-	#define ERR_ADDMUNWON_PENALTY				((BYTE) 7)//HO_0507_07 ¹®ÆÄ ÆÐÅ¶ Ãß°¡ : Å»ÅðÇÑÁö 1ÁÖÀÏÀÌ ¾ÈÁö³²
+	#define ERR_ADDMUNWON_PENALTY				((BYTE) 7)//HO_0507_07 ë¬¸íŒŒ íŒ¨í‚· ì¶”ê°€ : íƒˆí‡´í•œì§€ 1ì£¼ì¼ì´ ì•ˆì§€ë‚¨
 	
 #define CS_RL_DELMUNWON_REQ					(OFFSET_CS_RL + 45)
 #define CS_RL_DELMUNWON_ACK					(OFFSET_CS_RL + 46)
@@ -2240,30 +2240,30 @@
 #define CS_RL_ASKRELATION_ACK				(OFFSET_CS_RL + 64)
 #define CS_RL_BREAKRELATION_REQ				(OFFSET_CS_RL + 65)
 #define CS_RL_BREAKRELATION_ACK				(OFFSET_CS_RL + 66)
-	// 1) ÀÎ¿¬ Á¾·ù ÄÚµå (bRelType)
-	#define RELATION_TYPE_NONE			((BYTE) 0)		// (ÇØ´ç¾øÀ½)
-	#define RELATION_TYPE_LOVER			((BYTE) 10)		// ¿¬ÀÎ
-	#define RELATION_TYPE_MARRIED		((BYTE) 11)		// ºÎºÎ
-	#define RELATION_TYPE_TEACHER		((BYTE) 20)		// ½º½Â
-	#define RELATION_TYPE_MASTER		((BYTE) 21)		// Àü¼öÀÚ
-	#define RELATION_TYPE_STUDENT		((BYTE) 30)		// Á¦ÀÚ
-	#define RELATION_TYPE_SLAVE			((BYTE) 31)		// Àü½ÂÀÚ
-	#define RELATION_TYPE_BUDDY			((BYTE) 40)		// Ä£±¸
-	// 2) ÁøÇà ´Ü°è ÄÚµå (bRelStep)
-	#define RELATION_ERR_INTERNAL		((BYTE) 0)		// ³»ºÎ ´íÎó
-	#define RELATION_ERR_SAMESEX		((BYTE) 1)		// ¼ºº°ÀÌ °°¾Æ¼­ ¿¬ÀÎÀÌ µÉ¼ö ¾øÀ½
-	#define RELATION_ERR_DIFFTYPE		((BYTE) 2)		// À¯ÆÄ°¡ ´Þ¶ó¼­ ½º½Â/Á¦ÀÚ°¡ µÉ¼ö ¾øÀ½
-	#define RELATION_ERR_ASKHAVE		((BYTE) 3)		// ½ÅÃ»ÀÚ¿¡°Ô ÇØ´ç °ü°èÀÚ°¡ ÀÖÀ½
-	#define RELATION_ERR_ANSHAVE		((BYTE) 4)		// ½Â¶ôÀÚ¿¡°Ô ÇØ´ç °ü°èÀÚ°¡ ÀÖÀ½
-	#define RELATION_ERR_NOTFOUND		((BYTE) 5)		// »ó´ë¹æÀÌ ·Î±×¾Æ¿ô
-	#define RELATION_ERR_NOTIMPLEMENTED	((BYTE) 6)		// ¾ÆÁ÷ Áö¿ø ¾Ê´Â ±â´É
-	#define RELATION_ERR_CLOSEOPTION	((BYTE) 7)		// °ü°è ¿É¼Ç ´ÝÈû
-	#define RELATION_STEP_DONE			((BYTE) 10)		// ¿Ï·á
-	#define RELATION_STEP_ASK			((BYTE) 11)		// ½ÅÃ» (»ý¼º/Àý±³)
-	#define RELATION_STEP_ACCEPT		((BYTE) 12)		// ½Â¶ô (»ý¼º/Àý±³)
-	#define RELATION_STEP_DECLINE		((BYTE) 13)		// °ÅºÎ (»ý¼º/Àý±³)
-	#define RELATION_STEP_NOTLOGIN		((BYTE) 14)		// »ó´ë¹æÀÌ ·Î±×ÀÎ ¾ÈÇÑ »óÅÂ(ÀÎµ¥, °­ÇàÇÏ°Ú´À³Ä)
-	#define RELATION_STEP_CONFIRM		((BYTE) 15)		// Àý±³ °­Çà È·¶¨
+	// 1) ì¸ì—° ì¢…ë¥˜ ì½”ë“œ (bRelType)
+	#define RELATION_TYPE_NONE			((BYTE) 0)		// (í•´ë‹¹ì—†ìŒ)
+	#define RELATION_TYPE_LOVER			((BYTE) 10)		// ì—°ì¸
+	#define RELATION_TYPE_MARRIED		((BYTE) 11)		// ë¶€ë¶€
+	#define RELATION_TYPE_TEACHER		((BYTE) 20)		// ìŠ¤ìŠ¹
+	#define RELATION_TYPE_MASTER		((BYTE) 21)		// ì „ìˆ˜ìž
+	#define RELATION_TYPE_STUDENT		((BYTE) 30)		// ì œìž
+	#define RELATION_TYPE_SLAVE			((BYTE) 31)		// ì „ìŠ¹ìž
+	#define RELATION_TYPE_BUDDY			((BYTE) 40)		// ì¹œêµ¬
+	// 2) ì§„í–‰ ë‹¨ê³„ ì½”ë“œ (bRelStep)
+	#define RELATION_ERR_INTERNAL		((BYTE) 0)		// ë‚´ë¶€ ëŒ„è½Ž
+	#define RELATION_ERR_SAMESEX		((BYTE) 1)		// ì„±ë³„ì´ ê°™ì•„ì„œ ì—°ì¸ì´ ë ìˆ˜ ì—†ìŒ
+	#define RELATION_ERR_DIFFTYPE		((BYTE) 2)		// ìœ íŒŒê°€ ë‹¬ë¼ì„œ ìŠ¤ìŠ¹/ì œìžê°€ ë ìˆ˜ ì—†ìŒ
+	#define RELATION_ERR_ASKHAVE		((BYTE) 3)		// ì‹ ì²­ìžì—ê²Œ í•´ë‹¹ ê´€ê³„ìžê°€ ìžˆìŒ
+	#define RELATION_ERR_ANSHAVE		((BYTE) 4)		// ìŠ¹ë½ìžì—ê²Œ í•´ë‹¹ ê´€ê³„ìžê°€ ìžˆìŒ
+	#define RELATION_ERR_NOTFOUND		((BYTE) 5)		// ìƒëŒ€ë°©ì´ ë¡œê·¸ì•„ì›ƒ
+	#define RELATION_ERR_NOTIMPLEMENTED	((BYTE) 6)		// ì•„ì§ ì§€ì› ì•ŠëŠ” ê¸°ëŠ¥
+	#define RELATION_ERR_CLOSEOPTION	((BYTE) 7)		// ê´€ê³„ ì˜µì…˜ ë‹«íž˜
+	#define RELATION_STEP_DONE			((BYTE) 10)		// ì™„ë£Œ
+	#define RELATION_STEP_ASK			((BYTE) 11)		// ì‹ ì²­ (ìƒì„±/ì ˆêµ)
+	#define RELATION_STEP_ACCEPT		((BYTE) 12)		// ìŠ¹ë½ (ìƒì„±/ì ˆêµ)
+	#define RELATION_STEP_DECLINE		((BYTE) 13)		// ê±°ë¶€ (ìƒì„±/ì ˆêµ)
+	#define RELATION_STEP_NOTLOGIN		((BYTE) 14)		// ìƒëŒ€ë°©ì´ ë¡œê·¸ì¸ ì•ˆí•œ ìƒíƒœ(ì¸ë°, ê°•í–‰í•˜ê² ëŠëƒ)
+	#define RELATION_STEP_CONFIRM		((BYTE) 15)		// ì ˆêµ ê°•í–‰ íš…ë•
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //YS_0524 : MUNPAWAR
@@ -2422,14 +2422,14 @@
 	#define ERR_GETMONEY_OVERMONEY			(BYTE)4
 	#define ERR_GETMONEY_INTERNALERROR		(BYTE)5
 
-//IS_0512 : Àý¿¬ÆÐ
+//IS_0512 : ì ˆì—°íŒ¨
 #define CS_RL_BREAKRELATIONITEM_REQ			(OFFSET_CS_RL + 101)
 #define CS_RL_BREAKRELATIONITEM_ACK			(OFFSET_CS_RL + 102)
-	#define ERR_BREAKRELATIONITEM_SUCCESS		(BYTE)0	//¼º°ø
-	#define ERR_BREAKRELATIONITEM_NOTFOUND		(BYTE)1	//¾ÆÀÌÅÛÀ» Ã£À» ¼ö ¾ø½¿
-	#define ERR_BREAKRELATIONITEM_ONTRADE		(BYTE)2	//°Å·¡ÁßÀÎ ¾ÆÀÌÅÛÀº »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.
-	#define ERR_BREAKRELATIONITEM_NOTUSE		(BYTE)3	//»ç¿ëÇÒ¼ö ¾ø´Â ¾ÆÀÌÅÛ
-	#define ERR_BREAKRELATIONITEM_INTERNALERROR	(BYTE)255//³»ºÎ´íÎó(°ü¸®ÀÚ¿¡°Ô ¹®ÀÇ)
+	#define ERR_BREAKRELATIONITEM_SUCCESS		(BYTE)0	//ì„±ê³µ
+	#define ERR_BREAKRELATIONITEM_NOTFOUND		(BYTE)1	//ì•„ì´í…œì„ ì°¾ì„ ìˆ˜ ì—†ìŠ´
+	#define ERR_BREAKRELATIONITEM_ONTRADE		(BYTE)2	//ê±°ëž˜ì¤‘ì¸ ì•„ì´í…œì€ ì‚¬ìš©í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.
+	#define ERR_BREAKRELATIONITEM_NOTUSE		(BYTE)3	//ì‚¬ìš©í• ìˆ˜ ì—†ëŠ” ì•„ì´í…œ
+	#define ERR_BREAKRELATIONITEM_INTERNALERROR	(BYTE)255//ë‚´ë¶€ëŒ„è½Ž(ê´€ë¦¬ìžì—ê²Œ ë¬¸ì˜)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -2444,7 +2444,7 @@
 #define CS_OP_OPTIONLIST_ACK				(OFFSET_CS_OP + 3)
 
 //////////////////////////////////////////////////////////////////////
-//  ¹®ÆÄÀüÀï Message
+//  ë¬¸íŒŒì „ìŸ Message
 #define CS_WR_MUNPABATTLENOTICE_REQ			(OFFSET_CS_WR + 0)
 #define CS_WR_MUNPABATTLENOTICE_ACK			(OFFSET_CS_WR + 1)
 
@@ -2510,44 +2510,44 @@
 
 #define CS_WR_WARSTATUS_ACK					(OFFSET_CS_WR + 26)
 //UnitSvr -> Client
-//bStatus - 0 : ¼±Æ÷, 1: ½ÃÀÛ, 2 : Á¾·á 
+//bStatus - 0 : ì„ í¬, 1: ì‹œìž‘, 2 : ì¢…ë£Œ 
 //bWarResult : if ( bStatus == 2 ) 0 - Draw, 1 - ChallengeMunpa Win, 2 - ChallengeMunpa Loss
 //strChallengeMunpaName,
 //strMunpaName,
 
-//¹®ÆÄÀü½ÅÃ»
+//ë¬¸íŒŒì „ì‹ ì²­
 #define CS_WR_APPLYWAR_REQ				(OFFSET_CS_WR + 27)
 #define CS_WR_APPLYWAR_ACK				(OFFSET_CS_WR + 28)
 	#define ERR_APPLYWAR_SUCCESS				((BYTE)0)	
-	#define ERR_APPLYWAR_WRONGTERM				((BYTE)1) //½ÅÃ»±â°£¾Æ´Ô
-	#define ERR_APPLYWAR_NOTMUNJU				((BYTE)2) //¹®ÁÖ¸¸½ÅÃ»°¡´É(¹®ÁÖ¾Æ´Ô)
-	#define ERR_APPLYWAR_NOTENOUGHMONEY			((BYTE)3) //½ÅÃ»±ÝºÎÁ·
-	#define ERR_APPLYWAR_NOTENOUGHMUNWON		((BYTE)4) //¹®ÆÄ¿øºÎÁ·
-	#define ERR_APPLYWAR_ALREADY				((BYTE)5) //ÀÌ¹Ì½ÅÃ»ÇßÀ½
-	#define ERR_APPLYWAR_EXCESSMUNPA			((BYTE)6) //½ÅÃ»¹®ÆÄ¼öÃÊ°ú(50°³ ¹®ÆÄ¸¸°¡´É)
-	#define ERR_APPLYWAR_STRAIGHTWIN			((BYTE)7) //HT_0911 : Áö¹®Àü °³¼±»çÇ× (3¿¬¼Ó¿ì½ÂÀ¸·Î ½ÅÃ» ºÒ°¡)
+	#define ERR_APPLYWAR_WRONGTERM				((BYTE)1) //ì‹ ì²­ê¸°ê°„ì•„ë‹˜
+	#define ERR_APPLYWAR_NOTMUNJU				((BYTE)2) //ë¬¸ì£¼ë§Œì‹ ì²­ê°€ëŠ¥(ë¬¸ì£¼ì•„ë‹˜)
+	#define ERR_APPLYWAR_NOTENOUGHMONEY			((BYTE)3) //ì‹ ì²­ê¸ˆë¶€ì¡±
+	#define ERR_APPLYWAR_NOTENOUGHMUNWON		((BYTE)4) //ë¬¸íŒŒì›ë¶€ì¡±
+	#define ERR_APPLYWAR_ALREADY				((BYTE)5) //ì´ë¯¸ì‹ ì²­í–ˆìŒ
+	#define ERR_APPLYWAR_EXCESSMUNPA			((BYTE)6) //ì‹ ì²­ë¬¸íŒŒìˆ˜ì´ˆê³¼(50ê°œ ë¬¸íŒŒë§Œê°€ëŠ¥)
+	#define ERR_APPLYWAR_STRAIGHTWIN			((BYTE)7) //HT_0911 : ì§€ë¬¸ì „ ê°œì„ ì‚¬í•­ (3ì—°ì†ìš°ìŠ¹ìœ¼ë¡œ ì‹ ì²­ ë¶ˆê°€)
 
-// ÀüÀï »óÅÂ º¯ÇÒ¶§¸¶´Ù...(½ÅÃ»½ÃÀÛ,½ÅÃ»³¡, ÁØºñ, ÀüÀï½ÃÀÛ, ÀüÀï³¡....)
-#define CS_WR_WORLDWARMESSAGE_REQ			(OFFSET_CS_WR + 29) // (¹Ì»ç¿ë)
+// ì „ìŸ ìƒíƒœ ë³€í• ë•Œë§ˆë‹¤...(ì‹ ì²­ì‹œìž‘,ì‹ ì²­ë, ì¤€ë¹„, ì „ìŸì‹œìž‘, ì „ìŸë....)
+#define CS_WR_WORLDWARMESSAGE_REQ			(OFFSET_CS_WR + 29) // (ë¯¸ì‚¬ìš©)
 #define CS_WR_WORLDWARMESSAGE_ACK			(OFFSET_CS_WR + 30)
-	#define WWM_PREPARESTART					((BYTE) 0)	//¹®ÆÄ´ëÀü Âü¿©½ÅÃ» ½ÃÀÛ
-	#define WWM_PREPAREEND						((BYTE) 1)	//¹®ÆÄ´ëÀü Âü¿©½ÅÃ» ¸¶°¨
-	#define WWM_READY							((BYTE) 2)	//Àá½ÃÈÄ ¹®ÆÄ´ëÀü ½ÃÀÛµÊ ¾Ë¸²
-	#define WWM_WARSTART						((BYTE) 3)	//¹®ÆÄ´ëÀü ½ÃÀÛ
-	#define WWM_WAREND_READY					((BYTE) 4)	//°ð ¹®ÆÄ´ëÀü Á¾·á¸¦ ¾Ë¸²
-	#define	WWM_WAREND							((BYTE) 5)	//¹®ÆÄ´ëÀü ½Â¹®ÆÄ ¾Ë¸²
-	#define	WWM_APLLYWAR						((BYTE) 6)	//Âü¿©½ÅÃ»ÇÑ ¹®ÆÄ Àü¼­¹ö(Ã¤³Î)¿¡ °øÁö
-	#define WWM_WARTIME							((BYTE) 7)	//ÀüÀïÁß Á¢¼ÓÈ¸¿ø¿¡°Ô ¹®ÆÄÁøÇàÁßÀÓÀ» ¾Ë¸²
-	#define WWM_STONECOMING						((BYTE) 8)	//HT_0911 : Áö¹®Àü °³¼±»çÇ× ( ±ØÁø¸¶Ç÷¼® ³ª¿Â´Ù.)
+	#define WWM_PREPARESTART					((BYTE) 0)	//ë¬¸íŒŒëŒ€ì „ ì°¸ì—¬ì‹ ì²­ ì‹œìž‘
+	#define WWM_PREPAREEND						((BYTE) 1)	//ë¬¸íŒŒëŒ€ì „ ì°¸ì—¬ì‹ ì²­ ë§ˆê°
+	#define WWM_READY							((BYTE) 2)	//ìž ì‹œí›„ ë¬¸íŒŒëŒ€ì „ ì‹œìž‘ë¨ ì•Œë¦¼
+	#define WWM_WARSTART						((BYTE) 3)	//ë¬¸íŒŒëŒ€ì „ ì‹œìž‘
+	#define WWM_WAREND_READY					((BYTE) 4)	//ê³§ ë¬¸íŒŒëŒ€ì „ ì¢…ë£Œë¥¼ ì•Œë¦¼
+	#define	WWM_WAREND							((BYTE) 5)	//ë¬¸íŒŒëŒ€ì „ ìŠ¹ë¬¸íŒŒ ì•Œë¦¼
+	#define	WWM_APLLYWAR						((BYTE) 6)	//ì°¸ì—¬ì‹ ì²­í•œ ë¬¸íŒŒ ì „ì„œë²„(ì±„ë„)ì— ê³µì§€
+	#define WWM_WARTIME							((BYTE) 7)	//ì „ìŸì¤‘ ì ‘ì†íšŒì›ì—ê²Œ ë¬¸íŒŒì§„í–‰ì¤‘ìž„ì„ ì•Œë¦¼
+	#define WWM_STONECOMING						((BYTE) 8)	//HT_0911 : ì§€ë¬¸ì „ ê°œì„ ì‚¬í•­ ( ê·¹ì§„ë§ˆí˜ˆì„ ë‚˜ì˜¨ë‹¤.)
 
-// ÀüÀïÁß ÀüÀï Point ( ÀÏÁ¤ ½Ã°£ °£°ÝÀ¸·Î...)
-#define CS_WR_WORLDWARPOINT_REQ				(OFFSET_CS_WR + 31) // (¹Ì»ç¿ë)
+// ì „ìŸì¤‘ ì „ìŸ Point ( ì¼ì • ì‹œê°„ ê°„ê²©ìœ¼ë¡œ...)
+#define CS_WR_WORLDWARPOINT_REQ				(OFFSET_CS_WR + 31) // (ë¯¸ì‚¬ìš©)
 #define CS_WR_WORLDWARPOINT_ACK				(OFFSET_CS_WR + 32)
 
-#define CS_WR_LORDMUNPA_REQ					(OFFSET_CS_WR + 33) // (¹Ì»ç¿ë)
+#define CS_WR_LORDMUNPA_REQ					(OFFSET_CS_WR + 33) // (ë¯¸ì‚¬ìš©)
 #define CS_WR_LORDMUNPA_ACK					(OFFSET_CS_WR + 34)
 
-// ¹®ÆÄÀü º¸»ó(»ó±Ý¼ö·É)
+// ë¬¸íŒŒì „ ë³´ìƒ(ìƒê¸ˆìˆ˜ë ¹)
 #define CS_WR_REWARD_REQ					(OFFSET_CS_WR + 35)
 #define CS_WR_REWARD_ACK					(OFFSET_CS_WR + 36)
 	#define ERR_REWARD_SUCCESS					((BYTE)0)
@@ -2574,7 +2574,7 @@
 #define CS_BB_BOARDLIST_REQ						(OFFSET_CS_BB + 1)
 //Arguments :
 //	BYTE	BoardID
-//	BYTE	SearchID		0: BoardSearch 1:°Ô½ÃÀÚ°Ë»ö 2:Á¦¸ñ°Ë»ö
+//	BYTE	SearchID		0: BoardSearch 1:ê²Œì‹œìžê²€ìƒ‰ 2:ì œëª©ê²€ìƒ‰
 //	String	SearchString
 //	BYTE	PageType		0: Start 1:Prev 2:Next
 //	DWORD	SearchTextID
@@ -2834,8 +2834,8 @@
 	#define ERR_PETBONGIN_HASITEM					((BYTE)3)
 	#define ERR_PETBONGIN_LEVELGAP					((BYTE)4)
 	#define ERR_PETBONGIN_INVALIDITEM				((BYTE)5)
-	#define ERR_PETBONGIN_LIMITLEVEL				((BYTE)6)//°©ÀÚ	 Á¦ÇÑ
-	#define ERR_PETBONGIN_LIMITCOUNT				((BYTE)7)//ºÀÀÎÈ¸¼ö Á¦ÇÑ
+	#define ERR_PETBONGIN_LIMITLEVEL				((BYTE)6)//ê°‘ìž	 ì œí•œ
+	#define ERR_PETBONGIN_LIMITCOUNT				((BYTE)7)//ë´‰ì¸íšŒìˆ˜ ì œí•œ
 #define CS_NC_PETBONGOUT_REQ					(OFFSET_CS_NC + 72)
 #define CS_NC_PETBONGOUT_ACK					(OFFSET_CS_NC + 73)
 
@@ -2911,18 +2911,18 @@
 //IS_0622 : PET2ND
 #define CS_NC_PETTRADE_REQ						(OFFSET_CS_NC + 102)
 #define CS_NC_PETTRADE_ACK						(OFFSET_CS_NC + 103)
-	#define ERR_PETTRADE_SUCCESS					((BYTE) 0)//Æê °Å·¡ ½ÅÃ»(»ç¿ëÇÏÁö ¾ÊÀ½)
-	#define ERR_PETTRADE_OKTRADE					((BYTE) 1)//Æê °Å·¡ ½Â¶ô(»ç¿ëÇÏÁö ¾ÊÀ½)
+	#define ERR_PETTRADE_SUCCESS					((BYTE) 0)//íŽ« ê±°ëž˜ ì‹ ì²­(ì‚¬ìš©í•˜ì§€ ì•ŠìŒ)
+	#define ERR_PETTRADE_OKTRADE					((BYTE) 1)//íŽ« ê±°ëž˜ ìŠ¹ë½(ì‚¬ìš©í•˜ì§€ ì•ŠìŒ)
 	#define ERR_PETTRADE_NOTHASPET					((BYTE) 2)
 	#define ERR_PETTRADE_HASPET						((BYTE) 3)
 	#define ERR_PETTRADE_TRADEOTHER					((BYTE) 4)
 	#define ERR_PETTRADE_BONGIN						((BYTE) 5)
 	#define ERR_PETTRADE_NOTMONEYENOUGH				((BYTE) 6)
-	#define ERR_PETTRADE_REFUSETRADE				((BYTE) 9)//Æê °Å·¡ °ÅºÎ(»ç¿ëÇÏÁö ¾ÊÀ½)
+	#define ERR_PETTRADE_REFUSETRADE				((BYTE) 9)//íŽ« ê±°ëž˜ ê±°ë¶€(ì‚¬ìš©í•˜ì§€ ì•ŠìŒ)
 	#define ERR_PETTRADE_INTERNAL					((BYTE) 10)
-	#define ERR_PETTRADE_COMPLATE					((BYTE) 11)//°Å·¡ ¼º°ø
-	//IS_0218 : OVERMONEY -- 21¾ï Á¦ÇÑ
-	#define ERR_PETTRADE_OVERMONEY					((BYTE) 12)//¼ÒÁö±Ý ÃÊ°ú
+	#define ERR_PETTRADE_COMPLATE					((BYTE) 11)//ê±°ëž˜ ì„±ê³µ
+	//IS_0218 : OVERMONEY -- 21ì–µ ì œí•œ
+	#define ERR_PETTRADE_OVERMONEY					((BYTE) 12)//ì†Œì§€ê¸ˆ ì´ˆê³¼
 
 //////////////////////////////////////////////////////////////////////
 //  Error Message
@@ -3044,8 +3044,8 @@
 // QUEST Messages
 //#define OFFSET_CS_QS						(OFFSET_CS + 0x1200)
 
-// »õ·Î¿î Äù½ºÆ® Ãß°¡ / ±âÁ¸ Äù½ºÆ® º¯°æ
-#define CS_QS_CHANGE_REQ							(OFFSET_CS_QS + 0)	// ¾È¾¸
+// ìƒˆë¡œìš´ í€˜ìŠ¤íŠ¸ ì¶”ê°€ / ê¸°ì¡´ í€˜ìŠ¤íŠ¸ ë³€ê²½
+#define CS_QS_CHANGE_REQ							(OFFSET_CS_QS + 0)	// ì•ˆì”€
 #define CS_QS_CHANGE_ACK							(OFFSET_CS_QS + 1)
 //	SVR -> CLT
 //		DWORD dwFame
@@ -3065,7 +3065,7 @@
 //			DWORD dwResultAmount;
 //		}
 
-// Äù½ºÆ® ¸ñ·Ï Ç¥½Ã
+// í€˜ìŠ¤íŠ¸ ëª©ë¡ í‘œì‹œ
 #define CS_QS_LIST_REQ							(OFFSET_CS_QS + 2)
 //	CLT -> SVR
 #define CS_QS_LIST_ACK							(OFFSET_CS_QS + 3)
@@ -3091,35 +3091,35 @@
 //			}
 //		}
 
-//HK_0325 : Quest Start/Stop/Delete ±â´É Ãß°¡
-#	define QUEST_STATUS_NEW						((BYTE)0)		// ½Å±Ô
-#	define QUEST_STATUS_STOPPED					((BYTE)1)		// ÁßÁö
-#	define QUEST_STATUS_STARTED					((BYTE)2)		// ÁøÇà
-#	define QUEST_STATUS_DELETED					((BYTE)3)		// »èÁ¦ : È­¸é¿¡ ¾Èº¸ÀÎ´Ù.
-#	define QUEST_STATUS_SUCCESS					((BYTE)4)		// ¿Ï·á
-#	define QUEST_STATUS_SUCCESSDEL				((BYTE)5)		// ¿Ï·áÈÄ »èÁ¦µÊ
-/* ±âÁ¸ °ª
+//HK_0325 : Quest Start/Stop/Delete ê¸°ëŠ¥ ì¶”ê°€
+#	define QUEST_STATUS_NEW						((BYTE)0)		// ì‹ ê·œ
+#	define QUEST_STATUS_STOPPED					((BYTE)1)		// ì¤‘ì§€
+#	define QUEST_STATUS_STARTED					((BYTE)2)		// ì§„í–‰
+#	define QUEST_STATUS_DELETED					((BYTE)3)		// ì‚­ì œ : í™”ë©´ì— ì•ˆë³´ì¸ë‹¤.
+#	define QUEST_STATUS_SUCCESS					((BYTE)4)		// ì™„ë£Œ
+#	define QUEST_STATUS_SUCCESSDEL				((BYTE)5)		// ì™„ë£Œí›„ ì‚­ì œë¨
+/* ê¸°ì¡´ ê°’
 #	define QUEST_STATUS_NEW						((BYTE)0)
-#	define QUEST_STATUS_START					((BYTE)1)		// START = ±âÁ¸ ¸ðµç ÁøÇàÁßÀº 1
+#	define QUEST_STATUS_START					((BYTE)1)		// START = ê¸°ì¡´ ëª¨ë“  ì§„í–‰ì¤‘ì€ 1
 #	define QUEST_STATUS_PAUSE					((BYTE)2)		// PAUSE
 #	define QUEST_STATUS_EXPIRE					((BYTE)3)		// EXPIRE
 #	define QUEST_STATUS_SUCCESS					((BYTE)4)
 */
 
 #	define QUESTRESULT_OK						((BYTE)0)
-#	define QUESTRESULT_CANT_NEW					((BYTE)1)		// ¹ß»ý Á¶°Ç ¸¸Á· ¸øÇÔ
-#	define QUESTRESULT_CANT_START				((BYTE)2)		// ¼öÇà Á¶°Ç ¸¸Á· ¸øÇÔ
-#	define QUESTRESULT_CANT_STOP				((BYTE)3)		// ÁßÁö ºÒ°¡´É
-#	define QUESTRESULT_CANT_DONE				((BYTE)4)		// ¿Ï¼ö Á¶°Ç ¸¸Á· ¸øÇÔ
-#	define QUESTRESULT_CANT_REWARD				((BYTE)5)		// º¸»ó ³»¿ª Áö±Þ ¸øÇÔ
-#	define QUESTRESULT_REWARD_DROP				((BYTE)6)		// °¡¹æÀÌ ²Ë Â÷¼­, º¸»ó ¾ÆÀÌÅÛÀÌ ¶¥À¸·Î ¶³¾îÁü
-#	define QUESTRESULT_CANT_DELETE				((BYTE)7)		// »èÁ¦ÇÒ¼ö ¾øÀ½
-#	define QUESTRESULT_PARTIAL					((BYTE)8)		// ÀÏºÎ ´Ü°è¸¸ Å¬¸®¾î
-#	define QUESTRESULT_ERR_INTERNAL				((BYTE)9)		// ³»ºÎ ¿¡·¯
-// ¼­¹ö ¹ÛÀ¸·Î ³ª°¡Áö ¾Ê´Â °ª
-#	define QUESTRESULT_CHANGED					((BYTE)10)		// Äù½ºÆ® Á¤º¸ º¯°æµÊ
+#	define QUESTRESULT_CANT_NEW					((BYTE)1)		// ë°œìƒ ì¡°ê±´ ë§Œì¡± ëª»í•¨
+#	define QUESTRESULT_CANT_START				((BYTE)2)		// ìˆ˜í–‰ ì¡°ê±´ ë§Œì¡± ëª»í•¨
+#	define QUESTRESULT_CANT_STOP				((BYTE)3)		// ì¤‘ì§€ ë¶ˆê°€ëŠ¥
+#	define QUESTRESULT_CANT_DONE				((BYTE)4)		// ì™„ìˆ˜ ì¡°ê±´ ë§Œì¡± ëª»í•¨
+#	define QUESTRESULT_CANT_REWARD				((BYTE)5)		// ë³´ìƒ ë‚´ì—­ ì§€ê¸‰ ëª»í•¨
+#	define QUESTRESULT_REWARD_DROP				((BYTE)6)		// ê°€ë°©ì´ ê½‰ ì°¨ì„œ, ë³´ìƒ ì•„ì´í…œì´ ë•…ìœ¼ë¡œ ë–¨ì–´ì§
+#	define QUESTRESULT_CANT_DELETE				((BYTE)7)		// ì‚­ì œí• ìˆ˜ ì—†ìŒ
+#	define QUESTRESULT_PARTIAL					((BYTE)8)		// ì¼ë¶€ ë‹¨ê³„ë§Œ í´ë¦¬ì–´
+#	define QUESTRESULT_ERR_INTERNAL				((BYTE)9)		// ë‚´ë¶€ ì—ëŸ¬
+// ì„œë²„ ë°–ìœ¼ë¡œ ë‚˜ê°€ì§€ ì•ŠëŠ” ê°’
+#	define QUESTRESULT_CHANGED					((BYTE)10)		// í€˜ìŠ¤íŠ¸ ì •ë³´ ë³€ê²½ë¨
 
-// Äù½ºÆ® ½ÃÀÛ ¿äÃ»
+// í€˜ìŠ¤íŠ¸ ì‹œìž‘ ìš”ì²­
 #define CS_QS_START_REQ							(OFFSET_CS_QS + 4)
 //	CLT -> SVR
 //		DWORD dwQuestID
@@ -3128,7 +3128,7 @@
 //		BYTE bResult		: QUESTRESULT_xxx in above
 //		DWORD dwQuestID
 
-// Äù½ºÆ® ÁßÁö ¿äÃ»
+// í€˜ìŠ¤íŠ¸ ì¤‘ì§€ ìš”ì²­
 #define CS_QS_STOP_REQ							(OFFSET_CS_QS + 6)
 //	CLT -> SVR
 //		DWORD dwQuestID
@@ -3137,7 +3137,7 @@
 //		BYTE bResult
 //		DWORD dwQuestID
 
-// Äù½ºÆ® »èÁ¦ ¿äÃ»
+// í€˜ìŠ¤íŠ¸ ì‚­ì œ ìš”ì²­
 #define CS_QS_DELETE_REQ						(OFFSET_CS_QS + 8)
 //	CLT -> SVR
 //		DWORD dwQuestID
@@ -3147,7 +3147,7 @@
 //		DWORD dwQuestID
 
 ////////////////////////////////////////////////////////////////////////////////////////
-// YS_0304 : SHOP - °³ÀÎ»óÁ¡ ±¸ÇöÀ» À§ÇØ¼­ Ãß°¡µÇ´Â ÇÁ·ÎÅäÄÝ
+// YS_0304 : SHOP - ê°œì¸ìƒì  êµ¬í˜„ì„ ìœ„í•´ì„œ ì¶”ê°€ë˜ëŠ” í”„ë¡œí† ì½œ
 // OFFSET_CS_SH
 ////////////////////////////////////////////////////////////////////////////////////////
 #define CS_SH_SHOPINFO_ACK						(OFFSET_CS_SH + 0)
@@ -3158,7 +3158,7 @@
 //strName
 //StrDescription
 //dwShopMoney
-//wRemainShop						//³²Àº »óÁ¡¿ë ¾ÆÀÌÅÛ ³»±¸·Â 
+//wRemainShop						//ë‚¨ì€ ìƒì ìš© ì•„ì´í…œ ë‚´êµ¬ë ¥ 
 //bItemCnt
 //bSackPos
 //GetItemData()
@@ -3207,7 +3207,7 @@
 
 #define CS_SH_REGSHOP_ACK						(OFFSET_CS_SH + 6)
 //..UNITSVR->CLIENT
-//bResult,  -- 0 : SUCCESS -- 1 : ½ÇÆÐ  
+//bResult,  -- 0 : SUCCESS -- 1 : ì‹¤íŒ¨  
 //dwMoney
 #define	REGSHOP_SUCCESS								(BYTE(0))
 #define	REGSHOP_INTERNALERROR						(BYTE(1))
@@ -3235,16 +3235,16 @@
 
 #define CS_SH_STATUSCHANGE_REQ					(OFFSET_CS_SH + 9)
 //..CLIENT->UNITSVR
-//bStatus	1 ½ÃÀÛ -> 0 Á¾·á 
+//bStatus	1 ì‹œìž‘ -> 0 ì¢…ë£Œ 
 
 #define CS_SH_STATUSCHANGE_ACK					(OFFSET_CS_SH + 10)
 //..UNITSVR->CLIENT
-//bResult	-- 0 : ¼º°ø      , -- 1 : °³Á¡¿ë ¾ÆÀÌÅÛ Á¸ÀçÇÏÁö ¾ÊÀ½.
-//bStatus	-- »óÁ¡ »óÅÂ 
+//bResult	-- 0 : ì„±ê³µ      , -- 1 : ê°œì ìš© ì•„ì´í…œ ì¡´ìž¬í•˜ì§€ ì•ŠìŒ.
+//bStatus	-- ìƒì  ìƒíƒœ 
 #define	STATUSCHANGE_SUCCESS						(BYTE(0))
 #define	STATUSCHANGE_INTERNALERROR					(BYTE(1))
-#define	STATUSCHANGE_PREVSAME						(BYTE(2)) //ÀÌÀü»óÅÂ¿Í µ¿ÀÏ 
-#define	STATUSCHANGE_NOTFINDSHOPRUNITEM				(BYTE(3)) //SHOP ¿î¿µÇÒ ¾ÆÀÌÅÛ Ã£Áö ¸øÇÔ.
+#define	STATUSCHANGE_PREVSAME						(BYTE(2)) //ì´ì „ìƒíƒœì™€ ë™ì¼ 
+#define	STATUSCHANGE_NOTFINDSHOPRUNITEM				(BYTE(3)) //SHOP ìš´ì˜í•  ì•„ì´í…œ ì°¾ì§€ ëª»í•¨.
 #define	STATUSCHANGE_NOTEMPTYSACK					(BYTE(4))
 #define	STATUSCHANGE_NOTDELSHOP						(BYTE(5))
 
@@ -3255,13 +3255,13 @@
 
 #define CS_SH_GETMONEY_ACK						(OFFSET_CS_SH + 12)
 //..UNITSVR->CLIENT
-//bResult -- 0 : ¼º°ø, ±× ¿Ü ½ÇÆÐ 
-//dwMoney - È¸¼öµÇ´Â µ· 
+//bResult -- 0 : ì„±ê³µ, ê·¸ ì™¸ ì‹¤íŒ¨ 
+//dwMoney - íšŒìˆ˜ë˜ëŠ” ëˆ 
 	#define	GETMONEY_SUCCESS						(BYTE(0))
-	#define	GETMONEY_BADSHOPID						(BYTE(1)) //SHOPID µ¿ÀÏÇÏÁö ¾ÊÀ½.
-	#define	GETMONEY_BADMONEY						(BYTE(2)) //¼­¹ö¿Í ±Ý¾×ÀÌ ¸ÂÁö ¾ÊÀ½.
-	#define	GETMONEY_INTERNALERROR					(BYTE(3)) //³»ºÎ ´íÎó ¹ß»ý
-	#define	GETMONEY_OVERMONEY						(BYTE(4)) //Çà¶û ¼ÒÁö±Ý ÃÊ°ú
+	#define	GETMONEY_BADSHOPID						(BYTE(1)) //SHOPID ë™ì¼í•˜ì§€ ì•ŠìŒ.
+	#define	GETMONEY_BADMONEY						(BYTE(2)) //ì„œë²„ì™€ ê¸ˆì•¡ì´ ë§žì§€ ì•ŠìŒ.
+	#define	GETMONEY_INTERNALERROR					(BYTE(3)) //ë‚´ë¶€ ëŒ„è½Ž ë°œìƒ
+	#define	GETMONEY_OVERMONEY						(BYTE(4)) //í–‰ëž‘ ì†Œì§€ê¸ˆ ì´ˆê³¼
 
 
 #define CS_SH_GETSHOPINFO_REQ					(OFFSET_CS_SH + 13)
@@ -3291,7 +3291,7 @@
 
 #define CS_SH_BUYPCSHOP_ACK						(OFFSET_CS_SH + 16)
 //..UNITSVR->CLIENT
-//bResult -- 0 : ¼º°ø, ±×¿Ü ½ÇÆÐ 
+//bResult -- 0 : ì„±ê³µ, ê·¸ì™¸ ì‹¤íŒ¨ 
 //RETURNCODE
 #define BUYPCSHOP_SUCCESS						(BYTE(0))
 #define	BUYPCSHOP_NOTFINDCHAR					(BYTE(1))
@@ -3304,10 +3304,10 @@
 
 #define CS_SH_ADDONSHOP_ACK						(OFFSET_CS_SH + 17)
 //..UNITSVR->Client
-//bAction  - ADDONBANK¿Í µ¿ÀÏ 2
+//bAction  - ADDONBANKì™€ ë™ì¼ 2
 //bSackPos 
 //dwPrice
-//Item Á¤º¸..
+//Item ì •ë³´..
 
 #define CS_SH_REMOVEFROMSHOP_ACK				(OFFSET_CS_SH + 18)
 //..UNITSVR->CLIENT
@@ -3317,63 +3317,63 @@
 
 #define CS_SH_SHOPINFOCHANGE_ACK				(OFFSET_CS_SH + 19)
 //..UNITSVR->CLIENT
-//dwMoney										//ÇöÀç SHOP¿¡ ÀúÀåµÇ¾î ÀÖ´Â ±Ý¾× 
-//wRemainShop									//ÇöÀç SHOPÀ» À§ÇØ »ç¿ëµÇ´Â ¾ÆÀÌÅÛÀÇ ³»±¸·Â
+//dwMoney										//í˜„ìž¬ SHOPì— ì €ìž¥ë˜ì–´ ìžˆëŠ” ê¸ˆì•¡ 
+//wRemainShop									//í˜„ìž¬ SHOPì„ ìœ„í•´ ì‚¬ìš©ë˜ëŠ” ì•„ì´í…œì˜ ë‚´êµ¬ë ¥
 
-//ÁÖº¯ Ä³¸¯ÅÍÀÇ »óÅÂ º¯°æ
-//CS_CD_CHARUPDATE_ACK - bType : ACT_FAME		- dwData1 ¸¸ À¯È¿
-//					   -       : ACT_SHOPCHANGE - dwData1(bShopStatus), //0 ÆÇ¸ÅÁ¾·á, //1.ÆÇ¸Å½ÃÀÛ 
-//												- strData1(»óÁ¡¸í), strData2(È£°´¹®±¸)
+//ì£¼ë³€ ìºë¦­í„°ì˜ ìƒíƒœ ë³€ê²½
+//CS_CD_CHARUPDATE_ACK - bType : ACT_FAME		- dwData1 ë§Œ ìœ íš¨
+//					   -       : ACT_SHOPCHANGE - dwData1(bShopStatus), //0 íŒë§¤ì¢…ë£Œ, //1.íŒë§¤ì‹œìž‘ 
+//												- strData1(ìƒì ëª…), strData2(í˜¸ê°ë¬¸êµ¬)
 //#define ACT_SHOPCHANGE					((BYTE)2)
 
-//¸Ê¿¡ ÁøÇà½Ã ³ëÁ¡ »óÅÂÀÎ PC°¡ Á¸Àç ÇÒ °æ¿ì 
+//ë§µì— ì§„í–‰ì‹œ ë…¸ì  ìƒíƒœì¸ PCê°€ ì¡´ìž¬ í•  ê²½ìš° 
 // CS_IT_CHARINFO_ACK, // CS_IT_CHARINFOLIST_ACK
 /*
-// dwFame				-- ±âÁ¸ 
--- bShopStatus			-- ½Å±Ô 
--- strShopName			-- ½Å±Ô 
--- strShopDescription	-- ½Å±Ô 
-// dwMunpaID			-- ±âÁ¸ 
+// dwFame				-- ê¸°ì¡´ 
+-- bShopStatus			-- ì‹ ê·œ 
+-- strShopName			-- ì‹ ê·œ 
+-- strShopDescription	-- ì‹ ê·œ 
+// dwMunpaID			-- ê¸°ì¡´ 
 */
 
-//HO_0227_07 ±¤¸íÀü,ÃµÈ²Àü ÀÌº¥Æ® Ãß°¡
-//±¤¸íÀü(ºñ¹ÐÀÇ ¹æ) ½Ã½ºÅÛ ¸Þ¼¼Áö
-#define CS_WR_CHAMBEROFSECRETMESSAGE_REQ		(OFFSET_CS_WR + 37)//(¹Ì»ç¿ë)
+//HO_0227_07 ê´‘ëª…ì „,ì²œí™©ì „ ì´ë²¤íŠ¸ ì¶”ê°€
+//ê´‘ëª…ì „(ë¹„ë°€ì˜ ë°©) ì‹œìŠ¤í…œ ë©”ì„¸ì§€
+#define CS_WR_CHAMBEROFSECRETMESSAGE_REQ		(OFFSET_CS_WR + 37)//(ë¯¸ì‚¬ìš©)
 #define CS_WR_CHAMBEROFSECRETMESSAGE_ACK		(OFFSET_CS_WR + 38)
-	#define WWM_SECRETPREPAREREADY					((BYTE) 0)	//ÀÌº¥Æ® ½ÅÃ» 10ºÐ Àü
-	#define WWM_SECRETPREPARESTART					((BYTE) 1)	//ÀÌº¥Æ® ½ÅÃ» ½ÃÀÛ
-	#define WWM_SECRETPREPAREEND					((BYTE) 2)	//ÀÌº¥Æ® ½ÅÃ» ³¡
-	#define	WWM_APPLYSECRET							((BYTE) 3)	//´©°¡½ÅÃ»Çß´Ù ½Ã½ºÅÛ¸Þ½ÃÁö
-	#define WWM_SECRETSTARTREADY					((BYTE) 4)	//ÀÌº¥Æ® ½ÃÀÛ 5ºÐ Àü
-	#define WWM_SECRETSTART							((BYTE) 5)	//ÀÌº¥Æ® ½ÃÀÛ
-	#define WWM_SECRETENDREADY						((BYTE) 6)	//ÀÌº¥Æ® Á¾·á 5ºÐÀü
-	#define	WWM_SECRETEND							((BYTE) 7)	//ÀÌº¥Æ® Á¾·á
-	#define WWM_SECRETTIME							((BYTE) 8)	//ÀÌº¥Æ® ÁøÇàÁßÀÌ´Ù.
+	#define WWM_SECRETPREPAREREADY					((BYTE) 0)	//ì´ë²¤íŠ¸ ì‹ ì²­ 10ë¶„ ì „
+	#define WWM_SECRETPREPARESTART					((BYTE) 1)	//ì´ë²¤íŠ¸ ì‹ ì²­ ì‹œìž‘
+	#define WWM_SECRETPREPAREEND					((BYTE) 2)	//ì´ë²¤íŠ¸ ì‹ ì²­ ë
+	#define	WWM_APPLYSECRET							((BYTE) 3)	//ëˆ„ê°€ì‹ ì²­í–ˆë‹¤ ì‹œìŠ¤í…œë©”ì‹œì§€
+	#define WWM_SECRETSTARTREADY					((BYTE) 4)	//ì´ë²¤íŠ¸ ì‹œìž‘ 5ë¶„ ì „
+	#define WWM_SECRETSTART							((BYTE) 5)	//ì´ë²¤íŠ¸ ì‹œìž‘
+	#define WWM_SECRETENDREADY						((BYTE) 6)	//ì´ë²¤íŠ¸ ì¢…ë£Œ 5ë¶„ì „
+	#define	WWM_SECRETEND							((BYTE) 7)	//ì´ë²¤íŠ¸ ì¢…ë£Œ
+	#define WWM_SECRETTIME							((BYTE) 8)	//ì´ë²¤íŠ¸ ì§„í–‰ì¤‘ì´ë‹¤.
 
-//±¤¸íÀü(ºñ¹ÐÀÇ ¹æ) Âü¿© ½ÅÃ» ¹öÆ° Å¬¸¯½Ã
+//ê´‘ëª…ì „(ë¹„ë°€ì˜ ë°©) ì°¸ì—¬ ì‹ ì²­ ë²„íŠ¼ í´ë¦­ì‹œ
 #define CS_WR_APPLYSECRETREADY_REQ				(OFFSET_CS_WR + 39)			
 #define CS_WR_APPLYSECRETREADY_ACK				(OFFSET_CS_WR + 40)	
 
-//±¤¸íÀü(ºñ¹ÐÀÇ ¹æ) ½ÅÃ»
+//ê´‘ëª…ì „(ë¹„ë°€ì˜ ë°©) ì‹ ì²­
 #define CS_WR_APPLYSECRET_REQ					(OFFSET_CS_WR + 41)			
 #define CS_WR_APPLYSECRET_ACK					(OFFSET_CS_WR + 42)
-	#define ERR_APPLYSECRET_SUCCESS					((BYTE)0)	//¼º°ø	
-	#define ERR_APPLYSECRET_WRONGTERM				((BYTE)1)	//±â°£¾Æ´Ô
-	#define ERR_APPLYSECRET_NOTLEVEL				((BYTE)2)	//·¹º§Á¦ÇÑ
-	#define ERR_APPLYSECRET_NOTENOUGHMONEY			((BYTE)3)	//±ÝÀüºÎÁ·
-	#define ERR_APPLYSECRET_ALREADY					((BYTE)4)	//ÀÌ¹Ì½ÅÃ»	
-	#define ERR_APPLYSECRET_EXCESSCHAR				((BYTE)5)	//ÀÎ¿øÁ¦ÇÑ
-	#define ERR_APPLYSECRET_SACK					((BYTE)6)	//Çà³¶ºÎÁ·
+	#define ERR_APPLYSECRET_SUCCESS					((BYTE)0)	//ì„±ê³µ	
+	#define ERR_APPLYSECRET_WRONGTERM				((BYTE)1)	//ê¸°ê°„ì•„ë‹˜
+	#define ERR_APPLYSECRET_NOTLEVEL				((BYTE)2)	//ë ˆë²¨ì œí•œ
+	#define ERR_APPLYSECRET_NOTENOUGHMONEY			((BYTE)3)	//ê¸ˆì „ë¶€ì¡±
+	#define ERR_APPLYSECRET_ALREADY					((BYTE)4)	//ì´ë¯¸ì‹ ì²­	
+	#define ERR_APPLYSECRET_EXCESSCHAR				((BYTE)5)	//ì¸ì›ì œí•œ
+	#define ERR_APPLYSECRET_SACK					((BYTE)6)	//í–‰ë‚­ë¶€ì¡±
 
-//±¤¸íÀü(ºñ¹ÐÀÇ ¹æ) ÀÔÀå
+//ê´‘ëª…ì „(ë¹„ë°€ì˜ ë°©) ìž…ìž¥
 #define CS_NV_SECRETADVENTURE_REQ				(OFFSET_CS_NV + 33)
 #define CS_NV_SECRETADVENTURE_ACK				(OFFSET_CS_NV + 34)
-	#define ERR_SECRETMOVE_SUCCESS					((BYTE)0)	//¼º°ø
-	#define ERR_SECRETMOVE_PERIOD					((BYTE)1)	//±â°£¾Æ´Ô
-	#define ERR_SECRETMOVE_NOTCHANNELID				((BYTE)2)	//´Ù¸¥Ã¤³Î¿¡¼­ ½ÅÃ»ÇÔ
-	#define ERR_SECRETMOVE_NOTINENTRY				((BYTE)3)	//½ÅÃ»¾Æ´ÏÇÔ
-	#define ERR_SECRETMOVE_NOTENOUGHLEVEL			((BYTE)4)	//·¹º§Á¦ÇÑ
-	#define ERR_SECRETMOVE_INTERNAL					((BYTE)5)	//³»ºÎ¿¡·¯
+	#define ERR_SECRETMOVE_SUCCESS					((BYTE)0)	//ì„±ê³µ
+	#define ERR_SECRETMOVE_PERIOD					((BYTE)1)	//ê¸°ê°„ì•„ë‹˜
+	#define ERR_SECRETMOVE_NOTCHANNELID				((BYTE)2)	//ë‹¤ë¥¸ì±„ë„ì—ì„œ ì‹ ì²­í•¨
+	#define ERR_SECRETMOVE_NOTINENTRY				((BYTE)3)	//ì‹ ì²­ì•„ë‹ˆí•¨
+	#define ERR_SECRETMOVE_NOTENOUGHLEVEL			((BYTE)4)	//ë ˆë²¨ì œí•œ
+	#define ERR_SECRETMOVE_INTERNAL					((BYTE)5)	//ë‚´ë¶€ì—ëŸ¬
 
 //--------------------------------------------------------------------------------------------------------------------------------------
 // 0 : NONE, 1 : WAR,  2 : Prepare, 3 : War_Ready,  4 : Prepare_Ready	5 : WarEnd_Ready
@@ -3384,34 +3384,34 @@
 #define BLOODDEVIL_STATUS_PREPAREREADY		((BYTE) 4)
 #define BLOODDEVIL_STATUS_ENDREADY			((BYTE) 5)
 
-//ÃµÈ²Àü(¸¶Ç÷ÃµÈ²ÀÇ ¹æ) ½Ã½ºÅÛ ¸Þ¼¼Áö
-#define CS_WR_BLOODDEVILMESSAGE_REQ				(OFFSET_CS_WR + 43)//(¹Ì»ç¿ë)
+//ì²œí™©ì „(ë§ˆí˜ˆì²œí™©ì˜ ë°©) ì‹œìŠ¤í…œ ë©”ì„¸ì§€
+#define CS_WR_BLOODDEVILMESSAGE_REQ				(OFFSET_CS_WR + 43)//(ë¯¸ì‚¬ìš©)
 #define CS_WR_BLOODDEVILMESSAGE_ACK				(OFFSET_CS_WR + 44)
-	#define WWM_DEVILPREPAREREADY					((BYTE) 0)	//ÀÌº¥Æ® ½ÅÃ» 10ºÐ Àü
-	#define WWM_DEVILPREPARESTART					((BYTE) 1)	//ÀÌº¥Æ® ½ÅÃ» ½ÃÀÛ
-	#define WWM_DEVILPREPAREEND						((BYTE) 2)	//ÀÌº¥Æ® ½ÅÃ» ³¡
-	#define	WWM_APPLYDEVIL							((BYTE) 3)	//´©°¡½ÅÃ»Çß´Ù ½Ã½ºÅÛ¸Þ½ÃÁö
-	#define WWM_DEVILSTARTREADY						((BYTE) 4)	//ÀÌº¥Æ® ½ÃÀÛ 15ºÐ Àü
-	#define WWM_DEVILSTART							((BYTE) 5)	//ÀÌº¥Æ® ½ÃÀÛ
-	#define WWM_DEVILENDREADY						((BYTE) 6)	//ÀÌº¥Æ® Á¾·á 5ºÐÀü
-	#define	WWM_DEVILEND							((BYTE) 7)	//ÀÌº¥Æ® Á¾·á
-	#define WWM_DEVILTIME							((BYTE) 8)	//ÀÌº¥Æ® ÁøÇàÁßÀÌ´Ù
+	#define WWM_DEVILPREPAREREADY					((BYTE) 0)	//ì´ë²¤íŠ¸ ì‹ ì²­ 10ë¶„ ì „
+	#define WWM_DEVILPREPARESTART					((BYTE) 1)	//ì´ë²¤íŠ¸ ì‹ ì²­ ì‹œìž‘
+	#define WWM_DEVILPREPAREEND						((BYTE) 2)	//ì´ë²¤íŠ¸ ì‹ ì²­ ë
+	#define	WWM_APPLYDEVIL							((BYTE) 3)	//ëˆ„ê°€ì‹ ì²­í–ˆë‹¤ ì‹œìŠ¤í…œë©”ì‹œì§€
+	#define WWM_DEVILSTARTREADY						((BYTE) 4)	//ì´ë²¤íŠ¸ ì‹œìž‘ 15ë¶„ ì „
+	#define WWM_DEVILSTART							((BYTE) 5)	//ì´ë²¤íŠ¸ ì‹œìž‘
+	#define WWM_DEVILENDREADY						((BYTE) 6)	//ì´ë²¤íŠ¸ ì¢…ë£Œ 5ë¶„ì „
+	#define	WWM_DEVILEND							((BYTE) 7)	//ì´ë²¤íŠ¸ ì¢…ë£Œ
+	#define WWM_DEVILTIME							((BYTE) 8)	//ì´ë²¤íŠ¸ ì§„í–‰ì¤‘ì´ë‹¤
 
-//ÃµÈ²Àü(¸¶Ç÷ÃµÈ²ÀÇ ¹æ) Âü¿© ½ÅÃ» ¹öÆ° Å¬¸¯½Ã
+//ì²œí™©ì „(ë§ˆí˜ˆì²œí™©ì˜ ë°©) ì°¸ì—¬ ì‹ ì²­ ë²„íŠ¼ í´ë¦­ì‹œ
 #define CS_WR_APPLYDEVILREADY_REQ				(OFFSET_CS_WR + 45)			
 #define CS_WR_APPLYDEVILREADY_ACK				(OFFSET_CS_WR + 46)
 
-//ÃµÈ²Àü(¸¶Ç÷ÃµÈ²ÀÇ ¹æ) ½ÅÃ»
+//ì²œí™©ì „(ë§ˆí˜ˆì²œí™©ì˜ ë°©) ì‹ ì²­
 #define CS_WR_APPLYDEVIL_REQ					(OFFSET_CS_WR + 47)			
 #define CS_WR_APPLYDEVIL_ACK					(OFFSET_CS_WR + 48)
-	#define ERR_APPLYDEVIL_SUCCESS					((BYTE)0)	//¼º°ø	
-	#define ERR_APPLYDEVIL_WRONGTERM				((BYTE)1)	//±â°£¾Æ´Ô
-	#define ERR_APPLYDEVIL_NOTLEVEL					((BYTE)2)	//·¹º§Á¦ÇÑ
-	#define ERR_APPLYDEVIL_HAVENOTITEM				((BYTE)3)	//¸¶±³ÃµÆÐ¾øÀ½
-	#define ERR_APPLYDEVIL_ALREADY					((BYTE)4)	//ÀÌ¹Ì½ÅÃ»
-	#define ERR_APPLYDEVIL_EXCESSCHAR				((BYTE)5)	//ÀÎ¿øÁ¦ÇÑ
+	#define ERR_APPLYDEVIL_SUCCESS					((BYTE)0)	//ì„±ê³µ	
+	#define ERR_APPLYDEVIL_WRONGTERM				((BYTE)1)	//ê¸°ê°„ì•„ë‹˜
+	#define ERR_APPLYDEVIL_NOTLEVEL					((BYTE)2)	//ë ˆë²¨ì œí•œ
+	#define ERR_APPLYDEVIL_HAVENOTITEM				((BYTE)3)	//ë§ˆêµì²œíŒ¨ì—†ìŒ
+	#define ERR_APPLYDEVIL_ALREADY					((BYTE)4)	//ì´ë¯¸ì‹ ì²­
+	#define ERR_APPLYDEVIL_EXCESSCHAR				((BYTE)5)	//ì¸ì›ì œí•œ
 
-//ÃµÈ²Àü(¸¶Ç÷ÃµÈ²ÀÇ ¹æ) ÀÔÀå
+//ì²œí™©ì „(ë§ˆí˜ˆì²œí™©ì˜ ë°©) ìž…ìž¥
 #define CS_NV_DEVILADVENTURE_REQ				(OFFSET_CS_NV + 35)
 #define CS_NV_DEVILADVENTURE_ACK				(OFFSET_CS_NV + 36)
 	#define ERR_DEVILMOVE_SUCCESS					((BYTE)0)

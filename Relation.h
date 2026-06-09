@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 ///////////////
 struct sDanInfo
@@ -64,8 +64,8 @@ struct sClanWonInfo
 	DWORD	m_dwCharID;		
 	DWORD	m_dwOrderID;
 	WORD	m_wCharLev;	
-	BYTE	m_bState;			// Á¢¼Ó»óÅÂ
-	BYTE	m_bCharType;		// À¯ÆÄ
+	BYTE	m_bState;			// ì ‘ì†ìƒíƒœ
+	BYTE	m_bCharType;		// ìœ íŒŒ
 	sString m_szCharName;
 	sString m_szOrderName;
 	sString m_szMunpaNickName;	
@@ -101,8 +101,8 @@ typedef vector< sWhisperInfo*> VWHISPER;
 
 enum eRELATION_TYPE { eDAN, eShip, eClan};
 
-#define MAX_NUM_IN_FRAME		5//8  // Ä£±¸
-#define MAX_NUM_IN_FRAME_CLAN	8	  // ¹®ÆÄ
+#define MAX_NUM_IN_FRAME		5//8  // ì¹œêµ¬
+#define MAX_NUM_IN_FRAME_CLAN	8	  // ë¬¸íŒŒ
 
 
 struct sMunpaWarDay
@@ -122,10 +122,10 @@ class CRelation
 public:
 	// temp
 	std::map<int, sMunpaWarDay*> m_mMunpaWarDayList;
-	int			m_nDanType;			// ´Ü Á¾·ù (ÀÏ¹İ´Ü/°ü°è´Ü)
-	// ´Ü ºĞ¹è
-	BYTE		m_byExpDivision;	// °æÇèÄ¡ ºĞ¹è 0-°³ÀÎ ºĞ¹è, 1-°øµ¿ ºĞ¹è
-	BYTE		m_byFEDivision;		// ¿ÀÇà °ª ºĞ¹è 0-°³ÀÎ ºĞ¹è, 1-°øµ¿ ºĞ¹è
+	int			m_nDanType;			// ë‹¨ ì¢…ë¥˜ (ì¼ë°˜ë‹¨/ê´€ê³„ë‹¨)
+	// ë‹¨ ë¶„ë°°
+	BYTE		m_byExpDivision;	// ê²½í—˜ì¹˜ ë¶„ë°° 0-ê°œì¸ ë¶„ë°°, 1-ê³µë™ ë¶„ë°°
+	BYTE		m_byFEDivision;		// ì˜¤í–‰ ê°’ ë¶„ë°° 0-ê°œì¸ ë¶„ë°°, 1-ê³µë™ ë¶„ë°°
 
 	DWORD		m_dwDonateMoney;
 	DWORD		m_dwMunpaWarEnemy;
@@ -233,7 +233,7 @@ public:
 	sString GetClanName() { return m_szClanName;};
 	BOOL Am_I_InClan();
 	BOOL Am_I_LeaderInClan();
-	bool Am_I_2stLeaderInClan();	// º»ÀÎÀÌ ºÎ¹®ÁÖÀÎÁö
+	bool Am_I_2stLeaderInClan();	// ë³¸ì¸ì´ ë¶€ë¬¸ì£¼ì¸ì§€
 
 	// Whisper
 	void InsertWhisperInfo( DWORD dwCharID, sString szNickName);

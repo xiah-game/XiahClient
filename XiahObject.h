@@ -1,33 +1,33 @@
-#pragma once
+ï»¿#pragma once
 
 /*
-	XiahÀÇ Game¿ë ¿ÀºêÁ§Æ® Á¤ÀÇ
+	Xiahì˜ Gameìš© ì˜¤ë¸Œì íŠ¸ ì •ì˜
 
-	**´ÙÀ½°ú °°Àº °ÍµéÀÌ µÉ ¼ö ÀÖ´Ù.
+	**ë‹¤ìŒê³¼ ê°™ì€ ê²ƒë“¤ì´ ë  ìˆ˜ ìˆë‹¤.
 
-		1) ¸ŞÀÎ Ä³¸¯ÅÍ ¸öÅë
-		2) Ä³¸¯ÅÍÀÇ ÀåÂø ºÎÀ§
+		1) ë©”ì¸ ìºë¦­í„° ëª¸í†µ
+		2) ìºë¦­í„°ì˜ ì¥ì°© ë¶€ìœ„
 		3) NPC
-		4) ¹«±â
-		5) ¹Ù´Ú¿¡ ¶³¾îÁø ¾ÆÀÌÅÛ
-		6) È­»ì
-		7) ±âÅ¸ ClientÀü¿ëÀÇ Effect¿ÀºêÁ§Æ®
+		4) ë¬´ê¸°
+		5) ë°”ë‹¥ì— ë–¨ì–´ì§„ ì•„ì´í…œ
+		6) í™”ì‚´
+		7) ê¸°íƒ€ Clientì „ìš©ì˜ Effectì˜¤ë¸Œì íŠ¸
 
-	**Rendering°ü·ÃÇÑ °ÍºÎÅÍ Animation°ü·ÃÇÑ Ã³¸®°¡ Á¸Àç
+	**Renderingê´€ë ¨í•œ ê²ƒë¶€í„° Animationê´€ë ¨í•œ ì²˜ë¦¬ê°€ ì¡´ì¬
 
-	**°¢°¢ÀÇ ObjectÆ¯¼º¿¡ ¸Â´Â ÇüÅÂÀÇ PrivateData¸¦ °¡Áú ¼ö ÀÖ´Ù
+	**ê°ê°ì˜ ObjectíŠ¹ì„±ì— ë§ëŠ” í˜•íƒœì˜ PrivateDataë¥¼ ê°€ì§ˆ ìˆ˜ ìˆë‹¤
 
-	**Á¦¹ß ºÎÅ¹ÀÎµ¥ ½Å¿µ¿õ¹®ÀÇ MoveObject°¡ µÇÁö ¾Êµµ·Ï °¢º°È÷ ÁÖÀÇ¹Ù¶÷	
+	**ì œë°œ ë¶€íƒì¸ë° ì‹ ì˜ì›…ë¬¸ì˜ MoveObjectê°€ ë˜ì§€ ì•Šë„ë¡ ê°ë³„íˆ ì£¼ì˜ë°”ëŒ	
 */
 
-#define	MUNPA_PORTAL_CHAR_ID	1006		// Æ÷Å» CharID
-#define MUNPA_PORTAL_CHAR_ID2	1007		// Æ÷Å» in ¹®ÆÄÀü ¸Ê CharID
-#define	MUNPA_BBS_CHAR_ID		881		// ¹®ÆÄ °Ô½ÃÆÇ CharID
+#define	MUNPA_PORTAL_CHAR_ID	1006		// í¬íƒˆ CharID
+#define MUNPA_PORTAL_CHAR_ID2	1007		// í¬íƒˆ in ë¬¸íŒŒì „ ë§µ CharID
+#define	MUNPA_BBS_CHAR_ID		881		// ë¬¸íŒŒ ê²Œì‹œíŒ CharID
 
 
 #define CLIENT_OBJECT_MAX	5000
 
-#define OBJECTID unsigned __int64	// Á¨Àå typedefÀ¸·Î Çß´õ´Ï ´íÎó³ª³×
+#define OBJECTID unsigned __int64	// ì  ì¥ typedefìœ¼ë¡œ í–ˆë”ë‹ˆ ëŒ„è½ë‚˜ë„¤
 
 namespace XiahObject
 {
@@ -47,7 +47,7 @@ namespace XiahObject
 			m_bUse	= m_bPoolClass	= m_bPetPool = false;
 
 			m_bObjType = m_bSubObjType = m_pPrivateData = m_bObjStatus = 0;
-			m_dwCurHP = m_dwMaxHP = 100;	// ÀÏ´Ü Ã³À½¿¡´Â ÀÌ·¸°Ô ³õ°í 			
+			m_dwCurHP = m_dwMaxHP = 100;	// ì¼ë‹¨ ì²˜ìŒì—ëŠ” ì´ë ‡ê²Œ ë†“ê³  			
 
 			m_dwXiahObjectID = 0;
 		}
@@ -65,8 +65,8 @@ namespace XiahObject
 			m_pPrivateData = 0;
 		}
 
-		// ÀÌ³à¼®¶«½Ã °í»ıÇÒ¼ø ¾ø´Ù.
-		// Ä³¸¯ÅÍ¸¦ ±×¸®´Â ºÎºĞ¿¡¼­ Ä³¸¯ÅÍ ¾ÆÀÌµğ¸¦ ¾Ë¾Æ¾ß µÇ´Â ºÎºĞÀÌ ÀÖ´Ù.
+		// ì´ë…€ì„ë•œì‹œ ê³ ìƒí• ìˆœ ì—†ë‹¤.
+		// ìºë¦­í„°ë¥¼ ê·¸ë¦¬ëŠ” ë¶€ë¶„ì—ì„œ ìºë¦­í„° ì•„ì´ë””ë¥¼ ì•Œì•„ì•¼ ë˜ëŠ” ë¶€ë¶„ì´ ìˆë‹¤.
 		DWORD	m_dwXiahObjectID;
 
 		BYTE					m_bObjType;
@@ -80,7 +80,7 @@ namespace XiahObject
 		DWORD					m_dwCurHP;
 		DWORD					m_dwMaxHP;
 
-		// ¸í¼ºÄ¡
+		// ëª…ì„±ì¹˜
 		DWORD					m_dwFame;
 
 		DWORD					m_pPrivateData;
@@ -126,62 +126,62 @@ namespace XiahObject
 		}
 		//..BUGFIX
 
-		// »Ç·ç²Ù RTTI 
+		// ë½€ë£¨ê¾¸ RTTI 
 		virtual BOOL IsKindOf(eXiahObjectBasicType type) { return m_nBasicType & type;}
 		virtual BOOL IsA(eXiahObjectBasicType type){ return m_nBasicType == type;}
 
-		// È­¸é¿¡ º¸ÀÌ¸é bVisibleÀ» Update½ÃÄÑÁØ´Ù
+		// í™”ë©´ì— ë³´ì´ë©´ bVisibleì„ Updateì‹œì¼œì¤€ë‹¤
 		virtual BOOL Update(BOOL bVisible = TRUE){return TRUE;};
 		virtual BOOL Render(){return TRUE;};
 	};	
 	
-	// ´ÜÀÏ ObjectClass
+	// ë‹¨ì¼ ObjectClass
 	class CXiahObject
 	{
 	public:
 		CXiahObject();
 		virtual ~CXiahObject();
 		
-		// °´Ã¼ »ı¼º
+		// ê°ì²´ ìƒì„±
 		BOOL Create(CXiahObject_Basic *pInfo);
-		// °´Ã¼ ÇØÁ¦
+		// ê°ì²´ í•´ì œ
 		BOOL Release();
 
 	public:
-		DWORD	m_dwClientID;	// ClientÀÚÃ¼ ID
-		DWORD	m_dwServerID;	// ServerÀÚÃ¼ ID
+		DWORD	m_dwClientID;	// Clientìì²´ ID
+		DWORD	m_dwServerID;	// Serverìì²´ ID
 		OBJECTID m_ddwObjectID;	// ObjectID (Object Key Value)
 	public:
-		CXiahObject_Basic*	m_pObject;	// °´Ã¼ Á¤º¸
+		CXiahObject_Basic*	m_pObject;	// ê°ì²´ ì •ë³´
 	};
 
-	// Client¿ë Free ID List
+	// Clientìš© Free ID List
 	typedef std::list<CXiahObject *> FREEOBJECTLIST;
 
 	#define MAKEOBJECTID( ClientID, ServerID, ObjectType) ((((OBJECTID)ClientID) << 40) + ((OBJECTID)ServerID << 8) + ObjectType)
 
 	/*
-		OBJECTID ¿¡ ´ëÇØ¼­ ÇÑ¸¶µğ
+		OBJECTID ì— ëŒ€í•´ì„œ í•œë§ˆë””
 
-		XiahObjectManager°¡ Key·Î »ç¿ëÇÏ´Âµ¥ ¼­¹ö¿¡¼­ Æ¯Á¤ Object¿¡ ´ëÇÑ ¸Ş¼¼Áö¸¦ ³¯¸±¶§
-		¹Ù·Î¹Ù·Î Object¸¦ °Ë»öÇÏ±â À§ÇØ¼­ ´ÙÀ½°ú °°ÀÌ Key°ªÀ» Á¤ÇØÁØ´Ù
+		XiahObjectManagerê°€ Keyë¡œ ì‚¬ìš©í•˜ëŠ”ë° ì„œë²„ì—ì„œ íŠ¹ì • Objectì— ëŒ€í•œ ë©”ì„¸ì§€ë¥¼ ë‚ ë¦´ë•Œ
+		ë°”ë¡œë°”ë¡œ Objectë¥¼ ê²€ìƒ‰í•˜ê¸° ìœ„í•´ì„œ ë‹¤ìŒê³¼ ê°™ì´ Keyê°’ì„ ì •í•´ì¤€ë‹¤
 
-		 -	Server¿¡¼­ ID¸¦ ³¯·ÁÁÙ °æ¿ì¿¡´Â ClientID´Â ¹«Á¶°Ç 0ÀÌ°í
-			Client¿¡¼­ ¸¸µç°Å´Â ServerID´Â 0ÀÌ´Ù
+		 -	Serverì—ì„œ IDë¥¼ ë‚ ë ¤ì¤„ ê²½ìš°ì—ëŠ” ClientIDëŠ” ë¬´ì¡°ê±´ 0ì´ê³ 
+			Clientì—ì„œ ë§Œë“ ê±°ëŠ” ServerIDëŠ” 0ì´ë‹¤
 
 	*/
 	
 	
-	// Object°´Ã¼ °ü¸®ÀÚ
+	// Objectê°ì²´ ê´€ë¦¬ì
 	class CXiahObjectManager : public std::hash_map<OBJECTID,CXiahObject *>
 	{
 	public:
 		CXiahObjectManager();
 		~CXiahObjectManager();
 
-		// XiahObject¸¦ »ı¼ºÇÑ´Ù
+		// XiahObjectë¥¼ ìƒì„±í•œë‹¤
 		CXiahObject *CreateXiahObject(DWORD ServerID,BYTE bObjType,CXiahObject_Basic *pInfo);
-		// XiajObject¸¦ Áö¿î´Ù
+		// XiajObjectë¥¼ ì§€ìš´ë‹¤
 		BOOL		 ReleaseXiahObject(CXiahObject *pObject);
 		BOOL		 ReleaseXiahObject(unsigned __int64 objectID);
 
@@ -196,11 +196,11 @@ namespace XiahObject
 	protected:
 		FREEOBJECTLIST	m_FreeObjectList;
 		
-		// Instance¸®½ºÆ®¿¡¼­ FreeÇÑ Object¸¦ ÇÏ³ª »©¿Â´Ù
+		// Instanceë¦¬ìŠ¤íŠ¸ì—ì„œ Freeí•œ Objectë¥¼ í•˜ë‚˜ ë¹¼ì˜¨ë‹¤
 		CXiahObject *GetFreeObject();
 
 	public:
-		// FreeObjectList¿¡ Object¸¦ Ãß°¡ÇÑ´Ù
+		// FreeObjectListì— Objectë¥¼ ì¶”ê°€í•œë‹¤
 		BOOL		 ReleaseObject(CXiahObject *pObject);
 	};
 
@@ -245,4 +245,4 @@ namespace XiahObject
 	extern CXiahObject*	g_pMouseOnObjectSave;
 };
 
-extern XiahObject::CXiahObject *g_pMainChar;	// MainCharacterÀÇ PointerÀÌ´Ù
+extern XiahObject::CXiahObject *g_pMainChar;	// MainCharacterì˜ Pointerì´ë‹¤

@@ -1,4 +1,4 @@
-//
+ï»¿//
 //	BGM CORE
 //
 #include <Windows.h>
@@ -45,7 +45,7 @@ void Fade_Out_Thread(void *parameter)
 	g_BGM[handle].SetState(BGM_FADEOUT);
 	channel = g_BGM[handle].GetChannel();
 	Old_Music_Vol = FSOUND_GetVolume(channel);
-	// callback ±İÁö
+	// callback ê¸ˆì§€
 	FSOUND_Stream_SetEndCallback(g_BGM[handle].GetStream(), 0,0);
 
 	while(1)
@@ -109,7 +109,7 @@ void Fade_In_Thread(void *parameter)
 }
 
 
-// ÇÃ·¹ÀÌ ÇÑ´Ù. (0:No loop, 1:Loop)
+// í”Œë ˆì´ í•œë‹¤. (0:No loop, 1:Loop)
 BOOL Play_BGM(TCHAR *name, int mode)
 {
 	FSOUND_STREAM *stream;
@@ -126,7 +126,7 @@ BOOL Play_BGM(TCHAR *name, int mode)
 	g_BGM[select].Init(name);
 	stream = g_BGM[select].GetStream();
 
-	// LOOP ¼³Á¤
+	// LOOP ì„¤ì •
 	if(mode == 1) 
 		FSOUND_Stream_SetMode(stream,FSOUND_LOOP_NORMAL);
 
@@ -138,19 +138,19 @@ BOOL Play_BGM(TCHAR *name, int mode)
 	return TRUE;
 }
 
-// ±âÁ¸¿¡ ÇÃ·¹ÀÌ ÇÏ´ø°ÍÀÌ ÀÖÀ¸¸é overlap ÇÑ´Ù.
+// ê¸°ì¡´ì— í”Œë ˆì´ í•˜ë˜ê²ƒì´ ìˆìœ¼ë©´ overlap í•œë‹¤.
 BOOL Change_BGM(TCHAR *name)
 {
 	FSOUND_STREAM *stream;
 
-	// ÇöÀç ÇÃ·¹ÀÌ ÁßÀÏ¶§¸¸ ¾Æ¿ô
+	// í˜„ì¬ í”Œë ˆì´ ì¤‘ì¼ë•Œë§Œ ì•„ì›ƒ
 	if(g_BGM[now_playing].GetState() == BGM_PLAYING) 
 		_beginthread(Fade_Out_Thread,0,(void*)now_playing);
 
-	// »õ·Î¿î À½¾ÇÀÌ ¾øÀ»¶§¸¸ ·Îµå
+	// ìƒˆë¡œìš´ ìŒì•…ì´ ì—†ì„ë•Œë§Œ ë¡œë“œ
 	if(g_BGM[1-now_playing].GetState() == BGM_STOPED)
 	{
-		// »õ·Î¿î À½¾ÇÀÇ ½ÃÀÛ
+		// ìƒˆë¡œìš´ ìŒì•…ì˜ ì‹œì‘
 		g_BGM[1-now_playing].Init(name);
 		stream = g_BGM[1-now_playing].GetStream();
 		FSOUND_Stream_SetEndCallback(stream, BGMCallback,0);
@@ -162,7 +162,7 @@ BOOL Change_BGM(TCHAR *name)
 	return TRUE;
 }
 
-// ÇöÀç ÇÃ·¹ÀÌ ÁßÀÎ BGMÀ» STOP ÇÑ´Ù.
+// í˜„ì¬ í”Œë ˆì´ ì¤‘ì¸ BGMì„ STOP í•œë‹¤.
 BOOL Stop_BGM()
 {
 	FSOUND_STREAM *stream = g_BGM[now_playing].GetStream();
@@ -171,18 +171,18 @@ BOOL Stop_BGM()
 	return TRUE;
 }
 
-// ÇöÀç ÇÃ·¹ÀÌ ÁßÀÎ BGMÀ» STOP ÇÑ´Ù.
+// í˜„ì¬ í”Œë ˆì´ ì¤‘ì¸ BGMì„ STOP í•œë‹¤.
 BOOL Stop_BGM(int i)
 {
 	FSOUND_STREAM *stream = g_BGM[i].GetStream();
 	FSOUND_Stream_SetEndCallback(stream, 0,0);
 	g_BGM[i].Stop();
 
-	//DBG_Put(_T("BGM %d Á¾·á"),i);
+	//DBG_Put(_T("BGM %d ì¢…ë£Œ"),i);
 	return TRUE;
 }
 
-// ÇöÀç ÇÃ·¹ÀÌ ÁßÀÎ°Í º¼·ı Á¶Á¤
+// í˜„ì¬ í”Œë ˆì´ ì¤‘ì¸ê²ƒ ë³¼ë¥¨ ì¡°ì •
 BOOL SetBGMVolume(int vol)
 {
 	Master_BGM_Vol = vol;
@@ -196,7 +196,7 @@ BOOL IntializeXiahBGM(int vol)
 	
 	g_BGM = new cBGM[2];
 
-	Master_BGM_Vol = vol;			// MASTER º¼·ı ¼¼ÆÃ
+	Master_BGM_Vol = vol;			// MASTER ë³¼ë¥¨ ì„¸íŒ…
 	Now_Change = FALSE;
 	return TRUE;
 }
@@ -228,9 +228,9 @@ cBGM::~cBGM()
 
 BOOL cBGM::Init(TCHAR *filename)
 {
-	// [4/28/2005] FMOD »ç¿îµå ´©°¡ ÀÛ¾÷Çß¾î! ³­ ¾ËÁö! ¾ÏÆ° ÀÌ°Í ¶§¹®¿¡ Áö±İ±îÁö °è¼Ó ½×ÀÌ´Â
-	// ¸Ş¸ğ¸® ´©¼ö°¡ ÀÏ¾î ³µ´Ù. ´©°¡ »ç¿îµå ÆÄÀÏÀ» ´İÁöµµ ¾Ê°í °è¼Ó ¿­¾î!
-	// ÀÌ ¸Ş¸ğ¸® ´©¼ö°¡ »ç°í¸¦ Áö±İ±îÁö ÃÆ´Ù. Á¦¹ß Àâ±â Èûµç ´©¼ö Á» ¹ß»ı½ÃÅ°Áö ¸»ÀÚ.
+	// [4/28/2005] FMOD ì‚¬ìš´ë“œ ëˆ„ê°€ ì‘ì—…í–ˆì–´! ë‚œ ì•Œì§€! ì•”íŠ¼ ì´ê²ƒ ë•Œë¬¸ì— ì§€ê¸ˆê¹Œì§€ ê³„ì† ìŒ“ì´ëŠ”
+	// ë©”ëª¨ë¦¬ ëˆ„ìˆ˜ê°€ ì¼ì–´ ë‚¬ë‹¤. ëˆ„ê°€ ì‚¬ìš´ë“œ íŒŒì¼ì„ ë‹«ì§€ë„ ì•Šê³  ê³„ì† ì—´ì–´!
+	// ì´ ë©”ëª¨ë¦¬ ëˆ„ìˆ˜ê°€ ì‚¬ê³ ë¥¼ ì§€ê¸ˆê¹Œì§€ ì³¤ë‹¤. ì œë°œ ì¡ê¸° í˜ë“  ëˆ„ìˆ˜ ì¢€ ë°œìƒì‹œí‚¤ì§€ ë§ì.
 	Close();
 
 	stream = FSOUND_Stream_Open(filename, FSOUND_STEREO | FSOUND_16BITS | FSOUND_LOOP_OFF | FSOUND_MPEGACCURATE , 0, 0);
@@ -243,7 +243,7 @@ BOOL cBGM::Init(TCHAR *filename)
 	return TRUE;
 }
 
-// [4/28/2005] ÇÔ¼ö Ãß°¡
+// [4/28/2005] í•¨ìˆ˜ ì¶”ê°€
 void cBGM::Close()
 {
 	if(stream)

@@ -1,4 +1,4 @@
-#include "precompile.h"
+ï»¿#include "precompile.h"
 #include "xiahobjecttype.h"
 #include "mail.h"
 #include "XiahGame_Handler_Sender.h"
@@ -29,9 +29,9 @@ cMAIL::cMAIL()
 
 cMAIL::~cMAIL()
 {
-	DeleteAll_RecvMail();		// ¹ŞÀº°Å ¸ğµÎ Áö¿ì°í
-	DeleteAll_SendMailList();	// º¸³¾»ç¶÷µé ¸ğµÎ Áö¿î´Ù.
-	DeleteAll_SendResult();		// °á°ú¸¦ ¸ğµÎ Áö¿ìÀÚ
+	DeleteAll_RecvMail();		// ë°›ì€ê±° ëª¨ë‘ ì§€ìš°ê³ 
+	DeleteAll_SendMailList();	// ë³´ë‚¼ì‚¬ëŒë“¤ ëª¨ë‘ ì§€ìš´ë‹¤.
+	DeleteAll_SendResult();		// ê²°ê³¼ë¥¼ ëª¨ë‘ ì§€ìš°ì
 
 	if(m_pVB)
 		m_pVB->Release();
@@ -73,7 +73,7 @@ sString	cMAIL::Make_Short_Msg(sString str,int limit)
 
 //////////////////////////////////////////////////////////////////////////	RECV
 
-// ¸ŞÀÏ ¸®½ºÆ® Ãß°¡
+// ë©”ì¼ ë¦¬ìŠ¤íŠ¸ ì¶”ê°€
 void cMAIL::Add_RecvMailList(DWORD dwMailID,sString Sendername,DWORD dwDate, sString Title,bool bRead)
 {
 	sRECVMAIL_LIST	*m_mail;
@@ -88,7 +88,7 @@ void cMAIL::Add_RecvMailList(DWORD dwMailID,sString Sendername,DWORD dwDate, sSt
 	m_Recv_Mail.push_back(m_mail);
 }
 
-// ÀĞÀº Àü¼­ÀÇ ³»¿ëÀ» »Ñ¸®ÀÚ!
+// ì½ì€ ì „ì„œì˜ ë‚´ìš©ì„ ë¿Œë¦¬ì!
 void cMAIL::Display_ReadMail(int pos)
 {
 	int ptr = 0, p = 0;
@@ -100,7 +100,7 @@ void cMAIL::Display_ReadMail(int pos)
 	m_Recv_Mail[pos]->bRead = true;
 	strcpy(buf,m_Recv_Mail[pos]->szMail.data());
 
-	// ³»¿ë Clear
+	// ë‚´ìš© Clear
 	for(int j = 0; j < 8; j++)
 		g_pUIManager->SetString(WINDOW_MAIL, window_mail_edit_01 - j, _T(""));
 
@@ -129,11 +129,11 @@ void cMAIL::Display_ReadMail(int pos)
 	g_pUIManager->SetString(WINDOW_MAIL,window_mail_top_edit_01, m_Recv_Mail[pos]->szName.data());
 	g_pUIManager->SetString(WINDOW_MAIL,window_mail_top_edit_02, m_Recv_Mail[pos]->szTitle.data());
 
-	// È­¸é °»½Å
+	// í™”ë©´ ê°±ì‹ 
 	Reflash_MAIL();
 }
 
-// ÇØ´ç Àü¼­¸¦ ÀĞ±â
+// í•´ë‹¹ ì „ì„œë¥¼ ì½ê¸°
 void cMAIL::Add_RecvMailContents(DWORD dwMailID, sString szContents)
 {
 	int num = m_Recv_Mail.size();
@@ -142,15 +142,15 @@ void cMAIL::Add_RecvMailContents(DWORD dwMailID, sString szContents)
 	{
 		if(m_Recv_Mail[i]->dwMailID == dwMailID)
 		{
-			// ³»¿ëÀ» Àü´Ş
+			// ë‚´ìš©ì„ ì „ë‹¬
 			m_Recv_Mail[i]->szMail = szContents;
-			Display_ReadMail(i);	// È­¸é¿¡ Ãâ·Â
+			Display_ReadMail(i);	// í™”ë©´ì— ì¶œë ¥
 			return;
 		}
 	}
 }
 
-// ¸ğµÎ Áö¿ì±â
+// ëª¨ë‘ ì§€ìš°ê¸°
 void cMAIL::DeleteAll_RecvMail()
 {
 	std::vector<sRECVMAIL_LIST*>::iterator iteratorRecvmail;
@@ -171,7 +171,7 @@ bool cMAIL::Delete_RecvMail()
 	return true;
 }
 
-// ÇØ´ç Àü¼­±¸ Áö¿ì±â
+// í•´ë‹¹ ì „ì„œêµ¬ ì§€ìš°ê¸°
 bool cMAIL::Delete_RecvMail(DWORD MailID)
 {
 	int num = m_Recv_Mail.size();
@@ -190,16 +190,16 @@ bool cMAIL::Delete_RecvMail(DWORD MailID)
 		where++;
 	}
 
-	return false;	// ÇØ´ç Àü¼­°¡ ¾ø½¿
+	return false;	// í•´ë‹¹ ì „ì„œê°€ ì—†ìŠ´
 }
 
-// ¹ŞÀº ¸ŞÀÏÀÇ °¹¼ö
+// ë°›ì€ ë©”ì¼ì˜ ê°¯ìˆ˜
 int	cMAIL::Get_RecvMailCount(void)
 {
 	return m_Recv_Mail.size();
 }
 
-// ¹ŞÀº ¸ŞÀÏÀÇ °¹¼ö (ÀĞÁö ¾ÊÀº°Å)
+// ë°›ì€ ë©”ì¼ì˜ ê°¯ìˆ˜ (ì½ì§€ ì•Šì€ê±°)
 int cMAIL::Get_NonRead_RecvMailCount(void)
 {
 	int ret = 0;
@@ -209,7 +209,7 @@ int cMAIL::Get_NonRead_RecvMailCount(void)
 	return ret;
 }
 
-// ¼­¹ö¿¡ ÀĞÀ» Àü¼­ ³»¿ëÀ» ¿äÃ»
+// ì„œë²„ì— ì½ì„ ì „ì„œ ë‚´ìš©ì„ ìš”ì²­
 void cMAIL::Send_ReadMail(void)
 {
 	DWORD pos;
@@ -219,7 +219,7 @@ void cMAIL::Send_ReadMail(void)
 	SendCS_IM_READMEMO_REQ(m_Recv_Mail[pos]->dwMailID);
 }
 
-// ÀĞÀº ÆíÁö Ç¥½Ã
+// ì½ì€ í¸ì§€ í‘œì‹œ
 void cMAIL::Reflash_MAIL(void)
 {
 	int i;
@@ -243,7 +243,7 @@ void cMAIL::Reflash_MAIL(void)
 	Total_page_str.printf("%d/%d",m_Recv_Page+1,m_Recv_Total_Page);
 	g_pUIManager->SetString(WINDOW_MAIL, window_mail_button_dummy ,Total_page_str.data());
 
-	// ³²Àº Àü¼ÛÈ½¼öÇ¥½Ã
+	// ë‚¨ì€ ì „ì†¡íšŸìˆ˜í‘œì‹œ
 	szRemain.printf(IDS_REMAIN_SEND,g_Mail.Get_Amonut());
 	g_pUIManager->SetString(WINDOW_MAIL, window_mail_info_dummy_01 ,szRemain.data());
 	
@@ -251,15 +251,15 @@ void cMAIL::Reflash_MAIL(void)
 	{
 		if(num <= m_Recv_Page * MAX_RECV_MAIL+i) break;
 
-		// ÀĞ¾ú³ª?? ¾ÈÀĞ¾ú³ª??		
+		// ì½ì—ˆë‚˜?? ì•ˆì½ì—ˆë‚˜??		
 		if(m_Recv_Mail[m_Recv_Page * MAX_RECV_MAIL+i]->bRead == true)
 		{
-			// º¸³½»ç¶÷
+			// ë³´ë‚¸ì‚¬ëŒ
 			g_pUIManager->SetString(WINDOW_MAIL, window_mail_list_dummy_01-i ,m_Recv_Mail[m_Recv_Page * MAX_RECV_MAIL+i]->szName,6);
-			// º¸³½³¯Â¥
+			// ë³´ë‚¸ë‚ ì§œ
 			szDate.printf("%2d/%2d/%2d",GETYEAR(m_Recv_Mail[m_Recv_Page * MAX_RECV_MAIL+i]->dwDate),GETMONTH(m_Recv_Mail[m_Recv_Page * MAX_RECV_MAIL+i]->dwDate),GETDAY(m_Recv_Mail[m_Recv_Page * MAX_RECV_MAIL+i]->dwDate));
 			g_pUIManager->SetString(WINDOW_MAIL, window_mail_list_dummy_06-i ,szDate.data(),6);
-			// Á¦¸ñ
+			// ì œëª©
 			g_pUIManager->SetString(WINDOW_MAIL, window_mail_list_dummy_11-i ,Make_Short_Msg(m_Recv_Mail[m_Recv_Page * MAX_RECV_MAIL+i]->szTitle,9),6);
 		}
 		else
@@ -273,7 +273,7 @@ void cMAIL::Reflash_MAIL(void)
 
 }
 
-// µÚ·Î ¹öÆ°
+// ë’¤ë¡œ ë²„íŠ¼
 void cMAIL::Back_Recv_Page(void)
 {
 	if(m_Recv_Page == 0) return;
@@ -283,7 +283,7 @@ void cMAIL::Back_Recv_Page(void)
 	Reflash_MAIL();
 }
 
-// ¾ÕÀ¸·Î ¹öÆ°
+// ì•ìœ¼ë¡œ ë²„íŠ¼
 void cMAIL::Next_Recv_Page(void)
 {
 	if(m_Recv_Page+1 >= m_Recv_Total_Page) return;
@@ -293,7 +293,7 @@ void cMAIL::Next_Recv_Page(void)
 	Reflash_MAIL();
 }
 
-// ¹ŞÀº ¸ŞÀÏ ¼±ÅÃ
+// ë°›ì€ ë©”ì¼ ì„ íƒ
 void cMAIL::CheckIndexSelected(void)
 {
 	CreateVB();
@@ -306,7 +306,7 @@ void cMAIL::CheckIndexSelected(void)
 				|| g_pUIManager->IsMouseOn(WINDOW_MAIL, window_mail_list_dummy_06 - i)
 				|| g_pUIManager->IsMouseOn(WINDOW_MAIL, window_mail_list_dummy_11 - i))
 			{
-				m_byCurrIndex = i;	// ¾îµğ¸¦ ¼±ÅÃÇßÁö??
+				m_byCurrIndex = i;	// ì–´ë””ë¥¼ ì„ íƒí–ˆì§€??
 				MakeVB();
 				return;
 			}
@@ -392,13 +392,13 @@ void cMAIL::MakeVB()
 
 //////////////////////////////////////////////////////////////////////////	SEND
 
-// ¹Ş´Â»ç¶÷ ¸®½ºÆ®¸¦ ¿©±âÀú±â¼­ ¸ğ¾Æ¼­ ³ª¿Â´Ù.
+// ë°›ëŠ”ì‚¬ëŒ ë¦¬ìŠ¤íŠ¸ë¥¼ ì—¬ê¸°ì €ê¸°ì„œ ëª¨ì•„ì„œ ë‚˜ì˜¨ë‹¤.
 void cMAIL::Make_SenderList()
 {
 
 }
 
-// ¼±ÅÃµÈ ¾ÖµéÀÇ °¹¼ö¸¦ ¾ò¾î¿Â´Ù.
+// ì„ íƒëœ ì• ë“¤ì˜ ê°¯ìˆ˜ë¥¼ ì–»ì–´ì˜¨ë‹¤.
 int cMAIL::Get_Checked_SendList(void)
 {
 	TCHAR strTo[64] = {0,};
@@ -408,12 +408,12 @@ int cMAIL::Get_Checked_SendList(void)
 
 	for(i = 0; i < num; i++)
 	{
-		// Ä£±¸ÀÌÀÚ ¹®¿øÀº º¸¿©¾ß ÇÑ´Ù. (Áßº¹°¡´É)
+		// ì¹œêµ¬ì´ì ë¬¸ì›ì€ ë³´ì—¬ì•¼ í•œë‹¤. (ì¤‘ë³µê°€ëŠ¥)
 		if(m_Send_Mail[i]->bChecked == true)
 			ret++;
 	}
 
-	// ±×³É Ä£ ÀÌ¸§À» °¡Áö°í ÀÖ´Â¾Ö¶ÇÇÑ °è»êÇÑ´Ù
+	// ê·¸ëƒ¥ ì¹œ ì´ë¦„ì„ ê°€ì§€ê³  ìˆëŠ”ì• ë˜í•œ ê³„ì‚°í•œë‹¤
 	g_pUIManager->GetString(WINDOW_MAIL, window_mail_top_edit_01, strTo, GET_STRING);
 
 	for(i = 0; i < num; i++)
@@ -432,10 +432,10 @@ bool cMAIL::Search_SendList(DWORD ID,BYTE type,BYTE b_SubType)
 
 	for(int i = 0; i < num; i++)
 	{
-		// Ä£±¸ÀÌÀÚ ¹®¿øÀº º¸¿©¾ß ÇÑ´Ù. (Áßº¹°¡´É)
+		// ì¹œêµ¬ì´ì ë¬¸ì›ì€ ë³´ì—¬ì•¼ í•œë‹¤. (ì¤‘ë³µê°€ëŠ¥)
 		if(m_Send_Mail[i]->ID == ID && m_Send_Mail[i]->bType == type && m_Send_Mail[i]->b_SubType == b_SubType)
 		{
-			// ÀÌ¹Ì ÀÖ½¿
+			// ì´ë¯¸ ìˆìŠ´
 			return false;
 		}
 	}
@@ -443,11 +443,11 @@ bool cMAIL::Search_SendList(DWORD ID,BYTE type,BYTE b_SubType)
 	return true;
 }
 
-// Ãß°¡
+// ì¶”ê°€
 void cMAIL::Add_SendList(DWORD	Id, sString	szName, BYTE type,BYTE b_SubType)
 {
 	sSENDMAIL_LIST	*temp;
-	// ÀÌ¹Ì ÀÖ³ª¸¦ °Ë»ç
+	// ì´ë¯¸ ìˆë‚˜ë¥¼ ê²€ì‚¬
 	if(Search_SendList(Id,type,b_SubType) == false) return;
 
 	temp = new sSENDMAIL_LIST;
@@ -487,10 +487,10 @@ bool cMAIL::Delete_SendMailList(DWORD	charID)
 		where++;
 	}
 
-	return false;	// ÇØ´ç Àü¼­°¡ ¾ø½¿
+	return false;	// í•´ë‹¹ ì „ì„œê°€ ì—†ìŠ´
 }
 
-// ÇØ´ç IDÀÇ send checked¸¦ unchecked·Î ÇÑ´Ù. 
+// í•´ë‹¹ IDì˜ send checkedë¥¼ uncheckedë¡œ í•œë‹¤. 
 bool cMAIL::Unchecked_SendList(DWORD ID)
 {
 	int num = m_Send_Mail.size();
@@ -509,7 +509,7 @@ bool cMAIL::Unchecked_SendList(DWORD ID)
 	return false;
 }
 
-// ÀüºÎ´Ù unchecked·Î mark
+// ì „ë¶€ë‹¤ uncheckedë¡œ mark
 void cMAIL::UncheckedAll_SendList(void)
 {
 	int num = m_Send_Mail.size();
@@ -520,7 +520,7 @@ void cMAIL::UncheckedAll_SendList(void)
 	}
 }
 
-// ÀüÃ¼ ¼±ÅÃ
+// ì „ì²´ ì„ íƒ
 void cMAIL::CheckedAll_SendList(void)
 {
 	int num = m_Send_Mail.size();
@@ -531,7 +531,7 @@ void cMAIL::CheckedAll_SendList(void)
 	}
 }
 
-// ¹®ÆÄ ¼±ÅÃ
+// ë¬¸íŒŒ ì„ íƒ
 void cMAIL::CheckedMunpaAll_SendList(void)
 {
 	int num = m_Send_Mail.size();
@@ -545,7 +545,7 @@ void cMAIL::CheckedMunpaAll_SendList(void)
 	}
 }
 
-// ÇØ´ç ID¸¸
+// í•´ë‹¹ IDë§Œ
 bool cMAIL::Check_SentMail(DWORD ID)
 {
 	int num = m_checksendmail.size();
@@ -558,7 +558,7 @@ bool cMAIL::Check_SentMail(DWORD ID)
 	return true;
 }
 
-// ¼±ÅÃµÈ »ç¶÷µé¿¡°Ô Àü¼­ º¸³»±â
+// ì„ íƒëœ ì‚¬ëŒë“¤ì—ê²Œ ì „ì„œ ë³´ë‚´ê¸°
 bool cMAIL::SendMail()
 {
 	m_checksendmail.clear();
@@ -568,13 +568,13 @@ bool cMAIL::SendMail()
 
 	for(int i = 0; i < num; i++)
 	{
-		// °°Àº ID·Î µÎ¹øÀÌ»ó º¸³»Áö ¾Êµµ·Ï Á¶Ä¡!
+		// ê°™ì€ IDë¡œ ë‘ë²ˆì´ìƒ ë³´ë‚´ì§€ ì•Šë„ë¡ ì¡°ì¹˜!
 		if(m_Send_Mail[i]->bChecked == true && Check_SentMail(m_Send_Mail[i]->ID) == true)
 		{
 			SendCS_IM_SENDMEMO_REQ(m_Send_Mail[i]->szName,m_Mail_Title ,m_Mail_Content,this->Get_SackID(),this->Get_SackPos());
 			m_checksendmail.push_back(m_Send_Mail[i]->ID);
 
-			// °á°ú¸¦ À§ÇÏ¿© ÀúÀå
+			// ê²°ê³¼ë¥¼ ìœ„í•˜ì—¬ ì €ì¥
 			Add_SendResult(m_Send_Mail[i]->szName,m_Send_Mail[i]->bType,m_Send_Mail[i]->b_SubType);
 		}
 	}
@@ -585,7 +585,7 @@ bool cMAIL::SendMail()
 	return true;
 }
 
-// Á¦¸ñ°ú Àü¼­ ³»¿ëÀ» ÁöÁ¤
+// ì œëª©ê³¼ ì „ì„œ ë‚´ìš©ì„ ì§€ì •
 void cMAIL::Assign_Content(sString Title,sString Content)
 {
 	m_Mail_Title = Title;
@@ -616,13 +616,13 @@ bool cMAIL::SendMailToOne(sString szName)
 
 	}
 
-	// ÀÌ»ç¶÷Àº ³¯¸°ÀûÀÌ ¾øÀ¸¹Ç·Î, ÀÌ »ç¶÷¿¡°Ô ³¯¸°´Ù.
+	// ì´ì‚¬ëŒì€ ë‚ ë¦°ì ì´ ì—†ìœ¼ë¯€ë¡œ, ì´ ì‚¬ëŒì—ê²Œ ë‚ ë¦°ë‹¤.
 	SendCS_IM_SENDMEMO_REQ(szName,m_Mail_Title,m_Mail_Content,this->Get_SackID(),this->Get_SackPos());
 	Add_SendResult(szName.data(),Kind,SubKind);
 	return true;
 }
 
-//////////////////////////////////////////////////////////////////////////	ÀÎÅÍÆäÀÌ½º
+//////////////////////////////////////////////////////////////////////////	ì¸í„°í˜ì´ìŠ¤
 
 void cMAIL::Reflash_MAIL_Select(void)
 {
@@ -638,7 +638,7 @@ void cMAIL::Reflash_MAIL_Select(void)
 	{
 		g_pUIManager->SetString(WINDOW_MAIL_SELECT, window_mail_select_list_dummy_01-i ,"");
 		g_pUIManager->SetString(WINDOW_MAIL_SELECT, window_mail_select_list_dummy_02_01-i ,"");
-		// Check ¹öÆ° Disable
+		// Check ë²„íŠ¼ Disable
 		g_pUIManager->Hide(WINDOW_MAIL_SELECT,mail_list_select_01-i);
 	}
 
@@ -650,44 +650,44 @@ void cMAIL::Reflash_MAIL_Select(void)
 	{
 		if(num <= m_Page*MAX_MAIL_LIST+i) break;
 
-		// ¹®¿ø / ÀÎ¿¬ / Ä£±¸ ÀÌ¸§
+		// ë¬¸ì› / ì¸ì—° / ì¹œêµ¬ ì´ë¦„
 		g_pUIManager->SetString(WINDOW_MAIL_SELECT, window_mail_select_list_dummy_02_01-i ,m_Send_Mail[m_Page*MAX_MAIL_LIST + i]->szName);
 
-		// Check ¹öÆ° Enable
+		// Check ë²„íŠ¼ Enable
 		g_pUIManager->Show(WINDOW_MAIL_SELECT,mail_list_select_01-i);
 		if(m_Send_Mail[m_Page*MAX_MAIL_LIST + i]->bChecked == true)
 			g_pUIManager->SetData(WINDOW_MAIL_SELECT,mail_list_select_01-i,CURRENT_INDEX,0);
 		else
 			g_pUIManager->SetData(WINDOW_MAIL_SELECT,mail_list_select_01-i,CURRENT_INDEX,1);
 
-		// Á¾·ù
+		// ì¢…ë¥˜
 		switch(m_Send_Mail[m_Page*MAX_MAIL_LIST + i]->bType)
 		{
 			case MAIL_ETC:
 					relation_type = IDS_RECV_MAIL_ETC;
 				break;
 
-			// Ä£±¸
+			// ì¹œêµ¬
 			case MAIL_BUDDY :
 					relation_type = IDS_FRIEND;
 				break;
 
-			// °ü°è
+			// ê´€ê³„
 			case MAIL_RELATION:
 				{
 					switch(m_Send_Mail[m_Page*MAX_MAIL_LIST + i]->b_SubType)
 					{
-						// ¿¬ÀÎ
+						// ì—°ì¸
 						case RELATION_TYPE_LOVER:
 							relation_type = IDS_SWEETHEART;
 							break;
 
-						// ½º½Â
+						// ìŠ¤ìŠ¹
 						case RELATION_TYPE_TEACHER:
 							relation_type = IDS_TEACHER;
 							break;
 
-						// Á¦ÀÚ
+						// ì œì
 						case RELATION_TYPE_STUDENT:
 							relation_type = IDS_DISCIPLE;
 							break;
@@ -695,7 +695,7 @@ void cMAIL::Reflash_MAIL_Select(void)
 				}
 				break;
 			
-			// ¹®ÆÄ
+			// ë¬¸íŒŒ
 			case MAIL_MUNPA :
 				{
 					switch(m_Send_Mail[m_Page*MAX_MAIL_LIST + i]->b_SubType)
@@ -799,7 +799,7 @@ void cMAIL::DeleteAll_SendResult(void)
 
 }
 
-// Àü¼ÛÇÑ ¸ñ·ÏÀ» ³Ö´Â´Ù.
+// ì „ì†¡í•œ ëª©ë¡ì„ ë„£ëŠ”ë‹¤.
 void cMAIL::Add_SendResult(sString szName,BYTE bType,BYTE b_SubType)
 {
 	sSENDMAIL_RESULT	*m_result;
@@ -812,7 +812,7 @@ void cMAIL::Add_SendResult(sString szName,BYTE bType,BYTE b_SubType)
 	m_Send_Result.push_back(m_result);
 }
 
-// °á°ú¸¦ ³Ö°í º¸ÀÌÀÚ
+// ê²°ê³¼ë¥¼ ë„£ê³  ë³´ì´ì
 void cMAIL::Assign_Result(sString str,BYTE result)
 {
 	int num = m_Send_Result.size();
@@ -851,38 +851,38 @@ void cMAIL::Reflash_Result(void)
 		g_pUIManager->SetString(WINDOW_MAIL_RESULT, window_mail_result_list_dummy_03_01-i ,"");
 	}
 
-	// È­¸é¿¡ Ãâ·Â
+	// í™”ë©´ì— ì¶œë ¥
 	for(i = 0; i < MAX_MAIL_LIST; i++)
 	{
 		if(num <= m_Result_Page*MAX_MAIL_LIST+i) break;
-		// Á¾·ù
+		// ì¢…ë¥˜
 		switch(m_Send_Result[m_Result_Page*MAX_MAIL_LIST + i]->bType)
 		{
 		case MAIL_ETC:
 			relation_type = IDS_RECV_MAIL_ETC;
 			break;
 
-			// Ä£±¸
+			// ì¹œêµ¬
 		case MAIL_BUDDY :
 			relation_type = IDS_FRIEND;
 			break;
 
-			// °ü°è
+			// ê´€ê³„
 		case MAIL_RELATION:
 			{
 				switch(m_Send_Result[m_Result_Page*MAX_MAIL_LIST + i]->b_SubType)
 				{
-					// ¿¬ÀÎ
+					// ì—°ì¸
 				case RELATION_TYPE_LOVER:
 					relation_type = IDS_SWEETHEART;
 					break;
 
-					// ½º½Â
+					// ìŠ¤ìŠ¹
 				case RELATION_TYPE_TEACHER:
 					relation_type = IDS_TEACHER;
 					break;
 
-					// Á¦ÀÚ
+					// ì œì
 				case RELATION_TYPE_STUDENT:
 					relation_type = IDS_DISCIPLE;
 					break;
@@ -890,7 +890,7 @@ void cMAIL::Reflash_Result(void)
 			}
 			break;
 
-			// ¹®ÆÄ
+			// ë¬¸íŒŒ
 		case MAIL_MUNPA :
 			{
 				switch(m_Send_Result[m_Result_Page*MAX_MAIL_LIST + i]->b_SubType)
@@ -920,35 +920,35 @@ void cMAIL::Reflash_Result(void)
 			break;
 
 		}
-		// °ü°è Á¾·ù
+		// ê´€ê³„ ì¢…ë¥˜
 		g_pUIManager->SetString(WINDOW_MAIL_RESULT, window_mail_result_list_dummy_01-i ,relation_type.data());
 
-		// ÀÌ¸§
+		// ì´ë¦„
 		g_pUIManager->SetString(WINDOW_MAIL_RESULT, window_mail_result_list_dummy_02_01-i ,m_Send_Result[m_Result_Page*MAX_MAIL_LIST + i]->szName.data());
 
-		// °á°ú
+		// ê²°ê³¼
 		switch(m_Send_Result[i]->bResult)
 		{
 		case ERR_SENDMEMO_SUCCESS:
 			g_pUIManager->SetString(WINDOW_MAIL_RESULT, window_mail_result_list_dummy_03_01-i ,IDS_SEND_ERROR1);
 			break;
 
-			// ±×·±ÀÌ¸§ ¾ø½¿
+			// ê·¸ëŸ°ì´ë¦„ ì—†ìŠ´
 		case ERR_SENDMEMO_FAULTNAME:
 			g_pUIManager->SetString(WINDOW_MAIL_RESULT, window_mail_result_list_dummy_03_01-i ,IDS_SEND_ERROR2);
 			break;
 
-			// ¹Ş´Â»ç¶÷ ¸Ş¸ğÇÔ ²ËÂü
+			// ë°›ëŠ”ì‚¬ëŒ ë©”ëª¨í•¨ ê½‰ì°¸
 		case ERR_SENDMEMO_MEMOFULL:
 			g_pUIManager->SetString(WINDOW_MAIL_RESULT, window_mail_result_list_dummy_03_01-i ,IDS_SEND_ERROR3);
 			break;
 
-			// ¾ÆÀÌÅÛ ºÎÁ·
+			// ì•„ì´í…œ ë¶€ì¡±
 		case ERR_SENDMEMO_ITEMERROR:
 			g_pUIManager->SetString(WINDOW_MAIL_RESULT, window_mail_result_list_dummy_03_01-i ,IDS_SEND_ERROR4);
 			break;
 
-			// ¾ÆÀÌÅÛ ºÎÁ·
+			// ì•„ì´í…œ ë¶€ì¡±
 		case ERR_SENDMEMO_STRINGERROR:
 			g_pUIManager->SetString(WINDOW_MAIL_RESULT, window_mail_result_list_dummy_03_01-i ,IDS_SEND_ERROR5);
 			break;

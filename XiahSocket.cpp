@@ -1,4 +1,4 @@
-#include "precompile.h"
+﻿#include "precompile.h"
 #include "xiahsocket.h"
 #include "CharacterInfo.h"
 #include "AppData.h"

@@ -1,4 +1,4 @@
-#include "mail.h"
+﻿#include "mail.h"
 #include "XiahEnvInfo.h"
 #include "xiahbgmcore.h"
 #include "Helper.h"
@@ -34,7 +34,7 @@ void ProcessWindowCharacter( LPARAM lParam)
 	case character_window_button_up_04:
 		SendCS_BT_EXECSP_REQ( SP_VIT, 1);
 		break;
-	case 51: // �ƺ�ϵͳ���ع���ͼ��������ֵ�������л������ΰ�ť��ͨ������ 51 �ŷ����Ĭ֪ͨ�����������л��ƺ�
+	case 51: // 称号系统：重构意图：在能力值界面点击切换三角形按钮，通过发送 51 号封包静默通知服务器进行切换称号
 		SendCS_IM_USEITEM_REQ(0, 0, 51);
 		break;
 	}
@@ -61,7 +61,7 @@ void ProcessWindowItem( LPARAM lParam)
 	{
 		case drg_item_window_close_button:
 			{
-				// 매품�
+				// 毵ろ拡韺
 				if(g_MainCharInfo.m_pQuickMart)
 				{
 					g_MainCharInfo.HideSack(SACKTYPE__QUICKMART, FALSE);					
@@ -71,12 +71,12 @@ void ProcessWindowItem( LPARAM lParam)
 				g_MainCharInfo.HideSack( SACKTYPE__EQUIPMENT);
 				g_MainCharInfo.HideSack( SACKTYPE__NPC_TRADE);
 				g_MainCharInfo.HideSack( SACKTYPE__DEPOSIT);
-				g_MainCharInfo.HideSack( SACKTYPE__MODIFY);					// 개조
-				g_MainCharInfo.HideSack( SACKTYPE__PERSONAL_TRADE_SET);		// 개인상점설정
-				g_MainCharInfo.HideSack( SACKTYPE__PERSONAL_TRADE_SELL);	// 개인상점판매
-				g_MainCharInfo.HideSack( SACKTYPE__ITEMMALL);				// 아이템�
-				g_MainCharInfo.HideSack( SACKTYPE__SMELT);					// 조합
-				g_MainCharInfo.HideSack( SACKTYPE__FIVEELEMENT_CONVERT);	// 오행 제련
+				g_MainCharInfo.HideSack( SACKTYPE__MODIFY);					// 臧滌“
+				g_MainCharInfo.HideSack( SACKTYPE__PERSONAL_TRADE_SET);		// 臧滌澑靸侅爯靹れ爼
+				g_MainCharInfo.HideSack( SACKTYPE__PERSONAL_TRADE_SELL);	// 臧滌澑靸侅爯韺愲Г
+				g_MainCharInfo.HideSack( SACKTYPE__ITEMMALL);				// 鞎勳澊韰滊
+				g_MainCharInfo.HideSack( SACKTYPE__SMELT);					// 臁绊暕
+				g_MainCharInfo.HideSack( SACKTYPE__FIVEELEMENT_CONVERT);	// 鞓ろ枆 鞝滊牗
 
 				if( g_MainCharInfo.m_pPcSackMine && g_MainCharInfo.m_pPcSackMine->IsShow())
 					SendCS_EC_TRADEITEM_REQ( 9, g_MainCharInfo.m_dwAskID);
@@ -97,7 +97,7 @@ void ProcessWindowItem( LPARAM lParam)
 					g_pUIManager->SetPosition(WINDOW_TAMING_ITEM, WINDOW_FIRST_XPOS, 0);
 					g_MainCharInfo.ShowSack( SACKTYPE__PET);
 				}
-				else if(g_MainCharInfo.m_bPersonalTradeSell)  // 개인상점 판매중이� 우측으�
+				else if(g_MainCharInfo.m_bPersonalTradeSell)  // 臧滌澑靸侅爯 韺愲Г欷戩澊氅 鞖办浮鞙茧
 				{
 					CloseAllWindow();
 					g_pUIManager->SetPosition(WINDOW_PC_STORE, WINDOW_FIRST_XPOS, 0);
@@ -149,10 +149,10 @@ void ProcessWindowPcTrade( LPARAM lParam)
 	switch( controlID)
 	{
 	case pc_trade_window_close_button:
-	case pc_trade_window_button_02:	// ��
+	case pc_trade_window_button_02:	// 旆靻
 		SendCS_EC_TRADEITEM_REQ( 9, g_MainCharInfo.m_dwAskID);
 		break;
-	case pc_trade_window_button_01:	// 오케�
+	case pc_trade_window_button_01:	// 鞓れ紑鞚
 		SendCS_EC_TRADEITEM_REQ( 0, g_MainCharInfo.m_dwAskID);
 
 		g_pUIManager->Hide(WINDOW_PC_TRADE, pc_trade_window_button_01);
@@ -163,7 +163,7 @@ void ProcessWindowPcTrade( LPARAM lParam)
 }
 
 /**
- * NPC� 거래� - 다른용도로도 �용�
+ * NPC鞖 瓯半灅彀 - 雼るジ鞖╇弰搿滊弰 靷鞖╈
  * \param lParam 
  */
 void ProcessWidnowNpcTrade( LPARAM lParam)
@@ -181,7 +181,7 @@ void ProcessWidnowNpcTrade( LPARAM lParam)
 			g_MainCharInfo.HideSack( SACKTYPE__ITEMMALL);
 			g_MainCharInfo.HideSack( SACKTYPE__PERSONAL_TRADE_SELL);
 
-			// 매품�
+			// 毵ろ拡韺
 			if(g_MainCharInfo.m_pQuickMart) // nEventType == 10
 			{				
 				g_MainCharInfo.HideSack(SACKTYPE__QUICKMART, FALSE);				
@@ -192,7 +192,7 @@ void ProcessWidnowNpcTrade( LPARAM lParam)
 }
 
 /**
- * 개조
+ * 臧滌“
  * \param lParam 
  */
 void ProcessWindowConvert( LPARAM lParam)
@@ -211,7 +211,7 @@ void ProcessWindowConvert( LPARAM lParam)
 
 		case convert_window_button_01:
 			{
-				// 만일 들고 있는중에 개조하면 들고있는것을 되돌린다.
+				// 毵岇澕 霌り碃 鞛堧姅欷戩棎 臧滌“頃橂┐ 霌り碃鞛堧姅瓴冹潉 霅橂弻毽半嫟.
 				if(NULL != g_MainCharInfo.m_pHoldItem)
 				{
 					g_MainCharInfo.m_pHoldItem->SetItemBackToSack();
@@ -266,7 +266,7 @@ void ProcessWindowConvert( LPARAM lParam)
 						bResourcePos3 = pResourceItem3->m_bSackPosPrev;
 					}
 
-					// 개조자원� 없으� 개조� 불가능하�
+					// 臧滌“鞛愳洂鞚 鞐嗢溂氅 臧滌“臧 攵堦皜電ロ晿雼
 					if(NULL != pResourceItem1)
 					{
 						SendCS_IM_REBUILDITEM_REQ( g_MainCharInfo.m_dwPickedObject,
@@ -309,7 +309,7 @@ void ProcessWindowTaming( LPARAM lParam)
 		}
 		else
 		{
-			//HT_CHEAT : � 상태� 수정
+			//HT_CHEAT : 韼 靸來儨彀 靾橃爼
 			//g_MainCharInfo.HideSack( SACKTYPE__PET_EQUIP);
 			sPetInfo* pPetInfo = g_PetList.GetCurrentPet();
 			if( pPetInfo && pPetInfo->m_pEquipSack)
@@ -354,7 +354,7 @@ void ProcessWindowTamingItem( LPARAM lParam)
 }
 
 
-// 상점 판매� 입력�
+// 靸侅爯 韺愲Г旮 鞛呺牓彀
 void ProcessWindowMoney( LPARAM lParam)
 {
 	int controlID	= LOWORD(lParam);
@@ -367,7 +367,7 @@ void ProcessWindowMoney( LPARAM lParam)
 		{
 			__int64 nTemp = _tstoi64( (LPCTSTR) g_pUIManager->GetString(WINDOW_MONEY, money_window_edit));
 
-			if(nTemp > 2100000000)  // 21� 이상 입력 불가
+			if(nTemp > 2100000000)  // 21鞏 鞚挫儊 鞛呺牓 攵堦皜
 			{
 				g_MainCharInfo.ShowHelpMessage( IDS_MANY_MONEY, TEXTEFFECT_COLOR_WARNING);
 
@@ -383,18 +383,18 @@ void ProcessWindowMoney( LPARAM lParam)
 
 			if(dwAmount > 0)
 			{
-				if(nEventType == WINDOW_MONEY_PCTRADE)	// 개인노점
+				if(nEventType == WINDOW_MONEY_PCTRADE)	// 臧滌澑雲胳爯
 				{
 					XiahItem::sItemInfo* pHoldItem = g_MainCharInfo.m_pHoldItem->GetHoldItemItem();
 
 					if(pHoldItem)
 					{
-						// 개점� ��� 막기
+						// 臧滌爯韺 鞓毽旮 毵夑赴
 						if(g_pUIManager->IsShow(WINDOW_PC_STORE) && g_MainCharInfo.m_pPersonalTradeSet && pHoldItem->m_wRefID != 20272)  
 						{
-							pHoldItem->m_dwPrice = dwAmount;  // 개인 판매 ��
+							pHoldItem->m_dwPrice = dwAmount;  // 臧滌澑 韺愲Г 臧瓴
 
-							// 개인노점 아이� 놓기
+							// 臧滌澑雲胳爯 鞎勳澊韰 雴撽赴
 							SendCS_SH_REGSHOP_REQ(g_MainCharInfo.m_byMySackCurrIdx+1,
 												pHoldItem->m_bSackPos,
 												pHoldItem->m_dwItemID,
@@ -403,8 +403,8 @@ void ProcessWindowMoney( LPARAM lParam)
 						}
 					}
 
-				} // if(nEventType == WINDOW_MONEY_PCTRADE)	// 개인노점
-				else if(nEventType == WINDOW_MONEY_LOTTO)	// 복권당첨� 수령
+				} // if(nEventType == WINDOW_MONEY_PCTRADE)	// 臧滌澑雲胳爯
+				else if(nEventType == WINDOW_MONEY_LOTTO)	// 氤店秾雼轨波旮 靾橂牴
 				{
 					SendCS_EC_GETLOTTOMONEY_REQ(g_MainCharInfo.m_dwResItemID,
 												g_MainCharInfo.m_ReairSackID,
@@ -464,7 +464,7 @@ void ProcessWindowVolume( LPARAM lParam)
 			switch( g_MainCharInfo.m_byUsageVolumFrame)
 			{
 			case 1:
-			case 3:	// 옵션 금전 설정위해 추가
+			case 3:	// 鞓奠厴 旮堨爠 靹れ爼鞙勴暣 於旉皜
 				{
 					g_pUIManager->SetFocus(WINDOW_VOLUME, volume_window_edit);
 					g_pUIManager->SetString(WINDOW_VOLUME, volume_window_edit, dwAmount);
@@ -501,7 +501,7 @@ void ProcessWindowVolume( LPARAM lParam)
 			switch( g_MainCharInfo.m_byUsageVolumFrame)
 			{
 			case 1:
-			case 3:	// 옵션�
+			case 3:	// 鞓奠厴鞐
 				{
 					if(dwAmount <= 0)
 					{
@@ -539,7 +539,7 @@ void ProcessWindowVolume( LPARAM lParam)
 
 			switch( g_MainCharInfo.m_byUsageVolumFrame)
 			{
-			case 1:	// �
+			case 1:	// 霃
 				{
 					if( dwAmount > 0)
 					{
@@ -566,7 +566,7 @@ void ProcessWindowVolume( LPARAM lParam)
 					}
 				}
 				break;
-			case 2:	// 아이�
+			case 2:	// 鞎勳澊韰
 				{
 					XiahItem::sItemInfo* pHoldItem = g_MainCharInfo.m_pHoldItem->GetHoldItemItem();
 					if( pHoldItem)
@@ -582,7 +582,7 @@ void ProcessWindowVolume( LPARAM lParam)
 							}
 							else
 								g_MainCharInfo.m_dwVolumeSplitAmount = dwAmount;
-							// setholditem� �기서 하는것이...
+							// setholditem鞚 鞐旮办劀 頃橂姅瓴冹澊...
 						}
 						else
 						{
@@ -592,7 +592,7 @@ void ProcessWindowVolume( LPARAM lParam)
 					}
 				}
 				break;
-			case 3:	// 옵션 금전 설정
+			case 3:	// 鞓奠厴 旮堨爠 靹れ爼
 				{
 					if(dwAmount >= 0)
 					{
@@ -624,7 +624,7 @@ void ProcessWindowVolume( LPARAM lParam)
 				break;
 			}
 
-			// hold 아이� 출력
+			// hold 鞎勳澊韰 於滊牓
 			if(g_MainCharInfo.m_pHoldItem)
 				g_MainCharInfo.m_pHoldItem->SetDrawFlag(TRUE);
 
@@ -640,7 +640,7 @@ void ProcessWindowVolume( LPARAM lParam)
 			{
 				g_MainCharInfo.m_pHoldItem->SetItemBackToSack();
 
-				// hold 아이� 출력
+				// hold 鞎勳澊韰 於滊牓
 				g_MainCharInfo.m_pHoldItem->SetDrawFlag( TRUE);
 			}
 
@@ -650,7 +650,7 @@ void ProcessWindowVolume( LPARAM lParam)
 	}
 }
 
-// � 전투 (� 비�)
+// 雼 鞝勴埇 (雼 牍勲)
 void ProcessWindowDanWar(LPARAM lParam)
 {
 	int controlID = LOWORD( lParam);
@@ -663,7 +663,7 @@ void ProcessWindowDanWar(LPARAM lParam)
 		{
 			__int64 nTemp = _tstoi64((LPCTSTR)g_pUIManager->GetString(WINDOW_DAN_WAR, window_dan_war_edit));
 
-			if( nTemp > 2100000000)  // 21� 이상 입력 불가
+			if( nTemp > 2100000000)  // 21鞏 鞚挫儊 鞛呺牓 攵堦皜
 			{
 				g_MainCharInfo.ShowHelpMessage(IDS_MANY_MONEY, TEXTEFFECT_COLOR_WARNING);
 				return;
@@ -740,7 +740,7 @@ void ProcessWindowConnectionInfo( LPARAM lParam)
 }
 
 /**
- * 문파 호칭 수여
+ * 氍疙寣 順胳弓 靾橃棳
  * \param lParam 
  */
 void ProcessWindowNameConfer( LPARAM lParam)
@@ -753,7 +753,7 @@ void ProcessWindowNameConfer( LPARAM lParam)
 	case name_window_edit:
 	case name_window_button_01:
 		{
-			// [3/09/2005] 필터�
+			// [3/09/2005] 頃勴劙毵
 			TCHAR strName[64] = {0,};
 			memset(strName, 0, sizeof(strName));
 			g_pUIManager->GetString(WINDOW_NAME_CONFER, name_window_edit, strName);
@@ -780,7 +780,7 @@ void ProcessWindowNameConfer( LPARAM lParam)
 }
 
 /**
- * 직위��
+ * 歆侅渼攵鞐
  * \param lParam 
  */
 void ProcessNameChannel( LPARAM lParam)
@@ -799,17 +799,17 @@ void ProcessNameChannel( LPARAM lParam)
 
 	switch( controlID)
 	{
-	case name_channel_button_01:	// 문주
+	case name_channel_button_01:	// 氍胳＜
 		{
 			if(g_MainCharInfo.m_pRelation->Am_I_InClan())
 			{
 				if(g_MainCharInfo.m_pRelation->Am_I_LeaderInClan())
 				{
-					// 문주이양
+					// 氍胳＜鞚挫枒
 					g_pUIManager->ShowNotice(IDS_MUNJU_RELINQUISH, NOTICE_FRAME_OKCANCEL, NOTICE_FRAME_RELINQUISH);
 
 					/*
-					if(g_MainCharInfo.m_dwMunpaFame >= 100)		// 문파명성 100이상
+					if(g_MainCharInfo.m_dwMunpaFame >= 100)		// 氍疙寣氇呾劚 100鞚挫儊
 					{						
 					}
 					else
@@ -825,16 +825,16 @@ void ProcessNameChannel( LPARAM lParam)
 			}
 		}		
 		break;
-	case name_channel_button_02:	// �문주
+	case name_channel_button_02:	// 攵氍胳＜
 		SendCS_RL_CHANGEMUNWONORDER_REQ( dwMunwonID, dwOrderID, 2);
 		break;
-	case name_channel_button_03:	// 장�
+	case name_channel_button_03:	// 鞛ル
 		SendCS_RL_CHANGEMUNWONORDER_REQ( dwMunwonID, dwOrderID, 3);
 		break;
-	case name_channel_button_04:	// 호법
+	case name_channel_button_04:	// 順鸽矔
 		SendCS_RL_CHANGEMUNWONORDER_REQ( dwMunwonID, dwOrderID, 4);
 		break;
-	case name_channel_button_05:	// 당주
+	case name_channel_button_05:	// 雼轨＜
 		SendCS_RL_CHANGEMUNWONORDER_REQ( dwMunwonID, dwOrderID, 5);
 		break;
 	}
@@ -851,7 +851,7 @@ void ProcessNameChannel( LPARAM lParam)
 // Mugong
 //////////////////////////////////////////////////
 /**
- * 외공
+ * 鞕戈车
  * \param lParam 
  */
 void ProcessWindowOutSide( LPARAM lParam)
@@ -859,8 +859,8 @@ void ProcessWindowOutSide( LPARAM lParam)
 	int controlID = LOWORD( lParam);
 	//int eventType = HIWORD( lParam);
 
-	//HT_1212 : 내공,외공 창에 �이틀 � 수정
-	//g_pUIManager->Show(DATA_WINDOW);  //HO_0403_07무공� �이틀� 클릭� 날�표시� 바�어� 안바뀌게 수정� 위한 주석처리
+	//HT_1212 : 雮搓车,鞕戈车 彀届棎 韮鞚错媭 彀 靾橃爼
+	//g_pUIManager->Show(DATA_WINDOW);  //HO_0403_07氍搓车彀 韮鞚错媭氚 韥措Ν鞁 雮犾滍憸鞁滊 氚旊岇柎靹 鞎堧皵雬岅矊 靾橃爼鞚 鞙勴暅 欤检劃觳橂Μ
 	switch( controlID)
 	{
 	case outside_window_close_button:
@@ -879,10 +879,10 @@ void ProcessWindowOutSide( LPARAM lParam)
 	case outside_window_top_button_03:
 		ProcessClickMugongButton(3);
 		break;
-	case outside_window_top_button_04:		// 각성
+	case outside_window_top_button_04:		// 臧侅劚
 		ProcessClickMugongButton(4);
 		break;
-	case outside_attack_mode_button_01:		// 무공공격 보호��
+	case outside_attack_mode_button_01:		// 氍搓车瓿店博 氤错樃雽靸
 	case outside_attack_mode_button_02:
 	case outside_attack_mode_button_03:
 		{
@@ -897,7 +897,7 @@ void ProcessWindowOutSide( LPARAM lParam)
 			Save_Option(true);
 		}
 		break;
-	//HO_0403_07 내공, 외공� 프레� 클릭� 불필요한 메세�� �던부� 수정
+	//HO_0403_07 雮搓车, 鞕戈车彀 頂勲爤鞛 韥措Ν鞁 攵堩晞鞖旐暅 氅旍劯歆臧 霚雿橂秬攵 靾橃爼
 	case outside_window_mugong_point_up_01:
 	case outside_window_mugong_point_up_02:
 	case outside_window_mugong_point_up_03:
@@ -926,7 +926,7 @@ void ProcessWindowOutSide( LPARAM lParam)
 	default:			
 		break;
 
-		/*HO_0403_07 수정� case outside_attack_mode_button_03:다음� 쓰였� 문구
+		/*HO_0403_07 靾橃爼鞝 case outside_attack_mode_button_03:雼れ潓鞐 鞊办榾雿 氍戈惮
 	default:
 		{
 			int nMugongID = g_MainCharInfo.m_pMugong->FindMugongByIndex(  MUGONGTYPE_ACTIVE, controlID - outside_window_mugong_point_up_01 + 1);
@@ -945,7 +945,7 @@ void ProcessWindowOutSide( LPARAM lParam)
 }
 
 /**
- * 내공
+ * 雮搓车
  * \param lParam 
  */
 void ProcessWindowInSide( LPARAM lParam)
@@ -953,8 +953,8 @@ void ProcessWindowInSide( LPARAM lParam)
 	int controlID = LOWORD( lParam);
 	//int eventType = HIWORD( lParam);
 
-	//HT_1212 : 내공,외공 창에 �이틀 � 수정
-	//g_pUIManager->Show(DATA_WINDOW);  //HO_0403_07무공� �이틀� 클릭� 날�표시� 바�어� 안바뀌게 수정� 위한 주석처리
+	//HT_1212 : 雮搓车,鞕戈车 彀届棎 韮鞚错媭 彀 靾橃爼
+	//g_pUIManager->Show(DATA_WINDOW);  //HO_0403_07氍搓车彀 韮鞚错媭氚 韥措Ν鞁 雮犾滍憸鞁滊 氚旊岇柎靹 鞎堧皵雬岅矊 靾橃爼鞚 鞙勴暅 欤检劃觳橂Μ
 	switch( controlID)
 	{
 	case inside_window_close_button:
@@ -968,11 +968,11 @@ void ProcessWindowInSide( LPARAM lParam)
 	case inside_window_top_button_03:
 		ProcessClickMugongButton(3);
 		break;
-	case inside_window_top_button_04:	// 각성
+	case inside_window_top_button_04:	// 臧侅劚
 		ProcessClickMugongButton(4);
 		break;
 	
-	//HO_0403_07 내공, 외공� 프레� 클릭� 불필요한 메세�� �던부� 수정
+	//HO_0403_07 雮搓车, 鞕戈车彀 頂勲爤鞛 韥措Ν鞁 攵堩晞鞖旐暅 氅旍劯歆臧 霚雿橂秬攵 靾橃爼
 	case inside_window_mugong_point_up_01:
 	case inside_window_mugong_point_up_02:
 	case inside_window_mugong_point_up_03:
@@ -994,7 +994,7 @@ void ProcessWindowInSide( LPARAM lParam)
 				g_MainCharInfo.ShowHelpMessage( IDS_NO_MUGONG, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
-	case inside_window_mugong_point_up_10://HO_0709_07 : 진각� 내공 프레� : +버튼 눌러�
+	case inside_window_mugong_point_up_10://HO_0709_07 : 歆勱皝靹 雮搓车 頂勲爤鞛 : +氩勴娂 雸岆煬歆
 	case inside_window_mugong_point_up_11:
 		{
 			int nMugongID = g_MainCharInfo.m_pMugong->Find2ThRebirthMugongByIndex( controlID - inside_window_mugong_point_up_10 + 3 );
@@ -1012,7 +1012,7 @@ void ProcessWindowInSide( LPARAM lParam)
 	default:		
 		break;
 		
-		/*HO_0403_07 수정� case outside_attack_mode_button_03:다음� 쓰였� 문구
+		/*HO_0403_07 靾橃爼鞝 case outside_attack_mode_button_03:雼れ潓鞐 鞊办榾雿 氍戈惮
 	default:
 		{
 			int nMugongID = g_MainCharInfo.m_pMugong->FindMugongByIndex(  MUGONGTYPE_PASSIVE, controlID - inside_window_mugong_point_up_01 + 1);
@@ -1059,23 +1059,23 @@ void ProcessWindowDan( LPARAM lParam)
 	case dan_window_close_button:
 		g_MainCharInfo.CloseFrame( WINDOW_DAN);
 		break;
-	case dan_window_3button_01:	// �
+	case dan_window_3button_01:	// 雼
 		g_MainCharInfo.m_pRelation->SetCurrType( eDAN);
 		break;
-	case dan_window_3button_02:	// 인연
+	case dan_window_3button_02:	// 鞚胳棸
 		g_MainCharInfo.m_pRelation->SetCurrType( eShip);
 		break;
-	case dan_window_3button_03:	// 문파
+	case dan_window_3button_03:	// 氍疙寣
 		g_MainCharInfo.m_pRelation->SetCurrType( eClan);
 		break;
 	case dan_window_2button_01:
 		{
 			switch( g_MainCharInfo.m_pRelation->GetCurrType())
 			{
-			case eDAN:	// 제명
+			case eDAN:	// 鞝滊獏
 				g_pUIManager->ShowNotice( IDS_Q_JEMYUNG, NOTICE_FRAME_OKCANCEL, NOTICE_FRAME_JEMYUNG);
 				break;
-			case eShip:	// 전서�
+			case eShip:	// 鞝勳劀甑
 				g_MainCharInfo.ShowHelpMessage( IDS_NO_SUPPORT, TEXTEFFECT_COLOR_WARNING);
 				break;
 			case eClan:
@@ -1088,10 +1088,10 @@ void ProcessWindowDan( LPARAM lParam)
 		{
 			switch( g_MainCharInfo.m_pRelation->GetCurrType())
 			{
-			case eDAN:	// 탈퇴
+			case eDAN:	// 韮堩嚧
 				SendCS_IF_LEAVEPARTY_REQ( g_MainCharInfo.m_pRelation->GetDanID());
 				break;
-			case eShip:	// 인연끊기
+			case eShip:	// 鞚胳棸雭婈赴
 				{
 					DWORD dwAnsCharID = g_MainCharInfo.m_pRelation->GetCurrRelation();
 
@@ -1132,7 +1132,7 @@ void ProcessWindowDan( LPARAM lParam)
 }
 
 /**
- * 문파�
+ * 氍疙寣彀
  * \param lParam 
  */
 void ProcessWindowClan( LPARAM lParam)
@@ -1145,20 +1145,20 @@ void ProcessWindowClan( LPARAM lParam)
 	case munpa_window_close_button:
 		g_MainCharInfo.CloseFrame( WINDOW_MUNPA);
 		break;
-	case munpa_window_3button_01:	// �
+	case munpa_window_3button_01:	// 雼
 		g_MainCharInfo.PlayInterfaceSound( ISOUND_SELECT_BUTTON);
 		g_MainCharInfo.m_pRelation->SetCurrType( eDAN);
 		break;
-	case munpa_window_3button_02:	// 인연
+	case munpa_window_3button_02:	// 鞚胳棸
 		g_MainCharInfo.PlayInterfaceSound( ISOUND_SELECT_BUTTON);
 		g_MainCharInfo.m_pRelation->SetCurrType( eShip);
 		break;
-	case munpa_window_3button_03:	// 문파
+	case munpa_window_3button_03:	// 氍疙寣
 		g_MainCharInfo.PlayInterfaceSound( ISOUND_SELECT_BUTTON);
 		g_MainCharInfo.m_pRelation->SetCurrType( eClan);
 		break;
 
-	case munpa_window_button_01:	// 문파공�
+	case munpa_window_button_01:	// 氍疙寣瓿奠
 		{
 			g_pUIManager->SetString(GAK_MESSAGE_WINDOW, gak_title_dummy, IDS_M_NOTICE_RECORD);
 
@@ -1170,7 +1170,7 @@ void ProcessWindowClan( LPARAM lParam)
 			g_pUIManager->SetFocus(GAK_MESSAGE_WINDOW, gak_message_edit);
 		}
 		break;
-	case munpa_window_button_02:	// 호칭수여
+	case munpa_window_button_02:	// 順胳弓靾橃棳
 		{
 			DWORD id = g_MainCharInfo.m_pRelation->GetCurrRelation();
 			sClanWonInfo* pInfo = g_MainCharInfo.m_pRelation->FindClanInfoByID( id);
@@ -1185,9 +1185,9 @@ void ProcessWindowClan( LPARAM lParam)
 			g_MainCharInfo.OpenFrame( WINDOW_NAME_CONFER);
 		}
 		break;
-	case munpa_window_button_04:	// 문주� 문파없애�
+	case munpa_window_button_04:	// 氍胳＜氅 氍疙寣鞐嗢暊旮
 		{
-			if(g_MainCharInfo.m_pRelation->Am_I_2stLeaderInClan()) // �문주� 파�
+			if(g_MainCharInfo.m_pRelation->Am_I_2stLeaderInClan()) // 攵氍胳＜鞖 韺岆
 			{
 				DWORD id = g_MainCharInfo.m_pRelation->GetCurrRelation();
 				sClanWonInfo* pInfo = g_MainCharInfo.m_pRelation->FindClanInfoByID( id);
@@ -1200,7 +1200,7 @@ void ProcessWindowClan( LPARAM lParam)
 					g_pUIManager->ShowNotice( szContent, NOTICE_FRAME_OKCANCEL, NOTICE_FRAME_PAMUN);
 				}
 			}
-			else // 문주� 폐쇄
+			else // 氍胳＜電 韽愳噭
 			{
 				g_pUIManager->ShowNotice( IDS_Q_CLOSE_CLAN, NOTICE_FRAME_OKCANCEL, NOTICE_FRAME_CLOSE_CLAN);
 			}
@@ -1208,7 +1208,7 @@ void ProcessWindowClan( LPARAM lParam)
 		break;
 	case munpa_window_button_03:
 		{
-			if( g_MainCharInfo.m_pRelation->Am_I_LeaderInClan())	// 파�시키기
+			if( g_MainCharInfo.m_pRelation->Am_I_LeaderInClan())	// 韺岆胳嫓韨り赴
 			{
 				DWORD id = g_MainCharInfo.m_pRelation->GetCurrRelation();
 				sClanWonInfo* pInfo = g_MainCharInfo.m_pRelation->FindClanInfoByID( id);
@@ -1221,7 +1221,7 @@ void ProcessWindowClan( LPARAM lParam)
 					g_pUIManager->ShowNotice( szContent, NOTICE_FRAME_OKCANCEL, NOTICE_FRAME_PAMUN);
 				}
 			}
-			else if( g_MainCharInfo.m_pRelation->Am_I_InClan())		// 탈퇴하기
+			else if( g_MainCharInfo.m_pRelation->Am_I_InClan())		// 韮堩嚧頃橁赴
 			{
 				sClanWonInfo* pClan = g_MainCharInfo.m_pRelation->FindClanInfoByID( g_MainCharInfo.m_dwObjectID);
 
@@ -1265,15 +1265,15 @@ void ProcessWindowClanFound( LPARAM lParam)
 	case found_window_close_button:
 		g_MainCharInfo.CloseFrame( WINDOW_MUNPA_FOUND);
 		break;
-	case found_window_3button_01:	// �
+	case found_window_3button_01:	// 雼
 		g_MainCharInfo.PlayInterfaceSound( ISOUND_SELECT_BUTTON);
 		g_MainCharInfo.m_pRelation->SetCurrType( eDAN);
 		break;
-	case found_window_3button_02:	// 인연
+	case found_window_3button_02:	// 鞚胳棸
 		g_MainCharInfo.PlayInterfaceSound( ISOUND_SELECT_BUTTON);
 		g_MainCharInfo.m_pRelation->SetCurrType( eShip);
 		break;
-	case found_window_3button_03:	// 문파
+	case found_window_3button_03:	// 氍疙寣
 		g_MainCharInfo.PlayInterfaceSound( ISOUND_SELECT_BUTTON);
 		g_MainCharInfo.m_pRelation->SetCurrType( eClan);
 		break;
@@ -1299,7 +1299,7 @@ void ProcessWindowClanFound( LPARAM lParam)
 }
 
 
-// [3/25/2004] 퀘스� 처리
+// [3/25/2004] 韤橃姢韸 觳橂Μ
 void ProcessWindowQuest( LPARAM lParam)
 {
 	int controlID = LOWORD( lParam);
@@ -1310,15 +1310,15 @@ void ProcessWindowQuest( LPARAM lParam)
 	case quest_window_01_close_button:
 		g_MainCharInfo.CloseFrame( WINDOW_QUEST_01);
 		break;
-	case quest_window_01_start_button: // 시작
+	case quest_window_01_start_button: // 鞁滌瀾
 		if( g_MainCharInfo.m_pQuest->GetCurrQuestID())
 			SendCS_QS_START_REQ( g_MainCharInfo.m_pQuest->GetCurrQuestID());
 		break;
-	case quest_window_01_stop_button: // 중�
+	case quest_window_01_stop_button: // 欷戩
 		if( g_MainCharInfo.m_pQuest->GetCurrQuestID())
 			SendCS_QS_STOP_REQ( g_MainCharInfo.m_pQuest->GetCurrQuestID());
 		break;
-	case quest_window_01_delete_button: // ��
+	case quest_window_01_delete_button: // 靷鞝
 		if( g_MainCharInfo.m_pQuest->GetCurrQuestID())
 		{
 			g_pUIManager->ShowNotice( IDS_FRAME_QUEST_DEL, NOTICE_FRAME_OKCANCEL, NOTICE_FRAME_QUEST_DEL);			
@@ -1425,7 +1425,7 @@ void ProcessWindowQuest( LPARAM lParam)
 
 
 /**
- * 게임 옵션
+ * 瓴岇瀯 鞓奠厴
  * \param lParam 
  */
 void ProcessWindowOption1( LPARAM lParam)
@@ -1435,7 +1435,7 @@ void ProcessWindowOption1( LPARAM lParam)
 	
 	switch( controlID)
 	{
-	case option_window_1_close_button:		// ��
+	case option_window_1_close_button:		// 雼旮
 	case option_window_1_bottom_button_02:
 		{
 			g_MainCharInfo.CloseFrame( WINDOW_OPTION_01);
@@ -1463,7 +1463,7 @@ void ProcessWindowOption1( LPARAM lParam)
 		break;
 	case option_window_1_top_button_03:
 		{
-			// 옵션 ��
+			// 鞓奠厴 氤瓴
 			g_MainCharInfo.CloseFrame( WINDOW_OPTION_01);
 
 			g_pUIManager->SetData(WINDOW_OPTION_03, option_window_3_top_button_01, CURRENT_INDEX, -1);
@@ -1497,7 +1497,7 @@ void ProcessWindowOption1( LPARAM lParam)
 }
 
 /**
- * 환경 옵션
+ * 頇橁步 鞓奠厴
  * \param lParam 
  */
 void ProcessWindowOption2( LPARAM lParam)
@@ -1507,7 +1507,7 @@ void ProcessWindowOption2( LPARAM lParam)
 
 	switch( controlID)
 	{
-	case option_window_2_close_button:		// ��
+	case option_window_2_close_button:		// 雼旮
 	case option_window_2_bottom_button_02:
 		{
 			g_MainCharInfo.CloseFrame(WINDOW_OPTION_02);
@@ -1542,7 +1542,7 @@ void ProcessWindowOption2( LPARAM lParam)
 		break;
 	case option_window_2_top_button_03:
 		{
-			// 옵션 ��
+			// 鞓奠厴 氤瓴
 
 			//if(g_pUIManager->GetData(WINDOW_OPTION_02, option_window_2_top_button_03, GET_CURRENT_INDEX) != 2)
 			{
@@ -1556,25 +1556,25 @@ void ProcessWindowOption2( LPARAM lParam)
 			}
 		}
 		break;
-	case option_window_2_scroll_01:		// �시거�
+	case option_window_2_scroll_01:		// 臧鞁滉卑毽
 		{
 			g_info_Temp.m_fViewDistance = g_pUIManager->GetData(WINDOW_OPTION_02, option_window_2_scroll_01, GET_SCROLL_CURRENT);
 			g_pUIManager->SetString(WINDOW_OPTION_02, option_window_2_scroll_dummy_03, g_info_Temp.m_fViewDistance);
 		}
 		break;
-	case option_window_2_scroll_02:		// �과단� (이펙�)
+	case option_window_2_scroll_02:		// 須瓿茧嫧瓿 (鞚错帣韸)
 		{
 			g_info_Temp.m_fPolygonDetail = g_pUIManager->GetData(WINDOW_OPTION_02, option_window_2_scroll_02, GET_SCROLL_CURRENT);
 			g_pUIManager->SetString(WINDOW_OPTION_02, option_window_2_scroll_dummy_04, g_info_Temp.m_fPolygonDetail);
 		}
 		break;
-	case option_window_2_scroll_03:		// 배경음악 스크�
+	case option_window_2_scroll_03:		// 氚瓣步鞚岇晠 鞀ろ伂搿
 		{
 			g_info_Temp.m_dwBGMVolume = g_pUIManager->GetData(WINDOW_OPTION_02, option_window_2_scroll_03, GET_SCROLL_CURRENT);
 			g_pUIManager->SetString(WINDOW_OPTION_02, option_window_2_scroll_dummy_07, g_info_Temp.m_dwBGMVolume);
 		}
 		break;
-	case option_window_2_scroll_04:		// �과음� 스크�
+	case option_window_2_scroll_04:		// 須瓿检潓鞎 鞀ろ伂搿
 		{
 			g_info_Temp.m_dwFXVolume = g_pUIManager->GetData(WINDOW_OPTION_02, option_window_2_scroll_04, GET_SCROLL_CURRENT);
 			g_pUIManager->SetString(WINDOW_OPTION_02, option_window_2_scroll_dummy_08, g_info_Temp.m_dwFXVolume);
@@ -1603,7 +1603,7 @@ void ProcessWindowOption2( LPARAM lParam)
 }
 
 /**
- * 거래 옵션
+ * 瓯半灅 鞓奠厴
  * \param lParam 
  */
 void ProcessWindowOption3(LPARAM lParam)
@@ -1612,13 +1612,13 @@ void ProcessWindowOption3(LPARAM lParam)
 
 	switch(nControlID)
 	{
-	case option_window_3_title_close_button:	// ��
+	case option_window_3_title_close_button:	// 雼旮
 	case option_window_3_bottom_button_02:
 		{
 			g_MainCharInfo.CloseFrame(WINDOW_OPTION_03);
 		}
 		break;
-	case option_window_3_bottom_button_01:		// 횅땍
+	case option_window_3_bottom_button_01:		// 須呺晬
 		{
 			bool bSend = false;
 			if(g_info.m_bAllowWhisper != g_info_Temp.m_bAllowWhisper ||
@@ -1637,7 +1637,7 @@ void ProcessWindowOption3(LPARAM lParam)
 			g_MainCharInfo.CloseFrame(WINDOW_OPTION_03);
 		}
 		break;
-	case window_option_3_up_button_01:			// + � 버튼
+	case window_option_3_up_button_01:			// + 鞙 氩勴娂
 		{
 			if(g_info_Temp.m_bRarityLimit < 200)
 			{
@@ -1647,7 +1647,7 @@ void ProcessWindowOption3(LPARAM lParam)
 			}
 		}
 		break;
-	case window_option_3_down_button_01:		// + 아래 버튼
+	case window_option_3_down_button_01:		// + 鞎勲灅 氩勴娂
 		{
 			if(g_info_Temp.m_bRarityLimit > 0)
 			{
@@ -1657,7 +1657,7 @@ void ProcessWindowOption3(LPARAM lParam)
 			}
 		}
 		break;
-	case window_option_3_up_button_02:			// � � 버튼
+	case window_option_3_up_button_02:			// 靹 鞙 氩勴娂
 		{
 			if(g_info_Temp.m_bStxTypeLimit < 200)
 			{
@@ -1667,7 +1667,7 @@ void ProcessWindowOption3(LPARAM lParam)
 			}
 		}
 		break;
-	case window_option_3_down_button_02:		// � 아래 버튼
+	case window_option_3_down_button_02:		// 靹 鞎勲灅 氩勴娂
 		{
 			if(g_info_Temp.m_bStxTypeLimit > 0)
 			{
@@ -1758,7 +1758,7 @@ void ProcessTabNpcTramde4( LPARAM lParam)
 extern BOOL	g_XiahGameStarted;
 
 /**
- * 종�창
+ * 膦呺岇敖
  * \param lParam 
  */
 void ProcessWindowClose(LPARAM lParam)
@@ -1768,31 +1768,31 @@ void ProcessWindowClose(LPARAM lParam)
 
 	switch( controlID)
 	{
-		case close_window_button_01:	// 캐릭� �선택
+		case close_window_button_01:	// 旌愲Ν韯 鞛靹犿儩
 			{
-				// 상점 �
+				// 靸侅爯 雭
 				g_MainCharInfo.m_bPersonalTradeSell = false;
 
 				CloseAllWindow();
 
 				Stop_BGM();
-				// 시작 배경음악
+				// 鞁滌瀾 氚瓣步鞚岇晠
 				Play_BGM(_T("sound\\bgm\\intro01.mp3"), 1);
 
-				g_pUIManager->Hide(WINDOW_BUTTON_GROUP_01); // 게임 메뉴
-				g_pUIManager->Hide(SYSTEM_BUTTON_GROUP_01); // 시스� 메뉴
-				g_pUIManager->Hide(PET_BUTTON_GROUP);		// �
+				g_pUIManager->Hide(WINDOW_BUTTON_GROUP_01); // 瓴岇瀯 氅旊壌
+				g_pUIManager->Hide(SYSTEM_BUTTON_GROUP_01); // 鞁滌姢韰 氅旊壌
+				g_pUIManager->Hide(PET_BUTTON_GROUP);		// 韼
 				g_pUIManager->Hide(LARGE_MESSENGER);
-				g_pUIManager->Hide(HELP_BUTTON);				//HO_0413_07 � �이드 업데이트
+				g_pUIManager->Hide(HELP_BUTTON);				//HO_0413_07 韤 臧鞚措摐 鞐呺嵃鞚错姼
 
-				// 오행 버튼 초기�
+				// 鞓ろ枆 氩勴娂 齑堦赴頇
 				for(int i=0; i < 5; ++i)
 					g_pUIManager->SetData(WINDOW_FIVEELEMENTS, fiveelements_window_button_fire+i, CURRENT_INDEX, -1);
 
-				//HT_0720 : 오행 개선 ��
+				//HT_0720 : 鞓ろ枆 臧滌劆 靷頃
 				g_pUIManager->SetData(MAIN_FRAME, main_frame_ok, TEXTURE, 1536);
 
-				// 2004.07.20 이벤트용 로딩화면
+				// 2004.07.20 鞚措菠韸胳毄 搿滊敥頇旊┐
 				/*
 				if( rand() % 2 )
 				g_MainCharInfo.OpenFrame( EVENT_LOADING_1 );
@@ -1800,9 +1800,9 @@ void ProcessWindowClose(LPARAM lParam)
 				g_MainCharInfo.OpenFrame( EVENT_LOADING_2 );
 				*/
 
-				g_MainCharInfo.OpenFrame(LOADING_IMAGE3); //HO_0702_07 등급표시 : 등급표시� �� 스타트�딩� 게임로딩 �분이 동일 이��� 처리된다.
+				g_MainCharInfo.OpenFrame(LOADING_IMAGE3); //HO_0702_07 霌标笁響滌嫓 : 霌标笁響滌嫓鞕 頃瓴 鞀ろ儉韸鸽滊敥瓿 瓴岇瀯搿滊敥 攵攵勳澊 霃欖澕 鞚措胳搿 觳橂Μ霅滊嫟.
 				
-				//등급표시 적용� 코드 나�에 �� 버리� ..; 등급표시 전에� 나이 �분이 있엇�...
+				//霌标笁響滌嫓 鞝侅毄鞝 旖旊摐 雮橃戩棎 歆鞗 氩勲Μ鞛 ..; 霌标笁響滌嫓 鞝勳棎電 雮橃澊 甑攵勳澊 鞛堨棁雼...
 				//if(g_AppData.m_bAdult)
 				//	g_MainCharInfo.OpenFrame(LOADING_IMAGE2);
 				//else
@@ -1812,15 +1812,15 @@ void ProcessWindowClose(LPARAM lParam)
 
 				SendCS_NV_ENDGAME_REQ();
 				SET_GAMESTEP( GAMESTEP_INTRO);				
-				XiahObject::g_XiahObjectManager.Release();	// 초기�
+				XiahObject::g_XiahObjectManager.Release();	// 齑堦赴頇
 				g_pMainChar = NULL;
 				g_pIntro->Init_Clear();
 				g_MainCharInfo.Clear();
 
-				// 배경� SKYBOX 텍스� 설정 (고산)
+				// 氚瓣步鞚 SKYBOX 韰嶌姢觳 靹れ爼 (瓿犾偘)
 				//g_SkyBox.ChangeSkyMap(3);
 
-				// 환경 정보 세팅
+				// 頇橁步 鞝曤炒 靹疙寘
 				g_XiahEnvInfo.m_bFog			= TRUE;
 				g_XiahEnvInfo.m_bAmhukmuFog		= FALSE;
 				g_XiahEnvInfo.m_DiffuseColor	= D3DCOLOR_XRGB(255, 255, 255);
@@ -1840,7 +1840,7 @@ void ProcessWindowClose(LPARAM lParam)
 				g_MainCharInfo.m_bCharChange = true;
 				g_MainCharInfo.m_bFastMove	 = false;
 
-				//HT_0403 : �속형 무공 시전 아이�
+				//HT_0403 : 歆靻嶍槙 氍搓车 鞁滌爠 鞎勳澊旖
 				g_MainCharInfo.m_vkeepUpMugongIconList.clear();
 				g_MainCharInfo.m_vkeepUpPetMugongIconList.clear();
 			}
@@ -1853,14 +1853,14 @@ void ProcessWindowClose(LPARAM lParam)
 		case close_window_button_03:
 			//PostMessage( g_AppData.m_hWnd, WM_CLOSE, 0, 0);
 				g_MainCharInfo.CloseFrame( WINDOW_CLOSE);
-				g_pUIManager->ShowNotice( IDS_GAME_SELECTCLOSE, NOTICE_FRAME_OKCANCEL, NOTICE_FRAME_ENDGAME); //HO_0816_07 아이� 드랍� 횅땍
+				g_pUIManager->ShowNotice( IDS_GAME_SELECTCLOSE, NOTICE_FRAME_OKCANCEL, NOTICE_FRAME_ENDGAME); //HO_0816_07 鞎勳澊韰 霌滊瀺鞁 須呺晬
 			break;
 	}
 }
 
 #define MAIN_CHAROBJECT	((CXiahCharObject*)(g_pMainChar->m_pObject))
 
-// 개인 상점 설정�
+// 臧滌澑 靸侅爯 靹れ爼彀
 void ProcessWindowPcStore( LPARAM lParam)
 {
 	int controlID = LOWORD( lParam);
@@ -1879,9 +1879,9 @@ void ProcessWindowPcStore( LPARAM lParam)
 				g_MainCharInfo.m_pHoldItem->SetItemBackToSack();
 		}		
 		break;
-	case pc_store_button_02:  // 판매시작&중�
+	case pc_store_button_02:  // 韺愲Г鞁滌瀾&欷戩
 		{
-			// 죽었을때 제외
+			// 欤届棃鞚勲晫 鞝滌櫢
 			if(!g_MainCharInfo.m_bMainCharDie)
 			{
 				g_MainCharInfo.m_bPersonalTradeSell = !g_MainCharInfo.m_bPersonalTradeSell;
@@ -1891,7 +1891,7 @@ void ProcessWindowPcStore( LPARAM lParam)
 					MAIN_CHAROBJECT->SetAnimation( XiahAniType::eLAT_Stand, 0);
 				}
 
-				// 판매시작/중�� 위치 보정
+				// 韺愲Г鞁滌瀾/欷戩鞁 鞙勳箻 氤挫爼
 				SendCS_NV_ENDMOVE_REQ(g_pMainChar->m_dwServerID, MAIN_CHAROBJECT->m_Position.x, -MAIN_CHAROBJECT->m_Position.z, MAIN_CHAROBJECT->m_Position.y, CHARSTATE_NORMAL);
 
 				SendCS_SH_STATUSCHANGE_REQ((BYTE)g_MainCharInfo.m_bPersonalTradeSell);
@@ -1899,14 +1899,14 @@ void ProcessWindowPcStore( LPARAM lParam)
 		}
 		break;
 		
-	case pc_store_button_03: // 금전회수
+	case pc_store_button_03: // 旮堨爠須岇垬
 		{	
 			if(g_MainCharInfo.m_dwTradeMoney)
 				SendCS_SH_GETMONEY_REQ( g_MainCharInfo.m_dwTradeMoney);
 		}
 		break;
 
-	case pc_store_button_01:  // 호객문구 ��
+	case pc_store_button_01:  // 順戈皾氍戈惮 氤瓴
 		{
 			//LPCTSTR strName;
 			//LPCTSTR strDescription;
@@ -1918,17 +1918,17 @@ void ProcessWindowPcStore( LPARAM lParam)
 			g_pUIManager->GetString(WINDOW_PC_STORE, pc_store_passage_edit_01, strName, GET_STRING);
 			g_pUIManager->GetString(WINDOW_PC_STORE, pc_store_passage_edit_02, strDescription, GET_STRING);
 
-			SendCS_SH_SETSHOP_REQ(strName, strDescription);								   		// 설정 ��
+			SendCS_SH_SETSHOP_REQ(strName, strDescription);								   		// 靹れ爼 氤瓴
 
-			//strName = g_pUIManager->GetString(WINDOW_PC_STORE, pc_store_passage_edit_01);        // 노점�
-			//strDescription = g_pUIManager->GetString(WINDOW_PC_STORE, pc_store_passage_edit_02); // 호객문구
+			//strName = g_pUIManager->GetString(WINDOW_PC_STORE, pc_store_passage_edit_01);        // 雲胳爯氇
+			//strDescription = g_pUIManager->GetString(WINDOW_PC_STORE, pc_store_passage_edit_02); // 順戈皾氍戈惮
 
-			//SendCS_SH_SETSHOP_REQ(strName, strDescription);								   		// 설정 ��
+			//SendCS_SH_SETSHOP_REQ(strName, strDescription);								   		// 靹れ爼 氤瓴
 
 			/*
 
-				strName = ((CIEditBox*)pFrame->GetControl( pc_store_passage_edit_01))->m_Text;            // 노점�
-				strDescription = ((CIEditBox*)pFrame->GetControl( pc_store_passage_edit_02))->m_Text;     // 호객문구
+				strName = ((CIEditBox*)pFrame->GetControl( pc_store_passage_edit_01))->m_Text;            // 雲胳爯氇
+				strDescription = ((CIEditBox*)pFrame->GetControl( pc_store_passage_edit_02))->m_Text;     // 順戈皾氍戈惮
 
 				SendCS_SH_SETSHOP_REQ(strName, strDescription);
 			*/
@@ -1937,8 +1937,8 @@ void ProcessWindowPcStore( LPARAM lParam)
 	} // switch(controlID)
 }
 
-// x각적
-// 문파공�
+// x臧侅爜
+// 氍疙寣瓿奠
 void ProcessWindowGakMessage(LPARAM lParam)
 {
 	int controlID = LOWORD(lParam);
@@ -1946,7 +1946,7 @@ void ProcessWindowGakMessage(LPARAM lParam)
 
 	switch(nEventType)
 	{
-	case GAK_MSG_WINDOW_MSG:	// 각적
+	case GAK_MSG_WINDOW_MSG:	// 臧侅爜
 		{
 			switch(controlID)
 			{
@@ -1965,7 +1965,7 @@ void ProcessWindowGakMessage(LPARAM lParam)
 					case 4:
 						bTemp = CT_SAYITEM_CHANNEL;
 						break;
-					case 8:	// 황금각적
+					case 8:	// 頇╆笀臧侅爜
 						bTemp = 15;
 						break;
 					} // switch(g_MainCharInfo.m_nTempValue)
@@ -1987,7 +1987,7 @@ void ProcessWindowGakMessage(LPARAM lParam)
 			} // switch(controlID)
 		}
 		break;
-	case GAK_MSG_WINDOW_MUNPA:	// 문파공�
+	case GAK_MSG_WINDOW_MUNPA:	// 氍疙寣瓿奠
 		{
 			switch(controlID)
 			{
@@ -2013,7 +2013,7 @@ void ProcessWindowGakMessage(LPARAM lParam)
 	}
 }
 
-// 동신�
+// 霃欖嫚鞝
 void ProcessWindowDongSin(LPARAM lParam)
 {
 	int controlID = LOWORD( lParam);
@@ -2027,16 +2027,16 @@ void ProcessWindowDongSin(LPARAM lParam)
 			CXiahCharObject* pMainChar = (CXiahCharObject*)g_pMainChar->m_pObject;
 			if(!g_MainCharInfo.m_bPortalMove)
 			{
-				// � 비�
+				// 雼 牍勲
 				if( pMainChar->m_dwPartyID && pMainChar->m_dwEnemyPartyID )
                     g_MainCharInfo.ShowHelpMessage(IDS_NOTPORTALMOVE_INDANBATTLE);
-				else	// 이벤� 아이� �용�
+				else	// 鞚措菠韸 鞎勳澊韰 靷鞖╈
 					g_MainCharInfo.ShowHelpMessage(IDS_NOTPORTALMOVE);
 
 				return;
 			}
 
-			// 아이템을 �용하� 이동한다.
+			// 鞎勳澊韰滌潉 靷鞖╉晿鞐 鞚措彊頃滊嫟.
 			g_MainCharInfo.m_bMainCharMapMoveItemUse = TRUE;
 
 			g_MainCharInfo.ShowHelpMessage( IDS_MOVE_ITEMUSE );
@@ -2057,7 +2057,7 @@ void ProcessWindowDongSin(LPARAM lParam)
 
 
 /**
- * 전낭
+ * 鞝勲偔
  * \param lParam 
  */
 void ProcessWindowPurse(LPARAM lParam)
@@ -2072,13 +2072,13 @@ void ProcessWindowPurse(LPARAM lParam)
 		{
 			__int64 nTemp = _tstoi64(static_cast<LPCTSTR>(g_pUIManager->GetString(WINDOW_PURSE, window_purse_edit)));
 
-			if( nTemp > 2100000000)  // 21� 이상 입력 불가
+			if( nTemp > 2100000000)  // 21鞏 鞚挫儊 鞛呺牓 攵堦皜
 			{
 				g_MainCharInfo.ShowHelpMessage(IDS_MANY_MONEY, TEXTEFFECT_COLOR_WARNING);
 				return;
 			} // if( nTemp > 2100000000)
 
-			// 1억전까� 거래 �능하� 서버� �킷날릴때 DWORD�...
+			// 1鞏奠爠旯岇 瓯半灅 臧電ロ晿瓿 靹滊矂鞐 韺韨冯偁毽措晫 DWORD搿...
 			DWORD dwAmount = static_cast<DWORD>(nTemp);
 
 			if(dwAmount > 0)
@@ -2110,7 +2110,7 @@ void ProcessWindowPurse(LPARAM lParam)
 }
 
 /**
- * 문파 현황
+ * 氍疙寣 順勴櫓
  * \param lParam 
  */
 void ProcessWindowMunpaBBSTop(LPARAM lParam)
@@ -2126,7 +2126,7 @@ void ProcessWindowMunpaBBSTop(LPARAM lParam)
 		}
 		break;
 
-	case munpa_bbs_top_money_button:	// 세금회수
+	case munpa_bbs_top_money_button:	// 靹戈笀須岇垬
 		{
 			CXiahCharObject* pMainChar = reinterpret_cast<CXiahCharObject*>(g_pMainChar->m_pObject);
 
@@ -2135,10 +2135,10 @@ void ProcessWindowMunpaBBSTop(LPARAM lParam)
 		}
 		break;
 
-	case munpa_bbs_top_button_01:		// 문파 현황
+	case munpa_bbs_top_button_01:		// 氍疙寣 順勴櫓
 		break;
 
-	case munpa_bbs_top_button_02:		// 공� �� (�스트)
+	case munpa_bbs_top_button_02:		// 瓿奠 靷頃 (毽鞀ろ姼)
 		{
 			if(g_MainCharInfo.m_pListClient)
 				delete g_MainCharInfo.m_pListClient, g_MainCharInfo.m_pListClient = NULL;
@@ -2148,14 +2148,14 @@ void ProcessWindowMunpaBBSTop(LPARAM lParam)
 
 			CXiahCharObject* pMainChar = reinterpret_cast<CXiahCharObject*>(g_pMainChar->m_pObject);
 			if(pMainChar)
-				SendCS_RL_MUNPABBSLIST_REQ(pMainChar->m_dwMunpaID);		// �스트 요청
+				SendCS_RL_MUNPABBSLIST_REQ(pMainChar->m_dwMunpaID);		// 毽鞀ろ姼 鞖旍箔
 
 			g_MainCharInfo.CloseFrame(WINDOW_MUNPA_BBS_TOP);
 			g_MainCharInfo.OpenFrame(WINDOW_MUNPA_BBS_LIST);
 		}
 		break;
 
-	case munpa_bbs_top_button_03:		// 공� 기�
+	case munpa_bbs_top_button_03:		// 瓿奠 旮半
 		{
 			g_MainCharInfo.CloseFrame(WINDOW_MUNPA_BBS_TOP);
 
@@ -2164,7 +2164,7 @@ void ProcessWindowMunpaBBSTop(LPARAM lParam)
 		}
 		break;
 
-	case munpa_bbs_top_button_04:		// ��
+	case munpa_bbs_top_button_04:		// 靷鞝
 		break;
 
 	default:
@@ -2173,7 +2173,7 @@ void ProcessWindowMunpaBBSTop(LPARAM lParam)
 }
 
 /**
- * 문파 게시� �스트
+ * 氍疙寣 瓴岇嫓韺 毽鞀ろ姼
  * \param lParam 
  */
 void ProcessWindowMunpaBBSList(LPARAM lParam)
@@ -2191,7 +2191,7 @@ void ProcessWindowMunpaBBSList(LPARAM lParam)
 		}
 		break;
 
-	case munpa_bbs_list_button_01:		// 현황
+	case munpa_bbs_list_button_01:		// 順勴櫓
 		{
 			g_MainCharInfo.CloseFrame(WINDOW_MUNPA_BBS_LIST);
 			g_MainCharInfo.OpenFrame(WINDOW_MUNPA_BBS_TOP);
@@ -2202,7 +2202,7 @@ void ProcessWindowMunpaBBSList(LPARAM lParam)
 		break;
 	case munpa_bbs_list_button_02:		
 		break;
-	case munpa_bbs_list_button_03:		// 기�
+	case munpa_bbs_list_button_03:		// 旮半
 		{
 			g_MainCharInfo.CloseFrame(WINDOW_MUNPA_BBS_LIST);
 
@@ -2213,7 +2213,7 @@ void ProcessWindowMunpaBBSList(LPARAM lParam)
 			g_pUIManager->SetFocus(WINDOW_MUNPA_BBS_WRITE, munpa_bbs_write_edit);
 		}
 		break;
-	case munpa_bbs_list_button_04:		// ��
+	case munpa_bbs_list_button_04:		// 靷鞝
 		{
 			if(g_MainCharInfo.m_pListClient)
 			{
@@ -2228,7 +2228,7 @@ void ProcessWindowMunpaBBSList(LPARAM lParam)
 }
 
 /**
- * BBS 읽기
+ * BBS 鞚疥赴
  * \param lParam 
  */
 void ProcessWindowMunpaBBSRead(LPARAM lParam)
@@ -2242,14 +2242,14 @@ void ProcessWindowMunpaBBSRead(LPARAM lParam)
 		g_MainCharInfo.CloseFrame(WINDOW_MUNPA_BBS_READ);
 		break;
 
-	case munpa_bbs_read_button_01:			// 현황
+	case munpa_bbs_read_button_01:			// 順勴櫓
 		{
 			g_MainCharInfo.CloseFrame(WINDOW_MUNPA_BBS_READ);
 			g_MainCharInfo.OpenFrame(WINDOW_MUNPA_BBS_TOP);
 		}
 		break;
 
-	case munpa_bbs_read_button_02:			// 공� �� (�스트)
+	case munpa_bbs_read_button_02:			// 瓿奠 靷頃 (毽鞀ろ姼)
 		{
 			if(g_MainCharInfo.m_pListClient)
 				delete g_MainCharInfo.m_pListClient, g_MainCharInfo.m_pListClient = NULL;
@@ -2258,20 +2258,20 @@ void ProcessWindowMunpaBBSRead(LPARAM lParam)
 			g_MainCharInfo.m_pListClient->Set(760, 80, 240, 20);
 
 			CXiahCharObject* pMainChar = reinterpret_cast<CXiahCharObject*>(g_pMainChar->m_pObject);
-			SendCS_RL_MUNPABBSLIST_REQ(pMainChar->m_dwMunpaID);			// �스트 요청
+			SendCS_RL_MUNPABBSLIST_REQ(pMainChar->m_dwMunpaID);			// 毽鞀ろ姼 鞖旍箔
 
 			g_MainCharInfo.CloseFrame(WINDOW_MUNPA_BBS_READ);
 			g_MainCharInfo.OpenFrame(WINDOW_MUNPA_BBS_LIST);
 		}
 		break;
-	case munpa_bbs_read_button_03:			// 기�
+	case munpa_bbs_read_button_03:			// 旮半
 		{
 			g_MainCharInfo.CloseFrame(WINDOW_MUNPA_BBS_READ);
 			g_MainCharInfo.OpenFrame(WINDOW_MUNPA_BBS_WRITE);
 			g_pUIManager->SetFocus(WINDOW_MUNPA_BBS_WRITE, munpa_bbs_write_edit);
 		}
 		break;
-	case munpa_bbs_read_button_04:			// ��
+	case munpa_bbs_read_button_04:			// 靷鞝
 		{
 			if(g_MainCharInfo.m_pListClient)
 			{
@@ -2288,7 +2288,7 @@ void ProcessWindowMunpaBBSRead(LPARAM lParam)
 }
 
 /**
- * BBS 기�
+ * BBS 旮半
  * \param lParam 
  */
 void ProcessWindowMunpaBBSWrite(LPARAM lParam)
@@ -2423,7 +2423,7 @@ void ProcessWindowMunpaBBSWrite(LPARAM lParam)
 }
 
 /**
- * 기부� 납부
+ * 旮半秬旮 雮╇秬
  * \param lParam 
  */
 void ProcessWindowMunpaDonate(LPARAM lParam)
@@ -2434,7 +2434,7 @@ void ProcessWindowMunpaDonate(LPARAM lParam)
 	switch(nControlID)
 	{
 	case munpa_donate_edit:
-	case munpa_donate_check_button:		// 기부� 횅땍
+	case munpa_donate_check_button:		// 旮半秬旮 須呺晬
 		{
 			int nTemp = _tstoi(static_cast<LPCTSTR>(g_pUIManager->GetString(WINDOW_MUNPA_DONATE, munpa_donate_edit)));
 
@@ -2446,7 +2446,7 @@ void ProcessWindowMunpaDonate(LPARAM lParam)
 		}
 		break;
 
-	case munpa_donate_button_01:		// 납부
+	case munpa_donate_button_01:		// 雮╇秬
 		{
 			int nTemp = _tstoi(static_cast<LPCTSTR>(g_pUIManager->GetString(WINDOW_MUNPA_DONATE, munpa_donate_edit)));
 
@@ -2475,7 +2475,7 @@ void ProcessWindowMunpaDonate(LPARAM lParam)
 }
 
 /**
- * 문파� 신청
+ * 氍疙寣鞝 鞁犾箔
  * \param lParam 
  */
 void ProcessWindowMunpaWarPetition(LPARAM lParam)
@@ -2515,7 +2515,7 @@ void ProcessWindowMunpaWarPetition(LPARAM lParam)
 					_tcscpy(strTemp[i], strDay);
 
 
-					// 툴팁
+					// 韴错寔
 					nTime = pInfo->dwRealTime;
 					
 					if(nTime <= 11)
@@ -2588,7 +2588,7 @@ void ProcessWindowMunpaWarPetition(LPARAM lParam)
 
 
 /**
- * 전서�
+ * 鞝勳劀甑
  * \param lParam 
  */
 void ProcessWindowMail(LPARAM lParam)
@@ -2601,7 +2601,7 @@ void ProcessWindowMail(LPARAM lParam)
 		CloseAllWindow();
 		//g_MainCharInfo.CloseFrame(WINDOW_MAIL);
 		break;
-	case window_mail_button_01:		// 읽기
+	case window_mail_button_01:		// 鞚疥赴
 			g_pUIManager->SetString(WINDOW_MAIL, window_mail_button_04, IDS_REPLY);
 			g_pUIManager->SetString(WINDOW_MAIL, window_mail_input_dummy_01, IDS_MAIL_01);
 			g_pUIManager->SetData(WINDOW_MAIL, window_mail_top_edit_01, EDITMODE, NOEDIT);
@@ -2613,11 +2613,11 @@ void ProcessWindowMail(LPARAM lParam)
 			g_MainCharInfo.OpenFrame(WINDOW_MAIL_SELECT);
 		break;
 
-	case window_mail_button_02:		// 쓰기
+	case window_mail_button_02:		// 鞊瓣赴
 		{
 			g_pUIManager->SetData(WINDOW_MAIL, window_mail_top_edit_01, EDITMODE, EDIT);
 			g_pUIManager->SetString(WINDOW_MAIL, window_mail_button_04, IDS_SEND);
-			// 보낸 �람에� 받는 �람으�
+			// 氤措偢 靷霝岇棎靹 氚涬姅 靷霝岇溂搿
 			g_pUIManager->SetString(WINDOW_MAIL, window_mail_input_dummy_01, IDS_MAIL_TITLE_02);
 
 			g_pUIManager->SetString(WINDOW_MAIL, window_mail_top_edit_01, _T(""));
@@ -2634,7 +2634,7 @@ void ProcessWindowMail(LPARAM lParam)
 		}
 		break;
 
-	case window_mail_button_03:		// ��
+	case window_mail_button_03:		// 靷鞝
 		{
 			g_MainCharInfo.CloseFrame(WINDOW_MAIL_SELECT);
 			g_pUIManager->ShowNotice(IDS_YESNO_DELETE, NOTICE_FRAME_OKCANCEL, NOTICE_FRAME_MAIL_DELETE);
@@ -2643,7 +2643,7 @@ void ProcessWindowMail(LPARAM lParam)
 		}
 		break;
 
-	case window_mail_button_04:		// 회신&전송
+	case window_mail_button_04:		// 須岇嫚&鞝勳啞
 		{
 			TCHAR szText[100] = {0,};
 			_stprintf(szText,IDS_YESNO_SENDMAIL,g_Mail.Get_Checked_SendList(),g_Mail.Get_Amonut());
@@ -2653,19 +2653,19 @@ void ProcessWindowMail(LPARAM lParam)
 		}
 		break;
 
-	case window_mail_button_left:	// �
+	case window_mail_button_left:	// 霋
 		g_Mail.Back_Recv_Page();
 		break;
-	case window_mail_button_right:	// �
+	case window_mail_button_right:	// 鞎
 		g_Mail.Next_Recv_Page();
 		break;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	case window_mail_top_edit_01:	// 보낸�� 엔터� 제�으�
+	case window_mail_top_edit_01:	// 氤措偢靷霝 鞐旐劙鞁 鞝滊╈溂搿
 		g_pUIManager->SetFocus(WINDOW_MAIL, window_mail_top_edit_02);
 		break;
-	case window_mail_top_edit_02:	// 제�에� 내용 � �
+	case window_mail_top_edit_02:	// 鞝滊╈棎靹 雮挫毄 觳 欷
 		g_pUIManager->SetFocus(WINDOW_MAIL, window_mail_edit_01);
 		break;
 
@@ -2728,7 +2728,7 @@ void ProcessWindowMail(LPARAM lParam)
 }
 
 /**
- * 전서� 선택
+ * 鞝勳劀甑 靹犿儩
  * \param lParam 
  */
 void ProcessWindowMailSelect(LPARAM lParam)
@@ -2740,21 +2740,21 @@ void ProcessWindowMailSelect(LPARAM lParam)
 	case window_mail_select_close :
 		g_MainCharInfo.CloseFrame(WINDOW_MAIL_SELECT);
 		break;
-	case window_mail_select_button_left:	// 다음 버튼
+	case window_mail_select_button_left:	// 雼れ潓 氩勴娂
 		g_Mail.Back_Page();
 		break;
-	case window_mail_select_button_right:	// 이전
+	case window_mail_select_button_right:	// 鞚挫爠
 		g_Mail.Next_Page();
 		break;
-	case window_mail_select_button_01:		// 문파 선택
+	case window_mail_select_button_01:		// 氍疙寣 靹犿儩
 		g_Mail.CheckedMunpaAll_SendList();
 		g_Mail.Reflash_MAIL_Select();
 		break;
-	case window_mail_select_button_02:		// 전체 선택
+	case window_mail_select_button_02:		// 鞝勳泊 靹犿儩
 		g_Mail.CheckedAll_SendList();
 		g_Mail.Reflash_MAIL_Select();
 		break;
-	case window_mail_select_button_03:		// 전체 해제
+	case window_mail_select_button_03:		// 鞝勳泊 頃挫牅
 		g_Mail.UncheckedAll_SendList();
 		g_Mail.Reflash_MAIL_Select();
 		break;
@@ -2764,7 +2764,7 @@ void ProcessWindowMailSelect(LPARAM lParam)
 }
 
 /**
- * 전서� 전송 횅땍
+ * 鞝勳劀甑 鞝勳啞 須呺晬
  * \param lParam 
  */
 void ProcessWindowMailResult(LPARAM lParam)
@@ -2776,7 +2776,7 @@ void ProcessWindowMailResult(LPARAM lParam)
 	case window_mail_result_close:
 		g_MainCharInfo.CloseFrame(WINDOW_MAIL_RESULT);
 		break;
-	case window_mail_result_button_01:		// 횅땍
+	case window_mail_result_button_01:		// 須呺晬
 		g_MainCharInfo.CloseFrame(WINDOW_MAIL_RESULT);
 		g_MainCharInfo.OpenFrame(WINDOW_MAIL_SELECT);
 		break;
@@ -2807,7 +2807,7 @@ void ProcessWindowCommon(LPARAM lParam)
 			{
 				__int64 nTemp = _tstoi64(static_cast<LPCTSTR>(g_pUIManager->GetString(WINDOW_COMMON, window_common_edit)));
 
-				if( nTemp > 2100000000)  // 21� 이상 입력 불가
+				if( nTemp > 2100000000)  // 21鞏 鞚挫儊 鞛呺牓 攵堦皜
 				{
 					g_MainCharInfo.ShowHelpMessage(IDS_MANY_MONEY, TEXTEFFECT_COLOR_WARNING);
 					return;
@@ -2838,7 +2838,7 @@ void ProcessWindowCommon(LPARAM lParam)
 }
 
 /**
-* � 거래 정보
+* 韼 瓯半灅 鞝曤炒
 * \param lParam 
 */
 void ProcessWindowPetTrade(LPARAM lParam)
@@ -2861,7 +2861,7 @@ void ProcessWindowPetTrade(LPARAM lParam)
 }
 
 /**
- * 복권 번호
+ * 氤店秾 氩堩樃
  * \param lParam 
  */
 void ProcessWindowBokNumber(LPARAM lParam)
@@ -2876,18 +2876,18 @@ void ProcessWindowBokNumber(LPARAM lParam)
 			g_MainCharInfo.CloseFrame(WINDOW_BOK_NUMBER);
 		}
 		break;
-	case bok_number_button_01:	// ��
+	case bok_number_button_01:	// 甑鞛
 		{
 			int nCount =0;
 
-			// 선택된개� ��
+			// 靹犿儩霅滉皽靾 瓴靷
 			for(int i=0; i < 25; ++i)
 			{
 				if(g_pUIManager->GetData(WINDOW_BOK_NUMBER, bok_number_number_button_01 + i, GET_CURRENT_INDEX) == 2)
 					++nCount;
 			}
 
-			if(nCount == 4)	// 4� 선택이면 OK
+			if(nCount == 4)	// 4臧 靹犿儩鞚措┐ OK
 			{
 				BYTE bySelect[4];
 				nCount =0;
@@ -2909,37 +2909,37 @@ void ProcessWindowBokNumber(LPARAM lParam)
 			{
 				if(nCount < 4)
 				{
-					// 4� 미선�
+					// 4臧 氙胳劆韮
 					g_MainCharInfo.ShowHelpMessage(IDS_LOTTO_SELECT_NOT, TEXTEFFECT_COLOR_WARNING);
 				} // if(nCount < 4)
 				else if(nCount > 4)
 				{
-					// 선택개수 초과
+					// 靹犿儩臧滌垬 齑堦臣
 					g_MainCharInfo.ShowHelpMessage(IDS_LOTTO_SELECT_NOT_2, TEXTEFFECT_COLOR_WARNING);
 				}
 			}
 		}
 		break;
-	case bok_number_button_03:	// 예상당첨금액 횅땍
+	case bok_number_button_03:	// 鞓堨儊雼轨波旮堨暋 須呺晬
 		{
 			SendCS_EC_LOTTOSALEINFO_REQ();
 		}
 		break;
 	default:
 		{
-			// 복권 번호일때
+			// 氤店秾 氩堩樃鞚茧晫
 			if(nControlID >= bok_number_number_button_01 && nControlID <= bok_number_number_button_25)
 			{
 				int nCount =0;
 
-				// 선택된개� ��
+				// 靹犿儩霅滉皽靾 瓴靷
 				for(int i=0; i < 25; ++i)
 				{
 					if(g_pUIManager->GetData(WINDOW_BOK_NUMBER, bok_number_number_button_01 + i, GET_CURRENT_INDEX) == 2)
 						++nCount;
 				}
 
-				// 4개이상일 경우 �
+				// 4臧滌澊靸侅澕 瓴届毎 雭
 				if(nCount >= 4)
 					break;
 
@@ -2952,7 +2952,7 @@ void ProcessWindowBokNumber(LPARAM lParam)
 }
 
 /**
- * 복권 당첨번호
+ * 氤店秾 雼轨波氩堩樃
  * \param lParam 
  */
 void ProcessWindowBokPrize(LPARAM lParam)
@@ -2966,13 +2966,13 @@ void ProcessWindowBokPrize(LPARAM lParam)
 			g_MainCharInfo.CloseFrame(WINDOW_BOK_PRIZE);
 		}
 		break;
-	case bok_prize_button_01:	// �난회� 당첨번호
+	case bok_prize_button_01:	// 歆雮滍殞彀 雼轨波氩堩樃
 		{
 			SendCS_EC_PRIZELOTTOINFO_REQ(0);
 		}
 		break;
 
-	case bok_prize_button_02:	// 이번회차 당첨번호
+	case bok_prize_button_02:	// 鞚措矆須岇皑 雼轨波氩堩樃
 		{
 			SendCS_EC_PRIZELOTTOINFO_REQ(1);
 		}
@@ -2984,7 +2984,7 @@ void ProcessWindowBokPrize(LPARAM lParam)
 }
 
 /**
- * 문파 마크 (앞으� 다른용도� 이용��)
+ * 氍疙寣 毵堩伂 (鞎烄溂搿 雼るジ鞖╇弰搿 鞚挫毄臧電)
  * \param lParam 
  */
 void ProcessWindowMark(LPARAM lParam)
@@ -2993,7 +2993,7 @@ void ProcessWindowMark(LPARAM lParam)
 	
 	switch(nControlID)
 	{
-	case mark_window_button_01:		// 횅땍
+	case mark_window_button_01:		// 須呺晬
 		{
 			TCHAR strFile[128] = {0,};
 			_stprintf(strFile, "mark.bmp");
@@ -3012,7 +3012,7 @@ Check:	// goto
 					break;
 				}
 
-				// mark.bmp.bmp 파일� �� (일부 유저� 파일� 이렇� 만드� 경우� 있다.)
+				// mark.bmp.bmp 韺岇澕霃 瓴靷 (鞚茧秬 鞙犾爛臧 韺岇澕鞚 鞚措爣瓴 毵岆摐電 瓴届毎臧 鞛堧嫟.)
 				_stprintf(strFile, "mark.bmp.bmp");
 				bCheck = true;
 
@@ -3020,7 +3020,7 @@ Check:	// goto
 			}
 			else
 			{
-				// bmp�
+				// bmp毵
 				if(imageinfo.ImageFileFormat != D3DXIFF_BMP)
 				{
 					g_MainCharInfo.ShowHelpMessage(IDS_MUNPAMARK_NOBMP, TEXTEFFECT_COLOR_WARNING);
@@ -3028,7 +3028,7 @@ Check:	// goto
 					break;					
 				}
 
-				// 16x16�기�
+				// 16x16韥旮半
 				if(imageinfo.Width != 16 || imageinfo.Height != 16)
 				{
 					g_MainCharInfo.ShowHelpMessage(IDS_MUNPAMARK_MISTAKEN, TEXTEFFECT_COLOR_WARNING);
@@ -3036,7 +3036,7 @@ Check:	// goto
 					break;					
 				}
 
-				// 24비트�
+				// 24牍勴姼毵
 				if(imageinfo.Format != D3DFMT_R8G8B8)
 				{
 					g_MainCharInfo.ShowHelpMessage(IDS_MUNPAMARK_24BPP, TEXTEFFECT_COLOR_WARNING);
@@ -3048,10 +3048,10 @@ Check:	// goto
 			FILE* fp = NULL;
 			if((fp = _tfopen(strFile, _T("rb"))) != NULL)
 			{
-				// 서버에는 헤드� 제거� 순수 이��� 들어� 있다.				
-				// 이유� 이��� 문자열� 보내는데 0이면 문자열에� null이기� 문제� �/서버 � 생긴�.
-				// 그래� 헤드� 제거하고
-				// 이�� 0� 1� ��
+				// 靹滊矂鞐愲姅 項る摐毳 鞝滉卑頃 靾滌垬 鞚措胳毵 霌れ柎臧 鞛堧嫟.				
+				// 鞚挫湢電 鞚措胳毳 氍胳瀽鞐措 氤措偞電旊嵃 0鞚措┐ 氍胳瀽鞐挫棎靹 null鞚搓赴鞐 氍胳牅臧 韥/靹滊矂 雼 靸濌复雼.
+				// 攴鸽灅靹 項る摐電 鞝滉卑頃橁碃
+				// 鞚措胳 0鞚 1搿 氤瓴
 
 				BITMAPFILEHEADER BMPfileHeader;
 				BITMAPINFOHEADER BMPinfoHeader;
@@ -3093,7 +3093,7 @@ Check:	// goto
 			}
 		}
 		break;
-	case mark_window_button_02:		// ��
+	case mark_window_button_02:		// 旆靻
 		{
 			g_MainCharInfo.CloseFrame(MESSAGE_WINDOW_MARK);
 		}
@@ -3104,7 +3104,7 @@ Check:	// goto
 }
 
 /**
- * 조합�
+ * 臁绊暕彀
  * \param lParam 
  */
 void ProcessWindowSmelt(LPARAM lParam)
@@ -3130,7 +3130,7 @@ void ProcessWindowSmelt(LPARAM lParam)
 			BYTE bIsDividedRes = 0;
 			int nItemCount = 0;
 
-			// 행낭 6 * 4 �� ��
+			// 頄夒偔 6 * 4 韥旮 瓴靷
 			for(int i=0; i < 24; ++i)
 			{
 				pItemInfo = g_MainCharInfo.m_pSmeltSack->FindSackItemByPos(i);
@@ -3139,7 +3139,7 @@ void ProcessWindowSmelt(LPARAM lParam)
 				{
 					++nItemCount;
 
-					// 망치 조합
+					// 毵濎箻 臁绊暕
 					switch(pItemInfo->m_wRefID)
 					{
 					case 21039:
@@ -3155,12 +3155,12 @@ void ProcessWindowSmelt(LPARAM lParam)
 						break;
 					}
 
-					// 이벤� �� � 광���...
+					// 鞚措菠韸 韮鞛 氚 甏戨检诫...
 					switch(pItemInfo->m_bItemType)
 					{
 					case ITEMTYPE_EVENT:
 					case ITEMTYPE_REBUILDRES:
-						// �, �
+						// 雮, 靾
 					case 18:
 					case 20:
 						{
@@ -3168,7 +3168,7 @@ void ProcessWindowSmelt(LPARAM lParam)
 							{
 								if(!(pItemInfo->m_bItemType == 18 || pItemInfo->m_bItemType == 20))
 								{
-									// 다른 �입인� ��
+									// 雼るジ 韮鞛呾澑歆 瓴靷
 									if(bItemType != pItemInfo->m_bItemType)
 									{
 										g_MainCharInfo.ShowHelpMessage(IDS_MIXTURE_BADITEM, TEXTEFFECT_COLOR_WARNING);				
@@ -3199,7 +3199,7 @@ void ProcessWindowSmelt(LPARAM lParam)
 				}
 			}
 
-			// 조합� 아이템이 없을�
+			// 臁绊暕頃 鞎勳澊韰滌澊 鞐嗢潉鞁
 			if(!nItemCount)
 			{
 				g_MainCharInfo.ShowHelpMessage(IDS_MIXTURE_ITEM, TEXTEFFECT_COLOR_WARNING);
@@ -3207,18 +3207,18 @@ void ProcessWindowSmelt(LPARAM lParam)
 				return;
 			}
 
-			if(bItemType == ITEMTYPE_EVENT)				// 9� ��, 7� 보석
+			if(bItemType == ITEMTYPE_EVENT)				// 9臧 歆霃, 7臧 氤挫劃
 			{
-				// [2/1/2005] 설날 �래떡
+				// [2/1/2005] 靹る偁 臧霝橂枴
 				if(5 == bItemKind)
 				{							
 					SendCS_IM_VARIENTITEM_REQ(0);
 				}
-				else if(8 == bItemKind)	// [1/13/2006] 이�� 조합
+				else if(8 == bItemKind)	// [1/13/2006] 鞚措胳 臁绊暕
 				{
 					SendCS_IM_EVENTPUZZLE_REQ(g_MainCharInfo.m_dwPickedObject);
 				}
-				else if(10 == bItemKind)	//HT_0523 선� 상자 조합
+				else if(10 == bItemKind)	//HT_0523 靹犽 靸侅瀽 臁绊暕
 				{
 					SendCS_IM_VARIENTITEM_REQ(2);
 				}
@@ -3227,11 +3227,11 @@ void ProcessWindowSmelt(LPARAM lParam)
 					SendCS_IM_PUZZLEITEM_REQ(0);
 				}					
 			}
-			else if(bItemType == ITEMTYPE_REBUILDRES)	// �
+			else if(bItemType == ITEMTYPE_REBUILDRES)	// 攵
 			{	
 				if(bIsDividedRes != 1)
 				{
-					// ��
+					// 氤膦
 					SendCS_IM_VARIENTITEM_REQ(1);
 				}
 				else
@@ -3239,7 +3239,7 @@ void ProcessWindowSmelt(LPARAM lParam)
 					SendCS_IM_REJOINITEM_REQ(0);
 				}					
 			}
-			else if(bItemType == 18 || bItemType == 20)	// �/� 아이� 조합
+			else if(bItemType == 18 || bItemType == 20)	// 雮/靾 鞎勳澊韰 臁绊暕
 			{
 				SendCS_IM_MIXITEM_REQ(0);
 			}
@@ -3251,7 +3251,7 @@ void ProcessWindowSmelt(LPARAM lParam)
 
 
 /**
- * 오행
+ * 鞓ろ枆
  * \param lParam 
  */
 void ProcessWindowFiveElement(LPARAM lParam)
@@ -3282,7 +3282,7 @@ void ProcessWindowFiveElement(LPARAM lParam)
 		ProcessClickMugongButton(4);
 		break;
 
-		// 오행 수치 ���
+		// 鞓ろ枆 靾橃箻 鞓毽旮
 	case fiveelements_window_exp_up_01:
 		{
 			SendCS_IF_EXECFIVEELM_REQ(1);
@@ -3309,7 +3309,7 @@ void ProcessWindowFiveElement(LPARAM lParam)
 		}		
 		break;
 
-		// 오행 선택
+		// 鞓ろ枆 靹犿儩
 	case fiveelements_window_button_fire:
 		{
 			SendCS_IF_CHANGEFIVEELM_REQ(1);
@@ -3349,7 +3349,7 @@ void ProcessWindowFiveElement(LPARAM lParam)
 }
 
 /**
- * 오행 제련
+ * 鞓ろ枆 鞝滊牗
  * \param lParam 
  */
 void ProcessWindowFiveElementConvert(LPARAM lParam)
@@ -3366,7 +3366,7 @@ void ProcessWindowFiveElementConvert(LPARAM lParam)
 		break;
 	case fiveelements_convert_window_button_01:	
 		{
-			// 만일 들고 있는중에 개조하면 들고있는것을 되돌린다.
+			// 毵岇澕 霌り碃 鞛堧姅欷戩棎 臧滌“頃橂┐ 霌り碃鞛堧姅瓴冹潉 霅橂弻毽半嫟.
 			if(NULL != g_MainCharInfo.m_pHoldItem)
 			{
 				g_MainCharInfo.m_pHoldItem->SetItemBackToSack();
@@ -3415,7 +3415,7 @@ void ProcessWindowFiveElementConvert(LPARAM lParam)
 					bResourcePos3 = pResourceItem->m_bSackPosPrev;
 				}
 
-				// 개조자원� 없으� 개조� 불가능하�
+				// 臧滌“鞛愳洂鞚 鞐嗢溂氅 臧滌“臧 攵堦皜電ロ晿雼
 				if(NULL != g_MainCharInfo.m_pFEConvert->FindSackItemByPos(1))
 				{					
 					DWORD dwSackID = pItem->m_bSackIDPrev + 1;					
@@ -3437,10 +3437,10 @@ void ProcessWindowFiveElementConvert(LPARAM lParam)
 }
 
 /**
- * �� 내용
+ * 雽頇 雮挫毄
  * \param lParam 
  */
-//HO_0410_07 상서� �이드 업데이트
+//HO_0410_07 靸侅劀霠 臧鞚措摐 鞐呺嵃鞚错姼
 void ProcessWindowHelperScript(LPARAM lParam)
 {
 	int nControlID = LOWORD(lParam);
@@ -3463,10 +3463,10 @@ void ProcessWindowHelperScript(LPARAM lParam)
 }
 
 /**
- * �� 내용1
+ * 雽頇 雮挫毄1
  * \param lParam 
  */
-void ProcessWindowHelperList(LPARAM lParam)//HO_0410_07 상서� �이드 업데이트 
+void ProcessWindowHelperList(LPARAM lParam)//HO_0410_07 靸侅劀霠 臧鞚措摐 鞐呺嵃鞚错姼 
 {
 	int nControlID = LOWORD(lParam);
 
@@ -3488,10 +3488,10 @@ void ProcessWindowHelperList(LPARAM lParam)//HO_0410_07 상서� �이드 업데
 }
 
 /**
- * �� 내용
+ * 雽頇 雮挫毄
  * \param lParam 
  */
-//HO_0410_07 상서� �이드 업데이트 : 업데이트 적용� 스크립트� 탐랑 스크립트� ��
+//HO_0410_07 靸侅劀霠 臧鞚措摐 鞐呺嵃鞚错姼 : 鞐呺嵃鞚错姼 鞝侅毄鞝 鞀ろ伂毽巾姼毳 韮愲瀾 鞀ろ伂毽巾姼搿 氤頇
 void ProcessWindowTamRangScript(LPARAM lParam)
 {
 	int nControlID = LOWORD(lParam);
@@ -3513,7 +3513,7 @@ void ProcessWindowTamRangScript(LPARAM lParam)
 	}
 }
 
-void ProcessWindowQuickScript(LPARAM lParam)//HO_0413 : � �이드 스크립트
+void ProcessWindowQuickScript(LPARAM lParam)//HO_0413 : 韤 臧鞚措摐 鞀ろ伂毽巾姼
 {
 	int nControlID = LOWORD(lParam);
 
@@ -3536,7 +3536,7 @@ void ProcessWindowQuickScript(LPARAM lParam)//HO_0413 : � �이드 스크립트
 
 
 /**
- * 아이� 복구
+ * 鞎勳澊韰 氤店惮
  * \param lParam 
  */
 void ProcessWindowRecovery(LPARAM lParam)
@@ -3615,7 +3615,7 @@ void ProcessWindowRecovery(LPARAM lParam)
 }
 
 /**
-* � 경험� 분배
+* 雼 瓴巾棙旃 攵勲鞍
 * \param lParam 
 */
 void ProcessWindowDanNew(LPARAM lParam)
@@ -3631,23 +3631,23 @@ void ProcessWindowDanNew(LPARAM lParam)
 			g_MainCharInfo.CloseFrame(WINDOW_DAN_NEW);
 		}		
 		break;
-	case window_dan_new_button1:	// �
+	case window_dan_new_button1:	// 雼
 		//g_MainCharInfo.m_pRelation->SetCurrType( eDAN);
 		break;
-	case window_dan_new_button2:	// 인연
+	case window_dan_new_button2:	// 鞚胳棸
 		g_MainCharInfo.m_pRelation->SetCurrType( eShip);
 		break;
-	case window_dan_new_button3:	// 문파
+	case window_dan_new_button3:	// 氍疙寣
 		g_MainCharInfo.m_pRelation->SetCurrType( eClan);
 		break;
 	case window_dan_new_2button_01:
 		{
 			switch( g_MainCharInfo.m_pRelation->GetCurrType())
 			{
-			case eDAN:	// 제명
+			case eDAN:	// 鞝滊獏
 				g_pUIManager->ShowNotice( IDS_Q_JEMYUNG, NOTICE_FRAME_OKCANCEL, NOTICE_FRAME_JEMYUNG);
 				break;
-			case eShip:	// 전서�				
+			case eShip:	// 鞝勳劀甑				
 				break;
 			case eClan:
 				break;
@@ -3656,13 +3656,13 @@ void ProcessWindowDanNew(LPARAM lParam)
 		break;
 	case window_dan_new_2button_02:
 		{
-			//HT_0423 : �� 위임
+			//HT_0423 : 雼欤 鞙勳瀯
 			switch( g_MainCharInfo.m_pRelation->GetCurrType())
 			{
-			case eDAN:	// 탈퇴
+			case eDAN:	// 韮堩嚧
 				SendCS_IF_LEAVEPARTY_REQ( g_MainCharInfo.m_pRelation->GetDanID());
 				break;
-			case eShip:	// 인연끊기
+			case eShip:	// 鞚胳棸雭婈赴
 				break;
 			case eClan:
 				break;
@@ -3671,7 +3671,7 @@ void ProcessWindowDanNew(LPARAM lParam)
 		break;
 	case window_dan_new_1button:
 		{
-			//HT_0423 : �� 위임
+			//HT_0423 : 雼欤 鞙勳瀯
 			if( g_MainCharInfo.m_pRelation->Am_I_LeaderInDan())
 			{
 				if(g_MainCharInfo.m_pRelation->GetCurrRelation())
@@ -3686,10 +3686,10 @@ void ProcessWindowDanNew(LPARAM lParam)
 			{
 				switch( g_MainCharInfo.m_pRelation->GetCurrType())
 				{
-				case eDAN:	// 탈퇴
+				case eDAN:	// 韮堩嚧
 					SendCS_IF_LEAVEPARTY_REQ( g_MainCharInfo.m_pRelation->GetDanID());
 					break;
-				case eShip:	// 인연끊기
+				case eShip:	// 鞚胳棸雭婈赴
 					break;
 				case eClan:
 					break;
@@ -3710,7 +3710,7 @@ void ProcessWindowDanNew(LPARAM lParam)
 
 
 /**
- * NPC �� 이동
+ * NPC 韽韮 鞚措彊
  * \param lParam 
  */
 void ProcessWindowPortal(LPARAM lParam)
@@ -3724,12 +3724,12 @@ void ProcessWindowPortal(LPARAM lParam)
 		{
 			if(nEventType == WINDOW_NPC_PORTAL)
 			{
-				// 화산 �� 이동
+				// 頇旍偘 歆雽 鞚措彊
 				SendCS_NV_QUICKMOVE_REQ(2);
 			}
 			else if(nEventType == WINDOW_NPC_PORTAL__WAR)
 			{
-				// � 속성 ��
+				// 韱 靻嶌劚 歆鞐
 				SendCS_NV_PRIVATEPORTAL_REQ(0);
 			}
 
@@ -3740,12 +3740,12 @@ void ProcessWindowPortal(LPARAM lParam)
 		{
 			if(nEventType == WINDOW_NPC_PORTAL)
 			{
-				// � �� 이동
+				// 電 歆雽 鞚措彊
 				SendCS_NV_QUICKMOVE_REQ(5);
 			}
 			else if(nEventType == WINDOW_NPC_PORTAL__WAR)
 			{
-				// � 속성 ��
+				// 氇 靻嶌劚 歆鞐
 				SendCS_NV_PRIVATEPORTAL_REQ(1);
 			}
 
@@ -3756,7 +3756,7 @@ void ProcessWindowPortal(LPARAM lParam)
 		{
 			if(nEventType == WINDOW_NPC_PORTAL__WAR)
 			{
-				// � 속성 ��
+				// 旮 靻嶌劚 歆鞐
 				SendCS_NV_PRIVATEPORTAL_REQ(2);
 			}
 
@@ -3767,7 +3767,7 @@ void ProcessWindowPortal(LPARAM lParam)
 		{
 			if(nEventType == WINDOW_NPC_PORTAL__WAR)
 			{
-				// � 속성 ��
+				// 頇 靻嶌劚 歆鞐
 				SendCS_NV_PRIVATEPORTAL_REQ(3);
 			}
 
@@ -3775,18 +3775,18 @@ void ProcessWindowPortal(LPARAM lParam)
 		}
 		break;
 	
-	case window_portal_button5: //HO_0906_07 문파�� ��� �탈기� 추가 : 마혈� ��
+	case window_portal_button5: //HO_0906_07 氍疙寣雽鞝 甏毽鞚 韽韮堦赴電 於旉皜 : 毵堩槇歆 歆鞐
 		{
 			if(nEventType == WINDOW_NPC_PORTAL__WAR)
 			{
-				// 마혈� ��				
+				// 毵堩槇歆 歆鞐				
 				SendCS_NV_PRIVATEPORTAL_REQ(4);
 			}
 
 			g_MainCharInfo.CloseFrame(WINDOW_PORTAL);
 		}
 		break;
-	case window_portal_exit_button:		// � ��
+	case window_portal_exit_button:		// 彀 雼旮
 		{
 			g_MainCharInfo.CloseFrame(WINDOW_PORTAL);			
 		}
@@ -3797,7 +3797,7 @@ void ProcessWindowPortal(LPARAM lParam)
 }
 
 /**
-* 아이� 수�
+* 鞎勳澊韰 靾橃
 * \param lParam 
 */
 void ProcessWindowCollection(LPARAM lParam)
@@ -3816,7 +3816,7 @@ void ProcessWindowCollection(LPARAM lParam)
 	}
 }
 /**
-* 각성
+* 臧侅劚
 * \param lParam 
 */
 void ProcessWindowSkill( LPARAM lParam)
@@ -3844,7 +3844,7 @@ void ProcessWindowSkill( LPARAM lParam)
 	case skill_window_top_button_03:
 		ProcessClickMugongButton(3);
 		break;
-	case skill_window_top_button_04:		// 각성
+	case skill_window_top_button_04:		// 臧侅劚
 		break;
 
 	case skill_window_megong_point_up_01:
@@ -3889,7 +3889,7 @@ void ProcessWindowSkill( LPARAM lParam)
 }
 
 /**
- * HT_0313 : 광명� & 천황� (이동)	
+ * HT_0313 : 甏戨獏鞝 & 觳滍櫓鞝 (鞚措彊)	
  * \param lParam 
  */
 void ProcessWindowSecretMove(LPARAM lParam)
@@ -3914,7 +3914,7 @@ void ProcessWindowSecretMove(LPARAM lParam)
 }
 
 /**
- * HT_0313 : 광명� & 천황� (참여)
+ * HT_0313 : 甏戨獏鞝 & 觳滍櫓鞝 (彀胳棳)
  * \param lParam 
  */
 void ProcessWindowSecretApplication(LPARAM lParam)

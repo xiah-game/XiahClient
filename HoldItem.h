@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "ItemInfo.h"
 #include "XiahObjectType.h"
@@ -11,7 +11,7 @@
 class CHoldItem
 {
 public:
-	// [3/5/2004] ÀÓ½Ã·Î ¿­¾îµÒ. -__- ½Ã°£=_=
+	// [3/5/2004] ìž„ì‹œë¡œ ì—´ì–´ë‘ . -__- ì‹œê°„=_=
 	BYTE m_bBackPosition;
 
 	CHoldItem(void);
@@ -58,13 +58,13 @@ private:
 
 	LPDIRECT3DVERTEXBUFFER9	m_pHoldItemItemVB;		// hold item vertex buffer
 
-	BOOL					m_fDraw;	// ±×¸±±î?
+	BOOL					m_fDraw;	// ê·¸ë¦´ê¹Œ?
 
-	// VB°¡ ÇÊ¿äÇÑ HoldItem
-	XiahItem::sItemInfo*	m_pHoldItemItem;		// hold item Á¤º¸
-	DWORD					m_dwHoldItemMugong;		// hold mugong Á¤º¸
+	// VBê°€ í•„ìš”í•œ HoldItem
+	XiahItem::sItemInfo*	m_pHoldItemItem;		// hold item ì •ë³´
+	DWORD					m_dwHoldItemMugong;		// hold mugong ì •ë³´
 	XiahItem::sHoldMoney*	m_pHoldItemMoney;
 
-	// VB°¡ ÇÊ¿ä¾ø´Â HoldItem
+	// VBê°€ í•„ìš”ì—†ëŠ” HoldItem
 	XiahItem::sItemInfo*	m_pHoldItemItemFromNpcSack;
 };

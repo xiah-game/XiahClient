@@ -1,13 +1,13 @@
-ï»#include "csprotocol.h"
+ï»¿ç™¤#include "csprotocol.h"
 #include "mail.h"
 
 #include ".\spirit.h"
 #include "RebirthMark.h"
 
-//HT_CHEAT : ‘¹é£ ™
+//HT_CHEAT : ë«—ç¹‡ ì†
 extern BOOL g_bCheat;
 
-//HT_CHEAT : ç£Šæ‚¼ é­„æ¦‚
+//HT_CHEAT : é«¥ë”€ê¶ª é‚€ê¾£ì«©
 void AutoSell()
 {
  	XiahItem::sItemInfo* pItemInfo = NULL;
@@ -29,7 +29,7 @@ void AutoSell()
 			case 4:
 			case 5:
 			case 6:
-			case 7: //é¦’ä¾© …’è¢ç”¸ ‰¢• œ‰†œ çªæ‰ 
+			case 7: //è…°ë¯¢ì‘´ ë€™ëœ›ç†¬ë¸ëµº ëšë¸• ì£ë„‘ ï¦©ë·ë® 
 				//if(pItemInfo->m_bRarity < 3 && pItemInfo->m_bStxType < 3 && pItemInfo->m_bModifyCnt < 1)
 				if(pItemInfo->m_bModifyCnt < 1)
 				{
@@ -38,18 +38,18 @@ void AutoSell()
 					return;
 				}
 				break;
-			case 9: //è±ªç‰¢ çªœç˜¤ç» è¿«ç£Š 
+			case 9: //ç©©ã‚‡ëš ï¦©ì’ì‚¤ç€¯ ç“¦ãƒ§ì¦¸ 
 			//	if(pItemInfo->m_bItemKind != 5)
 			//	{
 					g_MainCharInfo.m_bAutoSell = true;
 					g_MainCharInfo.m_bySellPos = i;
 					return;
 			//	}
-			case 15: //ç¡…æ‰¯
+			case 15: //ï¦¦ë¾ë¬
 				g_MainCharInfo.m_bAutoSell = true;
 				g_MainCharInfo.m_bySellPos = i;
 				return;
-			case 16://„ †ˆ 
+			case 16://ê¼¸ ëƒ¸ëœ› 
 				if(pItemInfo->m_bItemKind >= 0 && pItemInfo->m_bItemKind < 4)// && pItemInfo->m_wVisualID != 9102)
 				{
 					if(g_PetList.size() == 0)
@@ -70,7 +70,7 @@ void AutoSell()
 								g_MainCharInfo.m_bySellPos = i;
 								return;
 							}
-							else if(pItemInfo->m_wVisualID != 9102) //„˜‘ ™å¿«ç»Š ä¹ä¿ƒ...„ …·ç§å· ä¸´æç» ä»·é¢ç» è¿«ç˜¤ å¯Œç£Š. 
+							else if(pItemInfo->m_wVisualID != 9102) //ê¼¸ì‚Š ì†æ™ãƒ§í“ é˜¿ë¨§í“˜ë¦Ÿ...ê¼¸ ëç‡è—¥ è¨ë‹¸ëœ›ç€¯ é¤“ë£¬ì”Šëœ›ç€¯ ç“¦ãƒ§ì‚¤ é‡ëš¨ì¦¸. 
 							{
 								g_MainCharInfo.m_bAutoSell = true;
 								g_MainCharInfo.m_bySellPos = i;
@@ -80,7 +80,7 @@ void AutoSell()
 					}
 				}
 				break;	
-			case 18: // ‰¯ …’è¢
+			case 18: // ë¬ ë€™ëœ›ç†¬
 				//if(	pItemInfo->m_wRefID != 20963 &&
 				//	pItemInfo->m_wRefID != 20965 &&
 				//	pItemInfo->m_wRefID != 20966)
@@ -89,8 +89,8 @@ void AutoSell()
 					g_MainCharInfo.m_bySellPos = i;
 					return;
 			//	}
-			case 19://æ£±ä¿ƒŒ„ å·´ç”¸(’¦œ‰ …’è¢ç”¸ ....)
-				if(pItemInfo->m_wVisualID == 31000) //¥æ‹± ƒ‘ç£Šç»° †ˆ  å¿«åŠª…
+			case 19://æ±ê¸´í“˜ë˜¾ è—¥ë‹¹ëµº(ë®šì£ ë€™ç†¬ë¸ëµº ....)
+				if(pItemInfo->m_wVisualID == 31000) //Î¶ë–› ê¹™é«¥ë”ëº ëƒ¸ì ë¦Ÿ æ™ãƒ¥ë’±ë€—
 				{
 					SendCS_IM_USEITEM_REQ( pItemInfo->m_bSackCount+1, pItemInfo->m_bSackPos, pItemInfo->m_dwItemID);
 				}
@@ -102,14 +102,14 @@ void AutoSell()
 					return;
 				}
 				break;
-			case 20: //ç¬ …’è¢ç”¸
+			case 20: //ëœï¦ª ë€™ëœ›ç†¬ë¸ëµº
 			//	if(pItemInfo->m_wVisualID != 29200 && pItemInfo->m_wVisualID != 29201 )
 			//	{
 					g_MainCharInfo.m_bAutoSell = true;
 					g_MainCharInfo.m_bySellPos = i;
 					return;
 			//	}	break;
-			case 21: //æ°
+			case 21: //ï¦ˆ
 				if( !(pItemInfo->m_wRefID >= 22017 && pItemInfo->m_wRefID <= 22103) )
 				{
 					if( pItemInfo->m_wRefID != 10128 &&
@@ -127,21 +127,21 @@ void AutoSell()
 					}
 				}
 				break;
-			case 23: //è·
+			case 23: //ç“®
 				//if( pItemInfo->m_wVisualID == 20000 ||
 				//	pItemInfo->m_wVisualID == 20100 ||
 				//	pItemInfo->m_wVisualID == 21000 ||
 				//	pItemInfo->m_wVisualID == 21100)
 				//{
-					//if(pItemInfo->m_wRefID != 20073 && pItemInfo->m_wRefID  != 20070 ) //ªæ¼ç ç² …’æ»¨å. ›
-					//if(pItemInfo->m_wRefID == 20073 || pItemInfo->m_wRefID  == 20070 ) //ªæ¼ç ç² …’æ»¨å. ›
+					//if(pItemInfo->m_wRefID != 20073 && pItemInfo->m_wRefID  != 20070 ) //ë •ï¦ë¤¹ æš ë€™è­¯â“¨. ê±µ
+					//if(pItemInfo->m_wRefID == 20073 || pItemInfo->m_wRefID  == 20070 ) //ë •ï¦ë¤¹ æš ë€™è­¯â“¨. ê±µ
 					//{
 						g_MainCharInfo.m_bAutoSell = true;
 						g_MainCharInfo.m_bySellPos = i;
 						return;
 					//}
 				//}
-			case 25: //’ç«¿
+			case 25: //ë¯¥ã‚¿ëœ›
 				if( pItemInfo->m_wRefID == 20189 || pItemInfo->m_wRefID == 20267 )
 				{
 					g_MainCharInfo.m_bAutoSell = true;
@@ -149,7 +149,7 @@ void AutoSell()
 					return;
 				}
 				break;
-			case 33: //ä¿ºç—¢©
+			case 33: //å²³ë¸€ë¿¢ë£´
 				if(pItemInfo->m_wVisualID == 10200)
 				{
 					g_MainCharInfo.m_bAutoSell = true;
@@ -185,7 +185,7 @@ void AutoSell()
 			case 4:
 			case 5:
 			case 6:
-			case 7: //é¦’ä¾© …’è¢ç”¸ ‰¢• œ‰†œ çªæ‰ 
+			case 7: //è…°ë¯¢ì‘´ ë€™ëœ›ç†¬ë¸ëµº ëšë¸• ì£ë„‘ ï¦©ë·ë® 
 				//if(pItemInfo->m_bRarity < 3 && pItemInfo->m_bStxType < 3 && pItemInfo->m_bModifyCnt < 1)
 				if(pItemInfo->m_bModifyCnt < 1)
 				{
@@ -194,21 +194,21 @@ void AutoSell()
 					return;
 				}
 				break;
-			case 9: //è±ªç‰¢ çªœç˜¤ç» è¿«ç£Š 
+			case 9: //ç©©ã‚‡ëš ï¦©ì’ì‚¤ç€¯ ç“¦ãƒ§ì¦¸ 
 			//	if(pItemInfo->m_bItemKind == 0)
 			//	{
 					g_MainCharInfo.m_bAutoSell = true;
 					g_MainCharInfo.m_bySellPos = i;
 					return;
 			//	}
-			case 15: //ç¡…æ‰¯
+			case 15: //ï¦¦ë¾ë¬
 				g_MainCharInfo.m_bAutoSell = true;
 				g_MainCharInfo.m_bySellPos = i;
 				return;
-			case 16://„ †ˆ 
+			case 16://ê¼¸ ëƒ¸ëœ› 
 				if(pItemInfo->m_bItemKind >= 0 && pItemInfo->m_bItemKind < 4)// && pItemInfo->m_wVisualID != 9102)
 				{
-					if(g_PetList.size() == 0)// && pItemInfo->m_wVisualID != 9102) //„ ™å¿«ç»°  …’ªä¿.
+					if(g_PetList.size() == 0)// && pItemInfo->m_wVisualID != 9102) //ê¼¸ ì†æ™ãƒ§ëº ë§ƒëœ› ë€™ê²’å²³.
 					{
 						g_MainCharInfo.m_bAutoSell = true;
 						g_MainCharInfo.m_bySellPos = i;
@@ -226,7 +226,7 @@ void AutoSell()
 								g_MainCharInfo.m_bySellPos = i;
 								return;
 							}
-							else if(pItemInfo->m_wVisualID != 9102) //„˜‘ ™å¿«ç»Š ä¹ä¿ƒ...„ …·ç§å· ä¸´æç» Ÿƒç¯ è¿«ç˜¤ å¯Œç£Š. 
+							else if(pItemInfo->m_wVisualID != 9102) //ê¼¸ì‚Š ì†æ™ãƒ§í“ é˜¿ë¨§í“˜ë¦Ÿ...ê¼¸ ëç‡è—¥ è¨ë‹¸ëœ›ç€¯ ì›µå½± ç“¦ãƒ§ì‚¤ é‡ëš¨ì¦¸. 
 							{
 								g_MainCharInfo.m_bAutoSell = true;
 								g_MainCharInfo.m_bySellPos = i;
@@ -236,7 +236,7 @@ void AutoSell()
 					}
 				}
 				break;
-			case 18: // ‰¯ …’è¢
+			case 18: // ë¬ ë€™ëœ›ç†¬
 				//if(	pItemInfo->m_wRefID != 20963 &&
 				//	pItemInfo->m_wRefID != 20965 &&
 				//	pItemInfo->m_wRefID != 20966)
@@ -245,8 +245,8 @@ void AutoSell()
 					g_MainCharInfo.m_bySellPos = i;
 					return;
 			//	}
-			case 19://æ£±ä¿ƒŒ„ å·´ç”¸(’¦œ‰ …’è¢ç”¸ ....)
-				if(pItemInfo->m_wVisualID == 31000) //¥æ‹± ƒ‘ç£Šç»° †ˆ  å¿«åŠª…
+			case 19://æ±ê¸´í“˜ë˜¾ è—¥ë‹¹ëµº(ë®šì£ ë€™ç†¬ë¸ëµº ....)
+				if(pItemInfo->m_wVisualID == 31000) //Î¶ë–› ê¹™é«¥ë”ëº ëƒ¸ì ë¦Ÿ æ™ãƒ¥ë’±ë€—
 				{
 					SendCS_IM_USEITEM_REQ( pItemInfo->m_bSackCount+1, pItemInfo->m_bSackPos, pItemInfo->m_dwItemID);
 				}
@@ -258,14 +258,14 @@ void AutoSell()
 					return;
 				}
 				break;
-			case 20: //ç¬ …’è¢ç”¸
+			case 20: //ëœï¦ª ë€™ëœ›ç†¬ë¸ëµº
 			//	if(pItemInfo->m_wVisualID != 29200 && pItemInfo->m_wVisualID != 29201 )
 			//	{
 					g_MainCharInfo.m_bAutoSell = true;
 					g_MainCharInfo.m_bySellPos = i;
 					return;
 			//	}	break;
-			case 21: //æ°
+			case 21: //ï¦ˆ
 				if( !(pItemInfo->m_wRefID >= 22017 && pItemInfo->m_wRefID <= 22103) )
 				{
 					if( pItemInfo->m_wRefID != 10128 &&
@@ -283,21 +283,21 @@ void AutoSell()
 					}
 				}
 				break;
-			case 23: //è·
+			case 23: //ç“®
 				//if( pItemInfo->m_wVisualID == 20000 ||
 				//	pItemInfo->m_wVisualID == 20100 ||
 				//	pItemInfo->m_wVisualID == 21000 ||
 				//	pItemInfo->m_wVisualID == 21100)
 				//{
-					//if(pItemInfo->m_wRefID != 20073 && pItemInfo->m_wRefID  != 20070 ) //ªæ¼ç ç² …’æ»¨å. ›
-					//if(pItemInfo->m_wRefID == 20073 || pItemInfo->m_wRefID  == 20070 ) //ªæ¼ç ç² …’æ»¨å. ›
+					//if(pItemInfo->m_wRefID != 20073 && pItemInfo->m_wRefID  != 20070 ) //ë •ï¦ë¤¹ æš ë€™è­¯â“¨. ê±µ
+					//if(pItemInfo->m_wRefID == 20073 || pItemInfo->m_wRefID  == 20070 ) //ë •ï¦ë¤¹ æš ë€™è­¯â“¨. ê±µ
 					//{
 						g_MainCharInfo.m_bAutoSell = true;
 						g_MainCharInfo.m_bySellPos = i;
 						return;
 					//}
 				//}
-			case 25: //’ç«¿
+			case 25: //ë¯¥ã‚¿ëœ›
 				if( pItemInfo->m_wRefID == 20189 || pItemInfo->m_wRefID == 20267 )
 				{
 					g_MainCharInfo.m_bAutoSell = true;
@@ -305,7 +305,7 @@ void AutoSell()
 					return;
 				}
 				break;
-			case 33: //ä¿ºç—¢©
+			case 33: //å²³ë¸€ë¿¢ë£´
 				if(pItemInfo->m_wVisualID == 10200)
 				{
 					g_MainCharInfo.m_bAutoSell = true;
@@ -332,7 +332,7 @@ int OnCS_IF_HELPMESSAGE_ACK( CMsg &msg)
 	WORD	wMsgIndex;	
 	DWORD	dwAmount;
 	sString szName;
-	sString szNickName;//HO_0313_07  ¡–™‚ˆ è¯•é£˜è‚º ‰¢Œ„ œ •Š
+	sString szNickName;//HO_0313_07 ì ©ë¼‘êµ  ç‘¥ëœ’ëœ›ç¹‡ì„‹ê¶¨ ëšë˜¾ ì‘€ë¸¡
 	TCHAR szContent[256] = {0,};
 
 	msg
@@ -351,7 +351,7 @@ int OnCS_IF_HELPMESSAGE_ACK( CMsg &msg)
 			else
 				_stprintf( szContent, IDS_D_OBTAIN_ITEM, (LPCTSTR)szName);
 
-			//HT_CHEAT : ç£Šæ‚¼ é­„æ¦‚
+			//HT_CHEAT : é«¥ë”€ê¶ª é‚€ê¾£ì«©
 			//if(g_bCheat)
 				//AutoSell();
 
@@ -402,7 +402,7 @@ int OnCS_IF_HELPMESSAGE_ACK( CMsg &msg)
 		}
 		break;
 
-	// PARTY BATTLEä¿ŠçŸ¾Ÿ« £ ˆ¸­ä¿ Œ…Œ„ š‹˜¤
+	// PARTY BATTLEå²³ë”ìˆìœ¬ ëœ  ëŒì˜²å²³ ë˜¿ë˜¾ ì‰µì‚¤
 	case HM_PARTYBATTLEMONEY:
 		{
 			msg
@@ -414,7 +414,7 @@ int OnCS_IF_HELPMESSAGE_ACK( CMsg &msg)
 			g_MainCharInfo.ShowHelpMessage( szContent,TEXTEFFECT_COLOR_GAIN);
 		}
 		break;
-	case 5:	// ˜é¦
+	case 5:	// ëŸ¹è…°
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_PET_ITEM_1);			
 		}
@@ -425,7 +425,7 @@ int OnCS_IF_HELPMESSAGE_ACK( CMsg &msg)
 		}
 		break;
 	
-	case HM_BLOODDEVIL://HO_0313_07  ¡–™‚ˆ è¯•é£˜è‚º ‰¢Œ„ œ •Š
+	case HM_BLOODDEVIL://HO_0313_07 ì ©ë¼‘êµ  ç‘¥ëœ’ëœ›ç¹‡ì„‹ê¶¨ ëšë˜¾ ì‘€ë¸¡
 		{
 			msg
 				>> szName
@@ -471,8 +471,8 @@ int OnCS_IF_CHARMONEY_ACK(CMsg &msg)
 
 int OnCS_IF_CHARINFO_ACK( CMsg &msg)
 {
-	// CG_2005/01/28 : ‡½è¾†é…’è¢æ‰“·œ •Š
-	// ‡½è¾†é…’è¢èé”­ œ‰†œ
+	// CG_2005/01/28 : ëˆ¦æ¸¦ë…½ë€™ëœ›ç†¬ë·ë®ë²œì‘€ë¸¡
+	// ëˆ¦æ¸¦ë…½ë€™ëœ›ç†¬ë¹ê³²ëµ¯ ì£ë„‘
 	BYTE bChangeItemSet = 0;
 
 	msg
@@ -504,33 +504,33 @@ int OnCS_IF_CHARINFO_ACK( CMsg &msg)
 		>> g_MainCharInfo.m_dwFame
 		>> bChangeItemSet
 		>> g_MainCharInfo.m_bRebirth
-		>> g_MainCharInfo.m_dwPremiumTP //HT_0911 : æ©‡åºœ›º†³ æ¶…èƒ¶é£ è®¿æ‘¹
+		>> g_MainCharInfo.m_dwPremiumTP //HT_0911 : è‰…ë‰í‹µì“ë„¶ æ˜“ë‚êºç¹‡ ëœæº«ìš˜ë«—
 		>> g_MainCharInfo.m_dwPremiumSP
-		>> g_MainCharInfo.m_dwGameMasterMark; //HT_1023 : æ¬¾åº·ç£ ä»˜å†œ œ •Š
+		>> g_MainCharInfo.m_dwGameMasterMark; //HT_1023 : è½ì–ë³œé«¥ é¤“ì„‡ë„‘ ì‘€ë¸¡
 	
 	g_MainCharInfo.RefreshChracterInfo();
 	g_MainCharInfo.RefreshMainFrame();
 	g_MainCharInfo.RefreshMugongFrame();
 
-	// ›’„š‹œ å®˜å±‚œ–ä¿.
+	// ìŸê½Šë–†ëœ›ë¦Ÿ ï¥´ì„‡ì½†ì³å²³.
 	sPetInfo *pPet = g_PetList.GetBunsinPet();
 	if(pPet != NULL)
 	{
 		pPet->bSpeed = g_MainCharInfo.m_bWalkSpeed;
 	}
 
-	// useitem_ack•Š ç»ç»° Œ…‹Œ‚º..
+	// useitem_ackë¸¡ ç€¯ì•¯ëº ë˜¿ë•¶ê¶¨..
 	for( int i=0; i < 5; ++i)
 		g_MainCharInfo.m_pSlot->SetSlotToolTip(i);
 
-	// CG_2005/01/28 : ‡½è¾†é…’è¢æ‰“·œ •Š
+	// CG_2005/01/28 : ëˆ¦æ¸¦ë…½ë€™ëœ›ç†¬ë·ë®ë²œì‘€ë¸¡
 	CXiahCharObject* pObject = (CXiahCharObject*)g_pMainChar->m_pObject;
 	if( pObject )
 	{
 		pObject->m_bChangeItemSet = bChangeItemSet;
 		pObject->RefreshFameColor(g_MainCharInfo.m_dwFame);
 		pObject->m_bRebirth = g_MainCharInfo.m_bRebirth;
-		pObject->m_bGameMasterMark = g_MainCharInfo.m_dwGameMasterMark; //HT_1023 : æ¬¾åº·ç£ ä»˜å†œ œ •Š
+		pObject->m_bGameMasterMark = g_MainCharInfo.m_dwGameMasterMark; //HT_1023 : è½ì–ë³œé«¥ é¤“ì„‡ë„‘ ì‘€ë¸¡
 	}
 
 	return TRUE;
@@ -560,9 +560,9 @@ int OnCS_IF_CHARHP_ACK( CMsg &msg)
 
 	switch( bType )
 	{
-	case 0:		// ç£Šæ‚¼ æ±
+	case 0:		// é«¥ë”€ê¶ª ï¦‰
 		break;
-		// ‹±è· ¤ä¾
+		// ë–›ç“® ëœ¡å Š
 	case 1:		// HP
 		{
 			_EFFECTPACKAGE* pEffectPackage = g_EffectManager.EnqAppearEffectImmediately( eMulYak_HP );
@@ -572,7 +572,7 @@ int OnCS_IF_CHARHP_ACK( CMsg &msg)
 				pEffectPackage->pEffectRender->pPackagePair->pWorldMatrix = (MATRIX*)pCharObject->m_CharRender.GetCharTM();
 //				pEffectPackage->pEffectRender->pPackagePair->WorldMatrix = (MATRIX)pCharObject->m_ObjectTM;
 
-				// çº³ç§¦…· Ÿ…ç£å•Š ç»ç»¢é¾™é”­ æ£‹é£˜æ¡  ç»ç»¢Ÿ³ä¿.
+				// ëœ›ç€›ë…•ã„ë ìœ‡ë€—é«¥ë¨¨ë¸¡ ç€¯ì•¯ë¹ªæ¦•ìˆ…ëµ¯ ëœ›æ±ë—©ì§Œï¦ƒ ì—»ëœ› ç€¯ì•¯ë¹ªìœ¹å²³.
 				pCharObject->m_EffectPPList.push_back( pEffectPackage->pEffectRender->pPackagePair );
 			}
 
@@ -608,8 +608,8 @@ int OnCS_IF_CHARHP_ACK( CMsg &msg)
 			g_MainCharInfo.PlayInterfaceSound(USE_MP);
 		}
 		break;
-		// …¬‚
-	case 11:	// ‚ˆœ¡æ¾ - é¸¥ç‰¢ ‘¹ä¸.
+		// ë€¶êµ§
+	case 11:	// êµ ì‘é©› - å‹‡Î·ëš ë«—è¨.
 		{
 			_EFFECTPACKAGE* pEffectPackage = g_EffectManager.EnqOutGongPersistEffectImmediately( eJunuoum_recv );
 
@@ -622,7 +622,7 @@ int OnCS_IF_CHARHP_ACK( CMsg &msg)
 			}
 		}
 		break;
-	case 12:	//  ¡æ¾ - çª ‘¹ä¸.
+	case 12:	// ëœ›ì ©é©› - ï¦© ë«—è¨.
 		{
 			_EFFECTPACKAGE* pEffectPackage = g_EffectManager.EnqOutGongPersistEffectImmediately( eLeekwangum_heal_recv );
 
@@ -641,7 +641,7 @@ int OnCS_IF_CHARHP_ACK( CMsg &msg)
 }
 
 /**
- * ‰ˆæ°°æ‘¹
+ * ëµï¦ˆê²½ë«—
  * \param &msg 
  * \return 
  */
@@ -680,7 +680,7 @@ int OnCS_IF_CHAREXP_ACK( CMsg &msg)
 	{
 		TCHAR szContent[64] = {0,};
 
-		//100™Œç£ æª¬è‹Ÿ« Š›Œ„
+		//100ì†ˆé«¥ èŒ¹Ñ†ë–ˆìœ¬ ë’Ÿë˜¾
 		if(g_MainCharInfo.m_wLevel < 100)
 		{
             if(dwEventExp)
@@ -706,7 +706,7 @@ int OnCS_IF_CHAREXP_ACK( CMsg &msg)
 	{
 		++g_MainCharInfo.m_wLevel;
 
-		//HO_0413_07 ‹ •Š› è¯•é£ : ‚ª œ‰†œé¥ æ»šç“¢ ˜¤æ¡
+		//HO_0413_07 ë–ˆ ë¸¡ëœ›ì”ƒ ç‘¥ëœ’ëœ›ç¹‡ : ê¶• ì£ë„‘è€€ è­¯ì‹©ë±¼ ì‚¤ï¦ƒ
 		if(g_MainCharInfo.m_wLevel < 11)
 		{
 			g_MainCharInfo.m_bQuickIndex = 0;
@@ -741,7 +741,7 @@ int OnCS_IF_CHAREXP_ACK( CMsg &msg)
 			g_pUIManager->Hide(HELP_BUTTON); 
 		}
 
-		//100™Œç£ æª¬è‹Ÿ« Š›Œ„
+		//100ì†ˆé«¥ èŒ¹Ñ†ë–ˆìœ¬ ë’Ÿë˜¾
 		if(g_MainCharInfo.m_wLevel<100)
 		{
             g_MainCharInfo.m_i64LevelExp = g_MainCharInfo.m_i64NextLevelUpExp;
@@ -752,9 +752,9 @@ int OnCS_IF_CHAREXP_ACK( CMsg &msg)
 			g_MainCharInfo.m_wLevel=100;
 		}
 
-		// æµšæŸ³ä¿ ä¹ç»° ™¨‰¢ç£å•Š Šª‰¼”«é£˜ç‹¼ •é¸¥ç”« •Šåºœè™ Š›ª‚º ç´‚¼çªç˜¤ ‡¼æ¾.
-		// å¼Šè´°è¾ æµšæŸ³‹¼ ™¨‰¢ç£å•Š æµšæŸ³‹¼ •é¸¥ç”« •Šåºœè™æ¡£åºŸ çªæ ‡³.
-		// è¡¬çª æµšæŸ³ç¯ DLLª˜ª.
+		// å½¹ì‹¨ìœ¹å²³ é˜¿ë¨ªëº ì†³ëšé«¥ë¨¨ë¸¡ ë’±ë¹ëœ›ëµ­ç¹‡ì„Šë–¬ ëœ’ëœ›å‹‡Î·ëµ­ ë¸¡ä½¯ì’‘ì†ë¦Ÿ ë’Ÿë •ê¶¨ æ¦®ê¶ªï¦©ë¸ì‚¤ ëˆ¥é©›.
+		// ï¥¹ë”‚ëˆ—æ¸¦ å½¹ì‹¨ìœ¹ë–¬ ì†³ëšé«¥ë¨¨ë¸¡ å½¹ì‹¨ìœ¹ë–¬ ëœ’ëœ›å‹‡Î·ëµ­ ë¸¡ä½¯ì’‘ì†ï¦ƒï½…í‹¹ ï¦©ë·ë¦Ÿ ëˆ›.
+		// ê±§çƒÑ…ì²€ë¦Ÿ å½¹ì‹¨ìœ¹å½± DLLëœ›ê²’ì‚«.
 		// effect
 		CXiahCharObject* pCharObject = (CXiahCharObject*)g_pMainChar->m_pObject;
 		_EFFECTPACKAGE* pPackage = g_EffectManager.EnqLevelUpEffectImmediately( LEVELUP_GAPJA );
@@ -763,7 +763,7 @@ int OnCS_IF_CHAREXP_ACK( CMsg &msg)
 			pPackage->pEffectRender->pPackagePair->pWorldMatrix = (MATRIX*)pCharObject->m_CharRender.GetCharTM();
 			//pPackage->pEffectRender->pPackagePair->WorldMatrix = (MATRIX)pCharObject->m_ObjectTM;
 
-			// çº³ç§¦…· Ÿ…ç£å•Š ç»ç»¢é¾™é”­ æ£‹é£˜æ¡  ç»ç»¢Ÿ³ä¿.
+			// ëœ›ç€›ë…•ã„ë ìœ‡ë€—é«¥ë¨¨ë¸¡ ç€¯ì•¯ë¹ªæ¦•ìˆ…ëµ¯ ëœ›æ±ë—©ì§Œï¦ƒ ì—»ëœ› ç€¯ì•¯ë¹ªìœ¹å²³.
 			pCharObject->m_EffectPPList.push_back( pPackage->pEffectRender->pPackagePair );
 		}
 
@@ -799,7 +799,7 @@ int OnCS_IF_CHAREXP_ACK( CMsg &msg)
 		g_MainCharInfo.m_dwFiveElmPowerMax  = dwFiveElmPowerMax;
 		g_MainCharInfo.m_dwFiveElmGauge		= dwFiveElmGauge;
 
-		// TODO: æ£‹é£˜ œ •Š / ¤æ¬¾é› œ •Š
+		// TODO: ëœ›æ±ë—©ì§Œ ì‘€ë¸¡ / ëœ¡è½ì–—ì”ƒ ì‘€ë¸¡
 	}
 
 	g_MainCharInfo.RefreshChracterInfo();
@@ -838,21 +838,21 @@ int OnCS_IF_FAMEINFO_ACK(CMsg &msg)
 
 
 /**
- * çª „š ©“¦
+ * ï¦© ëœê½Š ë£´ë²€
  * \param &msg 
  * \return 
  */
 int OnCS_IF_ASKPARTY_ACK( CMsg &msg)
 {
-	// bResult	0 : é¢‡è “°‰¢‡³
+	// bResult	0 : çª¯ë‰“ë¦« ë²ëšëˆ›
 	//			4 : ??
-	//			5 : ç§å¯ Ÿ…ç£ç”« Œ«˜¤ ç»™çªƒ
-	//			6 : é¢‡è ç§å· è§’è© ( ç§‹æ©‡š‹Ÿ«˜¤‚º •Š˜¤ ‡¼˜‘é³..)
-	//			9 : é¢‡è Š­ä¾‹å‡³
+	//			5 : ç‡é‡ ìœ‡ë€—é«¥ë¨ªëµ­ ë™§ì‚¤ ç€¯ìˆ‚ì±¶
+	//			6 : çª¯ë‰“ë¦« ç‡è—¥ é°²ë¯¦ë£´ ( ç‡ë—¦ì°ƒì‰µìœ¬ì‚¤ê¶¨ ë¸¡ì‚¤ ëˆ¥ì‚Šè¤¥..)
+	//			9 : çª¯ë‰“ë¦« ë’´å Šë—¥ëˆ›
 	DWORD dwAskID		=0;
 	DWORD dwAskedID		=0;
 	BYTE bResult		=0;
-	BYTE bPartyType		=0;	// 0-é¦†çª 1-Œ…‹Œçª
+	BYTE bPartyType		=0;	// 0-ê³²ì«®ï¦© 1-ë˜¿ë•¶ï¦©
 
 	msg
 		>> dwAskID
@@ -870,44 +870,44 @@ int OnCS_IF_ASKPARTY_ACK( CMsg &msg)
 
 			if(bPartyType == 0)
 			{
-				// é¦† çª
+				// ê³²ì«® ï¦©
 				_stprintf( szText, IDS_D_MAKE_DAN, (LPCTSTR)g_MainCharInfo.FindNameByID( dwAskID));
 
 				if( !g_pUIManager->ShowNotice( szText, NOTICE_FRAME_OKCANCEL, NOTICE_FRAME_ASKPARTY))
 				{
-					// Š­ä¾
+					// ë’´å Š
 					SendCS_IF_ASKPARTY_REQ(g_MainCharInfo.m_dwAskID, g_MainCharInfo.m_dwObjectID, 9);
 				}
 			}
 			else if(bPartyType == 1)
 			{
-				// Œ…‹Œ çª
+				// ë˜¿ë•¶ ï¦©
 				_stprintf(szText, IDS_D_MAKE_REL_DAN, (LPCTSTR)g_MainCharInfo.FindNameByID(dwAskID));
 
 				if(!g_pUIManager->ShowNotice(szText, NOTICE_FRAME_OKCANCEL, NOTICE_FRAME_RELATION_ASKPARTY))
 				{
-					// Š­ä¾
+					// ë’´å Š
 					SendCS_IF_ASKPARTY_REQ(g_MainCharInfo.m_dwAskID, g_MainCharInfo.m_dwObjectID, 9, 1);
 				}
 			}
 		}
 		break;
 
-	case 9:	// çª „šæ² Š­ä¾‹å‡³
+	case 9:	// ï¦© ê½Šäº¦ ë’´å Šë—¥ëˆ›
 		{
 			g_MainCharInfo.m_dwAskID = 0;
 			g_MainCharInfo.ShowHelpMessage( IDS_REJECT_DAN, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
 
-	case 4:	// ™Œç£ ’‚º çª ç§’å¶å‡³
+	case 4:	// ì†ˆé«¥ ì˜Šëœ›ê¶¨ ï¦© ç‡ë¯£ëœ¹ëˆ›
 		if(dwAskID == g_MainCharInfo.m_dwObjectID)	
 		{
 			g_MainCharInfo.ShowHelpMessage( IDS_AUTO_CANCEL, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
 
-	case 5:	// ç£Šè„šç¯ çªœæ—•Š …’ä¸
+	case 5:	// é«¥ë”‚ê½Šå½± ï¦©ì’ì˜‘ë¸¡ ë€™è¨
 		{
 			TCHAR strText[100] = {0,};
 
@@ -916,27 +916,27 @@ int OnCS_IF_ASKPARTY_ACK( CMsg &msg)
 		}
 		break;
 
-	case 7: // çª ‰¢›” •Š«è°©æ¾œ
+	case 7: // ï¦© ëšì¡ ë¸¡ì˜¯ç˜Ÿâ’µí’™
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_DAN_EXCEED, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
 
-	case 8:	// ƒ‘ªè§„æ ›º ä¿ƒå¼— çªœä¿Š å®¶åŠ  ™»ç» ä¹æ¾œ
+	case 8:	// ê¹™ë •é°²ê¾£ëœ› ëœ›ì“ å²³ê»ƒíŒ ï¦©ì’í“¡ ï¥´ëœ¹ë’¥ ì‡‰ç€¯ é˜¿ë¨©í’™
 		{
 			g_MainCharInfo.m_dwAskID = 0;
 			g_MainCharInfo.ShowHelpMessage(IDS_DAN_OTHER_DAN, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
 
-	case 11:// ¯è® Œ…‹Œ Š­ä½ ƒ‘
+	case 11:// ë£¾æº« ë˜¿ë•¶ ë’´éµ ê¹™
 		{
 			g_MainCharInfo.m_dwAskID = 0;
 			g_MainCharInfo.ShowHelpMessage(IDS_REJECT_DAN_2, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
 
-	case 12: // Œ…‹Œ çª ‚˜‘ ç»é˜‘”­
+	case 12: // ë˜¿ë•¶ ï¦© ê¶„ì‚Šëœ ç€¯ì•¶ì‚Šëµ¯
 		{
 			g_MainCharInfo.m_dwAskID = 0;
 			g_MainCharInfo.ShowHelpMessage(IDS_DAN_RELATION_FAIL, TEXTEFFECT_COLOR_WARNING);
@@ -953,7 +953,7 @@ int OnCS_IF_ASKPARTY_ACK( CMsg &msg)
 }
 
 /**
- * çª ç§å·
+ * ï¦© ç‡è—¥
  * \param &msg 
  * \return 
  */
@@ -966,11 +966,11 @@ int OnCS_IF_CREATEPARTY_ACK( CMsg &msg)
 	msg
 		>> dwPartyID
 		>> dwLeaderID
-		>> bPartyType;	// 0 é¦†çª, 1 Œ…‹Œçª
+		>> bPartyType;	// 0 ê³²ì«®ï¦©, 1 ë˜¿ë•¶ï¦©
 
 	g_MainCharInfo.m_pRelation->m_nDanType = static_cast<int>(bPartyType);
 
-	// è§„å˜ ª”­ ‘›”µ è´¸åºœ”« ç§…·çª
+	// é°²ê¾¢ëŸ¹ëœ› ì˜«ëµ¯ ëª³ëµ· å…€ë©¨í‹µëµ­ ç‡ëï¦©
 	if( dwLeaderID == g_MainCharInfo.m_dwObjectID)
 	{
 		BYTE	byPriority = 1;
@@ -985,14 +985,14 @@ int OnCS_IF_CREATEPARTY_ACK( CMsg &msg)
 				pMainChar->GetPosition( wPosX, wPosY);
 		}
 
-		// çª ‰ˆæ°°æ‘¹ ›’ç¡
+		// ï¦© ëµï¦ˆê²½ë«— ìŸï¦¦
 		g_pUIManager->Hide(WINDOW_DAN_NEW, window_dan_new_1button);
 		g_pUIManager->Show(WINDOW_DAN_NEW, window_dan_new_2button_01);
 		g_pUIManager->Show(WINDOW_DAN_NEW, window_dan_new_2button_02);
 
 		g_MainCharInfo.m_pRelation->SetDanID( dwPartyID);
 		g_MainCharInfo.m_pRelation->SetDanLeader( dwLeaderID);
-		// çª ”˜
+		// ï¦© ëµ–
 		g_MainCharInfo.m_pRelation->InsertDan( g_MainCharInfo.m_dwObjectID, byPriority, g_MainCharInfo.m_szNickName,
 										byLevel, wPosX, wPosY, g_MainCharInfo.m_dwHpCur, g_MainCharInfo.m_dwHpMax, 0);
 	}
@@ -1003,7 +1003,7 @@ int OnCS_IF_CREATEPARTY_ACK( CMsg &msg)
 }
 
 /**
- * çªœç›” œ •Š
+ * ï¦©ì’ì¡ ì‘€ë¸¡
  * \param &msg 
  * \return 
  */
@@ -1030,7 +1030,7 @@ int OnCS_IF_ENTERPARTY_ACK( CMsg &msg)
 		>> dwCurHp
 		>> dwMaxHp;
 
-	// çª ”˜
+	// ï¦© ëµ–
 	g_MainCharInfo.m_pRelation->InsertDan( dwCharID, bPartybPriority, szName, wLevel, wPosX, wPosY, dwCurHp, dwMaxHp, 0);
 
 	TCHAR szText[100] = {0,};
@@ -1042,7 +1042,7 @@ int OnCS_IF_ENTERPARTY_ACK( CMsg &msg)
 }
 
 /**
- * çª åºœèƒ¶é£
+ * ï¦© ä½¯ì’‘êºç¹‡
  * \param &msg 
  * \return 
  */
@@ -1055,7 +1055,7 @@ int OnCS_IF_PARTYLIST_ACK( CMsg &msg)
 	msg
 		>> dwPartyID
 		>> bNumParty
-		>> bPartyType;	// 0 é¦†çª, 1 Œ…‹Œçª
+		>> bPartyType;	// 0 ê³²ì«®ï¦©, 1 ë˜¿ë•¶ï¦©
 
 	if( !g_MainCharInfo.m_pRelation)
 		return 0;
@@ -1099,11 +1099,11 @@ int OnCS_IF_PARTYLIST_ACK( CMsg &msg)
 
 int OnCS_IF_INVITEPARTY_ACK( CMsg &msg)
 {
-	// bResult	0 : é¢‡è “°‰¢‡³
+	// bResult	0 : çª¯ë‰“ë¦« ë²ëšëˆ›
 	//			4 : ??
-	//			5 : ç§å¯ Ÿ…ç£ç”« Œ«˜¤ ç»™çªƒ
-	//			6 : é¢‡è ç§å· è§’è© ( ç§‹æ©‡š‹Ÿ«˜¤‚º •Š˜¤ ‡¼˜‘é³..)
-	//			9 : é¢‡è Š­ä¾‹å‡³
+	//			5 : ç‡é‡ ìœ‡ë€—é«¥ë¨ªëµ­ ë™§ì‚¤ ç€¯ìˆ‚ì±¶
+	//			6 : çª¯ë‰“ë¦« ç‡è—¥ é°²ë¯¦ë£´ ( ç‡ë—¦ì°ƒì‰µìœ¬ì‚¤ê¶¨ ë¸¡ì‚¤ ëˆ¥ì‚Šè¤¥..)
+	//			9 : çª¯ë‰“ë¦« ë’´å Šë—¥ëˆ›
 	DWORD dwAskID;
 	DWORD dwAskedID;
 	BYTE  bResult;
@@ -1125,7 +1125,7 @@ int OnCS_IF_INVITEPARTY_ACK( CMsg &msg)
 			_stprintf( szText, IDS_D_ASK_DAN, (LPCTSTR)g_MainCharInfo.FindNameByID( dwAskID));
 			if( !g_pUIManager->ShowNotice( szText, NOTICE_FRAME_OKCANCEL, NOTICE_FRAME_INVITEPARTY))
 			{
-				// Š­ä¾
+				// ë’´å Š
 				SendCS_IF_INVITEPARTY_REQ( g_MainCharInfo.m_dwAskID, g_MainCharInfo.m_dwObjectID, 9);
 			}
 		}
@@ -1135,7 +1135,7 @@ int OnCS_IF_INVITEPARTY_ACK( CMsg &msg)
 			g_MainCharInfo.ShowHelpMessage( IDS_REJECT_DAN, TEXTEFFECT_COLOR_WARNING);
 		break;
 
-	case 12: // Œ…‹Œ çª ‚˜‘ ç»é˜‘”­
+	case 12: // ë˜¿ë•¶ ï¦© ê¶„ì‚Šëœ ç€¯ì•¶ì‚Šëµ¯
 		{
 			g_MainCharInfo.m_dwAskID = 0;
 			g_MainCharInfo.ShowHelpMessage(IDS_DAN_RELATION_FAIL, TEXTEFFECT_COLOR_WARNING);
@@ -1233,7 +1233,7 @@ int OnCS_IF_PARTYPOSITION_ACK( CMsg &msg)
 
 int OnCS_IF_CHANGEPARTYLEADER_ACK( CMsg &msg)
 {
-	//HO_0419_07 ©™œ •Š : ©“¦ œ •Š‚ˆ †…›
+	//HO_0419_07 ë£´ì†ì‘€ë¸¡ : ë£´ë²€ ì‘€ë¸¡êµ  ëƒµì”ƒ
 	//DWORD dwPartyID;
 	//DWORD dwCharID;
 
@@ -1246,7 +1246,7 @@ int OnCS_IF_CHANGEPARTYLEADER_ACK( CMsg &msg)
 
 	DWORD dwPartyID;
 	DWORD dwCharID;
-	BYTE  bResult;	////HO_0419_07 ©“¦œ •Š bResultœ •Š bResult ”¼ä¿ ¶‰¼ dwPartyID, dwCharID”« ç½ç»Š •‘ç½ç»Šçª
+	BYTE  bResult;	////HO_0419_07 ë£´ë²€ì‘€ë¸¡ bResultì‘€ë¸¡ bResult ëµ¾å²³ ì”¢ë¹ dwPartyID, dwCharIDëµ­ ç‡Ÿë¨ªí“ ë¸¨ç‡Ÿë¨ªí“ï¦©
 
 	msg		
 		>> dwPartyID
@@ -1259,7 +1259,7 @@ int OnCS_IF_CHANGEPARTYLEADER_ACK( CMsg &msg)
 		if( g_MainCharInfo.m_pRelation->GetDanID() == dwPartyID)
 		{
 			CloseAllWindow();
-			//ProcessClickRelationButton( eDAN); //HO_0424_07 çªœæ©‡é¥ƒ™Š’ ä¿ƒçŸ« “†ç»°å·´˜‘ ˜œæ¾
+			//ProcessClickRelationButton( eDAN); //HO_0424_07 ï¦©ì’ì°ƒè€€ê¹§ë’•ëœ› å²³ê»†ìœ¬ ë± ç€¯ê²¼ëŸ½ì‚Š ì‚™é©›
 			g_MainCharInfo.m_pRelation->SetDanLeader( dwCharID);
 		}
 		break;
@@ -1281,7 +1281,7 @@ int OnCS_IF_DESTROYPARTY_ACK( CMsg &msg)
 
 	g_MainCharInfo.m_pRelation->ClearDan();
 
-	// ”±‹¼ çª æ²¥ç„Šç» ƒ´•Š
+	// ëµ³ë–¬ ï¦© äº¦Î·ê¼¯ç€¯ êºë¸¡
 	CXiahCharObject* pMainChar = (CXiahCharObject*)g_pMainChar->m_pObject;
 
 	pMainChar->m_dwPartyID = 0;
@@ -1313,12 +1313,12 @@ int OnCS_IF_ASKADDBUDDY_ACK( CMsg &msg)
 	DWORD dwAskedID;
 	BYTE bResult;
 
-	// bResult	0 : é¢‡è “°‰¢‡³
+	// bResult	0 : çª¯ë‰“ë¦« ë²ëšëˆ›
 	//			4 : ??
-	//			5 : ç§å¯ Ÿ…ç£ç”« Œ«˜¤ ç»™çªƒ
-	//			6 : é¢‡è ç§å· è§’è© ( ç§‹æ©‡š‹Ÿ«˜¤‚º •Š˜¤ ‡¼˜‘é³..)
-	//          8 : ¯è® Š­ä½ ƒ‘
-	//			9 : é¢‡è Š­ä¾‹å‡³
+	//			5 : ç‡é‡ ìœ‡ë€—é«¥ë¨ªëµ­ ë™§ì‚¤ ç€¯ìˆ‚ì±¶
+	//			6 : çª¯ë‰“ë¦« ç‡è—¥ é°²ë¯¦ë£´ ( ç‡ë—¦ì°ƒì‰µìœ¬ì‚¤ê¶¨ ë¸¡ì‚¤ ëˆ¥ì‚Šè¤¥..)
+	//          8 : ë£¾æº« ë’´éµ ê¹™
+	//			9 : çª¯ë‰“ë¦« ë’´å Šë—¥ëˆ›
 
 	msg
 		>> bResult
@@ -1337,7 +1337,7 @@ int OnCS_IF_ASKADDBUDDY_ACK( CMsg &msg)
 			_stprintf( szText, IDS_D_ASK_FRIEND, (LPCTSTR)g_MainCharInfo.FindNameByID( dwAskID));
 			if( !g_pUIManager->ShowNotice( szText, NOTICE_FRAME_OKCANCEL, NOTICE_FRAME_ASKBUDDY))
 			{
-				// Š­ä¾
+				// ë’´å Š
 				SendCS_IF_ASKADDBUDDY_REQ( g_MainCharInfo.m_dwAskID, g_MainCharInfo.m_dwObjectID, 9);
 			}
 		}
@@ -1358,7 +1358,7 @@ int OnCS_IF_ASKADDBUDDY_ACK( CMsg &msg)
 
 int OnCS_IF_ADDBUDDY_ACK( CMsg &msg)
 {
-	// •‘•œæ³¢ä¿ƒ.
+	// ë¸¨ë¸³ï¦Šã˜í“˜.
 
 	BYTE bResult;
 	DWORD dwCharID;
@@ -1392,12 +1392,12 @@ int OnCS_IF_ADDBUDDY_ACK( CMsg &msg)
 			g_MainCharInfo.m_pRelation->RefreshShipContent();
 		}
 
-		// ‚ˆè¾‘å¤‡ åºœèƒ¶é£˜ä¿Š œ •Š
-		// bTypeç¯ csProtocol ›¼‚¼
+		// êµ æ¸¦ë¬ˆì¨­ ä½¯ì’‘êºç¹‡ì„†í“¡ ì‘€ë¸¡
+		// bTypeå½± csProtocol ì•ê¶ª
 		if(bType == RELATION_TYPE_BUDDY)
-			g_Mail.Add_SendList(dwCharID,szNickName,MAIL_BUDDY,bType);		// æ¨¡å¤‡”¸
+			g_Mail.Add_SendList(dwCharID,szNickName,MAIL_BUDDY,bType);		// èˆ‡â–¼ì¨­ëµº
 		else	
-			g_Mail.Add_SendList(dwCharID,szNickName,MAIL_RELATION,bType);	// æ¨¡å¤‡”« Š›å¯‡èŒ„ ‰¢æ¥
+			g_Mail.Add_SendList(dwCharID,szNickName,MAIL_RELATION,bType);	// èˆ‡â–¼ì¨­ëµ­ ë’Ÿé‡ë‰“ë˜¾ ëšç’µ
 	}
 
 	return 0;
@@ -1417,7 +1417,7 @@ int OnCS_IF_DELBUDDY_ACK( CMsg &msg)
 		g_MainCharInfo.ShowHelpMessage(IDS_CUT_SHIP);
 		g_MainCharInfo.m_pRelation->DeleteShip( dwBuddyID);
 
-		// ‚ˆè¾‘å¤‡ åºœèƒ¶é£˜ä¿Šè¾ Š›Š­
+		// êµ æ¸¦ë¬ˆì¨­ ä½¯ì’‘êºç¹‡ì„†í“¡æ¸¦ ë’Ÿë’´
 		g_Mail.Delete_SendMailList(dwBuddyID);
 	}
 	else
@@ -1432,7 +1432,7 @@ int OnCS_IF_DELBUDDY_ACK( CMsg &msg)
 
 int OnCS_IF_BUDDYLIST_ACK( CMsg &msg)
 {
-	// •‘•¬ä¿.
+	// ë¸¨ë¹ƒå²³.
 
 	BYTE bNumBuddy;
 	DWORD dwCharID;
@@ -1461,12 +1461,12 @@ int OnCS_IF_BUDDYLIST_ACK( CMsg &msg)
                 g_MainCharInfo.m_pRelation->InsertShip( bType, dwCharID, szNickName, bWorldID, dwMapID, 0, 0, (BOOL)bIsConnected);
 		}
 
-		// ‚ˆè¾‘å¤‡
-		// bTypeç¯ csProtocol ›¼‚¼
+		// êµ æ¸¦ë¬ˆì¨­
+		// bTypeå½± csProtocol ì•ê¶ª
 		if(bType == RELATION_TYPE_BUDDY)
-			g_Mail.Add_SendList(dwCharID,szNickName,MAIL_BUDDY,bType);		// æ¨¡å¤‡”¸
+			g_Mail.Add_SendList(dwCharID,szNickName,MAIL_BUDDY,bType);		// èˆ‡â–¼ì¨­ëµº
 		else	
-			g_Mail.Add_SendList(dwCharID,szNickName,MAIL_RELATION,bType);	// æ¨¡å¤‡”« Š›å¯‡èŒ„ ‰¢æ¥
+			g_Mail.Add_SendList(dwCharID,szNickName,MAIL_RELATION,bType);	// èˆ‡â–¼ì¨­ëµ­ ë’Ÿé‡ë‰“ë˜¾ ëšç’µ
 	}
 
 	return 0;
@@ -1474,7 +1474,7 @@ int OnCS_IF_BUDDYLIST_ACK( CMsg &msg)
 
 int OnCS_IF_CHANGEBUDDYCONNECT_ACK( CMsg &msg)
 {
-	// •‘•¬ä¿.
+	// ë¸¨ë¹ƒå²³.
 
 	DWORD dwCharID;
 	BYTE bWorldID;
@@ -1508,9 +1508,9 @@ int OnCS_IF_BUDDYPOSITION_ACK( CMsg &msg)
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-//------------- å±‚¯‚¼‹±
+//------------- ï¥µê¶šê¶ªë–›
 /**
- * „åºœèƒ¶é£
+ * ê¼¸ä½¯ì’‘êºç¹‡
  * \param &msg 
  * \return 
  */
@@ -1597,7 +1597,7 @@ int OnCS_IF_PETLIST_ACK(CMsg &msg)
 			>> wVisualID[4]
 			>> wVisualID[5];
 
-		// ˆ¶”¸ç» —‰
+		// ëŒëµºç€¯ ì˜‘ë®
 		XiahObject::CXiahObject *pPetObject = NULL;
 		if((pPetObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, dwID, OBJTYPE_PET))) != NULL)
 		{	
@@ -1610,9 +1610,9 @@ int OnCS_IF_PETLIST_ACK(CMsg &msg)
 			int nMeshType		= pData->GetInt( 2);
 			int nTextureType	= pData->GetInt( 3);
 
-			if(bRevolutionStep == 4 && bNpcType == 0) //HT_0621 : åº·è•Œ™Œ„šçª ˆ©ä¾
+			if(bRevolutionStep == 4 && bNpcType == 0) //HT_0621 : ä½¯ë£©ëœë¸£ì†ˆê½Šï¦© ë‹¶å Š
 			{
-				// [10/31/2005] Ÿ…ç£ ID‡½‰ˆ
+				// [10/31/2005] ìœ‡ë€—é«¥ IDëˆ¦ëµ
 				nCharID = 1133;
 
 				if(wVisualID[5])
@@ -1627,7 +1627,7 @@ int OnCS_IF_PETLIST_ACK(CMsg &msg)
 			
 			CXiahCharObject *pObject = reinterpret_cast<CXiahCharObject*>(pPetObject->m_pObject);
 
-			if(pObject && bRevolutionStep == 4 && bNpcType == 0) //HT_0621 : åº·è•Œ™Œ„šçª ˆ©ä¾
+			if(pObject && bRevolutionStep == 4 && bNpcType == 0) //HT_0621 : ä½¯ë£©ëœë¸£ì†ˆê½Šï¦© ë‹¶å Š
 				SetupPET_VisualEquipement(pObject, wVisualID);
 
 			continue;
@@ -1642,9 +1642,9 @@ int OnCS_IF_PETLIST_ACK(CMsg &msg)
 		int nMeshType		= pData->GetInt( 2);
 		int nTextureType	= pData->GetInt( 3);
 
-		if(bRevolutionStep == 4 && bNpcType == 0) //HT_0621 : åº·è•Œ™Œ„šçª ˆ©ä¾
+		if(bRevolutionStep == 4 && bNpcType == 0) //HT_0621 : ä½¯ë£©ëœë¸£ì†ˆê½Šï¦© ë‹¶å Š
 		{
-			// [10/31/2005] Ÿ…ç£ ID‡½‰ˆ
+			// [10/31/2005] ìœ‡ë€—é«¥ IDëˆ¦ëµ
 			nCharID = 1133;
 
 			if(wVisualID[5])
@@ -1675,7 +1675,7 @@ int OnCS_IF_PETLIST_ACK(CMsg &msg)
 
 		pCharObject->SetAnimation( XiahAniType::eLAT_Stand, -1);
 
-		if(bRevolutionStep == 4 && bNpcType == 0) //HT_0621 : åº·è•Œ™Œ„šçª ˆ©ä¾
+		if(bRevolutionStep == 4 && bNpcType == 0) //HT_0621 : ä½¯ë£©ëœë¸£ì†ˆê½Šï¦© ë‹¶å Š
 			SetupPET_VisualEquipement(pCharObject, wVisualID);
 
 		pCharObject->m_szObjectName = szName;
@@ -1768,7 +1768,7 @@ int OnCS_IF_CHARTPSP_ACK(CMsg &msg)
 }
 
 /**
- * ·’ ‘¹ æ£µåºœ‰
+ * ì”£ì“µ ëœë«— æ±ë“œí‹µë®
  * \param &msg 
  * \return 
  */
@@ -1799,7 +1799,7 @@ int OnCS_IF_EXECFIVEELM_ACK(CMsg &msg)
 			g_pUIManager->SetString(WINDOW_FIVEELEMENTS, fiveelements_window_exp_dummy, wFiveElmPoint);
 		}
 		break;
-	case ERR_EXECFIVEELM_NEEDPOINT:	// ·’ è®¿æ‘¹ ä½•ç»ƒ
+	case ERR_EXECFIVEELM_NEEDPOINT:	// ì”£ì“µ ëœæº«ìš˜ë«— éµëºŸíŒ
 		{			
 			g_MainCharInfo.ShowHelpMessage(IDS_EXECFIVEELM_NEEDPOINT, TEXTEFFECT_COLOR_WARNING);
 		}
@@ -1809,7 +1809,7 @@ int OnCS_IF_EXECFIVEELM_ACK(CMsg &msg)
 
 		}
 		break;
-	case 3:	// ‘›æ» Š³èºæ¾
+	case 3:	// ëª³è­¯ ë’½ç¿é©›
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_ALL_TRAINED_EF, TEXTEFFECT_COLOR_WARNING);
 		}
@@ -1827,7 +1827,7 @@ int OnCS_IF_EXECFIVEELM_ACK(CMsg &msg)
 }
 
 /**
- * ·’ ¥ç¶
+ * ì”£ì“µ Î·ë§¯
  * \param &msg 
  * \return 
  */
@@ -1840,7 +1840,7 @@ int OnCS_IF_CHANGEFIVEELM_ACK(CMsg &msg)
 
 	switch(bResult)
 	{
-	case 0:				//HT_0720 : ·’ ä¿ºæ ¤äº
+	case 0:				//HT_0720 : ì”£ì“µ å²³ë·¸ ëœ¡é›…
 		{
 			BYTE bCurFiveElm = 0;
 			BYTE bChangeFiveElm = 0;
@@ -1867,24 +1867,24 @@ int OnCS_IF_CHANGEFIVEELM_ACK(CMsg &msg)
 			}
 		}
 		break;
-	case 1:	// ·’ ¤ä¾  ä¿ƒå¼— ·’ ¥ç¶ Ÿ« ‡½‰ˆ ˜‚•Š
+	case 1:	// ì”£ì“µ ëœ¡å Š ë§ƒ å²³ê»ƒíŒ ì”£ì“µ Î·ë§¯ ìœ¬ ëˆ¦ëµ ì»ë¸¡
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_CHANGEFIVEELM_ONAIR, TEXTEFFECT_COLOR_WARNING);		
 		}
 		break;
-	case 2:	// “·ä» ä½•ç»ƒ ‚º ¤ä¾©ä¸” ç»æ¾œ
+	case 2:	// ë²œé¤“ éµëºŸíŒì ê¶¨ ëœ¡å Šâ’³íˆëœ ç€¯ì•®í’™
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_CHANGEFIVEELM_NOTYET, TEXTEFFECT_COLOR_WARNING);	
 		}
 		break;
 	
-	case 3: //HT_0720 : ·’ ä¿ºæ ¤äº (¤ä¾ ‰¢ ·’ ç»æ¾œ)
+	case 3: //HT_0720 : ì”£ì“µ å²³ë·¸ ëœ¡é›… (ëœ¡å Š ë§ƒëš ì”£ì“µëœ› ç€¯ì•®í’™)
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_CHANGEFIVEELM_NONE, TEXTEFFECT_COLOR_WARNING);
 		}
 		break;
 	
-	case 4:	//HT_0720 : ·’ ä¿ºæ ¤äº (30æª¬å•Š •‘ ˜¤”±è¾ ·’˜‘ å®˜æ›¹  ç»æ¾œ)
+	case 4:	//HT_0720 : ì”£ì“µ å²³ë·¸ ëœ¡é›… (30èŒ¹Ñƒë¸¡ ë¸¨ ì‚¤ëµ³æ¸¦ ì”£ì“µì‚Š ï¥´ì„‰ì’ ëœ ç€¯ì•®í’™)
 		{
 			g_MainCharInfo.ShowHelpMessage(IDS_CHANGEFIVEELM_SHORTTIME, TEXTEFFECT_COLOR_WARNING);
 		}
@@ -1898,14 +1898,14 @@ int OnCS_IF_CHANGEFIVEELM_ACK(CMsg &msg)
 }
 
 /**
- * çª ‰ˆæ°°æ‘¹ ›’ç¡ ƒ‘ ”¼
+ * ï¦© ëµï¦ˆê²½ë«— ìŸï¦¦ ê¹™ ëµ¾
  * \param &msg 
  * \return 
  */
 int OnCS_IF_PARTYSHARE_ACK(CMsg &msg)
 {
-	//BYTE byExpDivision	=0;		// ‰ˆæ°°æ‘¹ ›’ç¡ 0-ä¿ºç‰¢ ›’ç¡, 1-‚‚¼ ›’ç¡
-	//BYTE byFEDivision	=0;		// ·’ ”¼ ›’ç¡ 0-ä¿ºç‰¢ ›’ç¡, 1-‚‚¼ ›’ç¡
+	//BYTE byExpDivision	=0;		// ëµï¦ˆê²½ë«— ìŸï¦¦ 0-å²³ë¸€ëš ìŸï¦¦, 1-êµ§ê¶ª ìŸï¦¦
+	//BYTE byFEDivision	=0;		// ì”£ì“µ ëµ¾ ìŸï¦¦ 0-å²³ë¸€ëš ìŸï¦¦, 1-êµ§ê¶ª ìŸï¦¦
 
 	if(g_MainCharInfo.m_pRelation)
 	{
@@ -1913,8 +1913,8 @@ int OnCS_IF_PARTYSHARE_ACK(CMsg &msg)
 			>> g_MainCharInfo.m_pRelation->m_byExpDivision
 			>> g_MainCharInfo.m_pRelation->m_byFEDivision;
 
-		// TODO: ‡½‰ˆŸ« å·©å¤‡
-		// Š’ ‡¯å¦ ä¹é˜‘Ÿ« ›’ç¡ ƒ‘ ‡½‰ˆ
+		// TODO: ëˆ¦ëµìœ¬ è—¥â’´ì¨­
+		// ë’• ëˆ“å€» é˜¿ë¨¬ì‚Šìœ¬ ìŸï¦¦ ê¹™ ëˆ¦ëµ
 		if(g_pUIManager->IsShow(WINDOW_DAN_NEW))
 		{
 			if(g_MainCharInfo.m_pRelation->m_byExpDivision == 1)
@@ -1946,7 +1946,7 @@ int OnCS_IF_PARTYSHARE_ACK(CMsg &msg)
 
 
 /**
-* ‰
+* ë®
 * \param &msg 
 * \return 
 */
@@ -1965,7 +1965,7 @@ int OnCS_IF_STAMINA_ACK(CMsg &msg)
 
 		g_MainCharInfo.m_bSpirit = true;
 
-		//HT_CHEAT : ‰ ç£Šæ‚¼
+		//HT_CHEAT : ë® é«¥ë”€ê¶ª
 		if(g_bCheat)
 			SendCS_IF_EXECSTAMINA_REQ();
 			
@@ -1991,7 +1991,7 @@ int OnCS_IF_STAMINA_ACK(CMsg &msg)
 }
 
 /**
-* ‰ ƒ¯‚¼
+* ë® êºˆê¶ª
 * \param &msg 
 * \return 
 */
@@ -2015,7 +2015,7 @@ int OnCS_IF_EXECSTAMINA_ACK(CMsg &msg)
 		break;
 	case 1:
 		{
-			// TODO: è§’è© å·©å¤‡
+			// TODO: é°²ë¯¦ë£´ è—¥â’´ì¨­
 		}
 		break;
 	default:

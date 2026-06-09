@@ -1,4 +1,4 @@
-
+ï»¿
 int OnCS_OP_OPTIONLIST_ACK( CMsg &msg)
 {
 	BYTE bWhisper	=0;
@@ -15,7 +15,7 @@ int OnCS_OP_OPTIONLIST_ACK( CMsg &msg)
 		>> g_info.m_bRarityLimit
 		>> g_info.m_bStxTypeLimit;
 
-	// OPTION Àû¿ë
+	// OPTION ì ìš©
 	g_info.m_bAllowWhisper	= bWhisper;
 	g_info.m_bAllowRelation = bRelation;
 	g_info.m_bAllowTrade	= bTrade;

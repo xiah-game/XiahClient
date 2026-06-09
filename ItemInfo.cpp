@@ -1,4 +1,4 @@
-#include "precompile.h"
+ï»¿#include "precompile.h"
 #include "XiahArrayIndex.h"
 #include "ItemInfo.h"
 #include "XiahObjectType.h"
@@ -31,7 +31,7 @@ namespace XiahItem
 		pInfo->m_bConstraintCharType= pData->GetInt(13);
 		//pInfo->m_szName				= pData->GetString( 0);
 
-		// ¿Ö ÀÌ·¸°Ô ÇßÁö??
+		// ì™œ ì´ë ‡ê²Œ í–ˆì§€??
 		if( !pInfo->m_szName || pInfo->m_szName == _T(""))
 			pInfo->m_szName				= pData->GetString( 0);
 
@@ -40,7 +40,7 @@ namespace XiahItem
 
 	BOOL ReleaseItemInfo(DWORD pInfo)
 	{
-		delete (sItemInfo*)pInfo;	// ¾È³ç~~
+		delete (sItemInfo*)pInfo;	// ì•ˆë…•~~
 		pInfo = NULL;
 		return TRUE;
 	}
@@ -103,7 +103,7 @@ namespace XiahItem
 					>> pItem->m_bStxType
 					>> pItem->m_bLimitCnt
 					>> pItem->m_bModifyCnt
-					// CG_2005/01/28 : º¯Á¾¾ÆÀÌÅÛ±â´ÉÃß°¡
+					// CG_2005/01/28 : ë³€ì¢…ì•„ì´í…œê¸°ëŠ¥ì¶”ê°€
 					>> pItem->m_bRepairCnt
 					>> pItem->m_bRepairDiscount;
 	
@@ -133,10 +133,10 @@ namespace XiahItem
 				else 
 				{
 					msg							
-						>> pItem->m_bPuzzleType;	// Á¶ÇÕµÈ ¾ÆÀÌÅÛ Å¸ÀÔ
+						>> pItem->m_bPuzzleType;	// ì¡°í•©ëœ ì•„ì´í…œ íƒ€ì…
 				}
 			
-				// Á¦·Ã
+				// ì œë ¨
 				switch(pItem->m_bItemType)
 				{
 					case ITEMTYPE_WEAPON:
@@ -151,7 +151,7 @@ namespace XiahItem
 								>> bSocketItem[0]
 								>> bSocketItem[1]
 								>> bSocketItem[2]
-								>> wRBSocketItem;//HT_1116 : °¢¼ºÀÚ ¾ÆÀÌÅÛ Ãß°¡
+								>> wRBSocketItem;//HT_1116 : ê°ì„±ì ì•„ì´í…œ ì¶”ê°€
 								
 							BYTE bSocketCount = 0;
 							for(int i=0; i < 3; ++i)
@@ -188,7 +188,7 @@ namespace XiahItem
 				BYTE bTemp = 0;
 
 				msg
-					>> bTemp	// ³»±¸°¨¼Ò
+					>> bTemp	// ë‚´êµ¬ê°ì†Œ
 					>> pItem->m_wCurDur
 					>> pItem->m_wMaxDur;
 			}
@@ -227,7 +227,7 @@ namespace XiahItem
 			break;
 
 		case ITEMTYPE_EVENT:
-			{//HO_0828_07 È²±İ¿­¼è Ãß°¡ : ±âÁ¸¿¡´Â ÀÌº¥Æ® ÀÏ°æ¿ì °ªÀÌ ¾ø¾úÀ¸³ª È²±İ¿­¼è Ãß°¡µÇ¸ç °ªÀÌ µé¾î °¡°Ô µÇ¾ú´Ù.	
+			{//HO_0828_07 í™©ê¸ˆì—´ì‡  ì¶”ê°€ : ê¸°ì¡´ì—ëŠ” ì´ë²¤íŠ¸ ì¼ê²½ìš° ê°’ì´ ì—†ì—ˆìœ¼ë‚˜ í™©ê¸ˆì—´ì‡  ì¶”ê°€ë˜ë©° ê°’ì´ ë“¤ì–´ ê°€ê²Œ ë˜ì—ˆë‹¤.	
 			msg	
 				>> pItem->m_wKeyRefID 
 				>> pItem->m_wKeyAmount; 
@@ -274,8 +274,8 @@ namespace XiahItem
 
 		case ITEMTYPE_REBUILDRES:
 			{
-				// °³Á¶ °¡´É¿©ºÎ
-				// 0°³Á¶°¡´É 1ºÒ°¡
+				// ê°œì¡° ê°€ëŠ¥ì—¬ë¶€
+				// 0ê°œì¡°ê°€ëŠ¥ 1ë¶ˆê°€
 				msg
 					>> pItem->m_bIsDividedRes
 					>> pItem->m_wSuccessRatio
@@ -310,10 +310,10 @@ namespace XiahItem
 		case ITEMTYPE_GISDURABLITY:
 			{
 				msg
-					>> pItem->m_wFunctionItem // ±â´É¹øÈ£
+					>> pItem->m_wFunctionItem // ê¸°ëŠ¥ë²ˆí˜¸
 					>> pItem->m_wCurDur
-					>> pItem->m_wMaxDur		 // ÃÖ´ë³»±¸·Â
-					>> pItem->m_dwValue;	 // Àü³¶¿ë
+					>> pItem->m_wMaxDur		 // ìµœëŒ€ë‚´êµ¬ë ¥
+					>> pItem->m_dwValue;	 // ì „ë‚­ìš©
 			}
 			break;
 		case ITEMTYPE_REBIRTH:

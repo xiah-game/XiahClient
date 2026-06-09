@@ -1,4 +1,4 @@
-#include "precompile.h"
+Ôªø#include "precompile.h"
 #include "XiahCharAniType.h"
 
 #include "XiahArrayIndex.h"
@@ -16,7 +16,7 @@ namespace XiahAniType
 #ifdef TRACE_LOG
 			if(!pList)
 			{
-				DBG_LogFile( _T("CXiahChar_LogicalAnimationType Ω«∆–"));
+				DBG_LogFile( _T("CXiahChar_LogicalAnimationType Ïã§Ìå®"));
 			}
 #endif
 			push_back( pList);
@@ -35,7 +35,7 @@ namespace XiahAniType
 #ifdef TRACE_LOG
 			if(pData == NULL)
 			{
-				DBG_LogFile( _T("CXiahChar_LogicalAnimationType::Create Ω«∆–"));
+				DBG_LogFile( _T("CXiahChar_LogicalAnimationType::Create Ïã§Ìå®"));
 			}
 #endif
 
@@ -47,7 +47,7 @@ namespace XiahAniType
 #ifdef TRACE_LOG
 			if(pList == NULL)
 			{
-				DBG_LogFile( _T("CXiahChar_LogicalAnimationType::Create Ω«∆–"));
+				DBG_LogFile( _T("CXiahChar_LogicalAnimationType::Create Ïã§Ìå®"));
 			}
 #endif
 
@@ -75,7 +75,7 @@ namespace XiahAniType
 #ifdef TRACE_LOG
 			if(pList == NULL)
 			{
-				DBG_LogFile( _T("CXiahChar_LogicalAnimationType::Release Ω«∆–"));
+				DBG_LogFile( _T("CXiahChar_LogicalAnimationType::Release Ïã§Ìå®"));
 			}
 #endif
 			delete pList;
@@ -96,7 +96,7 @@ namespace XiahAniType
 
 		if(pList == NULL)
 		{
-			DBG_LogFile( _T("CXiahChar_LogicalAnimationType::GetAniType Ω«∆–"));
+			DBG_LogFile( _T("CXiahChar_LogicalAnimationType::GetAniType Ïã§Ìå®"));
 			return -1;
 		}
 
@@ -121,7 +121,7 @@ namespace XiahAniType
 	..............................................................................................................
 	*************************************************************************************************************/
 	/*
-		¿œ¥‹ ƒ≥∏Ø≈Õ∏∏ «œ∞⁄¥Ÿ
+		ÏùºÎã® Ï∫êÎ¶≠ÌÑ∞Îßå ÌïòÍ≤†Îã§
 	*/
 	CXiahChar_LogicalAnimationType g_AniType[ XIAH_ANITYPE_COUNT];
 
@@ -140,7 +140,7 @@ namespace XiahAniType
 		return TRUE;
 	}
 	
-	// Object∞° NPC¿Œ ∞ÊøÏ NpcTypeµµ ≥÷æÓ ¡÷æÓæﬂ «‘
+	// ObjectÍ∞Ä NPCÏù∏ Í≤ΩÏö∞ NpcTypeÎèÑ ÎÑ£Ïñ¥ Ï£ºÏñ¥Ïïº Ìï®
 	CXiahChar_LogicalAnimationType* GetAniType(BYTE nObjectType,BYTE nNpcType)
 	{
 		if( nObjectType == OBJTYPE_PC)

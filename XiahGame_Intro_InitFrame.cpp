@@ -1,4 +1,4 @@
-#include "precompile.h"
+ï»¿#include "precompile.h"
 #include "AppData.h"
 #include "resource.h"
 #include "InterfaceDefine.h"
@@ -24,7 +24,7 @@ void XiahGame_Intro::Init_Frames()
 	Init_MiniMapWindow();
 	Init_DateWindow();
 
-	// •„˜ ì£¼ì„“¤ OnCS_IT_CHARSTATUSINFO_ACKë°›ê³  ì²˜ë¦¬
+	// æ™ç… æ¬¤æ£€åŠƒæ‘› OnCS_IT_CHARSTATUSINFO_ACKæ°šæ¶¥ç¢ƒ è§³æ©‚Îœ
 	//Init_MainFrame();
 	Init_WindowButton();
 	//Init_SystemButton();
@@ -62,7 +62,7 @@ void XiahGame_Intro::Init_Frames()
 	Init_WindowDongsin();
 
 	Init_WindowDanWar();
-	Init_WindowPurse();					//  „‚­
+	Init_WindowPurse();					// çˆ å”
 
 	Init_WindowMunpaBBSTop();
 	Init_WindowMunpaBBSList();
@@ -80,24 +80,24 @@ void XiahGame_Intro::Init_Frames()
 	Init_WindowCommon();
 	Init_WindowPetTrade();
 
-	Init_WindowBokNumber();				// ë³µê¶Œ„ ƒ
-	Init_WindowBokPrize();				// ë³µê¶Œ‹¹ì²ë²ˆ˜
-	Init_WindowSmelt();					// ì¡°í•©ì°
-	Init_WindowFiveElementConvert();	// ˜¤–‰  œ ¨
+	Init_WindowBokNumber();				// æ°¤åº—ç§¾åŠ†å„©
+	Init_WindowBokPrize();				// æ°¤åº—ç§¾å«»è§³æ°©å¬
+	Init_WindowSmelt();					// è‡ç»Šæš•å½€
+	Init_WindowFiveElementConvert();	// æ§«æ† ç‰…ç‰—
 
-	Init_WindowHelperList();			// ™” ë¦ìŠŠ¸
-	Init_WindowHelperScript();			// ™”ì°
+	Init_WindowHelperList();			// æª¾ æ¯½é€å§¼
+	Init_WindowHelperScript();			// æª¾å½€
 
-	Init_WindowRecovery();				// •„´…œ ë³µêµ¬
+	Init_WindowRecovery();				// æ™æ¾Šå¹ æ°¤åº—æƒ®
 
-	Init_WindowDanNew();				// ‹¨ ê²½í—˜ì¹ ë¶„ë°°
+	Init_WindowDanNew();				// å«§ ç“´å·¾æ£™æ—ƒ æ”µå‹²é
 
-	Init_WindowPortal();				// NPC ¬ƒˆ ´™
+	Init_WindowPortal();				// NPC å½«å„“ æ¾Šå½Š
 
-	Init_WindowCollection();			// •„´…œ ˆ˜ì§
+	Init_WindowCollection();			// æ™æ¾Šå¹ å¬æ­†
 
-	Init_WindowSecretMove();			//HT_0313 : ê´‘ëª… „ & ì²œí™© „	(´™)
-	Init_WindowSecretApplication();		//HT_0313 : ê´‘ëª… „ & ì²œí™© „	(ì°¸ì—¬)
+	Init_WindowSecretMove();			//HT_0313 : ç”æˆ¨ççˆ  & è§³æ»æ«“çˆ 	(æ¾Šå½Š)
+	Init_WindowSecretApplication();		//HT_0313 : ç”æˆ¨ççˆ  & è§³æ»æ«“çˆ 	(å½€èƒ³æ£³)
 	Init_WindowSecretBasis();	
 }
 
@@ -129,7 +129,7 @@ void XiahGame_Intro::Init_IntroAccount()
 }
 
 void XiahGame_Intro::Init_IntroButtonSet()
-// ¸Š¸ë¡ ì´ˆê¸° ™”ë© ë©”ë‰´ „ ƒ ë²„íŠ¼
+// æ¾‘å§¼æ¿ é½‘å ¦èµ´ æª¾æ°… æ°…æ—Šå£Œ åŠ†å„© æ°©å‹´å¨‚
 {
 	g_pUIManager->SetPosition(INTRO_BUTTONSET, INTRO_BUTTONSET_XPOS, INTRO_BUTTONSET_YPOS);
 
@@ -140,13 +140,13 @@ void XiahGame_Intro::Init_IntroButtonSet()
 }
 
 void XiahGame_Intro::Init_IntroCharaterSelect()
-// ¸Š¸ë¡ ì´ˆê¸° ™”ë© ìºë¦­„° „ ƒ ë²„íŠ¼
+// æ¾‘å§¼æ¿ é½‘å ¦èµ´ æª¾æ°… æ—Œæ„²ÎåŠ™ åŠ†å„© æ°©å‹´å¨‚
 {
 	g_pUIManager->SetPosition(INTRO_CHARACTER_SELECT, INTRO_CHARACTER_SELECT_XPOS, INTRO_CHARACTER_SELECT_YPOS); 
 }
 
 void XiahGame_Intro::Init_IntroWindow()
-// ¸Š¸ë¡ ì´ˆê¸° ™”ë© ìºë¦­„° „¤ëª ì°
+// æ¾‘å§¼æ¿ é½‘å ¦èµ´ æª¾æ°… æ—Œæ„²ÎåŠ™ åŠ‹æ°‡ å½€
 {
 	g_pUIManager->SetPosition(INTRO_WINDOW01, INTRO_WINDOW01_XPOS, INTRO_WINDOW01_YPOS);
 
@@ -181,10 +181,10 @@ void XiahGame_Intro::Init_DateWindow()
 	g_pUIManager->SetData(MAIN_FRAME, main_frame_inside_gauge, TYPE, CUIProgressCtrl::RIGHT_TO_LEFT);
 }
 
-// ë©”ì¸ ”„ ˆ„
+// æ°…æ—æ¾‘ æ”§çˆ¤ç€¯
 void  XiahGame_Intro::Init_MainFrame()
 {
-	if(g_MainCharInfo.m_wLevel < 11)//HO_0413_07  ê°´“œ —…°´Š¸ : ìºë¦­„°ê° ‹œ‘ •Œ ê°‘ì ì²´í¬›„ µê´“œ ‹¨ì¶•ë²„Š¼„ ë³´ì—¬ì¤
+	if(g_MainCharInfo.m_wLevel < 11)//HO_0413_07  è‡§æ¾Šæ‘ æ¢¾åµƒæ¾Šå§¼ : æ—Œæ„²ÎåŠ™è‡§ å«“ç€¾æ‚¹æ™« è‡§æˆ©ç€½ è§³é”™ä¼‚æ³Ÿ åº—æ¾Šæ‘ å«§æ–¼æ›¤çŸ‚å¨‚æ½‰ æ°¤æŒ«æ£³æ¬·
 		g_pUIManager->Show(HELP_BUTTON);
 
 	g_pUIManager->SetPosition(HELP_BUTTON, 44, 690);
@@ -255,11 +255,11 @@ void  XiahGame_Intro::Init_MainFrame()
 	g_pUIManager->SetData(MAIN_FRAME, main_frame_level_gauge,	VALUE1, bLevelExpPer);
 	g_pUIManager->SetData(MAIN_FRAME, main_frame_skill_gauge,	VALUE1, bTPExpPer);
 
-	// ˆ´Œ
+	// åŸ“å¯”
 	g_pUIManager->SetToolTip(MAIN_FRAME, main_frame_window_button, 1, IDS_GAME_MENU, 2);
 	g_pUIManager->SetToolTip(MAIN_FRAME, main_frame_system_button, 1, IDS_SYSTEM_MENU, 2);
 
-	//HT_0720 : ˜¤–‰ ê°œì„  ‚¬•­
+	//HT_0720 : æ§«æ† è‡§æ»ŒåŠ† å“æš›
 	g_pUIManager->SetData(MAIN_FRAME, main_frame_ok, TEXTURE, 1536);
 }
 
@@ -267,7 +267,7 @@ void XiahGame_Intro::Init_WindowButton()
 {	
 	g_pUIManager->SetPosition(WINDOW_BUTTON_GROUP_01, WINDOW_BUTTON_GROUP_XPOS, WINDOW_BUTTON_GROUP_YPOS);
 
-	// ˆ´Œ
+	// åŸ“å¯”
 	g_pUIManager->SetToolTip(WINDOW_BUTTON_GROUP_01, new_window_button_01, 1, IDS_SACK1, 2);
 	g_pUIManager->SetToolTip(WINDOW_BUTTON_GROUP_01, new_window_button_02, 1, IDS_STATUS1, 2);
 	g_pUIManager->SetToolTip(WINDOW_BUTTON_GROUP_01, new_window_button_03, 1, IDS_MUGONG1, 2);
@@ -276,7 +276,7 @@ void XiahGame_Intro::Init_WindowButton()
 	g_pUIManager->SetToolTip(WINDOW_BUTTON_GROUP_01, new_window_button_06, 1, IDS_COLLECTION2, 2);
 
 
-	// ê¸
+	// æ—®
 	g_pUIManager->SetPosition(SPIRIT, 4, 690);
 	g_pUIManager->Hide(SPIRIT);
 }
@@ -286,15 +286,15 @@ void XiahGame_Intro::Init_SystemButton()
 	RECT rtTemp;
 	
 	//g_pUIManager->GetRegionData(MAIN_FRAME, main_frame_system_button, rtTemp);
-	// ˆ˜ì§ •„´ì½ •Œë¬¸ì— ˆ˜ •
-	//HO_0413_07  ê°´“œ —…°´Š¸ : ë²„íŠ¼ ì¶”êë¡ ¸•œ œ„ì¹ ˆ˜ •
-	g_pUIManager->GetRegionData(WINDOW_BUTTON_GROUP_01, new_window_button_02, rtTemp);// ê°´“œ ë²„íŠ¼ ì¶”êë¡ ¸•œ new_window_button_06„ 02ë¡ ¬„¤ •
-	g_pUIManager->SetPosition(SYSTEM_BUTTON_GROUP_01, rtTemp.right-2, SYSTEM_BUTTON_GROUP_YPOS); //, FALSE // ê°´“œ ë²„íŠ¼ ì¶”êë¡ ¸•œ rtTemp.right— -2ë¥ ¬•¨•´ì¤
+	// å¬æ­† æ™æ¾Šæ—– æ™«æ°èƒ³æ£ å¬çˆ¼
+	//HO_0413_07  è‡§æ¾Šæ‘ æ¢¾åµƒæ¾Šå§¼ : æ°©å‹´å¨‚ æ–¼æ—‰æ¿ æ¾‘æš… æ¸¼æ—ƒ å¬çˆ¼
+	g_pUIManager->GetRegionData(WINDOW_BUTTON_GROUP_01, new_window_button_02, rtTemp);// è‡§æ¾Šæ‘ æ°©å‹´å¨‚ æ–¼æ—‰æ¿ æ¾‘æš… new_window_button_06æ½‰ 02æ¿ ç›åŠ‹çˆ¼
+	g_pUIManager->SetPosition(SYSTEM_BUTTON_GROUP_01, rtTemp.right-2, SYSTEM_BUTTON_GROUP_YPOS); //, FALSE // è‡§æ¾Šæ‘ æ°©å‹´å¨‚ æ–¼æ—‰æ¿ æ¾‘æš… rtTemp.rightæ£ -2æ¯³ å½«æš”æš£æ¬·
 	
-	//g_pUIManager->GetRegionData(WINDOW_BUTTON_GROUP_01, new_window_button_06, rtTemp); // ê°´“œ ë²„íŠ¼ ì¶”ê „ œ„ì¹
-	//g_pUIManager->SetPosition(SYSTEM_BUTTON_GROUP_01, rtTemp.right, WINDOW_BUTTON_GROUP_YPOS); //, FALSE // ê°´“œ ë²„íŠ¼ ì¶”ê „ œ„ì¹
+	//g_pUIManager->GetRegionData(WINDOW_BUTTON_GROUP_01, new_window_button_06, rtTemp); // è‡§æ¾Šæ‘ æ°©å‹´å¨‚ æ–¼æ—‰çˆ  æ¸¼æ—ƒ
+	//g_pUIManager->SetPosition(SYSTEM_BUTTON_GROUP_01, rtTemp.right, WINDOW_BUTTON_GROUP_YPOS); //, FALSE // è‡§æ¾Šæ‘ æ°©å‹´å¨‚ æ–¼æ—‰çˆ  æ¸¼æ—ƒ
 
-	// ˆ´Œ
+	// åŸ“å¯”
 	g_pUIManager->SetToolTip(SYSTEM_BUTTON_GROUP_01, new_system_button_01, 1, IDS_MINIMAP, 2);
 	g_pUIManager->SetToolTip(SYSTEM_BUTTON_GROUP_01, new_system_button_02, 1, IDS_HELP, 2);
 	g_pUIManager->SetToolTip(SYSTEM_BUTTON_GROUP_01, new_system_button_03, 1, IDS_OPTION, 2);
@@ -302,7 +302,7 @@ void XiahGame_Intro::Init_SystemButton()
 }
 
 void  XiahGame_Intro::Init_ChatFrame()
-// ì±„íŒ… ì°
+// æ¯‚å‹´å¯˜ å½€
 {
 	g_pUIManager->SetPosition(MAIN_CHAT, MAIN_CHAT_XPOS, MAIN_CHAT_YPOS);
 
@@ -387,12 +387,12 @@ void XiahGame_Intro::Init_PetControlFrame()
 //	Window
 ////////////////////////////////////////////
 void XiahGame_Intro::Init_WindowCharacter()
-// ìºë¦­„°  •ë³ ì°
+// æ—Œæ„²ÎåŠ™ çˆ¼æ°¤ å½€
 {
 	g_pUIManager->SetPosition(WINDOW_CHARACTER, WINDOW_FIRST_XPOS, 0);
 
 	////////////////
-	//  ê¸°ë³¸  •ë³
+	//  æ—®åŠæ£ çˆ¼æ°¤
 	////////////////
 	TCHAR strName[128]={0,};
 	TCHAR strClass[64]={0,};
@@ -422,7 +422,7 @@ void XiahGame_Intro::Init_WindowCharacter()
 	//int dwMAXLevelExp = g_MainCharInfo.m_dwNextLevelUpExp - g_MainCharInfo.m_dwLevelExp;
 	//int dwSUBLevelExp = g_MainCharInfo.m_dwExp - g_MainCharInfo.m_dwLevelExp;
 
-	//HT_0621 : ê²½í—˜ì¹ ˆ˜ì¹ ˆ˜ •
+	//HT_0621 : ç“´å·¾æ£™æ—ƒ å¬æ—ƒ å¬çˆ¼
 	INT64 i64MAXLevelExp = g_MainCharInfo.m_i64NextLevelUpExp - g_MainCharInfo.m_i64LevelExp;
 	INT64 i64SUBLevelExp = g_MainCharInfo.m_i64Exp - g_MainCharInfo.m_i64LevelExp;
 	_stprintf( strExp, _T("%I64d / %I64d"), i64SUBLevelExp, i64MAXLevelExp);
@@ -450,9 +450,9 @@ void XiahGame_Intro::Init_WindowCharacter()
 	
 	if(g_MainCharInfo.m_bRebirth)
 	{		
-		if(g_MainCharInfo.m_bRebirth < 7)	//HT_0702 : ê°ì„±
+		if(g_MainCharInfo.m_bRebirth < 7)	//HT_0702 : è‡§ä¾…åŠšç€½
 			_stprintf( strName, IDS_REBIRTH_COUNT_01, (LPCTSTR)g_MainCharInfo.m_szNickName, g_MainCharInfo.m_bRebirth);
-		else				//ì§„ê°„±
+		else				//æ­†å‹±çšåŠšç€½
 			_stprintf( strName, IDS_2TH_REBIRTH_COUNT_01,(LPCTSTR)g_MainCharInfo.m_szNickName, (g_MainCharInfo.m_bRebirth - 6));
 
 		g_pUIManager->SetString(WINDOW_CHARACTER, character_window_contents_dummy_001, strName);
@@ -468,7 +468,7 @@ void XiahGame_Intro::Init_WindowCharacter()
 	g_pUIManager->SetString(WINDOW_CHARACTER, character_window_contents_dummy_012, strFame, byType);
 
 	////////////////
-	//  ê¸°ë³¸ì¹
+	//  æ—®åŠæ£æ—ƒ
 	////////////////
 	g_pUIManager->SetString(WINDOW_CHARACTER, character_window_dummy_01, IDS_STR);
 	g_pUIManager->SetString(WINDOW_CHARACTER, character_window_dummy_02, IDS_DEF);
@@ -483,7 +483,7 @@ void XiahGame_Intro::Init_WindowCharacter()
 	g_pUIManager->SetString(WINDOW_CHARACTER, haracter_window_dummy_10, g_MainCharInfo.m_wRemainSp);
 
 	////////////////
-	//  ƒ„¸ì¹
+	//  å„ŠåŠ¯æ—ƒ
 	////////////////	
 	TCHAR strHp[20]={0,};
 	TCHAR strIp[20]={0,};
@@ -549,7 +549,7 @@ void  XiahGame_Intro::Init_WindowItem()
 	g_pUIManager->SetString(DRG_ITEM_WINDOW, drg_item_window_money_dummy_01, MoneyCommaStr(g_MainCharInfo.m_dwMoney));
 }
 
-// ™¸ê³ ì°
+// æ«¢ç“¿ å½€
 void  XiahGame_Intro::Init_WindowOutSide()
 {
 	g_pUIManager->SetPosition(WINDOW_OUTSIDE, WINDOW_FIRST_XPOS, 0);
@@ -558,9 +558,9 @@ void  XiahGame_Intro::Init_WindowOutSide()
 	g_pUIManager->SetString(WINDOW_OUTSIDE, outside_window_top_button_01, IDS_OUT_PWR);
 	g_pUIManager->SetData(WINDOW_OUTSIDE, outside_window_top_button_01, CURRENT_INDEX, 2);
 	g_pUIManager->SetString(WINDOW_OUTSIDE, outside_window_top_button_02, IDS_IN_PWR);
-	// ˜¤–‰
+	// æ§«æ†
 	g_pUIManager->SetString(WINDOW_OUTSIDE, outside_window_top_button_03, IDS_FIVEELEMENT);
-	// ê°ì„±
+	// è‡§ä¾…åŠš
 	g_pUIManager->SetString(WINDOW_OUTSIDE, outside_window_top_button_04, IDS_SKILL);
 
 	g_pUIManager->SetString(WINDOW_OUTSIDE, outside_window_training_point_name_01, IDS_TP);
@@ -579,16 +579,16 @@ void  XiahGame_Intro::Init_WindowOutSide()
 
 		switch( g_MainCharInfo.m_bCharType)
 		{
-		case 1:		// ê²˜
+		case 1:		// ç“´æ¦¿
 			 pData = XiahArrayIndex::g_MugongIndex_OutGum.GetData(i);
 			break;
-		case 2:		// —°‘
+		case 2:		// æ£¸ç€¾
 			pData = XiahArrayIndex::g_MugongIndex_OutYun.GetData(i);
 			break;
-		case 3:		// ë¬´íˆ¬
+		case 3:		// æ°é”™åŸ‡
 			pData = XiahArrayIndex::g_MugongIndex_OutMutu.GetData(i);
 			break;
-		case 4:		// •¼ì°
+		case 4:		// æš­å½€
 			pData = XiahArrayIndex::g_MugongIndex_OutYaCha.GetData(i);
 			break;
 		}
@@ -601,31 +601,31 @@ void  XiahGame_Intro::Init_WindowOutSide()
 
 			if( pMugongData)
 			{
-				// ´ë¦
+				// æ¾Šæ¯½
 				sString szMugongName = pMugongData->GetString( 1);
 
 				g_pUIManager->SetString(WINDOW_OUTSIDE, outside_window_negong_name_dummy_01 + i -1, (LPCTSTR)szMugongName);
 
-				//  ˆë²
+				// çˆ¤æ°©
 				g_pUIManager->SetString(WINDOW_OUTSIDE, outside_window_mugong_skill_01 + i -1, 0);
 
-				// •„´ì½ ´ë¯¸ì
+				// æ™æ¾Šæ—– æ¾Šæ°™èƒ³
 				int nResID = pMugongData->GetInt(1);
 				g_pUIManager->SetData(WINDOW_OUTSIDE, outside_window_mugong_dummy_01 + i - 1, TEXTURE, nResID + 2);
 
-				// ˆ´Œ
+				// åŸ“å¯”
 				if( g_MainCharInfo.m_pMugong)
 					g_MainCharInfo.m_pMugong->SetMugongToolTip( nMugongID, WINDOW_OUTSIDE, outside_window_mugong_dummy_01 + i - 1);
 			}
 		}
 		else
 		{
-			DBG_LogFile( _T("XiahGame_Intro::Init_WindowOutSide ‹¤Œ¨"));
+			DBG_LogFile( _T("XiahGame_Intro::Init_WindowOutSide å«Ÿå°"));
 		}
 	}
 }
 
-// ‚´ê³ ì°
+// åç“¿ å½€
 void  XiahGame_Intro::Init_WindowInSide()
 {
 	g_pUIManager->SetPosition(WINDOW_INSIDE, WINDOW_FIRST_XPOS, 0);
@@ -633,16 +633,16 @@ void  XiahGame_Intro::Init_WindowInSide()
 	g_pUIManager->SetString(WINDOW_INSIDE, inside_window_title_back, IDS_MUGONG);
 	g_pUIManager->SetString(WINDOW_INSIDE, inside_window_top_button_01, IDS_OUT_PWR);
 	g_pUIManager->SetString(WINDOW_INSIDE, inside_window_top_button_02, IDS_IN_PWR);
-	// ˜¤–‰
+	// æ§«æ†
 	g_pUIManager->SetString(WINDOW_INSIDE, inside_window_top_button_03, IDS_FIVEELEMENT);
-	// ê°ì„±
+	// è‡§ä¾…åŠš
 	g_pUIManager->SetString(WINDOW_INSIDE, inside_window_top_button_04, IDS_SKILL);	
 
 	g_pUIManager->SetData(WINDOW_INSIDE, inside_window_top_button_02, CURRENT_INDEX, 2);
 	g_pUIManager->SetString(WINDOW_INSIDE, inside_window_training_point_dummy_01, IDS_TP);
 	g_pUIManager->SetString(WINDOW_INSIDE, inside_window_training_point_dummy_02, g_MainCharInfo.m_wRemainTp);
 
-	g_pUIManager->SetString(WINDOW_INSIDE, inside_window_box_title_dummy, IDS_2TH_REBIRTH_MUGONG);//HO_0709_07 : ì§„ê°„± ‚´ê³ ”„ ˆ„ : ¡„± ‹ ê³ ‘œ‹œ
+	g_pUIManager->SetString(WINDOW_INSIDE, inside_window_box_title_dummy, IDS_2TH_REBIRTH_MUGONG);//HO_0709_07 : æ­†å‹±çšåŠš åç“¿ æ”§çˆ¤ç€¯ : æ½¯åŠš å«šç“¿ æ†¸å«“
 
 	for( int i=1; i < 10; ++i)
 	{
@@ -672,18 +672,18 @@ void  XiahGame_Intro::Init_WindowInSide()
 
 			if( pMugongData)
 			{
-				// ´ë¦
+				// æ¾Šæ¯½
 				sString szMugongName = pMugongData->GetString( 1);
 
 				g_pUIManager->SetString(WINDOW_INSIDE, inside_window_negong_name_dummy_01 + i -1, (LPCTSTR)szMugongName);
 
-				//  ˆë²
+				// çˆ¤æ°©
 				g_pUIManager->SetString(WINDOW_INSIDE, inside_window_negong_skill_01 + i -1, 0);
 
-				// ˆ´Œ
+				// åŸ“å¯”
 				if( g_MainCharInfo.m_pMugong)
 					g_MainCharInfo.m_pMugong->SetMugongToolTip( nMugongID, WINDOW_INSIDE, inside_window_negong_01 + i - 1);
-				// •„´ì½ ´ë¯¸ì
+				// æ™æ¾Šæ—– æ¾Šæ°™èƒ³
 				if( i < 8)
 				{
 					g_pUIManager->SetData(WINDOW_INSIDE, inside_window_negong_01 + i - 1, CURRENT_INDEX, 1);
@@ -696,37 +696,37 @@ void  XiahGame_Intro::Init_WindowInSide()
 			}
 			else
 			{
-				DBG_LogFile( _T("XiahGame_Intro::Init_WindowInSide ‹¤Œ¨"));
+				DBG_LogFile( _T("XiahGame_Intro::Init_WindowInSide å«Ÿå°"));
 			}
 		}
 	}
 
-	//HT_0711 : ì§„ê°„± ‚´ê³ ”„ ˆ„ : ¡„± ‹ ê³ ‘œ‹œ
+	//HT_0711 : æ­†å‹±çšåŠš åç“¿ æ”§çˆ¤ç€¯ : æ½¯åŠš å«šç“¿ æ†¸å«“
 	for(i=0; i<2; i++)
 	{
 		sArrayData* pMugongData = XiahArrayIndex::g_MugongTemplate.GetData( 199 + i );
 
 		if( pMugongData)
 		{
-			// ´ë¦
+			// æ¾Šæ¯½
 			sString szMugongName = pMugongData->GetString( 1);
 
 			g_pUIManager->SetString(WINDOW_INSIDE, inside_window_negong_name_dummy_10 + i, (LPCTSTR)szMugongName);
 
-			//  ˆë²
+			// çˆ¤æ°©
 			g_pUIManager->SetString(WINDOW_INSIDE, inside_window_negong_skill_10 + i, 0);
 
-			// ˆ´Œ
+			// åŸ“å¯”
 			if( g_MainCharInfo.m_pMugong)
 				g_MainCharInfo.m_pMugong->SetMugongToolTip( 199 + i, WINDOW_INSIDE, inside_window_mugong_dummy_01 + i);
 			
-			// •„´ì½ ´ë¯¸ì
+			// æ™æ¾Šæ—– æ¾Šæ°™èƒ³
 			int nResID = pMugongData->GetInt(1);
 			g_pUIManager->SetData(WINDOW_INSIDE, inside_window_mugong_dummy_01 + i, TEXTURE, nResID);
 		}
 		else
 		{
-			DBG_LogFile( _T("XiahGame_Intro::Init_WindowInSide ‹¤Œ¨"));
+			DBG_LogFile( _T("XiahGame_Intro::Init_WindowInSide å«Ÿå°"));
 		}
 	}
 }
@@ -768,9 +768,9 @@ void XiahGame_Intro::Init_WindowClanFound()
 	g_pUIManager->SetString(WINDOW_MUNPA_FOUND, found_window_center_title_dummy, IDS_CLAN_FOUND);
 
 #ifdef _CHINA_
-	pFrame->GetControl( found_window_bottom_dummy_01)->SetString( "ï¿½ì ‘ì³”íƒ°˜é½¡ì„¬ ï¼30„¬ï¥ï¿|ï¤í—¹ì¸°æ¡ƒœ„ ï¼10„¬ï¥ï¿|°Ÿœë¡¤ç—°ï¼100.000.ì¢ƒïï¿|°ŸœŒ¦ì¡°ä»¤ ï¼10");
+	pFrame->GetControl( found_window_bottom_dummy_01)->SetString( "é”Ÿå±Šçˆ²æ–æ—å„¼å¸¢æ¦»Â§åŠ• é”›30åŠ•é“³é”Ÿ|é“¯é …è½¨èµ´å¦—å„›æ¸¼ é”›10åŠ•é“³é”Ÿ|æ¾ƒç…–æ¿ã‚‡æ£¸é”›100.000.è†¦å†¿é”Ÿ|æ¾ƒç…–å°è‡é¢æŠ¤ é”›10");
 #else
-	g_pUIManager->SetString(WINDOW_MUNPA_FOUND, found_window_bottom_dummy_01, "ë¬¸íŒŒ „¤ë¦  œ•œ ê°‘ì : 30 ê°‘ì ´ƒ|š”êµ ëª…ì„±“±ê¸ : 10 “±ê¸ ´ƒ|†Œëª ë¹„ìš© : 100,000 „|†Œëª ˆ˜ ¨ì¹ : 10");
+	g_pUIManager->SetString(WINDOW_MUNPA_FOUND, found_window_bottom_dummy_01, "æ°ç–™å¯£ åŠ‹æ¯½ ç‰…æš… è‡§æˆ©ç€½ : 30 è‡§æˆ©ç€½ æ¾Šå„Š|æ®§ç”‘ æ°‡å‘¾åŠšæ‘«æ—® : 10 æ‘«æ—® æ¾Šå„Š|å”½æ°‡ ç‰å‹³æ¯„ : 100,000çˆ |å”½æ°‡ å¬ç‰—æ—ƒ : 10");
 #endif
 
 	g_pUIManager->SetString(WINDOW_MUNPA_FOUND, found_window_bottom_dummy_03, IDS_CLAN_EXPLAIN4, 1);
@@ -815,7 +815,7 @@ void XiahGame_Intro::Init_WindowClan()
 
 
 void  XiahGame_Intro::Init_WindowPcTrade()
-// PCê° ê±°ë˜ ì°
+// PCè‡§ ç“¯åŠç… å½€
 {
 	g_pUIManager->SetPosition(WINDOW_PC_TRADE, WINDOW_SECOND_XPOS, 0);
 
@@ -828,7 +828,7 @@ void  XiahGame_Intro::Init_WindowPcTrade()
 }
 
 void  XiahGame_Intro::Init_WindowNpcTrade()
-// NPC ê±°ë˜ ì°
+// NPC ç“¯åŠç… å½€
 {
 	g_pUIManager->SetPosition(WINDOW_NPC_TRADE, WINDOW_SECOND_XPOS, 0);
 
@@ -850,7 +850,7 @@ void XiahGame_Intro::Init_WindowNpcTradeTab()
 }
 
 /**
- * ê°œì¡°
+ * è‡§æ»Œâ€œ
  */
 void XiahGame_Intro::Init_WindowConvert()
 {
@@ -960,7 +960,7 @@ void XiahGame_Intro::Init_WindowTamingItem()
 }
 
 /**
- * ˜µ…˜
+ * æ¨€å´
  */
 void XiahGame_Intro::Init_WindowOption()
 {
@@ -979,7 +979,7 @@ void XiahGame_Intro::Init_WindowOption()
 	g_pUIManager->SetString(WINDOW_OPTION_01, option_window_1_select_dummy_04, IDS_CHAT_OK);
 	g_pUIManager->SetString(WINDOW_OPTION_01, option_window_1_select_dummy_05, IDS_CHARNAME_OK);
 	g_pUIManager->SetString(WINDOW_OPTION_01, option_window_1_select_dummy_06, IDS_MOBNAME_OK);
-	g_pUIManager->SetString(WINDOW_OPTION_01, option_window_1_select_dummy_07, IDS_ITEMDROP); //HO_0816_07 •„´…œ “œ‹œ š…•
+	g_pUIManager->SetString(WINDOW_OPTION_01, option_window_1_select_dummy_07, IDS_ITEMDROP); //HO_0816_07 æ™æ¾Šå¹ æ‘ç€ºå«“ æ®”æ™¬
 
 	g_pUIManager->SetData(WINDOW_OPTION_01, option_window_1_select_01, CURRENT_INDEX, 1);
 	g_pUIManager->SetData(WINDOW_OPTION_01, option_window_1_select_02, CURRENT_INDEX, 1);
@@ -987,7 +987,7 @@ void XiahGame_Intro::Init_WindowOption()
 	g_pUIManager->SetData(WINDOW_OPTION_01, option_window_1_select_04, CURRENT_INDEX, 1);
 	g_pUIManager->SetData(WINDOW_OPTION_01, option_window_1_select_05, CURRENT_INDEX, 1);
 	g_pUIManager->SetData(WINDOW_OPTION_01, option_window_1_select_06, CURRENT_INDEX, 1);
-	g_pUIManager->SetData(WINDOW_OPTION_01, option_window_1_select_07, CURRENT_INDEX, 1); //HO_0816_07 •„´…œ “œ‹œ š…•
+	g_pUIManager->SetData(WINDOW_OPTION_01, option_window_1_select_07, CURRENT_INDEX, 1); //HO_0816_07 æ™æ¾Šå¹ æ‘ç€ºå«“ æ®”æ™¬
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 	g_pUIManager->SetPosition(WINDOW_OPTION_02, WINDOW_FIRST_XPOS, 0);
@@ -1069,8 +1069,8 @@ void XiahGame_Intro::Init_WindowPcStore()
 {
 	g_pUIManager->SetPosition(WINDOW_PC_STORE, WINDOW_SECOND_XPOS, 0);
 	
-	g_pUIManager->SetData(WINDOW_PC_STORE, pc_store_passage_edit_01, MAXSTRING, 19);	// …¸ ëª
-	g_pUIManager->SetData(WINDOW_PC_STORE, pc_store_passage_edit_02, MAXSTRING, 39);	// ˜¸ê°ë¸ê
+	g_pUIManager->SetData(WINDOW_PC_STORE, pc_store_passage_edit_01, MAXSTRING, 19);	// å€çˆ¯æ°‡
+	g_pUIManager->SetData(WINDOW_PC_STORE, pc_store_passage_edit_02, MAXSTRING, 39);	// æ¨ƒè‡§æ¿æˆˆ
 
 	g_pUIManager->SetString(WINDOW_PC_STORE, pc_store_title_dummy, IDS_PT_SET_TITLE);
 	g_pUIManager->SetString(WINDOW_PC_STORE, pc_store_passage_dummy_01, IDS_PT_SET_NAME);
@@ -1083,7 +1083,7 @@ void XiahGame_Intro::Init_WindowPcStore()
 	g_pUIManager->SetString(WINDOW_PC_STORE, pc_store_button_03, IDS_PT_SET_COLLECT);
 }
 
-// ê°ê² … ¥ì°
+// è‡§ç“´ ç€°ç‰“å½€
 void XiahGame_Intro::Init_WindowMoney()
 {
 	g_pUIManager->SetPosition(WINDOW_MONEY, WINDOW_VOLUME_XPOS, WINDOW_VOLUME_YPOS);
@@ -1120,7 +1120,7 @@ void XiahGame_Intro::Init_WindowDongsin()
 }
 
 /**
- * ‹¨ ë¹„ë
+ * å«§ ç‰å‹²
  */
 void XiahGame_Intro::Init_WindowDanWar()
 {
@@ -1137,7 +1137,7 @@ void XiahGame_Intro::Init_WindowDanWar()
 }
 
 /**
- *  „‚­ ¸„°˜´Š¤
+ * çˆ å” æ¾‘åŠ™å¸¢æ¾Šå§¢
  */
 void XiahGame_Intro::Init_WindowPurse()
 {
@@ -1152,7 +1152,7 @@ void XiahGame_Intro::Init_WindowPurse()
 
 
 /**
- * ë¬¸íŒŒ ê²Œì‹œŒ ˜„™©
+ * æ°ç–™å¯£ ç“´å²‡å«“å¯ª æ§ƒæ«“
  */
 void XiahGame_Intro::Init_WindowMunpaBBSTop()
 {
@@ -1185,7 +1185,7 @@ void XiahGame_Intro::Init_WindowMunpaBBSTop()
 }
 
 /**
- * ë¬¸íŒŒ ê²Œì‹œŒ ë¦ìŠŠ¸
+ * æ°ç–™å¯£ ç“´å²‡å«“å¯ª æ¯½é€å§¼
  */
 void XiahGame_Intro::Init_WindowMunpaBBSList()
 {
@@ -1203,7 +1203,7 @@ void XiahGame_Intro::Init_WindowMunpaBBSList()
 }
 
 /**
- * ê³µì ½ê¸
+ * ç“¿å¥  æ¾–æ—®
  */
 void XiahGame_Intro::Init_WindowMunpaBBSRead()
 {
@@ -1222,7 +1222,7 @@ void XiahGame_Intro::Init_WindowMunpaBBSRead()
 }
 
 /**
- * ê³µì “°ê¸
+ * ç“¿å¥  æ‘ªæ—®
  */
 void XiahGame_Intro::Init_WindowMunpaBBSWrite()
 {
@@ -1254,7 +1254,7 @@ void XiahGame_Intro::Init_WindowMunpaBBSWrite()
 }
 
 /**
- * ê¸°ë
+ * æ—®åŠ
  */
 void XiahGame_Intro::Init_WindowMunpaDonate()
 {
@@ -1274,7 +1274,7 @@ void XiahGame_Intro::Init_WindowMunpaDonate()
 }
 
 /**
- * ë¬¸íŒŒ „ ‹ ì²
+ * æ°ç–™å¯£çˆ  å«šè§³
  */
 void XiahGame_Intro::Init_WindowMunpaWarPetition()
 {
@@ -1290,7 +1290,7 @@ void XiahGame_Intro::Init_WindowMunpaWarPetition()
 }
 
 /**
- *  „„œêµ
+ * çˆ åŠ€ç”‘
  */
 void XiahGame_Intro::Init_WindowMail()
 {
@@ -1322,7 +1322,7 @@ void XiahGame_Intro::Init_WindowMail()
 	g_pUIManager->SetData(WINDOW_MAIL, window_mail_edit_07, MAXSTRING, 30);
 	g_pUIManager->SetData(WINDOW_MAIL, window_mail_edit_08, MAXSTRING, 30);
 
-	// … ¥ ë¹„í™œ„±™”
+	// ç€°ç‰“ ç‰å‹´æ«†åŠšæª¾
 	g_pUIManager->SetData(WINDOW_MAIL, window_mail_top_edit_01, EDITMODE, NOEDIT);
 //	g_pUIManager->SetData(WINDOW_MAIL, window_mail_top_edit_02, EDITMODE, NOEDIT);
 //
@@ -1337,7 +1337,7 @@ void XiahGame_Intro::Init_WindowMail()
 }
 
 /**
- *  „„œêµ „ ƒ
+ * çˆ åŠ€ç”‘ åŠ†å„©
  */
 void XiahGame_Intro::Init_WindowMailSelect()
 {
@@ -1356,7 +1356,7 @@ void XiahGame_Intro::Init_WindowMailSelect()
 }
 
 /**
- *  „„œêµ  „†¡ ê²°ê³¼
+ * çˆ åŠ€ç”‘ çˆ å• ç“´ç“£è‡£
  */
 void XiahGame_Intro::Init_WindowMailResult()
 {
@@ -1387,7 +1387,7 @@ void XiahGame_Intro::Init_WindowCommon()
 }
 
 /**
- * « ê±°ë˜  •ë³
+ * å¸¿ ç“¯åŠç… çˆ¼æ°¤
  */
 void XiahGame_Intro::Init_WindowPetTrade()
 {
@@ -1410,7 +1410,7 @@ void XiahGame_Intro::Init_WindowPetTrade()
 }
 
 /**
- * ë³µê¶Œ „ ƒ
+ * æ°¤åº—ç§¾ åŠ†å„©
  */
 void XiahGame_Intro::Init_WindowBokNumber()
 {
@@ -1432,7 +1432,7 @@ void XiahGame_Intro::Init_WindowBokNumber()
 }
 
 /**
- * ë³µê¶Œ ‹¹ì²ë²ˆ˜ š…•
+ * æ°¤åº—ç§¾ å«»è§³æ°©å¬ æ®”æ™¬
  */
 void XiahGame_Intro::Init_WindowBokPrize()
 {
@@ -1445,7 +1445,7 @@ void XiahGame_Intro::Init_WindowBokPrize()
 }
 
 /**
- * ë¬¸íŒŒë§ˆí¬ - ‹¤ë¥¸ìš©„ê°Š¥
+ * æ°ç–™å¯£æ¯µå ©ä¼‚ - å«Ÿæ¯³èƒ³æ¯„å¼°è‡§å§¤
  */
 void XiahGame_Intro::Init_WindowMark()
 {
@@ -1458,7 +1458,7 @@ void XiahGame_Intro::Init_WindowMark()
 }
 
 /**
- * ì¡°í•©ì°
+ * è‡ç»Šæš•å½€
  */
 void XiahGame_Intro::Init_WindowSmelt()
 {
@@ -1471,7 +1471,7 @@ void XiahGame_Intro::Init_WindowSmelt()
 }
 
 /**
- * ˜¤–‰
+ * æ§«æ†
  */
 void XiahGame_Intro::Init_WindowFiveElement()
 {
@@ -1520,12 +1520,12 @@ void XiahGame_Intro::Init_WindowFiveElement()
 	g_MainCharInfo.m_pMugong->SetFiveElementToolTip(153, WINDOW_FIVEELEMENTS, fiveelements_window_skill_dummy_07);
 	g_MainCharInfo.m_pMugong->SetFiveElementToolTip(154, WINDOW_FIVEELEMENTS, fiveelements_window_skill_dummy_08);
 
-	//HT_0720 : ˜¤–‰ ê°œì„  ‚¬•­
+	//HT_0720 : æ§«æ† è‡§æ»ŒåŠ† å“æš›
 	g_pUIManager->SetData(WINDOW_FIVEELEMENTS, fiveelements_window_button_end, CURRENT_INDEX, -1);
 }
 
 /**
- * ˜¤–‰  œ ¨
+ * æ§«æ† ç‰…ç‰—
  */
 void XiahGame_Intro::Init_WindowFiveElementConvert()
 {
@@ -1542,14 +1542,14 @@ void XiahGame_Intro::Init_WindowFiveElementConvert()
 }
 
 /**
- * ™” ë¦ìŠŠ¸
+ * æª¾ æ¯½é€å§¼
  */
 void XiahGame_Intro::Init_WindowHelperList()
 {
-	//HO_0410_07 ƒ„œ ¹ ê°´“œ —…°´Š¸
-	g_pUIManager->SetPosition(WINDOW_HELPER_LIST2, WINDOW_FIRST_XPOS-100, 270); //WINDOW_FIRST_XPOS, 0); //ƒ„œ ¹ ê°´“œ —…°´Š¸ : ƒ„œ ¹ ê°´“œ —…°´Š¸  „ †ŒŠ¤ë¥ ƒ‘š©œ¼ë¡ ë³™˜
+	//HO_0410_07 å„ŠåŠ€ç‰´ è‡§æ¾Šæ‘ æ¢¾åµƒæ¾Šå§¼
+	g_pUIManager->SetPosition(WINDOW_HELPER_LIST2, WINDOW_FIRST_XPOS-100, 270); //WINDOW_FIRST_XPOS, 0); //å„ŠåŠ€ç‰´ è‡§æ¾Šæ‘ æ¢¾åµƒæ¾Šå§¼ : å„ŠåŠ€ç‰´ è‡§æ¾Šæ‘ æ¢¾åµƒæ¾Šå§¼ çˆ  å”½å§¢æ¯³ å„›ç€¾æ¯„æº‚æ¿ æ°¤æ«‚
 	
-	g_pUIManager->SetPosition(WINDOW_HELPER_LIST1, WINDOW_FIRST_XPOS, 0);//ƒ„œ ¹ ê°´“œ —…°´Š¸ : ”„ ˆ„ì° ¬ê¸ ë³ê²½ìœ¼ë¡ ƒ„œ ¹ ™”ì°½ì˜ š°ì¸ ƒ‹¨œ¼ë¡ ´™
+	g_pUIManager->SetPosition(WINDOW_HELPER_LIST1, WINDOW_FIRST_XPOS, 0);//å„ŠåŠ€ç‰´ è‡§æ¾Šæ‘ æ¢¾åµƒæ¾Šå§¼ : æ”§çˆ¤ç€¯å½€ ä¼‚æ—® æ°¤ç“´å±Šæº‚æ¿ å„ŠåŠ€ç‰´ æª¾å½€å±Šæ½£ æ¯æ—„ å„Šå«§æº‚æ¿ æ¾Šå½Š
 
 	g_pUIManager->SetString(WINDOW_HELPER_LIST1, helper_window1_title_bar, IDS_GAME_GUIDE);
 	g_pUIManager->SetString(WINDOW_HELPER_LIST1, helper_window1_button_01, IDS_TALK_1);	
@@ -1569,17 +1569,17 @@ void XiahGame_Intro::Init_WindowHelperList()
 }
 
 /**
- * ™” ì°
+ * æª¾ å½€
  */
 void XiahGame_Intro::Init_WindowHelperScript()
 {
-	g_pUIManager->SetPosition(WINDOW_HELPER_SCRIPT, WINDOW_FIRST_XPOS-100, 270);//ƒ‘
+	g_pUIManager->SetPosition(WINDOW_HELPER_SCRIPT, WINDOW_FIRST_XPOS-100, 270);//å„›ç€¾
 
 	g_pUIManager->SetString(WINDOW_HELPER_SCRIPT, helper_window_script_button1, IDS_TALK_1);	
 	g_pUIManager->SetString(WINDOW_HELPER_SCRIPT, helper_window_script_button2, IDS_TALK_2);	
 	
-	//HO_0413_07 ƒ„œ ¹ ê°´“œ —…°´Š¸
-	g_pUIManager->SetPosition(WINDOW_HELPER_LIST0, 0, 0);//ƒ„œ ¹ ê°´“œ —…°´Š¸ë¡ ¸•œ ”„ ˆ„ì° ¬ê¸ ë³ê²½ìœ¼ë¡ ƒ„œ ¹ ™”ì°½ì˜ š°ì¸ ƒ‹¨œ¼ë¡ ´™ //HO_0215_07 ƒˆë¡œìš´ ë¦ì†ŒŠ  š© ê¸°ì¡´ ë¦ì†ŒŠŠ” WINDOW_HELPER_SCRIPT „
+	//HO_0413_07 å„ŠåŠ€ç‰´ è‡§æ¾Šæ‘ æ¢¾åµƒæ¾Šå§¼
+	g_pUIManager->SetPosition(WINDOW_HELPER_LIST0, 0, 0);//å„ŠåŠ€ç‰´ è‡§æ¾Šæ‘ æ¢¾åµƒæ¾Šå§¼æ¿ æ¾‘æš… æ”§çˆ¤ç€¯å½€ ä¼‚æ—® æ°¤ç“´å±Šæº‚æ¿ å„ŠåŠ€ç‰´ æª¾å½€å±Šæ½£ æ¯æ—„ å„Šå«§æº‚æ¿ æ¾Šå½Š //HO_0215_07 å„“æ¿æ»Œæ¯š æ¯½é»å¯  çˆœæ¯„ æ—®åŠã€ˆ æ¯½é»å¯ å§… WINDOW_HELPER_SCRIPT ç€¯
 
 	g_pUIManager->Show(WINDOW_HELPER_LIST0, helper_window0_button_01);
 	g_pUIManager->Show(WINDOW_HELPER_LIST0, helper_window0_button_02);
@@ -1591,7 +1591,7 @@ void XiahGame_Intro::Init_WindowHelperScript()
 }
 
 /**
- * •„´…œ ë³µêµ¬
+ * æ™æ¾Šå¹ æ°¤åº—æƒ®
  */
 void XiahGame_Intro::Init_WindowRecovery()
 {
@@ -1607,7 +1607,7 @@ void XiahGame_Intro::Init_WindowRecovery()
 }
 
 /**
-* ‹¨ ê²½í—˜ì¹ ë¶„ë°°
+* å«§ ç“´å·¾æ£™æ—ƒ æ”µå‹²é
 */
 void XiahGame_Intro::Init_WindowDanNew()
 {
@@ -1637,7 +1637,7 @@ void XiahGame_Intro::Init_WindowDanNew()
 }
 
 /**
- * NPC ¬ƒˆ ´™
+ * NPC å½«å„“ æ¾Šå½Š
  */
 void XiahGame_Intro::Init_WindowPortal()
 {
@@ -1655,7 +1655,7 @@ void XiahGame_Intro::Init_WindowPortal()
 }
 
 /**
-* •„´…œ ˆ˜ì§
+* æ™æ¾Šå¹ å¬æ­†
 */
 void XiahGame_Intro::Init_WindowCollection()
 {
@@ -1665,7 +1665,7 @@ void XiahGame_Intro::Init_WindowCollection()
 }
 
 /**
-* ê°ì„± ì°
+* è‡§ä¾…åŠš å½€
 */
 void XiahGame_Intro::Init_WindowSkill()
 {
@@ -1688,7 +1688,7 @@ void XiahGame_Intro::Init_WindowSkill()
 	g_pUIManager->SetString(WINDOW_SKILL, skill_window_center_title_dummy_03, IDS_REBIRTH_SPECIAL_PWR);
 
 
-	// ‚´ê³
+	// åç“¿
 	for( int i=161; i < 164; ++i)
 	{
 		sArrayData* pRebirthData = XiahArrayIndex::g_RebirthMugong_List.GetData( i);
@@ -1698,14 +1698,14 @@ void XiahGame_Intro::Init_WindowSkill()
 			int nResID	  = pRebirthData->GetInt(2);
 			int nSeq	  = pRebirthData->GetInt(55);
 
-			// ´ë¦
+			// æ¾Šæ¯½
 			sString szMugongName = pRebirthData->GetString( 1);
 
 			g_pUIManager->SetString(WINDOW_SKILL, skill_window_negong_name_dummy_01 + nSeq - 1, (LPCTSTR)szMugongName);
-			//  ˆë²
+			// çˆ¤æ°©
 			g_pUIManager->SetString(WINDOW_SKILL, skill_window_negong_skill_01 + nSeq - 1, 0);
 
-			// ˆ´Œ
+			// åŸ“å¯”
 			if( g_MainCharInfo.m_pMugong)
 				g_MainCharInfo.m_pMugong->SetRebirthToolTip( nMugongID, WINDOW_SKILL, skill_window_negong_01 + nSeq - 1);
 
@@ -1713,7 +1713,7 @@ void XiahGame_Intro::Init_WindowSkill()
 		}
 	}
 
-	// ê³µí†µ ´ë¯¸ì
+	// ç“¿æ·€å–Œ æ¾Šæ°™èƒ³
 	for( int i=180; i < 182; ++i)
 	{
 		sArrayData* pRebirthData = XiahArrayIndex::g_RebirthMugong_List.GetData( i);
@@ -1723,23 +1723,23 @@ void XiahGame_Intro::Init_WindowSkill()
 			int nResID	  = pRebirthData->GetInt(2);
 			int nSeq	  = pRebirthData->GetInt(55);
 
-			// ´ë¦
+			// æ¾Šæ¯½
 			sString szMugongName = pRebirthData->GetString( 1);
 
 			g_pUIManager->SetString(WINDOW_SKILL, skill_window_nugong_name_dummy_01 + nSeq - 4, (LPCTSTR)szMugongName);
-			//  ˆë²
+			// çˆ¤æ°©
 			g_pUIManager->SetString(WINDOW_SKILL, skill_window_nugong_skill_01 + nSeq - 4, 0);
 
-			// ˆ´Œ
+			// åŸ“å¯”
 			if( g_MainCharInfo.m_pMugong)
 				g_MainCharInfo.m_pMugong->SetRebirthToolTip( nMugongID, WINDOW_SKILL, skill_window_mugong_dummy_01 + nSeq - 4);
 
-			// •„´ì½ ´ë¯¸ì
+			// æ™æ¾Šæ—– æ¾Šæ°™èƒ³
 			g_pUIManager->SetData(WINDOW_SKILL, skill_window_mugong_dummy_01 + nSeq - 4, TEXTURE, nResID);
 		}
 	}
 
-	// œ ŒŒ ™¸ê³
+	// æ¹¢å¯£ æ«¢ç“¿
 	for( int i=0; i < 2; ++i)
 	{		
 		int nMugongID = (g_MainCharInfo.m_bCharType * 2) + 170 + i;
@@ -1751,26 +1751,26 @@ void XiahGame_Intro::Init_WindowSkill()
 			int nResID	  = pMugongData->GetInt(2);
 			int nSeq	  = pMugongData->GetInt(55);
 
-			// ´ë¦
+			// æ¾Šæ¯½
 			sString szMugongName = pMugongData->GetString( 1);
 
 			g_pUIManager->SetString(WINDOW_SKILL, skill_window_nugong_name_dummy_01 + nSeq - 4, (LPCTSTR)szMugongName);
 
-			//  ˆë²
+			// çˆ¤æ°©
 			g_pUIManager->SetString(WINDOW_SKILL, skill_window_nugong_skill_01 + nSeq - 4, 0);
 
-			// ˆ´Œ
+			// åŸ“å¯”
 			if( g_MainCharInfo.m_pMugong)
 				g_MainCharInfo.m_pMugong->SetRebirthToolTip( nMugongID, WINDOW_SKILL, skill_window_mugong_dummy_01 + nSeq - 4);
 
-			// •„´ì½ ´ë¯¸ì
+			// æ™æ¾Šæ—– æ¾Šæ°™èƒ³
 			g_pUIManager->SetData(WINDOW_SKILL, skill_window_mugong_dummy_01 + nSeq - 4, TEXTURE, nResID);			
 		}
 	}
 }
 
 /**
- * ê´‘ëª… „ & ì²œí™© „ ì°¸ì—¬ì°
+ * ç”æˆ¨ççˆ  & è§³æ»æ«“çˆ  å½€èƒ³æ£³å½€
  */
 void XiahGame_Intro::Init_WindowSecretApplication()
 {
@@ -1782,7 +1782,7 @@ void XiahGame_Intro::Init_WindowSecretApplication()
 }
 
 /**
- * ê´‘ëª… „ & ì²œí™© „ ´™ì°
+ * ç”æˆ¨ççˆ  & è§³æ»æ«“çˆ  æ¾Šå½Šå½€
  */
 void XiahGame_Intro::Init_WindowSecretMove()
 {
@@ -1793,7 +1793,7 @@ void XiahGame_Intro::Init_WindowSecretMove()
 }
 
 /**
- * ê´‘ëª… „ & ì²œí™© „ ê¸°ë³¸ì°
+ * ç”æˆ¨ççˆ  & è§³æ»æ«“çˆ  æ—®åŠæ£å½€
  */
 void XiahGame_Intro::Init_WindowSecretBasis()
 {

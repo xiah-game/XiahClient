@@ -1,4 +1,4 @@
-#include "precompile.h"
+ï»¿#include "precompile.h"
 #include "AppData.h"
 #include "XiahGame_Intro.h"
 #include "XiahGame_Main.h"
@@ -26,7 +26,7 @@ BOOL InitGameStepObject()
 
 	if(!g_GameStep[0] || !g_GameStep[1] || !g_GameStep[2] || !g_GameStep[3])
 	{
-		DBG_LogFile( _T("InitGameStepObject ½ÇÆÐ"));
+		DBG_LogFile( _T("InitGameStepObject ì‹¤íŒ¨"));
 
 		//return false;
 	}
@@ -49,7 +49,7 @@ BOOL ReleaseGameStepObject()
 		}
 		else
 		{
-			//DBG_LogFile( _T("ReleaseGameStepObject ½ÇÆÐ"));
+			//DBG_LogFile( _T("ReleaseGameStepObject ì‹¤íŒ¨"));
 
 			//return false;
 		}

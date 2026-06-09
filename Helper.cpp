@@ -1,4 +1,4 @@
-#include "precompile.h"
+ï»¿#include "precompile.h"
 #include "Helper.h"
 #include "ArrayIndexData.h"
 #include "InterfaceDefine.h"
@@ -21,7 +21,7 @@ Helper::~Helper()
 
 void Helper::Update()
 {
-	//HO_0410_07 »ó¼­·É °¡ÀÌµå ¾÷µ¥ÀÌÆ®
+	//HO_0410_07 ìƒì„œë ¹ ê°€ì´ë“œ ì—…ë°ì´íŠ¸
 	if(g_pUIManager->IsShow(WINDOW_HELPER_LIST1))
 	{
 		sRect rtRect;
@@ -78,7 +78,7 @@ void Helper::Update()
 			}
 		} // if(rtRect.PtInRect(XiahInput::g_ptMouse))
 	}
-	//HO_0410_07 »ó¼­·É °¡ÀÌµå ¾÷µ¥ÀÌÆ® : »ó¼­·É ¾÷µ¥ÀÌÆ® Àü ÄÚµå¸¦ Å½¶û ¿ëÀ» À§ÇÏ¿© »ç¿ë
+	//HO_0410_07 ìƒì„œë ¹ ê°€ì´ë“œ ì—…ë°ì´íŠ¸ : ìƒì„œë ¹ ì—…ë°ì´íŠ¸ ì „ ì½”ë“œë¥¼ íƒë‘ ìš©ì„ ìœ„í•˜ì—¬ ì‚¬ìš©
 	else if(g_pUIManager->IsShow(WINDOW_HELPER_LIST2))
 	{
 		sRect rtRect;
@@ -195,10 +195,10 @@ bool Helper::TalkShow(const int nOriginalID)
 {
 	sArrayData* pHelperScript = XiahArrayIndex::g_HelperScript.GetData(nOriginalID);
 
-	//HO_0410_07 »ó¼­·É °¡ÀÌµå ¾÷µ¥ÀÌÆ®
+	//HO_0410_07 ìƒì„œë ¹ ê°€ì´ë“œ ì—…ë°ì´íŠ¸
 	if(pHelperScript && nOriginalID <= 110)
 	{
-		if(nOriginalID >= 99)// »ó¼­·É ¾÷µ¥ÀÌÆ® °¡ÀÌµå Àü ÄÚµå¸¦ Å½¶û ´ëÈ­¿ëÀ¸·Î º¯È¯
+		if(nOriginalID >= 99)// ìƒì„œë ¹ ì—…ë°ì´íŠ¸ ê°€ì´ë“œ ì „ ì½”ë“œë¥¼ íƒë‘ ëŒ€í™”ìš©ìœ¼ë¡œ ë³€í™˜
 		{
 			g_MainCharInfo.OpenFrame(WINDOW_HELPER_SCRIPT);
 
@@ -207,13 +207,13 @@ bool Helper::TalkShow(const int nOriginalID)
 			g_pUIManager->SetString(WINDOW_HELPER_SCRIPT, helper_window_script_dummy, _T(""));
 			g_pUIManager->SetString(WINDOW_HELPER_SCRIPT, helper_window_script_dummy, strTemp.data(),0);
 
-			// ¹öÆ° º¸ÀÌ±â
+			// ë²„íŠ¼ ë³´ì´ê¸°
 			g_pUIManager->Show(WINDOW_HELPER_SCRIPT, helper_window_script_button1);
 			g_pUIManager->Show(WINDOW_HELPER_SCRIPT, helper_window_script_button2);
 		}
 		else
 		{
-			//HO_0410_07 »ó¼­·É °¡ÀÌµå ¾÷µ¥ÀÌÆ®
+			//HO_0410_07 ìƒì„œë ¹ ê°€ì´ë“œ ì—…ë°ì´íŠ¸
 			g_MainCharInfo.OpenFrame(WINDOW_HELPER_LIST);
 
 			m_nSelectID = nOriginalID;
@@ -234,7 +234,7 @@ bool Helper::TalkShow(const int nOriginalID)
 
 			g_pUIManager->Hide(WINDOW_HELPER_LIST1, helper_window1_button_01);
 			g_pUIManager->Hide(WINDOW_HELPER_LIST1, helper_window1_button_02);
-			// ¹öÆ° º¸ÀÌ±â
+			// ë²„íŠ¼ ë³´ì´ê¸°
 			g_pUIManager->Show(WINDOW_HELPER_LIST, helper_window_button_01);
 			g_pUIManager->Show(WINDOW_HELPER_LIST, helper_window_button_02);
 		}		
@@ -319,7 +319,7 @@ bool Helper::TalkListShow(const int nID)
 {
 	sArrayData* pHelperScript = XiahArrayIndex::g_HelperScript.GetData(nID);
 
-	//HO_0410_07 »ó¼­·É °¡ÀÌµå ¾÷µ¥ÀÌÆ® : »ó¼­·É ¾÷µ¥ÀÌÆ® Àü ÄÚµå¸¦ (99)Á¶°ÇÀ» ÁÖ¾î Å½¶û Àü¿ëÀ¸·Î ¸¸µë
+	//HO_0410_07 ìƒì„œë ¹ ê°€ì´ë“œ ì—…ë°ì´íŠ¸ : ìƒì„œë ¹ ì—…ë°ì´íŠ¸ ì „ ì½”ë“œë¥¼ (99)ì¡°ê±´ì„ ì£¼ì–´ íƒë‘ ì „ìš©ìœ¼ë¡œ ë§Œë“¬
 	if(pHelperScript && nID <= 110)
 	{
 		if(nID == 99 || nID == 105)
@@ -336,7 +336,7 @@ bool Helper::TalkListShow(const int nID)
 
 			int nChildCount = pHelperScript->GetInt(3);
 
-			// ÀÎÅÍÆäÀÌ½º °³¼ö 12°³ ÃÊ°ú´Â... ¹®Á¦°¡ »ı±âÁö...
+			// ì¸í„°í˜ì´ìŠ¤ ê°œìˆ˜ 12ê°œ ì´ˆê³¼ëŠ”... ë¬¸ì œê°€ ìƒê¸°ì§€...
 			assert(nChildCount <= 12);
 
 			if(nChildCount)
@@ -365,7 +365,7 @@ bool Helper::TalkListShow(const int nID)
 		}
 		else
 		{
-			// ¹öÆ° ´İ±â
+			// ë²„íŠ¼ ë‹«ê¸°
 			g_pUIManager->Hide(WINDOW_HELPER_LIST, helper_window_button_01);
 			g_pUIManager->Hide(WINDOW_HELPER_LIST, helper_window_button_02);
 
@@ -381,7 +381,7 @@ bool Helper::TalkListShow(const int nID)
 
 			int nChildCount = pHelperScript->GetInt(3);
 
-			// ÀÎÅÍÆäÀÌ½º °³¼ö 12°³ ÃÊ°ú´Â... ¹®Á¦°¡ »ı±âÁö...
+			// ì¸í„°í˜ì´ìŠ¤ ê°œìˆ˜ 12ê°œ ì´ˆê³¼ëŠ”... ë¬¸ì œê°€ ìƒê¸°ì§€...
 			assert(nChildCount <= 12);
 
 			sString strTitle = _T("");
@@ -430,7 +430,7 @@ bool Helper::TalkListShow(const int nID)
 		
 		int nChildCount = pHelperScript->GetInt(3);
 
-		// ÀÎÅÍÆäÀÌ½º °³¼ö 12°³ ÃÊ°ú´Â... ¹®Á¦°¡ »ı±âÁö...
+		// ì¸í„°í˜ì´ìŠ¤ ê°œìˆ˜ 12ê°œ ì´ˆê³¼ëŠ”... ë¬¸ì œê°€ ìƒê¸°ì§€...
 		assert(nChildCount <= 12);
 
 		if(nChildCount)
@@ -471,7 +471,7 @@ bool Helper::TalkListShow(const int nID)
 
 bool Helper::TalkContinue()
 {
-	//HO_0410_07 »ó¼­·É °¡ÀÌµå ¾÷µ¥ÀÌÆ®
+	//HO_0410_07 ìƒì„œë ¹ ê°€ì´ë“œ ì—…ë°ì´íŠ¸
 	
 	
 	if(0 == m_nSelectID)
@@ -497,7 +497,7 @@ bool Helper::TalkContinue()
 		}
 	}	
 	return true;
-	/*»ó¼­·É ¾÷µ¥ÀÌÆ® Àû¿ë Àü ÄÚµå
+	/*ìƒì„œë ¹ ì—…ë°ì´íŠ¸ ì ìš© ì „ ì½”ë“œ
 	g_pUIManager->SetString(WINDOW_HELPER_SCRIPT, helper_window_script_dummy, IDS_TALK_MIDDLE, 5);
 
 	if(0 == m_nSelectID)
@@ -526,18 +526,18 @@ bool Helper::TalkContinue()
 
 void Helper::TalkStop()
 {
-	//HO_0410_07 »ó¼­·É °¡ÀÌµå ¾÷µ¥ÀÌÆ®
+	//HO_0410_07 ìƒì„œë ¹ ê°€ì´ë“œ ì—…ë°ì´íŠ¸
 	m_nSelectID = 0;
 
 	g_MainCharInfo.CloseFrame(WINDOW_HELPER_LIST1);
 	g_MainCharInfo.CloseFrame(WINDOW_HELPER_LIST);
 
-	//HO_0410_07 »ó¼­·É °¡ÀÌµå ¾÷µ¥ÀÌÆ® : »ó¼­·É °¡ÀÌµå ¾÷µ¥ÀÌÆ® Àû¿ë Àü ÄÚµå Å½¶û¿ëÀ¸·Î ¾²ÀÌ±â¿¡ ³²°ÜµÒ
+	//HO_0410_07 ìƒì„œë ¹ ê°€ì´ë“œ ì—…ë°ì´íŠ¸ : ìƒì„œë ¹ ê°€ì´ë“œ ì—…ë°ì´íŠ¸ ì ìš© ì „ ì½”ë“œ íƒë‘ìš©ìœ¼ë¡œ ì“°ì´ê¸°ì— ë‚¨ê²¨ë‘ 
    	g_MainCharInfo.CloseFrame(WINDOW_HELPER_LIST2);
 	g_MainCharInfo.CloseFrame(WINDOW_HELPER_SCRIPT);
 }
 
-//HO_0413_07 Äü °¡ÀÌµå ¾÷µ¥ÀÌÆ®
+//HO_0413_07 í€µ ê°€ì´ë“œ ì—…ë°ì´íŠ¸
 void Helper::TalkBack()
 {
 	TCHAR szLevel[50]={0,};

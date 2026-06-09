@@ -1,4 +1,4 @@
-#include "precompile.h"
+ï»¿#include "precompile.h"
 #include "XiahArrayIndex.h"
 
 namespace XiahArrayIndex
@@ -6,7 +6,7 @@ namespace XiahArrayIndex
 	CArrayIndexData g_MapFileName;
 	CArrayIndexData g_MainCharType;
 	CArrayIndexData g_NpcType;	
-	CArrayIndexData g_NpcType2;				// ¼ºÀÎ¼­¹ö¿ë NPC
+	CArrayIndexData g_NpcType2;				// ì„±ì¸ì„œë²„ìš© NPC
 	CArrayIndexData g_MugongTemplate;
 	CArrayIndexData g_MugongList;
 	CArrayIndexData g_MugongColumnName;
@@ -22,20 +22,20 @@ namespace XiahArrayIndex
 	CArrayIndexData g_AniType[ XIAH_ANITYPE_COUNT];
 	CArrayIndexData g_ItemType;
 	CArrayIndexData g_FunctionalNpcType;
-	CArrayIndexData g_ItemLength;			// ¹«±â ±æÀÌ, visualid and length
+	CArrayIndexData g_ItemLength;			// ë¬´ê¸° ê¸¸ì´, visualid and length
 	CArrayIndexData g_ItemTip;
 	CArrayIndexData g_MugongDesc;
-	CArrayIndexData g_QuestItem;			// Äù½ºÆ® ¾ÆÀÌÅÛ ÅøÆÁ
+	CArrayIndexData g_QuestItem;			// í€˜ìŠ¤íŠ¸ ì•„ì´í…œ íˆ´íŒ
 	CArrayIndexData g_QuestScript;
-	CArrayIndexData g_HelperScript;			// µµ¿ì¹Ì ´ëÈ­
-	// °¢¼º
+	CArrayIndexData g_HelperScript;			// ë„ìš°ë¯¸ ëŒ€í™”
+	// ê°ì„±
 	CArrayIndexData g_RebirthMugong_List;
 	CArrayIndexData g_RebirthMugong_Desc;
 
 	//CArrayIndexData g_SkillTiemIndex;
-	CArrayIndexData g_QuickIndex;			//HO_0413_07 Äü °¡ÀÌµå ¾÷µ¥ÀÌÆ®
+	CArrayIndexData g_QuickIndex;			//HO_0413_07 í€µ ê°€ì´ë“œ ì—…ë°ì´íŠ¸
 
-	//HT_0824 : Äù½ºÆ® µµ¿ì¹Ì Ãß°¡
+	//HT_0824 : í€˜ìŠ¤íŠ¸ ë„ìš°ë¯¸ ì¶”ê°€
 	CArrayIndexData g_QuestHelpList;
 	CArrayIndexData g_QuestMonList;
 	CArrayIndexData g_QuestNPCList;
@@ -52,7 +52,7 @@ namespace XiahArrayIndex
 		LOAD_ARRAYINDEX( g_MapFileName,			_T("index\\mapfilename.idx"));
 		LOAD_ARRAYINDEX( g_MainCharType,		_T("index\\mainchartype.idx"));
 		LOAD_ARRAYINDEX( g_NpcType,				_T("index\\npctype.idx"));		
-		LOAD_ARRAYINDEX( g_NpcType2,			_T("index\\npctype2.idx"));			// ¼ºÀÎ¼­¹ö¿ë NPC
+		LOAD_ARRAYINDEX( g_NpcType2,			_T("index\\npctype2.idx"));			// ì„±ì¸ì„œë²„ìš© NPC
 		LOAD_ARRAYINDEX( g_MugongTemplate,		_T("index\\pc_mugong_template.idx"));
 		LOAD_ARRAYINDEX( g_MugongList,			_T("index\\pc_mugong_list.idx"));
 		LOAD_ARRAYINDEX( g_MugongColumnName,	_T("index\\pc_mugong_column_name.idx"));
@@ -80,19 +80,19 @@ namespace XiahArrayIndex
 		LOAD_ARRAYINDEX( g_AniType[ 1],			_T("index\\anitype_npc_1.idx"));
 		LOAD_ARRAYINDEX( g_AniType[ 2],			_T("index\\functional_npc_anitype.idx"));
 
-		// µµ¿ì¹Ì ´ëÈ­
+		// ë„ìš°ë¯¸ ëŒ€í™”
 		LOAD_ARRAYINDEX(g_HelperScript,			_T("index\\HelpScript.idx"));
 
-		// °¢¼º
+		// ê°ì„±
 		LOAD_ARRAYINDEX(g_RebirthMugong_List,	_T("index\\rebirth_mugong.idx"));
 		LOAD_ARRAYINDEX(g_RebirthMugong_Desc,	_T("index\\Rebirth_MugongDesc.idx"));
 
 		//LOAD_ARRAYINDEX(g_SkillTiemIndex,		_T("index\\skilltime.idx"));
 		
-		//HO_0413_07 Äü °¡ÀÌµå ¾÷µ¥ÀÌÆ®
+		//HO_0413_07 í€µ ê°€ì´ë“œ ì—…ë°ì´íŠ¸
 		LOAD_ARRAYINDEX(g_QuickIndex,			_T("index\\Quick.idx"));
 
-		//HT_0824 : Äù½ºÆ® µµ¿ì¹Ì Ãß°¡
+		//HT_0824 : í€˜ìŠ¤íŠ¸ ë„ìš°ë¯¸ ì¶”ê°€
 		LOAD_ARRAYINDEX(g_QuestHelpList,		_T("index\\QuestHelpList.idx"));
 		LOAD_ARRAYINDEX(g_QuestMonList,			_T("index\\QuestMonList.idx"));
 		LOAD_ARRAYINDEX(g_QuestNPCList,			_T("index\\QuestNPCList.idx"));
@@ -104,7 +104,7 @@ namespace XiahArrayIndex
 		UNLOAD_ARRAYINDEX( g_MapFileName);
 		UNLOAD_ARRAYINDEX( g_MainCharType);
 		UNLOAD_ARRAYINDEX( g_NpcType);		
-		UNLOAD_ARRAYINDEX(g_NpcType2);			// ¼ºÀÎ¼­¹ö¿ë NPC
+		UNLOAD_ARRAYINDEX(g_NpcType2);			// ì„±ì¸ì„œë²„ìš© NPC
 		UNLOAD_ARRAYINDEX( g_MugongTemplate);
 		UNLOAD_ARRAYINDEX( g_MugongList);
 		UNLOAD_ARRAYINDEX( g_MugongColumnName);
@@ -131,18 +131,18 @@ namespace XiahArrayIndex
 		UNLOAD_ARRAYINDEX( g_AniType[ 1]);
 		UNLOAD_ARRAYINDEX( g_AniType[ 2]);
 
-		// µµ¿ì¹Ì ´ëÈ­
+		// ë„ìš°ë¯¸ ëŒ€í™”
 		UNLOAD_ARRAYINDEX(g_HelperScript);
 
-		// °¢¼º
+		// ê°ì„±
 		UNLOAD_ARRAYINDEX(g_RebirthMugong_List);
 		UNLOAD_ARRAYINDEX(g_RebirthMugong_Desc);
 
 		//UNLOAD_ARRAYINDEX(g_SkillTiemIndex);
 
-		UNLOAD_ARRAYINDEX(g_QuickIndex);				//HO_0413_07 Äü °¡ÀÌµå ¾÷µ¥ÀÌÆ®
+		UNLOAD_ARRAYINDEX(g_QuickIndex);				//HO_0413_07 í€µ ê°€ì´ë“œ ì—…ë°ì´íŠ¸
 
-		//HT_0824 : Äù½ºÆ® µµ¿ì¹Ì Ãß°¡
+		//HT_0824 : í€˜ìŠ¤íŠ¸ ë„ìš°ë¯¸ ì¶”ê°€
 		UNLOAD_ARRAYINDEX(g_QuestHelpList);
 		UNLOAD_ARRAYINDEX(g_QuestMonList);
 		UNLOAD_ARRAYINDEX(g_QuestNPCList);

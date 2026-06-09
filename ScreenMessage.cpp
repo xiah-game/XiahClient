@@ -1,4 +1,4 @@
-#include "precompile.h"
+ï»¿#include "precompile.h"
 #include "ScreenMessage.h"
 #include "XiahObject.h"
 #include "InterfaceDefine.h"
@@ -160,7 +160,7 @@ void CScreenMessage::UpdateTex(bool bSetRect)
 			{
 				rtRect.left		= 220;
 				rtRect.right	= 600;
-				rtRect.top		= 70; //HT_0403 : Áö¼ÓÇü ¹«°ø ½ÃÀü ¾ÆÀÌÄÜ
+				rtRect.top		= 70; //HT_0403 : ì§€ì†í˜• ë¬´ê³µ ì‹œì „ ì•„ì´ì½˜
 				rtRect.bottom	= 190;
 			}
 			break;

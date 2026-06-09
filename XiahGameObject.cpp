@@ -1,4 +1,4 @@
-#include "precompile.h"
+﻿#include "precompile.h"
 #include "XiahGameObject.h"
 #include "XiahObjectType.h"
 #include "XiahMap.h"
@@ -112,7 +112,7 @@ BOOL CXiah3DObject::SetPosition(WORD wPosX,WORD wPosY)
 
 BOOL CXiah3DObject::UpdateTM()
 {
-	// �??�살?�때??ObjectTM???��? 직접 만져 주겠??
+	// 飑??旍偞?茧晫??ObjectTM???搓? 歆侅爲 毵岇牳 欤缄矤??
 
 	if( m_bTargetMove && m_nTargetMoveType == eLBP_Arrow)
 	{
@@ -129,7 +129,7 @@ BOOL CXiah3DObject::UpdateTM()
 		m_ObjectTM.t = m_Position;
 	}
 
-	// 초당 90?�씩
+	// 齑堧嫻 90?勳敥
 
 	if( m_LocalAngle != 0)
 	{
@@ -408,22 +408,22 @@ CXiahCharObject::CXiahCharObject() : m_bTradeSell(false), m_bFECur(0), m_bFELeve
 	m_pFEEffectPP			= NULL;
 
 	m_pEventItemEffectPP	= NULL;
-	m_pSpiritEffectPP		= NULL;	// �?
+	m_pSpiritEffectPP		= NULL;	// 旮?
 
 	m_pWha_DragonPP			= NULL;
 	m_pBing_DragonPP		= NULL;
 	m_pDok_DragonPP			= NULL;
 	m_pNoi_DragonPP			= NULL;
 
-	//HT_0711 : 진각??무공
-	m_pKuymgangsingongEffectPP	= NULL;		// ?�성 ?�공 금강?�공
-	//m_pBunsinsingongEffectPP	= NULL;		// ?�성 ?�공 분신?�공
-	m_pWonkisingongEffectPP		= NULL;		// ?�성 ?�공 ?�기?�공
-	m_pKyugamsingongEffectPP	= NULL;		// ?�성 ?�공 교감?�공
-	m_pKumnasingongEffectPP		= NULL;		// ?�성 ?�공 금나?�공
-	m_pMarulsingongEffectPP		= NULL;		// ?�성 ?�공 마령?�공
-	//m_pGwangmasingongEffectPP	= NULL;		// ?�성 ?�공 광마?�공
-	m_pDokhyulsingongEffectPP	= NULL;		// ?�성 ?�공 ?�혈?�공
+	//HT_0711 : 歆勱皝??氍搓车
+	m_pKuymgangsingongEffectPP	= NULL;		// ?§劚 ?犼车 旮堦皶?犼车
+	//m_pBunsinsingongEffectPP	= NULL;		// ?§劚 ?犼车 攵勳嫚?犼车
+	m_pWonkisingongEffectPP		= NULL;		// ?§劚 ?犼车 ?愱赴?犼车
+	m_pKyugamsingongEffectPP	= NULL;		// ?§劚 ?犼车 甑愱皭?犼车
+	m_pKumnasingongEffectPP		= NULL;		// ?§劚 ?犼车 旮堧倶?犼车
+	m_pMarulsingongEffectPP		= NULL;		// ?§劚 ?犼车 毵堧牴?犼车
+	//m_pGwangmasingongEffectPP	= NULL;		// ?≪꽦 ?좉났 愿묐쭏?좉났
+	m_pDokhyulsingongEffectPP	= NULL;		// ?§劚 ?犼车 ?呿槇?犼车
 
 	m_EffectPPList.clear();
 
@@ -443,7 +443,7 @@ CXiahCharObject::CXiahCharObject() : m_bTradeSell(false), m_bFECur(0), m_bFELeve
 	m_szMunpaName = _T("");
 	m_szMunpaNickName = _T("");
 
-	// 공격?�의 Sound Effect 관??
+	// 瓿店博?滌潣 Sound Effect 甏�??
 	m_dwEnemyType = 0; 
 	m_dwOwnerID = 0;
 
@@ -456,10 +456,10 @@ CXiahCharObject::CXiahCharObject() : m_bTradeSell(false), m_bFECur(0), m_bFELeve
 
 	m_dwMunpaMarkID	=0;
 
-	// ?�승?�약
+	// ?ㅼ듅?⑥빟
 	m_bPotionEndKeepup = 0;
 
-	// �?
+	// 旮?
 	m_bSpirit = 0;
 	m_wLevel  = 0;
 	m_bRebirth = 0;
@@ -472,7 +472,7 @@ CXiahCharObject::CXiahCharObject() : m_bTradeSell(false), m_bFECur(0), m_bFELeve
 	m_pHojungkangkiEffectPP = NULL;
 	m_pSusinkikangEffectPP = NULL;
 
-	m_bGameMasterMark = 0;//HT_1023 : ?�영??마크 추�?
+	m_bGameMasterMark = 0;//HT_1023 : ?挫榿??毵堩伂 於旉?
 }
 
 CXiahCharObject::~CXiahCharObject()
@@ -541,16 +541,16 @@ void CXiahCharObject::InitClass()
 	m_fWeaponLength		= 0.5f;
 	m_bGray				= false;
 
-	// 무공 지???�펙??
-	// 검??
+	// 氍搓车 歆�???错帣??
+	// 瓴�??
 	m_pMusuhonEffectPP		= NULL;
 	m_pPoksahonEffectPP		= NULL;
 	m_pKuymgangrukEffectPP	= NULL;
-	// ?�랑
+	// ?半瀾
 	m_pYuenoyuengEffectPP	= NULL;
 	m_pKyugamsuEffectPP		= NULL;
 	m_pWonkisingangEffectPP	= NULL;
-	// 무투.
+	// 氍错埇.
 	m_pPachunsoEffectPP		= NULL;
 	m_pMarulkakEffectPP		= NULL;
 	m_pAmhukmuEffectPP		= NULL;
@@ -559,21 +559,21 @@ void CXiahCharObject::InitClass()
 	m_pKumnasuEffectPP		= NULL;
 	m_pBantankangkiEffectPP	= NULL;
 
-	//HT_0530 각성 무공 
+	//HT_0530 臧侅劚 氍搓车 
 	m_pWha_DragonPP			= NULL;
 	m_pBing_DragonPP		= NULL;
 	m_pDok_DragonPP			= NULL;
 	m_pNoi_DragonPP			= NULL;
 
-	//HT_0711 : 진각??무공
-	m_pKuymgangsingongEffectPP	= NULL;		// ?�성 ?�공 금강?�공
-//	m_pBunsinsingongEffectPP	= NULL;		// ?�성 ?�공 분신?�공
-	m_pWonkisingongEffectPP		= NULL;		// ?�성 ?�공 ?�기?�공
-	m_pKyugamsingongEffectPP	= NULL;		// ?�성 ?�공 교감?�공
-	m_pKumnasingongEffectPP		= NULL;		// ?�성 ?�공 금나?�공
-	m_pMarulsingongEffectPP		= NULL;		// ?�성 ?�공 마령?�공
-//	m_pGwangmasingongEffectPP	= NULL;		// ?�성 ?�공 광마?�공
-	m_pDokhyulsingongEffectPP	= NULL;		// ?�성 ?�공 ?�혈?�공
+	//HT_0711 : 歆勱皝??氍搓车
+	m_pKuymgangsingongEffectPP	= NULL;		// ?§劚 ?犼车 旮堦皶?犼车
+//	m_pBunsinsingongEffectPP	= NULL;		// ?§劚 ?犼车 攵勳嫚?犼车
+	m_pWonkisingongEffectPP		= NULL;		// ?§劚 ?犼车 ?愱赴?犼车
+	m_pKyugamsingongEffectPP	= NULL;		// ?§劚 ?犼车 甑愱皭?犼车
+	m_pKumnasingongEffectPP		= NULL;		// ?§劚 ?犼车 旮堧倶?犼车
+	m_pMarulsingongEffectPP		= NULL;		// ?§劚 ?犼车 毵堧牴?犼车
+//	m_pGwangmasingongEffectPP	= NULL;		// ?≪꽦 ?좉났 愿묐쭏?좉났
+	m_pDokhyulsingongEffectPP	= NULL;		// ?§劚 ?犼车 ?呿槇?犼车
 
 	m_rcObjectScreenPos		= sRect(0,0,0,0);
 	m_rcObjectScreenPos2	= sRect(0,0,0,0);
@@ -606,12 +606,12 @@ void CXiahCharObject::InitClass()
 	m_pLineParticle			= NULL;
 	m_fWeaponLength			= 0;
 	m_bGlowEnable			= 0;
-	m_bShowGage				= 0;	// ?�너지 게이지
+	m_bShowGage				= 0;	// ?愲剤歆� 瓴岇澊歆�
 	m_bShowManaGage			= 0;
 	m_bGray					= false;
 	m_dwOwnerID				= 0;
 	m_bSemiPKStatus			= 0;
-	// CG_2005/01/28 : 변종아?�템기능추�?
+	// CG_2005/01/28 : 氤�膦呾晞?错厹旮半姤於旉?
 	m_bChangeItemSet		= 0;
 
 	m_dwTimeInterval		= 0;
@@ -625,7 +625,7 @@ void CXiahCharObject::InitClass()
 	m_ShotAttackInfo.wLifeTime	=	0;	
 
 	m_SwordTrace.Release();
-	// 2D Text 릴리�??�면 미출??
+	// 2D Text 毽措Μ歃??橂┐ 氙胳稖??
 	//m_text2DForChatBox.Release();
 	m_Shadow.Release();
 
@@ -645,14 +645,14 @@ void CXiahCharObject::InitClass()
 
 	m_dwMunpaMarkID			= 0;
 
-	// ?�행 ?�펙??
+	// ?ろ枆 ?错帣??
 	m_bFECur = m_bFELevel = 0;
 	m_bOrderID = 255;
 
-	// ?�승?�약
+	// ?ㅼ듅?⑥빟
 	m_bPotionEndKeepup = 0;
 
-	// �?
+	// 旮?
 	m_bSpirit = 0;
 	m_wLevel  = 0;
 	m_bRebirth = 0;
@@ -684,7 +684,7 @@ BOOL CXiahCharObject::Release()
 
 	m_bGlowEnable = FALSE;
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
-	/* ?�로 ?�동
+	/* ?꾨줈 ?대룞
 	TRIGGER_LIST::iterator it;
 
 	for(it = m_TriggerList.begin(); it != m_TriggerList.end(); it++)
@@ -723,7 +723,7 @@ BOOL CXiahCharObject::Release()
 		m_pSpiritEffectPP = NULL;
 	}
 
-	if( m_pItemGroundEffectPP )	// ???�펙?�는 반복 ?�펙???��?�?바닥 ?�이?�이 ?�어지�??�펙?�도 같이 ??��.
+	if( m_pItemGroundEffectPP )	// ???错帣?鸽姅 氚橂车 ?错帣???措?搿?氚旊嫢 ?勳澊?滌澊 ?嗢柎歆�氅??错帣?鸽弰 臧欖澊 ??牅.
 	{
 		g_EffectManager.DeqEffectPackagePair( m_pItemGroundEffectPP );
 		m_pItemGroundEffectPP = NULL;
@@ -904,7 +904,7 @@ BOOL CXiahCharObject::ClearMugongEffect()
 		m_pSusinkikangEffectPP = NULL;
 	}
 
-	//HT_0711 : 진각??무공
+	//HT_0711 : 歆勱皝??氍搓车
 	if(m_pKuymgangsingongEffectPP)
 	{
 		g_EffectManager.DeqEffectPackagePair(m_pKuymgangsingongEffectPP);
@@ -953,7 +953,7 @@ BOOL CXiahCharObject::ClearMugongEffect()
 		m_pDokhyulsingongEffectPP = NULL;
 	}
 
-	// ?�결???�펙?�도 같이 지?��???
+	// ?瓣舶???错帣?鸽弰 臧欖澊 歆�?岇???
 	EFFECTPACKAGEPAIRLIST::iterator eppit;
 	for(eppit=m_EffectPPList.begin(); eppit!=m_EffectPPList.end(); eppit++)
 	{
@@ -973,7 +973,7 @@ BOOL CXiahCharObject::UpdateTargetMove()
 
 	if( !m_bTargetMove)
 	{
-		// ?�살 궤적
+		// ?旍偞 甓れ爜
 		if( m_pLineParticle )
 		{
 			m_pLineParticle->Update( fLocalFrameScale, m_Position );
@@ -986,7 +986,7 @@ BOOL CXiahCharObject::UpdateTargetMove()
 		return TRUE;
 	}
 
-	// TargetPosition???�시간으�?변?�다, ?�브?�트 가 ?�다�?
+	// TargetPosition???れ嫓臧勳溂搿?氤�?滊嫟, ?る笇?濏姼 臧� ?堧嫟氅?
 	if( m_TargetObjectID != 0)
 	{
 		XiahObject::CXiahObject *pTargetObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, m_TargetObjectID, m_TargetObjectType));
@@ -1017,7 +1017,7 @@ BOOL CXiahCharObject::UpdateTargetMove()
 
 //			SetAngleTarget( m_TargetPosition);
 
-			// ?�살 궤적
+			// ?旍偞 甓れ爜
 			if( m_pLineParticle )
 			{
 				m_pLineParticle->Update( fLocalFrameScale, m_Position );
@@ -1030,7 +1030,7 @@ BOOL CXiahCharObject::UpdateTargetMove()
 			m_bRenderOK = false;
 //			m_bDeleteME = TRUE;
 
-			// ?�살 궤적
+			// ?旍偞 甓れ爜
 			if( m_pLineParticle )
 			{
 				m_pLineParticle->End();
@@ -1039,8 +1039,8 @@ BOOL CXiahCharObject::UpdateTargetMove()
 		}
 
 		break;
-	case eLBP_CharNavigation:	// ?�따??? 비등???�동?�데 ??,??
-		// ?�기???�무것도 ?�수 ?�겠??
+	case eLBP_CharNavigation:	// ?措敯??? 牍勲摫???措彊?鸽嵃 ??,??
+		// ?ш린???꾨Т寃껊룄 ?좎닔 ?녾쿋??
 
 		break;
 	}
@@ -1127,32 +1127,32 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 
 	float fLocalFrameScale = 33.0f * g_fFrameScale;
 
-	// ?�이???�전
+	// ?勳澊???岇爠
 	if(m_bObjType == OBJTYPE_ITEM)
 	{
 		long _f = g_dwCurTime;
 		SetAngle( _f / 5 );
 	}
 
-//  ?�살 ?�펙?��? ?�해???�렇�??�음.
+//  ?旍偞 ?错帣?鸽? ?勴暣???措爣瓴??堨潓.
 //	if( m_bTargetMove)
 //	{
 		UpdateTargetMove();
 //	}
 
-	// ?�차??광마?�공, ?�이즈�? 커진??
+	// ?쇱감??愿묐쭏?낃났, ?ъ씠利덇? 而ㅼ쭊??
 	if( m_bObjType == OBJTYPE_PC && m_bSubObjType == 4 )
 	{
 		if( m_bNowGwangmadokgong )
 		{
-			// 목표 값보???�으�??�점 ?�워준??
+			// 氇╉憸 臧掚炒???戩溂氅??愳爯 ?れ泴欷�??
 			if( m_fLocalScaleForGwangmadokgong < GWANGMADOKGONG_CHARSCALE )
 			{
 				m_fLocalScaleForGwangmadokgong += (GWANGMADOKGONG_CHARSCALE-1.0f) * (fLocalFrameScale) / 1500.0f;
 
 				m_CharRender.SetLocalScale( Vector3(m_fLocalScaleForGwangmadokgong, m_fLocalScaleForGwangmadokgong, m_fLocalScaleForGwangmadokgong) );
 			}
-			else	// 그리�?고정
+			else	// 攴鸽Μ瓿?瓿犾爼
 			if( m_fLocalScaleForGwangmadokgong != GWANGMADOKGONG_CHARSCALE )
 			{
 				m_fLocalScaleForGwangmadokgong = GWANGMADOKGONG_CHARSCALE;
@@ -1162,7 +1162,7 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 		}
 		else
 		{
-			// ?�제 ?�시 줄여준??
+			// ?挫牅 ?れ嫓 欷勳棳欷�??
 			if( m_fLocalScaleForGwangmadokgong > 1.0f )
 			{
 				m_fLocalScaleForGwangmadokgong -= (GWANGMADOKGONG_CHARSCALE-1.0f) * (fLocalFrameScale) / 1500.0f;
@@ -1178,19 +1178,19 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 			}
 		}
 	}
-	//HT_0711 : 진각??무공(광마?�공)
+	//HT_0711 : 吏꾧컖??臾닿났(愿묐쭏?좉났)
 	else if( m_bObjType == OBJTYPE_PC && m_bRebirth > 6 )
 	{
 		if( m_bNowGwangmadokgong )
 		{
-			// 목표 값보???�으�??�점 ?�워준??
+			// 氇╉憸 臧掚炒???戩溂氅??愳爯 ?れ泴欷�??
 			if( m_fLocalScaleForGwangmadokgong < GWANGMADOKGONG_CHARSCALE )
 			{
 				m_fLocalScaleForGwangmadokgong += (GWANGMADOKGONG_CHARSCALE-1.0f) * (fLocalFrameScale) / 1500.0f;
 
 				m_CharRender.SetLocalScale( Vector3(m_fLocalScaleForGwangmadokgong, m_fLocalScaleForGwangmadokgong, m_fLocalScaleForGwangmadokgong) );
 			}
-			else	// 그리�?고정
+			else	// 攴鸽Μ瓿?瓿犾爼
 			if( m_fLocalScaleForGwangmadokgong != GWANGMADOKGONG_CHARSCALE )
 			{
 				m_fLocalScaleForGwangmadokgong = GWANGMADOKGONG_CHARSCALE;
@@ -1200,7 +1200,7 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 		}
 		else
 		{
-			// ?�제 ?�시 줄여준??
+			// ?挫牅 ?れ嫓 欷勳棳欷�??
 			if( m_fLocalScaleForGwangmadokgong > 1.0f )
 			{
 				m_fLocalScaleForGwangmadokgong -= (GWANGMADOKGONG_CHARSCALE-1.0f) * (fLocalFrameScale) / 1500.0f;
@@ -1220,11 +1220,11 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 	//
 	UpdateTM();
 
-	// 캐릭?��? ?�면???�보?�면 Update만하�?Render???�한?? ?�때 ?�결???�펙?�도 같이 ?�줘?�함.
-	// ?�기?�는 메인 ?�브?�트?� 부착된 ?�브?�트??Mesh ?�펙?�만 ?�주�??�고 
-	// 메인 ?�브?�트???�니메이???�펙?�는 CCharRender::PrepareRender ?�서 ?�다. 
-	// Mesh ?�펙?? 보이???�브?�트가 ?�보?�면 CXiahCharObject?�서 Update?�때 Visible = FALSE�??�는??
-	// ?�때 ?��? 가지�??�는 Mesh ?�펙?�도 같이 ?�보?�도�??�줘???�다.캐릭?��? ?�펙?��? ?�로 ?�더링되�??�문.
+	// 罹먮┃?곌? ?붾㈃???덈낫?대㈃ Update留뚰븯怨?Render???덊븳?? ?대븣 ?곌껐???댄럺?몃룄 媛숈씠 ?댁쨾?쇳븿.
+	// ?�旮�?滊姅 氅旍澑 ?る笇?濏姼?� 攵�彀╇悳 ?る笇?濏姼??Mesh ?错帣?鸽�� ?挫＜氅??橁碃 
+	// 氅旍澑 ?る笇?濏姼???犽媹氅旍澊???错帣?鸽姅 CCharRender::PrepareRender ?愳劀 ?滊嫟. 
+	// Mesh ?错帣?? 氤挫澊???る笇?濏姼臧� ?堧炒?措┐ CXiahCharObject?愳劀 Update?犽晫 Visible = FALSE毳??橂姅??
+	// ?措晫 ?橁? 臧�歆�瓿??堧姅 Mesh ?错帣?鸽弰 臧欖澊 ?堧炒?措弰搿??挫��???滊嫟.旌愲Ν?办? ?错帣?戈? ?半�� ?岆崝毵侂悩旮??岆��.
 	if( bVisible )
 	{
 		if( m_CharRender.m_pMeshEffectPackagePair )
@@ -1260,7 +1260,7 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 			m_pRebirthItemEffectPP->bIsVisible = false;
 	}// if
 
-	// ?�어 ?�는 ?��? Mesh Effect가 ?�으�??�것???�과
+	// ?�鞏� ?堧姅 ?犼? Mesh Effect臧� ?堨溂氅??搓矁???店臣
 	if( m_bObjStatus == NPCSTATUS_HIDE )
 	{
 		if( m_CharRender.m_pMeshEffectPackagePair )
@@ -1271,7 +1271,7 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 	m_CharRender.SetPosition( &m_ObjectTM);
 	m_CharRender.SetLocalAngle( m_LocalAngle);
 
-	// 바닥 ?�이?�일 경우, 첨에 ?�번 ?�행. ?�펙???�성.
+	// 諛붾떏 ?꾩씠?쒖씪 寃쎌슦, 泥⑥뿉 ?쒕쾲 ?ㅽ뻾. ?댄럺???앹꽦.
 	if( m_bCreateItemGroundEffect && !m_pItemGroundEffectPP )
 	{
 		_EFFECTPACKAGE* pPackage = g_EffectManager.EnqAppearEffectImmediately( eItemGround );
@@ -1291,7 +1291,7 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 	{
 		float terrain_height = GetHeight( m_Position.x, m_Position.z);
 
-		// 비등?�이 ?�어?�다
+		// 牍勲摫?嶌澊 ?检柎?滊嫟
 		if(m_bObjType == OBJTYPE_PC)
 		{
 			unsigned char ground_type = 0;
@@ -1306,21 +1306,21 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 		}
 
 		/*
-		// ?�문??코드! PC??m_bCollide가 TRUE?�데 그러�?Y좌표보정?�?? ?�렇�??�니�?빠�?�??�라가???�상?��???
+		// ?橂��??旖旊摐! PC??m_bCollide臧� TRUE?鸽嵃 攴鸽煬氅?Y膦岉憸氤挫爼?�?? ?措爣瓴??橂媹旯?牍犾?瓿??�霛缄皜???勳儊?橅???
 		if( m_ObjectTM.t.y > terrain_height && m_bCollide == FALSE)
 			m_ObjectTM.t.y -= GRAVITY_PER_FRAME * g_fFrameScale;
 		if( m_ObjectTM.t.y < terrain_height && m_bCollide == FALSE)
 			m_ObjectTM.t.y = terrain_height;
 		*/
-		// 그리?�여, 바운?�박???�에 ?�라�??��? ?�외?�고?�는 보정?��???
+		// 洹몃━?섏뿬, 諛붿슫?⑸컯???꾩뿉 ?щ씪媛??뚮? ?쒖쇅?섍퀬?쒕뒗 蹂댁젙?댁???
 		if( m_ObjectTM.t.y > terrain_height && m_bRide == FALSE)
 			m_ObjectTM.t.y -= GRAVITY_PER_FRAME * g_fFrameScale;
 
 		if( m_ObjectTM.t.y < terrain_height && m_bRide == FALSE)
 			m_ObjectTM.t.y = terrain_height;
 
-		// ?�라가 ?�으�??�기??보정!
-		if(m_bRide == TRUE) m_ObjectTM.t.y = m_fColHeight;	// ?�시?�??바운???�이
+		// ?�霛缄皜 ?堨溂氅??�旮�??氤挫爼!
+		if(m_bRide == TRUE) m_ObjectTM.t.y = m_fColHeight;	// ?勳嫓?�??氚旍毚???掛澊
 
 	}
 	else
@@ -1340,32 +1340,32 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 		{
 			if( m_ChildChar[ i].IsValid())
 			{
-				m_ChildChar[ i].PrepareRender( bVisible == FALSE);	// ?�넘?��? ?�별???�게 ?�는??
+				m_ChildChar[ i].PrepareRender( bVisible == FALSE);	// ?措剺?れ? ?闺硠???犼矊 ?嗠姅??
 			}
 		}
 	}
 
-	// ?�어?�는 ?�들?� 그림???�과
+	// ?�鞏�?堧姅 ?犽摛?� 攴鸽��???店臣
 	if( bVisible && m_bObjStatus != NPCSTATUS_HIDE)
 	{
 		Vector3 size = m_LocalBound.Size();
 		size.y = 0;
 		float fSize = 1.1f;
 
-		// 2004_04_26 Changth : ??비무?�서??그림?��? 바뀐다.
+		// 2004_04_26 Changth : ??牍勲��?愳劀??攴鸽��?愱? 氚旊�愲嫟.
 
-		// ?�반 그림?? ??비무?�서 ?�오???�별??그림?��? 구분
-		// 0 : ?�반 그림??
-		// 1 : ??비무?�서 ?�주
-		// 2 : ??비무?�서 ?�원
-		// 3 : 문주
+		// ?쇰컲 洹몃┝?? ??鍮꾨Т?먯꽌 ?섏삤???밸퀎??洹몃┝?먮? 援щ텇
+		// 0 : ?쇰컲 洹몃┝??
+		// 1 : ??鍮꾨Т?먯꽌 ?⑥＜
+		// 2 : ??鍮꾨Т?먯꽌 ?⑥썝
+		// 3 : 氍胳＜
 		BYTE byRenderType = 0;
 
 		DWORD dwResIDAry[4];
-		dwResIDAry[0] = 50000786;	// ?�반 그림??
-		dwResIDAry[1] = 50001584;	// ?�주 - ?�각??
-		dwResIDAry[2] = 50001583;	// ?�원 - ?�형
-		dwResIDAry[3] = 50002012;	// 문주
+		dwResIDAry[0] = 50000786;	// ?쇰컲 洹몃┝??
+		dwResIDAry[1] = 50001584;	// ?⑥＜ - ?↔컖??
+		dwResIDAry[2] = 50001583;	// ?⑥썝 - ?먰삎
+		dwResIDAry[3] = 50002012;	// 氍胳＜
 
 		DWORD dwResID = dwResIDAry[0];
 
@@ -1374,29 +1374,29 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 		cColorAry[1] = D3DCOLOR_XRGB(  16, 128, 255 );	// Blue
 		cColorAry[2] = D3DCOLOR_XRGB( 255,  67,  16 );	// Red
 		cColorAry[3] = D3DCOLOR_XRGB( 255, 211, 117 );	// Yellow
-		cColorAry[4] = D3DCOLOR_XRGB(   0, 255, 128 );	// Black??초록?�으�?바�?
+		cColorAry[4] = D3DCOLOR_XRGB(   0, 255, 128 );	// Black??齑堧��?夓溂耄?氚旊�?
 
 		D3DCOLOR cColor = cColorAry[0];
 
 		if(m_bObjType == OBJTYPE_PC)
 		{
-			if(m_dwPartyID)	// ??캐릭??
+			if(m_dwPartyID)	// ??旌愲Ν??
 			{
 				CXiahCharObject* pMainCharObject = (CXiahCharObject*)g_pMainChar->m_pObject;
 
-				// server id�??�라?�언?��? 가지�??�는 id�?바꾼??
+				// server id毳??措澕?挫柛?戈? 臧�歆�瓿??堧姅 id搿?氚旉炯??
 				DWORD dwPartyLeaderID = MAKEOBJECTID( 0, m_dwPartyLeaderID, OBJTYPE_PC );
 
-				if( m_dwEnemyPartyID )	// ??비무 중인 캐릭?�다.
+				if( m_dwEnemyPartyID )	// ??鍮꾨Т 以묒씤 罹먮┃?곕떎.
 				{
-					if( pMainCharObject == this ) // ?�게 ?�야?
+					if( pMainCharObject == this ) // ?搓矊 ?橃暭?
 					{
-						// ??비무?�때?�는 ?�탈 불�???
+						// ??鍮꾨Т?쇰븣?먮뒗 ?ы깉 遺덇???
 						g_MainCharInfo.m_bPortalMove = false;
 
 						cColor = cColorAry[1];
 
-						// ?��? ?�주?��??
+						// ?닿? ?⑥＜?멸??
 						if( g_MainCharInfo.m_dwObjectID == m_dwPartyLeaderID )
 						{
 							dwResID = dwResIDAry[1];
@@ -1408,13 +1408,13 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 							byRenderType = 2;
 						}
 					}
-					else	// ?��? ?�닌 ?�른 캐릭?�일??
+					else	// ?搓? ?勲媽 ?るジ 旌愲Ν?办澕??
 					{
-						if( m_dwPartyID == pMainCharObject->m_dwPartyID )	// ?�군?�네
+						if( m_dwPartyID == pMainCharObject->m_dwPartyID )	// ?勱蛋?措劋
 						{
 							cColor = cColorAry[1];
 
-							// ?��??�이 ?�주?��??
+							// ?대??앹씠 ?⑥＜?멸??
 							if( dwPartyLeaderID == m_dwXiahObjectID )
 							{
 								dwResID = dwResIDAry[1];
@@ -1426,11 +1426,11 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 								byRenderType = 2;
 							}
 						}
-						else if( m_dwPartyID == pMainCharObject->m_dwEnemyPartyID )	// ?�군?�네
+						else if( m_dwPartyID == pMainCharObject->m_dwEnemyPartyID )	// ?侁蛋?措劋
 						{
 							cColor = cColorAry[2];
 
-							// ?��??�이 ?�주?��??
+							// ?대??앹씠 ?⑥＜?멸??
 							if( dwPartyLeaderID == m_dwXiahObjectID )
 							{
 								dwResID = dwResIDAry[1];
@@ -1442,11 +1442,11 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 								byRenderType = 2;
 							}
 						}
-						else	// ?????�이로구??
+						else	// ?????⑥씠濡쒓뎄??
 						{
 							cColor = cColorAry[3];
 
-							// ?��??�이 ?�주?��??
+							// ?대??앹씠 ?⑥＜?멸??
 							if( dwPartyLeaderID == m_dwXiahObjectID )
 							{
 								dwResID = dwResIDAry[1];
@@ -1460,12 +1460,12 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 						}
 					}
 				}	// if( m_dwEnemyPartyID )
-				else	// ?��? ?�고 ??비무???�하�??�다.
+				else	// ?⑥? ?덇퀬 ??鍮꾨Т???덊븯怨??덈떎.
 				{
 					cColor = cColorAry[4];
 					byRenderType = 0;
 
-					// ?��??�이 ?�주?��??
+					// ?대??앹씠 ?⑥＜?멸??
 					if( dwPartyLeaderID == m_dwXiahObjectID )
 					{
 						dwResID = dwResIDAry[1];
@@ -1479,12 +1479,12 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 				byRenderType = 3;
 
 				fSize = 1.5f;
-				// 문주 그림??교체
+				// 臾몄＜ 洹몃┝??援먯껜
 			} // if(m_dwMunpaOrder && !m_dwPartyID)
 
-			// ?�번??문파?�이??
-			// 문파?�일?? ?�군?� ?��??? ?��? 빨간?�이??
-			// 주인공인 메인 캐릭?��? 문파?�을 ?�때?�만 ?�용?�다.
+			// ?措矆??氍疙寣?勳澊??
+			// 氍疙寣?勳澕?? ?勱蛋?� ?岆??? ?侅? 牍�臧�?夓澊??
+			// 二쇱씤怨듭씤 硫붿씤 罹먮┃?곌? 臾명뙆?꾩쓣 ?좊븣?먮쭔 ?곸슜?쒕떎.
 			if( g_pMainChar )
 			{			
 				CXiahCharObject* pMainCharObject = (CXiahCharObject*)g_pMainChar->m_pObject;
@@ -1521,7 +1521,7 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 
 		bool bShadowCreate = false;
 
-		// 메인 캐릭?��? ?�흑무에 걸리�?메인 캐릭??그림?�만 그린??
+		// 硫붿씤 罹먮┃?곌? ?뷀쓳臾댁뿉 嫄몃━硫?硫붿씤 罹먮┃??洹몃┝?먮쭔 洹몃┛??
 		if( !g_XiahEnvInfo.m_bAmhukmuFog )
 		{
             m_Shadow.Create( XiahPak::GetTexture(dwResID, true), m_Position.x,m_Position.z , size.GetLength() * fSize, cColor, TRUE, byRenderType );
@@ -1548,7 +1548,7 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 		}
 	}
 
-	// �?궤적.
+	// 旃?甓れ爜.
 	if( m_SwordTrace.IsStart() )
 	{
 		Matrix4x4 *pBoneMatrix = m_CharRender.GetChildBoneMatrix( eLBP_RightHand);
@@ -1557,13 +1557,13 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 		{
 			Vector3 vStart,vEnd;
 
-			// 무투꺼는 ?�개가 변?�다.
+			// 氍错埇旰茧姅 ?愱皽臧� 氤�?滊嫟.
 			Vector3 vV;
 			int nCharID = m_CharRender.GetCharID();
 			if( nCharID != 891 )
-				vV = Vector3( 0, 0, -m_fWeaponLength );		// 검?? ?�랑.
+				vV = Vector3( 0, 0, -m_fWeaponLength );		// 瓴�?? ?半瀾.
 			else
-				vV = Vector3( 0, 0.7f, -m_fWeaponLength );	// 무투
+				vV = Vector3( 0, 0.7f, -m_fWeaponLength );	// 氍错埇
 
 			vEnd = vStart + vV;
 
@@ -1575,7 +1575,7 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 		}
 	}// if
 
-	// ?�차???�손 �?궤적
+	// ?检皑???检啇 旃?甓れ爜
 	if( m_bSubObjType == 4 && m_SwordTrace2.IsStart() )
 	{
 		Matrix4x4 *pBoneMatrix = m_CharRender.GetChildBoneMatrix( eLBP_LeftHand );
@@ -1597,62 +1597,62 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 		}
 	}// if
 
-	// 무공 지???�펙?? ?�탈�??�라??캐릭??문제�??�기???�펙?��? 만들�??�데?�트�??��???
+	// 氍搓车 歆�???错帣?? ?�韮堧�??犽澕??旌愲Ν??氍胳牅搿??�旮�???错帣?鸽? 毵岆摛瓿??呺嵃?错姼毳??挫???
 	if( bVisible )
 	{
-		if( m_bObjType == OBJTYPE_PC )		// PC?�만 붙는 무공 지???�펙??
+		if( m_bObjType == OBJTYPE_PC )		// PC?愲�� 攵欕姅 氍搓车 歆�???错帣??
 		{
-			// 무수??
+			// 氍挫垬??
 			PersistEffect(&m_pMusuhonEffectPP, OUTGONGID_MUSUHON, eMusuhon, fLocalFrameScale);
 
-			// ??��??
+			// ??偓??
 			PersistEffect(&m_pPoksahonEffectPP, OUTGONGID_POKSAHON, ePoksahon, fLocalFrameScale);
 
-			// 금강??
+			// 旮堦皶??
 			PersistEffect(&m_pKuymgangrukEffectPP, OUTGONGID_KUMKANGLUK, eKuymgangruk, fLocalFrameScale);
 
-			// ?�기?�강.
+			// ?愱赴?犼皶.
 			PersistEffect(&m_pWonkisingangEffectPP, OUTGONGID_W0NKISINKANG, eWonkisingang, fLocalFrameScale);
 
-			// 반탄강기.
+			// 氚橅儎臧曣赴.
 			PersistEffect(&m_pBantankangkiEffectPP, OUTGONGID_BANTANKANGKI, eBantankangki, fLocalFrameScale);
 
-			// ?�운강기.
+			// ?侅毚臧曣赴.
 			PersistEffect(&m_pJukwonkangkiEffectPP, OUTGONGID_JUKUNKANGKI, eJukwonkangki, fLocalFrameScale);
 
-			// 만독불진.
+			// 留뚮룆遺덉쭊.
 			PersistEffect(&m_pMandokbuljinEffectPP, OUTGONGID_MANDOKBULJIN, eMandokbuljin, fLocalFrameScale);
 
-			// ?�랑 ?�장?�공지??
+			// ?半瀾 ?�鞛�?犼车歆�??
 			PersistEffect(&m_pSajangsingongEffectPP, YUN_SAJANGSINGONG, eYunSajangsingong, fLocalFrameScale);
 
-			// 무투 기흡강기
+			// 氍错埇 旮绊潯臧曣赴
 			PersistEffect(&m_pKihubkangkiEffectPP, MU_KIHUBKANGKI, eMuKihubkangki, fLocalFrameScale);
 
-			// ?�차 ?�정강기
+			// ?检皑 ?胳爼臧曣赴
 			PersistEffect(&m_pHojungkangkiEffectPP, YA_HOJUNGKANGKI, eYaHojungkangki, fLocalFrameScale);
 
-			// ?�차 ?�?�술
+			// ?检皑 ?�?犾垹
 			PersistEffect(&m_pEunsinsulEffectPP, YA_EUNSINSUL, eYaEunsinsul, fLocalFrameScale);
 
-			// ?�랑 ?�신기강
+			// ?半瀾 ?橃嫚旮瓣皶
 			PersistEffect(&m_pSusinkikangEffectPP, YUN_SUSINKIKANG, eYunrangSpecial, fLocalFrameScale);
 
-			////HT_0711 : 진각??무공
-			// ?�성 ?�공 금강?�공
+			////HT_0711 : 歆勱皝??氍搓车
+			// ?§劚 ?犼车 旮堦皶?犼车
 			PersistEffect(&m_pKuymgangsingongEffectPP, REBRITH_KUMKANGSINGONG, eKuymgangruk, fLocalFrameScale);
 
-			// ?�성 ?�공 분신?�공
+			// ?§劚 ?犼车 攵勳嫚?犼车
 			//PersistEffect(&m_pBunsinsingongEffectPP, REBRITH_BUSNSINGONG, eKuymgangruk, fLocalFrameScale);
 			
-			// ?�성 ?�공 ?�기?�공
+			// ?§劚 ?犼车 ?愱赴?犼车
 			PersistEffect(&m_pWonkisingongEffectPP, REBRITH_W0NKISINGONG, eWonkisingang, fLocalFrameScale);
 			
-			// ?�성 ?�공 광마?�공
+			// ?≪꽦 ?좉났 愿묐쭏?좉났
 			//PersistEffect(&m_pGwangmasingongEffectPP, REBRITH_GWANGMASINGONG, eKuymgangruk, fLocalFrameScale);
 			
 			
-			// ?�제 경공?�다.
+			// ?挫牅 瓴疥车?措嫟.
 						bool hasGyungGong = ( m_KeepUpMugongList.IsExist(OUTGONGID_ILYUIDOGANG ) ||
 								  m_KeepUpMugongList.IsExist(OUTGONGID_YUESUSINYUNG) ||
 								  m_KeepUpMugongList.IsExist(OUTGONGID_JILPUNGBO)    ||
@@ -2041,12 +2041,12 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 						g_EffectManager.DeqEffectPackagePair( m_pNoi_DragonPP );
 					m_pNoi_DragonPP = NULL;
 				}
-			}//각성 ?�룡 무공
+			}//臧侅劚 ?岆！ 氍搓车
 
 		}// if( OBJTYPE_PC || OBJTYPE_NPC || OBJTYPE_PET )
 	}// if( bVisible )
 	else
-	{	// ?�간 계산?� 계속?�고 보이지 ?�도�??�다.
+	{	// ?滉皠 瓿勳偘?� 瓿勳啀?橁碃 氤挫澊歆� ?婋弰搿??滊嫟.
 		EffectTimeUpdate(m_pMusuhonEffectPP, fLocalFrameScale);
 
 		EffectTimeUpdate(m_pPoksahonEffectPP, fLocalFrameScale);
@@ -2107,7 +2107,7 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 
 		EffectTimeUpdate(m_pSusinkikangEffectPP, fLocalFrameScale);
 
-		EffectTimeUpdate(m_pKuymgangsingongEffectPP, fLocalFrameScale); //HT_0711 : 진각??무공
+		EffectTimeUpdate(m_pKuymgangsingongEffectPP, fLocalFrameScale); //HT_0711 : 歆勱皝??氍搓车
 
 		//EffectTimeUpdate(m_pBunsinsingongEffectPP, fLocalFrameScale);
 
@@ -2125,7 +2125,7 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 
 	}// if( bVisible )
 
-	// 캐릭?�에 ?�결???�펙?? ?�기??리스??관리만 ?�면 ?? ?�용?�고 ?�는 것만 가지�??�는??
+	// 旌愲Ν?办棎 ?瓣舶???错帣?? ?�旮�??毽�鞀�??甏�毽�毵� ?橂┐ ?? ?�鞖�?橁碃 ?堧姅 瓴冸�� 臧�歆�瓿??堧姅??
 	EFFECTPACKAGEPAIRLIST NowUseingList;
 
 	EFFECTPACKAGEPAIRLIST::iterator eppit;
@@ -2158,7 +2158,7 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 /*
 BOOL CXiahCharObject::ShadowRender()
 {
-	// ?�단 PC, NPC, FUNCNPC �?Real Shadow
+	// ?茧嫧 PC, NPC, FUNCNPC 毵?Real Shadow
 	if(m_bObjType != OBJTYPE_PC || m_bObjType != OBJTYPE_NPC || m_bObjType != OBJTYPE_FUNCTIONALNPC) return FALSE;
 
 	// CCharRender Class
@@ -2168,12 +2168,12 @@ BOOL CXiahCharObject::ShadowRender()
 */
 
 
-// XIAH CHARACTER OBJECT�??�더�?
+// XIAH CHARACTER OBJECT毳??岆崝毵?
 BOOL CXiahCharObject::Render()
 {
 	if( !m_bRenderOK ) 
 	{
-		// ?�살 궤적.
+		// ?旍偞 甓れ爜.
 		if( m_pLineParticle )
 			m_pLineParticle->Render();
 
@@ -2183,7 +2183,7 @@ BOOL CXiahCharObject::Render()
 	if( !m_CharRender.IsValid()) return TRUE;
 
 	BOOL bYaChaGwangmadokgong = FALSE;
-	// ?�차 광마?�공?� ?�크가 ?�어???�다.
+	// ?检皑 甏戨��?呹车?� ?愴伂臧� ?橃柎???滊嫟.
 	if( m_bObjType == OBJTYPE_PC && m_bSubObjType == 4 )
 	{
 		if( m_bNowGwangmadokgong )
@@ -2194,7 +2194,7 @@ BOOL CXiahCharObject::Render()
 		else
 			m_CharRender.SetMaterialDiffuseColor( FALSE, 1, 1, 1 );
 	}
-	//HT_0711 : 진각??무공(광마?�공)
+	//HT_0711 : 吏꾧컖??臾닿났(愿묐쭏?좉났)
 	else if( m_bObjType == OBJTYPE_PC && m_bRebirth > 6 )
 	{
 		if( m_bNowGwangmadokgong )
@@ -2214,7 +2214,7 @@ BOOL CXiahCharObject::Render()
 		{
 			if( m_ChildChar[ i].IsValid())
 			{
-				// ?�차 광마?�공?� 모자까�? ?�크가 ?�어???�다.
+				// ?检皑 甏戨��?呹车?� 氇�鞛愱箤�? ?愴伂臧� ?橃柎???滊嫟.
 				if( i == eLBP_Head )
 				if( bYaChaGwangmadokgong )
 					m_ChildChar[ i].SetMaterialDiffuseColor( TRUE, GWANGMADOKGONG_MATERIAL_R, GWANGMADOKGONG_MATERIAL_G, GWANGMADOKGONG_MATERIAL_B );
@@ -2228,7 +2228,7 @@ BOOL CXiahCharObject::Render()
 
 	g_pDirect3DDevice->SetRenderState( D3DRS_CULLMODE, D3DCULL_CCW);
 
-	// ?�너지 게이지
+	// ?愲剤歆� 瓴岇澊歆�
 	if( m_bShowGage)
 	{
 		if( g_pCurrentCamera)
@@ -2241,7 +2241,7 @@ BOOL CXiahCharObject::Render()
 		
 		if( m_bShowManaGage)
 		{
-			// �?
+			// 旮?
 			RenderEnergyGauge( m_rcObjectScreenPos.left - 40, m_rcObjectScreenPos.top - 13, 80, g_MainCharInfo.m_bStaminaCnt, 5, D3DCOLOR_XRGB(255, 204, 153), D3DCOLOR_XRGB(0, 0, 0), 5);
 
 			RenderEnergyGauge( m_rcObjectScreenPos.left - 40, m_rcObjectScreenPos.top - 8, 80, g_MainCharInfo.m_dwHpCur, g_MainCharInfo.m_dwHpMax, m_cGageColor, D3DCOLOR_XRGB(0, 0, 0), 5);
@@ -2252,7 +2252,7 @@ BOOL CXiahCharObject::Render()
 			RenderEnergyGauge( m_rcObjectScreenPos.left - 40, m_rcObjectScreenPos.top - 5, 80, m_dwCurHP, m_dwMaxHP, m_cGageColor, D3DCOLOR_XRGB(0, 0, 0), 5);
 		}
 
-		m_bShowObjectName = TRUE;	// ??. ?�건 XiahGame_Main.cpp�??�른 ?�람???�고 ?�어??그냥 ?�었?? ?�중??고쳐?�됨
+		m_bShowObjectName = TRUE;	// ??. ?닿굔 XiahGame_Main.cpp瑜??ㅻⅨ ?щ엺???곌퀬 ?덉뼱??洹몃깷 ?ｌ뿀?? ?섏쨷??怨좎퀜?쇰맖
 	}
 
 	if(m_bShowObjectName || m_bSemiPKStatus == 2)
@@ -2277,8 +2277,8 @@ BOOL CXiahCharObject::Render()
 					cTradeName	 = D3DCOLOR_XRGB(183, 46, 247);
 					cTradeDea	 = D3DCOLOR_XRGB(183, 46, 247);
 				}
-				// CG_2005/01/28 : 변종아?�템기능추�?
-				// 변종아?�템 ?�트�??�었??		
+				// CG_2005/01/28 : 氤�膦呾晞?错厹旮半姤於旉?
+				// 氤�膦呾晞?错厹 ?嬳姼搿??呾棃??		
 				else if(m_bChangeItemSet == 1)
 				{
 					m_cNameColor = D3DCOLOR_XRGB( 0, 255, 0 );
@@ -2311,7 +2311,7 @@ BOOL CXiahCharObject::Render()
 
 						if((m_dwMunpaID != 0) && (g_MainCharInfo.m_dwLordMunpaID == m_dwMunpaID))
 						{
-							// ?�승 문파명을 ?�늘?�으�?바꿔�?							
+							// ?办姽 氍疙寣氇呾潉 ?橂姌?夓溂搿?氚旉繑欷?							
 							m_tObjectName.SetText( 0, 0, strTemp, GetFont(IDS_GULIM, 12), D3DCOLOR_XRGB( 102, 204, 255 ), 8, 1, m_cNameColor);
 						}
 						else
@@ -2410,11 +2410,11 @@ BOOL CXiahCharObject::Render()
 				}
 				else if(!m_bChangeItemSet && g_bScreenShot)
 				{
-					m_cNameColor = D3DCOLOR_XRGB( 255, 255, 200);//HO_0509_07 ?�토?�처방??: ?�샷?�로 ?�상???�아?��? 못하?�록 ?�상??변�?
+					m_cNameColor = D3DCOLOR_XRGB( 255, 255, 200);//HO_0509_07 ?ろ啝?�觳橂癌??: ?れ兎?茧�� ?夓儊???岇晞?挫? 氇豁晿?勲�� ?夓儊??氤�瓴?
 				}
 				else
 				{
-					m_cNameColor = D3DCOLOR_XRGB( 240, 240, 190 );//HO_0509_07 ?�토?�처방??: ?�이?�을 ?�이??명의 ?�상?�로 검?�하기에 ?�상??변�?.... 기존?�상( 255, 255, 200)					
+					m_cNameColor = D3DCOLOR_XRGB( 240, 240, 190 );//HO_0509_07 ?ろ啝?�觳橂癌??: ?勳澊?滌潉 ?勳澊??氇呾潣 ?夓儊?茧�� 瓴�?夗晿旮办棎 ?夓儊??氤�瓴?.... 旮办〈?夓儊( 255, 255, 200)					
 				}
 
 				m_tObjectName.SetText(0, 0, (LPCTSTR)m_szObjectName, GetFont(IDS_GULIM, 12), m_cNameColor, 8);
@@ -2422,7 +2422,7 @@ BOOL CXiahCharObject::Render()
 				m_rcObjectScreenPos.left -= m_tObjectName.GetSize().cx / 2;
 			}
 		    break;		
-		//case OBJTYPE_ITEM: //HO_0525_07 ?�토?�처방??: 기존코드
+		//case OBJTYPE_ITEM: //HO_0525_07 ?ろ啝?�觳橂癌??: 旮办〈旖旊摐
 		//	{
 		//		if(m_bChangeItemSet)
 		//		{
@@ -2446,7 +2446,7 @@ BOOL CXiahCharObject::Render()
 				{
 					if((pInfo->m_dwOwnID != 0) && (g_MainCharInfo.m_dwLordMunpaID == pInfo->m_dwOwnID))
 					{
-						// ?�승 문파명을 ?�늘?�으�?바꿔�?							
+						// ?办姽 氍疙寣氇呾潉 ?橂姌?夓溂搿?氚旉繑欷?							
 						m_tObjectName.SetText(0, 0, (LPCTSTR)m_szObjectName, GetFont(IDS_GULIM, 12), D3DCOLOR_XRGB( 102, 204, 255 ), 8);
 					}
 					else
@@ -2481,23 +2481,23 @@ BOOL CXiahCharObject::Render()
 			break;
 		}
 
-		// ?�기???�그린다.
+		// ?ш린???덇렇由곕떎.
 //		m_tObjectName.Render();
 	} // if( m_bShowObjectName)
 
-	// ?�살 궤적.
+	// ?旍偞 甓れ爜.
 	if( m_pLineParticle )
         m_pLineParticle->Render();
 
-	// �?궤적.
+	// 旃?甓れ爜.
 	if( m_SwordTrace.IsStart() )
 		m_SwordTrace.Render();
 
-	// ?�차 ?�손 �?궤적
+	// ?检皑 ?检啇 旃?甓れ爜
 	if( m_bSubObjType == 4 && m_SwordTrace2.IsStart() )
 		m_SwordTrace2.Render();
 
-	// 채팅 박스
+	// 毂勴寘 氚曥姢
 	//ShowChatBox();	
 
 	return TRUE;
@@ -2543,17 +2543,17 @@ void CXiahCharObject::ShowChatBox()
 		{
 			Vector3 scPos = g_pCurrentCamera->WorldToScreen( m_Position + Vector3( 0, m_LocalBound.m_vMax.y + 1, 0));
 
-			if( m_bShowObjectName || m_bSemiPKStatus == 2)	// SEMI PK??깜빡?�태??경우
+			if( m_bShowObjectName || m_bSemiPKStatus == 2)	// SEMI PK??旯滊埂?來儨??瓴届毎
 			{
 				if(m_bTradeSell)
 				{
-					// 개인 ?�점 개설??
+					// 臧滌澑 ?侅爯 臧滌劋??
 					m_rcObjectScreenPos2.left = scPos.x - (m_ChatMsg.size()*2 + 6);
 					m_rcObjectScreenPos2.top = m_rcObjectScreenPos.top + 32;
 				}
 				else
 				{
-					// ?�반 ?�용??
+					// ?쇰컲 ?ъ슜??
 					if(m_dwMunpaID)
 					{
 						m_rcObjectScreenPos2.left = m_rcObjectScreenPos.left + m_tObjectName.GetSize(1).cx + 6;
@@ -2568,7 +2568,7 @@ void CXiahCharObject::ShowChatBox()
 			} // if( m_bShowObjectName)
 			else
 			{
-				// ?�것???�것도 ?�닌?�람
+				// ?搓矁???�瓴冸弰 ?勲媽?�霝�
 				m_rcObjectScreenPos2.left = scPos.x - m_ChatMsg.size()*2;
 				m_rcObjectScreenPos2.top = scPos.y;
 			}
@@ -2590,7 +2590,7 @@ BOOL CXiahCharObject::Create(int nCharID,int nMeshType,int nTextureType,int nAni
 	{
 		if(m_CharRender.SetAnimation( nAniType) == FALSE)
 		{
-			// ?�기??RETURN ?�면 BOUNDBOX ?�정 ?�패??
+			// ?ш린??RETURN ?섎㈃ BOUNDBOX ?ㅼ젙 ?ㅽ뙣??
 			//return FALSE;	
 		}
 	}
@@ -2652,7 +2652,7 @@ BOOL CXiahCharObject::SetAnimation(int nCurMotionType,int nNextMotionType,int nC
 	m_CharRender.SetAnimation( m_nCurAniType, fAnimationSpeed);
 
 	BOOL bSwordTrace = FALSE;
-	// �?궤적
+	// 旃?甓れ爜
 	if( m_bObjType == OBJTYPE_PC && (m_nCurMotionType == XiahAniType::eLAT_NormalAttack || m_nCurMotionType == XiahAniType::eLAT_Mugong))
 	{
 		bSwordTrace = TRUE;
@@ -2664,13 +2664,13 @@ BOOL CXiahCharObject::SetAnimation(int nCurMotionType,int nNextMotionType,int nC
 		{
 			Vector3 vStart,vEnd;
 
-			// 무투꺼는 ?�개가 변?�다.
+			// 氍错埇旰茧姅 ?愱皽臧� 氤�?滊嫟.
 			Vector3 vV;
 			int nCharID = m_CharRender.GetCharID();
 			if( nCharID != 891 )
-				vV = Vector3( 0, 0, -m_fWeaponLength );		// 검?? ?�랑.
+				vV = Vector3( 0, 0, -m_fWeaponLength );		// 瓴�?? ?半瀾.
 			else
-				vV = Vector3( 0, 0.7f, -m_fWeaponLength );	// 무투
+				vV = Vector3( 0, 0.7f, -m_fWeaponLength );	// 氍错埇
 
 			vEnd = vStart + vV;
 
@@ -2681,7 +2681,7 @@ BOOL CXiahCharObject::SetAnimation(int nCurMotionType,int nNextMotionType,int nC
 		}
 		else
 		{
-			DBG_LogFile( _T("CXiahCharObject::SetAnimation ?�패"));
+			DBG_LogFile( _T("CXiahCharObject::SetAnimation ?ろ尐"));
 //			return false;
 		}
 	}
@@ -2691,7 +2691,7 @@ BOOL CXiahCharObject::SetAnimation(int nCurMotionType,int nNextMotionType,int nC
 		m_SwordTrace.End();
 	}
 
-	// ?�차 ?�손 �?궤적
+	// ?检皑 ?检啇 旃?甓れ爜
 	if( bSwordTrace && m_bSubObjType == 4 )
 	{
 		Matrix4x4 *pBoneMatrix = m_CharRender.GetChildBoneMatrix( eLBP_LeftHand);
@@ -2712,7 +2712,7 @@ BOOL CXiahCharObject::SetAnimation(int nCurMotionType,int nNextMotionType,int nC
 		}
 		else
 		{
-			DBG_LogFile( _T("CXiahCharObject::SetAnimation ?�패"));
+			DBG_LogFile( _T("CXiahCharObject::SetAnimation ?ろ尐"));
 		}
 	}
 
@@ -2746,7 +2746,7 @@ BOOL CXiahCharObject::SetAnimation(int nMotionType,int nIndex,float fAnimationSp
 	}
 
 	BOOL bSwordTrace = FALSE;
-	// �?궤적
+	// 旃?甓れ爜
 	if( m_bObjType == OBJTYPE_PC && (m_nCurMotionType == XiahAniType::eLAT_NormalAttack || m_nCurMotionType == XiahAniType::eLAT_Mugong))
 	{
 		bSwordTrace = TRUE;
@@ -2758,13 +2758,13 @@ BOOL CXiahCharObject::SetAnimation(int nMotionType,int nIndex,float fAnimationSp
 		{
 			Vector3 vStart,vEnd;
 
-			// 무투꺼는 ?�개가 변?�다.
+			// 氍错埇旰茧姅 ?愱皽臧� 氤�?滊嫟.
 			Vector3 vV;
 			int nCharID = m_CharRender.GetCharID();
 			if( nCharID != 891 )
-				vV = Vector3( 0, 0, -m_fWeaponLength );		// 검?? ?�랑.
+				vV = Vector3( 0, 0, -m_fWeaponLength );		// 瓴�?? ?半瀾.
 			else
-				vV = Vector3( 0, 0.7f, -m_fWeaponLength );	// 무투
+				vV = Vector3( 0, 0.7f, -m_fWeaponLength );	// 氍错埇
 
 			vEnd = vStart + vV;
 
@@ -2780,7 +2780,7 @@ BOOL CXiahCharObject::SetAnimation(int nMotionType,int nIndex,float fAnimationSp
 		m_SwordTrace.End();
 	}
 
-	// ?�차 ?�손 �?궤적
+	// ?检皑 ?检啇 旃?甓れ爜
 	if( bSwordTrace && m_bSubObjType == 4 )
 	{
 		Matrix4x4 *pBoneMatrix = m_CharRender.GetChildBoneMatrix( eLBP_LeftHand);
@@ -2801,7 +2801,7 @@ BOOL CXiahCharObject::SetAnimation(int nMotionType,int nIndex,float fAnimationSp
 		}
 		else
 		{
-			DBG_LogFile( _T("CXiahCharObject::SetAnimation ?�패"));
+			DBG_LogFile( _T("CXiahCharObject::SetAnimation ?ろ尐"));
 		}
 	}
 	if( !bSwordTrace && m_bSubObjType == 4 )
@@ -2814,7 +2814,7 @@ BOOL CXiahCharObject::SetAnimation(int nMotionType,int nIndex,float fAnimationSp
 }
 
 /**
- * ?�니메이?�이 ?�날??
+ * ?犽媹氅旍澊?橃澊 ?濍偁??
  * \param param 
  * \return 
  */
@@ -2823,7 +2823,7 @@ int CXiahCharObject::OnEndAnimation(unsigned long param)
 	m_bMoveable = TRUE;
 	m_bAttack = FALSE;
 
-	// �?궤적 Effect Disable
+	// 旃?甓れ爜 Effect Disable
 	if( m_nCurAniType != m_nNextAniType)
 	{
 		m_SwordTrace.End();
@@ -2852,12 +2852,12 @@ int CXiahCharObject::OnEndAnimation(unsigned long param)
 			{
 				float fAlphaEffectSpeed = 1.0f;
 
-				// ?�떤 NPC????빠르�??�라진다.
+				// ?대뼡 NPC????鍮좊Ⅴ寃??щ씪吏꾨떎.
 				if( m_bObjType == OBJTYPE_NPC )
 				{
 					switch( m_bSubObjType )
 					{
-					case 184:	// ?�조
+					case 184:	// ?犾“
 						fAlphaEffectSpeed = 4.0f;
 						break;
 					};
@@ -2869,7 +2869,7 @@ int CXiahCharObject::OnEndAnimation(unsigned long param)
 			m_SwordTrace.End();
 			m_SwordTrace2.End();
 		}
-		else if( m_nCurAniIndex == -1)	// ?�덤 반복?�라??�???,??
+		else if( m_nCurAniIndex == -1)	// ?滊崵 氚橂车?措澕??毽???,??
 		{
 			m_SwordTrace.End();
 			m_SwordTrace2.End();
@@ -2878,7 +2878,7 @@ int CXiahCharObject::OnEndAnimation(unsigned long param)
 
 			return 1;
 		}
-		// 채집?�니 ?�날?????�펙??붙여주기
+		// 梨꾩쭛?좊땲 ?앸궇?????댄럺??遺숈뿬二쇨린
 		else if(XiahAniType::eLAT_Collect == m_nCurMotionType)
 		{
 			m_CharRender.StopEffect();
@@ -2898,7 +2898,7 @@ int CXiahCharObject::OnEndAlphaEffect(unsigned long param)
 
 BOOL CXiahCharObject::AttachChildCharRender(int nLogicalPos,int nCharID,int nMeshType,int nTextureType, int nEffectIndex)
 {
-	// ?�발?� ?�외 처리
+	// ?犽皽?� ?堨櫢 觳橂Μ
 	if( nLogicalPos == eLBP_Shoe)
 	{
 		CRes_Character* pChar = GetCharacter( nCharID);
@@ -2941,50 +2941,50 @@ BOOL CXiahCharObject::AttachChildCharRender(int nLogicalPos,int nCharID,int nMes
 
 		//if( pTexture->texture_sub_count < 4)	return TRUE;
 				
-		// 같�? 캐릭?�면 MeshType�?바꿔 준??
-		// 코드 멋�?�?
+		// 臧欖? 旌愲Ν?半┐ MeshType毵?氚旉繑 欷�??
+		// 旖旊摐 氅嬱?甑?
 		if( m_CharRender.GetCharID() == nCharID && m_CharRender.GetMeshType() == nMeshType)
 		{
 			m_CharRender.ChangeTexture( 0, pTexture->texture_sub_ptr[ 0].texture_id);
 			m_CharRender.ChangeTexture( 3, pTexture->texture_sub_ptr[ 0].texture_id);
 
-			// 무투??4?�계???�개???�스쳐�? 몸과 ?�른�??�다. ?�개??MeshBlock 4번째??
-			// 변�??�어가지�?버그�??�기�??�고..
+			// 臾댄닾??4?④퀎???좉컻???띿뒪爾먭? 紐멸낵 ?ㅻⅨ嫄??대떎. ?좉컻??MeshBlock 4踰덉㎏??
+			// 氤�膦??ｌ柎臧�歆�瓿?氩勱犯毵??濌赴瓴??橁碃..
 			if( nCharID == 891/*m_bSubObjType == 3*/ && nMeshType >= 3 )
 			{
 				 m_CharRender.ChangeTexture( 3, pTexture->texture_sub_ptr[ 3].texture_id);
 			}
-			// ?�차??2?�계 부?�는 망토가 몸과 ?�른 ?�스쳐�? ?�다. 망토??MeshBlock 4번째??
-			// 변�??�어가지�?버그�??�기�??�고..
+			// ?检皑??2?�瓿� 攵�?半姅 毵濏啝臧� 氇戈臣 ?るジ ?嶌姢斐愲? ?措嫟. 毵濏啝??MeshBlock 4氩堨Ц??
+			// 氤�膦??ｌ柎臧�歆�瓿?氩勱犯毵??濌赴瓴??橁碃..
 			else if( nCharID == 906 /*m_bSubObjType == 4*/ && nMeshType > 0 )
 			{
 				 m_CharRender.ChangeTexture( 3, pTexture->texture_sub_ptr[ 3].texture_id);
 			}
-			else if(nCharID == 867 && (nMeshType == 4 || nMeshType == 5 || nMeshType == 6)) //HT_1116 : 각성???�이??추�?
+			else if(nCharID == 867 && (nMeshType == 4 || nMeshType == 5 || nMeshType == 6)) //HT_1116 : 臧侅劚???勳澊??於旉?
 			{
 				m_CharRender.ChangeTexture(3, pTexture->texture_sub_ptr[ 3].texture_id);
 			}
 		}
-		else// 캐릭?��? ?�르�??�시 만들??준??꾸웩!!
+		else// 旌愲Ν?瓣? ?るゴ氅??れ嫓 毵岆摛??欷�??昃胳洨!!
 		{
-			// ?�단 캐릭?��? 만들�?
+			// ?茧嫧 旌愲Ν?半? 毵岆摛瓿?
 			m_CharRender.Clear();
 			m_CharRender.SetChar( nCharID);
 			m_CharRender.SetMesh( nMeshType, nTextureType);
 			
-			// ?��?분에??Intro??Aninmation 결정!
+			// ?措?攵勳棎??Intro??Aninmation 瓴办爼!
 
 			if( m_pAniType == NULL)
 			{
 				switch(m_bSubObjType)
 				{
-					case 1 : // 검??
+					case 1 : // 瓴�??
 						m_CharRender.SetAnimation( 201);
 					break;
 
-					case 2 :	// ?�랑
-					case 3 :	// 무투
-					case 4 :	// ?�차
+					case 2 :	// ?半瀾
+					case 3 :	// 氍错埇
+					case 4 :	// ?检皑
 						m_CharRender.SetAnimation( 103);
 					break;
 				}
@@ -2993,7 +2993,7 @@ BOOL CXiahCharObject::AttachChildCharRender(int nLogicalPos,int nCharID,int nMes
 				SetAnimation( XiahAniType::eLAT_Stand, 0);
 
 
-			// ?�착 관??Bone?�보�??�시 ?�팅?��???
+			// ?レ癌 甏�??Bone?曤炒毳??れ嫓 ?疙寘?挫???
 			for(int i = 0; i < LOGICAL_BONE_POS_COUNT; i++)
 			{
 				if( m_ChildChar[ i].IsValid())
@@ -3033,7 +3033,7 @@ BOOL CXiahCharObject::AttachChildCharRender(int nLogicalPos,int nCharID,int nMes
 	//m_ChildChar[ nLogicalPos].SetLocalCenter(Matrix4x4());
 	DBG_Assert( m_ChildChar[ nLogicalPos].IsValid());
 
-	// 무기?�때 ?�펙?��? 붙는??
+	// 氍搓赴?茧晫 ?错帣?戈? 攵欕姅??
 	if( nEffectIndex >= 0 )
 	{
 		m_ChildChar[ nLogicalPos].MakeMeshEffect( nEffectIndex );
@@ -3043,7 +3043,7 @@ BOOL CXiahCharObject::AttachChildCharRender(int nLogicalPos,int nCharID,int nMes
 	Matrix4x4 *pBoneMatrix = m_CharRender.GetChildBoneMatrix( nLogicalPos);
 
 	m_ChildChar[ nLogicalPos].SetPosition( pBoneMatrix);
-	++m_nChildChar;	// ?�구가 맞을?�나?
+	++m_nChildChar;	// ?勱惮臧� 毵烄潉?る倶?
 
 	return TRUE;
 }
@@ -3051,7 +3051,7 @@ BOOL CXiahCharObject::AttachChildCharRender(int nLogicalPos,int nCharID,int nMes
 // test code
 bool CXiahCharObject::AttachPetChildChar(int nLogicalPos, int nCharID, int nMeshType, int nTextureType)
 {
-	// ?�발?� ?�외 처리
+	// ?犽皽?� ?堨櫢 觳橂Μ
 	if(nLogicalPos == eLBP_Shoe)
 	{
 		CRes_Character* pChar = GetCharacter( nCharID);
@@ -3089,15 +3089,15 @@ bool CXiahCharObject::AttachPetChildChar(int nLogicalPos, int nCharID, int nMesh
 
 		//if( pTexture->texture_sub_count < 4)	return TRUE;
 
-		// 같�? 캐릭?�면 MeshType�?바꿔 준??
+		// 臧欖? 旌愲Ν?半┐ MeshType毵?氚旉繑 欷�??
 		if( m_CharRender.GetCharID() == nCharID && m_CharRender.GetMeshType() == nMeshType)
 		{
 			m_CharRender.ChangeTexture( 0, pTexture->texture_sub_ptr[ 0].texture_id);
 			m_CharRender.ChangeTexture( 3, pTexture->texture_sub_ptr[ 0].texture_id);
 		}
-		else// 캐릭?��? ?�르�??�시 만들??준??꾸웩!!
+		else// 旌愲Ν?瓣? ?るゴ氅??れ嫓 毵岆摛??欷�??昃胳洨!!
 		{
-			// ?�단 캐릭?��? 만들�?
+			// ?茧嫧 旌愲Ν?半? 毵岆摛瓿?
 			m_CharRender.Clear();
 			m_CharRender.SetChar( nCharID);
 			m_CharRender.SetMesh( nMeshType, nTextureType);
@@ -3105,7 +3105,7 @@ bool CXiahCharObject::AttachPetChildChar(int nLogicalPos, int nCharID, int nMesh
 			SetAnimation( XiahAniType::eLAT_Stand, 0);
 
 
-			// ?�착 관??Bone?�보�??�시 ?�팅?��???
+			// ?レ癌 甏�??Bone?曤炒毳??れ嫓 ?疙寘?挫???
 			for(int i = 0; i < LOGICAL_BONE_POS_COUNT; ++i)
 			{
 				if( m_ChildChar[ i].IsValid())
@@ -3153,7 +3153,7 @@ bool CXiahCharObject::AttachPetChildChar(int nLogicalPos, int nCharID, int nMesh
 	assert(pBoneMatrix);
 
 	m_ChildChar[ nLogicalPos].SetPosition( pBoneMatrix);
-	++m_nChildChar;	// ?�구가 맞을?�나?
+	++m_nChildChar;	// ?勱惮臧� 毵烄潉?る倶?
 
 
 	return true;
@@ -3164,7 +3164,7 @@ BOOL CXiahCharObject::RemoveChildCharRender(int nLogicalPos)
 	if( m_ChildChar[ nLogicalPos].IsValid())
 	{
 		m_ChildChar[ nLogicalPos].Clear();
-		--m_nChildChar;	// ?�구가 맞을?�나?
+		--m_nChildChar;	// ?勱惮臧� 毵烄潉?る倶?
 	}
 
 	return TRUE;
@@ -3195,7 +3195,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 		pFrameDelta->t.z = 0;
 		return 0;
 	}
-	// ?�살???�닌 ?�들???�해??TargetMove�??�기?��? ?�짝 ?�어준??
+	// ?旍偞???勲媽 ?橂摛???滍暣??TargetMove毳??�旮�?り? ?挫�� ?ｌ柎欷�??
 	
 	Matrix4x4 future_tm = *pFrameDelta * m_ObjectTM;
 	future_tm.t.y -= 0.5f;
@@ -3212,15 +3212,15 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 		vDir2.Normalize();
 
 		float bt = sqrt((m_TargetPosition.x - m_Position.x)*(m_TargetPosition.x - m_Position.x) + (m_TargetPosition.z - m_Position.z)*(m_TargetPosition.z - m_Position.z));
-		// bt???�동중에 ?�재 PC??발바?�을 찍을경우 m_TargetPosition�?m_TargetStartPosition??갱신?��?�?
-		// 계산?�의 ?�轎�?pFrameDelta가 비정?�적?�로 ?�오??경우 무한 ?�리기�? ?�다. ?��? 막기?�하??추�?
-		// 1.5f??경험?�의 ?�치�??�릭??목적지?� ?�재???�치가 1.5f?�도만큼 ?�하�??�오�?멈추�??�다. 1.5 ?�도�??�작?�한??
+		// bt???措彊欷戩棎 ?勳灛 PC??氚滊皵?レ潉 彀嶌潉瓴届毎 m_TargetPosition瓿?m_TargetStartPosition??臧膘嫚?橃?毵?
+		// 瓿勳偘?侅潣 ?勮綆搿?pFrameDelta臧� 牍勳爼?侅爜?茧�� ?橃槫??瓴届毎 氍错暅 ?�毽�旮半? ?滊嫟. ?措? 毵夑赴?勴晿??於旉?
+		// 1.5f??瓴巾棙?侅潣 ?橃箻搿??措Ν??氇╈爜歆�?� ?勳灛???勳箻臧� 1.5f?曤弰毵岉伡 ?错晿搿??橃槫氅?氅堨稊瓴??滊嫟. 1.5 ?曤弰氅??橃瀾?欗暅??
 
 		if( vDir.Dot( vDir2) < 0 || bt < 1.5f)
 		{
-			m_bTargetMove = FALSE; // ?�왔??
+			m_bTargetMove = FALSE; // ?れ檾??
 
-			// ?�시 ?�드 코딩 캐릭?�는 -1주면 ?�됨
+			// ?勳嫓 ?橂摐 旖旊敥 旌愲Ν?半姅 -1欤茧┐ ?婋惃
 			SetAnimation( XiahAniType::eLAT_Stand, m_bObjType != OBJTYPE_PC ? -1 : 0);
 
 			if( m_pParentTrigger[ eXCT_OnEndTargetMove] != NULL)
@@ -3234,7 +3234,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 		return 0;
 
 	//////////////////////////////////////////////////////////////////////////
-	// MAP ?�성처리
+	// MAP ?嶌劚觳橂Μ
 
 	int att_x,att_y;
 	unsigned char	att_res;
@@ -3257,7 +3257,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 
 
 	//////////////////////////////////////////////////////////////////////////
-	// ?�상????
+	// ?胳儊????
 	if( future_tm.t.x < 5 || -future_tm.t.z < 5 || future_tm.t.x > 2043 || -future_tm.t.z > 2043)
 	{
 		pFrameDelta->t = Vector3();
@@ -3268,7 +3268,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 	}
 	
 	//////////////////////////////////////////////////////////////////////////
-	// 경사�?처리 못올?��?�?
+	// 瓴届偓氅?觳橂Μ 氇混槵?缄?旮?
 	float t_h = Map::g_MapRes.GetHeight(future_tm.t.x,future_tm.t.z);
 /*
 	sString str;
@@ -3283,25 +3283,25 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 		return 0;
 	}
 /*
-	// 바운??박스 무시
+	// 氚旍毚??氚曥姢 氍挫嫓
 	if( GetAsyncKeyState( VK_SPACE) < 0)
 		return 0;
 */
 
 
-	// 배경?�로 부??object list�??�어 ?�다
-	// 2004_04_12 changth : 캐릭?��? ?�직일???�해 ?�는 맵�????�브?�트�?충돌 검?��? ?�는??
-	// ?�때 문제가 발생?? 맵�? ?�이???�어 ?�는 ?�브?�트??경우, �??�디?�에???�?�될??
-	// ?�떤 맵�????�?�되?��? ?�수가 ?�다. 그래??캐릭?��? ?�해?�는 맵�???경계 부분에 ?�으�?
-	// ?�접??맵�????�브?�트까�? 충돌 검?��? ?�다. 그래???�확?�다.
+	// 氚瓣步?茧�� 攵�??object list毳??混柎 ?�雼�
+	// 2004_04_12 changth : 旌愲Ν?瓣? ?�歆侅澕???嶍暣 ?堧姅 毵奠????る笇?濏姼毵?於╇弻 瓴�?��? ?橂姅??
+	// ?措晫 氍胳牅臧� 氚滌儩?? 毵奠? ?�鞚�???检柎 ?堧姅 ?る笇?濏姼??瓴届毎, 毵??愲敂?办棎???�?ル悹??
+	// ?措枻 毵奠????�?ル悩?旍? ?岇垬臧� ?嗠嫟. 攴鸽灅??旌愲Ν?瓣? ?嶍暣?堧姅 毵奠???瓴疥硠 攵�攵勳棎 ?堨溂氅?
+	// ?胳爲??毵奠????る笇?濏姼旯岇? 於╇弻 瓴�?��? ?滊嫟. 攴鸽灅???曧檿?橂嫟.
 
-	// ?�단 캐릭?��? 맵�???가?�데 부분에 ?�는지, 경계 부분에 ?�는지 검?�하??
-	// 검?�할 �??�??개수�??�아 ?�다. 참고�? 맵�????�기??256x256?�다.
+	// ?茧嫧 旌愲Ν?瓣? 毵奠???臧�?措嵃 攵�攵勳棎 ?堧姅歆�, 瓴疥硠 攵�攵勳棎 ?堧姅歆� 瓴�?�頃�??
+	// 瓴�?�頃� 毵??�??臧滌垬毳??岇晞 ?鸽嫟. 彀戈碃搿? 毵奠????�旮�??256x256?措嫟.
 	int nMapCellCount = 1;
-	WORD wXAry[4];	// 최�???4개다. ?�재 ?�는 곳을 ?�함?�여
+	WORD wXAry[4];	// 理쒕???4媛쒕떎. ?꾩옱 ?덈뒗 怨녹쓣 ?ы븿?섏뿬
 	WORD wZAry[4];
 
-	// ?�재 ?�해 ?�는 �?
+	// ?勳灛 ?嶍暣 ?堧姅 瓿?
 	wXAry[0] = (WORD)future_tm.t.x;
 	wZAry[0] = (WORD)(-future_tm.t.z);
 
@@ -3309,19 +3309,19 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 	int nRemnantZ = wZAry[0] % 256;
 
 	int nSearchGap = 50;
-	if( nRemnantX < nSearchGap )	// ?�쪽???�는 맵�???추�??�다.
+	if( nRemnantX < nSearchGap )	// ?쇱そ???덈뒗 留듭???異붽??쒕떎.
 	{
 		nMapCellCount++;
 
 		wXAry[1] = (WORD)(future_tm.t.x - nRemnantX - 2);
 		wZAry[1] = (WORD)(-future_tm.t.z);
 
-		if( nRemnantZ >= nSearchGap && nRemnantZ <= 256-nSearchGap )	// ?? ?�래??검?��? ?�요 ?�다.
+		if( nRemnantZ >= nSearchGap && nRemnantZ <= 256-nSearchGap )	// ?? ?勲灅??瓴�?��? ?勳殧 ?嗠嫟.
 		{
 		}
 		else
 		{
-			if( nRemnantZ < nSearchGap )	// ?�의 맵�???추�??�다.
+			if( nRemnantZ < nSearchGap )	// ?勳潣 毵奠???於旉??滊嫟.
 			{
 				nMapCellCount++;
 
@@ -3329,7 +3329,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 				wZAry[2] = (WORD)(-future_tm.t.z - nRemnantZ - 2);
 			}
 			else
-			if( nRemnantZ > 256-nSearchGap )	// ?�래??맵�???추�??�다.
+			if( nRemnantZ > 256-nSearchGap )	// ?勲灅??毵奠???於旉??滊嫟.
 			{
 				nMapCellCount++;
 
@@ -3340,7 +3340,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 			}
 		}
 
-		if( nMapCellCount == 3 )	// ?�각선쪽으로도 추�??�다.
+		if( nMapCellCount == 3 )	// ?�臧侅劆飒届溂搿滊弰 於旉??滊嫟.
 		{
 			nMapCellCount++;
 
@@ -3349,7 +3349,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 		}
 	}// if
 	else
-	if( nRemnantX > 256-nSearchGap )	// ?�른쪽에 ?�는 맵�???추�??�다.
+	if( nRemnantX > 256-nSearchGap )	// ?るジ飒届棎 ?堧姅 毵奠???於旉??滊嫟.
 	{
 		nMapCellCount++;
 
@@ -3358,12 +3358,12 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 		wXAry[1] = (WORD)(future_tm.t.x + nX + 2);
 		wZAry[1] = (WORD)(-future_tm.t.z);
 
-		if( nRemnantZ >= nSearchGap && nRemnantZ <= 256-nSearchGap )	// ?? ?�래??검?��? ?�요 ?�다.
+		if( nRemnantZ >= nSearchGap && nRemnantZ <= 256-nSearchGap )	// ?? ?勲灅??瓴�?��? ?勳殧 ?嗠嫟.
 		{
 		}
 		else
 		{
-			if( nRemnantZ < nSearchGap )	// ?�의 맵�???추�??�다.
+			if( nRemnantZ < nSearchGap )	// ?勳潣 毵奠???於旉??滊嫟.
 			{
 				nMapCellCount++;
 
@@ -3371,7 +3371,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 				wZAry[2] = (WORD)(-future_tm.t.z - nRemnantZ - 2);
 			}
 			else
-			if( nRemnantZ > 256-nSearchGap )	// ?�래??맵�???추�??�다.
+			if( nRemnantZ > 256-nSearchGap )	// ?勲灅??毵奠???於旉??滊嫟.
 			{
 				nMapCellCount++;
 
@@ -3382,7 +3382,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 			}
 		}
 
-		if( nMapCellCount == 3 )	// ?�각선쪽으로도 추�??�다.
+		if( nMapCellCount == 3 )	// ?�臧侅劆飒届溂搿滊弰 於旉??滊嫟.
 		{
 			nMapCellCount++;
 
@@ -3391,8 +3391,8 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 		}
 	}// if
 
-	// Z 축도 검?? ???�?��? ?? ?�래�?검?�하�??�다.
-	if( nMapCellCount == 1 && nRemnantZ < nSearchGap )	// ?�의 맵�???추�??�다.
+	// Z 於曤弰 瓴�?? ???�?濎? ?? ?勲灅毵?瓴�?�頃橂�??滊嫟.
+	if( nMapCellCount == 1 && nRemnantZ < nSearchGap )	// ?勳潣 毵奠???於旉??滊嫟.
 	{
 		nMapCellCount++;
 
@@ -3400,7 +3400,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 		wZAry[1] = (WORD)(-future_tm.t.z - nRemnantZ - 2);
 	}
 	else
-	if( nMapCellCount == 1 && nRemnantZ > 256-nSearchGap )	// ?�래??맵�???추�??�다.
+	if( nMapCellCount == 1 && nRemnantZ > 256-nSearchGap )	// ?勲灅??毵奠???於旉??滊嫟.
 	{
 		nMapCellCount++;
 
@@ -3410,7 +3410,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 		wZAry[1] = (WORD)(-future_tm.t.z + nZ + 2);
 	}
 
-	// ?�제 리스?�에 ?�어 ?�는 맵�????�브?�트?� 충돌 검?��? ?�다.
+	// ?挫牅 毽�鞀�?胳棎 ?れ柎 ?堧姅 毵奠????る笇?濏姼?� 於╇弻 瓴�?��? ?滊嫟.
 	for(int i=0; i<nMapCellCount; i++)
 	{
 		XiahGameEngine::Map::MAPRENDER_MAPOBJECTLIST *pObjectList;
@@ -3441,15 +3441,15 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 			{
 				BBoxOBB3* map_object_bound = box_list + i;
 
-				// ?�래 코드가 ?�랬?�데..
+				// ?愲灅 旖旊摐臧� ?措灛?旊嵃..
 				if( !map_object_bound->m_BBoxAABB.Intersect( future_bound.m_BBoxAABB))
 					continue;
 
-				// ?�래 코드가 ?�것??체크�??�는?? ?�재???�게 ?�어????
+				// ?愲灅 旖旊摐臧� ?搓矁??觳错伂毳??橂姅?? ?勳灛???搓矊 ?嗢柎????
 //				if( !map_object_bound->IsIntersect( &future_bound))
 //					continue;
 
-				// ?�리 주위???�을?�에???�개???�브?�트�?검?�해???��?�??�번 ??검?�한??
+				// ?るΜ 欤检渼???堨潉?岇棎???愱皽???る笇?濏姼毳?瓴�?�頃�???橂?搿??滊矆 ??瓴�?�頃�??
 				if( !bFirstCollide )
 					bCollide = TRUE;
 
@@ -3461,37 +3461,37 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 			}// for
 		}
 
-		if( collide_height != 0.0f ) // ?�번 검???�을?�도 ??�� 충돌 ???�태??
+		if( collide_height != 0.0f ) // ?滊矆 瓴�???堨潉?岆弰 ??嫓 於╇弻 ???來儨??
 			bCollide = TRUE;
 
 		m_bCollide = bCollide;
 
-		// 충돌!
+		// 於╇弻!
 		if( bCollide)
 		{
-			// 충돌?�었?�데 충돌?�얘보다 ???�에 ?�있?�경??-_-;;
+			// 於╇弻?橃棃?旊嵃 於╇弻?滌枠氤措嫟 ???勳棎 ?滌瀳?旉步??-_-;;
 			if( future_tm.t.y > collide_height)
 			{
-				// ??경우???�려가???�다.
+				// ??瓴届毎???措牑臧�???滊嫟.
 				m_ObjectTM.y = collide_height;
 				m_fColHeight = collide_height;
 				m_bRide = TRUE;
 			}
 			else 
-			if( future_tm.t.y < collide_height)		// 바운??박스 height보다 ?�재 ?�치가 ?��?가?
+			if( future_tm.t.y < collide_height)		// 氚旍毚??氚曥姢 height氤措嫟 ?勳灛 ?勳箻臧� ?戩?臧�?
 			{
 				if( abs( future_tm.t.y - collide_height) < 4)
 				{
-					// ?�라가 버림
+					// ?�霛缄皜 氩勲��
 					m_ObjectTM.y = collide_height;
-					m_fColHeight = collide_height;	// ?�시?�??바운???�이
+					m_fColHeight = collide_height;	// ?勳嫓?�??氚旍毚???掛澊
 					m_bRide = TRUE;
 				}
 				else
 				{
 					//				m_bRide = FALSE;
 					pFrameDelta->t = Vector3();
-					// ?�이??�????�음???�려 준??
+					// ?旍澊??臧????嗢潓???岆牑 欷�??
 					if( m_pParentTrigger[ eXCT_OnCollision] != NULL)
 						return m_pParentTrigger[ eXCT_OnCollision]->Invoke();
 				}
@@ -3508,7 +3508,7 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 
 
 	// 2004_06_01 Changth
-	// 문파 비석�?충돌 처리�??�어준??
+	// 氍疙寣 牍勳劃瓿?於╇弻 觳橂Μ毳??ｌ柎欷�??
 	BBoxOBB3 StoneBound;
 
 	DWORDLIST::iterator dit;
@@ -3542,7 +3542,7 @@ int CXiahCharObject::OnTimer(unsigned long type)
 		return m_pParentTrigger[ eXCT_OnTimer]->Invoke();
 	}
 
-	// ??~ 결국 ?�드코딩?�구??
+	// ??~ 瓴瓣淡 ?橂摐旖旊敥?搓惮??
 	if( m_bObjType == OBJTYPE_NPC)
 	{
 		if( type == 0)
@@ -3563,7 +3563,7 @@ int CXiahCharObject::OnTimer(unsigned long type)
 #ifdef TRACE_LOG
 				if(pTM == NULL || pObject == NULL)
 				{
-					DBG_LogFile( _T("CXiahCharObject::OnTimer ?�패"));
+					DBG_LogFile( _T("CXiahCharObject::OnTimer ?ろ尐"));
 				}
 #endif
 				pObject->Create( 837, 0, 0, 0);
@@ -3583,10 +3583,10 @@ int CXiahCharObject::OnTimer(unsigned long type)
 				//pObject->m_CharRender.SetLocalCenter(Matrix4x4());
 				RemoveChildCharRender( eLBP_RightHand);
 			
-				// ?�살???�다
+				// ?旍偞???滊嫟
 				XiahObject::g_XiahObjectManager.CreateXiahObject( 0, 0, pObject);
 
-				// ?�살 궤적
+				// ?旍偞 甓れ爜
 				if( pObject->m_pLineParticle == NULL )
 				{
 					pObject->m_pLineParticle = new CLineParticle;
@@ -3594,7 +3594,7 @@ int CXiahCharObject::OnTimer(unsigned long type)
 #ifdef TRACE_LOG
 					if(pObject->m_pLineParticle == NULL)
 					{
-						DBG_LogFile( _T("CXiahCharObject::OnTimer ?�패"));
+						DBG_LogFile( _T("CXiahCharObject::OnTimer ?ろ尐"));
 					}
 #endif
 					pObject->m_pLineParticle->Init();
@@ -3649,32 +3649,32 @@ void CXiahCharObject::RefreshFameColor(DWORD dwFame)
 		m_dwFame = dwFame;
 
 	if(m_dwFame >= 127)
-	{   // ?�락??계열
-		if(m_dwFame >= 133 && m_dwFame <= 226) // ?�인 2?�계
+	{   // ?鸽澖??瓿勳棿
+		if(m_dwFame >= 133 && m_dwFame <= 226) // ?좎씤 2?④퀎
 		{
 			m_cNameColor = D3DCOLOR_XRGB( 255, 255, 120);
 		}
-		else if(m_dwFame >= 227) // ?�인 3?�계
+		else if(m_dwFame >= 227) // ?좎씤 3?④퀎
 		{
 			m_cNameColor = D3DCOLOR_XRGB( 255, 255, 0);
 		}
-		else  // ?�인 1?�계
+		else  // ?좎씤 1?④퀎
 		{
 			m_cNameColor = D3DCOLOR_XRGB( 255, 255, 200);
 		}
 	} // if(dwFame >= 127)
 	else
 	{
-		// 빨간??계열
-		if(m_dwFame <= 121 && m_dwFame >= 28) // ?�인 2?�계
+		// 鍮④컙??怨꾩뿴
+		if(m_dwFame <= 121 && m_dwFame >= 28) // ?낆씤 2?④퀎
 		{
 			m_cNameColor = D3DCOLOR_XRGB( 255, 75, 75);
 		}
-		else if(m_dwFame <= 27) // ?�인 3?�계
+		else if(m_dwFame <= 27) // ?낆씤 3?④퀎
 		{
 			m_cNameColor = D3DCOLOR_XRGB( 255, 0, 0);
 		}
-		else  // ?�인 1?�계
+		else  // ?낆씤 1?④퀎
 		{
 			m_cNameColor = D3DCOLOR_XRGB( 255, 150, 150);
 		}
@@ -3715,7 +3715,7 @@ BOOL ValidateObject(BYTE bObjType,DWORD ObjID,WORD wPosX,WORD wPosY)
 	case OBJTYPE_PC:
 		SendCS_IT_CHARINFO_REQ( ObjID);
 		break;
-	case OBJTYPE_NPC:	// NPC가 NPC�??�려?
+	case OBJTYPE_NPC:	// NPC臧� NPC毳??勲牑?
 		SendCS_NC_NPCINFO_REQ( ObjID);
 		break;
 	case OBJTYPE_PET:
@@ -3751,16 +3751,35 @@ BOOL CXiahCharObject::LoadLegendTitle(int nTitleID)
 	m_TitleEffect.m_nCurrentFrame = 0;
 	m_TitleEffect.m_dwLastTime = GetTickCount();
 
+	// Pre-read all frame offsets from merged file: fame\{ID}\placements.txt
+	// Format: "offsetX offsetY" per line, line index = frame index
+	char szPlacementPath[MAX_PATH];
+	sprintf(szPlacementPath, "fame\\%d\\placements.txt", nTitleID);
+
+	const int MAX_TITLE_FRAMES = 64;
+	int nPlacementOffX[MAX_TITLE_FRAMES] = {0};
+	int nPlacementOffY[MAX_TITLE_FRAMES] = {0};
+	int nPlacementCount = 0;
+
+	FILE* fpPlacement = fopen(szPlacementPath, "r");
+	if (fpPlacement)
+	{
+		int tmpX = 0, tmpY = 0;
+		while (nPlacementCount < MAX_TITLE_FRAMES && fscanf(fpPlacement, "%d %d", &tmpX, &tmpY) == 2)
+		{
+			nPlacementOffX[nPlacementCount] = tmpX;
+			nPlacementOffY[nPlacementCount] = tmpY;
+			nPlacementCount++;
+		}
+		fclose(fpPlacement);
+	}
+
 	int nFrameIdx = 0;
 	while (TRUE)
 	{
 		char szImgPath[MAX_PATH];
-		char szTxtPath[MAX_PATH];
-		
 		sprintf(szImgPath, "fame\\%d\\%06d.png", nTitleID, nFrameIdx);
-		sprintf(szTxtPath, "fame\\%d\\Placements\\%06d.txt", nTitleID, nFrameIdx);
 
-		// Try loading texture
 		LPDIRECT3DTEXTURE9 pTexture = NULL;
 		HRESULT hr = D3DXCreateTextureFromFileExA(
 			g_pDirect3DDevice, 
@@ -3776,19 +3795,8 @@ BOOL CXiahCharObject::LoadLegendTitle(int nTitleID)
 			break;
 		}
 
-		// Read placements
-		int nOffX = 0;
-		int nOffY = 0;
-		FILE* fp = fopen(szTxtPath, "r");
-		if (fp)
-		{
-			if (fscanf(fp, "%d\n%d", &nOffX, &nOffY) != 2)
-			{
-				nOffX = 0;
-				nOffY = 0;
-			}
-			fclose(fp);
-		}
+		int nOffX = (nFrameIdx < nPlacementCount) ? nPlacementOffX[nFrameIdx] : 0;
+		int nOffY = (nFrameIdx < nPlacementCount) ? nPlacementOffY[nFrameIdx] : 0;
 
 		sTitleFrame newFrame;
 		newFrame.pTexture = pTexture;
@@ -3843,7 +3851,7 @@ void CXiahCharObject::RenderLegendTitle(int nNameX, int nNameY)
 	D3DCOLOR d3dColor = D3DCOLOR_ARGB(255, 255, 255, 255);
 	Vertex[0].diffuse = Vertex[1].diffuse = Vertex[2].diffuse = Vertex[3].diffuse = d3dColor;
 
-	// Alpha Blending: ��?��������٥??������??
+	// Alpha Blending: 正?渲染半透明??和光效??
 	g_pDirect3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
 	g_pDirect3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	g_pDirect3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
@@ -3857,7 +3865,7 @@ void CXiahCharObject::RenderLegendTitle(int nNameX, int nNameY)
 	
 	g_pDirect3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, Vertex, sizeof(VT_TLVertex));
 
-	// ��?����??
+	// 恢?渲染??
 	g_pDirect3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
 	g_pDirect3DDevice->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
 }

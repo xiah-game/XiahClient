@@ -1,4 +1,4 @@
-#include "precompile.h"
+ï»¿#include "precompile.h"
 #include ".\munpamark.h"
 #include "XiahGame_Handler_Sender.h"
 #include "AppData.h"
@@ -19,7 +19,7 @@ CMunpaMark::~CMunpaMark()
 }
 
 /**
- * ÃÊ±âÈ­
+ * ì´ˆê¸°í™”
  */
 void CMunpaMark::Init()
 {
@@ -27,7 +27,7 @@ void CMunpaMark::Init()
 }
 
 /**
- * ÇØÁ¦
+ * í•´ì œ
  */
 void CMunpaMark::Release()
 {
@@ -55,10 +55,10 @@ void CMunpaMark::Release()
 }
 
 /**
-* ·»´õ¸µ
-* \param dwMarkID ¸¶Å©ID
-* \param nX À§Ä¡X
-* \param nY À§Ä¡Y
+* ë Œë”ë§
+* \param dwMarkID ë§ˆí¬ID
+* \param nX ìœ„ì¹˜X
+* \param nY ìœ„ì¹˜Y
 */
 void CMunpaMark::Render(DWORD dwMarkID, int nX, int nY)
 {
@@ -110,7 +110,7 @@ void CMunpaMark::Render(DWORD dwMarkID, int nX, int nY)
 }
 
 /**
-* ¸¶Å©·»´õ¸µ 
+* ë§ˆí¬ë Œë”ë§ 
 * \param dwMarkID 
 * \param nX 
 * \param nY 
@@ -123,7 +123,7 @@ void CMunpaMark::RenderMark(DWORD dwMarkID, int nX, int nY)
 
 	if(iter != m_mMark.end())
 	{
-		// ¸¶Å© ÀÖÀ»½Ã
+		// ë§ˆí¬ ìˆì„ì‹œ
 		sMark *pMark = iter->second;
 
 		assert(pMark);
@@ -134,11 +134,11 @@ void CMunpaMark::RenderMark(DWORD dwMarkID, int nX, int nY)
 		}
 		else
 		{
-			// ÅØ½ºÃÄ ¹Ì·Îµù½Ã
+			// í…ìŠ¤ì³ ë¯¸ë¡œë”©ì‹œ
 
-			if(!pMark->bDemand) // ¿äÃ»ÁßÀÎÁö
+			if(!pMark->bDemand) // ìš”ì²­ì¤‘ì¸ì§€
 			{
-				if(IsMarkFile(dwMarkID))	// ÆÄÀÏÁ¸Àç¿©ºÎ
+				if(IsMarkFile(dwMarkID))	// íŒŒì¼ì¡´ì¬ì—¬ë¶€
 				{
 					if(LoadMarkFile(dwMarkID))
 					{
@@ -147,7 +147,7 @@ void CMunpaMark::RenderMark(DWORD dwMarkID, int nX, int nY)
 				} // if(IsMarkFile(dwMarkID))
 				else
 				{
-					// ´Ù½Ã ¿äÃ»
+					// ë‹¤ì‹œ ìš”ì²­
 					pMark->bDemand = true;
 					SendCS_RL_GAINMARKIMAGE_REQ(dwMarkID);
 				}
@@ -159,7 +159,7 @@ void CMunpaMark::RenderMark(DWORD dwMarkID, int nX, int nY)
 		sMark *pMark = new sMark;
 		m_mMark.insert(MarkMap::value_type(dwMarkID, pMark));
 
-		if(IsMarkFile(dwMarkID))	// ÆÄÀÏÁ¸Àç¿©ºÎ
+		if(IsMarkFile(dwMarkID))	// íŒŒì¼ì¡´ì¬ì—¬ë¶€
 		{
 			if(LoadMarkFile(dwMarkID))
 			{
@@ -169,15 +169,15 @@ void CMunpaMark::RenderMark(DWORD dwMarkID, int nX, int nY)
 		else
 		{
 			pMark->bDemand = true;
-			// ¼­¹ö¿¡ ¿äÃ»
+			// ì„œë²„ì— ìš”ì²­
 			SendCS_RL_GAINMARKIMAGE_REQ(dwMarkID);
 		}
 	}
 }
 
 /**
- * ÆÄÀÏ Á¸Àç ¿©ºÎ
- * \param dwMarkID ¸¶Å©ID
+ * íŒŒì¼ ì¡´ì¬ ì—¬ë¶€
+ * \param dwMarkID ë§ˆí¬ID
  * \return 
 */
 bool CMunpaMark::IsMarkFile(DWORD dwMarkID)
@@ -185,8 +185,8 @@ bool CMunpaMark::IsMarkFile(DWORD dwMarkID)
 	bool bResult = true;
 
 	TCHAR strFile[128] = {0,};
-	// ¿ùµåº°·Î Æú´õ¿¡ °ü¸®
-	// [2/18/2005] Æú´õ¸í º¯°æ
+	// ì›”ë“œë³„ë¡œ í´ë”ì— ê´€ë¦¬
+	// [2/18/2005] í´ë”ëª… ë³€ê²½
 	_stprintf(strFile, "mark\\n%d\\%d.bmp", g_AppData.m_byWorldID, dwMarkID);
 
 	WIN32_FIND_DATA FindFileData;
@@ -201,8 +201,8 @@ bool CMunpaMark::IsMarkFile(DWORD dwMarkID)
 }
 
 /**
- * ¸¶Å© ÆÄÀÏ ·Îµù
- * \param dwMarkID ¸¶Å©ID
+ * ë§ˆí¬ íŒŒì¼ ë¡œë”©
+ * \param dwMarkID ë§ˆí¬ID
  * \return 
 */
 int CMunpaMark::LoadMarkFile(DWORD dwMarkID)
@@ -255,9 +255,9 @@ int CMunpaMark::LoadMarkFile(DWORD dwMarkID)
 }
 
 /**
- * ¸¶Å© ÆÄÀÏ ÀúÀå 
- * \param dwMarkID ¸¶Å©ID 
- * \param strData ÀÌ¹ÌÁö
+ * ë§ˆí¬ íŒŒì¼ ì €ì¥ 
+ * \param dwMarkID ë§ˆí¬ID 
+ * \param strData ì´ë¯¸ì§€
  * \return 
 */
 bool CMunpaMark::SaveMarkFile(DWORD dwMarkID, LPCTSTR strData)
@@ -275,9 +275,9 @@ bool CMunpaMark::SaveMarkFile(DWORD dwMarkID, LPCTSTR strData)
 	TCHAR strDir[128] = {0,};
 	_stprintf(strDir, ".\\mark\\n%d\\", g_AppData.m_byWorldID);
 
-	// ¿ùµåº°·Î Æú´õ¿¡ °ü¸®
-	CreateDirectory(".\\mark\\", NULL);	// mark »ı¼º
-	CreateDirectory(strDir, NULL);		// ¿ùµå¹øÈ£Æú´õ »ı¼º
+	// ì›”ë“œë³„ë¡œ í´ë”ì— ê´€ë¦¬
+	CreateDirectory(".\\mark\\", NULL);	// mark ìƒì„±
+	CreateDirectory(strDir, NULL);		// ì›”ë“œë²ˆí˜¸í´ë” ìƒì„±
 
 	TCHAR strFile[128] = {0,};
 	_stprintf(strFile, "mark\\n%d\\%d.bmp", g_AppData.m_byWorldID, dwMarkID);
@@ -288,10 +288,10 @@ bool CMunpaMark::SaveMarkFile(DWORD dwMarkID, LPCTSTR strData)
 	{
 		if((fp = _tfopen(strFile, _T("wb"))) != NULL)
 		{
-			// ¼­¹ö¿¡´Â Çìµå¸¦ Á¦°ÅÇÑ ¼ø¼ö ÀÌ¹ÌÁö¸¸ µé¾î°¡ ÀÖ´Ù.
-			// Å¬¶óÀÌ¾ğÆ®´Â bmpÀúÀå½Ã Çìµå¸¦ ºÙ¿©ÁÖ¾î¾ß µÈ´Ù.
-			// ÀÌÀ¯´Â ÀÌ¹ÌÁö¸¦ ¹®ÀÚ¿­·Î º¸³»´Âµ¥ 0ÀÌ¸é ¹®ÀÚ¿­¿¡¼­ nullÀÌ±â¿¡ ¹®Á¦°¡ Å¬/¼­¹ö ´Ù »ı±ä´Ù.
-			// ÀÌ¹ÌÁö ¶ÇÇÑ 0Àº 1·Î º¯°æµÇ¾îÁ® ÀÖ´Ù.
+			// ì„œë²„ì—ëŠ” í—¤ë“œë¥¼ ì œê±°í•œ ìˆœìˆ˜ ì´ë¯¸ì§€ë§Œ ë“¤ì–´ê°€ ìˆë‹¤.
+			// í´ë¼ì´ì–¸íŠ¸ëŠ” bmpì €ì¥ì‹œ í—¤ë“œë¥¼ ë¶™ì—¬ì£¼ì–´ì•¼ ëœë‹¤.
+			// ì´ìœ ëŠ” ì´ë¯¸ì§€ë¥¼ ë¬¸ìì—´ë¡œ ë³´ë‚´ëŠ”ë° 0ì´ë©´ ë¬¸ìì—´ì—ì„œ nullì´ê¸°ì— ë¬¸ì œê°€ í´/ì„œë²„ ë‹¤ ìƒê¸´ë‹¤.
+			// ì´ë¯¸ì§€ ë˜í•œ 0ì€ 1ë¡œ ë³€ê²½ë˜ì–´ì ¸ ìˆë‹¤.
 
 			BITMAPFILEHEADER BMPfileHeader;
 			BITMAPINFOHEADER BMPinfoHeader;
@@ -302,7 +302,7 @@ bool CMunpaMark::SaveMarkFile(DWORD dwMarkID, LPCTSTR strData)
 			BMPfileHeader.bfReserved2 = 0;
 			BMPfileHeader.bfOffBits = 54;
 
-			// ÆÄÀÏ ÇØ´õ
+			// íŒŒì¼ í•´ë”
 			fwrite(&BMPfileHeader, sizeof(BITMAPFILEHEADER), 1, fp);
 
 			BMPinfoHeader.biSize		= 40;
@@ -317,10 +317,10 @@ bool CMunpaMark::SaveMarkFile(DWORD dwMarkID, LPCTSTR strData)
 			BMPinfoHeader.biClrUsed		= 0;
 			BMPinfoHeader.biClrImportant = 0;
 
-			// ÆÄÀÏ Á¤º¸ ÇØ´õ
+			// íŒŒì¼ ì •ë³´ í•´ë”
 			fwrite(&BMPinfoHeader, sizeof(BITMAPINFOHEADER), 1, fp);
 
-			// ½ÇÁ¦ ÀÌ¹ÌÁö
+			// ì‹¤ì œ ì´ë¯¸ì§€
 			fwrite(strData, 768, 1, fp);
 
 			fclose(fp);

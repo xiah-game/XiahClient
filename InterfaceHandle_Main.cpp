@@ -1,4 +1,4 @@
-
+﻿
 
 /////////////////////////////////////
 void ProcessSituation( LPARAM lParam)

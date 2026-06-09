@@ -1,4 +1,4 @@
-#include "precompile.h"
+ï»¿#include "precompile.h"
 #include "AppData.h"
 #include "frameDefine.h"
 #include "resource.h"
@@ -29,11 +29,11 @@ CharacterInfo					g_MainCharInfo;
 CUIManager						*g_pUIManager = NULL;
 XiahGameEngine::Map::CMapDecal	g_PickCursor;
 BOOL							g_bScreenShot = FALSE;
-sString							g_ServerName;	// ¼­¹öÀÇ ÀÌ¸§.
+sString							g_ServerName;	// ì„œë²„ì˜ ì´ë¦„.
 
 BOOL	g_XiahGameStarted;
 float	g_fix;
-long	g_quickslot = 0;		// PAD¶§¹®¿¡ ³ÖÀº quick slot ¹øÈ£
+long	g_quickslot = 0;		// PADë•Œë¬¸ì— ë„£ì€ quick slot ë²ˆí˜¸
 
 extern BOOL bAutoNavigation;
 extern BOOL bAutoAttack;
@@ -43,7 +43,7 @@ extern DWORD g_dwSelectMugongID;
 
 BOOL InitXiahGame()
 {
-	// ¿©±â¼­´Â Àû´çÈ÷ ¼¼ÆÃÇÏÀÚ.
+	// ì—¬ê¸°ì„œëŠ” ì ë‹¹íˆ ì„¸íŒ…í•˜ì.
 	//g_fix = 1.94f;
 	g_fix = 4.0f;
 	g_XiahGameStarted = FALSE;
@@ -55,10 +55,10 @@ BOOL InitXiahGame()
 
 	SET_GAMESTEP( GAMESTEP_START_LOADING);
 
-	// ÀÌÁ¦ ·ÎµùÀº ÀÌ³à¼®ÀÌ ´ÙÇÑ´Ù.
+	// ì´ì œ ë¡œë”©ì€ ì´ë…€ì„ì´ ë‹¤í•œë‹¤.
 	if(!g_StartLoad->Init())
 	{
-		DBG_LogFile( _T("InitXiahGame ÃÊ±âÈ­ ½ÇÆĞ"));
+		DBG_LogFile( _T("InitXiahGame ì´ˆê¸°í™” ì‹¤íŒ¨"));
 	} 
 	
 	
@@ -110,7 +110,7 @@ BOOL CloseXiahGame()
 	XiahNetwork::UninitializeNetworkHandler();
 	CHECK_PERFORMANCE_CLOSE("UninitializeNetworkHandler");
 
-	// ¹®ÆÄ¸¶Å© Å¬¸®¾î
+	// ë¬¸íŒŒë§ˆí¬ í´ë¦¬ì–´
 	//UnInitMupaMark();
 
 	ReleaseGameStepObject();
@@ -170,7 +170,7 @@ BOOL LoopXiahGame_BeforeRender()
 
 	if( pObject == NULL)
 	{
-		DBG_LogFile( _T("LoopXiahGame_BeforeRender ½ÇÆĞ"));
+		DBG_LogFile( _T("LoopXiahGame_BeforeRender ì‹¤íŒ¨"));
 		return FALSE;
 	}
 
@@ -179,7 +179,7 @@ BOOL LoopXiahGame_BeforeRender()
 
 BOOL LoopXiahGameFX()
 {
-	// »ç¿îµå º¼·ıÀÌ 0 ÀÌ¸é SKIP
+	// ì‚¬ìš´ë“œ ë³¼ë¥¨ì´ 0 ì´ë©´ SKIP
 	if(g_info.m_dwFXVolume == 0) return TRUE;
 
 	if(g_pMainChar)
@@ -188,7 +188,7 @@ BOOL LoopXiahGameFX()
 
 		if(pCharObject == NULL)
 		{
-			DBG_LogFile( _T("LoopXiahGameFX ½ÇÆĞ"));
+			DBG_LogFile( _T("LoopXiahGameFX ì‹¤íŒ¨"));
 			XiahFX::Clear_FX();
 			return FALSE;
 		}
@@ -200,8 +200,8 @@ BOOL LoopXiahGameFX()
 
 			if(len > 255.0f)
 			{
-				//DBG_Put("¹«½ÃµÇ´Â»ç¿îµå:%f",len);
-				continue;	// ÀÌ°Ç ÇÃ·¹ÀÌ ÇÒÇÊ¿ä°¡ ¾ø´Ù. ³Ê¹« ¸Ö´Ù
+				//DBG_Put("ë¬´ì‹œë˜ëŠ”ì‚¬ìš´ë“œ:%f",len);
+				continue;	// ì´ê±´ í”Œë ˆì´ í• í•„ìš”ê°€ ì—†ë‹¤. ë„ˆë¬´ ë©€ë‹¤
 			}
 			else
 			{
@@ -228,7 +228,7 @@ BOOL LoopXiahGame()
 
 	if( pObject == NULL)
 	{
-		DBG_LogFile( _T("LoopXiahGame ½ÇÆĞ"));
+		DBG_LogFile( _T("LoopXiahGame ì‹¤íŒ¨"));
 		return FALSE;
 	}
 
@@ -243,7 +243,7 @@ BOOL LoopXiahGamePreShadow()
 
 	if( pObject == NULL)
 	{
-		DBG_LogFile( _T(" ½ÇÆĞ"));
+		DBG_LogFile( _T(" ì‹¤íŒ¨"));
 		return FALSE;
 	}
 
@@ -287,11 +287,11 @@ float	g_TestFogDensity[ 8] ={
 };
 //test
 
-//HT_CHEAT : Ä¡Æ® Å°
+//HT_CHEAT : ì¹˜íŠ¸ í‚¤
 extern BOOL g_bCheat;
 extern  BOOL g_bCheatEtc;
 
-////// ÀÓ½Ã
+////// ì„ì‹œ
 void ChangeChatType(void)
 {
 	g_MainCharInfo.PlayInterfaceSound( ISOUND_SELECT_BUTTON);
@@ -312,9 +312,9 @@ void ChangeChatType(void)
 
 
 /**
- * µ· ÀÚ¸´¼ö Ã³¸®
- * \param nMoney µ·°ª
- * \return Ã³¸®µÈ ¹®ÀÚ¿­
+ * ëˆ ìë¦¿ìˆ˜ ì²˜ë¦¬
+ * \param nMoney ëˆê°’
+ * \return ì²˜ë¦¬ëœ ë¬¸ìì—´
  */
 sString MoneyCommaStr(INT64 nMoney)
 {
@@ -354,7 +354,7 @@ sString MoneyCommaStr(INT64 nMoney)
 }
 
 /**
- * ¸ÊÀÌ¸§
+ * ë§µì´ë¦„
  * \param dwMapID 
  * \return 
 */
@@ -364,33 +364,33 @@ LPCTSTR GetMapName(DWORD dwMapID)
 
 	switch(dwMapID)
 	{
-	case 1: // ±â¾Ï ±«¼®
+	case 1: // ê¸°ì•” ê´´ì„
 		lpStrName = IDS_KIAM;			break;
-	case 2: // È­»ê
+	case 2: // í™”ì‚°
 		lpStrName = IDS_WHASAN;			break;
-	case 3: // ºùÇÏ
+	case 3: // ë¹™í•˜
 		lpStrName = IDS_BINGHA;			break;
-	case 4: // »ç¸·
+	case 4: // ì‚¬ë§‰
 		lpStrName = IDS_SAMAK;			break;
-	case 5: // ´ËÁö´ë
+	case 5: // ëŠªì§€ëŒ€
 		lpStrName = IDS_SULWON;			break;
-	case 6:	// ÃÊ¿øÁö´ë
+	case 6:	// ì´ˆì›ì§€ëŒ€
 		lpStrName = IDS_GRASSLAND;		break;
-	case 7:	// °í»êÁö´ë
+	case 7:	// ê³ ì‚°ì§€ëŒ€
 		lpStrName = IDS_HIGH_REACHES;	break;
-	case 9:	// ½Å°­
+	case 9:	// ì‹ ê°•
 		lpStrName = IDS_SG;				break;
-	case 10: // ¹®ÆÄ´ëÀüÀå
+	case 10: // ë¬¸íŒŒëŒ€ì „ì¥
 		lpStrName = IDS_MUNPADAEJUN;	break;
-	case 11: // ´øÀü1
+	case 11: // ë˜ì „1
 		lpStrName = IDS_DUNGEON_1;		break;
-	case 12: // ´øÀü2 (¸¶Ç÷¼º)
+	case 12: // ë˜ì „2 (ë§ˆí˜ˆì„±)
 		lpStrName = IDS_DUNGEON_2;		break;
-	case 13: // ´øÀü3 (±¤¸íÀü)
+	case 13: // ë˜ì „3 (ê´‘ëª…ì „)
 		lpStrName = IDS_DUNGEON_3;		break;
-	case 14: // ´øÀü4 (ÃµÈ²Àü)
+	case 14: // ë˜ì „4 (ì²œí™©ì „)
 		lpStrName = IDS_DUNGEON_4;		break;
-	case 15: // HO_0727_07 È­¿°°îÃß°¡
+	case 15: // HO_0727_07 í™”ì—¼ê³¡ì¶”ê°€
 		lpStrName = IDS_FIRELAND;		break;
 	default:
 		lpStrName = _T("?");			break;
@@ -400,7 +400,7 @@ LPCTSTR GetMapName(DWORD dwMapID)
 }
 
 /**
- * ¸Ê´ÜÃàÀÌ¸§
+ * ë§µë‹¨ì¶•ì´ë¦„
  * \param dwMapID 
  * \return 
 */
@@ -410,33 +410,33 @@ LPCTSTR GetMapSmallName(DWORD dwMapID)
 
 	switch(dwMapID)
 	{
-	case 1: // ±â¾Ï ±«¼®
+	case 1: // ê¸°ì•” ê´´ì„
 		lpStrName = IDS_KIAM_2;			break;
-	case 2: // È­»ê
+	case 2: // í™”ì‚°
 		lpStrName = IDS_WHASAN_2;		break;
-	case 3: // ºùÇÏ
+	case 3: // ë¹™í•˜
 		lpStrName = IDS_BINGHA_2;		break;
-	case 4: // »ç¸·
+	case 4: // ì‚¬ë§‰
 		lpStrName = IDS_SAMAK_2;		break;
-	case 5: // ´ËÁö´ë
+	case 5: // ëŠªì§€ëŒ€
 		lpStrName = IDS_SULWON_2;		break;
-	case 6:	// ÃÊ¿øÁö´ë
+	case 6:	// ì´ˆì›ì§€ëŒ€
 		lpStrName = IDS_GRASSLAND_2;	break;
-	case 7:	// °í»êÁö´ë
+	case 7:	// ê³ ì‚°ì§€ëŒ€
 		lpStrName = IDS_HIGH_REACHES_2;	break;
-	case 9:	// ½Å°­
+	case 9:	// ì‹ ê°•
 		lpStrName = IDS_SG_2;			break;
-	case 10:// ¹®ÆÄ´ëÀüÀå
+	case 10:// ë¬¸íŒŒëŒ€ì „ì¥
 		lpStrName = IDS_MUNPADAEJUN_2;	break;
-	case 11:// ´øÀü1
+	case 11:// ë˜ì „1
 		lpStrName = IDS_DUNGEON_1;		break;
-	case 12: // ´øÀü2 (¸¶Ç÷¼º)
+	case 12: // ë˜ì „2 (ë§ˆí˜ˆì„±)
 		lpStrName = IDS_DUNGEON_2;		break;
-	case 13: // ´øÀü3 (±¤¸íÀü)
+	case 13: // ë˜ì „3 (ê´‘ëª…ì „)
 		lpStrName = IDS_DUNGEON_3;		break;
-	case 14: // ´øÀü4 (ÃµÈ²Àü)
+	case 14: // ë˜ì „4 (ì²œí™©ì „)
 		lpStrName = IDS_DUNGEON_4;		break;
-	case 15: // HO_0727_07 È­¿°°îÃß°¡
+	case 15: // HO_0727_07 í™”ì—¼ê³¡ì¶”ê°€
 		lpStrName = IDS_FIRELAND;		break;
 	default:
 		lpStrName = _T("?");			break;
@@ -452,10 +452,10 @@ void PickItem()
 	{
 		bool bIsItem = false;
 		float fDis = 30.0f;
-		// ÀÚ½Å À§Ä¡
+		// ìì‹  ìœ„ì¹˜
 		Vector3 vMainPos = ((CXiahCharObject*)(g_pMainChar->m_pObject))->m_Position;
 
-		// ¸ÊÀÇ ¸ğµç ¿ÀºêÁ§Æ®
+		// ë§µì˜ ëª¨ë“  ì˜¤ë¸Œì íŠ¸
 		for(XiahObject::CXiahObjectManager::iterator it = XiahObject::g_XiahObjectManager.begin();
 			it != XiahObject::g_XiahObjectManager.end();
 			++it)
@@ -467,22 +467,22 @@ void PickItem()
 
 			CXiahCharObject* pCharObject = reinterpret_cast<CXiahCharObject*>(pXiahObject->m_pObject);			
 			
-			// ¾ÆÀÌÅÛ ¸¸( µ· Á¦¿Ü )
+			// ì•„ì´í…œ ë§Œ( ëˆ ì œì™¸ )
 			if(NULL != pCharObject && pCharObject->m_bObjType == OBJTYPE_ITEM )
 			{
 				XiahItem::sItemInfo* pInfo = (XiahItem::sItemInfo*)pCharObject->m_pPrivateData;
 
 				if(pInfo)
 				{
-					// µ· Á¦¿Ü
+					// ëˆ ì œì™¸
 				//	if(pInfo->m_wVisualID != 24000)					
 				//	{
 						bIsItem = true;
 
-						// ÀÚ½Å°úÀÇ °Å¸®
+						// ìì‹ ê³¼ì˜ ê±°ë¦¬
 						float fRange = pCharObject->GetInteractionDistance(vMainPos);
 
-						// °¡Àå °¡±î¿î °Å¸® Ã£±â
+						// ê°€ì¥ ê°€ê¹Œìš´ ê±°ë¦¬ ì°¾ê¸°
 					 	if(fRange < fDis)
 						{
 							fDis = fRange;
@@ -538,7 +538,7 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 		{
 			int scan_code = (lParam >> 16) & 0xFF;
 
-			// ¿ÀÇà Ã¢ ´ÜÃàÅ°
+			// ì˜¤í–‰ ì°½ ë‹¨ì¶•í‚¤
 			switch(scan_code)
 			{
 			case 0x2E://'C':
@@ -547,8 +547,8 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 			case 0x26://'L':
 			case 0x28://'"':
 			case 0x27://';'
-			case 0x14://'T': //HO_0410_07 »ó¼­·É °¡ÀÌµå ¾÷µ¥ÀÌÆ®
-			case 0x15://'Y': //HT_CHEAT : Æê »óÅÂÃ¢ ´ÜÃàÅ°
+			case 0x14://'T': //HO_0410_07 ìƒì„œë ¹ ê°€ì´ë“œ ì—…ë°ì´íŠ¸
+			case 0x15://'Y': //HT_CHEAT : í« ìƒíƒœì°½ ë‹¨ì¶•í‚¤
 			case 0x18:// O
 			case 0x19://'P':
 			case 0x13://'R':
@@ -561,7 +561,7 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 					if(g_MainCharInfo.m_pChat->GetChatType() == LARGECHAT)
 						g_MainCharInfo.m_pChat->SetChatType( SMALLCHAT);
 
-					// ¸ÅÇ°ÆĞ
+					// ë§¤í’ˆíŒ¨
 					if(g_MainCharInfo.m_pQuickMart)
 					{
 						return 0;
@@ -575,7 +575,7 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 					if(g_MainCharInfo.m_pChat->GetChatType() == LARGECHAT)
 						g_MainCharInfo.m_pChat->SetChatType( SMALLCHAT);
 
-					// ¸ÅÇ°ÆĞ
+					// ë§¤í’ˆíŒ¨
 					if(g_MainCharInfo.m_pQuickMart)
 					{
 						return 0;
@@ -583,7 +583,7 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 					}
 				}				
 				break;
-			case 0x12:	// ±â
+			case 0x12:	// ê¸°
 				{
 					if(g_MainCharInfo.m_bStaminaCnt >= 5 && g_MainCharInfo.m_bSpirit == true)
 					{
@@ -616,10 +616,10 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 			case 0x28://'"'
 				ProcessClickMugongButton(4);
 				break;
-			case 0x14://'T':  //HO_0410_07 »ó¼­·É °¡ÀÌµå ¾÷µ¥ÀÌÆ®
+			case 0x14://'T':  //HO_0410_07 ìƒì„œë ¹ ê°€ì´ë“œ ì—…ë°ì´íŠ¸
 				ProcessClickHelperButton();
 				break;
-			case 0x15://'Y': //HT_CHEAT : Æê »óÅÂÃ¢ ´ÜÃàÅ°
+			case 0x15://'Y': //HT_CHEAT : í« ìƒíƒœì°½ ë‹¨ì¶•í‚¤
 				{
 					if(g_pUIManager->IsShow(WINDOW_NEW_TAMING))
 					{
@@ -654,7 +654,7 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 			case 0x23://'H':
 				ProcessHideMainFrame();
 				break;
-				// Äü ½½·Ô
+				// í€µ ìŠ¬ë¡¯
 			case 0x29:
 				{
 					if(g_MainCharInfo.m_pSlot)
@@ -665,7 +665,7 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 				break;
 			case 0x1A://'[':
 				{
-					// Äü ½½·Ô È®Àå
+					// í€µ ìŠ¬ë¡¯ í™•ì¥
 					if(g_MainCharInfo.m_pSlot)
 					{
 						BYTE byIndex = g_MainCharInfo.m_pSlot->GetCurrentSlotIndex() - 1;
@@ -681,7 +681,7 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 				break;
 			case 0x1B://']':
 				{
-					// Äü ½½·Ô È®Àå
+					// í€µ ìŠ¬ë¡¯ í™•ì¥
 					if(g_MainCharInfo.m_pSlot)
 					{
 						BYTE byIndex = g_MainCharInfo.m_pSlot->GetCurrentSlotIndex() + 1;
@@ -716,20 +716,20 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 		break;
 	case WM_KEYDOWN:
 		{
-			// °ÔÀÓÀÌ ½ÃÀÛµÇÁö ¾ÊÀ¸¸é HOTÅ°´Â ¹«½Ã´Ù.
+			// ê²Œì„ì´ ì‹œì‘ë˜ì§€ ì•Šìœ¼ë©´ HOTí‚¤ëŠ” ë¬´ì‹œë‹¤.
 			if(!g_XiahGameStarted) break;
-			// °¢¼ºÀÌ ½ÃÀÛµÇ¸é HOTÅ°´Â ¹«½ÃÇÑ´Ù.
+			// ê°ì„±ì´ ì‹œì‘ë˜ë©´ HOTí‚¤ëŠ” ë¬´ì‹œí•œë‹¤.
 //			if(g_MainCharInfo.m_bRebirthItem_Use) break;
 
 			if( g_pUIManager->IsNotice()) 
-				//HO_0424_07 ´ÜÁÖº¯°æ : ´ÜÁÖ ´íÎó ¼öÁ¤Áß NoticeÃ¢ÀÌ ¹®Á¦°¡ µÇ¾î ÀÌÃ¢ÀÌ ÀÖÀ»°æ¿ì Å°ÀÔ·ÂÀ» ¸·À½
+				//HO_0424_07 ë‹¨ì£¼ë³€ê²½ : ë‹¨ì£¼ ëŒ„è½ ìˆ˜ì •ì¤‘ Noticeì°½ì´ ë¬¸ì œê°€ ë˜ì–´ ì´ì°½ì´ ìˆì„ê²½ìš° í‚¤ì…ë ¥ì„ ë§‰ìŒ
 			return 0;
 
-			if(g_MainCharInfo.m_bChatModeAction)	// Ã¤ÆÃ¸ğµå °íÁ¤
+			if(g_MainCharInfo.m_bChatModeAction)	// ì±„íŒ…ëª¨ë“œ ê³ ì •
 			{
 				switch( wParam)
 				{
-				//case VK_F12:	// µµ¿ò¸»
+				//case VK_F12:	// ë„ì›€ë§
 				//	{
 				//		if(!(GetAsyncKeyState( VK_SHIFT) < 0))
 				//		{
@@ -754,7 +754,7 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 						//g_bCheatEtc = !g_bCheatEtc;	
 					}
 					break;
-						// Äü ½½·Ô È®Àå
+						// í€µ ìŠ¬ë¡¯ í™•ì¥
 				case VK_OEM_3:	// ` key
 					{
 						if(!(GetAsyncKeyState(VK_SHIFT) < 0) && g_MainCharInfo.m_pSlot)
@@ -764,8 +764,8 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 					}
 					break;
 
-					// Äü ½½·Ô È®Àå - ¼öÁ¤
-					// Äü½½·Ô 1~5
+					// í€µ ìŠ¬ë¡¯ í™•ì¥ - ìˆ˜ì •
+					// í€µìŠ¬ë¡¯ 1~5
 				case VK_F1:
 				case VK_F2:
 				case VK_F3:
@@ -995,7 +995,7 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 				}
 				break;
 #else
-			case VK_F1:		// µµ¿ò¸»
+			case VK_F1:		// ë„ì›€ë§
 				if(!(GetAsyncKeyState( VK_SHIFT) < 0))
 				{
 					if(g_pUIManager->IsShow(A_HELP))
@@ -1005,8 +1005,8 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 				}
 				break;
 #endif
-                // Äü½½·Ô 1~5
-				// Äü ½½·Ô È®Àå - ¼öÁ¤
+                // í€µìŠ¬ë¡¯ 1~5
+				// í€µ ìŠ¬ë¡¯ í™•ì¥ - ìˆ˜ì •
 			case 0x31:	// 1
 			case 0x32:	// 2
 			case 0x33:	// 3
@@ -1028,24 +1028,24 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 				break;
 
 
-				// ¿ÀÇà ¼±ÅÃ
-			case '6':	// È­
+				// ì˜¤í–‰ ì„ íƒ
+			case '6':	// í™”
 				SendCS_IF_CHANGEFIVEELM_REQ(1);
 				break;
-			case '7':	// ¼ö
+			case '7':	// ìˆ˜
 				SendCS_IF_CHANGEFIVEELM_REQ(2);
 				break;
-			case '8':	// ¸ñ
+			case '8':	// ëª©
 				SendCS_IF_CHANGEFIVEELM_REQ(3);
 				break;
-			case '9':	// ±İ
+			case '9':	// ê¸ˆ
 				SendCS_IF_CHANGEFIVEELM_REQ(4);
 				break;
-			case '0':	// Åä
+			case '0':	// í† 
 				SendCS_IF_CHANGEFIVEELM_REQ(5);
 				break;
 
-			case VK_SCROLL:	// ½ºÅ©¸° ¼¦
+			case VK_SCROLL:	// ìŠ¤í¬ë¦° ìƒ·
 				g_bScreenShot = TRUE;
 			//	g_MainCharInfo.m_bCheat = !g_MainCharInfo.m_bCheat;
 				break;
@@ -1110,7 +1110,7 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 				g_MainCharInfo.m_bShowCharNames = !g_MainCharInfo.m_bShowCharNames;
 				break;
 
-			case 0x45:	// ±â
+			case 0x45:	// ê¸°
 				{
 					if(g_MainCharInfo.m_bStaminaCnt >= 5 && g_MainCharInfo.m_bSpirit == true)
 					{
@@ -1123,13 +1123,13 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
  					PickItem();
 				}
 				break;
-				//HT_CHEAT ; ¿ÍÀÌ¾î È­¸é º¸ÀÌ±â
+				//HT_CHEAT ; ì™€ì´ì–´ í™”ë©´ ë³´ì´ê¸°
 			case VK_DELETE:
 				{
 					g_AppData.m_bWireframe = !g_AppData.m_bWireframe;
 				}
 				break;
-			case VK_NUMPAD0: //±âº» ±â´É¸¸ µÇ°Ô ÇÏ±â À§ÇØ¼­ (Áİ±â, ¼ö¸®, ÆÈ±â)
+			case VK_NUMPAD0: //ê¸°ë³¸ ê¸°ëŠ¥ë§Œ ë˜ê²Œ í•˜ê¸° ìœ„í•´ì„œ (ì¤ê¸°, ìˆ˜ë¦¬, íŒ”ê¸°)
 				{
 					g_MainCharInfo.m_bCheat = !g_MainCharInfo.m_bCheat;
 				}
@@ -1146,8 +1146,8 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 			case 0x26://'L':
 			case 0x28://'"':
 			case 0x27://';'
-			case 0x14://'T': //HO_0410_07 »ó¼­·É °¡ÀÌµå ¾÷µ¥ÀÌÆ®
-			case 0x15://'Y': //HT_CHEAT : Æê »óÅÂÃ¢ ´ÜÃàÅ°
+			case 0x14://'T': //HO_0410_07 ìƒì„œë ¹ ê°€ì´ë“œ ì—…ë°ì´íŠ¸
+			case 0x15://'Y': //HT_CHEAT : í« ìƒíƒœì°½ ë‹¨ì¶•í‚¤
 			case 0x18:// O
 			case 0x19://'P':
 			case 0x13://'R':
@@ -1162,7 +1162,7 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 						g_MainCharInfo.m_pChat->SetChatType( SMALLCHAT);
 					}
 
-					// ¸ÅÇ°ÆĞ
+					// ë§¤í’ˆíŒ¨
 					if(g_MainCharInfo.m_pQuickMart)
 					{
 						return 0;
@@ -1177,7 +1177,7 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 						g_MainCharInfo.m_pChat->SetChatType( SMALLCHAT);
 					}
 
-					// ¸ÅÇ°ÆĞ
+					// ë§¤í’ˆíŒ¨
 					if(g_MainCharInfo.m_pQuickMart)
 					{
 						return 0;
@@ -1195,7 +1195,7 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 				break;
 			case 0x0C : // '-'
 				
-				SendCS_IF_ENDFIVEELM_REQ(); //HT_0720 : ¿ÀÇà °³¼± »çÇ×
+				SendCS_IF_ENDFIVEELM_REQ(); //HT_0720 : ì˜¤í–‰ ê°œì„  ì‚¬í•­
 				//if(g_fix>0.0f) g_fix-=0.01f;
 				break;
 				
@@ -1229,11 +1229,11 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 			case 0x28://'"'
 				ProcessClickMugongButton(4);
 				break;
-			case 0x14://'T':  //HO_0410_07 »ó¼­·É °¡ÀÌµå ¾÷µ¥ÀÌÆ®
+			case 0x14://'T':  //HO_0410_07 ìƒì„œë ¹ ê°€ì´ë“œ ì—…ë°ì´íŠ¸
 				ProcessClickHelperButton();
 				break;
 				
-			//HT_CHEAT : Æê »óÅÂÃ¢ ´ÜÃàÅ°
+			//HT_CHEAT : í« ìƒíƒœì°½ ë‹¨ì¶•í‚¤
 			case 0x15://'Y': 
 				{
 					if(g_pUIManager->IsShow(WINDOW_NEW_TAMING))
@@ -1248,7 +1248,7 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 					}
 				}
 				break;
-			//HT_CHEAT : ¹üÀ§ ¹«°ø 
+			//HT_CHEAT : ë²”ìœ„ ë¬´ê³µ 
 			case 0x33://'<': 
 				{
 					if(g_bCheatEtc && g_MainCharInfo.m_byCheatTime < 20)
@@ -1286,7 +1286,7 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 			case 0x23://'H':
 				ProcessHideMainFrame();
 				break;
-				// Äü ½½·Ô
+				// í€µ ìŠ¬ë¡¯
 			case 0x29:
 				{
 					if(g_MainCharInfo.m_pSlot)
@@ -1297,7 +1297,7 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 				break;
 			case 0x1A://'[':
 				{
-					// Äü ½½·Ô È®Àå
+					// í€µ ìŠ¬ë¡¯ í™•ì¥
 					if(g_MainCharInfo.m_pSlot)
 					{
 						BYTE byIndex = g_MainCharInfo.m_pSlot->GetCurrentSlotIndex() - 1;
@@ -1313,7 +1313,7 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 				break;
 			case 0x1B://']':
 				{
-					// Äü ½½·Ô È®Àå
+					// í€µ ìŠ¬ë¡¯ í™•ì¥
 					if(g_MainCharInfo.m_pSlot)
 					{
 						BYTE byIndex = g_MainCharInfo.m_pSlot->GetCurrentSlotIndex() + 1;
@@ -1380,18 +1380,18 @@ bool ManageExtraItemEffect()
 						}
 					}
 
-					// °¢¼º ¾ÆÀÌÅÛ
-					if(_tcscmp(lpEffectName, _T("±â¸°¼®¹ß±¤")) == 0)
+					// ê°ì„± ì•„ì´í…œ
+					if(_tcscmp(lpEffectName, _T("ê¸°ë¦°ì„ë°œê´‘")) == 0)
 						g_EffectManager.SetAppearEffect( eRebirthItem1, pEffect);
-					else if(_tcscmp(lpEffectName, _T("ºÀÈ²¼®¹ß±¤")) == 0)
+					else if(_tcscmp(lpEffectName, _T("ë´‰í™©ì„ë°œê´‘")) == 0)
 						g_EffectManager.SetAppearEffect( eRebirthItem2, pEffect);
-					else if(_tcscmp(lpEffectName, _T("Çö¹«¼®¹ß±¤")) == 0)
+					else if(_tcscmp(lpEffectName, _T("í˜„ë¬´ì„ë°œê´‘")) == 0)
 						g_EffectManager.SetAppearEffect( eRebirthItem3, pEffect);
-					else if(_tcscmp(lpEffectName, _T("Ã»·æ¼®¹ß±¤")) == 0)
+					else if(_tcscmp(lpEffectName, _T("ì²­ë£¡ì„ë°œê´‘")) == 0)
 						g_EffectManager.SetAppearEffect( eRebirthItem4, pEffect);
-					else if(_tcscmp(lpEffectName, _T("°Ç°ï¼®¹ß±¤")) == 0)
+					else if(_tcscmp(lpEffectName, _T("ê±´ê³¤ì„ë°œê´‘")) == 0)
 						g_EffectManager.SetAppearEffect( eRebirthItem5, pEffect);
-					else if(_tcscmp(lpEffectName, _T("À½¾ç¼®¹ß±¤")) == 0)
+					else if(_tcscmp(lpEffectName, _T("ìŒì–‘ì„ë°œê´‘")) == 0)
 						g_EffectManager.SetAppearEffect( eRebirthItem6, pEffect);
 				}
 			}
@@ -1403,7 +1403,7 @@ bool ManageExtraItemEffect()
 
 bool ManageExtraEffectEtc()
 {
-	// [12/13/2004] DB ³¯¶ó°¡¼­ ÀÌ·¸°Ô ÇÑ´Ù
+	// [12/13/2004] DB ë‚ ë¼ê°€ì„œ ì´ë ‡ê²Œ í•œë‹¤
 	CRes_Character* pChar = GetCharacter(1083);
 
 	if( pChar == NULL )
@@ -1419,7 +1419,7 @@ bool ManageExtraEffectEtc()
 
 		if(pResAni == NULL)
 		{
-			DBG_LogFile( _T("ManageExtraEffect ½ÇÆĞ"));
+			DBG_LogFile( _T("ManageExtraEffect ì‹¤íŒ¨"));
 			return false;
 		}
 
@@ -1445,93 +1445,93 @@ bool ManageExtraEffectEtc()
 				int nY = pResAni->effect_ptr[i].nPosY;
 				int nZ = pResAni->effect_ptr[i].nPosZ;
 
-				// ÀÌ¸§¿¡ ¸Â´Â ÀÌÆåÆ®¸¦ ¿¬°á½ÃÄÑÁØ´Ù.
+				// ì´ë¦„ì— ë§ëŠ” ì´í™íŠ¸ë¥¼ ì—°ê²°ì‹œì¼œì¤€ë‹¤.
 
-				// ¿ÀÇà ½ÃÀü
-				if(_tcscmp(lpEffectName, _T("¿ÀÇà½ÃÀü_È­_gr")) == 0)
+				// ì˜¤í–‰ ì‹œì „
+				if(_tcscmp(lpEffectName, _T("ì˜¤í–‰ì‹œì „_í™”_gr")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eFEPrepareFire, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("¿ÀÇà½ÃÀü_¼ö_gr")) == 0)
+				else if(_tcscmp(lpEffectName, _T("ì˜¤í–‰ì‹œì „_ìˆ˜_gr")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eFEPrepareWater, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("¿ÀÇà½ÃÀü_¸ñ_gr")) == 0)
+				else if(_tcscmp(lpEffectName, _T("ì˜¤í–‰ì‹œì „_ëª©_gr")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eFEPrepareTree, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("¿ÀÇà½ÃÀü_±İ_gr")) == 0)
+				else if(_tcscmp(lpEffectName, _T("ì˜¤í–‰ì‹œì „_ê¸ˆ_gr")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eFEPrepareMetal, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("¿ÀÇà½ÃÀü_Åä_gr")) == 0)
+				else if(_tcscmp(lpEffectName, _T("ì˜¤í–‰ì‹œì „_í† _gr")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eFEPrepareEarth, pEffect, nX, nY, nZ );
-				// ¿ÀÇà ±âº»
-				else if(_tcscmp(lpEffectName, _T("¿ÀÇà_±âº»_È­")) == 0)
+				// ì˜¤í–‰ ê¸°ë³¸
+				else if(_tcscmp(lpEffectName, _T("ì˜¤í–‰_ê¸°ë³¸_í™”")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eFEFire, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("¿ÀÇà_±âº»_¼ö")) == 0)
+				else if(_tcscmp(lpEffectName, _T("ì˜¤í–‰_ê¸°ë³¸_ìˆ˜")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eFEWater, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("¿ÀÇà_±âº»_¸ñ")) == 0)
+				else if(_tcscmp(lpEffectName, _T("ì˜¤í–‰_ê¸°ë³¸_ëª©")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eFETree, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("¿ÀÇà_±âº»_±İ")) == 0)
+				else if(_tcscmp(lpEffectName, _T("ì˜¤í–‰_ê¸°ë³¸_ê¸ˆ")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eFEMetal, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("¿ÀÇà_±âº»_Åä")) == 0)
+				else if(_tcscmp(lpEffectName, _T("ì˜¤í–‰_ê¸°ë³¸_í† ")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eFEEarth, pEffect, nX, nY, nZ );
-				// ¿ÀÇà ÃÊ
-				else if(_tcscmp(lpEffectName, _T("¿ÀÇà_À¯Áö_ÃÊ_È­")) == 0)
+				// ì˜¤í–‰ ì´ˆ
+				else if(_tcscmp(lpEffectName, _T("ì˜¤í–‰_ìœ ì§€_ì´ˆ_í™”")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eFEFire1, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("¿ÀÇà_À¯Áö_ÃÊ_¼ö")) == 0)
+				else if(_tcscmp(lpEffectName, _T("ì˜¤í–‰_ìœ ì§€_ì´ˆ_ìˆ˜")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eFEWater1, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("¿ÀÇà_À¯Áö_ÃÊ_¸ñ")) == 0)
+				else if(_tcscmp(lpEffectName, _T("ì˜¤í–‰_ìœ ì§€_ì´ˆ_ëª©")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eFETree1, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("¿ÀÇà_À¯Áö_ÃÊ_±İ")) == 0)
+				else if(_tcscmp(lpEffectName, _T("ì˜¤í–‰_ìœ ì§€_ì´ˆ_ê¸ˆ")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eFEMetal1, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("¿ÀÇà_À¯Áö_ÃÊ_Åä")) == 0)
+				else if(_tcscmp(lpEffectName, _T("ì˜¤í–‰_ìœ ì§€_ì´ˆ_í† ")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eFEEarth1, pEffect, nX, nY, nZ );
-				// ¿ÀÇà Áß
-				else if(_tcscmp(lpEffectName, _T("¿ÀÇà_À¯Áö_Áß_È­")) == 0)
+				// ì˜¤í–‰ ì¤‘
+				else if(_tcscmp(lpEffectName, _T("ì˜¤í–‰_ìœ ì§€_ì¤‘_í™”")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eFEFire2, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("¿ÀÇà_À¯Áö_Áß_¼ö")) == 0)
+				else if(_tcscmp(lpEffectName, _T("ì˜¤í–‰_ìœ ì§€_ì¤‘_ìˆ˜")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eFEWater2, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("¿ÀÇà_À¯Áö_Áß_¸ñ")) == 0)
+				else if(_tcscmp(lpEffectName, _T("ì˜¤í–‰_ìœ ì§€_ì¤‘_ëª©")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eFETree2, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("¿ÀÇà_À¯Áö_Áß_±İ")) == 0)
+				else if(_tcscmp(lpEffectName, _T("ì˜¤í–‰_ìœ ì§€_ì¤‘_ê¸ˆ")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eFEMetal2, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("¿ÀÇà_À¯Áö_Áß_Åä")) == 0)
+				else if(_tcscmp(lpEffectName, _T("ì˜¤í–‰_ìœ ì§€_ì¤‘_í† ")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eFEEarth2, pEffect, nX, nY, nZ );
-				// ¿ÀÇà °í
-				else if(_tcscmp(lpEffectName, _T("¿ÀÇà_À¯Áö_°í_È­")) == 0)
+				// ì˜¤í–‰ ê³ 
+				else if(_tcscmp(lpEffectName, _T("ì˜¤í–‰_ìœ ì§€_ê³ _í™”")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eFEFire3, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("¿ÀÇà_À¯Áö_°í_¼ö")) == 0)
+				else if(_tcscmp(lpEffectName, _T("ì˜¤í–‰_ìœ ì§€_ê³ _ìˆ˜")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eFEWater3, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("¿ÀÇà_À¯Áö_°í_¸ñ")) == 0)
+				else if(_tcscmp(lpEffectName, _T("ì˜¤í–‰_ìœ ì§€_ê³ _ëª©")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eFETree3, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("¿ÀÇà_À¯Áö_°í_±İ")) == 0)
+				else if(_tcscmp(lpEffectName, _T("ì˜¤í–‰_ìœ ì§€_ê³ _ê¸ˆ")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eFEMetal3, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("¿ÀÇà_À¯Áö_°í_Åä")) == 0)
+				else if(_tcscmp(lpEffectName, _T("ì˜¤í–‰_ìœ ì§€_ê³ _í† ")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eFEEarth3, pEffect, nX, nY, nZ );
-				// ¾ßÂ÷ ¿Ü°ø
-				else if(_tcscmp( lpEffectName, _T("¸¸µ¶ºÒÁø_Áö¼Ó2")) == 0)
+				// ì•¼ì°¨ ì™¸ê³µ
+				else if(_tcscmp( lpEffectName, _T("ë§Œë…ë¶ˆì§„_ì§€ì†2")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eMandokbuljin, pEffect, nX, nY, nZ );
-				// ¼ºÀÎ ¼­¹ö¿ë Å¸°İ
-				else if(_tcscmp(lpEffectName, _T("ÇÇÆ¢±è1")) == 0)
+				// ì„±ì¸ ì„œë²„ìš© íƒ€ê²©
+				else if(_tcscmp(lpEffectName, _T("í”¼íŠ€ê¹€1")) == 0)
 					g_EffectManager.SetHitEffect(eAdultAttack1, pEffect );
-				else if(_tcscmp(lpEffectName, _T("ÇÇÆ¢±è2")) == 0)
+				else if(_tcscmp(lpEffectName, _T("í”¼íŠ€ê¹€2")) == 0)
 					g_EffectManager.SetHitEffect(eAdultAttack2, pEffect );
-				else if(_tcscmp(lpEffectName, _T("¼ºÀÎ_Å¸°İ")) == 0)
+				else if(_tcscmp(lpEffectName, _T("ì„±ì¸_íƒ€ê²©")) == 0)
 					g_EffectManager.SetHitEffect(eAdultAttack3, pEffect );
-				// ¿ÀÇà ¸ó½ºÅÍ Å¸°İ
-				else if(_tcscmp(lpEffectName, _T("¿°½Ã_Å¸°İ")) == 0)
+				// ì˜¤í–‰ ëª¬ìŠ¤í„° íƒ€ê²©
+				else if(_tcscmp(lpEffectName, _T("ì—¼ì‹œ_íƒ€ê²©")) == 0)
 					g_EffectManager.SetHitEffect(eFireMonster1, pEffect );
-				else if(_tcscmp(lpEffectName, _T("ÃËÀ½_Å¸°İ")) == 0)
+				else if(_tcscmp(lpEffectName, _T("ì´‰ìŒ_íƒ€ê²©")) == 0)
 					g_EffectManager.SetHitEffect(eWaterMonster1, pEffect );
-				else if(_tcscmp(lpEffectName, _T("¿ø½Å¼ö_Å¸°İ")) == 0)
+				else if(_tcscmp(lpEffectName, _T("ì›ì‹ ìˆ˜_íƒ€ê²©")) == 0)
 					g_EffectManager.SetHitEffect(eTreeMonster1, pEffect );
-				else if(_tcscmp(lpEffectName, _T("´çÃæ_Å¸°İ")) == 0)
+				else if(_tcscmp(lpEffectName, _T("ë‹¹ì¶©_íƒ€ê²©")) == 0)
 					g_EffectManager.SetHitEffect(eMetalMonster1, pEffect );
-				else if(_tcscmp(lpEffectName, _T("ºñ°­_Å¸°İ")) == 0)
+				else if(_tcscmp(lpEffectName, _T("ë¹„ê°•_íƒ€ê²©")) == 0)
 					g_EffectManager.SetHitEffect(eEarthMonster1, pEffect );
-				// ¼³½Â´Ü¾à
-				else if(_tcscmp(lpEffectName, _T("¼³½Â´Ü¾à_½ÃÀü")) == 0)
+				// ì„¤ìŠ¹ë‹¨ì•½
+				else if(_tcscmp(lpEffectName, _T("ì„¤ìŠ¹ë‹¨ì•½_ì‹œì „")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(ePotionBegine, pEffect, nX, nY, nZ );				
-				else if(_tcscmp(lpEffectName, _T("¼³½Â´Ü¾à_Áö¼Ó")) == 0)
+				else if(_tcscmp(lpEffectName, _T("ì„¤ìŠ¹ë‹¨ì•½_ì§€ì†")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(ePotion, pEffect, nX, nY, nZ );
-				// ±â
-				else if(_tcscmp(lpEffectName, _T("±â ¹ßµ¿")) == 0)
+				// ê¸°
+				else if(_tcscmp(lpEffectName, _T("ê¸° ë°œë™")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eSpiritBegine, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("±â_03")) == 0)
+				else if(_tcscmp(lpEffectName, _T("ê¸°_03")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eSpirit, pEffect, nX, nY, nZ );
 			}
 		}
@@ -1540,9 +1540,9 @@ bool ManageExtraEffectEtc()
 	return ManageExtraItemEffect();
 }
 
-// ¾ÕÀ¸·Î Å¸ ÇÁ·ÎÁ§Æ®¸¦ ÇÒ¶§´Â ÀÌ·± ¹æ½ÄÀ¸·Î Àı´ë·Î ÇÏÁö ¸»±æ
-// ÃÊ±â¿¡ ´©°¡ Çß´ÂÁö´Â ¸ğ¸£°ÚÀ¸³ª... Á¤¸»·Î ³ë°¡´Ù ¿¹¼úÀÌ´Ù.
-// ÀÛ¾÷ °úÁ¤ÀÇ º¹Àâ¼º¿Í ¼º´É ÀúÇÏ, ¹ö±×¸¦ À¯¹ßÇÑ´Ù.
+// ì•ìœ¼ë¡œ íƒ€ í”„ë¡œì íŠ¸ë¥¼ í• ë•ŒëŠ” ì´ëŸ° ë°©ì‹ìœ¼ë¡œ ì ˆëŒ€ë¡œ í•˜ì§€ ë§ê¸¸
+// ì´ˆê¸°ì— ëˆ„ê°€ í–ˆëŠ”ì§€ëŠ” ëª¨ë¥´ê² ìœ¼ë‚˜... ì •ë§ë¡œ ë…¸ê°€ë‹¤ ì˜ˆìˆ ì´ë‹¤.
+// ì‘ì—… ê³¼ì •ì˜ ë³µì¡ì„±ì™€ ì„±ëŠ¥ ì €í•˜, ë²„ê·¸ë¥¼ ìœ ë°œí•œë‹¤.
 
 BOOL ManageExtraEffect()
 {
@@ -1552,8 +1552,8 @@ BOOL ManageExtraEffect()
 		FILE* fp_init = fopen("loaded_effects.txt", "w");
 		if (fp_init) fclose(fp_init);
 	}
-	// ÇÏµå ÄÚµùÀÇ °áÁ¤ÆÇ!
-	// Dummy Ä³¸¯ÅÍÀÎ °Ë¿µÀÇ 800¹øÂ° ¾Ö´Ï¸ŞÀÌ¼ÇÀ» Á¢±ÙÇÑ´Ù.
+	// í•˜ë“œ ì½”ë”©ì˜ ê²°ì •íŒ!
+	// Dummy ìºë¦­í„°ì¸ ê²€ì˜ì˜ 800ë²ˆì§¸ ì• ë‹ˆë©”ì´ì…˜ì„ ì ‘ê·¼í•œë‹¤.
 	CRes_Character* pChar = GetCharacter( 790 );
 
 	if( pChar == NULL )
@@ -1575,7 +1575,7 @@ BOOL ManageExtraEffect()
 
 		if(pResAni == NULL)
 		{
-			DBG_LogFile( _T("ManageExtraEffect ½ÇÆĞ"));
+			DBG_LogFile( _T("ManageExtraEffect ì‹¤íŒ¨"));
 			return false;
 		}
 
@@ -1601,160 +1601,160 @@ BOOL ManageExtraEffect()
 				int nY = pResAni->effect_ptr[i].nPosY;
 				int nZ = pResAni->effect_ptr[i].nPosZ;
 
-				// ÀÌ¸§¿¡ ¸Â´Â ÀÌÆåÆ®¸¦ ¿¬°á½ÃÄÑÁØ´Ù.
-				// Å¸°İ
-				if( _tcscmp( lpEffectName, _T("°Ë¿µ Å¸°İ") ) == 0 )
+				// ì´ë¦„ì— ë§ëŠ” ì´í™íŠ¸ë¥¼ ì—°ê²°ì‹œì¼œì¤€ë‹¤.
+				// íƒ€ê²©
+				if( _tcscmp( lpEffectName, _T("ê²€ì˜ íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eGumYung, pEffect );
-				else if( _tcscmp( lpEffectName, _T("¿¬¶û Å¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ì—°ë‘ íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eYunrang, pEffect );
-				else if( _tcscmp( lpEffectName,_T( "¾ßÀú Å¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName,_T( "ì•¼ì € íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eYager, pEffect );
-				else if( _tcscmp( lpEffectName, _T("Åõ¿ì Å¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("íˆ¬ìš° íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eTuo, pEffect );
-				else if( _tcscmp( lpEffectName, _T("±³ Å¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("êµ íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eGyu, pEffect );
-				else if( _tcscmp( lpEffectName, _T("±«ÀÎ Å¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ê´´ì¸ íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eWestGwyin, pEffect );
-				else if( _tcscmp( lpEffectName, _T("ÇØ°ñ±Í Å¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("í•´ê³¨ê·€ íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eHagolgwuy, pEffect );
-				else if( _tcscmp( lpEffectName, _T("»ç°¥ Å¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ì‚¬ê°ˆ íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eSagal, pEffect );
-				else if( _tcscmp( lpEffectName, _T("¿ä¸¶ Å¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ìš”ë§ˆ íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eYuoma, pEffect );
-				else if( _tcscmp( lpEffectName, _T("ÅäÃæ Å¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("í† ì¶© íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eToChung, pEffect );
-				else if( _tcscmp( lpEffectName, _T("¾ËÀ¯ Å¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ì•Œìœ  íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eAlrue, pEffect );
-				else if( _tcscmp( lpEffectName, _T("¹é¶û°ß Å¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ë°±ë‘ê²¬ íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eBakranggyun, pEffect );
-				else if( _tcscmp( lpEffectName, _T("ºùÁ¶Å¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ë¹™ì¡°íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eBingjo, pEffect );
-				else if( _tcscmp( lpEffectName,_T( "±İ¿Í¿Í Å¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName,_T( "ê¸ˆì™€ì™€ íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eGumwawa, pEffect );
-				else if( _tcscmp( lpEffectName, _T("±İ±º¼öÀå Å¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ê¸ˆêµ°ìˆ˜ì¥ íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eGumgunsujang, pEffect );
-				else if( _tcscmp( lpEffectName, _T("¸¶µµ´ÑÀÚ Å¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ë§ˆë„ë‹Œì íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eMadoninja, pEffect );
-				else if( _tcscmp( lpEffectName, _T("¸ÍÈ£ Å¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ë§¹í˜¸ íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eMangho, pEffect );
-				else if( _tcscmp( lpEffectName, _T("±¤°ß Å¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ê´‘ê²¬ íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eGwainggyun, pEffect );
-				else if( _tcscmp( lpEffectName, _T("°Ç¿¹ÀÚÅ¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ê±´ì˜ˆìíƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eGunyeja, pEffect );
-				else if( _tcscmp( lpEffectName, _T("³úÈ­ Å¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ë‡Œí™” íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eNwyhwa, pEffect );
-				else if( _tcscmp( lpEffectName, _T("¹é°­Àá½ÃÅ¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ë°±ê°•ì ì‹œíƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eBackangjamsi, pEffect );
-				else if( _tcscmp( lpEffectName, _T("¹«Åõ Å¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ë¬´íˆ¬ íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eMooToo, pEffect );
-				else if( _tcscmp( lpEffectName, _T("¿äÈñ Å¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ìš”í¬ íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eYoihee, pEffect );
-				else if( _tcscmp( lpEffectName, _T("Èæ»çºÀÅ¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("í‘ì‚¬ë´‰íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eHksabong, pEffect );
-				else if( _tcscmp( lpEffectName, _T("ÀúÆÄ·æÅ¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ì €íŒŒë£¡íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eJuparyuong, pEffect );
-				else if( _tcscmp( lpEffectName, _T("È­³à Å¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("í™”ë…€ íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eHwanyu, pEffect );
-				else if( _tcscmp( lpEffectName, _T("³ú½Å Å¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ë‡Œì‹  íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eNwysin, pEffect );
-				else if( _tcscmp( lpEffectName, _T("ºÎ¸¶µµÅ¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ë¶€ë§ˆë„íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eBumado, pEffect );
-				else if( _tcscmp( lpEffectName, _T("°Ç°ïÅ¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ê±´ê³¤íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eGungon, pEffect );
-				else if( _tcscmp( lpEffectName, _T("¹éÈ£ Å¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ë°±í˜¸ íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eBakho, pEffect );
-				else if( _tcscmp( lpEffectName, _T("ÀÚ¼ÒÅ¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ìì†Œíƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eJaso, pEffect );
-				else if( _tcscmp( lpEffectName, _T("°üÈäÀÎ Å¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ê´€í‰ì¸ íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eGwanhungin, pEffect );
-				else if( _tcscmp( lpEffectName, _T("Å¸°İ_¹İÅº°­±â") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("íƒ€ê²©_ë°˜íƒ„ê°•ê¸°") ) == 0 )
 					g_EffectManager.SetHitEffect( eBantankangki_Hit, pEffect );
-				else if( _tcscmp( lpEffectName, _T("ÇØ°ñ¼ú»çÅ¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("í•´ê³¨ìˆ ì‚¬íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eHaegolSerize, pEffect );
-				else if( _tcscmp( lpEffectName, _T("»êÅ¸°üÈäÅ¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ì‚°íƒ€ê´€í‰íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eSantaGwanHung, pEffect );
-				else if( _tcscmp( lpEffectName, _T("½ÅÁ¶_Å¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ì‹ ì¡°_íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eShinjo, pEffect );
-				else if( _tcscmp( lpEffectName, _T("¾ß°ï_Å¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ì•¼ê³¤_íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eYagon, pEffect );
-				else if( _tcscmp( lpEffectName, _T("Ãµ½Å¼ú»ç_Å¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ì²œì‹ ìˆ ì‚¬_íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eChunshinsulsa, pEffect );
-				else if( _tcscmp( lpEffectName, _T("Áø¸ğÀÎ_Å¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ì§„ëª¨ì¸_íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eJinmoin, pEffect );
-				else if( _tcscmp( lpEffectName, _T("Ç¥_Å¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("í‘œ_íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( ePyo, pEffect );
-				else if( _tcscmp( lpEffectName, _T("°ï·æÀÚ_Å¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ê³¤ë£¡ì_íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eGonlyeongja, pEffect );
-				else if(_tcscmp(lpEffectName, _T("ÀÎ¸é¼ö Å¸°İ")) == 0)
+				else if(_tcscmp(lpEffectName, _T("ì¸ë©´ìˆ˜ íƒ€ê²©")) == 0)
 					g_EffectManager.SetHitEffect( eTreeMonster, pEffect );
-				else if(_tcscmp(lpEffectName, _T("´ëÁ¶±Í Å¸°İ")) == 0)
+				else if(_tcscmp(lpEffectName, _T("ëŒ€ì¡°ê·€ íƒ€ê²©")) == 0)
 					g_EffectManager.SetHitEffect( eMouseMonster, pEffect );
-				else if(_tcscmp(lpEffectName, _T("Ç÷±â¸° Å¸°İ")) == 0)
+				else if(_tcscmp(lpEffectName, _T("í˜ˆê¸°ë¦° íƒ€ê²©")) == 0)
 					g_EffectManager.SetHitEffect( eFireballTiger, pEffect );
-				else if(_tcscmp(lpEffectName, _T("±İ°­µ¿ÀÎ Å¸°İ")) == 0)
+				else if(_tcscmp(lpEffectName, _T("ê¸ˆê°•ë™ì¸ íƒ€ê²©")) == 0)
 					g_EffectManager.SetHitEffect( eMetalMonster, pEffect );
-				else if(_tcscmp(lpEffectName, _T("±İ°¢°ÅÀÎ Å¸°İ")) == 0)
+				else if(_tcscmp(lpEffectName, _T("ê¸ˆê°ê±°ì¸ íƒ€ê²©")) == 0)
 					g_EffectManager.SetHitEffect( eArmorGiant, pEffect );
-				else if(_tcscmp(lpEffectName, _T("¼®±Í Å¸°İ")) == 0)
+				else if(_tcscmp(lpEffectName, _T("ì„ê·€ íƒ€ê²©")) == 0)
 					g_EffectManager.SetHitEffect( eGolem, pEffect );
-				else if( _tcscmp( lpEffectName, _T("¾ßÂ÷ Å¸°İ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ì•¼ì°¨ íƒ€ê²©") ) == 0 )
 					g_EffectManager.SetHitEffect( eYacha, pEffect );
-				// ·¹º§ ¾÷
+				// ë ˆë²¨ ì—…
 				else if( _tcscmp( lpEffectName, _T("Level UP") ) == 0 )
 					g_EffectManager.SetLevelUpEffect( LEVELUP_GAPJA, pEffect );
 				else if( _tcscmp( lpEffectName, _T("Level UP2") ) == 0 )
 					g_EffectManager.SetLevelUpEffect( LEVELUP_TP, pEffect );
-				else if( _tcscmp( lpEffectName, _T("¼ö·Ã¿Ü°ø") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ìˆ˜ë ¨ì™¸ê³µ") ) == 0 )
 					g_EffectManager.SetLevelUpEffect( LEVELUP_OUTGONG, pEffect );
-				else if( _tcscmp( lpEffectName, _T("¼ö·Ã³»°ø") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ìˆ˜ë ¨ë‚´ê³µ") ) == 0 )
 					g_EffectManager.SetLevelUpEffect( LEVELUP_INGONG, pEffect );
-				// NPC µîÀå ÀÌÆåÆ®
+				// NPC ë“±ì¥ ì´í™íŠ¸
 				else if( _tcscmp( lpEffectName, _T("NPC_Spawn_s") ) == 0 )
 					g_EffectManager.SetAppearEffect( eSmall, pEffect );
 				else if( _tcscmp( lpEffectName, _T("NPC_Spawn_m") ) == 0 )
 					g_EffectManager.SetAppearEffect( eMiddle, pEffect );
 				else if( _tcscmp( lpEffectName, _T("NPC_Spawn_b") ) == 0 )
 					g_EffectManager.SetAppearEffect( eBig, pEffect );
-				// °æÇèÄ¡ È¹µæ ÀÌÆåÆ®
-				else if( _tcscmp( lpEffectName, _T("°æÇèÄ¡") ) == 0 )
+				// ê²½í—˜ì¹˜ íšë“ ì´í™íŠ¸
+				else if( _tcscmp( lpEffectName, _T("ê²½í—˜ì¹˜") ) == 0 )
 					g_EffectManager.SetExpAcquireEffect( pEffect );
-				// ¹Ù´Ú¿¡ ÀÖ´Â ¾ÆÀÌÅÛ ÀÌÆåÆ®
-				else if( _tcscmp( lpEffectName, _T("¹Ù´Ú¾ÆÀÌÅÛ_ÀÏ¹İ") ) == 0 )
+				// ë°”ë‹¥ì— ìˆëŠ” ì•„ì´í…œ ì´í™íŠ¸
+				else if( _tcscmp( lpEffectName, _T("ë°”ë‹¥ì•„ì´í…œ_ì¼ë°˜") ) == 0 )
 					g_EffectManager.SetAppearEffect( eItemGround, pEffect );
-				// ÅÚ·¹º¸Æ® ÀÌÆåÆ®
-				else if( _tcscmp( lpEffectName, _T("ÅÚ·¹Æ÷Æ®") ) == 0 )
+				// í…”ë ˆë³´íŠ¸ ì´í™íŠ¸
+				else if( _tcscmp( lpEffectName, _T("í…”ë ˆí¬íŠ¸") ) == 0 )
 					g_EffectManager.SetAppearEffect( eTeleport, pEffect );
-				// ¹°¾à ÀÌÆåÆ®.
-				else if( _tcscmp( lpEffectName, _T("¹°¾à_»ı¸í") ) == 0 )
+				// ë¬¼ì•½ ì´í™íŠ¸.
+				else if( _tcscmp( lpEffectName, _T("ë¬¼ì•½_ìƒëª…") ) == 0 )
 					g_EffectManager.SetAppearEffect( eMulYak_HP, pEffect );
-				else if( _tcscmp( lpEffectName, _T("¹°¾à_³»·Â") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ë¬¼ì•½_ë‚´ë ¥") ) == 0 )
 					g_EffectManager.SetAppearEffect( eMulYak_IP, pEffect );
-				else if( _tcscmp( lpEffectName, _T("¹°¾à_µ¿½Ã") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ë¬¼ì•½_ë™ì‹œ") ) == 0 )
 					g_EffectManager.SetAppearEffect( eMulYak_HPIP, pEffect );
-				// NPC Á×À»¶§ Æø¹ß ÀÌÆåÆ®
-				else if( _tcscmp( lpEffectName, _T("½ÅÁ¶ÆøÆÄ") ) == 0 )
+				// NPC ì£½ì„ë•Œ í­ë°œ ì´í™íŠ¸
+				else if( _tcscmp( lpEffectName, _T("ì‹ ì¡°í­íŒŒ") ) == 0 )
 					g_EffectManager.SetAppearEffect( eShinjo_Explode, pEffect );
-				// ÀÌº¥Æ® ¾ÆÀÌÅÛ ÀÌÆåÆ®
-				else if( _tcscmp( lpEffectName, _T("°ø°İ°è_¹ßµ¿") ) == 0 )
+				// ì´ë²¤íŠ¸ ì•„ì´í…œ ì´í™íŠ¸
+				else if( _tcscmp( lpEffectName, _T("ê³µê²©ê³„_ë°œë™") ) == 0 )
 					g_EffectManager.SetAppearEffect( eAttackKindItem_start, pEffect );
-				else if( _tcscmp( lpEffectName, _T("¼ºÀå°è_¹ßµ¿") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ì„±ì¥ê³„_ë°œë™") ) == 0 )
 					g_EffectManager.SetAppearEffect( eGrowthKindItem_start, pEffect );
-				else if( _tcscmp( lpEffectName, _T("¸ó½ºÅÍ°è_¹ßµ¿") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ëª¬ìŠ¤í„°ê³„_ë°œë™") ) == 0 )
 					g_EffectManager.SetAppearEffect( eMonsterKindItem_start, pEffect );
-				else if( _tcscmp( lpEffectName, _T("°æÁ¦°è_¹ßµ¿") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ê²½ì œê³„_ë°œë™") ) == 0 )
 					g_EffectManager.SetAppearEffect( eEconomiKindItem_start, pEffect );
-				else if( _tcscmp( lpEffectName, _T("°ø°İ°è_À¯Áö") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ê³µê²©ê³„_ìœ ì§€") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eAttackKindItem_keepup, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("¼ºÀå°è_À¯Áö") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ì„±ì¥ê³„_ìœ ì§€") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eGrowthKindItem_keepup, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("¸ó½ºÅÍ°è_À¯Áö") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ëª¬ìŠ¤í„°ê³„_ìœ ì§€") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eMonsterKindItem_keepup, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("°æÁ¦°è_À¯Áö") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ê²½ì œê³„_ìœ ì§€") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eEconomiKindItem_keepup, pEffect, nX, nY, nZ );
-				// ¿Ü°ø Áö¼Ó ÀÌÆåÆ® ¹× ¹«°ø ÀÌÆåÆ®.
-				// °Ë¿µ ¹«°ø, ¿Ü°ø Áö¼Ó ÀÌÆåÆ®
+				// ì™¸ê³µ ì§€ì† ì´í™íŠ¸ ë° ë¬´ê³µ ì´í™íŠ¸.
+				// ê²€ì˜ ë¬´ê³µ, ì™¸ê³µ ì§€ì† ì´í™íŠ¸
 				else if( _tcscmp( lpEffectName, _T("\xb9\xab\xbc\xf6\xc8\xa5\xc1\xf6\xbc\xd3\xc0\xcc\xc6\xe5\xc6\xae") ) == 0 ||
-						 _tcscmp( lpEffectName, _T("¹«¼öÈ¥Áö¼ÓÀÌÆåÆ®") ) == 0 ||
+						 _tcscmp( lpEffectName, _T("ë¬´ìˆ˜í˜¼ì§€ì†ì´í™íŠ¸") ) == 0 ||
 						 _tcscmp( lpEffectName, _T("\xce\xe4\xbb\xea\xb3\xd6\xd0\xf8") ) == 0 ||
 						 _tcscmp( lpEffectName, _T("\xce\xe4\xbb\xea\xb3\xd6\xd0\xf8\xcc\xd8\xd0\xa7") ) == 0 )
 				{
@@ -1769,7 +1769,7 @@ BOOL ManageExtraEffect()
 					}
 				}
 				else if( _tcscmp( lpEffectName, _T("\xc6\xf8\xbb\xe7\xc8\xa5\xc1\xf6\xbc\xd3\xc0\xcc\xc6\xe5\xc6\xae") ) == 0 ||
-						 _tcscmp( lpEffectName, _T("Æø»çÈ¥Áö¼ÓÀÌÆåÆ®") ) == 0 ||
+						 _tcscmp( lpEffectName, _T("í­ì‚¬í˜¼ì§€ì†ì´í™íŠ¸") ) == 0 ||
 						 _tcscmp( lpEffectName, _T("\xb1\xac\xc9\xe4\xbb\xea\xb3\xd6\xd0\xf8") ) == 0 ||
 						 _tcscmp( lpEffectName, _T("\xb1\xac\xc9\xe4\xbb\xea\xb3\xd6\xd0\xf8\xcc\xd8\xd0\xa7") ) == 0 )
 				{
@@ -1784,7 +1784,7 @@ BOOL ManageExtraEffect()
 					}
 				}
 				else if( _tcscmp( lpEffectName, _T("\xb1\xdd\xb0\xad\xc0\xaf\xc1\xf6") ) == 0 ||
-						 _tcscmp( lpEffectName, _T("±İ°­À¯Áö") ) == 0 ||
+						 _tcscmp( lpEffectName, _T("ê¸ˆê°•ìœ ì§€") ) == 0 ||
 						 _tcscmp( lpEffectName, _T("\xbd\xf0\xb8\xd5\xce\xac\xb3\xd6") ) == 0 ||
 						 _tcscmp( lpEffectName, _T("\xbd\xf0\xb8\xd5\xc1\xa6\xb3\xd6\xd0\xf8") ) == 0 )
 				{
@@ -1798,94 +1798,94 @@ BOOL ManageExtraEffect()
 						}
 					}
 				}
-				else if( _tcscmp( lpEffectName, _T("¹Ù´Ú_ÀÏÀ§µµ°­Áö¼Ó2") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ë°”ë‹¥_ì¼ìœ„ë„ê°•ì§€ì†2") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eIlyuidogang, pEffect, nX, nY, nZ );
-				// ¿¬¶û ¹«°ø.
-				else if( _tcscmp( lpEffectName, _T("ÀÌ±¤À½Èú¹Ş±â") ) == 0 )
+				// ì—°ë‘ ë¬´ê³µ.
+				else if( _tcscmp( lpEffectName, _T("ì´ê´‘ìŒíë°›ê¸°") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eLeekwangum_heal_recv, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("ÀüÀ¯À½¹Ş±â") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ì „ìœ ìŒë°›ê¸°") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eJunuoum_recv, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("¿¬¿ì¿µ¹Ş±â") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ì—°ìš°ì˜ë°›ê¸°") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eYuenoyueng_recv, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("ÀÌÅ¸»ı_µ¥¹ÌÁö") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ì´íƒ€ìƒ_ë°ë¯¸ì§€") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eLeetasaeng_damage, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("±³°¨¼ö_¹Ş±â") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("êµê°ìˆ˜_ë°›ê¸°") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eKyugamsu_recv, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("¿ø±â½Å°­¹Ş±â") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ì›ê¸°ì‹ ê°•ë°›ê¸°") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eWonkisingang_recv, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("¹ÌÈ¥¼ú¹Ş±â") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ë¯¸í˜¼ìˆ ë°›ê¸°") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eMihonsul_recv, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("¿ø±â½Å°­Áö¼ÓÀÌÆåÆ®") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ì›ê¸°ì‹ ê°•ì§€ì†ì´í™íŠ¸") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eWonkisingang, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("È¯¼öÀ¯_ÃâÇö") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("í™˜ìˆ˜ìœ _ì¶œí˜„") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eHwansoou_appear, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("¿¬¿ì¿µÁö¼Ó") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ì—°ìš°ì˜ì§€ì†") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eYuenoyueng, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("±³°¨¼ö_Áö¼Ó") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("êµê°ìˆ˜_ì§€ì†") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eKyugamsu, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("¹Ù´Ú_À¯¼ö½Å¿µÁö¼Ó2") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ë°”ë‹¥_ìœ ìˆ˜ì‹ ì˜ì§€ì†2") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eYuesusinyung, pEffect, nX, nY, nZ );
-				// ¹«Åõ ¹«°ø.
-				else if( _tcscmp( lpEffectName, _T("Áö¼Ó_¹İÅº°­±â") ) == 0 )
+				// ë¬´íˆ¬ ë¬´ê³µ.
+				else if( _tcscmp( lpEffectName, _T("ì§€ì†_ë°˜íƒ„ê°•ê¸°") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eBantankangki, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("Áö¼Ó_Àû¿î°­±â") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ì§€ì†_ì ìš´ê°•ê¸°") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eJukwonkangki, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("¹Ş±â_ÆÄÃµ¼Ò") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ë°›ê¸°_íŒŒì²œì†Œ") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( ePachunso_recv, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("¹Ş±â_±İ³ª¼ö") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ë°›ê¸°_ê¸ˆë‚˜ìˆ˜") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eKumnasu_recv, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("¹Ş±â_¾ÏÈæ¹«") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ë°›ê¸°_ì•”í‘ë¬´") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eAmhukmu_recv, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("¹Ş±â_Å»¹éÀÎ") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ë°›ê¸°_íƒˆë°±ì¸") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eTalbacin_recv, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("¹Ş±â_¸¶·É°¢") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ë°›ê¸°_ë§ˆë ¹ê°") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eMarulkak_recv, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("¹Ù´Ú_ÁúÇ³º¸Áö¼Ó2") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ë°”ë‹¥_ì§ˆí’ë³´ì§€ì†2") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eJilpungbo, pEffect, nX, nY, nZ );
-				// ¾ßÂ÷ ¹«°ø
-				else if( _tcscmp( lpEffectName, _T("¹Ù´Ú_ÃÊ»óºñÁö¼Ó2") ) == 0 )
+				// ì•¼ì°¨ ë¬´ê³µ
+				else if( _tcscmp( lpEffectName, _T("ë°”ë‹¥_ì´ˆìƒë¹„ì§€ì†2") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eChosangbi, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("¿Àµ¶Ä§_Áö¼Ó") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ì˜¤ë…ì¹¨_ì§€ì†") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eOdokchim, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("µ¶¹«_°¡·çÀ¯Áö") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ë…ë¬´_ê°€ë£¨ìœ ì§€") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eDokmu, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("µ¶Ç÷°ø_Áö¼Ó") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ë…í˜ˆê³µ_ì§€ì†") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eDokhyulgong, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("µ¶³»°ø_Áö¼Ó") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ë…ë‚´ê³µ_ì§€ì†") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eDoknaegong, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("½Öµµ¼ö_Áö¼Ó") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ìŒë„ìˆ˜_ì§€ì†") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eSsangdosu, pEffect, nX, nY, nZ );
 
-				//HT_0523 È¯»ı ¹«°ø.. 'Æå'ÀÌ¸é ´Ù 'Æå'À¸·Î ¿Ã¸®Áö 'ÆÑ'Àº ¶Ç ¸ğ³Ä ¤Ñ¤Ñ;
-				else if( _tcscmp( lpEffectName, _T("È­·æ´ë»óÀÌÆåÆ®") ) == 0 )
+				//HT_0523 í™˜ìƒ ë¬´ê³µ.. 'í™'ì´ë©´ ë‹¤ 'í™'ìœ¼ë¡œ ì˜¬ë¦¬ì§€ 'íŒ©'ì€ ë˜ ëª¨ëƒ ã…¡ã…¡;
+				else if( _tcscmp( lpEffectName, _T("í™”ë£¡ëŒ€ìƒì´í™íŠ¸") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eWha_Dragon, pEffect, nX, nY, nZ );	
-				else if( _tcscmp( lpEffectName, _T("ºù·æ´ë»óÀÌÆÑÆ®") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ë¹™ë£¡ëŒ€ìƒì´íŒ©íŠ¸") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eBing_Dragon, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("µ¶·æ´ë»óÀÌÆåÆ®_¼öÁ¤") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ë…ë£¡ëŒ€ìƒì´í™íŠ¸_ìˆ˜ì •") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eDok_Dragon, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("³ú·æ´ë»óÀÌÆåÆ®_¼öÁ¤") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ë‡Œë£¡ëŒ€ìƒì´í™íŠ¸_ìˆ˜ì •") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eNoi_Dragon, pEffect, nX, nY, nZ );
 				
-				// È¯»ı Æ¯È­ ¹«°ø Áö¼Ó ÀÌÆåÆ®
-				else if( _tcscmp( lpEffectName, _T("°Ë¿µ_ÀÏ±âÂü´ë»ó") ) == 0 )
+				// í™˜ìƒ íŠ¹í™” ë¬´ê³µ ì§€ì† ì´í™íŠ¸
+				else if( _tcscmp( lpEffectName, _T("ê²€ì˜_ì¼ê¸°ì°¸ëŒ€ìƒ") ) == 0 )
 					g_EffectManager.SetHitEffect(eGumyongSpecial, pEffect);
-				else if( _tcscmp( lpEffectName, _T("¹«Åõ_°­±âÆ÷±Ç´ë»ó") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ë¬´íˆ¬_ê°•ê¸°í¬ê¶ŒëŒ€ìƒ") ) == 0 )
 					g_EffectManager.SetHitEffect(eMutuSpecial, pEffect);
-				else if( _tcscmp( lpEffectName, _T("¿¬¶û_¼ö½Å±â°­´ë»ó") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ì—°ë‘_ìˆ˜ì‹ ê¸°ê°•ëŒ€ìƒ") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect(eYunrangSpecial, pEffect, nX, nY, nZ);
 
-				else if( _tcscmp( lpEffectName, _T("¿¬¶û_»çÀå½Å°øÀ¯Áö_¼öÁ¤") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ì—°ë‘_ì‚¬ì¥ì‹ ê³µìœ ì§€_ìˆ˜ì •") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect(eYunSajangsingong, pEffect, nX, nY, nZ);
-				else if( _tcscmp( lpEffectName, _T("¹«Åõ_±âÈí°­±âÁö¼Ó") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ë¬´íˆ¬_ê¸°í¡ê°•ê¸°ì§€ì†") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect(eMuKihubkangki, pEffect, nX, nY, nZ);
-				else if( _tcscmp( lpEffectName, _T("¾ßÂ÷_Àº½Å¼úÀ¯Áö") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ì•¼ì°¨_ì€ì‹ ìˆ ìœ ì§€") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect(eYaEunsinsul, pEffect, nX, nY, nZ);
-				else if( _tcscmp( lpEffectName, _T("¾ßÂ÷_È£Á¤°­±âÀ¯Áö_¼öÁ¤") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("ì•¼ì°¨_í˜¸ì •ê°•ê¸°ìœ ì§€_ìˆ˜ì •") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect(eYaHojungkangki, pEffect, nX, nY, nZ);					
 			}// if
 			else
 			{
-				DBG_LogFile( _T("ManageExtraEffect ½ÇÆĞ"));
+				DBG_LogFile( _T("ManageExtraEffect ì‹¤íŒ¨"));
 
 //				return false;
 			}

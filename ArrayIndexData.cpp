@@ -1,4 +1,4 @@
-#include "precompile.h"
+ï»¿#include "precompile.h"
 #include "ArrayIndexData.h"
 
 #define MAX_ARRAYINDEXFILE_SIZE	500 * 1024
@@ -18,7 +18,7 @@ CArrayIndexData::~CArrayIndexData()
 
 BOOL CArrayIndexData::Create(LPCTSTR filename)
 {
-	FILE *fp = NULL; // ÃÊ±âÈ­Á» ÇØÁİ½Ã´Ù.
+	FILE *fp = NULL; // ì´ˆê¸°í™”ì¢€ í•´ì¤ì‹œë‹¤.
 
 	fp = _tfopen( filename, _T("rb"));
 	
@@ -72,7 +72,7 @@ BOOL CArrayIndexData::Create(LPCTSTR filename)
 		}
 		else
 		{
-			DBG_LogFile( _T("BOOL CArrayIndexData::Create¿¡¼­ ½ÇÆĞ"));
+			DBG_LogFile( _T("BOOL CArrayIndexData::Createì—ì„œ ì‹¤íŒ¨"));
 		}
 	}
 

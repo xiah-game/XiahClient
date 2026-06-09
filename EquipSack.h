@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "sack.h"
 
 /**
@@ -15,7 +15,7 @@ private:
 
 	void CreateEquipVB();
 	
-	//EquipSack durability¿¡ µû¸¥ È­¸é Ãâ·Â
+	//EquipSack durabilityì— ë”°ë¥¸ í™”ë©´ ì¶œë ¥
 private:
 	DWORD m_dwTime;
 	bool m_bRepairShow;
@@ -28,7 +28,7 @@ public:
 	virtual ~CEquipSack(void);
 
 	virtual BOOL InsertItem( BYTE bSackPos, XiahItem::sItemInfo* pItem);
-	// ´©¼ö ¼öÁ¤
+	// ëˆ„ìˆ˜ ìˆ˜ì •
 	virtual void DeleteItem( BYTE bSackPos, bool bDelete = false);
 	virtual XiahItem::sItemInfo* FindSackItemByPos( int nPosition);	
 	virtual XiahItem::sItemInfo* FindSackItemByPosPrev( int nPosition);

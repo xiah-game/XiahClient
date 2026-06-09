@@ -1,4 +1,4 @@
-#include "precompile.h"
+ï»¿#include "precompile.h"
 #include "XiahObject.h"
 #include "XiahGameObject.h"
 #include "XiahMap.h"
@@ -29,8 +29,8 @@ void ReleaseXiahBGM()
 
 /*
 	BGMStatus:
-				0 -> BGMÃâ·Â
-				1 -> AmbienceÃâ·Â
+				0 -> BGMì¶œë ¥
+				1 -> Ambienceì¶œë ¥
 */
 
 extern	int g_nHour;
@@ -41,7 +41,7 @@ static	int g_BGMStatus = PLAYING_AMBIENT;
 void ProcessXiahBGM(BOOL bForce)
 {
 	TCHAR *filename  = NULL;
-	// ÇöÀç À§Ä¡¸¦ °¡Áö°í BGM¸¦ ¼±ÅÃÇØ¼­ ¿¬ÁÖÇÑ´Ù
+	// í˜„ìž¬ ìœ„ì¹˜ë¥¼ ê°€ì§€ê³  BGMë¥¼ ì„ íƒí•´ì„œ ì—°ì£¼í•œë‹¤
 	if( g_pMainChar == NULL) return;
 	int index = 0;
 
@@ -49,11 +49,11 @@ void ProcessXiahBGM(BOOL bForce)
 
 	if(g_bBGMForce == TRUE)
 	{
-		// À½¾ÇÀÌ ³¡³ª¼­ ´ÙÀ½ À½¾ÇÀ¸·Î ¹Ù²Ù¾î ÁØ´Ù
-		// 33% È®·ü·Î BGM
+		// ìŒì•…ì´ ëë‚˜ì„œ ë‹¤ìŒ ìŒì•…ìœ¼ë¡œ ë°”ê¾¸ì–´ ì¤€ë‹¤
+		// 33% í™•ë¥ ë¡œ BGM
 		int t = rand() % 3;
 
-		// ¹«Á¶°Ç Ã³À½¿¡ BGMÀ¸·Î ÇØ´Þ¶ó´Â ¿äÃ»À¸·Î...
+		// ë¬´ì¡°ê±´ ì²˜ìŒì— BGMìœ¼ë¡œ í•´ë‹¬ë¼ëŠ” ìš”ì²­ìœ¼ë¡œ...
 		if(bForce)
 			t = 0;
 
@@ -79,7 +79,7 @@ void ProcessXiahBGM(BOOL bForce)
 /*
 #ifdef WLOG
 			if(g_pLog)
-			g_pLog->Log("À½¾ÇÀÌ ³¡³ª¼­ BGM ¹Ù²ñ %s",filename);
+			g_pLog->Log("ìŒì•…ì´ ëë‚˜ì„œ BGM ë°”ë€œ %s",filename);
 #endif
 */
 			Change_BGM(filename);
@@ -89,9 +89,9 @@ void ProcessXiahBGM(BOOL bForce)
 	}
 	else
 	{
-		// ¹«Á¶°Ç Ã³À½¿¡ BGMÀ¸·Î ÇØ´Þ¶ó´Â ¿äÃ»À¸·Î...
+		// ë¬´ì¡°ê±´ ì²˜ìŒì— BGMìœ¼ë¡œ í•´ë‹¬ë¼ëŠ” ìš”ì²­ìœ¼ë¡œ...
 
-		// À½¾ÇÀÌ ³¡³ªÁö ¾Ê¾Ò´Âµ¥ ´Ù¸¥°÷À¸·Î ÀÌµ¿ÇÏ¿© ¹Ù²ãÁÖ´Â °æ¿ì´Â ¹«Á¶°Ç Ambience·Î ½ÃÀÛ
+		// ìŒì•…ì´ ëë‚˜ì§€ ì•Šì•˜ëŠ”ë° ë‹¤ë¥¸ê³³ìœ¼ë¡œ ì´ë™í•˜ì—¬ ë°”ê¿”ì£¼ëŠ” ê²½ìš°ëŠ” ë¬´ì¡°ê±´ Ambienceë¡œ ì‹œìž‘
 		if(bForce)
 			index = 0;	// BGM
 		else
@@ -101,7 +101,7 @@ void ProcessXiahBGM(BOOL bForce)
 
 		if(pre_pos != new_pos && new_pos != -1)
 		{
-			// »õ·Î¿î À½¾Ç!
+			// ìƒˆë¡œìš´ ìŒì•…!
 			filename = GetBGM(pCharObject->m_Position, index, XiahMap::g_XiahMap.m_MapInfo.m_dwMapID);
 			long c_time = timeGetTime();
 			if(g_changeBGMtime + 5000 < c_time)
@@ -109,7 +109,7 @@ void ProcessXiahBGM(BOOL bForce)
 /*
 #ifdef WLOG
 				if(g_pLog)
-				g_pLog->Log("BGM ¹Ù²ñ %s (%d -> %d)",filename,pre_pos,new_pos);
+				g_pLog->Log("BGM ë°”ë€œ %s (%d -> %d)",filename,pre_pos,new_pos);
 #endif
 */
 				Change_BGM(filename);

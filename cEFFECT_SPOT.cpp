@@ -1,8 +1,8 @@
-#include "precompile.h"
+ï»¿#include "precompile.h"
 #include "ceffect_spot.h"
 
 
-// È­¸é ¹øÂ½È¿°ú¸¦ À§ÇÑ Å¬·¡½º
+// í™”ë©´ ë²ˆì©íš¨ê³¼ë¥¼ ìœ„í•œ í´ëž˜ìŠ¤
 cEFFECT_SPOT	*g_effect_spot;
 
 //////////////////////////////////////////////////////////////////////////
@@ -42,14 +42,14 @@ BOOL cEFFECT_SPOT::Start(D3DCOLOR color,DWORD time)
 
 
 // UPDATE & RENDER
-// ÇÑ¹ø¿¡ ÇÏ³ª ¹Û¿¡ ·»´õ°¡ ¾ÈµÈ´Ù
+// í•œë²ˆì— í•˜ë‚˜ ë°–ì— ë Œë”ê°€ ì•ˆëœë‹¤
 BOOL cEFFECT_SPOT::Update()
 {
 	float detalTime = timeGetTime() - AxisTime;
 	float FadeAlpha;
 	DWORD dwAlpha;	
 
-	// ½Ã°£ÀÌ ³Ñ¾ú´Ù. ³¡³»ÀÚ.
+	// ì‹œê°„ì´ ë„˜ì—ˆë‹¤. ëë‚´ìž.
 	if(detalTime > FadeTimeLength) return FALSE;
 
 	//FadeAlpha = (float)detalTime / (float)FadeTimeLength;	// fade in
@@ -68,7 +68,7 @@ BOOL cEFFECT_SPOT::Update()
 	pVertex[3].diffuse = (FadeColor & 0xFFFFFF) + dwAlpha;
 	m_VB->Unlock();
 	
-	// ·»´õÇÑ´Ù
+	// ë Œë”í•œë‹¤
 	Render();
 	
 	return TRUE;
@@ -192,7 +192,7 @@ BOOL cTRANS_BOX::Destroy()
 
 //////////////////////////////////////////////////////////////////////////
 
-// ¹øÂ½ È¿°ú¸¦ ¸¸µç´Ù
+// ë²ˆì© íš¨ê³¼ë¥¼ ë§Œë“ ë‹¤
 BOOL	Make_Special_Effect(D3DCOLOR	col)
 {
 	if(NULL == g_effect_spot)
@@ -203,10 +203,10 @@ BOOL	Make_Special_Effect(D3DCOLOR	col)
 	return TRUE;
 }
 
-// È­¸é ¹øÂ½ÀÌ¶ó´ø°¡ ±×·±°ÍµéÀ» Update ÇÑ´Ù
+// í™”ë©´ ë²ˆì©ì´ë¼ë˜ê°€ ê·¸ëŸ°ê²ƒë“¤ì„ Update í•œë‹¤
 BOOL	Update_Special_Effect()
 {
-	// È­¸é ¹øÂ½!
+	// í™”ë©´ ë²ˆì©!
 	if(g_effect_spot)
 	{
 		if(g_effect_spot->Update() == FALSE) 

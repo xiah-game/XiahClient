@@ -1,5 +1,5 @@
-
-//	Àü ¼­ ±¸
+ï»¿
+//	ì „ ì„œ êµ¬
 
 #ifndef _MAIL_
 #define _MAIL_
@@ -10,18 +10,18 @@
 #define	MAIL_ETC			3
 
 
-#define	MAX_MAIL_LIST		17	// 17¶óÀÎÀÌ ÃÖ´ë (º¸³»±â)
-#define	MAX_RECV_MAIL		5	// ¹ŞÀº°Å Ç¥½Ã´Â ÇÑÈ­¸é¿¡ 5ÁÙ
+#define	MAX_MAIL_LIST		17	// 17ë¼ì¸ì´ ìµœëŒ€ (ë³´ë‚´ê¸°)
+#define	MAX_RECV_MAIL		5	// ë°›ì€ê±° í‘œì‹œëŠ” í•œí™”ë©´ì— 5ì¤„
 
 //////////////////////////////////////////////////////////////////////////
 
 struct sSENDMAIL_RESULT
 {
-	sString			szName;		// ¹Ş´Â »ç¶÷
-	BYTE			bType;		// Á¾·ù
-	BYTE			b_SubType;	// °ü°è Á¾·ù
+	sString			szName;		// ë°›ëŠ” ì‚¬ëŒ
+	BYTE			bType;		// ì¢…ë¥˜
+	BYTE			b_SubType;	// ê´€ê³„ ì¢…ë¥˜
 
-	BYTE			bResult;	// °á°ú
+	BYTE			bResult;	// ê²°ê³¼
 };
 
 
@@ -29,13 +29,13 @@ struct sSENDMAIL_RESULT
 
 struct sRECVMAIL_LIST
 {
-	DWORD			dwMailID;	// Àü¼­ÀÇ ID
-	sString			szName;		// º¸³½»ç¶÷
-	DWORD			dwDate;		// ½Ã°£	(MACRO·Î ÃßÃâÇÏ±â ¹Ù¶÷)
+	DWORD			dwMailID;	// ì „ì„œì˜ ID
+	sString			szName;		// ë³´ë‚¸ì‚¬ëŒ
+	DWORD			dwDate;		// ì‹œê°„	(MACROë¡œ ì¶”ì¶œí•˜ê¸° ë°”ëŒ)
 
-	sString			szTitle;	// Á¦¸ñ
-	sString			szMail;		// ³»¿ë
-	bool			bRead;		// ÀĞ¾ú³ª?
+	sString			szTitle;	// ì œëª©
+	sString			szMail;		// ë‚´ìš©
+	bool			bRead;		// ì½ì—ˆë‚˜?
 
 };
 
@@ -43,21 +43,21 @@ struct sRECVMAIL_LIST
 struct sSENDMAIL_LIST
 {
 	DWORD		ID;			// char ID
-	sString		szName;		// ÀÌ¸§(º°È£)
-	BYTE		bType;		// Á¾·ù
-	BYTE		b_SubType;	// °ü°è Á¾·ù
+	sString		szName;		// ì´ë¦„(ë³„í˜¸)
+	BYTE		bType;		// ì¢…ë¥˜
+	BYTE		b_SubType;	// ê´€ê³„ ì¢…ë¥˜
 
-	bool		bChecked;	// º¸³¾°ÅÀÎ°¡??
+	bool		bChecked;	// ë³´ë‚¼ê±°ì¸ê°€??
 };
 
 
 //////////////////////////////////////////////////////////////////////////
 
-typedef std::vector<sSENDMAIL_RESULT*> SENDMAIL_RESULT;	// º¸³½ °á°ú
+typedef std::vector<sSENDMAIL_RESULT*> SENDMAIL_RESULT;	// ë³´ë‚¸ ê²°ê³¼
 
 typedef std::vector<sRECVMAIL_LIST*> RECVMAIL_LIST;
 typedef std::vector<sSENDMAIL_LIST*> SENDMAIL_LIST;
-typedef std::vector<DWORD> TEMPSENDMAIL_LIST;			// º¸³¾¶§ÀÇ Áßº¹ °Ë»ç¸¦ À§ÇÔ
+typedef std::vector<DWORD> TEMPSENDMAIL_LIST;			// ë³´ë‚¼ë•Œì˜ ì¤‘ë³µ ê²€ì‚¬ë¥¼ ìœ„í•¨
 
 class cMAIL
 {
@@ -81,18 +81,18 @@ public:
 
 	//////////////////////////////////////////////////////////////////////////	RECV
 
-	void Display_ReadMail(int pos);	// Àü¼­ÀÇ ³»¿ëÀ» µğ½ºÇÃ·¹ÀÌ
+	void Display_ReadMail(int pos);	// ì „ì„œì˜ ë‚´ìš©ì„ ë””ìŠ¤í”Œë ˆì´
 
-	void Add_RecvMailList(DWORD dwMailID,sString Sendername,DWORD dwDate, sString Title,bool bRead);	// Àü¼­±¸ ¸®½ºÆ® Ãß°¡
-	void Add_RecvMailContents(DWORD dwMailID, sString szContents);	// ÇØ´ç Àü¼­ ÀĞ±â
+	void Add_RecvMailList(DWORD dwMailID,sString Sendername,DWORD dwDate, sString Title,bool bRead);	// ì „ì„œêµ¬ ë¦¬ìŠ¤íŠ¸ ì¶”ê°€
+	void Add_RecvMailContents(DWORD dwMailID, sString szContents);	// í•´ë‹¹ ì „ì„œ ì½ê¸°
 
-	void DeleteAll_RecvMail();			// ¸ğµÎ Áö¿ì±â
+	void DeleteAll_RecvMail();			// ëª¨ë‘ ì§€ìš°ê¸°
 
 	bool Delete_RecvMail();
-	bool Delete_RecvMail(DWORD MailID);	// ÇØ´ç Àü¼­ Áö¿ì±â
+	bool Delete_RecvMail(DWORD MailID);	// í•´ë‹¹ ì „ì„œ ì§€ìš°ê¸°
 
-	int	Get_RecvMailCount(void);		// ¹ŞÀº ¸ŞÀÏÀÇ °¹¼ö
-	int Get_NonRead_RecvMailCount(void);// ¹ŞÀº ¸ŞÀÏÀÇ °¹¼ö (ÀĞÁö ¾ÊÀº°Å)
+	int	Get_RecvMailCount(void);		// ë°›ì€ ë©”ì¼ì˜ ê°¯ìˆ˜
+	int Get_NonRead_RecvMailCount(void);// ë°›ì€ ë©”ì¼ì˜ ê°¯ìˆ˜ (ì½ì§€ ì•Šì€ê±°)
 
 	void Reflash_MAIL(void);
 	void Send_ReadMail(void);
@@ -107,7 +107,7 @@ public:
 
 	//////////////////////////////////////////////////////////////////////////	SEND
 
-	void Make_SenderList();				// º¸³¾»ç¶÷ ¸®½ºÆ® ¸¸µé±â
+	void Make_SenderList();				// ë³´ë‚¼ì‚¬ëŒ ë¦¬ìŠ¤íŠ¸ ë§Œë“¤ê¸°
 	void Add_SendList(DWORD Id, sString szName,BYTE type,BYTE b_SubType);
 	bool Search_SendList(DWORD ID,BYTE type,BYTE b_SubType);
 
@@ -118,16 +118,16 @@ public:
 	void UncheckedAll_SendList(void);
 	void CheckedAll_SendList(void);
 	void CheckedMunpaAll_SendList(void);
-	int Get_Checked_SendList(void);			// ¼±ÅÃµÈ ¾ÖµéÀÇ °¹¼ö¸¦ ¾ò¾î¿Â´Ù.
+	int Get_Checked_SendList(void);			// ì„ íƒëœ ì• ë“¤ì˜ ê°¯ìˆ˜ë¥¼ ì–»ì–´ì˜¨ë‹¤.
 
 	bool SendMailToOne(sString szName);
 
-	bool SendMail();					// ¼±ÅÃµÈ »ç¶÷µé¿¡°Ô Àü¼­ º¸³»±â
+	bool SendMail();					// ì„ íƒëœ ì‚¬ëŒë“¤ì—ê²Œ ì „ì„œ ë³´ë‚´ê¸°
 	bool Check_SentMail(DWORD ID);
 
-	void Assign_Content(sString Title,sString Content);	// ¸ŞÀÏÀÇ ³»¿ë ÁöÁ¤
+	void Assign_Content(sString Title,sString Content);	// ë©”ì¼ì˜ ë‚´ìš© ì§€ì •
 
-	////////////////////////////////////////////////////////////////////////// ÀÎÅÍÆäÀÌ½º
+	////////////////////////////////////////////////////////////////////////// ì¸í„°í˜ì´ìŠ¤
 
 	void Reflash_MAIL_Select(void);
 	void Back_Page(void);
@@ -164,7 +164,7 @@ private:
 	int					m_Page;
 	int					m_Total_Page;
 
-	// Çà³¶ÀÇ ¾ÆÀÌÅÛ À§Ä¡
+	// í–‰ë‚­ì˜ ì•„ì´í…œ ìœ„ì¹˜
 	BYTE				m_SackID;
 	BYTE				m_SackPos;
 	

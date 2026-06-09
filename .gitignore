@@ -39,3 +39,10 @@ __pycache__/
 *.rar
 *.7z
 server_log*.txt
+
+# Encoding conversion backups
+*.bak_encoding
+
+# Python tool scripts (one-off utilities)
+*.py
+tools/

@@ -1,13 +1,13 @@
-#pragma once
+Ôªø#pragma once
 
-extern void SendCS_IT_LOGIN_AUTH_REQ(sString szAccountID, sString szPasswd);	// ¿Œ¡ıº≠πˆ∑Œ¿« ∑Œ±◊¿Œ
-extern void SendCS_IT_LOGIN_REQ();										// ≈¨∂Û¿Ãæ∆Æ ∂ÁøÔ∂ß (¿Ø¥÷º≠πˆ∑Œ¿« ∑Œ±◊¿Œ)
-extern void SendCS_IT_CHARACTERLIST_REQ();								// LOGIN_ACK() πﬁ∞Ì
-extern void SendCS_IT_NEWCHARACTER_REQ( BYTE byType, sString strUserName);	// ªı ƒ≥∏Ø≈Õ ª˝º∫«“∂ß
+extern void SendCS_IT_LOGIN_AUTH_REQ(sString szAccountID, sString szPasswd);	// Ïù∏Ï¶ùÏÑúÎ≤ÑÎ°úÏùò Î°úÍ∑∏Ïù∏
+extern void SendCS_IT_LOGIN_REQ();										// ÌÅ¥ÎùºÏù¥Ïñ∏Ìä∏ ÎùÑÏö∏Îïå (Ïú†ÎãõÏÑúÎ≤ÑÎ°úÏùò Î°úÍ∑∏Ïù∏)
+extern void SendCS_IT_CHARACTERLIST_REQ();								// LOGIN_ACK() Î∞õÍ≥†
+extern void SendCS_IT_NEWCHARACTER_REQ( BYTE byType, sString strUserName);	// ÏÉà Ï∫êÎ¶≠ÌÑ∞ ÏÉùÏÑ±Ìï†Îïå
 extern void SendCS_IT_DELCHARACTER_REQ( DWORD dwCharID);
-extern void SendCS_IT_CHARSTATUSINFO_REQ();								// STARTGAME_REQ() πﬁ∞Ì
-extern void SendCS_IT_MAPINFO_REQ(DWORD dwMapID);						// STARTGAME_REQ() πﬁ∞Ì
-extern void SendCS_IT_IMREADY_REQ( DWORD dwObjectID, DWORD dwMapID);	// Client∞° ƒ≥∏Ø≈Õ ¥Ÿ ∏∏µÈ∞Ì ∏  ¥Ÿ ∑Œµ˘«ﬂ¿ª∂ß
+extern void SendCS_IT_CHARSTATUSINFO_REQ();								// STARTGAME_REQ() Î∞õÍ≥†
+extern void SendCS_IT_MAPINFO_REQ(DWORD dwMapID);						// STARTGAME_REQ() Î∞õÍ≥†
+extern void SendCS_IT_IMREADY_REQ( DWORD dwObjectID, DWORD dwMapID);	// ClientÍ∞Ä Ï∫êÎ¶≠ÌÑ∞ Îã§ ÎßåÎì§Í≥† Îßµ Îã§ Î°úÎî©ÌñàÏùÑÎïå
 extern void SendCS_IT_MUGONGLIST_REQ( BYTE bMugongType);
 extern void SendCS_IT_ITEMLIST_REQ( BYTE bSackType);
 extern void SendCS_IT_CHARINFO_REQ( DWORD dwObjectID);
@@ -16,18 +16,18 @@ extern void SendCS_IT_SETSLOT_REQ(DWORD dwValue, BYTE bSlot);
 extern void SendCS_IT_SPEEDPING_REQ( DWORD dwClientTick);
 extern void SendCS_IT_CHANGEPW_REQ(sString szAccountID, sString szPasswd, sString strChangePasswd);
 
-extern void SendCS_NV_STARTGAME_REQ();									// GAME MAIN¿∏∑Œ µÈæÓ∞•∂ß
-extern void SendCS_NV_MAPENTER_REQ(DWORD dwObjectID,DWORD dwMapID);		// MAPINFO_REQ() πﬁ∞Ì
-extern void SendCS_NV_ENDGAME_REQ(BYTE  bChChange = 0);					// GAME¿ª ¡æ∑·«“∂ß
+extern void SendCS_NV_STARTGAME_REQ();									// GAME MAINÏúºÎ°ú Îì§Ïñ¥Í∞àÎïå
+extern void SendCS_NV_MAPENTER_REQ(DWORD dwObjectID,DWORD dwMapID);		// MAPINFO_REQ() Î∞õÍ≥†
+extern void SendCS_NV_ENDGAME_REQ(BYTE  bChChange = 0);					// GAMEÏùÑ Ï¢ÖÎ£åÌï†Îïå
 extern void SendCS_NV_MAPMOVE_REQ(DWORD dwMapID);
-extern void SendCS_NV_MAPMOVE_REQ(DWORD dwMapID,WORD wPosX,WORD wPosY);	// ¡◊¿ª∂ß ∫∏≥ª¥¬ MapMove
+extern void SendCS_NV_MAPMOVE_REQ(DWORD dwMapID,WORD wPosX,WORD wPosY);	// Ï£ΩÏùÑÎïå Î≥¥ÎÇ¥Îäî MapMove
 
 extern void SendCS_NV_SYNCMOVE_REQ( DWORD dwObjectID,WORD wPosX,WORD wPosY,BYTE bHeight,WORD wDesPosX,WORD wDesPosY,BYTE bDesHeight,WORD wDirection,BYTE bState,BYTE bWalkSpeed);
 extern void SendCS_NV_ENDMOVE_REQ( DWORD dwObjectID,WORD wPosX,WORD wPosY,BYTE bHeight,BYTE bState);
 extern void SendCS_NV_STARTMOVE_REQ( DWORD dwObjectID, WORD	wPosX, WORD	wPosY, BYTE	bHeight, WORD	wDesPosX, WORD	wDesPosY, BYTE	bDesHeight, WORD	wDirection, BYTE	bStatus, BYTE	bSpeed );
 extern void SendCS_NV_PORTALMOVE_REQ( DWORD dwObjectID,WORD wPosX,WORD wPosY,BYTE bHeight,BYTE bState);
-extern void SendCS_NV_QUICKMOVE_REQ(DWORD dwMoveMapID);					// NPC ∆˜≈ª ¿Ãµø
-extern void SendCS_NV_PRIVATEPORTAL_REQ(DWORD dwMoveMapID);				// πÆ∆ƒ¥Î¿¸ NPC ∆˜≈ª ¿Ãµø
+extern void SendCS_NV_QUICKMOVE_REQ(DWORD dwMoveMapID);					// NPC Ìè¨ÌÉà Ïù¥Îèô
+extern void SendCS_NV_PRIVATEPORTAL_REQ(DWORD dwMoveMapID);				// Î¨∏ÌååÎåÄÏ†Ñ NPC Ìè¨ÌÉà Ïù¥Îèô
 
 extern void SendCS_BT_ATTACK_REQ( BYTE bAttackType,DWORD dwAttackID,WORD wAttackPosX,WORD wAttackPosY,BYTE bAttackHeight,BYTE bDefType,DWORD dwDefID,BYTE bAttackMode);
 extern void SendCS_BT_PREATTACK_REQ( BYTE bAttackType,DWORD dwAttackID,BYTE bDefType,DWORD dwDefID,WORD wAttackPosX,WORD wAttackPosY,BYTE bAttackHeight,BYTE bAttackMode);
@@ -92,22 +92,22 @@ extern void SendCS_IM_DELETEMEMO_REQ(DWORD dwMemoID);
 extern void SendCS_IM_PUZZLEITEM_REQ(DWORD dwShopID);
 extern void SendCS_IM_REJOINITEM_REQ(DWORD dwShopID);
 
-extern void SendCS_IM_VARIENTITEM_REQ(BYTE bVarientType);						// ∞≥¡∂ (∂±±π, ∫Ø¡æ ¿⁄ø¯)
-extern void SendCS_IM_REWARDGUARANTEE_REQ(BYTE bRewardType, DWORD dwItemID);	// ∫∏«Ë æ∆¿Ã≈€ ∫π±∏,º“∏Í
-extern void SendCS_IM_EVENTPUZZLE_REQ(DWORD dwFNpcID);							// ¿ÃπÃ¡ˆ ¡∂«’
+extern void SendCS_IM_VARIENTITEM_REQ(BYTE bVarientType);						// Í∞úÏ°∞ (Îñ°Íµ≠, Î≥ÄÏ¢Ö ÏûêÏõê)
+extern void SendCS_IM_REWARDGUARANTEE_REQ(BYTE bRewardType, DWORD dwItemID);	// Î≥¥Ìóò ÏïÑÏù¥ÌÖú Î≥µÍµ¨,ÏÜåÎ©∏
+extern void SendCS_IM_EVENTPUZZLE_REQ(DWORD dwFNpcID);							// Ïù¥ÎØ∏ÏßÄ Ï°∞Ìï©
 extern void SendCS_IM_MIXITEM_REQ(DWORD dwShopID);
-extern void SendCS_IM_MAKEREPAIRHAMMER_REQ(DWORD dwShopID);						// ∏¡ƒ° ¡∂«’
+extern void SendCS_IM_MAKEREPAIRHAMMER_REQ(DWORD dwShopID);						// ÎßùÏπò Ï°∞Ìï©
 
-//HT_CHEAT : ∫Ø¡æ ∆–≈∂ √ﬂ∞°
-extern void SendCS_IM_VARIENTITEM_HT_REQ(DWORD dwitemID, BYTE bSackIDPrev, BYTE bSackPosPrev);			// «‡≥∂ø°º≠ πŸ∑Œ ∞≥¡∂«œ±‚ ∞≥¡∂ 
+//HT_CHEAT : Î≥ÄÏ¢Ö Ìå®ÌÇ∑ Ï∂îÍ∞Ä
+extern void SendCS_IM_VARIENTITEM_HT_REQ(DWORD dwitemID, BYTE bSackIDPrev, BYTE bSackPosPrev);			// ÌñâÎÇ≠ÏóêÏÑú Î∞îÎ°ú Í∞úÏ°∞ÌïòÍ∏∞ Í∞úÏ°∞ 
 
-// æ∆¿Ã≈€ ºˆ¡˝
+// ÏïÑÏù¥ÌÖú ÏàòÏßë
 extern void SendCS_IM_MOVEINCOLLECTITEM_REQ(BYTE bSackID, BYTE bSackPos, DWORD dwItemID, BYTE bCollectSackPos);
 extern void SendCS_IM_MOVEOUTCOLLECTITEM_REQ(BYTE bCollectSackPos, DWORD dwItemID, BYTE bSackID, BYTE bSackPos);
 
-extern void SendCS_IM_MAKEUNIONITEM_REQ(DWORD dwShopID);						//ªÁΩ≈º¬ 
-extern void SendCS_IM_REBIRTH_REQ(BYTE bSackID, BYTE bSackPos, DWORD dwItemID);	//∞¢º∫¡¶ ªÁøÎ
-//HT_1116 : ∞¢º∫¡¶ æ∆¿Ã≈€ √ﬂ∞°
+extern void SendCS_IM_MAKEUNIONITEM_REQ(DWORD dwShopID);						//ÏÇ¨Ïã†ÏÖã 
+extern void SendCS_IM_REBIRTH_REQ(BYTE bSackID, BYTE bSackPos, DWORD dwItemID);	//Í∞ÅÏÑ±Ï†ú ÏÇ¨Ïö©
+//HT_1116 : Í∞ÅÏÑ±Ï†ú ÏïÑÏù¥ÌÖú Ï∂îÍ∞Ä
 extern void SendCS_IM_MAKEREBIRTHITEM_REQ();
 
 extern void SendCS_EC_BUYITEM_REQ( DWORD dwShopID, DWORD dwItemID, DWORD dwAmount, BYTE bShopSackCnt, BYTE bShopSackPos, BYTE bCharSackCnt, BYTE bCharSackPos);
@@ -130,38 +130,38 @@ extern void SendCS_EC_ITEMLISTINMALL_REQ(DWORD dwCharID);
 extern void SendCS_EC_DRAWOUTMALL_REQ(DWORD dwCharID, DWORD dwItemID, BYTE bBankPos, BYTE bSackID, BYTE bSackPos, DWORD dwAmount);
 extern void SendCS_EC_DRAWMOVEMALL_REQ( BYTE bSrcPos, DWORD dwSrcItemID, BYTE bDesPos, DWORD dwDesItemID);
 
-// ∫π±«
+// Î≥µÍ∂å
 extern void SendCS_EC_BUYLOTTO_REQ(BYTE bNum1, BYTE bNum2, BYTE bNum3, BYTE bNum4);
 extern void SendCS_EC_LOTTOSALEINFO_REQ();
 extern void SendCS_EC_PRIZELOTTOINFO_REQ(BYTE bNowLotto);
 extern void SendCS_EC_GETLOTTOMONEY_REQ(DWORD dwItemID, BYTE bSackID, BYTE bSackPos, DWORD dwMoney);
 extern void SendCS_EC_CHECKLOTTO_REQ(DWORD dwItemID, BYTE bSackID, BYTE bSackPos);
 
-extern void SendCS_EC_GUARANTEELIST_REQ();									// ∫∏«Ë æ∆¿Ã≈€
-extern void SendCS_EC_QUICKMART_REQ();										// ∏≈«∞∆–
+extern void SendCS_EC_GUARANTEELIST_REQ();									// Î≥¥Ìóò ÏïÑÏù¥ÌÖú
+extern void SendCS_EC_QUICKMART_REQ();										// Îß§ÌíàÌå®
 
 
-// ∆ƒ∆º
+// ÌååÌã∞
 extern void	SendCS_IF_ASKPARTY_REQ(DWORD dwAskID, DWORD dwAskedID, BYTE bResult, BYTE bPartyType = 0);
 extern void	SendCS_IF_INVITEPARTY_REQ(DWORD dwAskID, DWORD dwAskedID, BYTE bResult, BYTE bPartyType = 0);
 extern void	SendCS_IF_LEAVEPARTY_REQ(DWORD dwPartyID);
 extern void	SendCS_IF_PARTYPOSITION_REQ(DWORD dwPartyID, DWORD dwCharID);
 extern void	SendCS_IF_BANISHPARTY_REQ(DWORD dwPartyID, DWORD dwBanishCharID);
-extern void SendCS_IF_PARTYSHARE_REQ(BYTE byExpDivision, BYTE byFEDivision);	// ¥‹ ∞Ê«Ëƒ° ∫–πË º±≈√
-// ƒ£±∏
+extern void SendCS_IF_PARTYSHARE_REQ(BYTE byExpDivision, BYTE byFEDivision);	// Îã® Í≤ΩÌóòÏπò Î∂ÑÎ∞∞ ÏÑ†ÌÉù
+// ÏπúÍµ¨
 extern void SendCS_IF_ASKADDBUDDY_REQ(DWORD dwAskID, DWORD dwAskedID, BYTE bResult);
 extern void SendCS_IF_DELBUDDY_REQ( DWORD dwBuddyID);
 extern void SendCS_IF_BUDDYLIST_REQ();
 extern void SendCS_IF_BUDDYPOSITION_REQ( DWORD dwBuddyID);
-// æ÷øœµøπ∞
+// Ïï†ÏôÑÎèôÎ¨º
 extern void SendCS_IF_PETLIST_REQ(DWORD dwCharID);
-// ø¿«‡
-extern void SendCS_IF_EXECFIVEELM_REQ(BYTE byFiveElme);							// ø¿«‡ºˆƒ° ø√∏Æ±‚
-extern void SendCS_IF_CHANGEFIVEELM_REQ(BYTE byFiveElme);						// ø¿«‡ º±≈√
-//HT_0720 : ø¿«‡ ∞≥º± ªÁ«◊
-extern void SendCS_IF_ENDFIVEELM_REQ();											// ø¿«‡ ¡æ∑· 
+// Ïò§Ìñâ
+extern void SendCS_IF_EXECFIVEELM_REQ(BYTE byFiveElme);							// Ïò§ÌñâÏàòÏπò Ïò¨Î¶¨Í∏∞
+extern void SendCS_IF_CHANGEFIVEELM_REQ(BYTE byFiveElme);						// Ïò§Ìñâ ÏÑ†ÌÉù
+//HT_0720 : Ïò§Ìñâ Í∞úÏÑ† ÏÇ¨Ìï≠
+extern void SendCS_IF_ENDFIVEELM_REQ();											// Ïò§Ìñâ Ï¢ÖÎ£å 
 
-extern void SendCS_IF_EXECSTAMINA_REQ();										// ±‚ πﬂµø
+extern void SendCS_IF_EXECSTAMINA_REQ();										// Í∏∞ Î∞úÎèô
 
 
 extern void SendCS_RL_CREATEMUNPA_REQ( sString szMunpaName);
@@ -190,13 +190,13 @@ extern void SendCS_RL_MUNPAMARKREG_REQ(BYTE bType, DWORD dwMunpaID, LPCTSTR lpst
 extern void SendCS_RL_GAINMARKIMAGE_REQ(DWORD dwMarkID);
 extern void SendCS_RL_GETMUNPAMONEY_REQ(DWORD dwMunpaID, DWORD dwTaxMunpaMoney, DWORD dwStoneID);
 
-// 2004_05_31 ªı∑Œøˆ¡¯ ∞¸∞Ë
+// 2004_05_31 ÏÉàÎ°úÏõåÏßÑ Í¥ÄÍ≥Ñ
 extern void SendCS_RL_RELATIONLIST_REQ();
 extern void SendCS_RL_ADDRELATION_REQ(BYTE bType, DWORD dwCharID, LPCSTR strNick, BYTE bConnect);
 extern void SendCS_RL_DELRELATION_REQ(BYTE bType, DWORD dwCharID);
 extern void SendCS_RL_CHGRELATION_REQ(DWORD dwCharID, BYTE bWorldID, DWORD dwMapID, BYTE bConnect);
 
-// ¿˝ø¨∫Œ
+// Ï†àÏó∞Î∂Ä
 extern void SendCS_RL_BREAKRELATIONITEM_REQ(BYTE bSackID, BYTE bSackPos, DWORD dwItemID, BYTE bRelType, DWORD dwTargetID);
 
 extern void SendCS_QS_LIST_REQ();
@@ -207,20 +207,20 @@ extern void SendCS_QS_DELETE_REQ(DWORD dwQuestID);
 extern void SendCS_WR_PRECHALLENGEWAR_REQ(DWORD dwMunpaID);
 extern void SendCS_WR_CHALLENGEWAR_REQ(DWORD dwMunpaID, DWORD dwGameTime, BYTE bStealStone);
 extern void SendCS_WR_STONEDELETE_REQ(DWORD dwMunpaID);
-extern void SendCS_WR_APPLYWAR_REQ(DWORD dwFNpcID);			// πÆ∆ƒ¥Î¿¸ ¬¸∞° Ω≈√ª
-extern void SendCS_WR_REWARD_REQ(BYTE bType);				// πÆ∆ƒ¥Î¿¸ ∫∏ªÛ
+extern void SendCS_WR_APPLYWAR_REQ(DWORD dwFNpcID);			// Î¨∏ÌååÎåÄÏ†Ñ Ï∞∏Í∞Ä Ïã†Ï≤≠
+extern void SendCS_WR_REWARD_REQ(BYTE bType);				// Î¨∏ÌååÎåÄÏ†Ñ Î≥¥ÏÉÅ
 
 extern void SendCS_CH_CHAT_REQ( BYTE type, DWORD listener, sString content, sString szNickName);
 
 // OPTION
 extern void SendCS_OP_OPTIONLIST_REQ();
-// ø…º« ∆–≈∂ ∫Ø∞Ê
+// ÏòµÏÖò Ìå®ÌÇ∑ Î≥ÄÍ≤Ω
 extern void SendCS_OP_CHANGE_REQ(DWORD dwCharID, BYTE v1, BYTE v2, BYTE v3,BYTE bSafe, DWORD dwBuyLimit, BYTE bRarityLimit, BYTE bStxTypeLimit);
 
 // CASUAL
 extern void SendCS_ACTION_REQ(BYTE bAnitype, BYTE bAniKind, WORD wDirection, DWORD dwObjectID = 0);
 
-// ªÛ¡°
+// ÏÉÅÏ†ê
 extern void SendCS_SH_SETSHOP_REQ(LPCTSTR strName, LPCTSTR strDescription);
 extern void SendCS_SH_MOVESHOP_REQ(BYTE bSackPos, DWORD dwSrcItemID, BYTE bDesSackPos, DWORD dwDesItemID);
 extern void SendCS_SH_REGSHOP_REQ(BYTE bSackID, BYTE bSackPos, DWORD dwItemID, BYTE bShopSackPos, DWORD dwPrice);
@@ -230,7 +230,7 @@ extern void SendCS_SH_GETSHOPINFO_REQ(DWORD dwCharID);
 extern void SendCS_SH_BUYPCSHOP_REQ(DWORD dwCharID, BYTE bSrcSackPos, DWORD dwItemID, BYTE bSackID, BYTE bSackPos, DWORD dwPrice);
 extern void SendCS_SH_STATUSCHANGE_REQ(BYTE bStatus);
 
-//HT_0313 : ±§∏Ì¿¸ & √µ»≤¿¸
+//HT_0313 : Í¥ëÎ™ÖÏ†Ñ & Ï≤úÌô©Ï†Ñ
 extern void SendCS_WR_APPLYSECRET_REQ();
 extern void SendCS_WR_APPLYDEVIL_REQ();
 extern void SendCS_WR_APPLYDEVILREADY_REQ();
@@ -238,5 +238,5 @@ extern void SendCS_WR_APPLYSECRETREADY_REQ();
 extern void SendCS_NV_SECRETADVENTURE_REQ();
 extern void SendCS_NV_DEVILADVENTURE_REQ();
 
-//HT_0423 : ¥‹¡÷ ¿ß¿”
+//HT_0423 : Îã®Ï£º ÏúÑÏûÑ
 extern void SendCS_IF_CHANGEPARTYLEADER_REQ(DWORD dwCurLeaderID, DWORD dwPostLeaderID);

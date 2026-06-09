@@ -1,14 +1,14 @@
-#pragma once
+ï»¿#pragma once
 
 #define CONDITION_NUM	20
-#define REWARD_NUM		15  // [3/30/2004] ¼­¹ö¿Í ¼öÄ¡ È·¶¨ ÇØ¾ßÇÔ
+#define REWARD_NUM		15  // [3/30/2004] ì„œë²„ì™€ ìˆ˜ì¹˜ íš…ë• í•´ì•¼í•¨
 
 #define QUEST_SIZE		10
 #define CONDITION_SIZE	15  // [3/30/2004]
 #define QUEST_VERTICAL_DISTANCE	20
 
-//enum QUESTSTATUS_TYPE { eNew, ePause, eStart, eDeleted,  eSuccess, eSuccessDel}; //Á¤·ÄÀ» À§ÇØ¼­ ¼ø¼­¸¦ ¹Ù²ãÁØ´Ù.
-enum QUESTSTATUS_TYPE { eStart, ePause, eNew,  eSuccess, eDeleted,   eSuccessDel}; //HT_0914 : ±â¿¬Ã¢ ¹× ³¶ ¾ÆÀÌÅÛ °³¼± »çÇ×
+//enum QUESTSTATUS_TYPE { eNew, ePause, eStart, eDeleted,  eSuccess, eSuccessDel}; //ì •ë ¬ì„ ìœ„í•´ì„œ ìˆœì„œë¥¼ ë°”ê¿”ì¤€ë‹¤.
+enum QUESTSTATUS_TYPE { eStart, ePause, eNew,  eSuccess, eDeleted,   eSuccessDel}; //HT_0914 : ê¸°ì—°ì°½ ë° ë‚­ ì•„ì´í…œ ê°œì„  ì‚¬í•­
 
 struct sQuestInfo
 {
@@ -52,7 +52,7 @@ struct sQuestInfo
 	}
 };
 
-//HT_0824 : Äù½ºÆ® µµ¿ì¹Ì Ãß°¡
+//HT_0824 : í€˜ìŠ¤íŠ¸ ë„ìš°ë¯¸ ì¶”ê°€
 struct sQuestcoordinate
 {
 	WORD xPos;
@@ -100,7 +100,7 @@ private:
 
 	//BYTE		m_byCurrQuestIndex;
 
-	//HT_0824 : Äù½ºÆ® µµ¿ì¹Ì Ãß°¡
+	//HT_0824 : í€˜ìŠ¤íŠ¸ ë„ìš°ë¯¸ ì¶”ê°€
 	QUESTCONTENT_TYPE		m_byCurrContent;
 
 public:
@@ -131,13 +131,13 @@ public:
 
 	void DeleteQuest(DWORD dwQuestID);
 
-	//HT_0914 : ±â¿¬Ã¢ ¹× ³¶ ¾ÆÀÌÅÛ °³¼± »çÇ×
+	//HT_0914 : ê¸°ì—°ì°½ ë° ë‚­ ì•„ì´í…œ ê°œì„  ì‚¬í•­
 	void UpdateQuest();
 	void ProgressUpdateQuest();
 	void NewUpdateQuest();
 	void CompleteUpdateQuest();
 
-	//HT_0824 : Äù½ºÆ® µµ¿ì¹Ì Ãß°¡
+	//HT_0824 : í€˜ìŠ¤íŠ¸ ë„ìš°ë¯¸ ì¶”ê°€
 	void SetQuestDestination(DWORD QuestID, BYTE ProcessCount);
 	void SetQuestProcessKind(int nProcessKind, int nTergetID, VQUESTCOORDINATE *TempQuestcoordinate);
 };

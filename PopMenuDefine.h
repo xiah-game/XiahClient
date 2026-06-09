@@ -1,4 +1,4 @@
-
+ï»¿
 
 //////////////////////////////////////////
 // Notice
@@ -9,8 +9,8 @@
 // 1button
 #define NOTICE_FRAME_UNEXPECTED_TERMINATE	1
 // 2button
-#define NOTICE_FRAME_TRADE					1	// °Å·¡
-#define NOTICE_FRAME_ASKPARTY				2	// ÀÏ¹Ý´Ü
+#define NOTICE_FRAME_TRADE					1	// ê±°ëž˜
+#define NOTICE_FRAME_ASKPARTY				2	// ì¼ë°˜ë‹¨
 #define NOTICE_FRAME_INVITEPARTY			3
 #define NOTICE_FRAME_ASKBUDDY				4
 #define NOTICE_FRAME_CLAN					5
@@ -25,47 +25,47 @@
 #define NOTICE_FRAME_DAN_WAR 				13
 #define NOTICE_FRAME_DAN_WAR_ASK			14
 
-#define NOTICE_FRAME_STONE_OWN				15	// ¹®ÆÄ ºñ¼® ¼ÒÀ¯
-#define NOTICE_FRAME_STONE_RESIGN			16	// ¹®ÆÄ ºñ¼® Æ÷±â
+#define NOTICE_FRAME_STONE_OWN				15	// ë¬¸íŒŒ ë¹„ì„ ì†Œìœ 
+#define NOTICE_FRAME_STONE_RESIGN			16	// ë¬¸íŒŒ ë¹„ì„ í¬ê¸°
 #define NOTICE_FRAME_AFFINITY				17
-#define NOTICE_FRAME_ASKRELATION			18	// °ü°è
-#define NOTICE_FRAME_PT_BUY					19	// °³ÀÎ ³ëÁ¡ ±¸ÀÔ È·¶¨
-#define NOTICE_FRAME_MAIL_DELETE			20	// Àü¼­ »èÁ¦ ¿©ºÎ È·¶¨
-#define NOTICE_FRAME_MAIL_SEND				21	// Àü¼­ Àü¼Û ¿©ºÎ È·¶¨
-#define NOTICE_FRAME_PET_REVIVAL			22	// Æê ºÎÈ° ¿©ºÎ
-#define NOTICE_FRAME_PET_BONGIN 			23	// ºùÁ¤¿¡ Æê ºÀÀÎ ¿©ºÎ
+#define NOTICE_FRAME_ASKRELATION			18	// ê´€ê³„
+#define NOTICE_FRAME_PT_BUY					19	// ê°œì¸ ë…¸ì  êµ¬ìž… íš…ë•
+#define NOTICE_FRAME_MAIL_DELETE			20	// ì „ì„œ ì‚­ì œ ì—¬ë¶€ íš…ë•
+#define NOTICE_FRAME_MAIL_SEND				21	// ì „ì„œ ì „ì†¡ ì—¬ë¶€ íš…ë•
+#define NOTICE_FRAME_PET_REVIVAL			22	// íŽ« ë¶€í™œ ì—¬ë¶€
+#define NOTICE_FRAME_PET_BONGIN 			23	// ë¹™ì •ì— íŽ« ë´‰ì¸ ì—¬ë¶€
 
-#define NOTICE_FRAME_RELATION_ASKPARTY		24	// °ü°è´Ü
-#define NOTICE_FRAME_RELINQUISH				25	// ¹®ÁÖ ÀÌ¾ç
-#define NOTICE_FRAME_LEAVE					26	// ¹®ÆÄ Å»Åð
-#define NOTICE_FRAME_MARK_DEL				27	// ¹®ÆÄ¹®Àå »èÁ¦ È·¶¨
+#define NOTICE_FRAME_RELATION_ASKPARTY		24	// ê´€ê³„ë‹¨
+#define NOTICE_FRAME_RELINQUISH				25	// ë¬¸ì£¼ ì´ì–‘
+#define NOTICE_FRAME_LEAVE					26	// ë¬¸íŒŒ íƒˆí‡´
+#define NOTICE_FRAME_MARK_DEL				27	// ë¬¸íŒŒë¬¸ìž¥ ì‚­ì œ íš…ë•
 
-// °Å·¡ È·¶¨
-#define NOTICE_FRAME_LIMIT_BUY				28	// ÀÏ¹Ý ±¸¸Å Á¦ÇÑ½Ã
-#define NOTICE_FRAME_LIMIT_PT_BUY			29	// °³ÀÎ ³ëÁ¡ ±¸¸Å Á¦ÇÑ½Ã
-#define NOTICE_FRAME_LIMIT_SELL				30	// ÆÇ¸Å Á¦ÇÑ½Ã
+// ê±°ëž˜ íš…ë•
+#define NOTICE_FRAME_LIMIT_BUY				28	// ì¼ë°˜ êµ¬ë§¤ ì œí•œì‹œ
+#define NOTICE_FRAME_LIMIT_PT_BUY			29	// ê°œì¸ ë…¸ì  êµ¬ë§¤ ì œí•œì‹œ
+#define NOTICE_FRAME_LIMIT_SELL				30	// íŒë§¤ ì œí•œì‹œ
 
-// ¾ÆÀÌÅÛ º¹±¸
-#define NOTICE_FRAME_RECOVERY1				31	// ¾ÆÀÌÅÛ º¹±¸
-#define NOTICE_FRAME_RECOVERY2				32	// ¾ÆÀÌÅÛ º¹±¸ - ¼Ò¸ê½Ã
+// ì•„ì´í…œ ë³µêµ¬
+#define NOTICE_FRAME_RECOVERY1				31	// ì•„ì´í…œ ë³µêµ¬
+#define NOTICE_FRAME_RECOVERY2				32	// ì•„ì´í…œ ë³µêµ¬ - ì†Œë©¸ì‹œ
 
-// Àý¿¬ºÎ
-#define NOTICE_FRAME_SEVER_RELATION1		33	// Àý¿¬ºÎ ¼±ÅÃ
-#define NOTICE_FRAME_SEVER_RELATION2		34	// Àý¿¬ºÎ È·¶¨
+// ì ˆì—°ë¶€
+#define NOTICE_FRAME_SEVER_RELATION1		33	// ì ˆì—°ë¶€ ì„ íƒ
+#define NOTICE_FRAME_SEVER_RELATION2		34	// ì ˆì—°ë¶€ íš…ë•
 
-// ¹®ÆÄ´ëÀü
-#define NOTICE_FRAME_CLAN_WAR_APPLY			35	// ¹®ÆÄ´ëÀü Âü¿© ½ÅÃ»
-#define NOTICE_FRAME_CLAN_WAR_REWARD		36	// ¹®ÆÄ´ëÀü ¿ì½Â »ó±Ý
+// ë¬¸íŒŒëŒ€ì „
+#define NOTICE_FRAME_CLAN_WAR_APPLY			35	// ë¬¸íŒŒëŒ€ì „ ì°¸ì—¬ ì‹ ì²­
+#define NOTICE_FRAME_CLAN_WAR_REWARD		36	// ë¬¸íŒŒëŒ€ì „ ìš°ìŠ¹ ìƒê¸ˆ
 
-#define NOTICE_FRAME_MUGONG					37	//HO_0329_07 ¹«°ø ½Àµæ ¿©ºÎ Ãß°¡
+#define NOTICE_FRAME_MUGONG					37	//HO_0329_07 ë¬´ê³µ ìŠµë“ ì—¬ë¶€ ì¶”ê°€
 
-//#define NOTICE_FRAME_REBIRTH				37  // °¢¼ºÁ¦ »ç¿ë
-//#define NOTICE_FRAME_REBIRTH_SUCCESS		38	// °¢¼ºÁ¦ »ç¿ë ¼º°ø
+//#define NOTICE_FRAME_REBIRTH				37  // ê°ì„±ì œ ì‚¬ìš©
+//#define NOTICE_FRAME_REBIRTH_SUCCESS		38	// ê°ì„±ì œ ì‚¬ìš© ì„±ê³µ
 
-#define NOTiCE_FRAME_DANCOMMIT				39	//HT_0423 : ´ÜÁÖ À§ÀÓ
+#define NOTiCE_FRAME_DANCOMMIT				39	//HT_0423 : ë‹¨ì£¼ ìœ„ìž„
 
-#define NOTICE_FRAME_ENDGAME				40  //HO_0816_07 Á¾·á ±â´É Ãß°¡
-#define NOTICE_FRAME_ITEMDROP				41  //HO_0816_07 ¾ÆÀÌÅÛ µå¶ø½Ã È·¶¨
+#define NOTICE_FRAME_ENDGAME				40  //HO_0816_07 ì¢…ë£Œ ê¸°ëŠ¥ ì¶”ê°€
+#define NOTICE_FRAME_ITEMDROP				41  //HO_0816_07 ì•„ì´í…œ ë“œëžì‹œ íš…ë•
 
 
 
@@ -75,50 +75,50 @@
 // PopMenu
 //////////////////////////////////////////////
 
-// ¸µ¸Þ´º ÇÁ·¹ÀÓ ¾ÆÀÌµð
-#define FRAMEID_PC			10001	// ´ëÈ­, °Å·¡, °ü°è
-#define FRAMEID_NPC			10002	// ¼ö¸®, °Å·¡, °³Á¶
-#define FRAMEID_PET			10003	// »óÅÂ, Æ¯¼ö, AI
-#define FRAMEID_STONE		10004	// ¹®ÆÄÀü ºñ¼®
-#define FRAMEID_OFFICIAL	10005	// Á¤»ç°ü NPC
-#define FRAMEID_ALCHEMIST	10006	// ¿¬±Ý¼ú»ç NPC ( ´ëÈ­, Á¶ÇÕ, Á¦·Ã )
-#define FRAMEID_HELP		10007	// µµ¿ì¹Ì NPC (»ó¼­·É)
-#define FRAMEID_NPC_PORTAL	10008	// NPC Æ÷Å» ÀÌµ¿ »ó¼­·É
-#define FRAMEID_HELP_2		10009	// ¼º³à
-#define FRAMEID_CLAN_WAR	10010	// ¹®ÆÄ´ëÀü °ü¸®ÀÎ
-#define FRAMEID_REBIRTHITEM	10011	//HT_1116 : °¢¼ºÀÚ ¾ÆÀÌÅÛ Ãß°¡
+// ë§ë©”ë‰´ í”„ë ˆìž„ ì•„ì´ë””
+#define FRAMEID_PC			10001	// ëŒ€í™”, ê±°ëž˜, ê´€ê³„
+#define FRAMEID_NPC			10002	// ìˆ˜ë¦¬, ê±°ëž˜, ê°œì¡°
+#define FRAMEID_PET			10003	// ìƒíƒœ, íŠ¹ìˆ˜, AI
+#define FRAMEID_STONE		10004	// ë¬¸íŒŒì „ ë¹„ì„
+#define FRAMEID_OFFICIAL	10005	// ì •ì‚¬ê´€ NPC
+#define FRAMEID_ALCHEMIST	10006	// ì—°ê¸ˆìˆ ì‚¬ NPC ( ëŒ€í™”, ì¡°í•©, ì œë ¨ )
+#define FRAMEID_HELP		10007	// ë„ìš°ë¯¸ NPC (ìƒì„œë ¹)
+#define FRAMEID_NPC_PORTAL	10008	// NPC í¬íƒˆ ì´ë™ ìƒì„œë ¹
+#define FRAMEID_HELP_2		10009	// ì„±ë…€
+#define FRAMEID_CLAN_WAR	10010	// ë¬¸íŒŒëŒ€ì „ ê´€ë¦¬ì¸
+#define FRAMEID_REBIRTHITEM	10011	//HT_1116 : ê°ì„±ìž ì•„ì´í…œ ì¶”ê°€
 
-// ¸µ¼­ºê¸Þ´º ÇÁ·¹ÀÓ ¾ÆÀÌµð
+// ë§ì„œë¸Œë©”ë‰´ í”„ë ˆìž„ ì•„ì´ë””
 #define FRAMEID_PC_RELATION	20004	// from FRAMEID_NPC
 #define FRAMEID_PET_AI		20005	// from FRAMEID_PET
 #define FRAMEID_PET_SPECIAL	20006
-#define FRAMEID_STONE_SUB_1	20007	// ¹®ÆÄÀü ºñ¼® ¼­ºê °ü¸®
-#define FRAMEID_STONE_SUB_2	20008	// ¹®ÆÄÀü ºñ¼® ¼­ºê °æÁ¦
-#define FRAMEID_STONE_SUB_3	20009	// ¹®ÆÄÀü ºñ¼® ¼­ºê ½ÅÃ»
-#define FRAMEID_PC_TRADE 	20010	// °Å·¡ ¼±ÅÃ ¼­ºê	FRAMEID_PC_RELATION => FRAMEID_PC_TRADE
-#define FRAMEID_LOTTO		20011	// º¹±Ç ¼­ºê
-#define FRAMEID_SECRET		20012	//HT_0313 : ±¤¸íÀü & ÃµÈ²Àü 
+#define FRAMEID_STONE_SUB_1	20007	// ë¬¸íŒŒì „ ë¹„ì„ ì„œë¸Œ ê´€ë¦¬
+#define FRAMEID_STONE_SUB_2	20008	// ë¬¸íŒŒì „ ë¹„ì„ ì„œë¸Œ ê²½ì œ
+#define FRAMEID_STONE_SUB_3	20009	// ë¬¸íŒŒì „ ë¹„ì„ ì„œë¸Œ ì‹ ì²­
+#define FRAMEID_PC_TRADE 	20010	// ê±°ëž˜ ì„ íƒ ì„œë¸Œ	FRAMEID_PC_RELATION => FRAMEID_PC_TRADE
+#define FRAMEID_LOTTO		20011	// ë³µê¶Œ ì„œë¸Œ
+#define FRAMEID_SECRET		20012	//HT_0313 : ê´‘ëª…ì „ & ì²œí™©ì „ 
 
-// ´Üµ¶ÀûÀÎ ¸µ¼­ºê¸Þ´º ÇÁ·¹ÀÓ ¾ÆÀÌµð(ÄÞº¸¸Þ´º)
-#define FRAMEID_BONBINITEM	30004	// ºÀÀÎ ¾ÆÀÌÅÛ ´­·¶À»¶§
+// ë‹¨ë…ì ì¸ ë§ì„œë¸Œë©”ë‰´ í”„ë ˆìž„ ì•„ì´ë””(ì½¤ë³´ë©”ë‰´)
+#define FRAMEID_BONBINITEM	30004	// ë´‰ì¸ ì•„ì´í…œ ëˆŒë €ì„ë•Œ
 #define FRAMEID_WAR_DAY		30005
 #define FRAMEID_STONE_MOVE	30006
-#define FRAMEID_PURSE		30014	// ¾ÆÀÌÅÛ¸ô Àü³¶
-#define FRAMEID_REVIVAL		30015	// Æê º¹±¸ ¸®½ºÆ®
-#define FRAMEID_CRYOLITE	30016	// ºùÁ¤ ºÀÀÎ
-#define FRAMEID_LOTTOCHECK	30017	// º¹±Ç¾ÆÀÌÅÛ ´çÃ·È·¶¨/´çÃ·±Ý¼ö·É
+#define FRAMEID_PURSE		30014	// ì•„ì´í…œëª° ì „ë‚­
+#define FRAMEID_REVIVAL		30015	// íŽ« ë³µêµ¬ ë¦¬ìŠ¤íŠ¸
+#define FRAMEID_CRYOLITE	30016	// ë¹™ì • ë´‰ì¸
+#define FRAMEID_LOTTOCHECK	30017	// ë³µê¶Œì•„ì´í…œ ë‹¹ì²¨íš…ë•/ë‹¹ì²¨ê¸ˆìˆ˜ë ¹
 
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-// ¸®¼Ò½º ID
-// FRAMEID_PCÀÇ ¸®¼Ò½º ¾ÆÀÌµð
+// ë¦¬ì†ŒìŠ¤ ID
+// FRAMEID_PCì˜ ë¦¬ì†ŒìŠ¤ ì•„ì´ë””
 #define RESID_COMMUNICATION	455
 #define RESID_TRADE			459
 #define RESID_RELATION		463
-// FRAMEID_NPCÀÇ ¸®¼Ò½º ¾ÆÀÌµð
+// FRAMEID_NPCì˜ ë¦¬ì†ŒìŠ¤ ì•„ì´ë””
 #define RESID_REPAIR		467
-#define RESID_TEACHER		483		// ¹®ÆÄÀü ½ÅÃ»
+#define RESID_TEACHER		483		// ë¬¸íŒŒì „ ì‹ ì²­
 #define RESID_MODIFY		857
 
 #define RESID_ITEMMALL		1086
@@ -126,24 +126,24 @@
 #define RESID_QUEST_COMM	1097
 #define RESID_QUEST_FIGHT	1101
 
-#define RESID_ACQUIT		1186	// ¸éÁË
-#define RESID_DONATE		1190	// ±âºÎ
-#define RESID_ADMINISTER	1194	// °ü¸®
-#define RESID_LOTTO			1278	// º¹±Ç
-#define RESID_MIXTURE		1292	// Á¶ÇÕ
-#define RESID_REFINE		1296	// Á¦·Ã
-#define RESID_RECORD		483		// µî·Ï	
+#define RESID_ACQUIT		1186	// ë©´ì£„
+#define RESID_DONATE		1190	// ê¸°ë¶€
+#define RESID_ADMINISTER	1194	// ê´€ë¦¬
+#define RESID_LOTTO			1278	// ë³µê¶Œ
+#define RESID_MIXTURE		1292	// ì¡°í•©
+#define RESID_REFINE		1296	// ì œë ¨
+#define RESID_RECORD		483		// ë“±ë¡	
 
 
-// FRAMEID_PETÀÇ ¸®¼Ò½º ¾ÆÀÌµð
+// FRAMEID_PETì˜ ë¦¬ì†ŒìŠ¤ ì•„ì´ë””
 #define RESID_STATUS		837
 #define RESID_SPECIAL		841
 #define RESID_AI			861
 
-// FRAMEID_POPUP_SUBMENUÀÇ ¸®¼Ò½º
+// FRAMEID_POPUP_SUBMENUì˜ ë¦¬ì†ŒìŠ¤
 #define FRAMEID_POPUP_SUBMENU 865
-/*//¾Æ·¡´Â ¾È¾²ÀÓ
-// FRAMEID_PC_RELATIONÀÇ ¸®¼Ò½º
+/*//ì•„ëž˜ëŠ” ì•ˆì“°ìž„
+// FRAMEID_PC_RELATIONì˜ ë¦¬ì†ŒìŠ¤
 #define RESID_DAN			471
 #define RESID_ADOPT			475
 #define RESID_FRIEND		479
@@ -151,13 +151,13 @@
 #define RESID_CLAN			491
 
 */
-// COMBO_POPUP ¸®¼Ò½º
+// COMBO_POPUP ë¦¬ì†ŒìŠ¤
 #define RESID_COMBO			964
 #define RESID_COMBO_2		1183
 
 
 
-/////////// ¾ÆÀÌÄÜ ¸®¼Ò½º ¾ÆÀÌµð
+/////////// ì•„ì´ì½˜ ë¦¬ì†ŒìŠ¤ ì•„ì´ë””
 #define RESID_ICON_HAT		885
 #define RESID_ICON_NECK		886
 #define RESID_ICON_WEAPON	887
@@ -168,12 +168,12 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 // Event Type
-// °¢Àû ÀÎÅÍÆäÀÌ½º - ¹®ÆÄ°øÁö
+// ê°ì  ì¸í„°íŽ˜ì´ìŠ¤ - ë¬¸íŒŒê³µì§€
 #define GAK_MSG_WINDOW_MSG		0
 #define GAK_MSG_WINDOW_MUNPA	1
 
-#define WINDOW_MONEY_PCTRADE	1	// °³ÀÎ³ëÁ¡ °¡°Ý¼³Á¤
-#define WINDOW_MONEY_LOTTO		2	// º¹±Ç ´çÃ·±Ý¾× ¼ö·É
+#define WINDOW_MONEY_PCTRADE	1	// ê°œì¸ë…¸ì  ê°€ê²©ì„¤ì •
+#define WINDOW_MONEY_LOTTO		2	// ë³µê¶Œ ë‹¹ì²¨ê¸ˆì•¡ ìˆ˜ë ¹
 
-#define WINDOW_NPC_PORTAL		1	// NPC Æ÷Å» ÀÌµ¿ »ó¼­·É
-#define WINDOW_NPC_PORTAL__WAR	2	// NPC Æ÷Å» ÀÌµ¿(¹®ÆÄ´ëÀü½Ã-¹®ÆÄ´ëÀü °ü¸®ÀÎ)
+#define WINDOW_NPC_PORTAL		1	// NPC í¬íƒˆ ì´ë™ ìƒì„œë ¹
+#define WINDOW_NPC_PORTAL__WAR	2	// NPC í¬íƒˆ ì´ë™(ë¬¸íŒŒëŒ€ì „ì‹œ-ë¬¸íŒŒëŒ€ì „ ê´€ë¦¬ì¸)

@@ -1,4 +1,4 @@
-#include "precompile.h"
+ï»¿#include "precompile.h"
 #include "resource.h"
 #include "AppData.h"
 #include "relation.h"
@@ -81,7 +81,7 @@ CRelation::~CRelation(void)
 
 void CRelation::DrawCurrSelectedRelation()
 {
-	// ´Ü °æÇèÄ¡ ºĞ¹è
+	// ë‹¨ ê²½í—˜ì¹˜ ë¶„ë°°
 	if((g_pUIManager->IsShow(WINDOW_DAN) || g_pUIManager->IsShow(WINDOW_DAN_NEW)) && m_byCurrIndex)
 	{
 		g_pDirect3DDevice->SetRenderState( D3DRS_ZENABLE, FALSE);
@@ -135,7 +135,7 @@ void CRelation::MakeVB()
 
 	sRect rtRect;
 
-	// ´Ü °æÇèÄ¡ ºĞ¹è
+	// ë‹¨ ê²½í—˜ì¹˜ ë¶„ë°°
 	if(g_pUIManager->IsShow(WINDOW_DAN) || g_pUIManager->IsShow(WINDOW_DAN_NEW))
 	{
 		g_pUIManager->GetRegionData(WINDOW_DAN, dan_window_list_dummy_04 + m_byCurrIndex - 1, rtRect);
@@ -197,7 +197,7 @@ void CRelation::MakeVB()
 
 void CRelation::CheckRelationIndexSelected()
 {
-	// ´Ü °æÇèÄ¡ ºĞ¹è
+	// ë‹¨ ê²½í—˜ì¹˜ ë¶„ë°°
 	if(g_pUIManager->IsShow(WINDOW_DAN) || g_pUIManager->IsShow(WINDOW_DAN_NEW))
 	{
 		for( int i=0; i < 5; ++i)
@@ -217,8 +217,8 @@ void CRelation::CheckRelationIndexSelected()
 			BYTE byFEDivision  = m_byFEDivision;
 			bool bChang = false;
 
-			// °æÇèÄ¡
-			// °øµ¿ ºĞ¹è
+			// ê²½í—˜ì¹˜
+			// ê³µë™ ë¶„ë°°
 			if(g_pUIManager->IsMouseOn(WINDOW_DAN_NEW, window_dan_new_select_button1))
 			{
 				if(byExpDivision == 0)
@@ -228,7 +228,7 @@ void CRelation::CheckRelationIndexSelected()
 				}
 			}
 
-			// °³ÀÎ ºĞ¹è
+			// ê°œì¸ ë¶„ë°°
 			if(g_pUIManager->IsMouseOn(WINDOW_DAN_NEW, window_dan_new_select_button2))
 			{
 				if(byExpDivision == 1)
@@ -238,8 +238,8 @@ void CRelation::CheckRelationIndexSelected()
 				}
 			}
 
-			// ¿ÀÇà °æÇèÄ¡
-			// °øµ¿ ºĞ¹è
+			// ì˜¤í–‰ ê²½í—˜ì¹˜
+			// ê³µë™ ë¶„ë°°
 			if(g_pUIManager->IsMouseOn(WINDOW_DAN_NEW, window_dan_new_select_button3))
 			{
 				if(byFEDivision == 0)
@@ -249,7 +249,7 @@ void CRelation::CheckRelationIndexSelected()
 				}
 			}
 
-			// °³ÀÎ ºĞ¹è
+			// ê°œì¸ ë¶„ë°°
 			if(g_pUIManager->IsMouseOn(WINDOW_DAN_NEW, window_dan_new_select_button4))
 			{
 				if(byFEDivision == 1)
@@ -335,14 +335,14 @@ void CRelation::SetCurrType( eRELATION_TYPE eType, BYTE byCurrPage)
 		{
 			CloseAllWindow();
 
-			// ´Ü °æÇèÄ¡ ºĞ¹è
+			// ë‹¨ ê²½í—˜ì¹˜ ë¶„ë°°
 			if(g_MainCharInfo.m_pRelation->Am_I_InDan())
 			{
 				if( g_MainCharInfo.m_pRelation->Am_I_LeaderInDan())
 				{
 					g_pUIManager->SetString(WINDOW_DAN_NEW, window_dan_new_2button_01, IDS_JEMYUNG);
 					g_pUIManager->SetString(WINDOW_DAN_NEW, window_dan_new_2button_02, IDS_TALTE);
-					g_pUIManager->SetString(WINDOW_DAN_NEW, window_dan_new_1button, IDS_DANCOMMIT); //HT_0423 : ´ÜÁÖ À§ÀÓ
+					g_pUIManager->SetString(WINDOW_DAN_NEW, window_dan_new_1button, IDS_DANCOMMIT); //HT_0423 : ë‹¨ì£¼ ìœ„ì„
 					g_pUIManager->Show(WINDOW_DAN_NEW, window_dan_new_1button);
 					g_pUIManager->Show(WINDOW_DAN_NEW, window_dan_new_2button_01);
 					g_pUIManager->Show(WINDOW_DAN_NEW, window_dan_new_2button_02);
@@ -474,7 +474,7 @@ void CRelation::SetCurrPage( BYTE byPage)
 	{
 	case eDAN:
 		{
-			// ´Ü °æÇèÄ¡ ºĞ¹è
+			// ë‹¨ ê²½í—˜ì¹˜ ë¶„ë°°
 			g_pUIManager->SetString(WINDOW_DAN, dan_window_list_button_dummy, _T(""));
 			g_pUIManager->SetString(WINDOW_DAN_NEW, window_dan_new_button_dummy, _T(""));
 		}
@@ -567,7 +567,7 @@ void CRelation::SetCurrRelation( BYTE byIndex, BOOL bFlag)
 
 					g_pUIManager->SetString(WINDOW_CONNECTION_INFO, info_window_contents_dummy_04, (LPCTSTR)pClanInfo->m_szCharName);
 
-					//150°©ÀÚ ÃÊ°ú½Ã 
+					//150ê°‘ì ì´ˆê³¼ì‹œ 
 					if(pClanInfo->m_wCharLev < 150)
 					{
                         g_pUIManager->SetString(WINDOW_CONNECTION_INFO, info_window_contents_dummy_05, pClanInfo->m_wCharLev);
@@ -580,15 +580,15 @@ void CRelation::SetCurrRelation( BYTE byIndex, BOOL bFlag)
 					LPCTSTR lpStrTemp = NULL;
 					switch(pClanInfo->m_bCharType)
 					{
-					case 1:	// °Ë¿µ
+					case 1:	// ê²€ì˜
 						lpStrTemp = IDS_GUMYONG; break;
-					case 2:	// ¿¬¶û
+					case 2:	// ì—°ë‘
 						lpStrTemp = IDS_YUNRANG; break;
-					case 3:	// ¹«Åõ
+					case 3:	// ë¬´íˆ¬
 						lpStrTemp = IDS_MUTU; break;
-					case 4:	// ¾ßÂ÷
+					case 4:	// ì•¼ì°¨
 						lpStrTemp = IDS_YACHA; break;
-					default:	// ´íÎó
+					default:	// ëŒ„è½
 						lpStrTemp = START_ERROR0; break;
 					} // switch(pClanInfo->m_bCharType)
 
@@ -609,7 +609,7 @@ void CRelation::SetCurrRelation( BYTE byIndex, BOOL bFlag)
 
 BYTE CRelation::GetCurrPage()
 {
-	// ´Ü °æÇèÄ¡ ºĞ¹è
+	// ë‹¨ ê²½í—˜ì¹˜ ë¶„ë°°
 	if(!(g_pUIManager->IsShow(WINDOW_DAN_NEW) || g_pUIManager->IsShow(WINDOW_DAN) || g_pUIManager->IsShow(WINDOW_MUNPA)))
 		return 0;
 
@@ -618,7 +618,7 @@ BYTE CRelation::GetCurrPage()
 
 BYTE CRelation::GetCurrIndex()
 {
-	// ´Ü °æÇèÄ¡ ºĞ¹è
+	// ë‹¨ ê²½í—˜ì¹˜ ë¶„ë°°
 	if(!(g_pUIManager->IsShow(WINDOW_DAN) || g_pUIManager->IsShow(WINDOW_DAN_NEW)))
 		return 0;
 
@@ -627,7 +627,7 @@ BYTE CRelation::GetCurrIndex()
 
 DWORD CRelation::GetCurrRelation()
 {
-	// ´Ü °æÇèÄ¡ ºĞ¹è
+	// ë‹¨ ê²½í—˜ì¹˜ ë¶„ë°°
 	if(g_pUIManager->IsShow(WINDOW_DAN_NEW) || g_pUIManager->IsShow(WINDOW_DAN) || g_pUIManager->IsShow(WINDOW_MUNPA))
 		return m_dwCurrRelation;
 	else
@@ -671,22 +671,22 @@ DWORD CRelation::FindRelationIDByName( LPCTSTR szName)
 //////////////////////////////////////////////////////
 {
 	/*
-	// ´Ü¿¡¼­ Ã£±â
+	// ë‹¨ì—ì„œ ì°¾ê¸°
 	sDanInfo* pDanInfo = FindDanInfoByName( szName);
 	if( pDanInfo)
 		return pDanInfo->m_dwCharID;
 
-	// ÀÎ¿¬¿¡¼­ Ã£±â
+	// ì¸ì—°ì—ì„œ ì°¾ê¸°
 	sShipInfo* pShipInfo = FindShipInfoByName( szName);
 	if( pShipInfo)
 		return pShipInfo->m_dwCharID;
 
-	// ¹®ÆÄ¿¡¼­ Ã£±â
+	// ë¬¸íŒŒì—ì„œ ì°¾ê¸°
 	sClanWonInfo* pClanInfo = FindClanInfoByName( szName);
 	if( pClanInfo)
 		return pClanInfo->m_dwCharID;
 */
-	// whisper¸ñ·Ï¿¡¼­ Ã£±â
+	// whisperëª©ë¡ì—ì„œ ì°¾ê¸°
 	int nSize = m_vWhisper.size();
 
 	for( int i=0 ;i < nSize; i++)
@@ -749,7 +749,7 @@ void CRelation::InsertWhisperInfo( DWORD dwCharID, sString szNickName)
 	}
 
 	if( m_vWhisper.size() > 5)
-		m_vWhisper.pop_back();	// ¿Ö pop_front°¡ ¾ø´Â°Å¾ß Äô!
+		m_vWhisper.pop_back();	// ì™œ pop_frontê°€ ì—†ëŠ”ê±°ì•¼ ì¿µ!
 
 	sWhisperInfo* pInfo = new sWhisperInfo;
 	pInfo->m_dwCharID = dwCharID;

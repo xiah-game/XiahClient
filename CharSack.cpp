@@ -1,4 +1,4 @@
-#include "precompile.h"
+ï»¿#include "precompile.h"
 #include "charsack.h"
 #include "CharacterInfo.h"
 #include "XiahGame_Main.h"
@@ -26,17 +26,17 @@ CCharSack::CCharSack( BYTE bySackType, BYTE bySackXSize, BYTE bySackYSize)
 		m_vecItemTex.push_back( NULL);
 		m_vecItemRt.push_back( NULL);
 
-		// Á¦·Ã
+		// ì œë ¨
 		m_vecItemSocketVB.push_back(NULL);
 
 		m_vecSocketItem1VB.push_back(NULL);
 		m_vecSocketItem2VB.push_back(NULL);
 		m_vecSocketItem3VB.push_back(NULL);
-		m_vecRBSocketItemVB.push_back(NULL);//HT_1116 : °¢¼ºÀÚ ¾ÆÀÌÅÛ Ãß°¡
+		m_vecRBSocketItemVB.push_back(NULL);//HT_1116 : ê°ì„±ì ì•„ì´í…œ ì¶”ê°€
 		m_vecRBItemStoneVB.push_back(NULL);
 	}
 
-	// character sack cell ¿µ¿ª
+	// character sack cell ì˜ì—­
 	SetSackRegion();
 }
 
@@ -91,15 +91,15 @@ void CCharSack::SetSackRegion()
 					DBG_LogFile( _T("Charsack Lock fail"));
 				}
 
-				// textrue ¼¼ÆÃ
+				// textrue ì„¸íŒ…
 				m_pMoneyTex = Gettex( 50000319);
 			}			
 			break;
 		case SACKTYPE__NPC_TRADE:
-		case SACKTYPE__ITEMMALL:	// ¾ÆÀÌÅÛ¸ô
+		case SACKTYPE__ITEMMALL:	// ì•„ì´í…œëª°
 		case SACKTYPE__DEPOSIT:
 		case SACKTYPE__PERSONAL_TRADE_SELL:
-		case SACKTYPE__QUICKMART:	// ¸ÅÇ°ÆĞ
+		case SACKTYPE__QUICKMART:	// ë§¤í’ˆíŒ¨
 			g_pUIManager->GetRegionData(WINDOW_NPC_TRADE, npc_trade_window_dummy_01, rtRegion);
 			break;
 		case SACKTYPE__PC_TRADE_MINE:
@@ -114,7 +114,7 @@ void CCharSack::SetSackRegion()
 		case SACKTYPE__PERSONAL_TRADE_SET:
 			g_pUIManager->GetRegionData(WINDOW_PC_STORE, pc_store_box_dummy_01, rtRegion);
 			break;
-		case SACKTYPE__SMELT:			// Á¶ÇÕ
+		case SACKTYPE__SMELT:			// ì¡°í•©
 			g_pUIManager->GetRegionData(WINDOW_SMELT, smelt_window_bummy_01, rtRegion);		
 			break;
 	} // switch( m_bySackType)
@@ -122,7 +122,7 @@ void CCharSack::SetSackRegion()
 	m_nFirstCellXPos = rtRegion.left;
 	m_nFirstCellYPos = rtRegion.top;
 
-	// character sack ÀüÃ¼ ¿µ¿ª
+	// character sack ì „ì²´ ì˜ì—­
 	m_SackRt.left	= rtRegion.left;
 	m_SackRt.top	= rtRegion.top;
 	m_SackRt.right	= m_SackRt.left + m_bySackXSize * ( DEFAULT_CELL_XSIZE + DEFAULT_CELL_DISTANCE);
@@ -165,7 +165,7 @@ void CCharSack::SetSackRegion()
 			DBG_LogFile( _T("Charsack Lock fail"));
 		}
 
-		// textrue ¼¼ÆÃ
+		// textrue ì„¸íŒ…
 		m_pMoneyTex = Gettex( 50000319);
 	}
 	*/
@@ -229,11 +229,11 @@ BOOL CCharSack::CheckItemUnSelected()
 				case SACKTYPE__NPC_TRADE:
 				case SACKTYPE__DEPOSIT:
 				case SACKTYPE__ITEMMALL:
-				case SACKTYPE__QUICKMART:			// ¸ÅÇ°ÆĞ
+				case SACKTYPE__QUICKMART:			// ë§¤í’ˆíŒ¨
 					g_pUIManager->GetRegionData(WINDOW_NPC_TRADE, npc_trade_window_dummy_01 + i, temp);
 					break;
 
-				case SACKTYPE__PERSONAL_TRADE_SET: // °³ÀÎ »óÁ¡ ¼³Á¤
+				case SACKTYPE__PERSONAL_TRADE_SET: // ê°œì¸ ìƒì  ì„¤ì •
 					g_pUIManager->GetRegionData(WINDOW_PC_STORE, pc_store_box_dummy_01 + i, temp);
 					break;
 				case SACKTYPE__PC_TRADE_MINE:
@@ -253,7 +253,7 @@ BOOL CCharSack::CheckItemUnSelected()
 						return true;
 					}				
 					break;
-				case SACKTYPE__SMELT:	// Á¶ÇÕ
+				case SACKTYPE__SMELT:	// ì¡°í•©
 					g_pUIManager->GetRegionData(WINDOW_SMELT, smelt_window_bummy_01 + i, temp);
 					break;
 			}
@@ -276,7 +276,7 @@ BOOL CCharSack::CheckItemUnSelected()
  */
 void CCharSack::DeleteItem( BYTE bSackPos, bool bDelete)
 {
-	// ´©¼ö ¼öÁ¤
+	// ëˆ„ìˆ˜ ìˆ˜ì •
 //	if( m_bySackType == SACKTYPE__NPC_TRADE)
 //		return;
 
@@ -315,12 +315,12 @@ void CCharSack::SetVB( BYTE nPosition, XiahItem::sItemInfo* pItem)
  */
 XiahItem::sItemInfo* CCharSack::FindSackItemByPos( int nPosition)
 {
-	// À§Ä¡ ÃÊ°ú½Ã °Ë»ç
+	// ìœ„ì¹˜ ì´ˆê³¼ì‹œ ê²€ì‚¬
 	if(nPosition == 0xff || nPosition >= m_bySackTotalSize)
 		return NULL;
 
-	// ¾ÆÀÌÅÛÀÇ Å©±â¸¦ °è»êÇÑ Æ÷Áö¼Ç °ªÀ» °è»ê
-	// defaultÇà³¶ÀÇ Å©±â 2*2ÀÎ ¾ÆÀÌÅÛ¸¸ °è»ê
+	// ì•„ì´í…œì˜ í¬ê¸°ë¥¼ ê³„ì‚°í•œ í¬ì§€ì…˜ ê°’ì„ ê³„ì‚°
+	// defaultí–‰ë‚­ì˜ í¬ê¸° 2*2ì¸ ì•„ì´í…œë§Œ ê³„ì‚°
 	//int temp[ m_bySackTotalSize];
 	int* temp = (int*)malloc( sizeof(int) * m_bySackTotalSize);
 
@@ -370,7 +370,7 @@ XiahItem::sItemInfo* CCharSack::FindSackItemByPos( int nPosition)
 
 void CCharSack::RefreshSackPos()
 {
-	if(m_bySackType == SACKTYPE__PERSONAL_TRADE_SET) // ÀÌ·± ¸ô¶ó ÀÌ»óÇÑ ±¸Á¶¶ó¼­ ¸ô¶ó.
+	if(m_bySackType == SACKTYPE__PERSONAL_TRADE_SET) // ì´ëŸ° ëª°ë¼ ì´ìƒí•œ êµ¬ì¡°ë¼ì„œ ëª°ë¼.
 	{
 		SetSackRegion();
 	}

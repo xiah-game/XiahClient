@@ -1,4 +1,4 @@
-#include "precompile.h"
+ï»¿#include "precompile.h"
 #include "XiahGame_Main.h"
 #include "XiahObject.h"
 #include "XiahGameObject.h"
@@ -42,19 +42,19 @@ BOOL FadeTrigger_MapMove(DWORD nIndex)
 	return TRUE;
 };
 
-WORD	g_wDiePosX, g_wDiePosY;	// ¾Ñ½Î ÇÏµåÄÚµù
+WORD	g_wDiePosX, g_wDiePosY;	// ì•—ì‹¸ í•˜ë“œì½”ë”©
 
 BOOL FadeTrigger_MainCharDie(DWORD nIndex)
 {
 	SendCS_NV_MAPMOVE_REQ( XiahMap::g_XiahMap.m_MapInfo.m_dwMapID, g_wDiePosX, g_wDiePosY);
-	// Á×¾úÀ¸´Ï±î µı°÷À¸·Î ÀÌµ¿ÇØ ´Ş¶ó°í ¿äÃ»ÇÑ´Ù
+	// ì£½ì—ˆìœ¼ë‹ˆê¹Œ ë”´ê³³ìœ¼ë¡œ ì´ë™í•´ ë‹¬ë¼ê³  ìš”ì²­í•œë‹¤
 	return TRUE;
 };
 
-// ³»°¡ Á×À¸¸é ¸î ÃÊ ÈÄ¿¡ mapinfo¸¦ º¸³»±â À§ÇØ¼­ ÀÌ°É »ç¿ë.
+// ë‚´ê°€ ì£½ìœ¼ë©´ ëª‡ ì´ˆ í›„ì— mapinfoë¥¼ ë³´ë‚´ê¸° ìœ„í•´ì„œ ì´ê±¸ ì‚¬ìš©.
 BOOL FadeTrigger_MainCharMapEnterAfterDie(DWORD nIndex)
 {
-	// 2004.07.20 ÀÌº¥Æ®¿ë ·ÎµùÈ­¸é
+	// 2004.07.20 ì´ë²¤íŠ¸ìš© ë¡œë”©í™”ë©´
 	/*
 	if( rand() % 2 )
 		g_MainCharInfo.OpenFrame( EVENT_LOADING_1 );
@@ -62,10 +62,10 @@ BOOL FadeTrigger_MainCharMapEnterAfterDie(DWORD nIndex)
 		g_MainCharInfo.OpenFrame( EVENT_LOADING_2 );
 	*/
 
-	g_MainCharInfo.OpenFrame(LOADING_IMAGE3); //HO_0702_07 µî±ŞÇ¥½Ã : µî±ŞÇ¥½Ã¿Í ÇÔ°Ô ½ºÅ¸Æ®·Îµù°ú °ÔÀÓ·Îµù ºÎºĞÀÌ µ¿ÀÏ ÀÌ¹ÌÁö·Î Ã³¸®µÈ´Ù.
+	g_MainCharInfo.OpenFrame(LOADING_IMAGE3); //HO_0702_07 ë“±ê¸‰í‘œì‹œ : ë“±ê¸‰í‘œì‹œì™€ í•¨ê²Œ ìŠ¤íƒ€íŠ¸ë¡œë”©ê³¼ ê²Œì„ë¡œë”© ë¶€ë¶„ì´ ë™ì¼ ì´ë¯¸ì§€ë¡œ ì²˜ë¦¬ëœë‹¤.
 
-	//µî±ŞÇ¥½Ã Àû¿ëÀü ÄÚµå ³ªÁß¿¡ Áö¿ö ¹ö¸®ÀÚ ..; µî±ŞÇ¥½Ã Àü¿¡´Â ³ªÀÌ ±¸ºĞÀÌ ÀÖ¾ù´Ù...
-	// ¼ºÀÎ¼­¹ö¿ë·Îµù
+	//ë“±ê¸‰í‘œì‹œ ì ìš©ì „ ì½”ë“œ ë‚˜ì¤‘ì— ì§€ì›Œ ë²„ë¦¬ì ..; ë“±ê¸‰í‘œì‹œ ì „ì—ëŠ” ë‚˜ì´ êµ¬ë¶„ì´ ìˆì—‡ë‹¤...
+	// ì„±ì¸ì„œë²„ìš©ë¡œë”©
 	//if(g_AppData.m_bAdult)
 	//	g_MainCharInfo.OpenFrame(LOADING_IMAGE2);
 	//else
@@ -73,7 +73,7 @@ BOOL FadeTrigger_MainCharMapEnterAfterDie(DWORD nIndex)
 
 	SendCS_IT_MAPINFO_REQ( XiahMap::g_XiahMap.m_MapInfo.m_dwMapID );
 
-	//	Æ÷Å» move¿Í ¸¶Âù°¡Áö·Î ±âÁ¸ÀÇ activeÇÑ map objectµéÀ» È¦¶û ´Ù Áö¿ö ÁØ´Ù
+	//	í¬íƒˆ moveì™€ ë§ˆì°¬ê°€ì§€ë¡œ ê¸°ì¡´ì˜ activeí•œ map objectë“¤ì„ í™€ë‘ ë‹¤ ì§€ì›Œ ì¤€ë‹¤
 	CXiahGame_Main *pGameMainStep = (CXiahGame_Main*)g_GameStep[ GAMESTEP_GAME];
 //	pGameMainStep->m_VisibleXiahObjectList.clear();
 	pGameMainStep->m_VisibleXiahObjectListNoAlpha.clear();
@@ -84,7 +84,7 @@ BOOL FadeTrigger_MainCharMapEnterAfterDie(DWORD nIndex)
 
 	XiahObject::g_XiahObjectManager.ReleaseAllObjectExceptMainChar();
 
-	// ÇöÀç ºñ, ´« »óÅÂ¸¦ ÃÊ±âÈ­.
+	// í˜„ì¬ ë¹„, ëˆˆ ìƒíƒœë¥¼ ì´ˆê¸°í™”.
 	g_RainSnow.AllStop();
 
 	return TRUE;
@@ -112,9 +112,9 @@ extern BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode);
 
 extern BOOL ProcessCursor();
 //extern BOOL ProcessClientHelpMessage();
-// ÀÚµ¿ ÀÌµ¿Àº ¸¶Áö¸·¿¡ Object Interactionµµ Æ÷ÇÔµÈ´Ù
-// mode°¡ 0ÀÌ¸é AutoNavigation½ÃÀÛ
-// 1ÀÌ¸é update
+// ìë™ ì´ë™ì€ ë§ˆì§€ë§‰ì— Object Interactionë„ í¬í•¨ëœë‹¤
+// modeê°€ 0ì´ë©´ AutoNavigationì‹œì‘
+// 1ì´ë©´ update
 extern BOOL ProcessAutoNavigation(int mode);
 
 
@@ -140,23 +140,23 @@ extern BOOL ProcessAutoNavigation(int mode);
 ..............................................................................................................
 *************************************************************************************************************/
 
-// ÁÖÀÎ°ø Ä³¸¯ÅÍ°¡ ¸Õ°¡¶û ºÎ‹HÇûÀ»¶§
+// ì£¼ì¸ê³µ ìºë¦­í„°ê°€ ë¨¼ê°€ë‘ ë¶€ë”«í˜”ì„ë•Œ
 int OnCollided_MainChar(unsigned long)
 {
-	if( g_pMainChar == NULL) // ¾îÂŞ±¸¸® ¤Ñ,,¤Ñ
+	if( g_pMainChar == NULL) // ì–´ì­ˆêµ¬ë¦¬ ã…¡,,ã…¡
 		return 0;
 
 	CXiahCharObject* pMainChar = (CXiahCharObject*)g_pMainChar->m_pObject;
 #ifdef TRACE_LOG
 	if(pMainChar == NULL)
 	{
-		DBG_LogFile( _T("OnCollided_MainChar ½ÇÆĞ"));
+		DBG_LogFile( _T("OnCollided_MainChar ì‹¤íŒ¨"));
 	}
 #endif
 	SendCS_NV_ENDMOVE_REQ( g_pMainChar->m_dwServerID, pMainChar->m_Position.x, -pMainChar->m_Position.z, pMainChar->m_Position.y,CHARSTATE_NORMAL);
 	pMainChar->SetAnimation( XiahAniType::eLAT_Stand, 0);
 
-	// ÀÚµ¿ ÀÌµ¿ Ãë¼Ò
+	// ìë™ ì´ë™ ì·¨ì†Œ
 	dwSelObjectID = 0;
 	dwSelObjectType = 0;
 	bAutoAttack			= FALSE;
@@ -165,7 +165,7 @@ int OnCollided_MainChar(unsigned long)
 	g_MainChar_PreAttackInfo.nRemainAttackCount	 = 0;
 	g_MainChar_PreAttackInfo.dwLastPreAttackTime = 0;
 
-	return 1;	// ÇÏ´øÁş ±×¸¸µÖ¶ó~!
+	return 1;	// í•˜ë˜ì§“ ê·¸ë§Œë‘¬ë¼~!
 }
 
 int OnTimer_MainChar(unsigned long type)
@@ -176,18 +176,18 @@ int OnTimer_MainChar(unsigned long type)
 #ifdef TRACE_LOG
 	if(pMainChar == NULL)
 	{
-		DBG_LogFile( _T("OnTimer_MainChar ½ÇÆĞ"));
+		DBG_LogFile( _T("OnTimer_MainChar ì‹¤íŒ¨"));
 	}
 #endif
 	if( pMainChar->m_bAttack)
 	{
-		// °ø°İ¿ë Trigger´å!
+		// ê³µê²©ìš© Triggerë‹·!
 
 		switch( pMainChar->m_bAttackType)
 		{
-		case 0: //ÀÏ¹İ °ø°İ
+		case 0: //ì¼ë°˜ ê³µê²©
 
-			//HT_1026 : ½ºÇÙ ¹æÁö
+			//HT_1026 : ìŠ¤í•µ ë°©ì§€
 		//	if(g_MainChar_PreAttackInfo.bAttackReq)
 		//	{
 				SendCS_BT_ATTACK_REQ(g_MainChar_PreAttackInfo.bAttackType, 
@@ -206,7 +206,7 @@ int OnTimer_MainChar(unsigned long type)
 				g_MainChar_PreAttackInfo.dwLastPreAttackTime = g_dwCurTime;
 		//	}
 			break;
-		case 1: // ¹«°ø °ø°İ
+		case 1: // ë¬´ê³µ ê³µê²©
 			SendCS_BT_MUGONGATTACK_REQ( g_MainChar_MugongPreAttackInfo.dwMugongID, 
 										g_MainChar_MugongPreAttackInfo.bAttackType, 
 										g_MainChar_MugongPreAttackInfo.dwAttackID, 
@@ -232,7 +232,7 @@ int OnEndTargetMove_MainChar(unsigned long param)
 #ifdef TRACE_LOG
 	if(pMainChar == NULL)
 	{
-		DBG_LogFile( _T("OnEndTargetMove_MainChar ½ÇÆĞ"));
+		DBG_LogFile( _T("OnEndTargetMove_MainChar ì‹¤íŒ¨"));
 	}
 #endif
 //	pMainChar->SetAnimation( XiahAniType::eLAT_Stand, 0);
@@ -250,7 +250,7 @@ int OnUpdateTargetDecal(unsigned long object)
 #ifdef TRACE_LOG
 	if(pObject == NULL)
 	{
-		DBG_LogFile( _T("OnUpdateTargetDecal ½ÇÆĞ"));
+		DBG_LogFile( _T("OnUpdateTargetDecal ì‹¤íŒ¨"));
 	}
 #endif
 	Vector3 pos = pObject->m_Position;
@@ -287,18 +287,18 @@ int OnUpdateTargetDecal(unsigned long object)
 #define CLIENT_HELP_MESSAGE_COUNT 12
 LPCTSTR ClientHelpMessage[CLIENT_HELP_MESSAGE_COUNT] =
 {
-	_T("Å¬¶óÀÌ¾ğÆ® ÄÁÆ®·Ñ ÀÎÅÍÆäÀÌ½º°¡ ´ëÆø ¼öÁ¤ µÇ¾ú½À´Ï´Ù."),
-	_T("¸ğµç ±âº» ¾×¼ÇÀº ¸¶¿ì½º ¿ŞÂÊ ¹öÆ°À¸·Î ÇÒ ¼ö ÀÖµµ·Ï ÇÏ¿´½À´Ï´Ù."),
-	_T("¹«°ø ¹× PC°£ ´ëÈ­¿¡¼­¸¸ ¸¶¿ì½º ¿À¸¥ÂÊ ¹öÆ°ÀÌ »ç¿ëµË´Ï´Ù."),
-	_T("NPC¸¦ ¸¶¿ì½º ¿ŞÂÊÀ¸·Î Å¬¸¯ÇÏ¸é °ø°İ°¡´É °Å¸®±îÁö ÀÌµ¿ ÈÄ 1¹ø¸¸ °ø°İÇÕ´Ï´Ù."),
-	_T("ÀÌ¶§ ¸¶¿ì½º ¿ŞÂÊ ¹öÆ°À» ´©¸£°í ÀÖÀ¸¸é °è¼Ó °ø°İÇÕ´Ï´Ù."),
-	_T("¾ÆÀÌÅÛÀÌ³ª »óÁ¡ NPC¸¦ ¸¶¿ì½º ¿ŞÂÊÀ¸·Î Å¬¸¯ÇÏ¸é, ÀÏÁ¤ °Å¸®±îÁö ÀÌµ¿ ÈÄ Áİ±â ¶Ç´Â °Å·¡°¡ ÀÌ·ç¾î Áı´Ï´Ù."),
-	_T("PC(´Ù¸¥ »ç¿ëÀÚ)¸¦ ¸¶¿ì½º ¿ŞÂÊÀ¸·Î Å¬¸®ÇÏ¸é PC¸¦ µû¶ó´Ù´Õ´Ï´Ù. °è¼Ó~!!"),
-	_T("PC¸¦ ¸¶¿ì½º ¿À¸¥ÂÊÀ¸·Î Å¬¸¯ÇÏ¸é ´ëÈ­°¡ °¡´ÉÇÕ´Ï´Ù."),
-	_T("¹«°øÀº ¸¶¿ì½º ¿À¸¥ÂÊ ¹öÆ°ÀÔ´Ï´Ù."),
-	_T("CTRL ¹öÆ°À» ´©¸£°í NPC¸¦ ¿ŞÂÊ ¹öÆ°À¸·Î Å¬¸¯ÇÏ¸é ÀÚµ¿ °ø°İÀÌ µË´Ï´Ù."),
-	_T("ÀÚµ¿ °ø°İ½Ã¿¡´Â NPC°¡ Á×À»¶§±îÁö ±× NPC¸¸ °ø°İÇÕ´Ï´Ù."),
-	_T("ÀÌ ¸Ş¼¼Áö´Â Å¬¶óÀÌ¾ğÆ®°¡ ÀÚµ¿À¸·Î º¸³»´Â¸Ş¼¼Áö ÀÌ¸ç, Å¬¶óÀÌ¾ğÆ® ½ÃÀÛ ÈÄ 5¹ø¸¸ ³ª¿É´Ï´Ù.")
+	_T("í´ë¼ì´ì–¸íŠ¸ ì»¨íŠ¸ë¡¤ ì¸í„°í˜ì´ìŠ¤ê°€ ëŒ€í­ ìˆ˜ì • ë˜ì—ˆìŠµë‹ˆë‹¤."),
+	_T("ëª¨ë“  ê¸°ë³¸ ì•¡ì…˜ì€ ë§ˆìš°ìŠ¤ ì™¼ìª½ ë²„íŠ¼ìœ¼ë¡œ í•  ìˆ˜ ìˆë„ë¡ í•˜ì˜€ìŠµë‹ˆë‹¤."),
+	_T("ë¬´ê³µ ë° PCê°„ ëŒ€í™”ì—ì„œë§Œ ë§ˆìš°ìŠ¤ ì˜¤ë¥¸ìª½ ë²„íŠ¼ì´ ì‚¬ìš©ë©ë‹ˆë‹¤."),
+	_T("NPCë¥¼ ë§ˆìš°ìŠ¤ ì™¼ìª½ìœ¼ë¡œ í´ë¦­í•˜ë©´ ê³µê²©ê°€ëŠ¥ ê±°ë¦¬ê¹Œì§€ ì´ë™ í›„ 1ë²ˆë§Œ ê³µê²©í•©ë‹ˆë‹¤."),
+	_T("ì´ë•Œ ë§ˆìš°ìŠ¤ ì™¼ìª½ ë²„íŠ¼ì„ ëˆ„ë¥´ê³  ìˆìœ¼ë©´ ê³„ì† ê³µê²©í•©ë‹ˆë‹¤."),
+	_T("ì•„ì´í…œì´ë‚˜ ìƒì  NPCë¥¼ ë§ˆìš°ìŠ¤ ì™¼ìª½ìœ¼ë¡œ í´ë¦­í•˜ë©´, ì¼ì • ê±°ë¦¬ê¹Œì§€ ì´ë™ í›„ ì¤ê¸° ë˜ëŠ” ê±°ë˜ê°€ ì´ë£¨ì–´ ì§‘ë‹ˆë‹¤."),
+	_T("PC(ë‹¤ë¥¸ ì‚¬ìš©ì)ë¥¼ ë§ˆìš°ìŠ¤ ì™¼ìª½ìœ¼ë¡œ í´ë¦¬í•˜ë©´ PCë¥¼ ë”°ë¼ë‹¤ë‹™ë‹ˆë‹¤. ê³„ì†~!!"),
+	_T("PCë¥¼ ë§ˆìš°ìŠ¤ ì˜¤ë¥¸ìª½ìœ¼ë¡œ í´ë¦­í•˜ë©´ ëŒ€í™”ê°€ ê°€ëŠ¥í•©ë‹ˆë‹¤."),
+	_T("ë¬´ê³µì€ ë§ˆìš°ìŠ¤ ì˜¤ë¥¸ìª½ ë²„íŠ¼ì…ë‹ˆë‹¤."),
+	_T("CTRL ë²„íŠ¼ì„ ëˆ„ë¥´ê³  NPCë¥¼ ì™¼ìª½ ë²„íŠ¼ìœ¼ë¡œ í´ë¦­í•˜ë©´ ìë™ ê³µê²©ì´ ë©ë‹ˆë‹¤."),
+	_T("ìë™ ê³µê²©ì‹œì—ëŠ” NPCê°€ ì£½ì„ë•Œê¹Œì§€ ê·¸ NPCë§Œ ê³µê²©í•©ë‹ˆë‹¤."),
+	_T("ì´ ë©”ì„¸ì§€ëŠ” í´ë¼ì´ì–¸íŠ¸ê°€ ìë™ìœ¼ë¡œ ë³´ë‚´ëŠ”ë©”ì„¸ì§€ ì´ë©°, í´ë¼ì´ì–¸íŠ¸ ì‹œì‘ í›„ 5ë²ˆë§Œ ë‚˜ì˜µë‹ˆë‹¤.")
 };
 
 BOOL ProcessClientHelpMessage()
@@ -307,7 +307,7 @@ BOOL ProcessClientHelpMessage()
 	static DWORD dwStartTime = 0;
 	static int MessageCount = 0;
 	static int MessageTime = 0;
-	static int GlobalCount = 5;	// ÇÑ 10¹ø º¸¿©ÁÖ°í ¸¸´Ù
+	static int GlobalCount = 5;	// í•œ 10ë²ˆ ë³´ì—¬ì£¼ê³  ë§Œë‹¤
 
 	if( step == 0)
 	{
@@ -319,7 +319,7 @@ BOOL ProcessClientHelpMessage()
 	if( GlobalCount == 0)
 		return TRUE;
 
-	if( g_dwCurTime - dwStartTime > 60000)	// 1ºĞ¿¡ ÇÑ¹ø¾¿
+	if( g_dwCurTime - dwStartTime > 60000)	// 1ë¶„ì— í•œë²ˆì”©
 	{
 		dwStartTime = g_dwCurTime;
 		MessageTime = g_dwCurTime;

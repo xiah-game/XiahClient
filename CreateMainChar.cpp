@@ -1,10 +1,10 @@
-BOOL CreateMainChar()
+ï»¿BOOL CreateMainChar()
 {
 	CXiahCharObject *pObject = new CXiahCharObject;
 
 	if(pObject == NULL)
 	{
-		DBG_LogFile( _T("CreateMainChar 1 ½ÇÆĞ"));
+		DBG_LogFile( _T("CreateMainChar 1 ì‹¤íŒ¨"));
 		//return false;
 	}
 
@@ -12,7 +12,7 @@ BOOL CreateMainChar()
 
 	if(pData == NULL)
 	{
-		DBG_LogFile( _T("CreateMainChar 2 ½ÇÆĞ"));
+		DBG_LogFile( _T("CreateMainChar 2 ì‹¤íŒ¨"));
 		//return false;
 	}
 
@@ -31,18 +31,18 @@ BOOL CreateMainChar()
 	pObject->m_bObjType = OBJTYPE_PC;
 	pObject->m_bRebirth = g_MainCharInfo.m_bRebirth;
 
-	//HT_1023 : ¿î¿µÀÚ ¸¶Å© Ãß°¡
+	//HT_1023 : ìš´ì˜ì ë§ˆí¬ ì¶”ê°€
 	pObject->m_bGameMasterMark = g_MainCharInfo.m_dwGameMasterMark;
 
-	// ¸í¼ºÄ¡¿¡ µû¸¥ »ö º¯°æ
+	// ëª…ì„±ì¹˜ì— ë”°ë¥¸ ìƒ‰ ë³€ê²½
 	pObject->RefreshFameColor(g_MainCharInfo.m_dwFame);
 
 	pObject->m_bSubObjType = g_MainCharInfo.m_bCharType;
 
-	// PC¸¸ Ä® ±ËÀû ÀÌÆåÆ®¸¦ »ı¼ºÇÑ´Ù.
+	// PCë§Œ ì¹¼ ê¶¤ì  ì´í™íŠ¸ë¥¼ ìƒì„±í•œë‹¤.
 	pObject->m_SwordTrace.Init();
 
-	// ¾ßÂ÷´Â ¿Ş¼Õ Ä® ±ËÀûµµ ÀÖ´Ù.
+	// ì•¼ì°¨ëŠ” ì™¼ì† ì¹¼ ê¶¤ì ë„ ìˆë‹¤.
 	if( pObject->m_bSubObjType == 4 )
 		pObject->m_SwordTrace2.Init();
 	
@@ -72,7 +72,7 @@ BOOL CreateMainChar()
 
 	if(pVisualInfo == NULL)
 	{
-		DBG_LogFile( _T("CreateMainChar 4 ½ÇÆĞ"));
+		DBG_LogFile( _T("CreateMainChar 4 ì‹¤íŒ¨"));
 //		return false;
 	}
 
@@ -89,7 +89,7 @@ BOOL CreateMainChar()
 
 	XiahMap::g_XiahMap.Update();
 
-	// °¡¶ó·Î ¾Ö¿Ïµ¿¹° ¸¸µé¾î ÁÖ±â
+	// ê°€ë¼ë¡œ ì• ì™„ë™ë¬¼ ë§Œë“¤ì–´ ì£¼ê¸°
 
 	//SpawnTestPet();
 

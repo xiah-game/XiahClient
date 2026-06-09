@@ -1,4 +1,4 @@
-#include "precompile.h"
+ï»¿#include "precompile.h"
 #include "SkillTime.h"
 
 BOOL IsSkillOnCD(DWORD dwMugongID) {
@@ -29,7 +29,7 @@ BOOL IsSkillOnCD(DWORD dwMugongID) {
 // IT
 ////////////////////////////////////////
 
-// ÀÎÁõ ¼­¹ö¿ë ·Î±×ÀÎ
+// ì¸ì¦ ì„œë²„ìš© ë¡œê·¸ì¸
 void SendCS_IT_LOGIN_AUTH_REQ(sString szAccountID, sString szPasswd)
 {
 	CMsg msg;
@@ -216,7 +216,7 @@ void SendCS_IT_CHANGEPW_REQ(sString szAccountID, sString szPasswd, sString strCh
 // NV
 ////////////////////////////////////////
 void SendCS_NV_STARTGAME_REQ()
-// °ÔÀÓÀ» ½ÃÀÛÇØµµ µÇ´ÂÁö ÀÎÁõ¼­¹ö¿¡¼­ ¹ÞÀº Å°°ªÀ» ¼­¹ö¿¡ º¸³½´Ù.
+// ê²Œìž„ì„ ì‹œìž‘í•´ë„ ë˜ëŠ”ì§€ ì¸ì¦ì„œë²„ì—ì„œ ë°›ì€ í‚¤ê°’ì„ ì„œë²„ì— ë³´ë‚¸ë‹¤.
 {
 	CMsg msg;
 
@@ -234,7 +234,7 @@ void SendCS_NV_MAPENTER_REQ(DWORD dwObjectID,DWORD dwMapID)
 {
 	CMsg msg;
 
-	// ¸Ê°£¿¡ ÀÌµ¿À» ÇÒ ¼öµµ ÀÖ°Ú´Ù
+	// ë§µê°„ì— ì´ë™ì„ í•  ìˆ˜ë„ ìžˆê² ë‹¤
 
 	msg.ID ( CS_NV_MAPENTER_REQ)
 		<< dwObjectID
@@ -242,7 +242,7 @@ void SendCS_NV_MAPENTER_REQ(DWORD dwObjectID,DWORD dwMapID)
 
 	XiahNetwork::SendNetMsg( msg);
 
-	DBG_Put(_T("MapEnterReqº¸³¿"));
+	DBG_Put(_T("MapEnterReqë³´ëƒ„"));
 }
 
 void SendCS_NV_MAPMOVE_REQ(DWORD dwMapID,WORD wPosX,WORD wPosY)
@@ -269,7 +269,7 @@ void SendCS_NV_MAPMOVE_REQ(DWORD dwMapID,WORD wPosX,WORD wPosY)
 
 	if( bShowLoadImage )
 	{
-		// 2004.07.20 ÀÌº¥Æ®¿ë ·ÎµùÈ­¸é
+		// 2004.07.20 ì´ë²¤íŠ¸ìš© ë¡œë”©í™”ë©´
 		/*
 		if( rand() % 2 )
 			g_MainCharInfo.OpenFrame( EVENT_LOADING_1 );
@@ -277,10 +277,10 @@ void SendCS_NV_MAPMOVE_REQ(DWORD dwMapID,WORD wPosX,WORD wPosY)
 			g_MainCharInfo.OpenFrame( EVENT_LOADING_2 );
 		*/
 
-		 g_MainCharInfo.OpenFrame(LOADING_IMAGE3); //HO_0702_07 µî±ÞÇ¥½Ã : µî±ÞÇ¥½Ã¿Í ÇÔ°Ô ½ºÅ¸Æ®·Îµù°ú °ÔÀÓ·Îµù ºÎºÐÀÌ µ¿ÀÏ ÀÌ¹ÌÁö·Î Ã³¸®µÈ´Ù.
+		 g_MainCharInfo.OpenFrame(LOADING_IMAGE3); //HO_0702_07 ë“±ê¸‰í‘œì‹œ : ë“±ê¸‰í‘œì‹œì™€ í•¨ê²Œ ìŠ¤íƒ€íŠ¸ë¡œë”©ê³¼ ê²Œìž„ë¡œë”© ë¶€ë¶„ì´ ë™ì¼ ì´ë¯¸ì§€ë¡œ ì²˜ë¦¬ëœë‹¤.
 
-		//µî±ÞÇ¥½Ã Àû¿ëÀü ÄÚµå ³ªÁß¿¡ Áö¿ö ¹ö¸®ÀÚ ..; µî±ÞÇ¥½Ã Àü¿¡´Â ³ªÀÌ ±¸ºÐÀÌ ÀÖ¾ù´Ù...
-		// ¼ºÀÎ¼­¹ö¿ë·Îµù
+		//ë“±ê¸‰í‘œì‹œ ì ìš©ì „ ì½”ë“œ ë‚˜ì¤‘ì— ì§€ì›Œ ë²„ë¦¬ìž ..; ë“±ê¸‰í‘œì‹œ ì „ì—ëŠ” ë‚˜ì´ êµ¬ë¶„ì´ ìžˆì—‡ë‹¤...
+		// ì„±ì¸ì„œë²„ìš©ë¡œë”©
 		//if(g_AppData.m_bAdult)
 		//	g_MainCharInfo.OpenFrame(LOADING_IMAGE2);
 		//else
@@ -299,7 +299,7 @@ void SendCS_NV_MAPMOVE_REQ(DWORD dwMapID)
 	
 	XiahNetwork::SendNetMsg( msg);
 
-	// 2004.07.20 ÀÌº¥Æ®¿ë ·ÎµùÈ­¸é
+	// 2004.07.20 ì´ë²¤íŠ¸ìš© ë¡œë”©í™”ë©´
 	/*
 	if( rand() % 2 )
 		g_MainCharInfo.OpenFrame( EVENT_LOADING_1 );
@@ -307,10 +307,10 @@ void SendCS_NV_MAPMOVE_REQ(DWORD dwMapID)
 		g_MainCharInfo.OpenFrame( EVENT_LOADING_2 );
 	*/
 
-	g_MainCharInfo.OpenFrame(LOADING_IMAGE3); //HO_0702_07 µî±ÞÇ¥½Ã : µî±ÞÇ¥½Ã¿Í ÇÔ°Ô ½ºÅ¸Æ®·Îµù°ú °ÔÀÓ·Îµù ºÎºÐÀÌ µ¿ÀÏ ÀÌ¹ÌÁö·Î Ã³¸®µÈ´Ù.
+	g_MainCharInfo.OpenFrame(LOADING_IMAGE3); //HO_0702_07 ë“±ê¸‰í‘œì‹œ : ë“±ê¸‰í‘œì‹œì™€ í•¨ê²Œ ìŠ¤íƒ€íŠ¸ë¡œë”©ê³¼ ê²Œìž„ë¡œë”© ë¶€ë¶„ì´ ë™ì¼ ì´ë¯¸ì§€ë¡œ ì²˜ë¦¬ëœë‹¤.
 
-	//µî±ÞÇ¥½Ã Àû¿ëÀü ÄÚµå ³ªÁß¿¡ Áö¿ö ¹ö¸®ÀÚ ..; µî±ÞÇ¥½Ã Àü¿¡´Â ³ªÀÌ ±¸ºÐÀÌ ÀÖ¾ù´Ù...
-	// ¼ºÀÎ¼­¹ö¿ë·Îµù
+	//ë“±ê¸‰í‘œì‹œ ì ìš©ì „ ì½”ë“œ ë‚˜ì¤‘ì— ì§€ì›Œ ë²„ë¦¬ìž ..; ë“±ê¸‰í‘œì‹œ ì „ì—ëŠ” ë‚˜ì´ êµ¬ë¶„ì´ ìžˆì—‡ë‹¤...
+	// ì„±ì¸ì„œë²„ìš©ë¡œë”©
 	//if(g_AppData.m_bAdult)
 	//	g_MainCharInfo.OpenFrame(LOADING_IMAGE2);
 	//else
@@ -425,8 +425,8 @@ void SendCS_NV_SYNCMOVE_REQ(DWORD dwObjectID,WORD wPosX,WORD wPosY,BYTE bHeight,
 
 
 /**
- * NPC Æ÷Å» ÀÌµ¿
- * \param dwMoveMapID ¸Ê ID
+ * NPC í¬íƒˆ ì´ë™
+ * \param dwMoveMapID ë§µ ID
  */
 void SendCS_NV_QUICKMOVE_REQ(DWORD dwMoveMapID)
 {
@@ -440,8 +440,8 @@ void SendCS_NV_QUICKMOVE_REQ(DWORD dwMoveMapID)
 
 
 /**
- * ¹®ÆÄ´ëÀü NPC Æ÷Å» ÀÌµ¿
- * \param dwMoveMapID Áö¿ª ID
+ * ë¬¸íŒŒëŒ€ì „ NPC í¬íƒˆ ì´ë™
+ * \param dwMoveMapID ì§€ì—­ ID
  */
 void SendCS_NV_PRIVATEPORTAL_REQ(DWORD dwMoveMapID)
 {
@@ -766,7 +766,7 @@ void SendCS_NC_PETTHROWITEM_REQ( DWORD dwPetID, DWORD dwItemID, BYTE bSackID, BY
 }
 
 /**
-* Æê º¹±¸
+* íŽ« ë³µêµ¬
 * \param dwPetID 
 * \param bSackID 
 * \param bSackPos 
@@ -784,7 +784,7 @@ void SendCS_NC_PETRESTORE_REQ(DWORD dwPetID, BYTE bSackID, BYTE bSackPos)
 }
 
 /**
-* Æê °Å·¡
+* íŽ« ê±°ëž˜
 * \param dwAskedID 
 * \param dwPetID 
 */
@@ -800,7 +800,7 @@ void SendCS_NC_PREPETTRADE_REQ(DWORD dwAskedID, DWORD dwPetID)
 }
 
 /**
-* Æê °Å·¡
+* íŽ« ê±°ëž˜
 * \param bResult 
 * \param dwAskID 
 * \param dwAskedID 
@@ -852,7 +852,7 @@ void SendCS_BT_PREATTACK_REQ(BYTE bAttackType,DWORD dwAttackID,BYTE bDefType,DWO
 //	if(g_MainChar_PreAttackInfo.bAttackReq)
 		XiahNetwork::SendNetMsg( msg);
 
-	//HT_1026 : ½ºÇÙ ¹æÁö 
+	//HT_1026 : ìŠ¤í•µ ë°©ì§€ 
 	/*if(g_MainChar_PreAttackInfo.bPreAttackReq && (dwAttackID == g_pMainChar->m_dwServerID))
 		g_MainChar_PreAttackInfo.bPreAttackReq = false;*/
 }
@@ -879,7 +879,7 @@ void SendCS_BT_ATTACK_REQ(BYTE bAttackType,DWORD dwAttackID,WORD wAttackPosX,WOR
 
 	XiahNetwork::SendNetMsg( msg);
 
-	//HT_1026 : ½ºÇÙ ¹æÁö
+	//HT_1026 : ìŠ¤í•µ ë°©ì§€
 	if(g_MainChar_PreAttackInfo.bAttackReq && (dwAttackID == g_pMainChar->m_dwServerID) && !g_MainChar_PreAttackInfo.bPreAttackReq)
 	{
 		g_MainChar_PreAttackInfo.bAttackReq = false;
@@ -1295,7 +1295,7 @@ void SendCS_IM_GIVEITEM_REQ( BYTE bSackID, BYTE bSackPos, DWORD dwItemID, BYTE b
 	XiahNetwork::SendNetMsg( msg);
 }
 
-// Àü³¶
+// ì „ë‚­
 void SendCS_IM_MONEYBAG_REQ(BYTE bAction, DWORD dwItemID, BYTE bSackID, BYTE bSackPos, DWORD dwMoney)
 {
 	CMsg msg;
@@ -1311,7 +1311,7 @@ void SendCS_IM_MONEYBAG_REQ(BYTE bAction, DWORD dwItemID, BYTE bSackID, BYTE bSa
 }
 
 
-// Àü¼­±¸
+// ì „ì„œêµ¬
 void SendCS_IM_SENDMEMO_REQ(sString szCharName,sString szTitle,sString szContents,BYTE bSackID, BYTE bSackPos)
 {
 	CMsg	msg;
@@ -1343,7 +1343,7 @@ void SendCS_IM_DELETEMEMO_REQ(DWORD dwMemoID)
 	XiahNetwork::SendNetMsg( msg);
 }
 
-// Á¶ÇÕ - Áöµµ(9°³) º¸¼®(7°³)
+// ì¡°í•© - ì§€ë„(9ê°œ) ë³´ì„(7ê°œ)
 void SendCS_IM_PUZZLEITEM_REQ(DWORD dwShopID)
 {
 	if(!g_MainCharInfo.m_pSmeltSack)
@@ -1355,7 +1355,7 @@ void SendCS_IM_PUZZLEITEM_REQ(DWORD dwShopID)
 
 	std::map<DWORD, int> mCheck;
 
-	// °³¼ö °Ë»ç
+	// ê°œìˆ˜ ê²€ì‚¬
 	for(int i=0; i < 24; ++i)
 	{
 		pItemInfo = g_MainCharInfo.m_pSmeltSack->FindSackItemByPos(i);
@@ -1368,8 +1368,8 @@ void SendCS_IM_PUZZLEITEM_REQ(DWORD dwShopID)
 			}
 			else
 			{
-				// ¾ÆÀÌÅÛ Çà³¶ 2*2 Ä­ ¾ÆÀÌÅÛÀÏ °æ¿ì À§Ä¡¸¶´Ù ¾ÆÀÌÅÛ Á¤º¸°¡ µé¾î°¡ ÀÖ±â¿¡
-				// ÀÌ·¸°Ô °Ë»ç¸¦ ÇØÁÖ°Ô µÇ¾ú´Ù.
+				// ì•„ì´í…œ í–‰ë‚­ 2*2 ì¹¸ ì•„ì´í…œì¼ ê²½ìš° ìœ„ì¹˜ë§ˆë‹¤ ì•„ì´í…œ ì •ë³´ê°€ ë“¤ì–´ê°€ ìžˆê¸°ì—
+				// ì´ë ‡ê²Œ ê²€ì‚¬ë¥¼ í•´ì£¼ê²Œ ë˜ì—ˆë‹¤.
 				std::map<DWORD, int>::iterator iter = mCheck.find(pItemInfo->m_dwItemID);
 
 				if(iter != mCheck.end())
@@ -1414,8 +1414,8 @@ void SendCS_IM_PUZZLEITEM_REQ(DWORD dwShopID)
 			}
 			else
 			{
-				// ¾ÆÀÌÅÛ Çà³¶ 2*2 Ä­ ¾ÆÀÌÅÛÀÏ °æ¿ì À§Ä¡¸¶´Ù ¾ÆÀÌÅÛ Á¤º¸°¡ µé¾î°¡ ÀÖ±â¿¡
-				// ÀÌ·¸°Ô °Ë»ç¸¦ ÇØÁÖ°Ô µÇ¾ú´Ù.
+				// ì•„ì´í…œ í–‰ë‚­ 2*2 ì¹¸ ì•„ì´í…œì¼ ê²½ìš° ìœ„ì¹˜ë§ˆë‹¤ ì•„ì´í…œ ì •ë³´ê°€ ë“¤ì–´ê°€ ìžˆê¸°ì—
+				// ì´ë ‡ê²Œ ê²€ì‚¬ë¥¼ í•´ì£¼ê²Œ ë˜ì—ˆë‹¤.
 				std::map<DWORD, int>::iterator iter = mCheck.find(pItemInfo->m_dwItemID);
 
 				if(iter != mCheck.end())
@@ -1441,7 +1441,7 @@ void SendCS_IM_PUZZLEITEM_REQ(DWORD dwShopID)
 	XiahNetwork::SendNetMsg(msg);
 }
 
-// Á¶ÇÕ - ÆíÁ¶ÇÕ (12°³)
+// ì¡°í•© - íŽ¸ì¡°í•© (12ê°œ)
 void SendCS_IM_REJOINITEM_REQ(DWORD dwShopID)
 {
 	if(!g_MainCharInfo.m_pSmeltSack)
@@ -1452,7 +1452,7 @@ void SendCS_IM_REJOINITEM_REQ(DWORD dwShopID)
 	BYTE bItemCount = 0;
 	std::map<DWORD, int> mCheck;
 
-	// °³¼ö °Ë»ç
+	// ê°œìˆ˜ ê²€ì‚¬
 	for(int i=0; i < 24; ++i)
 	{
 		pItemInfo = g_MainCharInfo.m_pSmeltSack->FindSackItemByPos(i);
@@ -1465,8 +1465,8 @@ void SendCS_IM_REJOINITEM_REQ(DWORD dwShopID)
 			}
 			else
 			{
-				// ¾ÆÀÌÅÛ Çà³¶ 2*2 Ä­ ¾ÆÀÌÅÛÀÏ °æ¿ì À§Ä¡¸¶´Ù ¾ÆÀÌÅÛ Á¤º¸°¡ µé¾î°¡ ÀÖ±â¿¡
-				// ÀÌ·¸°Ô °Ë»ç¸¦ ÇØÁÖ°Ô µÇ¾ú´Ù.
+				// ì•„ì´í…œ í–‰ë‚­ 2*2 ì¹¸ ì•„ì´í…œì¼ ê²½ìš° ìœ„ì¹˜ë§ˆë‹¤ ì•„ì´í…œ ì •ë³´ê°€ ë“¤ì–´ê°€ ìžˆê¸°ì—
+				// ì´ë ‡ê²Œ ê²€ì‚¬ë¥¼ í•´ì£¼ê²Œ ë˜ì—ˆë‹¤.
 				std::map<DWORD, int>::iterator iter = mCheck.find(pItemInfo->m_dwItemID);
 
 				if(iter != mCheck.end())
@@ -1511,8 +1511,8 @@ void SendCS_IM_REJOINITEM_REQ(DWORD dwShopID)
 			}
 			else
 			{
-				// ¾ÆÀÌÅÛ Çà³¶ 2*2 Ä­ ¾ÆÀÌÅÛÀÏ °æ¿ì À§Ä¡¸¶´Ù ¾ÆÀÌÅÛ Á¤º¸°¡ µé¾î°¡ ÀÖ±â¿¡
-				// ÀÌ·¸°Ô °Ë»ç¸¦ ÇØÁÖ°Ô µÇ¾ú´Ù.
+				// ì•„ì´í…œ í–‰ë‚­ 2*2 ì¹¸ ì•„ì´í…œì¼ ê²½ìš° ìœ„ì¹˜ë§ˆë‹¤ ì•„ì´í…œ ì •ë³´ê°€ ë“¤ì–´ê°€ ìžˆê¸°ì—
+				// ì´ë ‡ê²Œ ê²€ì‚¬ë¥¼ í•´ì£¼ê²Œ ë˜ì—ˆë‹¤.
 				std::map<DWORD, int>::iterator iter = mCheck.find(pItemInfo->m_dwItemID);
 
 				if(iter != mCheck.end())
@@ -1538,7 +1538,7 @@ void SendCS_IM_REJOINITEM_REQ(DWORD dwShopID)
 	XiahNetwork::SendNetMsg(msg);
 }
 
-// [2/1/2005] ¼³³¯ °¡·¡¶±
+// [2/1/2005] ì„¤ë‚  ê°€ëž˜ë–¡
 void SendCS_IM_VARIENTITEM_REQ(BYTE bVarientType)
 {
 	if(!g_MainCharInfo.m_pSmeltSack)
@@ -1550,7 +1550,7 @@ void SendCS_IM_VARIENTITEM_REQ(BYTE bVarientType)
 
 	std::map<DWORD, int> mCheck;
 
-	// °³¼ö °Ë»ç
+	// ê°œìˆ˜ ê²€ì‚¬
 	for(int i=0; i < 24; ++i)
 	{
 		pItemInfo = g_MainCharInfo.m_pSmeltSack->FindSackItemByPos(i);
@@ -1563,8 +1563,8 @@ void SendCS_IM_VARIENTITEM_REQ(BYTE bVarientType)
 			}
 			else
 			{
-				// ¾ÆÀÌÅÛ Çà³¶ 2*2 Ä­ ¾ÆÀÌÅÛÀÏ °æ¿ì À§Ä¡¸¶´Ù ¾ÆÀÌÅÛ Á¤º¸°¡ µé¾î°¡ ÀÖ±â¿¡
-				// ÀÌ·¸°Ô °Ë»ç¸¦ ÇØÁÖ°Ô µÇ¾ú´Ù.
+				// ì•„ì´í…œ í–‰ë‚­ 2*2 ì¹¸ ì•„ì´í…œì¼ ê²½ìš° ìœ„ì¹˜ë§ˆë‹¤ ì•„ì´í…œ ì •ë³´ê°€ ë“¤ì–´ê°€ ìžˆê¸°ì—
+				// ì´ë ‡ê²Œ ê²€ì‚¬ë¥¼ í•´ì£¼ê²Œ ë˜ì—ˆë‹¤.
 				std::map<DWORD, int>::iterator iter = mCheck.find(pItemInfo->m_dwItemID);
 
 				if(iter != mCheck.end())
@@ -1609,8 +1609,8 @@ void SendCS_IM_VARIENTITEM_REQ(BYTE bVarientType)
 			}
 			else
 			{
-				// ¾ÆÀÌÅÛ Çà³¶ 2*2 Ä­ ¾ÆÀÌÅÛÀÏ °æ¿ì À§Ä¡¸¶´Ù ¾ÆÀÌÅÛ Á¤º¸°¡ µé¾î°¡ ÀÖ±â¿¡
-				// ÀÌ·¸°Ô °Ë»ç¸¦ ÇØÁÖ°Ô µÇ¾ú´Ù.
+				// ì•„ì´í…œ í–‰ë‚­ 2*2 ì¹¸ ì•„ì´í…œì¼ ê²½ìš° ìœ„ì¹˜ë§ˆë‹¤ ì•„ì´í…œ ì •ë³´ê°€ ë“¤ì–´ê°€ ìžˆê¸°ì—
+				// ì´ë ‡ê²Œ ê²€ì‚¬ë¥¼ í•´ì£¼ê²Œ ë˜ì—ˆë‹¤.
 				std::map<DWORD, int>::iterator iter = mCheck.find(pItemInfo->m_dwItemID);
 
 				if(iter != mCheck.end())
@@ -1636,7 +1636,7 @@ void SendCS_IM_VARIENTITEM_REQ(BYTE bVarientType)
 	XiahNetwork::SendNetMsg(msg);
 }
 
-//HT_CHEAT : º¯Á¾ ÆÐÅ¶ Ãß°¡
+//HT_CHEAT : ë³€ì¢… íŒ¨í‚· ì¶”ê°€
 void SendCS_IM_VARIENTITEM_HT_REQ(DWORD dwitemID, BYTE bSackIDPrev, BYTE bSackPosPrev)
 {
 	CMsg msg;
@@ -1653,7 +1653,7 @@ void SendCS_IM_VARIENTITEM_HT_REQ(DWORD dwitemID, BYTE bSackIDPrev, BYTE bSackPo
 
 	XiahNetwork::SendNetMsg(msg);
 }
-// º¸Çè ¾ÆÀÌÅÛ º¹±¸,¼Ò¸ê
+// ë³´í—˜ ì•„ì´í…œ ë³µêµ¬,ì†Œë©¸
 void SendCS_IM_REWARDGUARANTEE_REQ(BYTE bRewardType, DWORD dwItemID)
 {
 	CMsg msg;
@@ -1680,7 +1680,7 @@ void SendCS_IM_EVENTPUZZLE_REQ(DWORD dwFNpcID)
 
 	std::map<DWORD, int> mCheck;
 
-	// °³¼ö °Ë»ç
+	// ê°œìˆ˜ ê²€ì‚¬
 	for(int i=0; i < 24; ++i)
 	{
 		pItemInfo = g_MainCharInfo.m_pSmeltSack->FindSackItemByPos(i);
@@ -1693,8 +1693,8 @@ void SendCS_IM_EVENTPUZZLE_REQ(DWORD dwFNpcID)
 			}
 			else
 			{
-				// ¾ÆÀÌÅÛ Çà³¶ 2*2 Ä­ ¾ÆÀÌÅÛÀÏ °æ¿ì À§Ä¡¸¶´Ù ¾ÆÀÌÅÛ Á¤º¸°¡ µé¾î°¡ ÀÖ±â¿¡
-				// ÀÌ·¸°Ô °Ë»ç¸¦ ÇØÁÖ°Ô µÇ¾ú´Ù.
+				// ì•„ì´í…œ í–‰ë‚­ 2*2 ì¹¸ ì•„ì´í…œì¼ ê²½ìš° ìœ„ì¹˜ë§ˆë‹¤ ì•„ì´í…œ ì •ë³´ê°€ ë“¤ì–´ê°€ ìžˆê¸°ì—
+				// ì´ë ‡ê²Œ ê²€ì‚¬ë¥¼ í•´ì£¼ê²Œ ë˜ì—ˆë‹¤.
 				std::map<DWORD, int>::iterator iter = mCheck.find(pItemInfo->m_dwItemID);
 
 				if(iter != mCheck.end())
@@ -1739,8 +1739,8 @@ void SendCS_IM_EVENTPUZZLE_REQ(DWORD dwFNpcID)
 			}
 			else
 			{
-				// ¾ÆÀÌÅÛ Çà³¶ 2*2 Ä­ ¾ÆÀÌÅÛÀÏ °æ¿ì À§Ä¡¸¶´Ù ¾ÆÀÌÅÛ Á¤º¸°¡ µé¾î°¡ ÀÖ±â¿¡
-				// ÀÌ·¸°Ô °Ë»ç¸¦ ÇØÁÖ°Ô µÇ¾ú´Ù.
+				// ì•„ì´í…œ í–‰ë‚­ 2*2 ì¹¸ ì•„ì´í…œì¼ ê²½ìš° ìœ„ì¹˜ë§ˆë‹¤ ì•„ì´í…œ ì •ë³´ê°€ ë“¤ì–´ê°€ ìžˆê¸°ì—
+				// ì´ë ‡ê²Œ ê²€ì‚¬ë¥¼ í•´ì£¼ê²Œ ë˜ì—ˆë‹¤.
 				std::map<DWORD, int>::iterator iter = mCheck.find(pItemInfo->m_dwItemID);
 
 				if(iter != mCheck.end())
@@ -1767,7 +1767,7 @@ void SendCS_IM_EVENTPUZZLE_REQ(DWORD dwFNpcID)
 }
 
 /**
-* ¾ÆÀÌÅÛ Á¶ÇÕ
+* ì•„ì´í…œ ì¡°í•©
 * \param dwShopID 
 */
 void SendCS_IM_MIXITEM_REQ(DWORD dwShopID)
@@ -1780,7 +1780,7 @@ void SendCS_IM_MIXITEM_REQ(DWORD dwShopID)
 	BYTE bItemCount = 0;
 	std::map<DWORD, int> mCheck;
 
-	// °³¼ö °Ë»ç
+	// ê°œìˆ˜ ê²€ì‚¬
 	for(int i=0; i < 24; ++i)
 	{
 		pItemInfo = g_MainCharInfo.m_pSmeltSack->FindSackItemByPos(i);
@@ -1793,8 +1793,8 @@ void SendCS_IM_MIXITEM_REQ(DWORD dwShopID)
 			}
 			else
 			{
-				// ¾ÆÀÌÅÛ Çà³¶ 2*2 Ä­ ¾ÆÀÌÅÛÀÏ °æ¿ì À§Ä¡¸¶´Ù ¾ÆÀÌÅÛ Á¤º¸°¡ µé¾î°¡ ÀÖ±â¿¡
-				// ÀÌ·¸°Ô °Ë»ç¸¦ ÇØÁÖ°Ô µÇ¾ú´Ù.
+				// ì•„ì´í…œ í–‰ë‚­ 2*2 ì¹¸ ì•„ì´í…œì¼ ê²½ìš° ìœ„ì¹˜ë§ˆë‹¤ ì•„ì´í…œ ì •ë³´ê°€ ë“¤ì–´ê°€ ìžˆê¸°ì—
+				// ì´ë ‡ê²Œ ê²€ì‚¬ë¥¼ í•´ì£¼ê²Œ ë˜ì—ˆë‹¤.
 				std::map<DWORD, int>::iterator iter = mCheck.find(pItemInfo->m_dwItemID);
 
 				if(iter != mCheck.end())
@@ -1839,8 +1839,8 @@ void SendCS_IM_MIXITEM_REQ(DWORD dwShopID)
 			}
 			else
 			{
-				// ¾ÆÀÌÅÛ Çà³¶ 2*2 Ä­ ¾ÆÀÌÅÛÀÏ °æ¿ì À§Ä¡¸¶´Ù ¾ÆÀÌÅÛ Á¤º¸°¡ µé¾î°¡ ÀÖ±â¿¡
-				// ÀÌ·¸°Ô °Ë»ç¸¦ ÇØÁÖ°Ô µÇ¾ú´Ù.
+				// ì•„ì´í…œ í–‰ë‚­ 2*2 ì¹¸ ì•„ì´í…œì¼ ê²½ìš° ìœ„ì¹˜ë§ˆë‹¤ ì•„ì´í…œ ì •ë³´ê°€ ë“¤ì–´ê°€ ìžˆê¸°ì—
+				// ì´ë ‡ê²Œ ê²€ì‚¬ë¥¼ í•´ì£¼ê²Œ ë˜ì—ˆë‹¤.
 				std::map<DWORD, int>::iterator iter = mCheck.find(pItemInfo->m_dwItemID);
 
 				if(iter != mCheck.end())
@@ -1894,7 +1894,7 @@ void SendCS_IM_MOVEOUTCOLLECTITEM_REQ(BYTE bCollectSackPos, DWORD dwItemID, BYTE
 
 
 /**
- * ¸ÁÄ¡ Á¶ÇÕ
+ * ë§ì¹˜ ì¡°í•©
  * \param dwShopID 
  */
 void SendCS_IM_MAKEREPAIRHAMMER_REQ(DWORD dwShopID)
@@ -1907,7 +1907,7 @@ void SendCS_IM_MAKEREPAIRHAMMER_REQ(DWORD dwShopID)
 	BYTE bItemCount = 0;
 	std::map<DWORD, int> mCheck;
 
-	// °³¼ö °Ë»ç
+	// ê°œìˆ˜ ê²€ì‚¬
 	for(int i=0; i < 24; ++i)
 	{
 		pItemInfo = g_MainCharInfo.m_pSmeltSack->FindSackItemByPos(i);
@@ -1920,8 +1920,8 @@ void SendCS_IM_MAKEREPAIRHAMMER_REQ(DWORD dwShopID)
 			}
 			else
 			{
-				// ¾ÆÀÌÅÛ Çà³¶ 2*2 Ä­ ¾ÆÀÌÅÛÀÏ °æ¿ì À§Ä¡¸¶´Ù ¾ÆÀÌÅÛ Á¤º¸°¡ µé¾î°¡ ÀÖ±â¿¡
-				// ÀÌ·¸°Ô °Ë»ç¸¦ ÇØÁÖ°Ô µÇ¾ú´Ù.
+				// ì•„ì´í…œ í–‰ë‚­ 2*2 ì¹¸ ì•„ì´í…œì¼ ê²½ìš° ìœ„ì¹˜ë§ˆë‹¤ ì•„ì´í…œ ì •ë³´ê°€ ë“¤ì–´ê°€ ìžˆê¸°ì—
+				// ì´ë ‡ê²Œ ê²€ì‚¬ë¥¼ í•´ì£¼ê²Œ ë˜ì—ˆë‹¤.
 				std::map<DWORD, int>::iterator iter = mCheck.find(pItemInfo->m_dwItemID);
 
 				if(iter != mCheck.end())
@@ -1966,8 +1966,8 @@ void SendCS_IM_MAKEREPAIRHAMMER_REQ(DWORD dwShopID)
 			}
 			else
 			{
-				// ¾ÆÀÌÅÛ Çà³¶ 2*2 Ä­ ¾ÆÀÌÅÛÀÏ °æ¿ì À§Ä¡¸¶´Ù ¾ÆÀÌÅÛ Á¤º¸°¡ µé¾î°¡ ÀÖ±â¿¡
-				// ÀÌ·¸°Ô °Ë»ç¸¦ ÇØÁÖ°Ô µÇ¾ú´Ù.
+				// ì•„ì´í…œ í–‰ë‚­ 2*2 ì¹¸ ì•„ì´í…œì¼ ê²½ìš° ìœ„ì¹˜ë§ˆë‹¤ ì•„ì´í…œ ì •ë³´ê°€ ë“¤ì–´ê°€ ìžˆê¸°ì—
+				// ì´ë ‡ê²Œ ê²€ì‚¬ë¥¼ í•´ì£¼ê²Œ ë˜ì—ˆë‹¤.
 				std::map<DWORD, int>::iterator iter = mCheck.find(pItemInfo->m_dwItemID);
 
 				if(iter != mCheck.end())
@@ -1995,7 +1995,7 @@ void SendCS_IM_MAKEREPAIRHAMMER_REQ(DWORD dwShopID)
 
 
 /**
- * »ç½Å¼Â Á¶ÇÕ
+ * ì‚¬ì‹ ì…‹ ì¡°í•©
  * \param dwShopID : 
  */
 void SendCS_IM_MAKEUNIONITEM_REQ(DWORD dwShopID)
@@ -2009,7 +2009,7 @@ void SendCS_IM_MAKEUNIONITEM_REQ(DWORD dwShopID)
 
 	std::map<DWORD, int> mCheck;
 
-	// °³¼ö °Ë»ç
+	// ê°œìˆ˜ ê²€ì‚¬
 	for(int i=0; i < 24; ++i)
 	{
 		pItemInfo = g_MainCharInfo.m_pSmeltSack->FindSackItemByPos(i);
@@ -2022,8 +2022,8 @@ void SendCS_IM_MAKEUNIONITEM_REQ(DWORD dwShopID)
 			}
 			else
 			{
-				// ¾ÆÀÌÅÛ Çà³¶ 2*2 Ä­ ¾ÆÀÌÅÛÀÏ °æ¿ì À§Ä¡¸¶´Ù ¾ÆÀÌÅÛ Á¤º¸°¡ µé¾î°¡ ÀÖ±â¿¡
-				// ÀÌ·¸°Ô °Ë»ç¸¦ ÇØÁÖ°Ô µÇ¾ú´Ù.
+				// ì•„ì´í…œ í–‰ë‚­ 2*2 ì¹¸ ì•„ì´í…œì¼ ê²½ìš° ìœ„ì¹˜ë§ˆë‹¤ ì•„ì´í…œ ì •ë³´ê°€ ë“¤ì–´ê°€ ìžˆê¸°ì—
+				// ì´ë ‡ê²Œ ê²€ì‚¬ë¥¼ í•´ì£¼ê²Œ ë˜ì—ˆë‹¤.
 				std::map<DWORD, int>::iterator iter = mCheck.find(pItemInfo->m_dwItemID);
 
 				if(iter != mCheck.end())
@@ -2068,8 +2068,8 @@ void SendCS_IM_MAKEUNIONITEM_REQ(DWORD dwShopID)
 			}
 			else
 			{
-				// ¾ÆÀÌÅÛ Çà³¶ 2*2 Ä­ ¾ÆÀÌÅÛÀÏ °æ¿ì À§Ä¡¸¶´Ù ¾ÆÀÌÅÛ Á¤º¸°¡ µé¾î°¡ ÀÖ±â¿¡
-				// ÀÌ·¸°Ô °Ë»ç¸¦ ÇØÁÖ°Ô µÇ¾ú´Ù.
+				// ì•„ì´í…œ í–‰ë‚­ 2*2 ì¹¸ ì•„ì´í…œì¼ ê²½ìš° ìœ„ì¹˜ë§ˆë‹¤ ì•„ì´í…œ ì •ë³´ê°€ ë“¤ì–´ê°€ ìžˆê¸°ì—
+				// ì´ë ‡ê²Œ ê²€ì‚¬ë¥¼ í•´ì£¼ê²Œ ë˜ì—ˆë‹¤.
 				std::map<DWORD, int>::iterator iter = mCheck.find(pItemInfo->m_dwItemID);
 
 				if(iter != mCheck.end())
@@ -2115,7 +2115,7 @@ void SendCS_EC_BUYITEM_REQ( DWORD dwShopID, DWORD dwItemID, DWORD dwAmount, BYTE
 
 	g_MainCharInfo.m_bInteractionFlag = TRUE;
 
-	// ¿ä³ÑÀ» º¸³»¸é ÀÌ 3°¡Áö¸¦ ¹Þ´Â´Ù.
+	// ìš”ë„˜ì„ ë³´ë‚´ë©´ ì´ 3ê°€ì§€ë¥¼ ë°›ëŠ”ë‹¤.
 	// CS_IF_CHARMONEY_ACK
 	// CS_EC_BUYITEM_ACK
 	// CS_IM_ADDONSACK_ACK
@@ -2133,7 +2133,7 @@ void SendCS_EC_SELLITEM_REQ( DWORD dwShopID, DWORD dwItemID, BYTE bSackID, BYTE 
 	
 	XiahNetwork::SendNetMsg( msg);
 
-	// ¿ä³ÑÀ» º¸³»¸é ´ÙÀ½ 3°¡Áö¸¦ ¹ÞÀ»°Å´Ù.. 
+	// ìš”ë„˜ì„ ë³´ë‚´ë©´ ë‹¤ìŒ 3ê°€ì§€ë¥¼ ë°›ì„ê±°ë‹¤.. 
 	// CS_IM_REMOVEFROMSACK_ACK	
 	// CS_IF_CHARMONEY_ACK
 	// CS_EC_SELLITEM_ACK
@@ -2142,9 +2142,9 @@ void SendCS_EC_SELLITEM_REQ( DWORD dwShopID, DWORD dwItemID, BYTE bSackID, BYTE 
 void SendCS_EC_ASKTRADE_REQ(BYTE bResult, DWORD dwAskID, DWORD dwAskedID)
 {
 	// bResult
-	//	0 : Æ®·¹ÀÌµå ¿äÃ»
-	//	1 : Æ®·¹ÀÌµå ¿äÃ» ¼ö¶ô
-	//	9 : Æ®·¹ÀÌµå ¿äÃ» °ÅÀý
+	//	0 : íŠ¸ë ˆì´ë“œ ìš”ì²­
+	//	1 : íŠ¸ë ˆì´ë“œ ìš”ì²­ ìˆ˜ë½
+	//	9 : íŠ¸ë ˆì´ë“œ ìš”ì²­ ê±°ì ˆ
 	
 	CMsg msg;
 
@@ -2189,7 +2189,7 @@ void SendCS_EC_TRADESACKOFFITEM_REQ(BYTE bSrcSackID, BYTE bSrcPos, BYTE bDesSack
 
 void SendCS_EC_TRADEITEM_REQ(BYTE bResult, DWORD dwTraderID)
 {
-	// dwTraderID´Â »ó´ë¹æ ¾ÆÀÌµð
+	// dwTraderIDëŠ” ìƒëŒ€ë°© ì•„ì´ë””
 	CMsg msg;
 
 	msg.ID(CS_EC_TRADEITEM_REQ)
@@ -2317,7 +2317,7 @@ void SendCS_EC_DRAWMOVEMALL_REQ( BYTE bSrcPos, DWORD dwSrcItemID, BYTE bDesPos, 
 	XiahNetwork::SendNetMsg( msg);
 }
 
-// º¹±Ç
+// ë³µê¶Œ
 void SendCS_EC_BUYLOTTO_REQ(BYTE bNum1, BYTE bNum2, BYTE bNum3, BYTE bNum4)
 {
 	CMsg msg;
@@ -2375,7 +2375,7 @@ void SendCS_EC_CHECKLOTTO_REQ(DWORD dwItemID, BYTE bSackID, BYTE bSackPos)
 	XiahNetwork::SendNetMsg(msg);
 }
 
-// º¸Çè ¾ÆÀÌÅÛ
+// ë³´í—˜ ì•„ì´í…œ
 void SendCS_EC_GUARANTEELIST_REQ()
 {
 	CMsg msg;
@@ -2385,7 +2385,7 @@ void SendCS_EC_GUARANTEELIST_REQ()
 	XiahNetwork::SendNetMsg(msg);
 }
 
-// ¸ÅÇ°ÆÐ ´Ý±â
+// ë§¤í’ˆíŒ¨ ë‹«ê¸°
 void SendCS_EC_QUICKMART_REQ()
 {
 	CMsg msg;
@@ -2400,9 +2400,9 @@ void SendCS_EC_QUICKMART_REQ()
 ////////////////////////////////////////
 void SendCS_IF_ASKPARTY_REQ(DWORD dwAskID, DWORD dwAskedID, BYTE bResult, BYTE bPartyType)
 {
-	// bResult	0 : ÆÄÆ¼ ¿äÃ»
-	//			1 : ÆÄÆ¼ ½ÂÀÎ
-	//			9 : ÆÄÆ¼ °ÅÀý
+	// bResult	0 : íŒŒí‹° ìš”ì²­
+	//			1 : íŒŒí‹° ìŠ¹ì¸
+	//			9 : íŒŒí‹° ê±°ì ˆ
 	CMsg msg;
 
 	msg.ID(CS_IF_ASKPARTY_REQ)
@@ -2411,17 +2411,17 @@ void SendCS_IF_ASKPARTY_REQ(DWORD dwAskID, DWORD dwAskedID, BYTE bResult, BYTE b
 		<< bResult
 		<< bPartyType;
 	// bPartyType
-	// 0 - ÀÏ¹Ý´Ü
-	// 1 - °ü°è´Ü
+	// 0 - ì¼ë°˜ë‹¨
+	// 1 - ê´€ê³„ë‹¨
 	
 	XiahNetwork::SendNetMsg( msg);
 }
 
 void SendCS_IF_INVITEPARTY_REQ(DWORD dwAskID, DWORD dwAskedID, BYTE bResult, BYTE bPartyType)
 {
-	// bResult	0 : ÆÄÆ¼ ¿äÃ»
-	//			1 : ÆÄÆ¼ ½ÂÀÎ
-	//			9 : ÆÄÆ¼ °ÅÀý
+	// bResult	0 : íŒŒí‹° ìš”ì²­
+	//			1 : íŒŒí‹° ìŠ¹ì¸
+	//			9 : íŒŒí‹° ê±°ì ˆ
 	CMsg msg;
 
 	msg.ID(CS_IF_INVITEPARTY_REQ)
@@ -2430,8 +2430,8 @@ void SendCS_IF_INVITEPARTY_REQ(DWORD dwAskID, DWORD dwAskedID, BYTE bResult, BYT
 		<< bResult
 		<< bPartyType;
 	// bPartyType
-	// 0 - ÀÏ¹Ý´Ü
-	// 1 - °ü°è´Ü
+	// 0 - ì¼ë°˜ë‹¨
+	// 1 - ê´€ê³„ë‹¨
 	
 	XiahNetwork::SendNetMsg( msg);
 }
@@ -2520,7 +2520,7 @@ void SendCS_IF_PETLIST_REQ(DWORD dwCharID)
 }
 
 /**
- * ¿ÀÇà¼öÄ¡ ¿Ã¸®±â
+ * ì˜¤í–‰ìˆ˜ì¹˜ ì˜¬ë¦¬ê¸°
  * \param byFiveElme 
  */
 void SendCS_IF_EXECFIVEELM_REQ(BYTE byFiveElme)
@@ -2534,7 +2534,7 @@ void SendCS_IF_EXECFIVEELM_REQ(BYTE byFiveElme)
 }
 
 /**
- * ¿ÀÇà ¼±ÅÃ
+ * ì˜¤í–‰ ì„ íƒ
  * \param byFiveElme 
  */
 void SendCS_IF_CHANGEFIVEELM_REQ(BYTE byFiveElme)
@@ -2550,9 +2550,9 @@ void SendCS_IF_CHANGEFIVEELM_REQ(BYTE byFiveElme)
 	}	
 }
 
-//HT_0720 : ¿ÀÇà °³¼± »çÇ×
+//HT_0720 : ì˜¤í–‰ ê°œì„  ì‚¬í•­
 /**
-*¿ÀÇà Á¾·á
+*ì˜¤í–‰ ì¢…ë£Œ
 */
 void SendCS_IF_ENDFIVEELM_REQ()
 {
@@ -2564,7 +2564,7 @@ void SendCS_IF_ENDFIVEELM_REQ()
 }
 
 /**
- * ´Ü °æÇèÄ¡ ºÐ¹è ¼±ÅÃ
+ * ë‹¨ ê²½í—˜ì¹˜ ë¶„ë°° ì„ íƒ
  * \param byExpDivision 
  * \param byFEDivision 
  */
@@ -2581,7 +2581,7 @@ void SendCS_IF_PARTYSHARE_REQ(BYTE byExpDivision, BYTE byFEDivision)
 
 
 /**
-* ±â ¹ßµ¿
+* ê¸° ë°œë™
 */
 void SendCS_IF_EXECSTAMINA_REQ()
 {
@@ -2742,7 +2742,7 @@ void SendCS_RL_RELATIONLIST_REQ()
 
 void SendCS_RL_ADDRELATION_REQ(BYTE bType, DWORD dwCharID, LPCSTR strNick, BYTE bConnect)
 {
-	// ¸¸µé¾î ³õ±äÇÏ¿´À¸³ª ¾È¾²´Âµ¥..
+	// ë§Œë“¤ì–´ ë†“ê¸´í•˜ì˜€ìœ¼ë‚˜ ì•ˆì“°ëŠ”ë°..
 	CMsg msg;
 
 	msg.ID(CS_RL_ADDRELATION_REQ)
@@ -2756,7 +2756,7 @@ void SendCS_RL_ADDRELATION_REQ(BYTE bType, DWORD dwCharID, LPCSTR strNick, BYTE 
 
 void SendCS_RL_DELRELATION_REQ(BYTE bType, DWORD dwCharID)
 {
-	// ¸¸µé¾î ³õ±äÇÏ¿´À¸³ª ¾È¾²´Âµ¥..
+	// ë§Œë“¤ì–´ ë†“ê¸´í•˜ì˜€ìœ¼ë‚˜ ì•ˆì“°ëŠ”ë°..
 	CMsg msg;
 
 	msg.ID(CS_RL_DELRELATION_REQ)
@@ -2768,7 +2768,7 @@ void SendCS_RL_DELRELATION_REQ(BYTE bType, DWORD dwCharID)
 
 void SendCS_RL_CHGRELATION_REQ(DWORD dwCharID, BYTE bWorldID, DWORD dwMapID, BYTE bConnect)
 {
-	// ¸¸µé¾î ³õ±äÇÏ¿´À¸³ª ¾È¾²´Âµ¥..
+	// ë§Œë“¤ì–´ ë†“ê¸´í•˜ì˜€ìœ¼ë‚˜ ì•ˆì“°ëŠ”ë°..
 	CMsg msg;
 
 	msg.ID(CS_RL_CHGRELATION_REQ)
@@ -2782,7 +2782,7 @@ void SendCS_RL_CHGRELATION_REQ(DWORD dwCharID, BYTE bWorldID, DWORD dwMapID, BYT
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
- * ¹®ÆÄ°øÁö
+ * ë¬¸íŒŒê³µì§€
  * \param strNotice 
  */
 void SendCS_RL_MUNPANOTICE_REQ(sString strNotice)
@@ -2796,7 +2796,7 @@ void SendCS_RL_MUNPANOTICE_REQ(sString strNotice)
 }
 
 /**
- * ¹®ÆÄ¹®Àå µî·Ï
+ * ë¬¸íŒŒë¬¸ìž¥ ë“±ë¡
  * \param bType 
  * \param dwMunpaID 
  * \param lpstrImage 
@@ -2815,7 +2815,7 @@ void SendCS_RL_MUNPAMARKREG_REQ(BYTE bType, DWORD dwMunpaID, LPCTSTR lpstrImage,
 }
 
 /**
- * ¹®ÀåÀÌ¹ÌÁö ¿äÃ»
+ * ë¬¸ìž¥ì´ë¯¸ì§€ ìš”ì²­
  * \param dwMarkID 
  */
 void SendCS_RL_GAINMARKIMAGE_REQ(DWORD dwMarkID)
@@ -2829,7 +2829,7 @@ void SendCS_RL_GAINMARKIMAGE_REQ(DWORD dwMarkID)
 }
 
 /**
- *¹®ÆÄ(ºñ¼®)¿¡ ¸ðÀÎ ¼¼±Ý
+ *ë¬¸íŒŒ(ë¹„ì„)ì— ëª¨ì¸ ì„¸ê¸ˆ
  * \param dwMunpaID 
  * \param dwTaxMunpaMoney 
  */
@@ -2846,7 +2846,7 @@ void SendCS_RL_GETMUNPAMONEY_REQ(DWORD dwMunpaID, DWORD dwTaxMunpaMoney, DWORD d
 }
 
 /**
- * Àý¿¬ºÎ
+ * ì ˆì—°ë¶€
  * \param bSackID 
  * \param bSackPos 
  * \param dwItemID 
@@ -2922,7 +2922,7 @@ void SendCS_CH_CHAT_REQ( BYTE type, DWORD listener, sString content, sString szN
 	static sString pre_content=_T("");
 	static int loopchat_count = 0;
 
-	// MACRO CHAT ¹æÁö
+	// MACRO CHAT ë°©ì§€
 	if(content.size() > 10)
 	{
 		if(pre_content == content)
@@ -2944,14 +2944,14 @@ void SendCS_CH_CHAT_REQ( BYTE type, DWORD listener, sString content, sString szN
 	if( *content.data() == '%')
 	{
 		content.erase( 0,1);
-		type = 2;	// °øÁö
+		type = 2;	// ê³µì§€
 	}
 
 	TCHAR strTemp[100];
 	memset(strTemp, 0, sizeof(strTemp));
 	memcpy(strTemp, content.data(), strlen(content.data()));
 
-	// ¿å¼³ ¹æÁö
+	// ìš•ì„¤ ë°©ì§€
 	content.printf("%s",ConvertString(strTemp, 100));
 
 	msg.ID( CS_CH_CHAT_REQ)
@@ -2972,7 +2972,7 @@ void SendCS_CH_CHAT_REQ( BYTE type, DWORD listener, sString content, sString szN
 		break;
 	default:
 		msg 
-			<< szNickName;		//listener id¸¦ ¸ð¸¦¶§
+			<< szNickName;		//listener idë¥¼ ëª¨ë¥¼ë•Œ
 		break;
 	}
 
@@ -2993,7 +2993,7 @@ void SendCS_OP_OPTIONLIST_REQ()
 }
 
 /**
- * ¿É¼Ç º¯°æ
+ * ì˜µì…˜ ë³€ê²½
  * \param dwCharID 
  * \param v1 
  * \param v2 
@@ -3037,7 +3037,7 @@ void SendCS_ACTION_REQ(BYTE bAnitype, BYTE bAniKind, WORD wDirection, DWORD dwOb
 }
 
 //////////////////////////////////////////////////////////////////////////
-// [3/5/2004] °³ÀÎ »óÁ¡
+// [3/5/2004] ê°œì¸ ìƒì 
 void SendCS_SH_SETSHOP_REQ(LPCTSTR strName, LPCTSTR strDescription)
 {
 	CMsg msg;
@@ -3167,7 +3167,7 @@ void SendCS_SH_STATUSCHANGE_REQ(BYTE bStatus)
 	XiahNetwork::SendNetMsg(msg);
 }
 //..CLIENT->UNITSVR
-//bStatus	-- 0 : ÆÇ¸Å ÁßÁö , -- 1 : ÆÇ¸Å °³½Ã 
+//bStatus	-- 0 : íŒë§¤ ì¤‘ì§€ , -- 1 : íŒë§¤ ê°œì‹œ 
 
 // [3/5/2004]
 //////////////////////////////////////////////////////////////////////////
@@ -3273,8 +3273,8 @@ void SendCS_WR_STONEDELETE_REQ(DWORD dwMunpaID)
 }
 
 /**
- * ¹®ÆÄ´ëÀü Âü°¡ ½ÅÃ»
- * \param dwFNpcID ±â´É NPC ID
+ * ë¬¸íŒŒëŒ€ì „ ì°¸ê°€ ì‹ ì²­
+ * \param dwFNpcID ê¸°ëŠ¥ NPC ID
  */
 void SendCS_WR_APPLYWAR_REQ(DWORD dwFNpcID)
 {
@@ -3287,7 +3287,7 @@ void SendCS_WR_APPLYWAR_REQ(DWORD dwFNpcID)
 }
 
 /**
- * ¹®ÆÄÀü º¸»ó
+ * ë¬¸íŒŒì „ ë³´ìƒ
  * \param 
  */
 void SendCS_WR_REWARD_REQ(BYTE bType)
@@ -3301,7 +3301,7 @@ void SendCS_WR_REWARD_REQ(BYTE bType)
 }
 
 /**
- * °¢¼ºÁ¦ »ç¿ë
+ * ê°ì„±ì œ ì‚¬ìš©
  * \param 
  */
 void SendCS_IM_REBIRTH_REQ(BYTE bSackID, BYTE bSackPos, DWORD dwItemID)
@@ -3317,7 +3317,7 @@ void SendCS_IM_REBIRTH_REQ(BYTE bSackID, BYTE bSackPos, DWORD dwItemID)
 }
 
 /**
- * HT_1116 : °¢¼ºÁ¦ ¾ÆÀÌÅÛ Ãß°¡
+ * HT_1116 : ê°ì„±ì œ ì•„ì´í…œ ì¶”ê°€
  * \param 
  */
 void SendCS_IM_MAKEREBIRTHITEM_REQ()
@@ -3330,7 +3330,7 @@ void SendCS_IM_MAKEREBIRTHITEM_REQ()
 	BYTE bItemCount = 0;
 	std::map<DWORD, int> mCheck;
 
-	// °³¼ö °Ë»ç
+	// ê°œìˆ˜ ê²€ì‚¬
 	for(int i=0; i < 24; ++i)
 	{
 		pItemInfo = g_MainCharInfo.m_pSmeltSack->FindSackItemByPos(i);
@@ -3343,8 +3343,8 @@ void SendCS_IM_MAKEREBIRTHITEM_REQ()
 			}
 			else
 			{
-				// ¾ÆÀÌÅÛ Çà³¶ 2*2 Ä­ ¾ÆÀÌÅÛÀÏ °æ¿ì À§Ä¡¸¶´Ù ¾ÆÀÌÅÛ Á¤º¸°¡ µé¾î°¡ ÀÖ±â¿¡
-				// ÀÌ·¸°Ô °Ë»ç¸¦ ÇØÁÖ°Ô µÇ¾ú´Ù.
+				// ì•„ì´í…œ í–‰ë‚­ 2*2 ì¹¸ ì•„ì´í…œì¼ ê²½ìš° ìœ„ì¹˜ë§ˆë‹¤ ì•„ì´í…œ ì •ë³´ê°€ ë“¤ì–´ê°€ ìžˆê¸°ì—
+				// ì´ë ‡ê²Œ ê²€ì‚¬ë¥¼ í•´ì£¼ê²Œ ë˜ì—ˆë‹¤.
 				std::map<DWORD, int>::iterator iter = mCheck.find(pItemInfo->m_dwItemID);
 
 				if(iter != mCheck.end())
@@ -3388,8 +3388,8 @@ void SendCS_IM_MAKEREBIRTHITEM_REQ()
 			}
 			else
 			{
-				// ¾ÆÀÌÅÛ Çà³¶ 2*2 Ä­ ¾ÆÀÌÅÛÀÏ °æ¿ì À§Ä¡¸¶´Ù ¾ÆÀÌÅÛ Á¤º¸°¡ µé¾î°¡ ÀÖ±â¿¡
-				// ÀÌ·¸°Ô °Ë»ç¸¦ ÇØÁÖ°Ô µÇ¾ú´Ù.
+				// ì•„ì´í…œ í–‰ë‚­ 2*2 ì¹¸ ì•„ì´í…œì¼ ê²½ìš° ìœ„ì¹˜ë§ˆë‹¤ ì•„ì´í…œ ì •ë³´ê°€ ë“¤ì–´ê°€ ìžˆê¸°ì—
+				// ì´ë ‡ê²Œ ê²€ì‚¬ë¥¼ í•´ì£¼ê²Œ ë˜ì—ˆë‹¤.
 				std::map<DWORD, int>::iterator iter = mCheck.find(pItemInfo->m_dwItemID);
 
 				if(iter != mCheck.end())
@@ -3416,7 +3416,7 @@ void SendCS_IM_MAKEREBIRTHITEM_REQ()
 }
 
 /**
-* ±¤¸íÀü(ºñ¹ÐÀÇ ¹æ) ½ÅÃ»
+* ê´‘ëª…ì „(ë¹„ë°€ì˜ ë°©) ì‹ ì²­
 */
 void SendCS_WR_APPLYSECRET_REQ()
 {
@@ -3427,7 +3427,7 @@ void SendCS_WR_APPLYSECRET_REQ()
 	XiahNetwork::SendNetMsg(msg);
 }
 /**
-* ±¤¸íÀü(ºñ¹ÐÀÇ ¹æ) Âü¿© ½ÅÃ» ¹öÆ° Å¬¸¯½Ã
+* ê´‘ëª…ì „(ë¹„ë°€ì˜ ë°©) ì°¸ì—¬ ì‹ ì²­ ë²„íŠ¼ í´ë¦­ì‹œ
 */
 void SendCS_WR_APPLYSECRETREADY_REQ()
 {
@@ -3439,7 +3439,7 @@ void SendCS_WR_APPLYSECRETREADY_REQ()
 }
 
 /**
-* ÃµÈ²Àü(¸¶Ç÷ÃµÈ²ÀÇ ¹æ) ½ÅÃ»
+* ì²œí™©ì „(ë§ˆí˜ˆì²œí™©ì˜ ë°©) ì‹ ì²­
 */
 void SendCS_WR_APPLYDEVIL_REQ()
 {
@@ -3451,7 +3451,7 @@ void SendCS_WR_APPLYDEVIL_REQ()
 }
 
 /**
-* ÃµÈ²Àü(¸¶Ç÷ÃµÈ²ÀÇ ¹æ) Âü¿© ½ÅÃ» ¹öÆ° Å¬¸¯½Ã
+* ì²œí™©ì „(ë§ˆí˜ˆì²œí™©ì˜ ë°©) ì°¸ì—¬ ì‹ ì²­ ë²„íŠ¼ í´ë¦­ì‹œ
 */
 void SendCS_WR_APPLYDEVILREADY_REQ()
 {
@@ -3463,7 +3463,7 @@ void SendCS_WR_APPLYDEVILREADY_REQ()
 }
 
 /**
-* ±¤¸íÀü(ºñ¹ÐÀÇ ¹æ) ÀÔÀå
+* ê´‘ëª…ì „(ë¹„ë°€ì˜ ë°©) ìž…ìž¥
 */
 void SendCS_NV_SECRETADVENTURE_REQ()
 {
@@ -3475,7 +3475,7 @@ void SendCS_NV_SECRETADVENTURE_REQ()
 }
 
 /**
-* ÃµÈ²Àü(¸¶Ç÷ÃµÈ²ÀÇ ¹æ) ÀÔÀå
+* ì²œí™©ì „(ë§ˆí˜ˆì²œí™©ì˜ ë°©) ìž…ìž¥
 */
 void SendCS_NV_DEVILADVENTURE_REQ()
 {
@@ -3486,7 +3486,7 @@ void SendCS_NV_DEVILADVENTURE_REQ()
 	XiahNetwork::SendNetMsg(msg);
 }
 
-//HT_0423 : ´ÜÁÖ À§ÀÓ
+//HT_0423 : ë‹¨ì£¼ ìœ„ìž„
 void SendCS_IF_CHANGEPARTYLEADER_REQ(DWORD dwCurLeaderID, DWORD dwPostLeaderID)
 {
 	CMsg msg;

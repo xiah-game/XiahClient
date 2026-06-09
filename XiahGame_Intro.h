@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "XiahGame_StepObject.h"
 #include "XiahGameObject.h"
@@ -6,10 +6,10 @@
 
 //extern void RegisterAllNetworkHandler_Intro();
 
-#define CLASS_MAX				2	// create½Ã max class
-#define CHARACTER_MAX			3	// »ç¿ëÀÚ°¡ °¡Áú ¼ö ÀÖ´Â max char
+#define CLASS_MAX				2	// createì‹œ max class
+#define CHARACTER_MAX			3	// ì‚¬ìš©ìê°€ ê°€ì§ˆ ìˆ˜ ìˆëŠ” max char
 
-#define	XIAH_CHAR_MAX			4	// °Ë¿µ, ¿¬¶û, ¹«Åõ, ¾ßÂ÷. Ä³¸¯ÅÍ 4°³.
+#define	XIAH_CHAR_MAX			4	// ê²€ì˜, ì—°ë‘, ë¬´íˆ¬, ì•¼ì°¨. ìºë¦­í„° 4ê°œ.
 
 #define INTROMENU_CREATECHAR	1
 #define INTROMENU_SELECTCHAR	2
@@ -32,8 +32,8 @@ public:
 	void Init_WindowCharacter();
 	void Init_WindowOutSide();
 	void Init_WindowInSide();
-	void Init_WindowFiveElement();			// ¿ÀÇà
-	void Init_WindowSkill();		// °¢¼º
+	void Init_WindowFiveElement();			// ì˜¤í–‰
+	void Init_WindowSkill();		// ê°ì„±
 
 private:
 	// frame initialize
@@ -70,14 +70,14 @@ private:
 	void Init_WindowOption();
 	void Init_WindowClose();
 
-	void Init_WindowPcStore();				// °³ÀÎ »óÁ¡
-	void Init_WindowMoney();				// µ· ÀÔ·Â ÀÎÅÍÆäÀÌ½º
+	void Init_WindowPcStore();				// ê°œì¸ ìƒì 
+	void Init_WindowMoney();				// ëˆ ì…ë ¥ ì¸í„°í˜ì´ìŠ¤
 
-	void Init_WindowGakMessage();			// °¢Àû
-	void Init_WindowDongsin();				// µ¿½ÅÀû
+	void Init_WindowGakMessage();			// ê°ì 
+	void Init_WindowDongsin();				// ë™ì‹ ì 
 
-	void Init_WindowDanWar();				// ´Ü ºñ¹«
-	void Init_WindowPurse();				// ´Ü Àü³¶
+	void Init_WindowDanWar();				// ë‹¨ ë¹„ë¬´
+	void Init_WindowPurse();				// ë‹¨ ì „ë‚­
 
 	void Init_WindowMunpaBBSTop();
 	void Init_WindowMunpaBBSList();
@@ -85,7 +85,7 @@ private:
 	void Init_WindowMunpaBBSWrite();
 	void Init_WindowMunpaDonate();
 	void Init_WindowMunpaWarPetition();
-	void Init_WindowMark();					// ¹®ÆÄ¸¶Å© (´Ù¸¥°Í »ç¿ë°¡´É)
+	void Init_WindowMark();					// ë¬¸íŒŒë§ˆí¬ (ë‹¤ë¥¸ê²ƒ ì‚¬ìš©ê°€ëŠ¥)
 
 	void Init_WindowMail();
 	void Init_WindowMailSelect();
@@ -94,23 +94,23 @@ private:
 	void Init_WindowCommon();
 	void Init_WindowPetTrade();
 
-	void Init_WindowBokNumber();			// º¹±Ç¹øÈ£¼±ÅÃ
-	void Init_WindowBokPrize();				// º¹±Ç´çÃ·¹øÈ£
-	void Init_WindowSmelt();				// Á¶ÇÕÃ¢
-	void Init_WindowFiveElementConvert();	// ¿ÀÇà Á¦·Ã
+	void Init_WindowBokNumber();			// ë³µê¶Œë²ˆí˜¸ì„ íƒ
+	void Init_WindowBokPrize();				// ë³µê¶Œë‹¹ì²¨ë²ˆí˜¸
+	void Init_WindowSmelt();				// ì¡°í•©ì°½
+	void Init_WindowFiveElementConvert();	// ì˜¤í–‰ ì œë ¨
 
-	void Init_WindowHelperList();			// ´ëÈ­ ¸®½ºÆ®
-	void Init_WindowHelperScript();			// ´ëÈ­Ã¢
+	void Init_WindowHelperList();			// ëŒ€í™” ë¦¬ìŠ¤íŠ¸
+	void Init_WindowHelperScript();			// ëŒ€í™”ì°½
 
-	void Init_WindowRecovery();				// ¾ÆÀÌÅÛ º¹±¸
+	void Init_WindowRecovery();				// ì•„ì´í…œ ë³µêµ¬
 
-	void Init_WindowDanNew();				// ´Ü °æÇèÄ¡ ºĞ¹è
-	void Init_WindowPortal();				// NPC Æ÷Å» ÀÌµ¿
+	void Init_WindowDanNew();				// ë‹¨ ê²½í—˜ì¹˜ ë¶„ë°°
+	void Init_WindowPortal();				// NPC í¬íƒˆ ì´ë™
 
-	void Init_WindowCollection();			// ¾ÆÀÌÅÛ ¼öÁı	
+	void Init_WindowCollection();			// ì•„ì´í…œ ìˆ˜ì§‘	
 
-	void Init_WindowSecretMove();			//HT_0313 : ±¤¸íÀü & ÃµÈ²Àü	(ÀÌµ¿)
-	void Init_WindowSecretApplication();	//HT_0313 : ±¤¸íÀü & ÃµÈ²Àü	(Âü¿©)
+	void Init_WindowSecretMove();			//HT_0313 : ê´‘ëª…ì „ & ì²œí™©ì „	(ì´ë™)
+	void Init_WindowSecretApplication();	//HT_0313 : ê´‘ëª…ì „ & ì²œí™©ì „	(ì°¸ì—¬)
 	void Init_WindowSecretBasis();	
 public:
 
@@ -118,7 +118,7 @@ public:
 	BOOL Update();
 	BOOL Render();
 
-	HRESULT InitIntro( BYTE byCurrentMenu);	// CHARACTERLIST_ACK() ¹Ş°í
+	HRESULT InitIntro( BYTE byCurrentMenu);	// CHARACTERLIST_ACK() ë°›ê³ 
 	void	SetCurrentMenu( BYTE byCurrentMenu) { m_byCurrentMenu = byCurrentMenu;};
 	BYTE	GetCurrentMenu() { return m_byCurrentMenu;};
 	HRESULT	GoToMenuCreateChar();
@@ -134,31 +134,31 @@ public:
 	BYTE	GetCurrentClassIndex() { return m_byCurrentClassIndex;};
 
 	// Select Character
-	void	SetCharCount( BYTE byCharCount) { m_byCharCount = byCharCount;};		// CHARACTERLIS_ACK(), NEWCHARACTER_ACK() ¹Ş°í
-	void	SetCurrentCharIndex( BYTE byIndex) { m_byCurrentCharIndex = byIndex;};	// Ä³¸¯ÅÍ ¼±ÅÃÇÒ¶§
-	void	SetCurrentCharInfo( BYTE byIndex);										// Ä³¸¯ÅÍ ¼±ÅÃÇÒ¶§
-	void	SetCurrentCharInfoToScr();												// Ä³¸¯ÅÍ ¼±ÅÃÇÒ¶§
+	void	SetCharCount( BYTE byCharCount) { m_byCharCount = byCharCount;};		// CHARACTERLIS_ACK(), NEWCHARACTER_ACK() ë°›ê³ 
+	void	SetCurrentCharIndex( BYTE byIndex) { m_byCurrentCharIndex = byIndex;};	// ìºë¦­í„° ì„ íƒí• ë•Œ
+	void	SetCurrentCharInfo( BYTE byIndex);										// ìºë¦­í„° ì„ íƒí• ë•Œ
+	void	SetCurrentCharInfoToScr();												// ìºë¦­í„° ì„ íƒí• ë•Œ
 	BYTE	GetCharCount() { return m_byCharCount;};
 	BYTE	GetCurrentCharIndex() { return m_byCurrentCharIndex;};
 	CharacterInfo*	GetCurrentChar() { return m_CharacterList[ m_byCurrentCharIndex];};
 
 	void	CreateInitCharData();
-	bool	m_bIntroInitCharDataCreated;	// ÀÎÆ®·Î¿¡¼­ »ç¿ëÇÒ Ä³¸¯ÅÍ Á¤º¸¸¦ »ı¼ºÇß´ÂÁö.
+	bool	m_bIntroInitCharDataCreated;	// ì¸íŠ¸ë¡œì—ì„œ ì‚¬ìš©í•  ìºë¦­í„° ì •ë³´ë¥¼ ìƒì„±í–ˆëŠ”ì§€.
 
 	//
 	CharacterInfo*	m_CharacterList[CHARACTER_MAX];
 
-	// Intro¸Ş´º¿¡¼­ »ç¿ëµÇ´Â Ä³¸¯ÅÍ °´Ã¼
+	// Introë©”ë‰´ì—ì„œ ì‚¬ìš©ë˜ëŠ” ìºë¦­í„° ê°ì²´
 //	XiahGameEngine::CCharRender m_CharRender;
 	CXiahCharObject				m_CharRender[ CHARACTER_MAX ];
 //	Matrix4x4					m_CharTM;
 
     bool	m_bIntroBGMPlay;
 
-	BYTE	m_byOnMouseCharIndex;		// ¿Â ¸¶¿ì½º Ä³¸¯ÅÍÀÇ ÀÌ¸§À» º¸¿©ÁÖ±â À§ÇØ¼­.
+	BYTE	m_byOnMouseCharIndex;		// ì˜¨ ë§ˆìš°ìŠ¤ ìºë¦­í„°ì˜ ì´ë¦„ì„ ë³´ì—¬ì£¼ê¸° ìœ„í•´ì„œ.
 
-	// Ä³¸¯ÅÍ ¼±ÅÃÇÒ¶§ ÇÊ¿äÇÑ º¯¼öµé.
-	bool			m_bCanSelectCharacter;	// ÇöÀç Ä³¸¯ÅÍ¸¦ Áö¿ì°íÀÚ ÇÒ¶§¿£ ´Ù¸¥ Ä³¸¯ÅÍ¸¦ ¸ø °í¸¥´Ù. ¾¾... 
+	// ìºë¦­í„° ì„ íƒí• ë•Œ í•„ìš”í•œ ë³€ìˆ˜ë“¤.
+	bool			m_bCanSelectCharacter;	// í˜„ì¬ ìºë¦­í„°ë¥¼ ì§€ìš°ê³ ì í• ë•Œì—” ë‹¤ë¥¸ ìºë¦­í„°ë¥¼ ëª» ê³ ë¥¸ë‹¤. ì”¨... 
 	bool			m_bFirstCharSelect;
 	bool			m_bCharacterSelected;
 	int				m_nCharacterSelectStep;
@@ -176,7 +176,7 @@ public:
 	float			m_fCameraRotateYAngle;
 	float			m_fCameraTargetYAngle;
 
-	// Ä³¸¯ÅÍ ¸¸µé±â ÇÒ¶§ ÇÊ¿äÇÑ º¯¼öµé
+	// ìºë¦­í„° ë§Œë“¤ê¸° í• ë•Œ í•„ìš”í•œ ë³€ìˆ˜ë“¤
 	CXiahCharObject			m_GyumYung;
 	CXiahCharObject			m_YunRang;
 	CXiahCharObject			m_MooToo;
@@ -200,7 +200,7 @@ public:
 	int				m_nCharacterCreateStep;
 	bool			m_bOri, m_bFirst;
 	float			m_fAddHeight;
-	int				m_nCurrentCharacter;	// 1 : °Ë¿µ, 2 : ¿¬¶û, 3 : ¹«Åõ
+	int				m_nCurrentCharacter;	// 1 : ê²€ì˜, 2 : ì—°ë‘, 3 : ë¬´íˆ¬
 	bool			m_bCharacterCreatePreLoaded;
 
 //private:
@@ -212,9 +212,9 @@ public:
 	BYTE			m_byCurrentCharIndex;
 	BYTE			m_byCurrentMenu;
 
-	// °ÔÀÓ ½ÃÀÛÇÒ¶§ ·ÎµùÈ­¸é º¸ÀÌ°Ô.
+	// ê²Œì„ ì‹œì‘í• ë•Œ ë¡œë”©í™”ë©´ ë³´ì´ê²Œ.
 	bool	m_bFirstGameLoadScreen;
-	bool	m_bIntroFirstCall;	// ÀÌ³à¼®ÀÌ ÀÖ¾î¾ß Ã³À½¿¡ °ÔÀÓ ·Îµù È­¸éÀÌ º¸ÀÎ´Ù.
+	bool	m_bIntroFirstCall;	// ì´ë…€ì„ì´ ìˆì–´ì•¼ ì²˜ìŒì— ê²Œì„ ë¡œë”© í™”ë©´ì´ ë³´ì¸ë‹¤.
 	BYTE	m_byIntroFirstCallCurMenu;
 
 };

@@ -1,4 +1,4 @@
-#include "precompile.h"
+ï»¿#include "precompile.h"
 #include "XiahGame_Main.h"
 #include "XiahCamera.h"
 #include "XiahMap.h"
@@ -20,16 +20,16 @@
 #include "RebirthMark.h"
 
 
-//HT_CHEAT : Ä¡Æ® Å°
+//HT_CHEAT : ì¹˜íŠ¸ í‚¤
 extern BOOL g_bCheat;
 extern  BOOL g_bCheatEtc;
 
 extern void RegisterNetworkHandler_Main();
 extern BOOL ProcessMainChar();
 
-unsigned long	g_SemiPK_Blink = 0;	// Semi PK ÀÇ °æ°í ±ôºıÀÓ
+unsigned long	g_SemiPK_Blink = 0;	// Semi PK ì˜ ê²½ê³  ê¹œë¹¡ì„
 CStaticTrigger* g_StaticTriggerList[ XIAH_STATIC_TRIGGER_COUNT];
-sMainChar_PreAttackInfo g_MainChar_PreAttackInfo = {0,0,0,0,0,0,0,0,0,0,true,false}; //HT_1026 : ½ºÇÙ ¹æÁö
+sMainChar_PreAttackInfo g_MainChar_PreAttackInfo = {0,0,0,0,0,0,0,0,0,0,true,false}; //HT_1026 : ìŠ¤í•µ ë°©ì§€
 sMainChar_MugongPreAttackInfo g_MainChar_MugongPreAttackInfo;
 
 CXiahGame_Main::CXiahGame_Main()
@@ -45,7 +45,7 @@ CXiahGame_Main::CXiahGame_Main()
 #ifdef TRACE_LOG
 	if(g_StaticTriggerList[ 0] == NULL || g_StaticTriggerList[ 1] == NULL || g_StaticTriggerList[ 2] == NULL)
 	{
-		DBG_LogFile( _T("CXiahGame_Main::CXiahGame_Main() ½ÇÆĞ"));
+		DBG_LogFile( _T("CXiahGame_Main::CXiahGame_Main() ì‹¤íŒ¨"));
 	}
 #endif
 
@@ -55,7 +55,7 @@ CXiahGame_Main::CXiahGame_Main()
 	g_GameWork.m_nNavigationMode = 0;
 	if(!Minimap::CreateMiniMap())
 	{
-		DBG_LogFile( _T("CXiahGame_Main::CXiahGame_Main() ½ÇÆĞ"));
+		DBG_LogFile( _T("CXiahGame_Main::CXiahGame_Main() ì‹¤íŒ¨"));
 	}
 
 	InitXiahBGM();
@@ -95,13 +95,13 @@ CXiahGame_Main::~CXiahGame_Main()
 
 	if(!ReleasePortalNPC())
 	{
-		DBG_LogFile( _T("CXiahGame_Main::~CXiahGame_Main() ½ÇÆĞ"));
+		DBG_LogFile( _T("CXiahGame_Main::~CXiahGame_Main() ì‹¤íŒ¨"));
 	}
 
 	ReleaseEnergyGauge();
 	if(!Minimap::ReleaseMiniMap())
 	{
-		DBG_LogFile( _T("CXiahGame_Main::~CXiahGame_Main() ½ÇÆĞ"));
+		DBG_LogFile( _T("CXiahGame_Main::~CXiahGame_Main() ì‹¤íŒ¨"));
 	}
 
 	ReleaseXiahBGM();
@@ -162,13 +162,13 @@ BOOL CXiahGame_Main::Update()
 	//m_nTestCount = 0;
 	for(int i=0; i < 8; ++i)
 	{
-		g_tHelp[i].SetText(0,0, _T(" "), GetFont("å®‹ä½“", 14), D3DCOLOR_XRGB( 0, 255, 255), 15);
+		g_tHelp[i].SetText(0,0, _T(" "), GetFont("ï¥´ë—¤íª", 14), D3DCOLOR_XRGB( 0, 255, 255), 15);
 	}
 
 #ifndef MASTER
 	//////////////////////////////////////////////////////////////////////////
 	static long pre_playtime = timeGetTime();
-	// ÃÑ ÇÃ·¹ÀÌ½Ã°£ °è»ê (ÃÊ)
+	// ì´ í”Œë ˆì´ì‹œê°„ ê³„ì‚° (ì´ˆ)
 	long g_playtime = (timeGetTime() - pre_playtime) / 1000;
 
 	sString str;
@@ -177,36 +177,36 @@ BOOL CXiahGame_Main::Update()
 	min = min - hour * 60;
 	int sec = g_playtime - min*60 - hour*3600;
 
-	str.printf( "PlayTime %d½Ã°£%dºĞ%dÃÊ",hour,min,sec);
-	g_tHelp[0].SetText( 400,25 ,str, GetFont("å®‹ä½“", 12), D3DCOLOR_XRGB( 255, 255, 255), 15);
+	str.printf( "PlayTime %dì‹œê°„%dë¶„%dì´ˆ",hour,min,sec);
+	g_tHelp[0].SetText( 400,25 ,str, GetFont("ï¥´ë—¤íª", 12), D3DCOLOR_XRGB( 255, 255, 255), 15);
 
 	//////////////////////////////////////////////////////////////////////////
 
 	// FPS
 	//str.printf( "FPS : %d, Last(T) %dms, %d ms",XiahGameEngine::GetFrameTimer(), g_AppData.dwTime, g_AppData.dwTime2);
 	str.printf( "FPS : %d",XiahGameEngine::GetFrameTimer());
-	g_tHelp[1].SetText( 300,25 ,str, GetFont("å®‹ä½“", 12), D3DCOLOR_XRGB( 255, 255, 255), 15);
+	g_tHelp[1].SetText( 300,25 ,str, GetFont("ï¥´ë—¤íª", 12), D3DCOLOR_XRGB( 255, 255, 255), 15);
 
 	if(g_bCheat)
 	{
 		//str.printf( "FPS : %d",XiahGameEngine::GetFrameTimer());
-		g_tHelp[2].SetText( 300,10 ,"1", GetFont("å®‹ä½“", 10), D3DCOLOR_XRGB( 255, 255, 255), 15);
+		g_tHelp[2].SetText( 300,10 ,"1", GetFont("ï¥´ë—¤íª", 10), D3DCOLOR_XRGB( 255, 255, 255), 15);
 	}
 	else
 	{
-		g_tHelp[2].SetText( 300,10 ,"", GetFont("å®‹ä½“", 10), D3DCOLOR_XRGB( 255, 255, 255), 15);
+		g_tHelp[2].SetText( 300,10 ,"", GetFont("ï¥´ë—¤íª", 10), D3DCOLOR_XRGB( 255, 255, 255), 15);
 	}
 
 	if(g_bCheatEtc)
 	{
-		g_tHelp[3].SetText( 330,10 ,"2", GetFont("å®‹ä½“", 10), D3DCOLOR_XRGB( 255, 255, 255), 15);
+		g_tHelp[3].SetText( 330,10 ,"2", GetFont("ï¥´ë—¤íª", 10), D3DCOLOR_XRGB( 255, 255, 255), 15);
 		str.printf( "< %d s >", g_MainCharInfo.m_byCheatTime);
-		g_tHelp[4].SetText( 350,10 ,str, GetFont("å®‹ä½“", 13), D3DCOLOR_XRGB( 255, 255, 255), 15);
+		g_tHelp[4].SetText( 350,10 ,str, GetFont("ï¥´ë—¤íª", 13), D3DCOLOR_XRGB( 255, 255, 255), 15);
 	}
 	else
 	{
-		g_tHelp[3].SetText( 330,10 ,"", GetFont("å®‹ä½“", 10), D3DCOLOR_XRGB( 255, 255, 255), 15);
-		g_tHelp[4].SetText( 350,10 ,"", GetFont("å®‹ä½“", 13), D3DCOLOR_XRGB( 255, 255, 255), 15);
+		g_tHelp[3].SetText( 330,10 ,"", GetFont("ï¥´ë—¤íª", 10), D3DCOLOR_XRGB( 255, 255, 255), 15);
+		g_tHelp[4].SetText( 350,10 ,"", GetFont("ï¥´ë—¤íª", 13), D3DCOLOR_XRGB( 255, 255, 255), 15);
 	}
 
 
@@ -226,7 +226,7 @@ BOOL CXiahGame_Main::Update()
 
 	START_PERFORMANCE;
 
-	// ÀÌ°Ç Ä«¸Ş¶ó¸¦ Á÷Á¢ ¿òÁ÷ÀÌ´Â ºÎºĞÀ¸·Î ½ºÅ©¸°¼¦ Àü¿ë ±â´É.
+	// ì´ê±´ ì¹´ë©”ë¼ë¥¼ ì§ì ‘ ì›€ì§ì´ëŠ” ë¶€ë¶„ìœ¼ë¡œ ìŠ¤í¬ë¦°ìƒ· ì „ìš© ê¸°ëŠ¥.
 	if( m_bOnlyCameraMoveForTest )
 	{
 		MoveOnlyCameraForTest();
@@ -235,15 +235,15 @@ BOOL CXiahGame_Main::Update()
 	}
 	else
 	{
-		// ¸ŞÀÎ Ä³¸¯ÅÍ¸¸ Æ¯º° ´ë¿ì
+		// ë©”ì¸ ìºë¦­í„°ë§Œ íŠ¹ë³„ ëŒ€ìš°
 		ProcessMainChar();
 	}
 
-	// Ä«¸Ş¶ó Update
+	// ì¹´ë©”ë¼ Update
 	g_XiahCamera.Update();
 	CHECK_PERFORMANCE( "Camera And MainChar");
 
-	// CG_2005/05/26 : ½ºÄ«ÀÌ¸Ê Ã¼ÀÎÁö
+	// CG_2005/05/26 : ìŠ¤ì¹´ì´ë§µ ì²´ì¸ì§€
 	g_Sky.FrameMove( (D3DXVECTOR3&)g_XiahCamera.m_vFrom, 0.05f );
 
 	/*
@@ -257,15 +257,15 @@ BOOL CXiahGame_Main::Update()
 
 	// Object Update
 	START_PERFORMANCE;
-	UpdateObject(); //HT_TEST : ¿À·¡ °É¸²
+	UpdateObject(); //HT_TEST : ì˜¤ë˜ ê±¸ë¦¼
 	CHECK_PERFORMANCE( "Update Object");
 
-	// ¹è°æÀº ¹İµå½Ã Ä«¸Ş¶ó°¡ ¼¼ÆÃµÈ´ÙÀ½¿¡ Update½ÃÄÑÁØ´Ù
+	// ë°°ê²½ì€ ë°˜ë“œì‹œ ì¹´ë©”ë¼ê°€ ì„¸íŒ…ëœë‹¤ìŒì— Updateì‹œì¼œì¤€ë‹¤
 	START_PERFORMANCE;
 	
 	XiahMap::g_XiahMap.Update();
 
-	CHECK_PERFORMANCE( "Update Map"); //HT_TEST : ¿À·¡ °É¸²
+	CHECK_PERFORMANCE( "Update Map"); //HT_TEST : ì˜¤ë˜ ê±¸ë¦¼
 
 	// MINIMAP UPDATE
 	if(m_Timer_UpdateMinimap + 50 < g_dwCurTime)
@@ -278,20 +278,20 @@ BOOL CXiahGame_Main::Update()
 
 	// Effect
 	START_PERFORMANCE;
-	// °æÇèÄ¡ È¹µæ ÀÌÆåÆ®¸¦ À§ÇØ¼­ ¸Å¹ø ¸ŞÀÎ Ä³¸¯ÅÍÀÇ Áß°£ À§Ä¡¸¦ ¼¼ÆÃÇÑ´Ù.
+	// ê²½í—˜ì¹˜ íšë“ ì´í™íŠ¸ë¥¼ ìœ„í•´ì„œ ë§¤ë²ˆ ë©”ì¸ ìºë¦­í„°ì˜ ì¤‘ê°„ ìœ„ì¹˜ë¥¼ ì„¸íŒ…í•œë‹¤.
 	CXiahCharObject* pMainChar = (CXiahCharObject*)g_pMainChar->m_pObject;
 	Vector3 vMainCharSize = pMainChar->m_LocalBound.Size();
 	Vector3 vMainCharPos = pMainChar->m_Position + Vector3( 0, vMainCharSize.y*2.0f/3.0f, 0 );
 	g_EffectManager.SetTargetMovePosition( (VECTOR)vMainCharPos );
 	g_EffectManager.UpdateEffect(33.0f * g_fFrameScale);
-	CHECK_PERFORMANCE( "Update Effect");//HT_TEST : ¿À·¡ °É¸²
+	CHECK_PERFORMANCE( "Update Effect");//HT_TEST : ì˜¤ë˜ ê±¸ë¦¼
 
 	// Interface
 	START_PERFORMANCE;
 	g_MainCharInfo.Update();
 	CHECK_PERFORMANCE( "Update UIManager");
 
-	// µ¥¹ÌÁö ¼ıÀÚ ÀÌÆåÆ®
+	// ë°ë¯¸ì§€ ìˆ«ì ì´í™íŠ¸
 	START_PERFORMANCE;
 	g_HitEffect.Update();
 	g_RainSnow.Update(33.0f * g_fFrameScale);
@@ -301,7 +301,7 @@ BOOL CXiahGame_Main::Update()
 	// Grass Zone
 	//XiahMap::g_XiahMap.UpdateGrassZone();
 
-	// ÀÌ°Ç Ä«¸Ş¶ó¸¦ Á÷Á¢ ¿òÁ÷ÀÌ´Â ºÎºĞÀ¸·Î ½ºÅ©¸°¼¦ Àü¿ë ±â´É.
+	// ì´ê±´ ì¹´ë©”ë¼ë¥¼ ì§ì ‘ ì›€ì§ì´ëŠ” ë¶€ë¶„ìœ¼ë¡œ ìŠ¤í¬ë¦°ìƒ· ì „ìš© ê¸°ëŠ¥.
 /*
 	if( GetAsyncKeyState( VK_CONTROL ) < 0 )
 	if( GetAsyncKeyState( VK_LSHIFT ) < 0 )
@@ -330,7 +330,7 @@ BOOL CXiahGame_Main::Update()
 
 BOOL CXiahGame_Main::Render()
 {
-	//HT_CHEAT : ¿ÍÀÌ¾î È­¸é º¸ÀÌ±â
+	//HT_CHEAT : ì™€ì´ì–´ í™”ë©´ ë³´ì´ê¸°
 	if( g_AppData.m_bWireframe )
 		g_pDirect3DDevice->SetRenderState( D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 	else
@@ -342,46 +342,46 @@ BOOL CXiahGame_Main::Render()
 	g_pDirect3DDevice->SetRenderState( D3DRS_ALPHABLENDENABLE,	FALSE );
 	g_pDirect3DDevice->SetRenderState( D3DRS_ALPHATESTENABLE,	FALSE );
 
-	// !! ¾ÕÀ¸·Î ÀÌ ±ÔÄ¢À» ²À ÁöÅ³°Í !!
-	// ·»´õ¸µ ¸ğµâÀ» ³ÖÀ»¶§ SetRenderStateÀÌ Áßº¹µÇ°Å³ª ±¦È÷ ¹Ù²îÁö ¾Êµµ·Ï ÁÖÀÇ!!
-	// ¿øÄ¢ÀûÀÎ ¼ø¼­ : No Alpha -> Alpha -> Alpha Test
+	// !! ì•ìœ¼ë¡œ ì´ ê·œì¹™ì„ ê¼­ ì§€í‚¬ê²ƒ !!
+	// ë Œë”ë§ ëª¨ë“ˆì„ ë„£ì„ë•Œ SetRenderStateì´ ì¤‘ë³µë˜ê±°ë‚˜ ê´œíˆ ë°”ë€Œì§€ ì•Šë„ë¡ ì£¼ì˜!!
+	// ì›ì¹™ì ì¸ ìˆœì„œ : No Alpha -> Alpha -> Alpha Test
  
 	// 1. No Alpha Render
 	START_PERFORMANCE;
-	// CG_2005/05/26 : ½ºÄ«ÀÌ¸Ê Ã¼ÀÎÁö
+	// CG_2005/05/26 : ìŠ¤ì¹´ì´ë§µ ì²´ì¸ì§€
 	g_Sky.Render();
 	//g_SkyBox.Render();
 	CHECK_PERFORMANCE( "Render Sky");
 
-	// ¾ê¸¸ ¿¹¿Ü·Î ¿©±â¿¡ µÎÀÚ.
+	// ì–˜ë§Œ ì˜ˆì™¸ë¡œ ì—¬ê¸°ì— ë‘ì.
 	//g_SkyStar.Render();
 
 	START_PERFORMANCE;
 	XiahMap::g_XiahMap.RenderTerrain();
-//	CHECK_PERFORMANCE( "Render Terrain"); //HT_TTEST : ¿À·¡°É¸²
-	// ¾ÕÀ¸·Î ¾ê´Â No Alpha°¡ µÉ°ÍÀÌ´Ù.
+//	CHECK_PERFORMANCE( "Render Terrain"); //HT_TTEST : ì˜¤ë˜ê±¸ë¦¼
+	// ì•ìœ¼ë¡œ ì–˜ëŠ” No Alphaê°€ ë ê²ƒì´ë‹¤.
 	XiahMap::g_XiahMap.RenderWater(); 
 
-	// ¸ŞÀÎ Ä³¸¯ÅÍ°¡ ¾ÏÈæ¹«¿¡ °É¸®¸é ¾Æ¿¹ ¾È±×¸°´Ù.
+	// ë©”ì¸ ìºë¦­í„°ê°€ ì•”í‘ë¬´ì— ê±¸ë¦¬ë©´ ì•„ì˜ˆ ì•ˆê·¸ë¦°ë‹¤.
 	if( !g_XiahEnvInfo.m_bAmhukmuFog )
 	{
-		// ¾ËÆÄ°¡ ¾ø´Â ¸Ê ¿ÀºêÁ§Æ®
+		// ì•ŒíŒŒê°€ ì—†ëŠ” ë§µ ì˜¤ë¸Œì íŠ¸
 		START_PERFORMANCE;
 		XiahMap::g_XiahMap.RenderObject(1);
 	//	CHECK_PERFORMANCE( "Render Map Object No Alpha");
 
-		// ¾ËÆÄ°¡ ¾ø´Â Ä³¸¯ÅÍ¸¸ ±×¸°´Ù.
+		// ì•ŒíŒŒê°€ ì—†ëŠ” ìºë¦­í„°ë§Œ ê·¸ë¦°ë‹¤.
 		START_PERFORMANCE;
 		RenderCharObject(false);
 	//	CHECK_PERFORMANCE( "Render Char Object No Alpha");
 
 		// 2. Alpha
-		// ¾ËÆÄ°¡ ÀÖ´Â ¸Ê ¿ÀºêÁ§Æ®
+		// ì•ŒíŒŒê°€ ìˆëŠ” ë§µ ì˜¤ë¸Œì íŠ¸
 		START_PERFORMANCE;
 		XiahMap::g_XiahMap.RenderObject(3);
 	//	CHECK_PERFORMANCE( "Render Map Object Alpha");
 
-		// ¾ËÆÄ Test°¡ ÀÖ´Â ¸Ê ¿ÀºêÁ§Æ®
+		// ì•ŒíŒŒ Testê°€ ìˆëŠ” ë§µ ì˜¤ë¸Œì íŠ¸
 		START_PERFORMANCE;
 		XiahMap::g_XiahMap.RenderObject(2);
 	//	CHECK_PERFORMANCE( "Render Map Object Alpha Test");
@@ -393,13 +393,13 @@ BOOL CXiahGame_Main::Render()
 	RenderCharObject(true);
 //	CHECK_PERFORMANCE( "Render Char Object Alpha Test");
 
-	// ¸ŞÀÎ Ä³¸¯ÅÍ°¡ ¾ÏÈæ¹«¿¡ °É¸®¸é ¾Æ¿¹ ¾È±×¸°´Ù.
+	// ë©”ì¸ ìºë¦­í„°ê°€ ì•”í‘ë¬´ì— ê±¸ë¦¬ë©´ ì•„ì˜ˆ ì•ˆê·¸ë¦°ë‹¤.
 	if( !g_XiahEnvInfo.m_bAmhukmuFog )
 	{
-		// 4. Alpha Render, ±× ´ÙÀ½¿¡ ±×·ÁÁ®¾ß ÇÒ°Íµé.
+		// 4. Alpha Render, ê·¸ ë‹¤ìŒì— ê·¸ë ¤ì ¸ì•¼ í• ê²ƒë“¤.
 		//g_SkyStar.Render();
 
-		// Ä³¸¯ÅÍ ÀÌ¸§.
+		// ìºë¦­í„° ì´ë¦„.
 		RenderCharName();
 
 		START_PERFORMANCE;
@@ -408,13 +408,13 @@ BOOL CXiahGame_Main::Render()
 		CHECK_PERFORMANCE( "Render Effect");
 	}
 
-	// µ¥¹ÌÁö ¼ıÀÚ ÀÌÆåÆ®
+	// ë°ë¯¸ì§€ ìˆ«ì ì´í™íŠ¸
 	g_HitEffect.Render();
 
-	// ´«, ºñ
+	// ëˆˆ, ë¹„
 	g_RainSnow.Render();
 
-	// 5. ETC, °¡Àå ¸¶Áö¸·¿¡ ±×·ÁÁ®¾ß ÇÒ°Íµé.
+	// 5. ETC, ê°€ì¥ ë§ˆì§€ë§‰ì— ê·¸ë ¤ì ¸ì•¼ í• ê²ƒë“¤.
 	Fade::RenderFade();
 
 
@@ -431,7 +431,7 @@ BOOL CXiahGame_Main::Render()
 	for(int i = 0; i < 8; ++i)
 		g_tHelp[i].Render();
 
-//	CHECK_PERFORMANCE( "Render UI"); //HT_TEST : ¿À·¡°É¸²
+//	CHECK_PERFORMANCE( "Render UI"); //HT_TEST : ì˜¤ë˜ê±¸ë¦¼
 
 	Update_Special_Effect();
 
@@ -444,7 +444,7 @@ BOOL CXiahGame_Main::UpdateObject()
 		return TRUE;
 
 	float	fMinDistance = 100000.0f;
-	Vector3	vStart = g_pCurrentCamera->GetCursorWorld( 0.0001f);	// 0ÇÏ°í 1ÁÖ¸é ³¡ÀåÀÌ¾ß~
+	Vector3	vStart = g_pCurrentCamera->GetCursorWorld( 0.0001f);	// 0í•˜ê³  1ì£¼ë©´ ëì¥ì´ì•¼~
 	Vector3 vEnd   = g_pCurrentCamera->GetCursorWorld( 0.9999f);
 
 	CXiahCharObject* pMainCharObject = (CXiahCharObject*)g_pMainChar->m_pObject;
@@ -458,18 +458,18 @@ BOOL CXiahGame_Main::UpdateObject()
 
 	int nUpdatedObjectCount = 0;
 
-	// ¸»µµ ¾ÈµÇ´Â ¸®½ºÆ®´Â »«´Ù.
+	// ë§ë„ ì•ˆë˜ëŠ” ë¦¬ìŠ¤íŠ¸ëŠ” ëº€ë‹¤.
 	typedef std::list<XiahObject::CXiahObject*> XIAHOBJECTLIST;
 	XIAHOBJECTLIST DeleteXiahObjectList;
 
 //	if( g_pCurrentCamera->m_bUpdate)
 	{
-		// ÀÌÁ¨ ¾ËÆÄ ÀÖ´Â °Í°ú ¾ø´Â °ÍÀ» ±¸º°ÇØ¼­ ÂïÀÚ.
+		// ì´ì   ì•ŒíŒŒ ìˆëŠ” ê²ƒê³¼ ì—†ëŠ” ê²ƒì„ êµ¬ë³„í•´ì„œ ì°ì.
 //		m_VisibleXiahObjectList.clear();
 		m_VisibleXiahObjectListNoAlpha.clear();
 		m_VisibleXiahObjectListAlphaTest.clear();
 
-		// È­¸é¿¡ º¸ÀÌ´Â Ä³¸¯ÅÍ ÀÌ¸§.
+		// í™”ë©´ì— ë³´ì´ëŠ” ìºë¦­í„° ì´ë¦„.
 		m_VisibleXiahCharObjectNameList.clear();
 		m_VisibleXiahCharObjectList.clear();
 
@@ -482,7 +482,7 @@ BOOL CXiahGame_Main::UpdateObject()
 			
 			DBG_Assert( pXiahObject != NULL);
 
-			if( pXiahObject == NULL ) // ÀÌ°Ç ¸»µµ ¾ÈµÈ´Ù.
+			if( pXiahObject == NULL ) // ì´ê±´ ë§ë„ ì•ˆëœë‹¤.
 			{
 				DeleteXiahObjectList.push_back( pXiahObject );
 				continue;
@@ -491,14 +491,14 @@ BOOL CXiahGame_Main::UpdateObject()
 			//DBG_Assert( pXiahObject->m_pObject != NULL);
 
 			XiahObject::CXiahObject_Basic *pObjectBasic = pXiahObject->m_pObject;
-			if( pObjectBasic == NULL )	// ÀÌ°Íµµ ¸»µµ ¾ÈµÈ´Ù. ¹¹°¡ ¹®Á¦¾ß?
+			if( pObjectBasic == NULL )	// ì´ê²ƒë„ ë§ë„ ì•ˆëœë‹¤. ë­ê°€ ë¬¸ì œì•¼?
 			{
 				DeleteXiahObjectList.push_back( pXiahObject );
 				continue;
 			}
 
 			if( !pObjectBasic->IsKindOf( XiahObject::eXOT_3DObject))
-				continue; // ¿©±â´Â °ÅÀÇ ¾Ê°É¸°´Ù
+				continue; // ì—¬ê¸°ëŠ” ê±°ì˜ ì•Šê±¸ë¦°ë‹¤
 
 			CXiah3DObject *p3DObject = reinterpret_cast<CXiah3DObject*>(pObjectBasic);
 
@@ -546,7 +546,7 @@ BOOL CXiahGame_Main::UpdateObject()
 
 				if( bVisible )
 				{
-					// ¸¶¿ì½º·Î Âï°í ÀÖ´ÂÁö °Ë»ç
+					// ë§ˆìš°ìŠ¤ë¡œ ì°ê³  ìˆëŠ”ì§€ ê²€ì‚¬
 					Vector3 vDistance = vStart - p3DObject->m_WorldBound.m_Center;
 					float fDistance = vDistance.GetLength();
 
@@ -560,7 +560,7 @@ BOOL CXiahGame_Main::UpdateObject()
 					}
 
 //					m_VisibleXiahObjectList.push_back( pXiahObject);
-					// Æ÷Å»Àº No alpha
+					// í¬íƒˆì€ No alpha
 					m_VisibleXiahObjectListNoAlpha.push_back( pXiahObject);
 
 					m_VisibleXiahCharObjectNameList.push_back( &p3DObject->m_tObjectName );
@@ -568,12 +568,12 @@ BOOL CXiahGame_Main::UpdateObject()
 				}// if
 
 /*
-				// Portal NPC ¹«Á¶°Ç ±×¸®±â.
+				// Portal NPC ë¬´ì¡°ê±´ ê·¸ë¦¬ê¸°.
 				pObjectBasic->Update();
 				nUpdatedObjectCount++;
 
 				CXiah3DObject *p3DObject = reinterpret_cast<CXiah3DObject*>(pObjectBasic);
-				// ¸¶¿ì½º·Î Âï°í ÀÖ´ÂÁö °Ë»ç
+				// ë§ˆìš°ìŠ¤ë¡œ ì°ê³  ìˆëŠ”ì§€ ê²€ì‚¬
 				Vector3 vDistance = vStart - p3DObject->m_WorldBound.m_Center;
 				float fDistance = vDistance.GetLength();
 
@@ -591,7 +591,7 @@ BOOL CXiahGame_Main::UpdateObject()
 				continue;
 			}// if( bIsPortalNPC )
 
-			// Quest NPC, ¸ğµÎ ÆÄ±«µÇ°í ÀÌÁ¦ ÁöÁàÁØ´Ù.
+			// Quest NPC, ëª¨ë‘ íŒŒê´´ë˜ê³  ì´ì œ ì§€ì¤˜ì¤€ë‹¤.
             CXiahCharObject *pQuestNPC = reinterpret_cast<CXiahCharObject*>(pObjectBasic);
 			if( pQuestNPC->m_bObjType == OBJTYPE_NPC && pQuestNPC->m_bExSubObjType != 255 )
 			{
@@ -603,19 +603,19 @@ BOOL CXiahGame_Main::UpdateObject()
 					pQuestNPC->SetAnimation( XiahAniType::eLAT_Die, XiahAniType::eLAT_Die, 0, 1);
 					pQuestNPC->m_bTargetMove = FALSE;
 
-					// ÇöÀç Ä³¸¯ÅÍ°¡ Mesh Effect°¡ ÀÖÀ¸¸é ¾ø¾ÖÁØ´Ù.
+					// í˜„ì¬ ìºë¦­í„°ê°€ Mesh Effectê°€ ìˆìœ¼ë©´ ì—†ì• ì¤€ë‹¤.
 					pQuestNPC->m_CharRender.ClearMeshEffect();
 				}
 			}
 
-			// Bound³Ñ¾î°¡´Â ³ÑÀº Áö¿öÁØ´Ù
+			// Boundë„˜ì–´ê°€ëŠ” ë„˜ì€ ì§€ì›Œì¤€ë‹¤
 			float fMainCharDistance = pMainCharObject->GetDistance( p3DObject->m_Position.x, -p3DObject->m_Position.z);
 
-			// ¾Ö¿Ïµ¿¹°Àº ¾ÊÁö¿öÁÜ
+			// ì• ì™„ë™ë¬¼ì€ ì•Šì§€ì›Œì¤Œ
 			if( fMainCharDistance > SERVER_INTERACTION_DISTANCE && g_PetList.Find( pXiahObject->m_dwServerID) == NULL)
 			{
-				//DBG_Put("Bound ³Ñ¾î°¡ Object Áö¿öÁÜ ID : %d", pXiahObject->m_dwServerID);
-				// Áö¿öÁÙ ¸®½ºÆ®¿¡ Ãß°¡ÇØÁà ¹ö¸°´Ù
+				//DBG_Put("Bound ë„˜ì–´ê°€ Object ì§€ì›Œì¤Œ ID : %d", pXiahObject->m_dwServerID);
+				// ì§€ì›Œì¤„ ë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€í•´ì¤˜ ë²„ë¦°ë‹¤
 				DeleteObjectList.push_back( pXiahObject);
 				continue;
 			}
@@ -623,8 +623,8 @@ BOOL CXiahGame_Main::UpdateObject()
 			CXiahCharObject *pXiahCharObject = reinterpret_cast<CXiahCharObject*>(pObjectBasic);
 
 			// 2004.08.04 Changth
-			// ºĞ½Å°İÀÏ¶§, ¿À·§µ¿¾È ½ÃÃ¼(?)°¡ ³²¾Æ ÀÖ´Â °æ¿ì°¡ ÀÖ´Âµ¥,
-			// Á×À¸¸é Á¶±İ ÈÄ¿¡ ¹Ù·Î °­Á¦·Î Áö¿öÁØ´Ù.
+			// ë¶„ì‹ ê²©ì¼ë•Œ, ì˜¤ë«ë™ì•ˆ ì‹œì²´(?)ê°€ ë‚¨ì•„ ìˆëŠ” ê²½ìš°ê°€ ìˆëŠ”ë°,
+			// ì£½ìœ¼ë©´ ì¡°ê¸ˆ í›„ì— ë°”ë¡œ ê°•ì œë¡œ ì§€ì›Œì¤€ë‹¤.
 			if( pXiahCharObject->m_bObjType		== OBJTYPE_PET &&
 				pXiahCharObject->m_bSubObjType	== 1 &&
 				pXiahCharObject->m_bObjStatus	== NPCSTATUS_DIE )
@@ -636,7 +636,7 @@ BOOL CXiahGame_Main::UpdateObject()
 				}
 			}
 
-			//HT_CHEAT : ÀÀ·æµµ ¾È Áö¿öÁú¶§°¡ ÀÖ³ß.. ¤Ñ¤Ñ;
+			//HT_CHEAT : ì‘ë£¡ë„ ì•ˆ ì§€ì›Œì§ˆë•Œê°€ ìˆë„¹.. ã…¡ã…¡;
 			if( pXiahCharObject->m_bObjType		== OBJTYPE_PET &&
 				pXiahCharObject->m_bSubObjType	== 250 &&
 				pXiahCharObject->m_bObjStatus	== NPCSTATUS_DIE )
@@ -666,15 +666,15 @@ BOOL CXiahGame_Main::UpdateObject()
 #ifdef TRACE_LOG
 				if(pXiahCharObject == NULL)
 				{
-					DBG_LogFile( _T("CXiahGame_Main::UpdateObject ½ÇÆĞ"));
+					DBG_LogFile( _T("CXiahGame_Main::UpdateObject ì‹¤íŒ¨"));
 				}
 #endif
 
-				// ¸¶¿ì½º·Î Âï°í ÀÖ´ÂÁö °Ë»ç
+				// ë§ˆìš°ìŠ¤ë¡œ ì°ê³  ìˆëŠ”ì§€ ê²€ì‚¬
 				Vector3 vDistance = vStart - p3DObject->m_WorldBound.m_Center;
 				float fDistance = vDistance.GetLength();
 
-				if( pXiahObject->m_dwServerID != 0)	// ¼­¹ö¿Í InteractionµÇ´Â ³Ñ¸¸ Picking°¡´ÉÇÏ´Ù
+				if( pXiahObject->m_dwServerID != 0)	// ì„œë²„ì™€ Interactionë˜ëŠ” ë„˜ë§Œ Pickingê°€ëŠ¥í•˜ë‹¤
 				{
 					if( p3DObject->m_WorldBound.IsIntersect( vStart, vEnd, NULL))
 					{
@@ -689,7 +689,7 @@ BOOL CXiahGame_Main::UpdateObject()
 									bPickable = FALSE;
 								}
 							}
-							// [5/17/2005] ³² ÆêÀº ¾×¼Ç ¿ÏÀü Á¦¿Ü
+							// [5/17/2005] ë‚¨ í«ì€ ì•¡ì…˜ ì™„ì „ ì œì™¸
 							else if(p3DObject->m_bObjType == OBJTYPE_PET)
 							{
 								if(g_PetList.GetCurrentPet())
@@ -757,7 +757,7 @@ BOOL CXiahGame_Main::UpdateObject()
 			}// if( bObjectVisible)
 		}// for( g_XiahObjectManager )
 
-		//DBG_Put("º¸ÀÌ´Â ³Ñµé¼ö : %d", m_VisibleXiahObjectList.size());
+		//DBG_Put("ë³´ì´ëŠ” ë„˜ë“¤ìˆ˜ : %d", m_VisibleXiahObjectList.size());
 	}
 
 	if( XiahObject::g_pMouseOnObject != pPreMouseOnObject)
@@ -791,15 +791,15 @@ BOOL CXiahGame_Main::UpdateObject()
 #ifdef TRACE_LOG
 		if(pObject == NULL)
 		{
-			DBG_LogFile( _T("CXiahGame_Main::UpdateObject ½ÇÆĞ"));
+			DBG_LogFile( _T("CXiahGame_Main::UpdateObject ì‹¤íŒ¨"));
 		}
 #endif
-		//DBG_Put(_T("Bound ³Ñ¾î°¡°Å³ª Á×Àº Object Áö¿öÁÜ : %d, ÇöÀç ÃÑ°¹¼ö : %d"), pObject->m_dwServerID, XiahObject::g_XiahObjectManager.size());
+		//DBG_Put(_T("Bound ë„˜ì–´ê°€ê±°ë‚˜ ì£½ì€ Object ì§€ì›Œì¤Œ : %d, í˜„ì¬ ì´ê°¯ìˆ˜ : %d"), pObject->m_dwServerID, XiahObject::g_XiahObjectManager.size());
 		XiahObject::g_XiahObjectManager.ReleaseXiahObject( *ob_it);
 	}
 	DeleteObjectList.clear();
 
-	// ¸»µµ ¾ÈµÇÁö¸¸, µ¥ÀÌÅ¸°¡ ¾ø´Â CXiahObject´Â Áö¿î´Ù.
+	// ë§ë„ ì•ˆë˜ì§€ë§Œ, ë°ì´íƒ€ê°€ ì—†ëŠ” CXiahObjectëŠ” ì§€ìš´ë‹¤.
 	XIAHOBJECTLIST::iterator xdit;
 	for(xdit=DeleteXiahObjectList.begin(); xdit!=DeleteXiahObjectList.end(); xdit++)
 	{
@@ -810,7 +810,7 @@ BOOL CXiahGame_Main::UpdateObject()
 	/*
 	sString str;
 	str.printf( "VideoMemory: %d", g_pDirect3DDevice->GetAvailableTextureMem());
-	g_tHelp[ 0].SetText( 0, 16, str, GetFont("å®‹ä½“", 14), D3DCOLOR_XRGB( 255, 255, 255), 0);
+	g_tHelp[ 0].SetText( 0, 16, str, GetFont("ï¥´ë—¤íª", 14), D3DCOLOR_XRGB( 255, 255, 255), 0);
 */
 /*
 #if TEST_PERFORMANCE
@@ -824,7 +824,7 @@ BOOL CXiahGame_Main::UpdateObject()
 		g_pUIManager->IsMouseOnFrame(),
 		g_XiahEnvInfo.m_fFogDensity
 		);
-	g_tHelp[ 5].SetText( 0, 32 + 5 * 16,str, GetFont("å®‹ä½“", 14), D3DCOLOR_XRGB( 255, 255, 255), 15);
+	g_tHelp[ 5].SetText( 0, 32 + 5 * 16,str, GetFont("ï¥´ë—¤íª", 14), D3DCOLOR_XRGB( 255, 255, 255), 15);
 
 	str.printf("Position : %d - %d -- Vertex %d Tri %d", 
 		(int)g_XiahCamera.m_vAt.x, 
@@ -832,7 +832,7 @@ BOOL CXiahGame_Main::UpdateObject()
 		g_EngineInfo.m_nRenderedVertex,
 		g_EngineInfo.m_nRenderedFace
 		);
-	g_tHelp[ 6].SetText( 0, 32 + 6 * 16,str, GetFont("å®‹ä½“", 14), D3DCOLOR_XRGB( 255, 255, 255), 15);
+	g_tHelp[ 6].SetText( 0, 32 + 6 * 16,str, GetFont("ï¥´ë—¤íª", 14), D3DCOLOR_XRGB( 255, 255, 255), 15);
 
 	// effect
 	str.printf( "PP:%d, ER:%d, PPpool:%d, Ppool:%d, ERpool:%d, PRpool:%d, ELRpool:%d, VRpool:%d, Vc:%d, Fc;%d",
@@ -847,7 +847,7 @@ BOOL CXiahGame_Main::UpdateObject()
 		g_EffectManager.GetTotalRenderedVertex(),
 		g_EffectManager.GetTotalRenderedFace()
 		);
-	g_tHelp[ 7].SetText( 0, 32 + 7 * 16,str, GetFont("å®‹ä½“", 14), D3DCOLOR_XRGB( 255, 255, 255), 15);
+	g_tHelp[ 7].SetText( 0, 32 + 7 * 16,str, GetFont("ï¥´ë—¤íª", 14), D3DCOLOR_XRGB( 255, 255, 255), 15);
 #endif
 
 
@@ -865,7 +865,7 @@ BOOL CXiahGame_Main::UpdateObject()
 		g_EffectManager.GetTotalRenderedVertex(),
 		g_EffectManager.GetTotalRenderedFace()
 		);
-	g_tHelp[ 7].SetText( 0, 32 + 7 * 16,str, GetFont("å®‹ä½“", 14), D3DCOLOR_XRGB( 255, 255, 255), 15);
+	g_tHelp[ 7].SetText( 0, 32 + 7 * 16,str, GetFont("ï¥´ë—¤íª", 14), D3DCOLOR_XRGB( 255, 255, 255), 15);
 */
 	return TRUE;
 }
@@ -894,14 +894,14 @@ BOOL CXiahGame_Main::RenderCharObjectFromList(VISIBLE_XIAHOBJECT_LIST& VisibleXi
 #ifdef TRACE_LOG
 		if(pObject == NULL || pObjectBasic == NULL)
 		{
-			DBG_LogFile( _T("CXiahGame_Main::RenderCharObjectFromList ½ÇÆĞ"));
+			DBG_LogFile( _T("CXiahGame_Main::RenderCharObjectFromList ì‹¤íŒ¨"));
 		}
 #endif
-		// ÀÏ´Ü 3DObject´Â ¾Ê±×·Á ÁØ´Ù
+		// ì¼ë‹¨ 3DObjectëŠ” ì•Šê·¸ë ¤ ì¤€ë‹¤
 		if( !pObjectBasic->IsA( XiahObject::eXOT_CharObject))
 			continue;
 
-		// ¸ŞÀÎ Ä³¸¯ÅÍ°¡ ¾ÏÈæ¹«¿¡ °É¸®¸é ¾Æ¿¹ ¾È±×¸°´Ù.
+		// ë©”ì¸ ìºë¦­í„°ê°€ ì•”í‘ë¬´ì— ê±¸ë¦¬ë©´ ì•„ì˜ˆ ì•ˆê·¸ë¦°ë‹¤.
 		if( g_XiahEnvInfo.m_bAmhukmuFog && g_pMainChar != pObject )
 			continue;
 
@@ -909,14 +909,14 @@ BOOL CXiahGame_Main::RenderCharObjectFromList(VISIBLE_XIAHOBJECT_LIST& VisibleXi
 #ifdef TRACE_LOG
 		if(pCharObject == NULL)
 		{
-			DBG_LogFile( _T("CXiahGame_Main::RenderCharObjectFromList ½ÇÆĞ"));
+			DBG_LogFile( _T("CXiahGame_Main::RenderCharObjectFromList ì‹¤íŒ¨"));
 		}
 #endif
 		if( XiahObject::g_pMouseOnObject == pObject)
 		{
 			pCharObject->m_bShowObjectName = TRUE; 
 
-			// ±¤¹°Àº ¿¡³ÊÁö Åë°ú
+			// ê´‘ë¬¼ì€ ì—ë„ˆì§€ í†µê³¼
 			if( pCharObject->m_bObjType == OBJTYPE_NPC && pCharObject->m_bExSubObjType != 3)
 				pCharObject->m_bShowGage = TRUE;
 		}
@@ -942,7 +942,7 @@ BOOL CXiahGame_Main::RenderCharObjectFromList(VISIBLE_XIAHOBJECT_LIST& VisibleXi
 				}
 				else if(pCharObject->m_bObjType == OBJTYPE_PC)
 				{
-					// ¿É¼Ç¿¡ µû¸¥ º°È£ º¸±â.
+					// ì˜µì…˜ì— ë”°ë¥¸ ë³„í˜¸ ë³´ê¸°.
 					if(g_info.m_bShowNickname)
 					{
 						if(pCharObject->m_bSemiPKStatus == 2)
@@ -955,7 +955,7 @@ BOOL CXiahGame_Main::RenderCharObjectFromList(VISIBLE_XIAHOBJECT_LIST& VisibleXi
 						}
 						else
 						{
-							// È­¸é¿¡ º¸ÀÎ´Ù.
+							// í™”ë©´ì— ë³´ì¸ë‹¤.
 							pCharObject->m_bShowObjectName = TRUE;
 						}
 					}
@@ -986,13 +986,13 @@ BOOL CXiahGame_Main::RenderCharObjectFromList(VISIBLE_XIAHOBJECT_LIST& VisibleXi
 			}
 		}
 		
-		// PETÀÇ ÀÌ¸§À» Âï°í »óÅÂ¸¦ Âï°í
+		// PETì˜ ì´ë¦„ì„ ì°ê³  ìƒíƒœë¥¼ ì°ê³ 
 		if( pCharObject->m_bObjType == OBJTYPE_PET && g_PetList.Find( pObject->m_dwServerID) != NULL)
 		{
 			//pCharObject->m_cGageColor = D3DCOLOR_XRGB( 18, 194, 18);
 			pCharObject->m_cNameColor = D3DCOLOR_XRGB( 200, 200, 255);
 
-			// ¼±ÅÃµÈ PETÀÌ¸é ¹Ù´Ú¿¡ ¼±ÅÃµÈ Ç¥½Ã¸¦ ±×¸°´Ù
+			// ì„ íƒëœ PETì´ë©´ ë°”ë‹¥ì— ì„ íƒëœ í‘œì‹œë¥¼ ê·¸ë¦°ë‹¤
 			/*
 			sPetInfo* pPetInfo = (sPetInfo*)pCharObject->m_pPrivateData;;
 			if(pPetInfo->bSelected == TRUE)
@@ -1005,7 +1005,7 @@ BOOL CXiahGame_Main::RenderCharObjectFromList(VISIBLE_XIAHOBJECT_LIST& VisibleXi
 			m_PetObjectList.push_back( pObject);
 		}
 
-		// NPCÀÇ Á¤º¸¸¦ Âï°í
+		// NPCì˜ ì •ë³´ë¥¼ ì°ê³ 
 		if( pCharObject->m_bObjType == OBJTYPE_NPC)
 		{
 			pCharObject->m_cNameColor = D3DCOLOR_XRGB( 255, 200, 200);
@@ -1015,7 +1015,7 @@ BOOL CXiahGame_Main::RenderCharObjectFromList(VISIBLE_XIAHOBJECT_LIST& VisibleXi
 			pCharObject->m_cNameColor = D3DCOLOR_XRGB( 255, 0, 0);
 		}
 
-		// HIDE »óÅÂ À§ÇÏ¿© Å×½ºÆ® ÄÚµå
+		// HIDE ìƒíƒœ ìœ„í•˜ì—¬ í…ŒìŠ¤íŠ¸ ì½”ë“œ
 		if(pCharObject->m_bObjStatus == NPCSTATUS_HIDE)
 		{
 			DBG_Put("Hide");
@@ -1045,7 +1045,7 @@ BOOL CXiahGame_Main::RenderCharObjectFromList(VISIBLE_XIAHOBJECT_LIST& VisibleXi
 			
 			if( dwSelObjectType == OBJTYPE_NPC)
 			{
-				// ±¤¹°Àº ¿¡³ÊÁö Åë°ú
+				// ê´‘ë¬¼ì€ ì—ë„ˆì§€ í†µê³¼
 				if(pCharObject->m_bExSubObjType != 3)
 					pCharObject->m_bShowGage = TRUE;
 
@@ -1074,7 +1074,7 @@ BOOL CXiahGame_Main::RenderCharName()
 {
 	TEXT2DLIST::iterator it = m_VisibleXiahCharObjectNameList.begin();
 
-	// º¸ÀÌ´Â ÀÌ¸§
+	// ë³´ì´ëŠ” ì´ë¦„
 	for(; it != m_VisibleXiahCharObjectNameList.end(); ++it)
 	{
 			CText2D* pText2D = *it;
@@ -1114,7 +1114,7 @@ BOOL CXiahGame_Main::RenderCharName()
 	{
 		sVisibleCharLIST::iterator it2 = m_VisibleXiahCharObjectList.begin();
 
-		// º¸ÀÌ´Â Ä³¸¯ÅÍ ¸®½ºÆ®
+		// ë³´ì´ëŠ” ìºë¦­í„° ë¦¬ìŠ¤íŠ¸
 		for(; it2 != m_VisibleXiahCharObjectList.end(); ++it2)
 		{
 			XiahObject::CXiahObject *pXiahObject = *it2;
@@ -1132,7 +1132,7 @@ BOOL CXiahGame_Main::RenderCharName()
 			
 			if(g_info.m_bShowNickname)
 			{
-				// ¹®ÆÄ¸¶Å©
+				// ë¬¸íŒŒë§ˆí¬
 				if(pXiahCharObject->m_dwMunpaID && pXiahCharObject->m_dwMunpaMarkID)
 				{
 					g_MunpaMark.RenderMark(pXiahCharObject->m_dwMunpaMarkID,
@@ -1140,7 +1140,7 @@ BOOL CXiahGame_Main::RenderCharName()
 											pXiahCharObject->m_rcObjectScreenPos.top);				    
 				}
 
-				// È¯»ı ¸¶Å©
+				// í™˜ìƒ ë§ˆí¬
 				if(pXiahCharObject->m_bRebirth)
 				{
 					int nX = pXiahCharObject->m_rcObjectScreenPos.left - 17;
@@ -1151,7 +1151,7 @@ BOOL CXiahGame_Main::RenderCharName()
 
 					g_RebirthMark.RenderMark(pXiahCharObject->m_bRebirth, nX, nY);
 				}	
-				//HT_1023 : ¿î¿µÀÚ ¸¶Å© Ãß°¡
+				//HT_1023 : ìš´ì˜ì ë§ˆí¬ ì¶”ê°€
 				if(pXiahCharObject->m_bGameMasterMark == 1)
 				{
 					sSize NameSize = pXiahCharObject->m_tObjectName.GetSize();
@@ -1163,7 +1163,7 @@ BOOL CXiahGame_Main::RenderCharName()
 				}			
 			}			
 
-			// Ã¤ÆÃ º¸ÀÌ´Â°Í Ã³¸®
+			// ì±„íŒ… ë³´ì´ëŠ”ê²ƒ ì²˜ë¦¬
 			if(g_info.m_bHideChat)
 			{
 				pXiahCharObject->ShowChatBox();
@@ -1176,14 +1176,14 @@ BOOL CXiahGame_Main::RenderCharName()
 				pXiahCharObject->RenderLegendTitle(nCenterX, nNameTopY);
 			}
 
-			// ´Ü °¡ÀÔ½Ã
+			// ë‹¨ ê°€ì…ì‹œ
 			if(g_MainCharInfo.m_pRelation->Am_I_InDan())
 			{
 				sDanInfo* pDanInfo = g_MainCharInfo.m_pRelation->FindDanInfoByID(pXiahObject->m_dwServerID);
 
 				if(pDanInfo)
 				{
-					// HP °ÔÀÌÁö
+					// HP ê²Œì´ì§€
 					if( g_pCurrentCamera)
 					{
 						Vector3 scPos = g_pCurrentCamera->WorldToScreen( pXiahCharObject->m_Position + Vector3( 0, pXiahCharObject->m_LocalBound.m_vMax.y + 1, 0));

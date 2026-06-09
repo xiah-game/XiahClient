@@ -1,7 +1,7 @@
-#pragma once
+ï»¿#pragma once
 
 /*
-	¾Ö¿Ïµ¿¹°
+	ì• ì™„ë™ë¬¼
 */
 
 #include "XiahGameObject.h"
@@ -12,16 +12,16 @@
 #include <assert.h>
 
 
-// ¾Ö¿Ïµ¿¹° AI
+// ì• ì™„ë™ë¬¼ AI
 
-#define	PETAI_NONE				0	// ¾Æ¹«°Íµµ ¾ø½¿ (PC¸¦ µû¶ó ´Ù´Ô)
-#define	PETAI_AUTOATTACK		1	// ÀÚµ¿°ø°İ
-#define	PETAI_TARGETATTACK		2	// ´ë»ó°ø°İ
-#define	PETAI_TAKEITEM			3	// ¾ÆÀÌÅÛ ¼öÁı
-#define	PETAI_SPECIALATTACK		4	// ¹«°ø°ø°İ
-#define PETAI_CALLTOME			5	// È£Ãâ
+#define	PETAI_NONE				0	// ì•„ë¬´ê²ƒë„ ì—†ìŠ´ (PCë¥¼ ë”°ë¼ ë‹¤ë‹˜)
+#define	PETAI_AUTOATTACK		1	// ìë™ê³µê²©
+#define	PETAI_TARGETATTACK		2	// ëŒ€ìƒê³µê²©
+#define	PETAI_TAKEITEM			3	// ì•„ì´í…œ ìˆ˜ì§‘
+#define	PETAI_SPECIALATTACK		4	// ë¬´ê³µê³µê²©
+#define PETAI_CALLTOME			5	// í˜¸ì¶œ
 
-#define PET_SACK_COUNT			3	// ÆêÀÌ °¡Áú ¼ö ÀÖ´Â »öÀÇ °³¼ö
+#define PET_SACK_COUNT			3	// í«ì´ ê°€ì§ˆ ìˆ˜ ìˆëŠ” ìƒ‰ì˜ ê°œìˆ˜
 
 struct sPetRevival
 {
@@ -63,40 +63,40 @@ struct sPetInfo
 	BYTE  bWildRate;
 
 	//
-	DWORD	dwMoveTime;	// ¿òÁ÷ÀÌ±â ½ÃÀÛÇÑ½Ã°£ syncmove¿ë
+	DWORD	dwMoveTime;	// ì›€ì§ì´ê¸° ì‹œì‘í•œì‹œê°„ syncmoveìš©
 	DWORD	dwLastAITime;
-	DWORD	dwAIFrameTime;	// AI¸¦ ½ÃÇàÇÏ´Â ½Ã°¢ (1ÃÊ ÀÌ»óÀ¸·Î ÁÙ°Í)
-	float	fFollowRange;	// ÁÖÀÎ°ú À¯ÁöÇÏ°í ½ÍÀº °Å¸® (ÀÌ °Å¸® ÀÌÇÏ¸é ÁÖÀÎ±ÙÃ³·Î ´Ş·Á°£´Ù)
-	DWORD	dwStartIdleTime;	// ÇÒÀÏ ¾ø¾îÁö±â ½ÃÀÛÇÑ ½Ã°¢
+	DWORD	dwAIFrameTime;	// AIë¥¼ ì‹œí–‰í•˜ëŠ” ì‹œê° (1ì´ˆ ì´ìƒìœ¼ë¡œ ì¤„ê²ƒ)
+	float	fFollowRange;	// ì£¼ì¸ê³¼ ìœ ì§€í•˜ê³  ì‹¶ì€ ê±°ë¦¬ (ì´ ê±°ë¦¬ ì´í•˜ë©´ ì£¼ì¸ê·¼ì²˜ë¡œ ë‹¬ë ¤ê°„ë‹¤)
+	DWORD	dwStartIdleTime;	// í• ì¼ ì—†ì–´ì§€ê¸° ì‹œì‘í•œ ì‹œê°
 	DWORD	dwIdleStepTime;
 	BOOL	bIdle;
 	int		nIdleStep;
-	DWORD	dwIdleStepDelay;	// idle´ÙÀ½ µ¿ÀÛ±îÁöÀÇ ½Ã°£
+	DWORD	dwIdleStepDelay;	// idleë‹¤ìŒ ë™ì‘ê¹Œì§€ì˜ ì‹œê°„
 
 	// 2004.07.07 Changth
-	float	fAttackRange;	// ºĞ½Å°İÀÌ³ª È¯¼öÀ¯°¡ °ø°İÇÒ ¼ö ÀÖ´Â ¹üÀ§ fFollowRangeº¸´Ù Å©°Ô ÇÏ±â À§ÇØ
-	BOOL	bHwanAttack;	// ºĞ½Å°İÀÌ³ª È¯¼öÀ¯°¡ °ø°İÀ» ÇÏ°íÀÖ³ª?
+	float	fAttackRange;	// ë¶„ì‹ ê²©ì´ë‚˜ í™˜ìˆ˜ìœ ê°€ ê³µê²©í•  ìˆ˜ ìˆëŠ” ë²”ìœ„ fFollowRangeë³´ë‹¤ í¬ê²Œ í•˜ê¸° ìœ„í•´
+	BOOL	bHwanAttack;	// ë¶„ì‹ ê²©ì´ë‚˜ í™˜ìˆ˜ìœ ê°€ ê³µê²©ì„ í•˜ê³ ìˆë‚˜?
 
 	
-	// AI °ü·Ã
-	BOOL	bAI;				// AI°¡ ÀÖ³ª?
-	int		AI_Type;			// ÇöÀçÀÇ AI TypeÀº?
-	BOOL	bSelected;			// ÇöÀç ¼±ÅÃÁßÀÎ°¡?
-	BOOL	bFight;				// ÇöÀç AI¹ßµ¿ÇØ¼­ ½Î¿òÁßÀÎ°¡??
-	DWORD	dwDestID;			// PETÀÌ °ø°İÇØ¾ßÇÒ ID
-	DWORD	dwDestType;			// PETÀÌ °ø°İÇØ¾ßÇÒ OBJECT Type
-	DWORD	dwGuardID;			// PETÀÌ GUARD ÇÒ ID
-	DWORD	dwGuardType;		// PETÀÌ GUARD ÇÒ OBJECT Type
-	BOOL	bFollowPC;			// PC¸¦ ¦i¾Æ°¡¾ßÇÔ
+	// AI ê´€ë ¨
+	BOOL	bAI;				// AIê°€ ìˆë‚˜?
+	int		AI_Type;			// í˜„ì¬ì˜ AI Typeì€?
+	BOOL	bSelected;			// í˜„ì¬ ì„ íƒì¤‘ì¸ê°€?
+	BOOL	bFight;				// í˜„ì¬ AIë°œë™í•´ì„œ ì‹¸ì›€ì¤‘ì¸ê°€??
+	DWORD	dwDestID;			// PETì´ ê³µê²©í•´ì•¼í•  ID
+	DWORD	dwDestType;			// PETì´ ê³µê²©í•´ì•¼í•  OBJECT Type
+	DWORD	dwGuardID;			// PETì´ GUARD í•  ID
+	DWORD	dwGuardType;		// PETì´ GUARD í•  OBJECT Type
+	BOOL	bFollowPC;			// PCë¥¼ ì«’ì•„ê°€ì•¼í•¨
 
 	DWORD	dwLastAttackTime;
 	DWORD	dwAttackDelayTime;
 
-	CSack*	m_pEquipSack;				// Á¹¶ó ¸¹ÀÌµµ °¡Áö°í ÀÖ³× ®X
-	CSack*	m_pSack[PET_SACK_COUNT];	// ÆêÀÌ °¡Áö´Â »ö(3°³)
-	BYTE	m_byMySackCurrIdx;			// ÇöÀç º¸¿©Áö´Â »ö
+	CSack*	m_pEquipSack;				// ì¡¸ë¼ ë§ì´ë„ ê°€ì§€ê³  ìˆë„¤ ì·Ÿ
+	CSack*	m_pSack[PET_SACK_COUNT];	// í«ì´ ê°€ì§€ëŠ” ìƒ‰(3ê°œ)
+	BYTE	m_byMySackCurrIdx;			// í˜„ì¬ ë³´ì—¬ì§€ëŠ” ìƒ‰
 
-	// °ø°İ °ü·Ã Á¤º¸ 
+	// ê³µê²© ê´€ë ¨ ì •ë³´ 
 	BYTE	bAttackType;
 	DWORD	dwAttackID;
 	BYTE	bDefType;
@@ -105,9 +105,9 @@ struct sPetInfo
 	WORD	wAttackPosY;
 	BYTE	bAttackHeight;
 	BYTE	bAttackMode;
-	int		nRemainAttackCount;	// Attack_Ack¸¦ º¸³»¾ßÇÒ ¼ıÀÚ
+	int		nRemainAttackCount;	// Attack_Ackë¥¼ ë³´ë‚´ì•¼í•  ìˆ«ì
 
-	// 0:NONE, 1:È¯À¯¼ö, 2:ºĞ½Å°İ
+	// 0:NONE, 1:í™˜ìœ ìˆ˜, 2:ë¶„ì‹ ê²©
 	DWORD	m_dwIsHwan;
 
 	CClassTrigger<sPetInfo>* pEndTargetMove;
@@ -120,7 +120,7 @@ struct sPetInfo
 
 		if(pEndTargetMove == NULL || pTimerTrigger == NULL)
 		{
-			DBG_LogFile( _T("sPetInfo ½ÇÆĞ"));
+			DBG_LogFile( _T("sPetInfo ì‹¤íŒ¨"));
 			//return;
 		}
 
@@ -179,31 +179,31 @@ public:
 	BOOL	AddPet(XiahObject::CXiahObject* pPet);
 	BOOL	DeletePet(XiahObject::CXiahObject* pPet);
 	BOOL	DeletePet(DWORD id);
-	BOOL	UpdatePet();	// Pet¿¡ AI·çÆ¾À» Å¸°Ô ¸¸µé¾î ÁØ´Ù
+	BOOL	UpdatePet();	// Petì— AIë£¨í‹´ì„ íƒ€ê²Œ ë§Œë“¤ì–´ ì¤€ë‹¤
 	BOOL	JumpToPlayer();
 
-	BOOL	SelectPet(DWORD id);	// ÇØ´ç PetÀ» ¼±ÅÃ
-	BOOL	DeSelectPet(DWORD id);	// ÇØ´ç PetÀ» ¼±ÅÃ Ç®±â
+	BOOL	SelectPet(DWORD id);	// í•´ë‹¹ Petì„ ì„ íƒ
+	BOOL	DeSelectPet(DWORD id);	// í•´ë‹¹ Petì„ ì„ íƒ í’€ê¸°
 
-	BOOL	SelectAllPet();			// °¡Áö°í ÀÖ´Â ¸ğµç PETÀ» ¼±ÅÃ
-	BOOL	DeSelectAllPet();		// °¡Áö°í ÀÖ´Â ¸ğµç PETÀ» ¼±ÅÃ Ç®±â
+	BOOL	SelectAllPet();			// ê°€ì§€ê³  ìˆëŠ” ëª¨ë“  PETì„ ì„ íƒ
+	BOOL	DeSelectAllPet();		// ê°€ì§€ê³  ìˆëŠ” ëª¨ë“  PETì„ ì„ íƒ í’€ê¸°
 
-	// ¼±ÅÃµÇ¾îÁø PET¿¡°Ô AI/ÆÄ¶ó¸ŞÅÍ¸¦ Á¤ÇÏ¿© ÁØ´Ù
+	// ì„ íƒë˜ì–´ì§„ PETì—ê²Œ AI/íŒŒë¼ë©”í„°ë¥¼ ì •í•˜ì—¬ ì¤€ë‹¤
 	BOOL	Change_PET_AI(int Type, DWORD di=NULL,DWORD gi=NULL,DWORD dt=NULL,DWORD gt=NULL);
 
-	// ÇØ´ç PET¿¡°Ô AI/ÆÄ¶ó¸ŞÅÍ¸¦ Á¤ÇÏ¿© ÁØ´Ù
+	// í•´ë‹¹ PETì—ê²Œ AI/íŒŒë¼ë©”í„°ë¥¼ ì •í•˜ì—¬ ì¤€ë‹¤
 	BOOL	Change_PET_AI_Specify(DWORD PetID, int Type, DWORD di=NULL,DWORD gi=NULL,DWORD dt=NULL,DWORD gt=NULL);
 
 	sPetInfo* GetPetInfo(DWORD id);
 	sPetInfo* GetPetInfoByIndex( BYTE bIndex);
 	sPetInfo* GetCurrentPet();
-	sPetInfo* GetBunsinPet();	// ºĞ½Å°İ PETÀ» ¾ò´Â´Ù
+	sPetInfo* GetBunsinPet();	// ë¶„ì‹ ê²© PETì„ ì–»ëŠ”ë‹¤
 
 	void InitWild();
 	void RenderWild(int nX, int nY, int nMark);
 	void ReleaseWildMark();
 
-	//HT_CHEAT : ÆêÀÇ Á¾·ù¸¦ ¾ò´Â´Ù.
+	//HT_CHEAT : í«ì˜ ì¢…ë¥˜ë¥¼ ì–»ëŠ”ë‹¤.
 	DWORD GetPetByHwan();
 
 private:

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 //extern void RegisterAllNetworkHandler_Interface();
 
@@ -28,8 +28,8 @@ extern void ProcessSystemButtonGroup( LPARAM lParam);
 extern void ProcessPetButtonGroup( LPARAM lParam);
 extern void ProcessMainChat( LPARAM lParam);
 //extern void ProcessMessengerChannel( LPARAM lParam);
-extern void ProcessSpirit(LPARAM lParam);				// ±â
-extern void ProcessHELPER(LPARAM lParam);				//HO_0413_07 Äü °¡ÀÌµå ¾÷µ¥ÀÌÆ®
+extern void ProcessSpirit(LPARAM lParam);				// ê¸°
+extern void ProcessHELPER(LPARAM lParam);				//HO_0413_07 í€µ ê°€ì´ë“œ ì—…ë°ì´íŠ¸
 
 
 extern void ProcessWindowCharacter( LPARAM lParam);
@@ -37,7 +37,7 @@ extern void ProcessWindowItem( LPARAM lParam);
 extern void ProcessWindowOutSide( LPARAM lParam);
 extern void ProcessWindowInSide( LPARAM lParam);
 extern void ProcessWindowDan( LPARAM lParam);
-extern void ProcessWindowDanNew(LPARAM lParam);			// ´Ü °æÇèÄ¡ ºĞ¹è
+extern void ProcessWindowDanNew(LPARAM lParam);			// ë‹¨ ê²½í—˜ì¹˜ ë¶„ë°°
 extern void ProcessWindowClan( LPARAM lParam);
 extern void ProcessWindowClanFound( LPARAM lParam);
 extern void ProcessWindowTaming( LPARAM lParam);
@@ -53,7 +53,7 @@ extern void ProcessWindowNameConfer( LPARAM lParam);
 extern void ProcessWindowQuest( LPARAM lParam);
 extern void ProcessWindowOption1( LPARAM lParam);
 extern void ProcessWindowOption2( LPARAM lParam);
-extern void ProcessWindowOption3(LPARAM lParam);		// °Å·¡ ¿É¼Ç
+extern void ProcessWindowOption3(LPARAM lParam);		// ê±°ë˜ ì˜µì…˜
 extern void ProcessWindowClose( LPARAM lParam);
 
 extern void ProcessWindowPcStore( LPARAM lParam);
@@ -81,21 +81,21 @@ extern void ProcessWindowPetTrade(LPARAM lParam);
 extern void ProcessWindowBokNumber(LPARAM lParam);
 extern void ProcessWindowBokPrize(LPARAM lParam);
 extern void ProcessWindowSmelt(LPARAM lParam);
-extern void ProcessWindowFiveElement(LPARAM lParam);	// ¿ÀÇà
+extern void ProcessWindowFiveElement(LPARAM lParam);	// ì˜¤í–‰
 extern void ProcessWindowFiveElementConvert(LPARAM lParam);
-// [1/14/2005] µµ¿ì¹Ì
-//HO_0410_07 »ó¼­·É °¡ÀÌµå ¾÷µ¥ÀÌÆ®
-extern void ProcessWindowTamRangScript(LPARAM lParam); //»ó¼­·É °¡ÀÌµå ¾÷µ¥ÀÌÆ® : Å½¶û ºĞ¸®
-extern void ProcessWindowQuickScript(LPARAM lParam); //HO_0413_07 Äü °¡ÀÌµå ¾÷µ¥ÀÌÆ® : ½ºÅ©¸³Æ®
-extern void ProcessWindowHelperList(LPARAM lParam); //»ó¼­·É ´ëÈ­Ã¢
-extern void ProcessWindowHelperScript(LPARAM lParam);//Å½¶û ´ëÈ­Ã¢
+// [1/14/2005] ë„ìš°ë¯¸
+//HO_0410_07 ìƒì„œë ¹ ê°€ì´ë“œ ì—…ë°ì´íŠ¸
+extern void ProcessWindowTamRangScript(LPARAM lParam); //ìƒì„œë ¹ ê°€ì´ë“œ ì—…ë°ì´íŠ¸ : íƒë‘ ë¶„ë¦¬
+extern void ProcessWindowQuickScript(LPARAM lParam); //HO_0413_07 í€µ ê°€ì´ë“œ ì—…ë°ì´íŠ¸ : ìŠ¤í¬ë¦½íŠ¸
+extern void ProcessWindowHelperList(LPARAM lParam); //ìƒì„œë ¹ ëŒ€í™”ì°½
+extern void ProcessWindowHelperScript(LPARAM lParam);//íƒë‘ ëŒ€í™”ì°½
 
-extern void ProcessWindowRecovery(LPARAM lParam);		// ¾ÆÀÌÅÛ º¹±¸
-extern void ProcessWindowPortal(LPARAM lParam);			// NPC Æ÷Å» ÀÌµ¿
-extern void ProcessWindowCollection(LPARAM lParam);		// ¾ÆÀÌÅÛ ¼öÁı
+extern void ProcessWindowRecovery(LPARAM lParam);		// ì•„ì´í…œ ë³µêµ¬
+extern void ProcessWindowPortal(LPARAM lParam);			// NPC í¬íƒˆ ì´ë™
+extern void ProcessWindowCollection(LPARAM lParam);		// ì•„ì´í…œ ìˆ˜ì§‘
 
-extern void ProcessWindowSecretMove(LPARAM lParam);		//HT_0313 : ±¤¸íÀü & ÃµÈ²Àü (ÀÌµ¿)	
-extern void ProcessWindowSecretApplication(LPARAM lParam);		//HT_0313 : ±¤¸íÀü & ÃµÈ²Àü (Âü¿©)	
+extern void ProcessWindowSecretMove(LPARAM lParam);		//HT_0313 : ê´‘ëª…ì „ & ì²œí™©ì „ (ì´ë™)	
+extern void ProcessWindowSecretApplication(LPARAM lParam);		//HT_0313 : ê´‘ëª…ì „ & ì²œí™©ì „ (ì°¸ì—¬)	
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 // Notice
@@ -121,11 +121,11 @@ extern void ProcessNoticeDeleteCharacter( int controlID);
 extern void ProcessPopMenuPc(LPARAM lParam);
 extern void ProcessPopMenuNpc(LPARAM lParam);
 extern void ProcessPopMenuPet(LPARAM lParam);
-extern void ProcessPopMenuStone(LPARAM lParam);		// ¹®ÆÄ ºñ¼®
-extern void ProcessPopMenuOfficial(LPARAM lParam);	// Á¤»ç°ü NPC
-extern void ProcessPopMenuAlchemist(LPARAM lParam); // ¿¬±İ¼ú»ç NPC
-extern void ProcessPopMenuHelp(LPARAM lParam);		// »ó¼­·É NPC
-extern void ProcessPopMenuHelp2(LPARAM lParam);		// ¼º³à
+extern void ProcessPopMenuStone(LPARAM lParam);		// ë¬¸íŒŒ ë¹„ì„
+extern void ProcessPopMenuOfficial(LPARAM lParam);	// ì •ì‚¬ê´€ NPC
+extern void ProcessPopMenuAlchemist(LPARAM lParam); // ì—°ê¸ˆìˆ ì‚¬ NPC
+extern void ProcessPopMenuHelp(LPARAM lParam);		// ìƒì„œë ¹ NPC
+extern void ProcessPopMenuHelp2(LPARAM lParam);		// ì„±ë…€
 
 // PopSubMenu
 extern void ProcessPopMenuRelation( LPARAM lParam);
@@ -155,7 +155,7 @@ extern void ProcessClickCharInfoButton();
 extern void ProcessClickMugongButton( BYTE byType);
 extern void ProcessClickRelationButton( BYTE byType);
 
-extern void ProcessClickHelperButton();//HO_0410_07 »ó¼­·É °¡ÀÌµå ¾÷µ¥ÀÌÆ®
+extern void ProcessClickHelperButton();//HO_0410_07 ìƒì„œë ¹ ê°€ì´ë“œ ì—…ë°ì´íŠ¸
 
 extern void ProcessClickOptionButton();
 extern void ProcessClickPetSackButton();
@@ -166,5 +166,5 @@ extern void ProcessClickCloseButton();
 
 extern void ProcessClickCollection();
 
-//°¢¼º
+//ê°ì„±
 extern void ProcessWindowSkill( LPARAM lParam);

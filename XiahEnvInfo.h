@@ -1,4 +1,4 @@
-#pragma once
+ο»Ώ#pragma once
 
 struct sXiahEnvInfo : public XiahGameEngine::Map::sMapRenderInfo
 {
@@ -11,24 +11,24 @@ extern sXiahEnvInfo g_XiahEnvInfo;
 
 struct sXiahChangeEnvInfo
 {
-	bool	bChangeStart;								// Ί―Θ­µΗ΄ΒΑφ
+	bool	bChangeStart;								// λ³€ν™”λλ”μ§€
 
 /*
-	int		nFogR,			nFogG,			nFogB;			// ΈρΗ¥ °ª
-	float	fFogRGap,		fFogGGap,		fFogBGap;		// Αυ°¨ °ª
-	float	fFogRGapSum,	fFogGGapSum,	fFogBGapSum;	// Αυ°¨ °ª ΄©ΐϋΔ΅
+	int		nFogR,			nFogG,			nFogB;			// λª©ν‘ κ°’
+	float	fFogRGap,		fFogGGap,		fFogBGap;		// μ¦κ° κ°’
+	float	fFogRGapSum,	fFogGGapSum,	fFogBGapSum;	// μ¦κ° κ°’ λ„μ μΉ
 
-	int		nDiffuseR,		nDiffuseG,		nDiffuseB;			// ΈρΗ¥ °ª
-	float	fDifRGap,		fDifGGap,		fDifBGap;			// Αυ°¨ °ª
-	float	fDifRGapSum,	fDifGGapSum,	fDifBGapSum;		// Αυ°¨ °ª ΄©ΐϋΔ΅
+	int		nDiffuseR,		nDiffuseG,		nDiffuseB;			// λª©ν‘ κ°’
+	float	fDifRGap,		fDifGGap,		fDifBGap;			// μ¦κ° κ°’
+	float	fDifRGapSum,	fDifGGapSum,	fDifBGapSum;		// μ¦κ° κ°’ λ„μ μΉ
 */
 
-	int		nR[5],			nG[5],			nB[5];				// ΈρΗ¥ °ª
-	float	fRGap[5],		fGGap[5],		fBGap[5];			// Αυ°¨ °ª
-	float	fRGapSum[5],	fGGapSum[5],	fBGapSum[5];		// Αυ°¨ °ª ΄©ΐϋΔ΅
+	int		nR[5],			nG[5],			nB[5];				// λª©ν‘ κ°’
+	float	fRGap[5],		fGGap[5],		fBGap[5];			// μ¦κ° κ°’
+	float	fRGapSum[5],	fGGapSum[5],	fBGapSum[5];		// μ¦κ° κ°’ λ„μ μΉ
 
-	float fFogDensity;			// ΈρΗ¥ °ª.
-	float fFogDensityGap;		// Αυ°¨ °ª.
+	float fFogDensity;			// λª©ν‘ κ°’.
+	float fFogDensityGap;		// μ¦κ° κ°’.
 };
 
 extern sXiahChangeEnvInfo g_XiahChangeEnvInfo;

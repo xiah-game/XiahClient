@@ -1,4 +1,4 @@
-#include "precompile.h"
+ï»¿#include "precompile.h"
 #include "Xiahgamemain.h"
 #include "XiahGameObject.h"
 #include "CharacterInfo.h"
@@ -7,7 +7,7 @@
 #include "XiahMap.h"
 #include "XiahGame_Main.h"
 
-//HT_CHEAT : Ä¡Æ® Å°
+//HT_CHEAT : ì¹˜íŠ¸ í‚¤
 extern  BOOL g_bCheat;
 
 #define WARP_PET	\
@@ -44,7 +44,7 @@ extern  BOOL g_bCheat;
 			pObject->m_bObjStatus = NPCSTATUS_RUN;\
 			SendCS_NC_STARTMOVE_REQ( dwObjectID, pObject->m_Position.x, -pObject->m_Position.z, pObject->m_Position.y,pObject->m_TargetPosition.x, -pObject->m_TargetPosition.z, pObject->m_TargetPosition.y, wDirection, NPCSTATUS_RUN,bMoveSpeed);
 
-// ºÐ½Å°Ý ¿òÁ÷ÀÓ
+// ë¶„ì‹ ê²© ì›€ì§ìž„
 #define STARTMOVE_PET_RUN2	\
 			pPetInfo->dwMoveTime = g_dwCurTime;\
 			pObject->SetAnimation( XiahAniType::eLAT_Run, 1);\
@@ -67,7 +67,7 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode);
 
 
 
-// ½ÇÁ¦ÀÇ AI
+// ì‹¤ì œì˜ AI
 BOOL ProcessPETAI(DWORD dwObjectID,CXiahCharObject* pObject,sPetInfo* pPetInfo,CXiahCharObject* pTargetChar)
 {
 	BOOL ret = FALSE;
@@ -80,20 +80,20 @@ BOOL ProcessPETAI(DWORD dwObjectID,CXiahCharObject* pObject,sPetInfo* pPetInfo,C
 		fMoveSpeed = 1.9f;
 	else 
 		fMoveSpeed = 1.2f;
-	// [12/20/2004] ¾Æ¹ÙÅ¸ Æê(±¤°ßÀÌ ´À·Á¼­ ºü¸£°Ô)
-//	if(pPetInfo->bRevolutionStep == 4 && pPetInfo->bNpcType == 0) //HT_0621 : ¿µ¼öµÐ°©½Å´Ü Àû¿ë
+	// [12/20/2004] ì•„ë°”íƒ€ íŽ«(ê´‘ê²¬ì´ ëŠë ¤ì„œ ë¹ ë¥´ê²Œ)
+//	if(pPetInfo->bRevolutionStep == 4 && pPetInfo->bNpcType == 0) //HT_0621 : ì˜ìˆ˜ë‘”ê°‘ì‹ ë‹¨ ì ìš©
 //		fMoveSpeed = 1.5f;
 
 	BYTE bMoveSpeed = fMoveSpeed * 9;
 
 	switch(pPetInfo->AI_Type)
 	{
-		// ´õÀÌ»ó ¿ÀÁö ¾Ê´Â´Ù.
+		// ë”ì´ìƒ ì˜¤ì§€ ì•ŠëŠ”ë‹¤.
 		case PETAI_CALLTOME:
 			//pPetInfo->AI_Type = PETAI_AUTOATTACK;
 		break;
 
-		// ÀÚµ¿ °ø°Ý PC°¡ °ø°ÝÇÏ´Â ID¸¦ °ø°Ý
+		// ìžë™ ê³µê²© PCê°€ ê³µê²©í•˜ëŠ” IDë¥¼ ê³µê²©
 		case PETAI_AUTOATTACK :
 		{
 			if(pPetInfo->dwDestType == OBJTYPE_NPC && pPetInfo->dwDestID != NULL)
@@ -112,41 +112,41 @@ BOOL ProcessPETAI(DWORD dwObjectID,CXiahCharObject* pObject,sPetInfo* pPetInfo,C
 				pObject->GetAngle( curAngle);
 				diffAngle = ABS( curAngle - desAngle);
 
-				// ´ë»ó°ú Pet°úÀÇ °Å¸®
+				// ëŒ€ìƒê³¼ Petê³¼ì˜ ê±°ë¦¬
 				float fDistance = pTargetChar->GetInteractionDistance( pObject->m_Position);
 
-				if( (fDistance*2) > pPetInfo->fFollowRange) // ¸Ö¸® ÀÖ´Ù
+				if( (fDistance*2) > pPetInfo->fFollowRange) // ë©€ë¦¬ ìžˆë‹¤
 				{
 					if(pObject->m_nCurMotionType != XiahAniType::eLAT_Run && pObject->m_nCurMotionType != XiahAniType::eLAT_Walk)
 					{
 						if( diffAngle > 30)	STOP_PET;
 						STARTMOVE_PET_RUN;
 					}
-				}//HT_CHEAT : ºÐ½Å Àß ¾ÈµÇ³ß..¤Ñ¤Ñ; ¹ÝÀÀ ¼Óµµ°¡ ´À¸®´Ù
+				}//HT_CHEAT : ë¶„ì‹  ìž˜ ì•ˆë˜ë„¹..ã…¡ã…¡; ë°˜ì‘ ì†ë„ê°€ ëŠë¦¬ë‹¤
 				else if(pPetInfo->m_dwIsHwan == 2)//if( g_dwCurTime - pPetInfo->dwLastAttackTime > pPetInfo->dwAttackDelayTime)
 				{
-					//HT_CHEAT : ºÐ½Å°ÝÀº ¸ó½ºÅÍ ÇÑ´ë¸¸ ¶§¸®ÀÚ ¤Ñ¤Ñ;;
+					//HT_CHEAT : ë¶„ì‹ ê²©ì€ ëª¬ìŠ¤í„° í•œëŒ€ë§Œ ë•Œë¦¬ìž ã…¡ã…¡;;
 					if(pObject->m_dwMaxHP * 0.7 < pObject->m_dwCurHP)
 					{
-						// ´ë»óÀ» °ø°ÝÇØÁØ´Ù
+						// ëŒ€ìƒì„ ê³µê²©í•´ì¤€ë‹¤
 						SendCS_BT_PREATTACK_REQ( OBJTYPE_PET, dwObjectID, pPetInfo->dwDestType, pPetInfo->dwDestID, pObject->m_Position.x, -pObject->m_Position.z, pObject->m_Position.y, 0);
-						pPetInfo->dwLastAttackTime = g_dwCurTime;	// PreAttack_Ack¿Ã¶§±îÁö ±â´Ù·ÁÁÖ·Á¸é.
+						pPetInfo->dwLastAttackTime = g_dwCurTime;	// PreAttack_Ackì˜¬ë•Œê¹Œì§€ ê¸°ë‹¤ë ¤ì£¼ë ¤ë©´.
 					}
-					//// ´ë»óÀ» °ø°ÝÇØÁØ´Ù (ÀÚ±â ¹æ¾î)
+					//// ëŒ€ìƒì„ ê³µê²©í•´ì¤€ë‹¤ (ìžê¸° ë°©ì–´)
 					//SendCS_BT_PREATTACK_REQ( OBJTYPE_PET, dwObjectID, pPetInfo->dwDestType, pPetInfo->dwDestID, pObject->m_Position.x, -pObject->m_Position.z, pObject->m_Position.y, 0);
-					//pPetInfo->dwLastAttackTime = g_dwCurTime;	// PreAttack_Ack¿Ã¶§±îÁö ±â´Ù·ÁÁÖ·Á¸é.
+					//pPetInfo->dwLastAttackTime = g_dwCurTime;	// PreAttack_Ackì˜¬ë•Œê¹Œì§€ ê¸°ë‹¤ë ¤ì£¼ë ¤ë©´.
 				}
 				else
 				{
 					SendCS_BT_PREATTACK_REQ( OBJTYPE_PET, dwObjectID, pPetInfo->dwDestType, pPetInfo->dwDestID, pObject->m_Position.x, -pObject->m_Position.z, pObject->m_Position.y, 0);
-					pPetInfo->dwLastAttackTime = g_dwCurTime;	// PreAttack_Ack¿Ã¶§±îÁö ±â´Ù·ÁÁÖ·Á¸é.
+					pPetInfo->dwLastAttackTime = g_dwCurTime;	// PreAttack_Ackì˜¬ë•Œê¹Œì§€ ê¸°ë‹¤ë ¤ì£¼ë ¤ë©´.
 				}
 				ret = TRUE;
 			}
 		}
 		break;
 
-		// ´ë»ó°ø°Ý
+		// ëŒ€ìƒê³µê²©
 		case PETAI_TARGETATTACK :
 		{
 			if(pPetInfo->dwDestID == NULL)
@@ -176,10 +176,10 @@ BOOL ProcessPETAI(DWORD dwObjectID,CXiahCharObject* pObject,sPetInfo* pPetInfo,C
 			pObject->GetAngle( curAngle);
 			diffAngle = ABS( curAngle - desAngle);
 
-			// ´ë»ó°ú Pet°úÀÇ °Å¸®
+			// ëŒ€ìƒê³¼ Petê³¼ì˜ ê±°ë¦¬
 			float fDistance = pTargetChar->GetInteractionDistance( pObject->m_Position);
 
-			if( (fDistance * 1.5f) > pPetInfo->fFollowRange) // ¸Ö¸® ÀÖ´Ù
+			if( (fDistance * 1.5f) > pPetInfo->fFollowRange) // ë©€ë¦¬ ìžˆë‹¤
 			{
 				if(pObject->m_nCurMotionType != XiahAniType::eLAT_Run && pObject->m_nCurMotionType != XiahAniType::eLAT_Walk)
 				{
@@ -189,34 +189,34 @@ BOOL ProcessPETAI(DWORD dwObjectID,CXiahCharObject* pObject,sPetInfo* pPetInfo,C
 			}
 			else if(pPetInfo->m_dwIsHwan == 2)
 			{
-				//HT_CHEAT : ºÐ½Å°ÝÀº ¸ó½ºÅÍ ÇÑ´ë¸¸ ¶§¸®ÀÚ ¤Ñ¤Ñ;;
+				//HT_CHEAT : ë¶„ì‹ ê²©ì€ ëª¬ìŠ¤í„° í•œëŒ€ë§Œ ë•Œë¦¬ìž ã…¡ã…¡;;
 				if(pObject->m_dwMaxHP * 0.5 < pObject->m_dwCurHP)
 				{
-					// ´ë»óÀ» °ø°ÝÇØÁØ´Ù
+					// ëŒ€ìƒì„ ê³µê²©í•´ì¤€ë‹¤
 					SendCS_BT_PREATTACK_REQ( OBJTYPE_PET, dwObjectID, pPetInfo->dwDestType, pPetInfo->dwDestID, pObject->m_Position.x, -pObject->m_Position.z, pObject->m_Position.y, 0);
-					pPetInfo->dwLastAttackTime = g_dwCurTime;	// PreAttack_Ack¿Ã¶§±îÁö ±â´Ù·ÁÁÖ·Á¸é.
+					pPetInfo->dwLastAttackTime = g_dwCurTime;	// PreAttack_Ackì˜¬ë•Œê¹Œì§€ ê¸°ë‹¤ë ¤ì£¼ë ¤ë©´.
 				}
-				//// ´ë»óÀ» °ø°ÝÇØÁØ´Ù (ÀÚ±â ¹æ¾î)
+				//// ëŒ€ìƒì„ ê³µê²©í•´ì¤€ë‹¤ (ìžê¸° ë°©ì–´)
 				//SendCS_BT_PREATTACK_REQ( OBJTYPE_PET, dwObjectID, pPetInfo->dwDestType, pPetInfo->dwDestID, pObject->m_Position.x, -pObject->m_Position.z, pObject->m_Position.y, 0);
-				//pPetInfo->dwLastAttackTime = g_dwCurTime;	// PreAttack_Ack¿Ã¶§±îÁö ±â´Ù·ÁÁÖ·Á¸é.
+				//pPetInfo->dwLastAttackTime = g_dwCurTime;	// PreAttack_Ackì˜¬ë•Œê¹Œì§€ ê¸°ë‹¤ë ¤ì£¼ë ¤ë©´.
 			}
 			else
 			{
-				// ´ë»óÀ» °ø°ÝÇØÁØ´Ù (ÀÚ±â ¹æ¾î)
+				// ëŒ€ìƒì„ ê³µê²©í•´ì¤€ë‹¤ (ìžê¸° ë°©ì–´)
 				SendCS_BT_PREATTACK_REQ( OBJTYPE_PET, dwObjectID, pPetInfo->dwDestType, pPetInfo->dwDestID, pObject->m_Position.x, -pObject->m_Position.z, pObject->m_Position.y, 0);
-				pPetInfo->dwLastAttackTime = g_dwCurTime;	// PreAttack_Ack¿Ã¶§±îÁö ±â´Ù·ÁÁÖ·Á¸é.
+				pPetInfo->dwLastAttackTime = g_dwCurTime;	// PreAttack_Ackì˜¬ë•Œê¹Œì§€ ê¸°ë‹¤ë ¤ì£¼ë ¤ë©´.
 			}
 			ret = TRUE;
 		}		
 		break;
 
-		// ¾ÆÀÌÅÛ ¼öÁý.
+		// ì•„ì´í…œ ìˆ˜ì§‘.
 		case PETAI_TAKEITEM	:
 		{
 			float min_len = 1000.0f;
 			CXiahCharObject* ItemObj = NULL;
 
-			// °¡Àå °¡±î¿î°ÍÀ» Ã£°í
+			// ê°€ìž¥ ê°€ê¹Œìš´ê²ƒì„ ì°¾ê³ 
 			XiahObject::CXiahObjectManager::iterator it;
 			for(it = XiahObject::g_XiahObjectManager.begin(); it != XiahObject::g_XiahObjectManager.end(); it++)
 			{
@@ -225,11 +225,11 @@ BOOL ProcessPETAI(DWORD dwObjectID,CXiahCharObject* pObject,sPetInfo* pPetInfo,C
 
 				if(t_Object == NULL || pCharObject == NULL)
 				{
-					DBG_LogFile( _T("ProcessPETAI ½ÇÆÐ"));
+					DBG_LogFile( _T("ProcessPETAI ì‹¤íŒ¨"));
 //					return false;
 				}
 
-				// ¾ÆÀÌÅÛÀÌ¸é Áý´Â´Ù.
+				// ì•„ì´í…œì´ë©´ ì§‘ëŠ”ë‹¤.
 				if( pCharObject->m_bObjType == OBJTYPE_ITEM)
 				{
 					float Len = pCharObject->GetInteractionDistance(pObject->m_Position);
@@ -241,7 +241,7 @@ BOOL ProcessPETAI(DWORD dwObjectID,CXiahCharObject* pObject,sPetInfo* pPetInfo,C
 				}
 			}
 
-			// ¼öÁýÇÒ°ÍÀÌ ÀÖ´Ù!
+			// ìˆ˜ì§‘í• ê²ƒì´ ìžˆë‹¤!
 			if(ItemObj)
 			{
 				pPetInfo->bFight = TRUE;
@@ -257,10 +257,10 @@ BOOL ProcessPETAI(DWORD dwObjectID,CXiahCharObject* pObject,sPetInfo* pPetInfo,C
 				pObject->GetAngle( curAngle);
 				diffAngle = ABS( curAngle - desAngle);
 
-				// ¼öÁýÇÒ ITEM °úÀÇ °Å¸®
+				// ìˆ˜ì§‘í•  ITEM ê³¼ì˜ ê±°ë¦¬
 				float fDistance = ItemObj->GetInteractionDistance( pObject->m_Position);
 
-				if( fDistance > pPetInfo->fFollowRange) // ¸Ö¸® ÀÖ´Ù
+				if( fDistance > pPetInfo->fFollowRange) // ë©€ë¦¬ ìžˆë‹¤
 				{
 					if(pObject->m_nCurMotionType != XiahAniType::eLAT_Run && pObject->m_nCurMotionType != XiahAniType::eLAT_Walk)
 					{
@@ -300,7 +300,7 @@ BOOL ProcessPETAI(DWORD dwObjectID,CXiahCharObject* pObject,sPetInfo* pPetInfo,C
 					
 					}
 
-					pPetInfo->dwLastAttackTime = g_dwCurTime;	// PreAttack_Ack¿Ã¶§±îÁö ±â´Ù·ÁÁÖ·Á¸é.
+					pPetInfo->dwLastAttackTime = g_dwCurTime;	// PreAttack_Ackì˜¬ë•Œê¹Œì§€ ê¸°ë‹¤ë ¤ì£¼ë ¤ë©´.
 				}
 			}
 			else
@@ -311,7 +311,7 @@ BOOL ProcessPETAI(DWORD dwObjectID,CXiahCharObject* pObject,sPetInfo* pPetInfo,C
 		}
 		break;
 
-		// ¹«°ø°ø°Ý
+		// ë¬´ê³µê³µê²©
 		case PETAI_SPECIALATTACK :
 		break;
 	}
@@ -320,14 +320,14 @@ BOOL ProcessPETAI(DWORD dwObjectID,CXiahCharObject* pObject,sPetInfo* pPetInfo,C
 
 
 // AI LOOP
-// dwObjectID : ÇØ´ç PET ID
-// pObject : ÇØ´ç PET ¿ÀºêÁ§Æ®
+// dwObjectID : í•´ë‹¹ PET ID
+// pObject : í•´ë‹¹ PET ì˜¤ë¸Œì íŠ¸
 BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 {
 	BOOL PetSelect = true;
 
 	if( g_pMainChar == NULL || pObject == NULL) return TRUE;
-	if( pObject->m_pPrivateData == 0) return TRUE; // ¾ÆÁ÷ ¿Ïº®ÇÑ Pet°¡ ¾Æ´Ï´Ù
+	if( pObject->m_pPrivateData == 0) return TRUE; // ì•„ì§ ì™„ë²½í•œ Petê°€ ì•„ë‹ˆë‹¤
 
 	sPetInfo* pPetInfo = (sPetInfo*)pObject->m_pPrivateData;
 	CXiahCharObject* pMainChar = (CXiahCharObject*)g_pMainChar->m_pObject;
@@ -335,27 +335,27 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 
 	if(pPetInfo == NULL || pMainChar == NULL)
 	{
-		DBG_LogFile( _T("PetAI ½ÇÆÐ"));
+		DBG_LogFile( _T("PetAI ì‹¤íŒ¨"));
 //		return false;
 	}
 
-	// pTargetChar´Â PCÀÌ´Ù.
+	// pTargetCharëŠ” PCì´ë‹¤.
 	CXiahCharObject* pTargetChar = pMainChar;
 
 	WORD wDirection;
 	Vector3 vTarget;
 
-	// PET¿¡°Ô AI°¡ ÀÖ´Â°¡?
+	// PETì—ê²Œ AIê°€ ìžˆëŠ”ê°€?
 	if( pPetInfo->bAI == FALSE) return TRUE;
 
-	// PETÀÌ ¼±ÅÃÇÏ°í ÀÖ´Â Obejct ID
+	// PETì´ ì„ íƒí•˜ê³  ìžˆëŠ” Obejct ID
 	if( pPetInfo->dwDestID != NULL)
 	{
-		// PETÀÌ ¼±ÅÃÁßÀÎ OBJECT¸¦ ±¸ÇÑ´Ù
+		// PETì´ ì„ íƒì¤‘ì¸ OBJECTë¥¼ êµ¬í•œë‹¤
 		XiahObject::CXiahObject* pSelObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, pPetInfo->dwDestID, pPetInfo->dwDestType));
 
 		// 2004.08.04 Changth
-		// NPC°¡ Á×¾ú´Âµ¥ PETÀÌ ¸î¹ø ´õ °ø°ÝÀ» ÇÏ´Â±º. ÀÌ°ÍÀ» ¼öÁ¤ÇÑ´Ù. »óÅÂ¸¦ ÆÄ¾ÇÇÏÀÚ.
+		// NPCê°€ ì£½ì—ˆëŠ”ë° PETì´ ëª‡ë²ˆ ë” ê³µê²©ì„ í•˜ëŠ”êµ°. ì´ê²ƒì„ ìˆ˜ì •í•œë‹¤. ìƒíƒœë¥¼ íŒŒì•…í•˜ìž.
 		bool bExistDestObject = true;
 
 		if( !pSelObject )
@@ -380,31 +380,31 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 			pSelChar = pSelCharObject;
 		else
 		{
-			// ÇØ´ç OBJECTÀÌ Á×°Å³ªÇØ¼­ »ç¶óÁø°æ¿ì ÃÊ±âÈ­
+			// í•´ë‹¹ OBJECTì´ ì£½ê±°ë‚˜í•´ì„œ ì‚¬ë¼ì§„ê²½ìš° ì´ˆê¸°í™”
 			pPetInfo->dwDestID = 0;
 			pPetInfo->dwDestType = 0;
 
 			// 2004.08.04 Changth
-			// Ä³¸¯ÅÍ¿Í µ¿¹Ý °ø°ÝÇÒ¶§ »ç¿ëÇÏ´Â °ÍÀ¸·Î, ÆêÀ» ÁöÁ¤ °ø°ÝÀ» ÇÑ ÈÄ °ø°ÝÀÌ ³¡³ª¸é
-			// ÀÚµ¿À¸·Î ÀÚµ¿°ø°ÝÀ¸·Î ¹Ù²î´Âµ¥, ÀÌ¶§ ¸¶¿ì½º·Î ¼±ÅÃÇÑ NPCÀÇ ObjectID°¡ 
-			// dwSelObjectID ¿¡ ¾ÆÁ÷±îÁö ÀúÀåµÇ¾î ÀÖ´Ù. ±×·¡¼­ ¶Ç´Ù½Ã ÇÑ¹ø ´õ °ø°ÝÇÏ´Â ¾Ö´Ï¸ÞÀÌ¼ÇÀÌ
-			// ÀÛµ¿ÇÑ´Ù. ÀÌ°ÍÀ» ¹æÁöÇÏ±â À§ÇØ¼­ ÀÌ·¸°Ô ÃÊ±âÈ­¸¦ ÇØÁØ´Ù.
+			// ìºë¦­í„°ì™€ ë™ë°˜ ê³µê²©í• ë•Œ ì‚¬ìš©í•˜ëŠ” ê²ƒìœ¼ë¡œ, íŽ«ì„ ì§€ì • ê³µê²©ì„ í•œ í›„ ê³µê²©ì´ ëë‚˜ë©´
+			// ìžë™ìœ¼ë¡œ ìžë™ê³µê²©ìœ¼ë¡œ ë°”ë€ŒëŠ”ë°, ì´ë•Œ ë§ˆìš°ìŠ¤ë¡œ ì„ íƒí•œ NPCì˜ ObjectIDê°€ 
+			// dwSelObjectID ì— ì•„ì§ê¹Œì§€ ì €ìž¥ë˜ì–´ ìžˆë‹¤. ê·¸ëž˜ì„œ ë˜ë‹¤ì‹œ í•œë²ˆ ë” ê³µê²©í•˜ëŠ” ì• ë‹ˆë©”ì´ì…˜ì´
+			// ìž‘ë™í•œë‹¤. ì´ê²ƒì„ ë°©ì§€í•˜ê¸° ìœ„í•´ì„œ ì´ë ‡ê²Œ ì´ˆê¸°í™”ë¥¼ í•´ì¤€ë‹¤.
 			dwSelObjectID = 0;
 			dwSelObjectType = 0;
 		}
 	}
 	else
 	{
-		// ÀÚµ¿°ø°ÝÀº Å¸°ÙÀ» ÁöÁ¤ÇØÁà¾ßÇÑ´Ù
+		// ìžë™ê³µê²©ì€ íƒ€ê²Ÿì„ ì§€ì •í•´ì¤˜ì•¼í•œë‹¤
 		if(pPetInfo->AI_Type == PETAI_AUTOATTACK)
 		{
-			// PETÀÇ DEST°¡ PET ÀÚ½ÅÀÏ¼ö ¾ø´Ù
+			// PETì˜ DESTê°€ PET ìžì‹ ì¼ìˆ˜ ì—†ë‹¤
 			if(dwObjectID != dwSelObjectID)
 			{
 				// 2004.08.05 Changth
-				// ºÐ½Å°ÝÀ» ¾´ ÈÄ, ÀÏ¹Ý Ä³¸¯ÅÍ¸¦ Å¬¸¯ÇÏ¸é ºÐ½ÅÀÌ ¹Ù·Î °ø°ÝÇÑ´Ù ÀÌ°ÍÀ» ¸·´Â´Ù.
-				// ´Ü ºñ¹«, ¹®ÆÄÀü ÀÏ¶© Å¬¸¯ÀÌ °ø°ÝÀÌ¹Ç·Î ÀÌ¶§¸¦ Á¦¿ÜÇÏ°ï ºÐ½ÅÀÌ °ø°ÝÀ» ¸øÇÏ°Ô ÇÑ´Ù.
-				// nRemainAttackCount == 1 ÀÌ¸é ¸ÞÀÎÀÌ °ø°ÝÀ» ÇÏ´Â »óÅÂ´Ù.
+				// ë¶„ì‹ ê²©ì„ ì“´ í›„, ì¼ë°˜ ìºë¦­í„°ë¥¼ í´ë¦­í•˜ë©´ ë¶„ì‹ ì´ ë°”ë¡œ ê³µê²©í•œë‹¤ ì´ê²ƒì„ ë§‰ëŠ”ë‹¤.
+				// ë‹¨ ë¹„ë¬´, ë¬¸íŒŒì „ ì¼ë• í´ë¦­ì´ ê³µê²©ì´ë¯€ë¡œ ì´ë•Œë¥¼ ì œì™¸í•˜ê³¤ ë¶„ì‹ ì´ ê³µê²©ì„ ëª»í•˜ê²Œ í•œë‹¤.
+				// nRemainAttackCount == 1 ì´ë©´ ë©”ì¸ì´ ê³µê²©ì„ í•˜ëŠ” ìƒíƒœë‹¤.
 				if( g_MainChar_PreAttackInfo.nRemainAttackCount == 0 )
 				{
 					pPetInfo->dwDestID = 0;
@@ -419,15 +419,15 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 		}
 	}
 
-	// PETÀÌ ¼±ÅÃÇÏ°íÀÖ´Â OBJECT ¾øÀ¸¸é MAIN PC¸¦ ¼±ÅÃÇÑ´Ù
+	// PETì´ ì„ íƒí•˜ê³ ìžˆëŠ” OBJECT ì—†ìœ¼ë©´ MAIN PCë¥¼ ì„ íƒí•œë‹¤
 	if( pSelChar != NULL) pTargetChar = pSelChar;
 	
 	BOOL bMove = pObject->m_nCurMotionType == XiahAniType::eLAT_Run || pObject->m_nCurMotionType == XiahAniType::eLAT_Walk;
 
-	//HT_CHEAT : Æê ¼Óµµ Áõ°¡ ½ÃÅ°ÀÚ
+	//HT_CHEAT : íŽ« ì†ë„ ì¦ê°€ ì‹œí‚¤ìž
 	float fMoveSpeed = 1.5f;
-	// [12/20/2004] ¾Æ¹ÙÅ¸ Æê(±¤°ßÀÌ ´À·Á¼­ ºü¸£°Ô)
-	//if(pPetInfo->bRevolutionStep == 4 && pPetInfo->bNpcType == 0) //HT_0621 : ¿µ¼öµÐ°©½Å´Ü Àû¿ë
+	// [12/20/2004] ì•„ë°”íƒ€ íŽ«(ê´‘ê²¬ì´ ëŠë ¤ì„œ ë¹ ë¥´ê²Œ)
+	//if(pPetInfo->bRevolutionStep == 4 && pPetInfo->bNpcType == 0) //HT_0621 : ì˜ìˆ˜ë‘”ê°‘ì‹ ë‹¨ ì ìš©
 	//	fMoveSpeed = 1.5f;
 	
 	BYTE bMoveSpeed = fMoveSpeed * 9;
@@ -436,27 +436,27 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 
 	if( g_dwCurTime - pPetInfo->dwLastAITime > pPetInfo->dwAIFrameTime)
 	{
-		// MAIN PC¿Í Pet°úÀÇ °Å¸®
+		// MAIN PCì™€ Petê³¼ì˜ ê±°ë¦¬
 		float fDistance = pMainChar->GetInteractionDistance( pObject->m_Position);
 
 //////////////////////////////////
 		switch(pPetInfo->m_dwIsHwan)
 		{
-			// ÀÏ¹Ý PET
+			// ì¼ë°˜ PET
 			case 0 :
 				fMoveSpeed = 1.9f;
 			{
 				float dis = 9.0f;
-			//	if(pPetInfo->m_dwIsHwan == 0) dis = 9.0f; //HT_CHEAT : Æê »çÁ¤°Å¸® Áõ°¡ ½ÃÅ°ÀÚ
+			//	if(pPetInfo->m_dwIsHwan == 0) dis = 9.0f; //HT_CHEAT : íŽ« ì‚¬ì •ê±°ë¦¬ ì¦ê°€ ì‹œí‚¤ìž
 			//	else
-			//	if(pPetInfo->m_dwIsHwan == 1) dis = 1.5f; //È¯¼öÀ¯¿ë... 
+			//	if(pPetInfo->m_dwIsHwan == 1) dis = 1.5f; //í™˜ìˆ˜ìœ ìš©... 
 
-				// ¸Ö¸® ÀÖ°Å³ª È£Ãâ
+				// ë©€ë¦¬ ìžˆê±°ë‚˜ í˜¸ì¶œ
 				if( fDistance > pPetInfo->fFollowRange * dis || pPetInfo->bFollowPC == TRUE || pPetInfo->AI_Type == PETAI_CALLTOME)
 				{
 					if(pPetInfo->AI_Type == PETAI_CALLTOME)
 					{
-						// ºÎ¸¦¶§´Â °¡±îÀÌ ±îÁö ºÎ¸¥´Ù.
+						// ë¶€ë¥¼ë•ŒëŠ” ê°€ê¹Œì´ ê¹Œì§€ ë¶€ë¥¸ë‹¤.
 						dis = 1.5f;
 
 						if(fDistance < pPetInfo->fFollowRange * dis)
@@ -469,14 +469,14 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 					pPetInfo->dwGuardID = 0;
 					pPetInfo->dwGuardType = 0;
 
-					// ¹«Á¶°Ç 1.5f ÀÌÇÏ·Î µû¶ó¿Í¾ßÇÑ´Ù.
+					// ë¬´ì¡°ê±´ 1.5f ì´í•˜ë¡œ ë”°ë¼ì™€ì•¼í•œë‹¤.
 					if(fDistance > pPetInfo->fFollowRange * dis - 1.0f) 
 						pPetInfo->bFollowPC = TRUE;
 					else
 						pPetInfo->bFollowPC = FALSE;
 
 					vTarget = pMainChar->m_Position;
-					// ¸ÞÀÎ ÄÉ·ºÅÍ¸¦ µû¶ó´Ù´Ò¶§ÀÇ UPDATE
+					// ë©”ì¸ ì¼€ë ‰í„°ë¥¼ ë”°ë¼ë‹¤ë‹ë•Œì˜ UPDATE
 					if( pMainChar->m_bTargetMove) vTarget = pMainChar->m_TargetPosition;
 
 					int FR = pPetInfo->fFollowRange;
@@ -490,7 +490,7 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 					pObject->GetAngle( curAngle);
 					diffAngle = ABS( curAngle - desAngle);
 
-					// 10¹è ¶³¾îÁ® ÀÖÀ¸¸é JUMP ÇÑ´Ù
+					// 10ë°° ë–¨ì–´ì ¸ ìžˆìœ¼ë©´ JUMP í•œë‹¤
 					if(fDistance > pPetInfo->fFollowRange * 10.0f)
 					{
 						int x = 16 - (rand() % 32);
@@ -503,7 +503,7 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 					}
 					else
 					{
-						// ¿ä±¸ ±ÙÁ¢ °Å¸®º¸´Ù 1.5¹è Â÷ÀÌ ³ª¸é ¶Ú´Ù
+						// ìš”êµ¬ ê·¼ì ‘ ê±°ë¦¬ë³´ë‹¤ 1.5ë°° ì°¨ì´ ë‚˜ë©´ ë›´ë‹¤
 						BOOL bRun = fDistance > pPetInfo->fFollowRange * 1.5f; 
 						#define STARTMOVE_PET	\
 						if( bRun)\
@@ -522,7 +522,7 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 						}
 						else
 						{
-							// °¢µµ°¡ 30µµ ÀÌ»ó Â÷ÀÌ³ª¸é ¸ØÃè´Ù°¡ ´Ù½Ã ¿òÁ÷ÀÓ
+							// ê°ë„ê°€ 30ë„ ì´ìƒ ì°¨ì´ë‚˜ë©´ ë©ˆì·„ë‹¤ê°€ ë‹¤ì‹œ ì›€ì§ìž„
 							if( diffAngle > 30)
 							{
 								STOP_PET;
@@ -532,18 +532,18 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 						pPetInfo->bIdle = FALSE;
 					}
 				}
-				else // ±ÙÃ³¿¡ ÀÖ´Ù
+				else // ê·¼ì²˜ì— ìžˆë‹¤
 				{
-					// PET AI ½ÇÁ¦ ÀÛµ¿
+					// PET AI ì‹¤ì œ ìž‘ë™
 					if(ProcessPETAI(dwObjectID,pObject,pPetInfo,pTargetChar) == FALSE)
 					{
-						// ¿òÁ÷ÀÌ°í ÀÖ¾ú´Ù¸é ¸ØÃá´Ù
+						// ì›€ì§ì´ê³  ìžˆì—ˆë‹¤ë©´ ë©ˆì¶˜ë‹¤
 						if( bMove)
 						{
 							STOP_PET;
 						}
 
-						// IDLE MODE ½ÃÀÛÀ» ¾Ë¸²
+						// IDLE MODE ì‹œìž‘ì„ ì•Œë¦¼
 						if( pPetInfo->bFight == FALSE && pPetInfo->bIdle == FALSE && pTargetChar->m_bObjType == OBJTYPE_PC)
 						{
 							pPetInfo->bIdle = TRUE;
@@ -553,17 +553,17 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 							pPetInfo->dwIdleStepTime = g_dwCurTime;
 						}
 
-						// PETÀÇ IDLE »óÅÂ
+						// PETì˜ IDLE ìƒíƒœ
 						if( pPetInfo->bIdle && pPetInfo->bFight == FALSE)
 						{
 							switch( pPetInfo->nIdleStep)
 							{
 
-							case 0:	// ÀÎÁ¦ idleµÇ±â ½ÃÀÛÇß´Ù
+							case 0:	// ì¸ì œ idleë˜ê¸° ì‹œìž‘í–ˆë‹¤
 								if( g_dwCurTime - pPetInfo->dwIdleStepTime > pPetInfo->dwIdleStepDelay)
 								{
 									// NPCSTATUS_IDLE
-									// ÁÖÀú ¾É±â ½ÃÀÛ (±¤°ß±âÁØ)
+									// ì£¼ì € ì•‰ê¸° ì‹œìž‘ (ê´‘ê²¬ê¸°ì¤€)
 									pObject->m_bObjStatus = NPCSTATUS_IDLE;
 									pObject->SetAnimation( XiahAniType::eLAT_Idle, 0);
 									pObject->m_CharRender.SetLoopAnimation( FALSE);
@@ -572,7 +572,7 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 
 									pPetInfo->dwIdleStepDelay = pObject->m_CharRender.GetAnimationLength();
 									pPetInfo->dwIdleStepTime = g_dwCurTime;
-									// ³ªÁß¿¡ NpcTypeº°·Î Àâ¾Æ ÁØ´Ù
+									// ë‚˜ì¤‘ì— NpcTypeë³„ë¡œ ìž¡ì•„ ì¤€ë‹¤
 									STATUSCHANGE_PET;
 									DBG_Put("0");
 								}
@@ -580,7 +580,7 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 							case 1: // idle1
 								if( g_dwCurTime - pPetInfo->dwIdleStepTime > pPetInfo->dwIdleStepDelay)
 								{
-									// ¾ÉÀº »óÅÂ µÎ¸®¹ø (±¤°ß±âÁØ)
+									// ì•‰ì€ ìƒíƒœ ë‘ë¦¬ë²ˆ (ê´‘ê²¬ê¸°ì¤€)
 									pObject->m_bObjStatus = NPCSTATUS_IDLE1;
 									pObject->SetAnimation( XiahAniType::eLAT_Idle, 1);
 									pObject->m_CharRender.SetLoopAnimation( FALSE);
@@ -595,13 +595,13 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 								break;
 
 							case 2: // idle1
-							case 3: // ÀÏ¾î³ª±â
+							case 3: // ì¼ì–´ë‚˜ê¸°
 								if( g_dwCurTime - pPetInfo->dwIdleStepTime > pPetInfo->dwIdleStepDelay)
 								{
-									// ÀÏ¾î³ª! (±¤°ß±âÁØ)
+									// ì¼ì–´ë‚˜! (ê´‘ê²¬ê¸°ì¤€)
 									pObject->m_bObjStatus = NPCSTATUS_WAKEUP;
 
-									// ¾É´Â°Å¸¦ ²¨²Ù·Î µ¹¸®°í, ´ÙÀ½ ¿¡´Ï¸ÞÀÌ¼ÇÀº Stand
+									// ì•‰ëŠ”ê±°ë¥¼ êº¼ê¾¸ë¡œ ëŒë¦¬ê³ , ë‹¤ìŒ ì—ë‹ˆë©”ì´ì…˜ì€ Stand
 									pObject->SetAnimation( XiahAniType::eLAT_Idle, XiahAniType::eLAT_Stand,0,  0);
 									pObject->m_CharRender.SetReverseAnimation();
 									pObject->m_CharRender.SetLoopAnimation( FALSE);
@@ -618,12 +618,12 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 								}
 								break;
 
-								// PC ÁÖÀ§ ¹æÈ²ÇÏ±â.
+								// PC ì£¼ìœ„ ë°©í™©í•˜ê¸°.
 							case 4 :
 								if( g_dwCurTime - pPetInfo->dwIdleStepTime > pPetInfo->dwIdleStepDelay)
 								{
-									// ÁÖÀ§ ¹æÈ²
-									pObject->m_bObjStatus = NPCSTATUS_WALK;		// ÁÖÀÎ°ø ÁÖÀ§ ¹æÈ²ÇÏ±â (IDLE)
+									// ì£¼ìœ„ ë°©í™©
+									pObject->m_bObjStatus = NPCSTATUS_WALK;		// ì£¼ì¸ê³µ ì£¼ìœ„ ë°©í™©í•˜ê¸° (IDLE)
 									vTarget = pMainChar->m_Position;
 									int FR = pPetInfo->fFollowRange;
 									vTarget.x += (FR / 2) + -(rand() % FR);
@@ -649,17 +649,17 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 									DBG_Put("4");
 								}
 								break;
-							}// IDLE Á¾·ù
-						}// IDLE »óÅÂ?
-					}// AI Å¿³ª?
+							}// IDLE ì¢…ë¥˜
+						}// IDLE ìƒíƒœ?
+					}// AI íƒ“ë‚˜?
 				}
 			}
 			break;
 
-			// ºÐ½Å°Ý 
+			// ë¶„ì‹ ê²© 
 			case 2 :
 			{
-				float dis = 3.0f; //HT_CHEAT : È¯¼öÀ¯ »çÁ¤ °Å¸® Áõ°¡..
+				float dis = 3.0f; //HT_CHEAT : í™˜ìˆ˜ìœ  ì‚¬ì • ê±°ë¦¬ ì¦ê°€..
 
 				bMoveSpeed = pPetInfo->bSpeed;
 
@@ -668,7 +668,7 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 				else*/
 					fFollowRange = pPetInfo->fFollowRange;
 
-				if( fDistance > fFollowRange * dis || pPetInfo->bFollowPC == TRUE ) // ¸Ö¸® ÀÖ´Ù
+				if( fDistance > fFollowRange * dis || pPetInfo->bFollowPC == TRUE ) // ë©€ë¦¬ ìžˆë‹¤
 				{
 					if(!pPetInfo->bFight)
 					{
@@ -679,8 +679,8 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 						pPetInfo->dwGuardType	= 0;
 					}
 
-					// ¹«Á¶°Ç 1.5f ÀÌÇÏ·Î µû¶ó¿Í¾ßÇÑ´Ù. ÀÛÀº ¹üÀ§ ¾È¿¡¼­
-					if( fDistance > pPetInfo->fFollowRange * dis) //HT_CHEAT : ¹üÀ§¸¦ ³ÑÈ÷ÀÚ
+					// ë¬´ì¡°ê±´ 1.5f ì´í•˜ë¡œ ë”°ë¼ì™€ì•¼í•œë‹¤. ìž‘ì€ ë²”ìœ„ ì•ˆì—ì„œ
+					if( fDistance > pPetInfo->fFollowRange * dis) //HT_CHEAT : ë²”ìœ„ë¥¼ ë„˜ížˆìž
 					{
 						pPetInfo->bFollowPC = TRUE;
 					}
@@ -690,7 +690,7 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 					}
 
 					vTarget = pMainChar->m_Position;
-					// ¸ÞÀÎ ÄÉ·ºÅÍ¸¦ µû¶ó´Ù´Ò¶§ÀÇ UPDATE
+					// ë©”ì¸ ì¼€ë ‰í„°ë¥¼ ë”°ë¼ë‹¤ë‹ë•Œì˜ UPDATE
 					if( pMainChar->m_bTargetMove) vTarget = pMainChar->m_TargetPosition;
 					int FR = pPetInfo->fFollowRange;
 					vTarget.x += (FR / 2) + -(rand() % FR);
@@ -703,7 +703,7 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 					pObject->GetAngle( curAngle);
 					diffAngle = ABS( curAngle - desAngle);
 
-					// 5¹è ¶³¾îÁ® ÀÖÀ¸¸é JUMP ÇÑ´Ù
+					// 5ë°° ë–¨ì–´ì ¸ ìžˆìœ¼ë©´ JUMP í•œë‹¤
 					if(fDistance > pPetInfo->fFollowRange * 5.0f)
 					{
 						int x = 16 - (rand() % 32);
@@ -716,7 +716,7 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 					}
 					else
 					{
-						// ÀÌ³ðµéÀº ¹«Á¶²« ¶Ú´Ù.
+						// ì´ë†ˆë“¤ì€ ë¬´ì¡°ê»€ ë›´ë‹¤.
 						if( bMove == FALSE)
 						{
 							//YS_0810 : PETAI
@@ -734,7 +734,7 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 						}
 						else
 						{
-							// °¢µµ°¡ 30µµ ÀÌ»ó Â÷ÀÌ³ª¸é ¸ØÃè´Ù°¡ ´Ù½Ã ¿òÁ÷ÀÓ
+							// ê°ë„ê°€ 30ë„ ì´ìƒ ì°¨ì´ë‚˜ë©´ ë©ˆì·„ë‹¤ê°€ ë‹¤ì‹œ ì›€ì§ìž„
 							if( diffAngle > 30)
 							{
 								STOP_PET;
@@ -754,9 +754,9 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 						pPetInfo->bIdle = FALSE;
 					}
 				}
-				else // ±ÙÃ³¿¡ ÀÖ´Ù
+				else // ê·¼ì²˜ì— ìžˆë‹¤
 				{
-					// ¿òÁ÷ÀÌ°í ÀÖ¾ú´Ù¸é ¸ØÃá´Ù
+					// ì›€ì§ì´ê³  ìžˆì—ˆë‹¤ë©´ ë©ˆì¶˜ë‹¤
 					if( bMove)
 					{
 						STOP_PET;
@@ -766,7 +766,7 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 					if(ProcessPETAI(dwObjectID,pObject,pPetInfo,pTargetChar) == FALSE)
 					{
 
-					// ´ë»ó°ø°Ý
+					// ëŒ€ìƒê³µê²©
 						if(pPetInfo->dwDestID != NULL && pTargetChar != NULL)
 						{
 							pPetInfo->bFight = TRUE;
@@ -784,10 +784,10 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 							pObject->GetAngle( curAngle);
 							diffAngle = ABS( curAngle - desAngle);
 
-							// ´ë»ó°ú Pet°úÀÇ °Å¸®
+							// ëŒ€ìƒê³¼ Petê³¼ì˜ ê±°ë¦¬
 							float fDistance = pTargetChar->GetInteractionDistance( pObject->m_Position);
 
-							if( fDistance > pPetInfo->fFollowRange) // ¸Ö¸® ÀÖ´Ù
+							if( fDistance > pPetInfo->fFollowRange) // ë©€ë¦¬ ìžˆë‹¤
 							{
 								//YS_0810 : PETAI
 								fMoveSpeed = 3.3f;
@@ -805,12 +805,12 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 							}
 							else// if( g_dwCurTime - pPetInfo->dwLastAttackTime > pPetInfo->dwAttackDelayTime)
 							{
-								//HT_CHEAT : ºÐ½Å°ÝÀº ¸ó½ºÅÍ 
+								//HT_CHEAT : ë¶„ì‹ ê²©ì€ ëª¬ìŠ¤í„° 
 								if(pObject->m_dwMaxHP * 0.7 < pObject->m_dwCurHP)
 								{
-									// ´ë»óÀ» °ø°ÝÇØÁØ´Ù
+									// ëŒ€ìƒì„ ê³µê²©í•´ì¤€ë‹¤
 									SendCS_BT_PREATTACK_REQ( OBJTYPE_PET, dwObjectID, pPetInfo->dwDestType, pPetInfo->dwDestID, pObject->m_Position.x, -pObject->m_Position.z, pObject->m_Position.y, 0);
-									pPetInfo->dwLastAttackTime = g_dwCurTime;	// PreAttack_Ack¿Ã¶§±îÁö ±â´Ù·ÁÁÖ·Á¸é.
+									pPetInfo->dwLastAttackTime = g_dwCurTime;	// PreAttack_Ackì˜¬ë•Œê¹Œì§€ ê¸°ë‹¤ë ¤ì£¼ë ¤ë©´.
 								}
 							}
 						}
@@ -829,11 +829,11 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 				}
 			//	break;
 			}
-			break; //HT_CHEAT : ºÐ½ÅÀº ¶§¸®Áö¸¶.. 
+			break; //HT_CHEAT : ë¶„ì‹ ì€ ë•Œë¦¬ì§€ë§ˆ.. 
 
 			case 1 :
 			{
-				float dis = 3.0f; //HT_CHEAT : È¯¼öÀ¯ »çÁ¤ °Å¸® Áõ°¡..
+				float dis = 3.0f; //HT_CHEAT : í™˜ìˆ˜ìœ  ì‚¬ì • ê±°ë¦¬ ì¦ê°€..
 				fMoveSpeed = 1.2f;
 
 				bMoveSpeed = pPetInfo->bSpeed;
@@ -843,7 +843,7 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 				else
 					fFollowRange = pPetInfo->fFollowRange;
 
-				if( fDistance > fFollowRange * dis || pPetInfo->bFollowPC == TRUE ) // ¸Ö¸® ÀÖ´Ù
+				if( fDistance > fFollowRange * dis || pPetInfo->bFollowPC == TRUE ) // ë©€ë¦¬ ìžˆë‹¤
 				{
 					if(!pPetInfo->bFight)
 					{
@@ -854,8 +854,8 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 						pPetInfo->dwGuardType	= 0;
 					}
 
-					// ¹«Á¶°Ç 1.5f ÀÌÇÏ·Î µû¶ó¿Í¾ßÇÑ´Ù. ÀÛÀº ¹üÀ§ ¾È¿¡¼­
-					if( fDistance > pPetInfo->fFollowRange * dis) //HT_CHEAT : ¹üÀ§¸¦ ³ÑÈ÷ÀÚ
+					// ë¬´ì¡°ê±´ 1.5f ì´í•˜ë¡œ ë”°ë¼ì™€ì•¼í•œë‹¤. ìž‘ì€ ë²”ìœ„ ì•ˆì—ì„œ
+					if( fDistance > pPetInfo->fFollowRange * dis) //HT_CHEAT : ë²”ìœ„ë¥¼ ë„˜ížˆìž
 					{
 						pPetInfo->bFollowPC = TRUE;
 					}
@@ -865,7 +865,7 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 					}
 
 					vTarget = pMainChar->m_Position;
-					// ¸ÞÀÎ ÄÉ·ºÅÍ¸¦ µû¶ó´Ù´Ò¶§ÀÇ UPDATE
+					// ë©”ì¸ ì¼€ë ‰í„°ë¥¼ ë”°ë¼ë‹¤ë‹ë•Œì˜ UPDATE
 					if( pMainChar->m_bTargetMove) vTarget = pMainChar->m_TargetPosition;
 					int FR = pPetInfo->fFollowRange;
 					vTarget.x += (FR / 2) + -(rand() % FR);
@@ -878,7 +878,7 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 					pObject->GetAngle( curAngle);
 					diffAngle = ABS( curAngle - desAngle);
 
-					// 5¹è ¶³¾îÁ® ÀÖÀ¸¸é JUMP ÇÑ´Ù
+					// 5ë°° ë–¨ì–´ì ¸ ìžˆìœ¼ë©´ JUMP í•œë‹¤
 					if(fDistance > pPetInfo->fFollowRange * 5.0f)
 					{
 						int x = 16 - (rand() % 32);
@@ -891,7 +891,7 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 					}
 					else
 					{
-						// ÀÌ³ðµéÀº ¹«Á¶²« ¶Ú´Ù.
+						// ì´ë†ˆë“¤ì€ ë¬´ì¡°ê»€ ë›´ë‹¤.
 						if( bMove == FALSE)
 						{
 							//YS_0810 : PETAI
@@ -909,7 +909,7 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 						}
 						else
 						{
-							// °¢µµ°¡ 30µµ ÀÌ»ó Â÷ÀÌ³ª¸é ¸ØÃè´Ù°¡ ´Ù½Ã ¿òÁ÷ÀÓ
+							// ê°ë„ê°€ 30ë„ ì´ìƒ ì°¨ì´ë‚˜ë©´ ë©ˆì·„ë‹¤ê°€ ë‹¤ì‹œ ì›€ì§ìž„
 							if( diffAngle > 30)
 							{
 								STOP_PET;
@@ -929,9 +929,9 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 						pPetInfo->bIdle = FALSE;
 					}
 				}
-				else // ±ÙÃ³¿¡ ÀÖ´Ù
+				else // ê·¼ì²˜ì— ìžˆë‹¤
 				{
-					// ¿òÁ÷ÀÌ°í ÀÖ¾ú´Ù¸é ¸ØÃá´Ù
+					// ì›€ì§ì´ê³  ìžˆì—ˆë‹¤ë©´ ë©ˆì¶˜ë‹¤
 					if( bMove)
 					{
 						STOP_PET;
@@ -939,7 +939,7 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 
 					ProcessPETAI(dwObjectID,pObject,pPetInfo,pTargetChar);
 
-					// ´ë»ó°ø°Ý
+					// ëŒ€ìƒê³µê²©
 					if(pPetInfo->dwDestID != NULL && pTargetChar != NULL)
 					{
 						pPetInfo->bFight = TRUE;
@@ -957,10 +957,10 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 						pObject->GetAngle( curAngle);
 						diffAngle = ABS( curAngle - desAngle);
 
-						// ´ë»ó°ú Pet°úÀÇ °Å¸®
+						// ëŒ€ìƒê³¼ Petê³¼ì˜ ê±°ë¦¬
 						float fDistance = pTargetChar->GetInteractionDistance( pObject->m_Position);
 
-						if( fDistance > pPetInfo->fFollowRange) // ¸Ö¸® ÀÖ´Ù
+						if( fDistance > pPetInfo->fFollowRange) // ë©€ë¦¬ ìžˆë‹¤
 						{
 							//YS_0810 : PETAI
 							fMoveSpeed = 3.3f;
@@ -978,9 +978,9 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 						}
 						else if( g_dwCurTime - pPetInfo->dwLastAttackTime > pPetInfo->dwAttackDelayTime)
 						{
-							// ´ë»óÀ» °ø°ÝÇØÁØ´Ù
+							// ëŒ€ìƒì„ ê³µê²©í•´ì¤€ë‹¤
 							SendCS_BT_PREATTACK_REQ( OBJTYPE_PET, dwObjectID, pPetInfo->dwDestType, pPetInfo->dwDestID, pObject->m_Position.x, -pObject->m_Position.z, pObject->m_Position.y, 0);
-							pPetInfo->dwLastAttackTime = g_dwCurTime;	// PreAttack_Ack¿Ã¶§±îÁö ±â´Ù·ÁÁÖ·Á¸é.
+							pPetInfo->dwLastAttackTime = g_dwCurTime;	// PreAttack_Ackì˜¬ë•Œê¹Œì§€ ê¸°ë‹¤ë ¤ì£¼ë ¤ë©´.
 						}
 					}
 					else
@@ -1003,14 +1003,14 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 		pPetInfo->dwLastAITime = g_dwCurTime;
 	}
 
-	// ¿òÁ÷ÀÌ°í ÀÖ´Ù¸é Sync
+	// ì›€ì§ì´ê³  ìžˆë‹¤ë©´ Sync
 	if( g_dwCurTime - pPetInfo->dwMoveTime > 700 && bMove)
 	{
 		SYNCMOVE_PET;
 		pPetInfo->dwMoveTime = g_dwCurTime;
 	}
 
-	//HT_CHEAT : Æê »ç³ÉÇÒ°Ô ÀÖ³ª ¾ø³ª?
+	//HT_CHEAT : íŽ« ì‚¬ëƒ¥í• ê²Œ ìžˆë‚˜ ì—†ë‚˜?
 	if(g_bCheat)
 		return pPetInfo->bFight;
 	else

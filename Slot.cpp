@@ -1,4 +1,4 @@
-
+ï»¿
 #include "precompile.h"
 #include "slot.h"
 #include "XiahGame_Main.h"
@@ -156,7 +156,7 @@ void CSlot::SetSlot( BYTE bySlotID, DWORD dwID)
 
 	if( dwID)
 	{
-		if(dwID >= 1 && dwID <= 131)	//if(dwID < POTION_VISUALID_1) // ¹«°ø
+		if(dwID >= 1 && dwID <= 131)	//if(dwID < POTION_VISUALID_1) // ë¬´ê³µ
 		{
 			sArrayData *pData = XiahArrayIndex::g_MugongTemplate.GetData( dwID);
 
@@ -169,7 +169,7 @@ void CSlot::SetSlot( BYTE bySlotID, DWORD dwID)
 			nResID = pData->GetInt( 1);			
 		}
 
-		//HT_0711 : Áø°¢¼º ¹«°ø
+		//HT_0711 : ì§„ê°ì„± ë¬´ê³µ
 		if(dwID >= 191 && dwID <= 198)	
 		{
 			sArrayData *pData = XiahArrayIndex::g_MugongTemplate.GetData( dwID);
@@ -217,7 +217,7 @@ void CSlot::SetSlot( BYTE bySlotID, DWORD dwID)
 		bySlotIndex -= 5;
 	}
 
-	// Äü ½½·Ô È®Àå
+	// í€µ ìŠ¬ë¡¯ í™•ìž¥
 	if(m_byCurrentSlotGroup == bySlotGroup)
 		g_pUIManager->SetData(MAIN_FRAME, main_frame_socket_dummy_02 + bySlotIndex, TYPE, STATIC);
 
@@ -228,7 +228,7 @@ void CSlot::SetSlot( BYTE bySlotID, DWORD dwID)
 
 		m_dwSlot[ bySlotID] = dwID;
 	}
-	else	// ¾øÀ»¶§ Áö¿ìÀÚ
+	else	// ì—†ì„ë•Œ ì§€ìš°ìž
 	{
 		if(m_byCurrentSlotGroup == bySlotGroup)
 			g_pUIManager->SetData(MAIN_FRAME, main_frame_socket_dummy_02 + bySlotIndex, TEXTURE, 0);
@@ -241,7 +241,7 @@ void CSlot::SetSlot( BYTE bySlotID, DWORD dwID)
 
 void CSlot::SetSlotToolTip( BYTE bySlotIndex)
 {
-	// Äü ½½·Ô È®Àå
+	// í€µ ìŠ¬ë¡¯ í™•ìž¥
 	DWORD dwID = m_dwSlot[bySlotIndex];	
 	
 	BYTE bySlotGroup	= 0;
@@ -267,7 +267,7 @@ void CSlot::SetSlotToolTip( BYTE bySlotIndex)
 	TCHAR szToolTip[128] = {0,};
 	bool bTemp = false;
 
-	//¹«°ø	
+	//ë¬´ê³µ	
 	if(dwID >= 1 && dwID <= 131)
 	{
 		sArrayData *pData = XiahArrayIndex::g_MugongTemplate.GetData( dwID);
@@ -283,7 +283,7 @@ void CSlot::SetSlotToolTip( BYTE bySlotIndex)
 		bTemp = true;
 	}
 
-	// °¢¼º ¹«°ø
+	// ê°ì„± ë¬´ê³µ
 	if(dwID >= 161 && dwID <= 179)
 	{
 		sArrayData *pData = XiahArrayIndex::g_RebirthMugong_List.GetData( dwID);
@@ -299,7 +299,7 @@ void CSlot::SetSlotToolTip( BYTE bySlotIndex)
 		bTemp = true;
 	}
 
-	//HT_0711 :Áø°¢¼º ¹«°ø
+	//HT_0711 :ì§„ê°ì„± ë¬´ê³µ
 	if(dwID >= 191 && dwID <= 198)
 	{
 		sArrayData *pData = XiahArrayIndex::g_MugongTemplate.GetData( dwID);
@@ -314,7 +314,7 @@ void CSlot::SetSlotToolTip( BYTE bySlotIndex)
 
 		bTemp = true;
 	}
-	//¾ÆÀÌÅÛ
+	//ì•„ì´í…œ
 	else if((dwID >= 20000 && dwID <= 22200) || (dwID == 9301) || (dwID == 9302) || (dwID == 31009))	
 	{					
 		XiahItem::sItemInfo* pItem = NULL;
@@ -353,10 +353,10 @@ void CSlot::SetActiveSlot( BYTE byIndex, DWORD dwID)
 {
 	int		nResID =0;
 
-	// ¹«°ø resID
+	// ë¬´ê³µ resID
 	if(dwID < POTION_VISUALID_1 && (dwID != 9301 || dwID != 9302))
 	{
-		//HT_0711 : Áø°¢¼º ¹«°ø
+		//HT_0711 : ì§„ê°ì„± ë¬´ê³µ
 		if(dwID < 160 || dwID >190)
 		{
 			sArrayData *pData = XiahArrayIndex::g_MugongTemplate.GetData( dwID);
@@ -425,7 +425,7 @@ BOOL CSlot::CheckSetItemOnSlot()
 	{
 		if( g_pUIManager->IsMouseOn(MAIN_FRAME, main_frame_socket_dummy_02 + i))
 		{
-			// Äü ½½·Ô È®Àå
+			// í€µ ìŠ¬ë¡¯ í™•ìž¥
 			if(m_byCurrentSlotGroup >= 1)
 				i += 5;
 
@@ -447,7 +447,7 @@ void CSlot::CheckSlotSelected()
 	{
 		if( g_pUIManager->IsMouseOn(MAIN_FRAME, main_frame_socket_dummy_02 + i))
 		{
-			// Äü ½½·Ô È®Àå
+			// í€µ ìŠ¬ë¡¯ í™•ìž¥
 			if(m_byCurrentSlotGroup >= 1)
 				i += 5;
 
@@ -457,7 +457,7 @@ void CSlot::CheckSlotSelected()
 	}
 }
 
-// ½½·Ô¿¡ ¹«¾ùÀÌ µé¾îÀÖ´Â°¡¸¦ °Ë»ç
+// ìŠ¬ë¡¯ì— ë¬´ì—‡ì´ ë“¤ì–´ìžˆëŠ”ê°€ë¥¼ ê²€ì‚¬
 /**
  *
  * \param i 
@@ -472,7 +472,7 @@ DWORD CSlot::CheckQuickSlot(int i)
 	if( m_dwSlot[i] > 10000)
 		return 1;
 
-	// ¹«°ø
+	// ë¬´ê³µ
 	if( m_dwSlot[i] != 0 && m_dwSlot[i] < 10000)
 		return 2;
 
@@ -491,7 +491,7 @@ BOOL CSlot::SelectSlot( BYTE bySlotIndex)
 
 	BYTE bType = 1;
 
-	// ITEM »ç¿ë
+	// ITEM ì‚¬ìš©
 	if( m_dwSlot[ bySlotIndex] > 10000 || ( m_dwSlot[ bySlotIndex] == 9301 ||  m_dwSlot[ bySlotIndex] == 9302))
 	{
 		//g_MainCharInfo.m_pSlot->SetActiveSlot( bySlotIndex, m_dwSlot[ bySlotIndex]);
@@ -500,7 +500,7 @@ BOOL CSlot::SelectSlot( BYTE bySlotIndex)
 	}
 	else if(m_dwSlot[ bySlotIndex] != 0)
 	{
-		// ¹«°ø»ç¿ë
+		// ë¬´ê³µì‚¬ìš©
 		SendCS_BT_SELMUGONG_REQ( bType, m_dwSlot[ bySlotIndex], bySlotIndex+1);
 		return TRUE;
 	}

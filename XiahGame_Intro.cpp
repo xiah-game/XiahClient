@@ -1,4 +1,4 @@
-#include "precompile.h"
+﻿#include "precompile.h"
 #include "AppData.h"
 #include "InterfaceDefine.h"
 #include "resource.h"
@@ -23,7 +23,7 @@ extern BOOL SetupPC_VisualEquipement(CXiahCharObject* pObject, WORD* pVisualList
 extern bool SetupPET_VisualEquipement(CXiahCharObject* pObject, WORD* pVisualList);
 
 
-// 네트�?접속�?성공하고, 암호키까지 세팅�?되어�?메세지�?보내�?좋은 상태이면
+// 雱ろ姼鞗?鞝戩啀鞚?靹标车頃橁碃, 鞎旐樃韨り箤歆� 靹疙寘鞚?霅橃柎靹?氅旍劯歆�毳?氤措偞霃?膦嬱潃 靸來儨鞚措┐
 void OnConnectedToServer()
 {
 	static bool bFirstConnected = false;
@@ -44,7 +44,7 @@ void OnConnectedToServer()
 
 		g_pUIManager->CloseAll();
 
-		// 2004.07.20 이벤트용 로딩화면
+		// 2004.07.20 鞚措菠韸胳毄 搿滊敥頇旊┐
 		/*
 		if( rand() % 2 )
 			g_pUIManager->ForwardShow( EVENT_LOADING_1 );
@@ -60,7 +60,7 @@ void OnConnectedToServer()
 
 ////////////////////////////////////////////////////////////////////////////////
 // CharacterInfo
-// 인트로에 쓰이�?캐릭�?정보 클래�?정의
+// 鞚疙姼搿滌棎 鞊办澊電?旌愲Ν韯?鞝曤炒 韥措灅鞀?鞝曥潣
 ////////////////////////////////////////////////////////////////////////////////
 
 XiahGame_Intro*				g_pIntro = NULL;
@@ -75,7 +75,7 @@ XiahGame_Intro*				g_pIntro = NULL;
 
 ////////////////////////////////////////////////////////////////////////////////
 // XiahGame_Intro
-// 인트�?관�?클래�?정의
+// 鞚疙姼搿?甏�霠?韥措灅鞀?鞝曥潣
 ////////////////////////////////////////////////////////////////////////////////
 
 XiahGame_Intro::XiahGame_Intro()
@@ -176,7 +176,7 @@ void XiahGame_Intro::Init_Clear()
 	g_pUIManager->Hide(DATA_WINDOW);
 	g_pUIManager->Hide(PET_BUTTON_GROUP);
 
-	// 환경 정보 세팅
+	// 頇橁步 鞝曤炒 靹疙寘
 	g_XiahEnvInfo.m_bFog			= TRUE;
 	g_XiahEnvInfo.m_bAmhukmuFog		= FALSE;
 	g_XiahEnvInfo.m_DiffuseColor	= D3DCOLOR_XRGB(255, 255, 255);
@@ -194,7 +194,7 @@ void XiahGame_Intro::Init_Clear()
 void XiahGame_Intro::CreateInitCharData()
 {
 	// intro menu character
-	// 검�?
+	// 瓴�鞓?
 	m_GyumYung.Create(790, 3, 2, 103);
 	m_GyumYung.m_bSubObjType = 1;
 	m_GyumYung.m_bGray		 = false;
@@ -202,14 +202,14 @@ void XiahGame_Intro::CreateInitCharData()
 	WORD EquipVID[9];
 	memset( EquipVID, 0, sizeof(EquipVID) );
 
-	// �? 무기 좋은 걸루.
+	// 鞓? 氍搓赴 膦嬱潃 瓯鸽（.
 	EquipVID[ EQUIPPOS_CLOTH ]	= 2011;
 	EquipVID[ EQUIPPOS_WEAPON ]	= 1013; //1102;
 	EquipVID[ EQUIPPOS_SHOE ]	= 4006;
 	EquipVID[ EQUIPPOS_HAT ]	= 3009;
 	SetupPC_VisualEquipement( &m_GyumYung, EquipVID );
 
-	// 연랑
+	// 鞐半瀾
 	m_YunRang.Create( 867, 3, 2, 103);
 	m_YunRang.m_bSubObjType = 2;
 	m_YunRang.m_bGray		= false;
@@ -222,7 +222,7 @@ void XiahGame_Intro::CreateInitCharData()
 	EquipVID[ EQUIPPOS_HAT ]	= 3108;
 	SetupPC_VisualEquipement( &m_YunRang, EquipVID );
 
-	// 무투
+	// 氍错埇
 	m_MooToo.Create( 891, 3, 2, 103 );
 	m_MooToo.m_bSubObjType = 3;
 	m_MooToo.m_bGray	   = false;
@@ -235,7 +235,7 @@ void XiahGame_Intro::CreateInitCharData()
 	EquipVID[ EQUIPPOS_HAT ]	= 3209;
 	SetupPC_VisualEquipement( &m_MooToo, EquipVID );
 
-	// 야차
+	// 鞎检皑
 	m_YaCha.Create( 906, 3, 2, 103 );
 	m_YaCha.m_bSubObjType = 4;
 	m_YaCha.m_bGray		  = false;
@@ -263,7 +263,7 @@ void XiahGame_Intro::CreateCharacterData()
 
 		if(m_CharacterList[i] == NULL)
 		{
-			DBG_LogFile( _T("XiahGame_Intro::CreateCharacterData 실패"));
+			DBG_LogFile( _T("XiahGame_Intro::CreateCharacterData 鞁ろ尐"));
 
 //			return;
 		}
@@ -286,10 +286,10 @@ void XiahGame_Intro::DeleteCharacterData()
  *
  * \return 
  */
-// 렌더링이 되기 전에 Update될것�?
+// 霠岆崝毵侅澊 霅橁赴 鞝勳棎 Update霅犼矁霌?
 BOOL XiahGame_Intro::Update()
 {
-	// 아직 처음 게임 로딩 화면일때.
+	// 鞎勳�� 觳橃潓 瓴岇瀯 搿滊敥 頇旊┐鞚茧晫.
 	if( m_bFirstGameLoadScreen )
 	{
 		g_pUIManager->SpecialDraw();
@@ -304,7 +304,7 @@ BOOL XiahGame_Intro::Update()
 	}
 	else
 	{
-		static BOOL bFade = FALSE;	// 이런 우낀일이 �?,�?
+		static BOOL bFade = FALSE;	// 鞚措煱 鞖半個鞚检澊 銋?,銋?
 
 		if( !bFade)
 		{
@@ -317,20 +317,20 @@ BOOL XiahGame_Intro::Update()
 		float fTime = (float)dwTime / 1000.0f;
 
 #ifdef MINI
-		// 미니 시아�?입니�?
+		// 氙鸽媹 鞁滌晞鞖?鞛呺媹雼?
 		if(GetAsyncKeyState(VK_RETURN) < 0)
 		{
 			g_MainCharInfo.PlayInterfaceSound( ISOUND_GAME_START_BUTTON);
 			
-			g_MainCharInfo.OpenFrame( LOADING_IMAGE3); //HO_0702_07 등급표시 : 등급표시와 함게 스타트로딩과 게임로딩 부분이 동일 이미지�?처리된다.
-			//g_MainCharInfo.OpenFrame( LOADING_IMAGE); //등급표시 적용�?코드 나중�?지�?버리�?..; 등급표시 전에�?나이 구분�?있엇�?..
+			g_MainCharInfo.OpenFrame( LOADING_IMAGE3); //HO_0702_07 霌标笁響滌嫓 : 霌标笁響滌嫓鞕� 頃�瓴� 鞀ろ儉韸鸽�滊敥瓿� 瓴岇瀯搿滊敥 攵�攵勳澊 霃欖澕 鞚措�胳��搿?觳橂Μ霅滊嫟.
+			//g_MainCharInfo.OpenFrame( LOADING_IMAGE); //霌标笁響滌嫓 鞝侅毄鞝?旖旊摐 雮橃�戩�?歆�鞗?氩勲Μ鞛?..; 霌标笁響滌嫓 鞝勳棎電?雮橃澊 甑�攵勳�?鞛堨棁雼?..
 
 			g_GameWork.m_nNavigationMode = 0;
 			SendCS_NV_STARTGAME_REQ();
 		}
 #endif
 
-		// 빙화지대 �?
+		// 牍欗檾歆�雽� 雸?
 		g_RainSnow.Update(33.0f * g_fFrameScale);
 
 		switch( m_byCurrentMenu )
@@ -349,7 +349,7 @@ BOOL XiahGame_Intro::Update()
 
 				float fCameraMoveTotalSpeed = 1.0f;
 
-				// 화면�?어두울때 카메라를 움직여�?맵을 미리 읽는 효과�?내자. 
+				// 頇旊┐鞚?鞏措憪鞖鸽晫 旃措�旊澕毳� 鞗�歆侅棳靹?毵奠潉 氙鸽Μ 鞚诫姅 須�瓿茧�?雮挫瀽. 
 				if( !m_bCharacterCreatePreLoaded )
 				{
 					fCameraMoveTotalSpeed = 2.8f;
@@ -360,7 +360,7 @@ BOOL XiahGame_Intro::Update()
 
 						if(!Fade::StartFade( 0, 0, NULL, 1200 ))
 						{
-							DBG_LogFile( _T("XiahGame_Intro::Update / Fade::StartFade 실패"));
+							DBG_LogFile( _T("XiahGame_Intro::Update / Fade::StartFade 鞁ろ尐"));
 
 							//return false;
 						}
@@ -378,7 +378,7 @@ BOOL XiahGame_Intro::Update()
 						g_XiahCamera.m_fDestXAngle	 = g_XiahCamera.m_fXAngle;
 						g_XiahCamera.m_fDestDistance = g_XiahCamera.m_fDistance;
 
-						// 카메�?설정
+						// 旃措�旊�?靹れ爼
 						//float x,y;
 						//x = 1292; //994;
 						//y = -1292; //1527;
@@ -404,10 +404,10 @@ BOOL XiahGame_Intro::Update()
 						g_XiahCamera.SetProjection( _PI / 4, 768.0f / 1024.0f, 1.0f, 256.0f);
 #endif
 
-						// 바�?카메�?설정�?맵에 적용
+						// 氚旊�?旃措�旊�?靹れ爼鞚?毵奠棎 鞝侅毄
 						if(!XiahMap::g_XiahMap.m_pMapRender->Update())
 						{
-							DBG_LogFile( _T("XiahGame_Intro::Update / XiahMap::g_XiahMap.m_pMapRender->Update 실패"));
+							DBG_LogFile( _T("XiahGame_Intro::Update / XiahMap::g_XiahMap.m_pMapRender->Update 鞁ろ尐"));
 
 //							return false;
 						}
@@ -420,7 +420,7 @@ BOOL XiahGame_Intro::Update()
 
 				m_dwCameraMoveStartTime += dwTime;
 
-				// 골때리는 하드코딩이군.
+				// 瓿�霑岆Μ電� 頃橂摐旖旊敥鞚搓蛋.
 				// Now Fade Out, Camera Move Start
 				switch( m_nCharacterCreateStep )
 				{
@@ -434,7 +434,7 @@ BOOL XiahGame_Intro::Update()
 							if( m_bCharacterCreatePreLoaded )
 								g_MainCharInfo.PlayInterfaceSound( ISOUND_CAMERA_MOVE );
 
-							// 변수를 �?선언하지 않고 재사용하�? ㅋㅋ
+							// 氤�靾橂ゼ 霕?靹犾柛頃橃�� 鞎婈碃 鞛�靷�鞖╉晿鞛? 銋嬨厠
 							m_fYAngleWhenClicked = g_XiahCamera.m_fYAngle;
 							m_bOri = false;
 							m_fAddHeight = 0;
@@ -715,28 +715,28 @@ BOOL XiahGame_Intro::Update()
 
 				g_XiahCamera.Update();
 
-				// 검�?
+				// 瓴�鞓?
 				if( m_GyumYung.m_CharRender.IsValid())
 				{
 					m_GyumYung.m_Position = Vector3(1400.8101f, 141.00000f, -754.49518);
 					m_GyumYung.m_Angle = 1185.1012f; //(-_PI / 2);
 					m_GyumYung.Update(TRUE);
 				}
-				// 연랑
+				// 鞐半瀾
 				if( m_YunRang.m_CharRender.IsValid())
 				{
 					m_YunRang.m_Position = Vector3(1400.8101f, 141.00000f, -754.49518);
 					m_YunRang.m_Angle = 1185.1012f; //(-_PI / 2);
 					m_YunRang.Update(TRUE);
 				}
-				// 무투
+				// 氍错埇
 				if( m_MooToo.m_CharRender.IsValid())
 				{
 					m_MooToo.m_Position = Vector3(1400.8101f, 141.00000f, -754.49518);
 					m_MooToo.m_Angle = 1185.1012f; //(-_PI / 2);
 					m_MooToo.Update(TRUE);
 				}
-				// 야차
+				// 鞎检皑
 				if( m_YaCha.m_CharRender.IsValid())
 				{
 					m_YaCha.m_Position = Vector3(1400.8101f, 141.00000f, -754.49518);
@@ -768,9 +768,9 @@ BOOL XiahGame_Intro::Update()
 				}// for
 
 				// Camera Action
-				if( !m_bCharacterSelected )	// 캐릭�?선택할때
+				if( !m_bCharacterSelected )	// 旌愲Ν韯?靹犿儩頃犽晫
 				{
-					// 첨에 버벅 거리지 않도�?미리 읽는 효과
+					// 觳�鞐� 氩勲矃 瓯半Μ歆� 鞎婋弰搿?氙鸽Μ 鞚诫姅 須�瓿�
 					if( m_bFirstCharSelect )
 					{
 						static DWORD dwCurTime = 0;
@@ -795,7 +795,7 @@ BOOL XiahGame_Intro::Update()
 						g_XiahCamera.RotateY( FALSE, 0.25f );
 
 						// Mouse Picking
-						Vector3	vStart = g_pCurrentCamera->GetCursorWorld( 0.0001f);	// 0하고 1주면 끝장이야~
+						Vector3	vStart = g_pCurrentCamera->GetCursorWorld( 0.0001f);	// 0頃橁碃 1欤茧┐ 雭濎灔鞚挫暭~
 						Vector3 vEnd   = g_pCurrentCamera->GetCursorWorld( 0.9999f);
 
 						m_byOnMouseCharIndex = 255;
@@ -838,16 +838,16 @@ BOOL XiahGame_Intro::Update()
 						m_bMoveCameraRight = FALSE;
 					}
 				}
-				else	// 캐릭터가 선택됐을�?
+				else	// 旌愲Ν韯瓣皜 靹犿儩霅愳潉霑?
 				{
 					float fYAngleSpeed = 3.5f;
 					float fDistSpeed = 45.0f;
-					// 캐릭터가 선택되면 빠르�?줌인된다.
+					// 旌愲Ν韯瓣皜 靹犿儩霅橂┐ 牍犽ゴ瓴?欷岇澑霅滊嫟.
 					switch( m_nCharacterSelectStep )
 					{
 					case eCST_Click:
 						{
-							// 오른�?아님 왼쪽으루 회전할까
+							// 鞓るジ飒?鞎勲嫎 鞕检�届溂耄� 須岇爠頃犼箤
 							Vector3 vV1 = m_CharRender[m_byCurrentCharIndex].m_Position - g_XiahCamera.m_vAt;
 							Vector3 vV2 = g_XiahCamera.m_vFrom - g_XiahCamera.m_vAt;
 
@@ -860,7 +860,7 @@ BOOL XiahGame_Intro::Update()
 							if( fDot > 0.0f ) m_bMoveCameraRight = TRUE;
 							else m_bMoveCameraRight = FALSE;
 
-							// 카메라에 대�?캐릭터의 위치 각도
+							// 旃措�旊澕鞐� 雽�頃?旌愲Ν韯办潣 鞙勳箻 臧侂弰
 							vV1 = m_CharRender[m_byCurrentCharIndex].m_Position - g_XiahCamera.m_vAt;
 							vV2 = g_XiahCamera.m_vFrom - g_XiahCamera.m_vAt;
 							vV1.y = 0;
@@ -869,9 +869,9 @@ BOOL XiahGame_Intro::Update()
 							vV2.Normalize();
 							m_fYAngleWhenClicked = vV2.GetAngle( vV1 );
 
-							if( m_bMoveCameraRight )	// 위치 보정�?위한 목표 �?
+							if( m_bMoveCameraRight )	// 鞙勳箻 氤挫爼鞚?鞙勴暅 氇╉憸 臧?
 							{
-								// 카메라가 돌아갈때 2번째, 3번째 캐릭터가 카메�?정면�?보도�?각도�?수정.
+								// 旃措�旊澕臧� 霃岇晞臧堧晫 2氩堨Ц, 3氩堨Ц 旌愲Ν韯瓣皜 旃措�旊�?鞝曤┐鞚?氤措弰搿?臧侂弰毳?靾橃爼.
 								if( m_byCurrentCharIndex == 1 )
 									m_fYAngleWhenClicked += 0.15f;
 								else
@@ -901,7 +901,7 @@ BOOL XiahGame_Intro::Update()
 					case eCST_ZoomIn:
 						{
 							int nCount = 0;
-							// Y축으�?회전되면�?
+							// Y於曥溂搿?須岇爠霅橂┐靹?
 							if( fabs(m_fYAngleWhenClicked-m_fCameraRotateYAngle) > 0.3f )
 							{
 								float fValue = fTime * fYAngleSpeed;
@@ -916,8 +916,8 @@ BOOL XiahGame_Intro::Update()
 								nCount++;
 							}
 
-							// X축도 회전되고 
-							// 가까워진다.
+							// X於曤弰 須岇爠霅橁碃 
+							// 臧�旯岇泴歆勲嫟.
 							if( g_XiahCamera.m_fDistance > 20 )
 								g_XiahCamera.m_fDistance -= (fTime * fDistSpeed);
 							else
@@ -932,7 +932,7 @@ BOOL XiahGame_Intro::Update()
 							{
 								m_nCharacterSelectStep = eCST_Stay;
 
-								// 셀렉트 애니메이�?
+								// 靺�霠夗姼 鞎犽媹氅旍澊靺?
 								m_CharRender[m_byCurrentCharIndex].SetAnimation( XiahAniType::eLAT_Casual, XiahAniType::eLAT_Stand, 0, 0 );
 								SetCurrentCharInfoToScr();
 
@@ -957,19 +957,19 @@ BOOL XiahGame_Intro::Update()
 						break;
 					case eCST_Stay:
 						{
-							// 없던건데,, 다른 캐릭터를 선택�?�?있도�?하자.
+							// 鞐嗠崢瓯措嵃,, 雼るジ 旌愲Ν韯半ゼ 靹犿儩頃?靾?鞛堧弰搿?頃橃瀽.
 							if( m_bCanSelectCharacter )
 							{
 								// Mouse Picking
-								Vector3	vStart = g_pCurrentCamera->GetCursorWorld( 0.0001f);	// 0하고 1주면 끝장이야~
+								Vector3	vStart = g_pCurrentCamera->GetCursorWorld( 0.0001f);	// 0頃橁碃 1欤茧┐ 雭濎灔鞚挫暭~
 								Vector3 vEnd   = g_pCurrentCamera->GetCursorWorld( 0.9999f);
 
-								// 현재 캐릭터가 선택됐을�?마우스로 움직이�?다른 캐릭터의 이름�?보이지�?
-								// 정작 �?캐릭터가 선택�?안된�? 가까운 거리에있�?캐릭터를 선택하게 하면 해결�?
+								// 順勳灛 旌愲Ν韯瓣皜 靹犿儩霅愳潉霑?毵堨毎鞀る�� 鞗�歆侅澊氅?雼るジ 旌愲Ν韯办潣 鞚措�勳�?氤挫澊歆�毵?
+								// 鞝曥瀾 攴?旌愲Ν韯瓣皜 靹犿儩鞚?鞎堧悳雼? 臧�旯岇毚 瓯半Μ鞐愳瀳電?旌愲Ν韯半ゼ 靹犿儩頃橁矊 頃橂┐ 頃搓舶霅?
 
-								// 캐릭�?선택 순서�?정한�?원거리부�? 이건 간단하니�?�?하드코딩. ^^;
+								// 旌愲Ν韯?靹犿儩 靾滌劀毳?鞝曧暅雼?鞗愱卑毽�攵�韯? 鞚搓贝 臧勲嫧頃橂媹旯?瓯?頃橂摐旖旊敥. ^^;
 								int nCharSelectOrderArray[3];
-								switch( m_byCurrentCharIndex )	// 자신은 �?나중으로.
+								switch( m_byCurrentCharIndex )	// 鞛愳嫚鞚� 毵?雮橃�戩溂搿�.
 								{
 								case 0:
 									nCharSelectOrderArray[0] = 1;
@@ -1012,10 +1012,10 @@ BOOL XiahGame_Intro::Update()
 
 								m_CharRender[ m_byCurrentCharIndex ].EnableGlowEffect( TRUE );
 
-								// 현재 선택�?캐릭터가 아니�?이름 출력�?클릭�?�?�?있다.
+								// 順勳灛 靹犿儩霅?旌愲Ν韯瓣皜 鞎勲媹氅?鞚措�� 於滊牓瓿?韥措Ν鞚?頃?靾?鞛堧嫟.
 								if( byCurOnMouse != m_byCurrentCharIndex )
 								{
-									// 현재 선택�?캐릭터에 glow가 적용되고 OnMouse�?캐릭터가 있으�?이것�?glow된다.
+									// 順勳灛 靹犿儩霅?旌愲Ν韯办棎 glow臧� 鞝侅毄霅橁碃 OnMouse霅?旌愲Ν韯瓣皜 鞛堨溂氅?鞚搓矁鞚?glow霅滊嫟.
 									m_CharRender[ m_byCurrentCharIndex ].EnableGlowEffect( FALSE );
 									m_CharRender[ byCurOnMouse ].EnableGlowEffect(TRUE);
 									m_CharRender[ byCurOnMouse ].m_bShowObjectName = true;
@@ -1025,7 +1025,7 @@ BOOL XiahGame_Intro::Update()
 									// ClickMouse
 									if( XiahInput::g_bLButtonDown )
 									{
-										// 기존�?애니메이션되�?것을 정지한다.
+										// 旮办〈鞐?鞎犽媹氅旍澊靺橂悩電?瓴冹潉 鞝曥��頃滊嫟.
 										m_CharRender[m_byCurrentCharIndex].SetAnimation( XiahAniType::eLAT_Stand, 0 );
 
 										g_MainCharInfo.PlayInterfaceSound( ISOUND_ZOOM_IN );
@@ -1037,7 +1037,7 @@ BOOL XiahGame_Intro::Update()
 										m_bCharacterSelected = true;
 										m_nCharacterSelectStep = eCST_ZoomIn;
 
-										// 오른�?아님 왼쪽으루 회전할까
+										// 鞓るジ飒?鞎勲嫎 鞕检�届溂耄� 須岇爠頃犼箤
 										Vector3 vV1 = m_CharRender[m_byCurrentCharIndex].m_Position - g_XiahCamera.m_vAt;
 										Vector3 vV2 = g_XiahCamera.m_vFrom - g_XiahCamera.m_vAt;
 
@@ -1050,7 +1050,7 @@ BOOL XiahGame_Intro::Update()
 										if( fDot > 0.0f ) m_bMoveCameraRight = TRUE;
 										else m_bMoveCameraRight = FALSE;
 
-										// 카메라에 대�?캐릭터의 위치 각도
+										// 旃措�旊澕鞐� 雽�頃?旌愲Ν韯办潣 鞙勳箻 臧侂弰
 										vV1 = m_CharRender[m_byCurrentCharIndex].m_Position - g_XiahCamera.m_vAt;
 										vV2 = g_XiahCamera.m_vFrom - g_XiahCamera.m_vAt;
 										vV1.y = 0;
@@ -1059,9 +1059,9 @@ BOOL XiahGame_Intro::Update()
 										vV2.Normalize();
 										m_fYAngleWhenClicked = vV2.GetAngle( vV1 );
 
-										if( m_bMoveCameraRight )	// 위치 보정�?위한 목표 �?
+										if( m_bMoveCameraRight )	// 鞙勳箻 氤挫爼鞚?鞙勴暅 氇╉憸 臧?
 										{
-											// 카메라가 돌아갈때 2번째, 3번째 캐릭터가 카메�?정면�?보도�?각도�?수정.
+											// 旃措�旊澕臧� 霃岇晞臧堧晫 2氩堨Ц, 3氩堨Ц 旌愲Ν韯瓣皜 旃措�旊�?鞝曤┐鞚?氤措弰搿?臧侂弰毳?靾橃爼.
 											if( m_byCurrentCharIndex == 1 )
 												m_fYAngleWhenClicked += 0.15f;
 											else
@@ -1089,16 +1089,16 @@ BOOL XiahGame_Intro::Update()
 
 							}// if( m_bCanSelectCharacter )
 
-							// 캐릭�?선택 취소. ESC Key�?누르�?이렇�?되는�?�?옵션 �?
+							// 旌愲Ν韯?靹犿儩 旆�靻�. ESC Key毳?雸勲ゴ氅?鞚措爣瓴?霅橂姅雿?瓯?鞓奠厴 韨?
 							if( GetAsyncKeyState( VK_ESCAPE ) < 0)
 							{
-								// 기존�?애니메이션되�?것을 정지한다.
+								// 旮办〈鞐?鞎犽媹氅旍澊靺橂悩電?瓴冹潉 鞝曥��頃滊嫟.
 								m_CharRender[m_byCurrentCharIndex].SetAnimation( XiahAniType::eLAT_Stand, 0 );
 
-								// 캐릭�?설명 �?
+								// 旌愲Ν韯?靹る獏 彀?
 								g_pUIManager->Hide(INTRO_WINDOW01);
 
-								// 캐릭�?만들�?
+								// 旌愲Ν韯?毵岆摛旮?
 								if( m_byCharCount < 3 )
 								{
 									g_pUIManager->Show(INTRO_BUTTONSET, INTRO_BUTTON_01);
@@ -1108,9 +1108,9 @@ BOOL XiahGame_Intro::Update()
 								{
 									g_pUIManager->Hide(INTRO_BUTTONSET, INTRO_BUTTON_01);
 								}
-								// 시작
+								// 鞁滌瀾
 								g_pUIManager->Hide(INTRO_BUTTONSET, INTRO_BUTTON_04);
-								// 지우기
+								// 歆�鞖瓣赴
 								g_pUIManager->Hide(INTRO_BUTTONSET, INTRO_BUTTON_03);
 
 								m_nCharacterSelectStep = eCST_ZoomOut;
@@ -1120,7 +1120,7 @@ BOOL XiahGame_Intro::Update()
 							}// if
 						}
 						break;
-					case eCST_ZoomOut:	// 다시 멀어진�?
+					case eCST_ZoomOut:	// 雼れ嫓 氅�鞏挫�勲�?
 						{
 							if( g_XiahCamera.m_fDistance < 38 )
 								g_XiahCamera.m_fDistance += (fTime * fDistSpeed);
@@ -1140,17 +1140,17 @@ BOOL XiahGame_Intro::Update()
 
 				if(!g_XiahCamera.Update())
 				{
-					DBG_LogFile( _T("g_XiahCamera.Update 실패"));
+					DBG_LogFile( _T("g_XiahCamera.Update 鞁ろ尐"));
 				}
 
 			}
 			break;
 		}; // switch
 
-		// 배경은 반드�?카메라가 세팅된다음에 Update시켜준�?
+		// 氚瓣步鞚� 氚橂摐鞁?旃措�旊澕臧� 靹疙寘霅滊嫟鞚岇棎 Update鞁滌紲欷�雼?
 		if(!XiahMap::g_XiahMap.Update())
 		{
-			DBG_LogFile( _T("XiahMap::g_XiahMap.Update 실패"));
+			DBG_LogFile( _T("XiahMap::g_XiahMap.Update 鞁ろ尐"));
 
 //			return false;
 		}
@@ -1166,7 +1166,7 @@ BOOL XiahGame_Intro::Update()
 
 	if(!Fade::UpdateFade())
 	{
-		DBG_LogFile( _T("Fade::UpdateFade 실패"));
+		DBG_LogFile( _T("Fade::UpdateFade 鞁ろ尐"));
 
 //		return false;
 	}
@@ -1177,12 +1177,12 @@ BOOL XiahGame_Intro::Update()
 /////////////////////////////
 BOOL XiahGame_Intro::Render()
 /////////////////////////////
-// BeginScene, EndScene안에�?그리�?함수
+// BeginScene, EndScene鞎堨棎靹?攴鸽Μ旮?頃�靾�
 {
-	// 아직 처음 게임 로딩 화면일때.
+	// 鞎勳�� 觳橃潓 瓴岇瀯 搿滊敥 頇旊┐鞚茧晫.
 	if( m_bFirstGameLoadScreen )
 	{
-		// 2004.07.20 이벤트용 로딩화면
+		// 2004.07.20 鞚措菠韸胳毄 搿滊敥頇旊┐
 		/*
 		if( rand() % 2 )
 			g_pUIManager->ForwardShow( EVENT_LOADING_1 );
@@ -1190,10 +1190,10 @@ BOOL XiahGame_Intro::Render()
 			g_pUIManager->ForwardShow( EVENT_LOADING_2 );
 		*/
 
-		g_pUIManager->ForwardShow(LOADING_IMAGE3); //HO_0702_07 등급표시 : 등급표시와 함게 스타트로딩과 게임로딩 부분이 동일 이미지�?처리된다.
+		g_pUIManager->ForwardShow(LOADING_IMAGE3); //HO_0702_07 霌标笁響滌嫓 : 霌标笁響滌嫓鞕� 頃�瓴� 鞀ろ儉韸鸽�滊敥瓿� 瓴岇瀯搿滊敥 攵�攵勳澊 霃欖澕 鞚措�胳��搿?觳橂Μ霅滊嫟.
 
-		//등급표시 적용�?코드 나중�?지�?버리�?..; 등급표시 전에�?나이 구분�?있엇�?..
-		// 성인 서버�?로딩
+		//霌标笁響滌嫓 鞝侅毄鞝?旖旊摐 雮橃�戩�?歆�鞗?氩勲Μ鞛?..; 霌标笁響滌嫓 鞝勳棎電?雮橃澊 甑�攵勳�?鞛堨棁雼?..
+		// 靹膘澑 靹滊矂鞖?搿滊敥
 		//if(g_AppData.m_bAdult)
 		//	g_pUIManager->ForwardShow(LOADING_IMAGE2);
 		//else
@@ -1209,13 +1209,13 @@ BOOL XiahGame_Intro::Render()
 	}
 	else
 	{
-		// CG_2005/05/26 : 스카이맵 체인지
+		// CG_2005/05/26 : 鞀れ勾鞚措У 觳挫澑歆�
 		g_Sky.Render();
 		//g_SkyBox.Render();
 
 		if(!XiahMap::g_XiahMap.RenderTerrain())
 		{
-			DBG_LogFile( _T("XiahGame_Intro::Render 실패"));
+			DBG_LogFile( _T("XiahGame_Intro::Render 鞁ろ尐"));
 
 //			return false;
 		}
@@ -1224,21 +1224,21 @@ BOOL XiahGame_Intro::Render()
 
 		if(!XiahMap::g_XiahMap.RenderObject(1))	// no alpha
 		{
-			DBG_LogFile( _T("XiahGame_Intro::Render 실패"));
+			DBG_LogFile( _T("XiahGame_Intro::Render 鞁ろ尐"));
 
 //			return false;
 		}
 
 		if(!XiahMap::g_XiahMap.RenderObject(3))	// alpha
 		{
-			DBG_LogFile( _T("XiahGame_Intro::Render 실패"));
+			DBG_LogFile( _T("XiahGame_Intro::Render 鞁ろ尐"));
 
 //			return false;
 		}
 
 		if(!XiahMap::g_XiahMap.RenderObject(2))	// alpha test
 		{
-			DBG_LogFile( _T("XiahGame_Intro::Render 실패"));
+			DBG_LogFile( _T("XiahGame_Intro::Render 鞁ろ尐"));
 
 //			return false;
 		}
@@ -1279,7 +1279,7 @@ BOOL XiahGame_Intro::Render()
 			g_pDirect3DDevice->SetRenderState( D3DRS_ZENABLE, TRUE);
 			g_pDirect3DDevice->SetRenderState( D3DRS_ZWRITEENABLE, TRUE);
 
-			// 생성�?모든 캐릭터를 그린�?
+			// 靸濎劚霅?氇�霌� 旌愲Ν韯半ゼ 攴鸽Π雼?
 			for(int i=1; i<=m_byCharCount; i++)
 			{
 				Matrix4x4 iTM;
@@ -1289,7 +1289,7 @@ BOOL XiahGame_Intro::Render()
 
 					if(!m_CharRender[i-1].Render())
 					{
-						DBG_LogFile( _T("XiahGame_Intro::Render 실패"));
+						DBG_LogFile( _T("XiahGame_Intro::Render 鞁ろ尐"));
 
 //						return false;
 					}
@@ -1301,7 +1301,7 @@ BOOL XiahGame_Intro::Render()
 
 		g_pDirect3DDevice->SetRenderState( D3DRS_ALPHATESTENABLE, FALSE );
 
-		// 캐릭�?이름
+		// 旌愲Ν韯?鞚措��
 		if( m_byCurrentMenu == INTROMENU_SELECTCHAR && m_byOnMouseCharIndex != 255 )
 		{
 			m_CharRender[ m_byOnMouseCharIndex ].m_tObjectName.Render();
@@ -1314,7 +1314,7 @@ BOOL XiahGame_Intro::Render()
 
 		g_MainCharInfo.Render();
 
-		// 빙화지대 �?
+		// 牍欗檾歆�雽� 雸?
 		g_RainSnow.Render();
 	} // if( m_bFirstGameLoadScreen )
 
@@ -1330,29 +1330,29 @@ BOOL XiahGame_Intro::Render()
  */
 HRESULT XiahGame_Intro::InitIntro( BYTE byCurrentMenu)
 {
-	// 첨에 들어오면 한번 Update, Render�?거쳐�?게임 로딩 화면�?나온�? 그래�?한바�?돈다.
+	// 觳�鞐� 霌れ柎鞓る┐ 頃滊矆 Update, Render毳?瓯办硱鞎?瓴岇瀯 搿滊敥 頇旊┐鞚?雮橃槰雼? 攴鸽灅靹?頃滊皵雬?霃堧嫟.
 	if( m_bIntroFirstCall )
 	{
 		m_byIntroFirstCallCurMenu = byCurrentMenu;
 	}
 	else
 	{
-		// 인트로에 사용�?캐릭터가 생성되지 않았다면.
+		// 鞚疙姼搿滌棎 靷�鞖╇�?旌愲Ν韯瓣皜 靸濎劚霅橃�� 鞎婌晿雼る┐.
 		if( !m_bIntroInitCharDataCreated )
 			CreateInitCharData();
 
-		g_MainCharInfo.CloseFrame(LOADING_IMAGE3); //HO_0702_07 등급표시 : 등급표시와 함게 스타트로딩과 게임로딩 부분이 동일 이미지�?처리된다.
+		g_MainCharInfo.CloseFrame(LOADING_IMAGE3); //HO_0702_07 霌标笁響滌嫓 : 霌标笁響滌嫓鞕� 頃�瓴� 鞀ろ儉韸鸽�滊敥瓿� 瓴岇瀯搿滊敥 攵�攵勳澊 霃欖澕 鞚措�胳��搿?觳橂Μ霅滊嫟.
 		
-		//등급표시 적용�?코드 나중�?지�?버리�?..; 이제�?한장�?사용하니�?..
+		//霌标笁響滌嫓 鞝侅毄鞝?旖旊摐 雮橃�戩�?歆�鞗?氩勲Μ鞛?..; 鞚挫牅電?頃滌灔毵?靷�鞖╉晿雼堦�?..
 		//g_MainCharInfo.CloseFrame(LOADING_IMAGE);
 		//g_MainCharInfo.CloseFrame(LOADING_IMAGE2);
 		
 
-		// 2004.07.20 이벤트용 로딩화면
+		// 2004.07.20 鞚措菠韸胳毄 搿滊敥頇旊┐
 		//g_MainCharInfo.CloseFrame( EVENT_LOADING_1 );
 		//g_MainCharInfo.CloseFrame( EVENT_LOADING_2 );
 
-		// �?로딩
+		// 毵?搿滊敥
 		XiahMap::g_XiahMap.CreateMap(3, IDS_FIRST_MAP, 0, 2048, 2048);
 
 		g_XiahCamera.m_bIntro		 = true;
@@ -1365,7 +1365,7 @@ HRESULT XiahGame_Intro::InitIntro( BYTE byCurrentMenu)
 		g_XiahCamera.m_fDestXAngle = g_XiahCamera.m_fXAngle;
 		g_XiahCamera.m_fDestDistance = g_XiahCamera.m_fDistance;
 
-		// 카메�?설정
+		// 旃措�旊�?靹れ爼
 		float x,y;
 		x = 1432; //630; //570;
 		y = -792; //1450;
@@ -1383,7 +1383,7 @@ HRESULT XiahGame_Intro::InitIntro( BYTE byCurrentMenu)
 		g_XiahCamera.m_fDestXAngle	 = g_XiahCamera.m_fXAngle;
 		g_XiahCamera.m_fDestDistance = g_XiahCamera.m_fDistance;
 
-		// 카메�?설정
+		// 旃措�旊�?靹れ爼
 		//float x,y;
 		//x = 1299; //630; //570;
 		//y = -1299; //1450;
@@ -1435,7 +1435,7 @@ HRESULT XiahGame_Intro::InitIntro( BYTE byCurrentMenu)
 		g_XiahEnvInfo.m_FogColor = D3DCOLOR_XRGB(236, 239, 255);
 		g_pDirect3DDevice->SetRenderState( D3DRS_FOGENABLE, FALSE );
 
-		// 바�?카메�?설정�?맵에 적용
+		// 氚旊�?旃措�旊�?靹れ爼鞚?毵奠棎 鞝侅毄
 		XiahMap::g_XiahMap.m_pMapRender->Update();
 
 		static BOOL oncecall = TRUE;
@@ -1445,15 +1445,15 @@ HRESULT XiahGame_Intro::InitIntro( BYTE byCurrentMenu)
 			oncecall = FALSE;
 		}
 
-		// 처음 로딩할때 로딩 이미지 �?
+		// 觳橃潓 搿滊敥頃犽晫 搿滊敥 鞚措�胳�� 雭?
 		m_bFirstGameLoadScreen = false;
 
-		g_pUIManager->Hide(LOADING_IMAGE3); //HO_0702_07 등급표시 : 등급표시와 함게 스타트로딩과 게임로딩 부분이 동일 이미지�?처리된다.
-		//등급표시 적용�?코드 나중�?지�?버리�?..; 이제�?한장�?사용하니�?..
+		g_pUIManager->Hide(LOADING_IMAGE3); //HO_0702_07 霌标笁響滌嫓 : 霌标笁響滌嫓鞕� 頃�瓴� 鞀ろ儉韸鸽�滊敥瓿� 瓴岇瀯搿滊敥 攵�攵勳澊 霃欖澕 鞚措�胳��搿?觳橂Μ霅滊嫟.
+		//霌标笁響滌嫓 鞝侅毄鞝?旖旊摐 雮橃�戩�?歆�鞗?氩勲Μ鞛?..; 鞚挫牅電?頃滌灔毵?靷�鞖╉晿雼堦�?..
 		//g_pUIManager->Hide(LOADING_IMAGE);
 		//g_pUIManager->Hide(LOADING_IMAGE2);		
 
-		// 2004.07.20 이벤트용 로딩화면
+		// 2004.07.20 鞚措菠韸胳毄 搿滊敥頇旊┐
 		//g_pUIManager->Hide( EVENT_LOADING_1 );
 		//g_pUIManager->Hide( EVENT_LOADING_2 );
 
@@ -1484,7 +1484,7 @@ HRESULT XiahGame_Intro::ClearIntro()
 	g_pUIManager->SetPosition(LARGE_MESSENGER, LARGE_MESSENGER_XPOS, LARGE_MESSENGER_YPOS);
 	g_pUIManager->SetPosition(MAIN_CHAT, MAIN_CHAT_XPOS, MAIN_CHAT_YPOS);
 
-	g_MainCharInfo.RefreshMainFrame();//이크
+	g_MainCharInfo.RefreshMainFrame();//鞚错伂
 
 	g_pUIManager->Show(SMALL_MESSENGER);
 	g_pUIManager->ForwardShow(MAIN_CHAT);
@@ -1494,7 +1494,7 @@ HRESULT XiahGame_Intro::ClearIntro()
 
 	g_XiahCamera.m_bIntro = false;
 
-	// 인트로에�?생성�?캐릭�?데이터를 지운다.
+	// 鞚疙姼搿滌棎靹?靸濎劚頃?旌愲Ν韯?雿办澊韯半ゼ 歆�鞖措嫟.
 	for(int i=0; i<CHARACTER_MAX; i++)
 		m_CharRender[i].Release();
 
@@ -1518,18 +1518,18 @@ HRESULT XiahGame_Intro::GoToMenuCreateChar()
 
 	m_bIntroBGMPlay = false;
 
-	// 캐릭터를 생성하면 캐릭터를 선택할때 미리 읽는 것을 없애�?
+	// 旌愲Ν韯半ゼ 靸濎劚頃橂┐ 旌愲Ν韯半ゼ 靹犿儩頃犽晫 氙鸽Μ 鞚诫姅 瓴冹潉 鞐嗢暊鞛?
 	m_bFirstCharSelect = false;
 
-	// 캐릭�?설명 �?
+	// 旌愲Ν韯?靹る獏 彀?
 	g_pUIManager->Hide(INTRO_WINDOW01);
-	// 캐릭�?만들�?
+	// 旌愲Ν韯?毵岆摛旮?
 	g_pUIManager->Hide(INTRO_BUTTONSET, INTRO_BUTTON_01);
-	// 시작
+	// 鞁滌瀾
 	g_pUIManager->Hide(INTRO_BUTTONSET, INTRO_BUTTON_04);
-	// 지우기
+	// 歆�鞖瓣赴
 	g_pUIManager->Hide(INTRO_BUTTONSET, INTRO_BUTTON_03);
-	// 종료
+	// 醫낅즺
 	g_pUIManager->Hide(INTRO_BUTTONSET, INTRO_BUTTON_02);
 
 	g_pUIManager->SetFocus(INTRO_ACCOUNT);
@@ -1551,7 +1551,7 @@ HRESULT XiahGame_Intro::GoToMenuCreateChar()
 
 		m_dwCameraMoveStartTime = 0;
 		m_nCharacterCreateStep = eCCType_GyumYung_Rotate;
-		m_nCurrentCharacter = 1;	// 검�?
+		m_nCurrentCharacter = 1;	// 瓴�鞓?
 
 		// camera setting
 		g_XiahCamera.m_fXAngle   = -0.0052664680f; //-_PI / 2.2f; //-_PI / 12; //-_PI / 6;
@@ -1561,7 +1561,7 @@ HRESULT XiahGame_Intro::GoToMenuCreateChar()
 		g_XiahCamera.m_fDestXAngle = g_XiahCamera.m_fXAngle;
 		g_XiahCamera.m_fDestDistance = g_XiahCamera.m_fDistance;
 
-		// 카메�?설정
+		// 旃措�旊�?靹れ爼
 		//Vector3 vAt( 859, 169, -1672 );
 		//Vector3 vFrom( 3, 1, 0 );
 
@@ -1596,11 +1596,11 @@ HRESULT XiahGame_Intro::GoToMenuCreateChar()
 
 		// Original Code
 /*
-		// 화면�?어두울때 카메라를 움직여�?맵을 미리 읽는 효과�?내자. 
-		// 그래�?일부�?길게 페이�?아웃.
+		// 頇旊┐鞚?鞏措憪鞖鸽晫 旃措�旊澕毳� 鞗�歆侅棳靹?毵奠潉 氙鸽Μ 鞚诫姅 須�瓿茧�?雮挫瀽. 
+		// 攴鸽灅靹?鞚茧秬霟?旮戈矊 韼橃澊霌?鞎勳泝.
 		DWORD dwTime;
 		if( !m_bCharacterCreatePreLoaded )
-			dwTime = 420000;	// 7�?
+			dwTime = 420000;	// 7攵?
 		else
 			dwTime = 1100;
 		Fade::StartFade( 0, 0, NULL, dwTime );
@@ -1609,7 +1609,7 @@ HRESULT XiahGame_Intro::GoToMenuCreateChar()
 		//
 		m_dwCameraMoveStartTime = 0;
 		m_nCharacterCreateStep = eCCType_GyumYung;
-		m_nCurrentCharacter = 1;	// 검�?
+		m_nCurrentCharacter = 1;	// 瓴�鞓?
 
 		// camera setting
 		g_XiahCamera.m_fXAngle = -_PI / 2.2f; //-_PI / 12; //-_PI / 6;
@@ -1619,7 +1619,7 @@ HRESULT XiahGame_Intro::GoToMenuCreateChar()
 		g_XiahCamera.m_fDestXAngle = g_XiahCamera.m_fXAngle;
 		g_XiahCamera.m_fDestDistance = g_XiahCamera.m_fDistance;
 
-		// 카메�?설정
+		// 旃措�旊�?靹れ爼
 		float x,y;
 		x = 994;
 		y = -1527;
@@ -1640,10 +1640,10 @@ HRESULT XiahGame_Intro::GoToMenuCreateChar()
 */
 
 
-		// 바�?카메�?설정�?맵에 적용
+		// 氚旊�?旃措�旊�?靹れ爼鞚?毵奠棎 鞝侅毄
 		if(!XiahMap::g_XiahMap.m_pMapRender->Update())
 		{
-			DBG_LogFile( _T("XiahGame_Intro::GoToMenuCreateChar 실패"));
+			DBG_LogFile( _T("XiahGame_Intro::GoToMenuCreateChar 鞁ろ尐"));
 
 //			return 0;
 		}
@@ -1663,7 +1663,7 @@ HRESULT XiahGame_Intro::GoToMenuSelectChar()
 
 	if( !m_bIntroBGMPlay )
 	{
-		// 케렉터 만들기에�?메인 메뉴�?돌아올경�?
+		// 旒�霠夗劙 毵岆摛旮办棎靹?氅旍澑 氅旊壌搿?霃岇晞鞓�瓴届�?
 		//XiahBGM::Play_BGM("sound\\bgm\\intro.mp3",1);
 		m_bIntroBGMPlay = true;
 	}
@@ -1679,7 +1679,7 @@ HRESULT XiahGame_Intro::GoToMenuSelectChar()
 	g_XiahCamera.m_fDestXAngle	 = g_XiahCamera.m_fXAngle;
 	g_XiahCamera.m_fDestDistance = g_XiahCamera.m_fDistance;
 
-	// 카메�?설정
+	// 旃措�旊�?靹れ爼
 	//float x,y;
 	//x = 1299; //630; //570;
 	//y = -1299; //1450;
@@ -1717,7 +1717,7 @@ HRESULT XiahGame_Intro::GoToMenuSelectChar()
 	g_pUIManager->Hide(INTRO_ACCOUNT);
 	g_pUIManager->Show(INTRO_BUTTONSET);
 
-	// 새로 만들�?
+	// 靸堧�� 毵岆摛旮?
 	if( m_byCharCount < 3 )
 	{
 		g_pUIManager->Show(INTRO_BUTTONSET, INTRO_BUTTON_01);
@@ -1726,14 +1726,14 @@ HRESULT XiahGame_Intro::GoToMenuSelectChar()
 	else
 		g_pUIManager->Hide(INTRO_BUTTONSET, INTRO_BUTTON_01);
 
-	// 시작
+	// 鞁滌瀾
 	g_pUIManager->Hide(INTRO_BUTTONSET, INTRO_BUTTON_04);// Show( FALSE );
-	// 채널선택
+	// 毂勲剱靹犿儩
 	g_pUIManager->Show(INTRO_BUTTONSET, INTRO_BUTTON_03);
-	// 종료
+	// 醫낅즺
 	g_pUIManager->Show(INTRO_BUTTONSET, INTRO_BUTTON_02);
 	g_pUIManager->SetString(INTRO_BUTTONSET, INTRO_BUTTON_02, IDS_TERMINATE);
-	// 캐릭�?설명 창은 첨엔 숨긴�?
+	// 旌愲Ν韯?靹る獏 彀届潃 觳�鞐� 靾�旮措�?
 	g_pUIManager->Hide(INTRO_WINDOW01);
 	//g_pUIManager->Show(INTRO_WINDOW01);
 
@@ -1757,7 +1757,7 @@ HRESULT XiahGame_Intro::GoToMenuSelectChar()
 
 	g_MainCharInfo.DeleteAllScrMessage();
 
-	// 빙화지대 �?
+	// 牍欗檾歆�雽� 雸?
 	g_RainSnow.Start(eSnow);
 
 	return 0;
@@ -1785,7 +1785,7 @@ void XiahGame_Intro::SetCurrentClass( BYTE byIndex)
 		
 	switch( byIndex)
 	{
-		// 검�?
+		// 瓴�鞓?
 	case 1:
 		m_byCurrentClassIndex = 1;
 		m_CharRender[m_byCurrentCharIndex].Create( 790, 1, 0, 103);
@@ -1793,7 +1793,7 @@ void XiahGame_Intro::SetCurrentClass( BYTE byIndex)
 		SetupPC_VisualEquipement(&m_CharRender[m_byCurrentCharIndex], wEquipVisualID);
 		break;
 
-		//연랑
+		//鞐半瀾
 	case 2:
 		m_byCurrentClassIndex = 2;
 		m_CharRender[m_byCurrentCharIndex].Create( 867, 2, 0, 103);
@@ -1834,12 +1834,12 @@ void	XiahGame_Intro::SetCurrentCharInfo( BYTE byIndex)
 	SetCurrentCharIndex( byIndex);
 //	SetCurrentCharInfoToScr();
 
-	// 3D Character 세팅
+	// 3D Character 靹疙寘
 	CharacterInfo *pCharInfo = m_CharacterList[ byIndex];
 
 	if(pCharInfo == NULL)
 	{
-		DBG_LogFile( _T("XiahGame_Intro::SetCurrentCharInfo 실패"));
+		DBG_LogFile( _T("XiahGame_Intro::SetCurrentCharInfo 鞁ろ尐"));
 
 		return;
 	}
@@ -1877,33 +1877,33 @@ void	XiahGame_Intro::SetCurrentCharInfo( BYTE byIndex)
 void	XiahGame_Intro::SetCurrentCharInfoToScr()
 /////////////////////////////////////////////////
 {
-	// 캐릭�?설명 �?
+	// 旌愲Ν韯?靹る獏 彀?
 	g_pUIManager->Show(INTRO_WINDOW01);
 	
-	// 캐릭�?만들�?
+	// 旌愲Ν韯?毵岆摛旮?
 	if( m_bCharacterSelected)
 	{
 		g_pUIManager->Show(INTRO_BUTTONSET, INTRO_BUTTON_01);
 		g_pUIManager->SetString(INTRO_BUTTONSET, INTRO_BUTTON_01, IDS_RESELECT);
 	}
 
-	// 시작
+	// 鞁滌瀾
 	g_pUIManager->Show(INTRO_BUTTONSET, INTRO_BUTTON_04);
-	// 채널선택
+	// 毂勲剱靹犿儩
 	g_pUIManager->Show(INTRO_BUTTONSET, INTRO_BUTTON_03);
-	// ɾ����ɫ��ť (������ɫ����ʾ)
+	// 删除角色按钮 (锁定角色后显示)
 	g_pUIManager->Show(INTRO_BUTTONSET, INTRO_BUTTON_02);
 	g_pUIManager->SetString(INTRO_BUTTONSET, INTRO_BUTTON_02, IDS_INTRO_BUTTONSET_BUTTON13);
 
 	TCHAR strName[64] = {0,};
 	TCHAR strLevel[64] = {0,};
 	
-	// 각성 차수 나타내기
+	// 臧侅劚 彀�靾� 雮橅儉雮搓赴
 	if(GetCurrentChar()->m_bRebirth)
 	{
-		if(GetCurrentChar()->m_bRebirth < 7)	//HT_0702 : 각성�?
+		if(GetCurrentChar()->m_bRebirth < 7)	//HT_0702 : 臧侅劚鞛?
 			_stprintf( strName, IDS_REBIRTH_COUNT, (LPCTSTR)GetCurrentChar()->m_szNickName, GetCurrentChar()->m_bRebirth);
-		else				//진각성자
+		else				//歆勱皝靹膘瀽
 			_stprintf( strName, IDS_2TH_REBIRTH_COUNT, (LPCTSTR)GetCurrentChar()->m_szNickName, GetCurrentChar()->m_bRebirth - 6);
 
 		g_pUIManager->SetString(INTRO_WINDOW01, intro_window_dummy_01, strName);
@@ -1915,7 +1915,7 @@ void	XiahGame_Intro::SetCurrentCharInfoToScr()
 	}
 //	_stprintf( strName, IDS_D_NAME, (LPCTSTR)GetCurrentChar()->m_szNickName);
 
-	//150갑자 초과�?
+	//150臧戩瀽 齑堦臣鞁?
 	if(GetCurrentChar()->m_wLevel < 150)
 	{
 		_stprintf( strLevel, IDS_D_GABJA, GetCurrentChar()->m_wLevel);
@@ -1929,7 +1929,7 @@ void	XiahGame_Intro::SetCurrentCharInfoToScr()
 
 
 
-	// 옥션
+	// 鞓レ厴
 	if(GetCurrentChar()->m_bAuction == 7)
 	{
 		g_pUIManager->SetString(INTRO_WINDOW01, intro_window_dummy_03, IDS_AUCTION, 7);

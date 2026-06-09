@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "ArrayIndexData.h"
 
@@ -7,26 +7,26 @@ namespace XiahAniType
 
 	//------------------------------------------------------------------------------
 	//------------------------------------------------------------------------------
-	// ³í¸®ÀûÀÎ Animation Controller¸¦ ¸¸µé¾î ÁÖ°Ú´Ù
+	// ë…¼ë¦¬ì ì¸ Animation Controllerë¥¼ ë§Œë“¤ì–´ ì£¼ê² ë‹¤
 
 	enum eXiahChar_MotionType
 	{
-		eLAT_Stand			= 0,	// ¼­ ÀÖ´Â µ¿ÀÛ
-		eLAT_Idle			= 1,	// Á¤ÁöÇØ¼­ ±×³É ¼­ ÀÖ´Â µ¿ÀÛ
-		eLAT_Walk			= 2,	// °È±â
-		eLAT_Run			= 3,	// ¶Ù±â
-		eLAT_NormalAttack	= 4,	// ÀÏ¹İ °ø°İµ¿ÀÛ
-		eLAT_Die			= 5,	// Á×±â µ¿ÀÛ
-		eLAT_Hit			= 6,	// ¸ÂÀ»¶§
-		eLAT_Defend			= 7,	// ¸·À»¶§
-		eLAT_Special		= 8,	// ±âÅ¸ Æ¯¼ö µ¿ÀÛ (Ä³ÁÖ¾óÀº ¾Æ´Ô)
-		eLAT_Spawn			= 9,	// µîÀåÇÒ¶§
-		eLAT_Casual			= 10,	// ÄÉÁÖ¾ó
-		eLAT_Mugong			= 11,	// ¹«°ø
-		eLAT_Died			= 12,	// Á×¾úÀ»¶§¸¦ À¯Áö
-		eLAT_Collect		= 13,	// Ã¤Áı
-		eLAT_Rebirth		= 14,	// °¢¼º
-		eLAT_MugongException= 15,	// ¿¹¿Ü ¹«°øµé..
+		eLAT_Stand			= 0,	// ì„œ ìˆëŠ” ë™ì‘
+		eLAT_Idle			= 1,	// ì •ì§€í•´ì„œ ê·¸ëƒ¥ ì„œ ìˆëŠ” ë™ì‘
+		eLAT_Walk			= 2,	// ê±·ê¸°
+		eLAT_Run			= 3,	// ë›°ê¸°
+		eLAT_NormalAttack	= 4,	// ì¼ë°˜ ê³µê²©ë™ì‘
+		eLAT_Die			= 5,	// ì£½ê¸° ë™ì‘
+		eLAT_Hit			= 6,	// ë§ì„ë•Œ
+		eLAT_Defend			= 7,	// ë§‰ì„ë•Œ
+		eLAT_Special		= 8,	// ê¸°íƒ€ íŠ¹ìˆ˜ ë™ì‘ (ìºì£¼ì–¼ì€ ì•„ë‹˜)
+		eLAT_Spawn			= 9,	// ë“±ì¥í• ë•Œ
+		eLAT_Casual			= 10,	// ì¼€ì£¼ì–¼
+		eLAT_Mugong			= 11,	// ë¬´ê³µ
+		eLAT_Died			= 12,	// ì£½ì—ˆì„ë•Œë¥¼ ìœ ì§€
+		eLAT_Collect		= 13,	// ì±„ì§‘
+		eLAT_Rebirth		= 14,	// ê°ì„±
+		eLAT_MugongException= 15,	// ì˜ˆì™¸ ë¬´ê³µë“¤..
 		eLAT_Count
 	};
 
@@ -45,14 +45,14 @@ namespace XiahAniType
 
 		virtual BOOL Create(CArrayIndexData *pData);
 		virtual BOOL Release();
-		// index°¡ -1ÀÌ¸é randomÇÏ°Ô ÁØ´Ù
+		// indexê°€ -1ì´ë©´ randomí•˜ê²Œ ì¤€ë‹¤
 		virtual int GetAniType(int nType,int index = -1);
 	};
 
 	extern BOOL InitializeLogicalAnimationType();
 	extern BOOL ReleaseLogicalAnimationType();
 	
-	// Object°¡ NPCÀÎ °æ¿ì NpcTypeµµ ³Ö¾î ÁÖ¾î¾ß ÇÔ
+	// Objectê°€ NPCì¸ ê²½ìš° NpcTypeë„ ë„£ì–´ ì£¼ì–´ì•¼ í•¨
 	extern CXiahChar_LogicalAnimationType* GetAniType(BYTE nObjectType,BYTE nNpcType);
 
 };

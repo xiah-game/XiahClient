@@ -1,11 +1,11 @@
-#include "XiahEnvInfo.h"
+ï»¿#include "XiahEnvInfo.h"
 
 #define	DXRGB(r,g,b)	D3DCOLOR_XRGB(r,g,b)
 
 #define		RAINFOG_VALUE		40
 #define		RAINFOG_DENSITY		0.005f
 
-// MAP°¹¼ö,½Ã°£º°,ÄÃ·¯
+// MAPê°¯ìˆ˜,ì‹œê°„ë³„,ì»¬ëŸ¬
 // Diffuse, FogColor, Sky Bottom Color ,Sky Middle Color, Sky UP Color
 D3DCOLOR g_DayFogColor[5 * 24][5] = 
 {
@@ -13,7 +13,7 @@ D3DCOLOR g_DayFogColor[5 * 24][5] =
 	// Diffuse				FogColor				Sky Bottom Color		Sky Middle Color		 Sky UP Color
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// MAP ID : 1 (±â¾Ï)
+	// MAP ID : 1 (ê¸°ì•”)
 	{DXRGB( 193, 224, 255), DXRGB(   4,  31,  17), DXRGB(  64,  88, 102), DXRGB(  64,  88, 102) , DXRGB(  16,  37,  88)},//0
 	{DXRGB( 193, 224, 255), DXRGB(   4,  31,  17), DXRGB(  64,  88, 102), DXRGB(  64,  88, 102) , DXRGB(  16,  37,  88)},//1
 	{DXRGB( 193, 224, 255), DXRGB(   4,  31,  17), DXRGB(  64,  88, 102), DXRGB(  64,  88, 102) , DXRGB(  16,  37,  88)},//2
@@ -39,7 +39,7 @@ D3DCOLOR g_DayFogColor[5 * 24][5] =
 	{DXRGB( 255, 208, 235), DXRGB(   8,  33,  18), DXRGB(  57,  94, 108), DXRGB(  57,  94, 108) , DXRGB(  62,  78,  91)},//22
 	{DXRGB( 255, 208, 235), DXRGB(   8,  33,  18), DXRGB(  57,  94, 108), DXRGB(  57,  94, 108) , DXRGB(  62,  78,  91)},//23
 
-	// MAP ID : 2 (È­»ê)
+	// MAP ID : 2 (í™”ì‚°)
 	{DXRGB( 220, 235, 255), DXRGB( 100,  30,  30), DXRGB( 104,  69,  90), DXRGB( 104,  69,  90) , DXRGB(  70,  51,  40)},//0
 	{DXRGB( 220, 235, 255), DXRGB( 100,  30,  30), DXRGB( 104,  69,  90), DXRGB( 104,  69,  90) , DXRGB(  70,  51,  40)},//1
 	{DXRGB( 220, 235, 255), DXRGB( 100,  30,  30), DXRGB( 104,  69,  90), DXRGB( 104,  69,  90) , DXRGB(  70,  51,  40)},//2
@@ -65,7 +65,7 @@ D3DCOLOR g_DayFogColor[5 * 24][5] =
 	{DXRGB( 220, 222, 255), DXRGB(  89,  28,  18), DXRGB( 104,  69,  90), DXRGB( 104,  69,  90) , DXRGB(  70,  51,  40)},//22
 	{DXRGB( 220, 222, 255), DXRGB(  89,  28,  18), DXRGB( 104,  69,  90), DXRGB( 104,  69,  90) , DXRGB(  70,  51,  40)},//23
 
-	// MAP ID : 3 (ºùÇÏ)
+	// MAP ID : 3 (ë¹™í•˜)
 	{DXRGB( 214, 224, 241), DXRGB(  39,  63, 101), DXRGB(  44,  69, 101), DXRGB(  44,  69, 101) , DXRGB( 255, 255, 255)},//0
 	{DXRGB( 214, 224, 241), DXRGB(  39,  63, 101), DXRGB(  44,  69, 101), DXRGB(  44,  69, 101) , DXRGB( 255, 255, 255)},//1
 	{DXRGB( 214, 224, 241), DXRGB(  39,  63, 101), DXRGB(  44,  69, 101), DXRGB(  44,  69, 101) , DXRGB( 255, 255, 255)},//2
@@ -91,7 +91,7 @@ D3DCOLOR g_DayFogColor[5 * 24][5] =
 	{DXRGB( 214, 224, 241), DXRGB(  39,  63, 101), DXRGB(  44,  69, 101), DXRGB(  44,  69, 101) , DXRGB( 255, 255, 255)},//22
 	{DXRGB( 214, 224, 241), DXRGB(  39,  63, 101), DXRGB(  44,  69, 101), DXRGB(  44,  69, 101) , DXRGB( 255, 255, 255)},//23
 
-	// MAP ID : 4 (»ç¸·)
+	// MAP ID : 4 (ì‚¬ë§‰)
 	{DXRGB( 252, 190, 135), DXRGB(  45,  41,  37), DXRGB(  64,  88, 102), DXRGB(  64,  88, 102) , DXRGB(  43,  51,  62)},//0
 	{DXRGB( 252, 190, 135), DXRGB(  45,  41,  37), DXRGB(  64,  88, 102), DXRGB(  64,  88, 102) , DXRGB(  43,  51,  62)},//1
 	{DXRGB( 252, 190, 135), DXRGB(  45,  41,  37), DXRGB(  64,  88, 102), DXRGB(  64,  88, 102) , DXRGB(  43,  51,  62)},//2
@@ -117,7 +117,7 @@ D3DCOLOR g_DayFogColor[5 * 24][5] =
 	{DXRGB( 254, 234, 216), DXRGB(  50,  20,  30), DXRGB( 128, 128, 128), DXRGB( 128, 128, 128) , DXRGB( 255, 204, 170)},//22
 	{DXRGB( 254, 234, 216), DXRGB(  50,  20,  30), DXRGB(  64,  88, 102), DXRGB(  64,  88, 102) , DXRGB(  43,  51,  62)},//23
 
-	// MAP ID : 5 (´Ë)
+	// MAP ID : 5 (ëŠª)
 	{DXRGB( 255, 255, 255), DXRGB( 127, 135,  92), DXRGB(  75, 119,  40), DXRGB(  75, 119,  40) , DXRGB( 255, 255, 255)},//0
 	{DXRGB( 255, 255, 255), DXRGB( 127, 135,  92), DXRGB(  75, 119,  40), DXRGB(  75, 119,  40) , DXRGB( 255, 255, 255)},//1
 	{DXRGB( 255, 255, 255), DXRGB( 127, 135,  92), DXRGB(  75, 119,  40), DXRGB(  75, 119,  40) , DXRGB( 255, 255, 255)},//2
@@ -148,7 +148,7 @@ D3DCOLOR g_DayFogColor[5 * 24][5] =
 	// Diffuse				FogColor				Sky Bottom Color		Sky Middle Color		 Sky UP Color
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// MAP ID : 1 (±â¾Ï)
+	// MAP ID : 1 (ê¸°ì•”)
 	{DXRGB( 193, 224, 255), DXRGB(   4,  31,  17), DXRGB(  64,  88, 102), DXRGB(  64,  88, 102) , DXRGB(  16,  37,  88)},//0
 	{DXRGB( 193, 224, 255), DXRGB(   4,  31,  17), DXRGB(  64,  88, 102), DXRGB(  64,  88, 102) , DXRGB(  16,  37,  88)},//1
 	{DXRGB( 193, 224, 255), DXRGB(   4,  31,  17), DXRGB(  64,  88, 102), DXRGB(  64,  88, 102) , DXRGB(  16,  37,  88)},//2
@@ -174,7 +174,7 @@ D3DCOLOR g_DayFogColor[5 * 24][5] =
 	{DXRGB( 255, 208, 235), DXRGB(   8,  33,  18), DXRGB(  57,  94, 108), DXRGB(  57,  94, 108) , DXRGB(  62,  78,  91)},//22
 	{DXRGB( 255, 208, 235), DXRGB(   8,  33,  18), DXRGB(  57,  94, 108), DXRGB(  57,  94, 108) , DXRGB(  62,  78,  91)},//23
 
-	// MAP ID : 2 (È­»ê)
+	// MAP ID : 2 (í™”ì‚°)
 	{DXRGB( 220, 235, 255), DXRGB(  89,  28,  18), DXRGB( 104,  69,  90), DXRGB( 104,  69,  90) , DXRGB(  70,  51,  40)},//0
 	{DXRGB( 220, 235, 255), DXRGB(  89,  28,  18), DXRGB( 104,  69,  90), DXRGB( 104,  69,  90) , DXRGB(  70,  51,  40)},//1
 	{DXRGB( 220, 235, 255), DXRGB(  89,  28,  18), DXRGB( 104,  69,  90), DXRGB( 104,  69,  90) , DXRGB(  70,  51,  40)},//2
@@ -200,7 +200,7 @@ D3DCOLOR g_DayFogColor[5 * 24][5] =
 	{DXRGB( 220, 235, 255), DXRGB(  89,  28,  18), DXRGB( 104,  69,  90), DXRGB( 104,  69,  90) , DXRGB(  70,  51,  40)},//22
 	{DXRGB( 220, 235, 255), DXRGB(  89,  28,  18), DXRGB( 104,  69,  90), DXRGB( 104,  69,  90) , DXRGB(  70,  51,  40)},//23
 
-	// MAP ID : 3 (ºùÇÏ)
+	// MAP ID : 3 (ë¹™í•˜)
 	{DXRGB( 214, 224, 241), DXRGB(  39,  63, 101), DXRGB(  44,  69, 101), DXRGB(  44,  69, 101) , DXRGB( 255, 255, 255)},//0
 	{DXRGB( 214, 224, 241), DXRGB(  39,  63, 101), DXRGB(  44,  69, 101), DXRGB(  44,  69, 101) , DXRGB( 255, 255, 255)},//1
 	{DXRGB( 214, 224, 241), DXRGB(  39,  63, 101), DXRGB(  44,  69, 101), DXRGB(  44,  69, 101) , DXRGB( 255, 255, 255)},//2
@@ -226,7 +226,7 @@ D3DCOLOR g_DayFogColor[5 * 24][5] =
 	{DXRGB( 214, 224, 241), DXRGB(  39,  63, 101), DXRGB(  44,  69, 101), DXRGB(  44,  69, 101) , DXRGB( 255, 255, 255)},//22
 	{DXRGB( 214, 224, 241), DXRGB(  39,  63, 101), DXRGB(  44,  69, 101), DXRGB(  44,  69, 101) , DXRGB( 255, 255, 255)},//23
 
-	// MAP ID : 4 (»ç¸·)
+	// MAP ID : 4 (ì‚¬ë§‰)
 	{DXRGB( 252, 190, 135), DXRGB(  45,  41,  37), DXRGB(  64,  88, 102), DXRGB(  64,  88, 102) , DXRGB(  43,  51,  62)},//0
 	{DXRGB( 252, 190, 135), DXRGB(  45,  41,  37), DXRGB(  64,  88, 102), DXRGB(  64,  88, 102) , DXRGB(  43,  51,  62)},//1
 	{DXRGB( 252, 190, 135), DXRGB(  45,  41,  37), DXRGB(  64,  88, 102), DXRGB(  64,  88, 102) , DXRGB(  43,  51,  62)},//2
@@ -252,7 +252,7 @@ D3DCOLOR g_DayFogColor[5 * 24][5] =
 	{DXRGB( 254, 234, 216), DXRGB(  49,  23,  15), DXRGB( 128, 128, 128), DXRGB( 128, 128, 128) , DXRGB( 255, 204, 170)},//22
 	{DXRGB( 252, 190, 135), DXRGB(  45,  41,  37), DXRGB(  64,  88, 102), DXRGB(  64,  88, 102) , DXRGB(  43,  51,  62)},//23
 
-	// MAP ID : 5 (´Ë)
+	// MAP ID : 5 (ëŠª)
 	{DXRGB( 255, 255, 255), DXRGB(   0,   0,   0), DXRGB(  75, 119,  40), DXRGB(  75, 119,  40) , DXRGB( 255, 255, 255)},//0
 	{DXRGB( 255, 255, 255), DXRGB(   0,   0,   0), DXRGB(  75, 119,  40), DXRGB(  75, 119,  40) , DXRGB( 255, 255, 255)},//1
 	{DXRGB( 255, 255, 255), DXRGB(   0,   0,   0), DXRGB(  75, 119,  40), DXRGB(  75, 119,  40) , DXRGB( 255, 255, 255)},//2
@@ -564,18 +564,18 @@ float	g_DayFogDensity[5][24] =
 
 /*
 	MAP ID
-	±â¾Ï±«¼®	Sec2 -> 1
-	È­»ê		Sec3 -> 2
-	»ç¸·		Sec1 -> 4
-	ºùÇÏ		Sec4 -> 3
-	´Ë			Sec5 -> 5
-	¹®ÆÄ		Battle -> 10
+	ê¸°ì•”ê´´ì„	Sec2 -> 1
+	í™”ì‚°		Sec3 -> 2
+	ì‚¬ë§‰		Sec1 -> 4
+	ë¹™í•˜		Sec4 -> 3
+	ëŠª			Sec5 -> 5
+	ë¬¸íŒŒ		Battle -> 10
  */
 
 int g_nHour = -1;
 
 /**
- * ½Ã°£¿¡ µû¸¥ ¼ÂÆÃ
+ * ì‹œê°„ì— ë”°ë¥¸ ì…‹íŒ…
  * \param &msg 
  * \return 
  */
@@ -595,26 +595,26 @@ int OnCS_EV_TIME_ACK( CMsg &msg)
 	g_MainCharInfo.RefreshTime1( wYear, bMonth, bDay, bHour);
 	g_nHour = bHour;
 
-	// Æ÷±×, ¶óÀÌÆ®°¡ ¼­¼­È÷ º¯È­ÇÏµµ·Ï ÇÏ±â À§ÇØ. R°ú B°ªÀÌ ¹Ù²î¾ú´Ù
+	// í¬ê·¸, ë¼ì´íŠ¸ê°€ ì„œì„œížˆ ë³€í™”í•˜ë„ë¡ í•˜ê¸° ìœ„í•´. Rê³¼ Bê°’ì´ ë°”ë€Œì—ˆë‹¤
 	int nR[5], nG[5], nB[5];
 
-	// MAP ID¸¦ ¾ò°í!
+	// MAP IDë¥¼ ì–»ê³ !
 	DWORD dwMapID = XiahMap::g_XiahMap.m_MapInfo.m_dwMapID;
 
 	switch(dwMapID)
 	{
-		// ¹®ÆÄÀü¸Ê ÀÏ¶§¿¡´Â ÀÏ´Ü ÀÓ½Ã Ã³¸®·Î..
+		// ë¬¸íŒŒì „ë§µ ì¼ë•Œì—ëŠ” ì¼ë‹¨ ìž„ì‹œ ì²˜ë¦¬ë¡œ..
 	case 10:
 	case 6:
 	case 7:
-	case 15: //HO_0727_07 È­¿°°îÃß°¡
+	case 15: //HO_0727_07 í™”ì—¼ê³¡ì¶”ê°€
 		{
 			dwMapID = 1;
 		}
 	    break;
-	case 12:	// ¸¶Ç÷¼ºÀº È­»ê Áö´ë¿Í °°Àº Æ÷±× »ç¿ëÇÏÀÚ´Â±¸³ª
-	case 13:	// ¸¶Ç÷¼ºÀº È­»ê Áö´ë¿Í °°Àº Æ÷±× »ç¿ëÇÏÀÚ´Â±¸³ª
-	case 14:	// ¸¶Ç÷¼ºÀº È­»ê Áö´ë¿Í °°Àº Æ÷±× »ç¿ëÇÏÀÚ´Â±¸³ª
+	case 12:	// ë§ˆí˜ˆì„±ì€ í™”ì‚° ì§€ëŒ€ì™€ ê°™ì€ í¬ê·¸ ì‚¬ìš©í•˜ìžëŠ”êµ¬ë‚˜
+	case 13:	// ë§ˆí˜ˆì„±ì€ í™”ì‚° ì§€ëŒ€ì™€ ê°™ì€ í¬ê·¸ ì‚¬ìš©í•˜ìžëŠ”êµ¬ë‚˜
+	case 14:	// ë§ˆí˜ˆì„±ì€ í™”ì‚° ì§€ëŒ€ì™€ ê°™ì€ í¬ê·¸ ì‚¬ìš©í•˜ìžëŠ”êµ¬ë‚˜
 		{
 			dwMapID = 2;
 		}
@@ -624,7 +624,7 @@ int OnCS_EV_TIME_ACK( CMsg &msg)
 			dwMapID = 3;
 		}
 		break;
-	case 11:	// ´øÀü¿ë
+	case 11:	// ë˜ì „ìš©
 		{
 			if( g_nHour == -1 )
 			{
@@ -721,10 +721,10 @@ int OnCS_EV_TIME_ACK( CMsg &msg)
 		g_XiahChangeEnvInfo.bChangeStart = true;
 
 
-		// ÇöÀç ºñ°¡ ¿À°í ÀÖ´Ù¸é
+		// í˜„ìž¬ ë¹„ê°€ ì˜¤ê³  ìžˆë‹¤ë©´
 		if( g_RainSnow.GetType() == eRain )
 		{
-			// ºñ°¡ ¿À¸é Á»´õ ¾È°³³¤µí.
+			// ë¹„ê°€ ì˜¤ë©´ ì¢€ë” ì•ˆê°œë‚€ë“¯.
 			nR[1] += RAINFOG_VALUE;
 			if( nR[1] > 255 ) nR[1] = 255;
 			nG[1] += RAINFOG_VALUE;
@@ -740,17 +740,17 @@ int OnCS_EV_TIME_ACK( CMsg &msg)
 	}
 
 	/*
-	if( bHour >= 7 && bHour <= 19 ) // ÇØ
+	if( bHour >= 7 && bHour <= 19 ) // í•´
 	{
 		g_SkyStar.SetType( eSun );
 		g_SkyStar.CreateStarPosition();
 	}
-	else if( bHour >= 20 || bHour <= 4 )	// º°°ú ´Þ
+	else if( bHour >= 20 || bHour <= 4 )	// ë³„ê³¼ ë‹¬
 	{
 		g_SkyStar.SetType( eStars );
 		g_SkyStar.CreateCloudPosition();
 	}
-	else if( bHour >= 5 && bHour <= 6 )	// ´Þ
+	else if( bHour >= 5 && bHour <= 6 )	// ë‹¬
 	{
 		g_SkyStar.SetType( eMoon );
 	}
@@ -771,28 +771,28 @@ int OnCS_EV_WEATHER_ACK( CMsg &msg)
 	msg	
 		>> bWeatherType;
 /*
-	0:¸¼À½
-	1:ºñ
-	2:´«
-	3:±âÅ¸
+	0:ë§‘ìŒ
+	1:ë¹„
+	2:ëˆˆ
+	3:ê¸°íƒ€
 	*/
 
 	DWORD dwMapID = XiahMap::g_XiahMap.m_MapInfo.m_dwMapID;
 
 	switch(dwMapID)
 	{
-		// ¹®ÆÄÀü¸Ê ÀÏ¶§¿¡´Â ÀÏ´Ü ÀÓ½Ã Ã³¸®·Î.. 
+		// ë¬¸íŒŒì „ë§µ ì¼ë•Œì—ëŠ” ì¼ë‹¨ ìž„ì‹œ ì²˜ë¦¬ë¡œ.. 
 	case 10:
 	case 6:
 	case 7:
-	case 15: //HO_0727_07 È­¿°°îÃß°¡
+	case 15: //HO_0727_07 í™”ì—¼ê³¡ì¶”ê°€
 		{
 			dwMapID = 1;
 		}
 	    break;
-	case 12:	// ¸¶Ç÷¼ºÀº È­»ê Áö´ë¿Í °°Àº Æ÷±× »ç¿ëÇÏÀÚ´Â±¸³ª
-	case 13:	// ¸¶Ç÷¼ºÀº È­»ê Áö´ë¿Í °°Àº Æ÷±× »ç¿ëÇÏÀÚ´Â±¸³ª
-	case 14:	// ¸¶Ç÷¼ºÀº È­»ê Áö´ë¿Í °°Àº Æ÷±× »ç¿ëÇÏÀÚ´Â±¸³ª
+	case 12:	// ë§ˆí˜ˆì„±ì€ í™”ì‚° ì§€ëŒ€ì™€ ê°™ì€ í¬ê·¸ ì‚¬ìš©í•˜ìžëŠ”êµ¬ë‚˜
+	case 13:	// ë§ˆí˜ˆì„±ì€ í™”ì‚° ì§€ëŒ€ì™€ ê°™ì€ í¬ê·¸ ì‚¬ìš©í•˜ìžëŠ”êµ¬ë‚˜
+	case 14:	// ë§ˆí˜ˆì„±ì€ í™”ì‚° ì§€ëŒ€ì™€ ê°™ì€ í¬ê·¸ ì‚¬ìš©í•˜ìžëŠ”êµ¬ë‚˜
 		{
 			dwMapID = 2;
 		}
@@ -811,7 +811,7 @@ int OnCS_EV_WEATHER_ACK( CMsg &msg)
 		break;
 	}
 
-	// Æ÷±×, ¶óÀÌÆ®°¡ ¼­¼­È÷ º¯È­ÇÏµµ·Ï ÇÏ±â À§ÇØ.
+	// í¬ê·¸, ë¼ì´íŠ¸ê°€ ì„œì„œížˆ ë³€í™”í•˜ë„ë¡ í•˜ê¸° ìœ„í•´.
 	int nR[4], nG[4], nB[4];
 
 	nR[0] = GetBValue( g_DayFogColor[(dwMapID-1) * 24 + g_nHour][0] );	// Diffuse
@@ -864,7 +864,7 @@ int OnCS_EV_WEATHER_ACK( CMsg &msg)
 			if( nRainSnowType == eRain && g_RainSnow.GetStatus() != 1 )
 				g_RainSnow.Restart();
 
-			// ºñ°¡ ¿À¸é Á»´õ ¾È°³³¤µí.
+			// ë¹„ê°€ ì˜¤ë©´ ì¢€ë” ì•ˆê°œë‚€ë“¯.
 			nR[1] += RAINFOG_VALUE;
 			if( nR[1] > 255 ) nR[1] = 255;
 			nG[1] += RAINFOG_VALUE;

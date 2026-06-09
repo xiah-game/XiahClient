@@ -1,10 +1,10 @@
-/*===================================================================================================
+ï»¿/*===================================================================================================
 										CXiahGame_Login.h
 -----------------------------------------------------------------------------------------------------
 	date :	2004/04/22  14:00
   Author :	
 	
- Purpose :	Xiah ³»ºÎ ·Î±×ÀÎ & ¼­¹ö ¼±ÅÃ Ã³¸® Å¬·¡½º
+ Purpose :	Xiah ë‚´ë¶€ ë¡œê·¸ì¸ & ì„œë²„ ì„ íƒ ì²˜ë¦¬ í´ë˜ìŠ¤
 	
 ===================================================================================================*/
 
@@ -36,15 +36,15 @@ public:
 private:
 	struct sChannelList
 	{
-		sString strChannelName;		// Ã¤³Î ¸í
-		sString strChannelDes;		// Ã¤³Î »ó¼¼ Á¤º¸
-		BYTE bState;				// ¼­¹ö »óÅÂ 0-¼­¹ö´Ù¿î 1-¼­¹ö¿Â
-		BYTE bAge;					// ³ªÀÌ
-		WORD wUser;					// ÇöÀç À¯Àú
-		WORD wMaxUser;				// ÃÖ´ë Á¢¼Ó °¡´É¼ö
+		sString strChannelName;		// ì±„ë„ ëª…
+		sString strChannelDes;		// ì±„ë„ ìƒì„¸ ì •ë³´
+		BYTE bState;				// ì„œë²„ ìƒíƒœ 0-ì„œë²„ë‹¤ìš´ 1-ì„œë²„ì˜¨
+		BYTE bAge;					// ë‚˜ì´
+		WORD wUser;					// í˜„ì¬ ìœ ì €
+		WORD wMaxUser;				// ìµœëŒ€ ì ‘ì† ê°€ëŠ¥ìˆ˜
 
-		sString strUnitAddress;		// À¯´Ö ¼­¹ö ÁÖ¼Ò
-		DWORD dwUnitPort;			// Æ÷Æ®
+		sString strUnitAddress;		// ìœ ë‹› ì„œë²„ ì£¼ì†Œ
+		DWORD dwUnitPort;			// í¬íŠ¸
 
 		inline sChannelList() : bAge(0), wUser(0), wMaxUser(0), dwUnitPort(0), bState(0)
 		{
@@ -53,10 +53,10 @@ private:
 
 	struct sServerList
 	{
-		sString strWorldName;		// ¿ùµå ¸í
-		sString strWorldDes;		// ¿ùµå »ó¼¼ Á¤º¸
+		sString strWorldName;		// ì›”ë“œ ëª…
+		sString strWorldDes;		// ì›”ë“œ ìƒì„¸ ì •ë³´
 
-		std::map<BYTE, sChannelList*> mChannelList;		// Ã¤³Î ¸®½ºÆ®
+		std::map<BYTE, sChannelList*> mChannelList;		// ì±„ë„ ë¦¬ìŠ¤íŠ¸
 
 		inline sServerList()
 		{
@@ -78,7 +78,7 @@ private:
 		};
 	};
 
-	// ·Î±×ÀÎ ²ÉÀÙ
+	// ë¡œê·¸ì¸ ê½ƒì
 	struct sPetal
 	{
 		int nPattern;
@@ -138,7 +138,7 @@ private:
 
 	std::map<BYTE, sServerList*> m_mServerList;
 
-	// temp ¸®½ºÆ® ¹Ú½º°¡ ÇöÀç ¿£ÁøÂÊ¿¡¼­ ¹Ì ±¸Çö»óÅÂ. -_-
+	// temp ë¦¬ìŠ¤íŠ¸ ë°•ìŠ¤ê°€ í˜„ì¬ ì—”ì§„ìª½ì—ì„œ ë¯¸ êµ¬í˜„ìƒíƒœ. -_-
 	sRect m_rtServer1[5];
 	CText2D m_TextServer1[5];
 

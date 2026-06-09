@@ -1,10 +1,10 @@
-#pragma once
+ï»¿#pragma once
 
 
 /*
-	½ÇÁ¦ °ÔÀÓ»ó¿¡¼­´Â °¢°¢ÀÇ LinkMap¿¡ ´ëÇÑ LocalÁÂÇ¥¸¦ »ç¿ëÇÏÁö¸¸, 
+	ì‹¤ì œ ê²Œì„ìƒì—ì„œëŠ” ê°ê°ì˜ LinkMapì— ëŒ€í•œ Localì¢Œí‘œë¥¼ ì‚¬ìš©í•˜ì§€ë§Œ, 
 	
-	°ÔÀÓ È­¸é»ó¿¡¼­´Â WorldMapÀ» º¸¿©ÁØ´Ù
+	ê²Œì„ í™”ë©´ìƒì—ì„œëŠ” WorldMapì„ ë³´ì—¬ì¤€ë‹¤
 */
 using namespace std;
 
@@ -80,7 +80,7 @@ namespace XiahMap
 
 		sPortalInfo* IntersectPortal(WORD wPosX,WORD wPosY);
 
-		BOOL GetPickPosition(Vector3 &pos);	// Á¹¶ó ´À¸² ÁÖÀÇ ¹Ù¶÷
+		BOOL GetPickPosition(Vector3 &pos);	// ì¡¸ë¼ ëŠë¦¼ ì£¼ì˜ ë°”ëŒ
 		BOOL RenderPortal();
 
 		BOOL ClearAllDecal();

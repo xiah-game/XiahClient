@@ -1,4 +1,4 @@
-#include "precompile.h"
+ï»¿#include "precompile.h"
 #include "XiahGame_Pet.h"
 #include "XiahArrayIndex.h"
 #include "XiahGame_Handler_Sender.h"
@@ -6,13 +6,13 @@
 #include "CharacterInfo.h"
 #include "InterfaceDefine.h"
 
-//HT_CHEAT : Ä¡Æ® Å°
+//HT_CHEAT : ì¹˜íŠ¸ í‚¤
 extern  BOOL g_bCheat;
 
 // single tone
 CPetList g_PetList;
-BOOL	g_bCommandAI = FALSE;			// PET¿¡°Ô COMMAND¸¦ ³»¸®±â À§ÇÏ¿© Ä¿¼­ÀÇ ¸ğ¾ç º¯È­°¡ ÀÖ³ª?
-DWORD	g_dwCommandType = PETAI_NONE;	// ¾î¶² AIÀÇ Command¸¦ ³»¸®³ª?
+BOOL	g_bCommandAI = FALSE;			// PETì—ê²Œ COMMANDë¥¼ ë‚´ë¦¬ê¸° ìœ„í•˜ì—¬ ì»¤ì„œì˜ ëª¨ì–‘ ë³€í™”ê°€ ìˆë‚˜?
+DWORD	g_dwCommandType = PETAI_NONE;	// ì–´ë–¤ AIì˜ Commandë¥¼ ë‚´ë¦¬ë‚˜?
 
 BOOL ReleasePetInfo(DWORD pInfo)
 {
@@ -81,7 +81,7 @@ BOOL CPetList::AddPet(XiahObject::CXiahObject* pPet)
 	if ( !pCharObject ) 
 		return FALSE;
 
-	// °£´ÜÇÑ ÃÊ±âÈ­
+	// ê°„ë‹¨í•œ ì´ˆê¸°í™”
     pPetInfo->dwLastAITime = 0;
 	pPetInfo->dwAIFrameTime = 600 + rand() % 600;
 	pPetInfo->fFollowRange = pCharObject->m_LocalBound.Size().GetLength();
@@ -90,15 +90,15 @@ BOOL CPetList::AddPet(XiahObject::CXiahObject* pPet)
 
 	pPetInfo->fAttackRange = pPetInfo->fFollowRange * 3.9f;
 
-	// È¯¼öÀ¯
+	// í™˜ìˆ˜ìœ 
 	if( pPetInfo->m_dwIsHwan == 1 )
-		pPetInfo->fAttackRange = pPetInfo->fFollowRange * 4.5f; //HT_CHEAT : °Å¸®¸¦ Á¶±İ ±æ°Ô Àâ¾Æ ÁØ´Ù..
+		pPetInfo->fAttackRange = pPetInfo->fFollowRange * 4.5f; //HT_CHEAT : ê±°ë¦¬ë¥¼ ì¡°ê¸ˆ ê¸¸ê²Œ ì¡ì•„ ì¤€ë‹¤..
 
 	pPetInfo->bHwanAttack = FALSE;
 
-	// Á¶±İ Æí¹ı
+	// ì¡°ê¸ˆ í¸ë²•
 	pCharObject->SetAnimation( XiahAniType::eLAT_NormalAttack, 0);
-	pPetInfo->dwAttackDelayTime =(DWORD) (pCharObject->m_CharRender.GetAnimationLength() / 1.5f); // 1.5¹è·Î »¡¸® ÇØº»´Ù
+	pPetInfo->dwAttackDelayTime =(DWORD) (pCharObject->m_CharRender.GetAnimationLength() / 1.5f); // 1.5ë°°ë¡œ ë¹¨ë¦¬ í•´ë³¸ë‹¤
 	pPetInfo->dwLastAttackTime = 0;	
 
 	pCharObject->SetAnimation( XiahAniType::eLAT_Stand, 0);
@@ -147,7 +147,7 @@ BOOL CPetList::DeletePet(DWORD id)
 
 	erase( it);
 
-	// ÇØ´çµÇ´Â ÆêÀÇ »óÅÂÃ¢ÀÌ ¶° ÀÖÀ»°æ¿ì¸¸ ´İ¾ÆÁà¾ß ÇÏ°ÚÁö¸¸ ±×³É ´İ¾Æµµ ¹«¹æÇÏ°Ú´Ù
+	// í•´ë‹¹ë˜ëŠ” í«ì˜ ìƒíƒœì°½ì´ ë–  ìˆì„ê²½ìš°ë§Œ ë‹«ì•„ì¤˜ì•¼ í•˜ê² ì§€ë§Œ ê·¸ëƒ¥ ë‹«ì•„ë„ ë¬´ë°©í•˜ê² ë‹¤
 	g_MainCharInfo.CloseFrame( WINDOW_NEW_TAMING);
 
 	return TRUE;
@@ -156,17 +156,17 @@ BOOL CPetList::DeletePet(DWORD id)
 extern BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject);
 BOOL CPetList::UpdatePet()
 {
-	//HT_CHEAT : ¼±ÅÃÇÑ ¸ó½ºÅÍ°¡ ÀÖ´Âµ¥ ¸Ö¾î¼­ °ø°İÀ» ¸øÇÒ °æ¿ì..
+	//HT_CHEAT : ì„ íƒí•œ ëª¬ìŠ¤í„°ê°€ ìˆëŠ”ë° ë©€ì–´ì„œ ê³µê²©ì„ ëª»í•  ê²½ìš°..
 	BOOL PetSeleteMon = true;
 	iterator it;
 	for(it = begin(); it != end(); it++)
 	{
-		// ¸®½ºÆ® ¾ÈÀÇ PetÀ» ±¸ÇÑÈÄ¿¡ °¢°¢ AI¸¦ Àû¿ëÇÑ´Ù
+		// ë¦¬ìŠ¤íŠ¸ ì•ˆì˜ Petì„ êµ¬í•œí›„ì— ê°ê° AIë¥¼ ì ìš©í•œë‹¤
 		XiahObject::CXiahObject* pObject = it->second;
 
 		if(pObject == NULL)
 		{
-			DBG_LogFile( _T("CPetList::UpdatePet ½ÇÆĞ"));
+			DBG_LogFile( _T("CPetList::UpdatePet ì‹¤íŒ¨"));
 //			return false;
 		}
 
@@ -174,14 +174,14 @@ BOOL CPetList::UpdatePet()
 
 		if(pCharObject == NULL)
 		{
-			DBG_LogFile( _T("CPetList::UpdatePet ½ÇÆĞ"));
+			DBG_LogFile( _T("CPetList::UpdatePet ì‹¤íŒ¨"));
 //			return false;
 		}
 
-		//HT_CHEAT : ¼±ÅÃÇÑ ¸ó½ºÅÍ°¡ ÀÖ´Âµ¥ ¸Ö¾î¼­ °ø°İÀ» ¸øÇÒ °æ¿ì..
+		//HT_CHEAT : ì„ íƒí•œ ëª¬ìŠ¤í„°ê°€ ìˆëŠ”ë° ë©€ì–´ì„œ ê³µê²©ì„ ëª»í•  ê²½ìš°..
 		PetSeleteMon = PetAI( it->first, pCharObject);
 	}
-	//HT_CHEAT : ¼±ÅÃÇÑ ¸ó½ºÅÍ°¡ ÀÖ´Âµ¥ ¸Ö¾î¼­ °ø°İÀ» ¸øÇÒ °æ¿ì..
+	//HT_CHEAT : ì„ íƒí•œ ëª¬ìŠ¤í„°ê°€ ìˆëŠ”ë° ë©€ì–´ì„œ ê³µê²©ì„ ëª»í•  ê²½ìš°..
 	return PetSeleteMon;
 }
 
@@ -246,7 +246,7 @@ BOOL CPetList::JumpToPlayer()
 
 	if(pMainCharObject == NULL)
 	{
-		DBG_LogFile( _T("CPetList::JumpToPlayer ½ÇÆĞ"));
+		DBG_LogFile( _T("CPetList::JumpToPlayer ì‹¤íŒ¨"));
 //		return false;
 	}
 
@@ -274,20 +274,20 @@ BOOL CPetList::JumpToPlayer()
 			}
 			else
 			{
-				DBG_LogFile( _T("CPetList::JumpToPlayer ½ÇÆĞ"));
+				DBG_LogFile( _T("CPetList::JumpToPlayer ì‹¤íŒ¨"));
 //				return false;
 			}
 		}
 		else
 		{
-			DBG_LogFile( _T("CPetList::JumpToPlayer ½ÇÆĞ"));
+			DBG_LogFile( _T("CPetList::JumpToPlayer ì‹¤íŒ¨"));
 //			return false;
 		}
 	}
 	return TRUE;
 }
 
-// ÇØ´ç PetÀ» ¼±ÅÃ
+// í•´ë‹¹ Petì„ ì„ íƒ
 BOOL CPetList::SelectPet(DWORD id)
 {
 
@@ -306,7 +306,7 @@ BOOL CPetList::SelectPet(DWORD id)
 	return TRUE;
 }
 
-// ÇØ´ç PetÀ» ¼±ÅÃÇÏÁö ¾Ê´Â´Ù
+// í•´ë‹¹ Petì„ ì„ íƒí•˜ì§€ ì•ŠëŠ”ë‹¤
 BOOL CPetList::DeSelectPet(DWORD id)
 {
 	sPetInfo* pinfo = GetPetInfo(id);
@@ -321,7 +321,7 @@ BOOL CPetList::DeSelectPet(DWORD id)
 	return TRUE;
 }
 
-// °¡Áö°í ÀÖ´Â ¸ğµç PETÀ» ¼±ÅÃ
+// ê°€ì§€ê³  ìˆëŠ” ëª¨ë“  PETì„ ì„ íƒ
 BOOL CPetList::SelectAllPet()
 {
 	iterator it;
@@ -344,7 +344,7 @@ BOOL CPetList::SelectAllPet()
 	return TRUE;
 }
 
-// °¡Áö°í ÀÖ´Â ¸ğµç PETÀ» ¼±ÅÃÀ» Ç¬´Ù
+// ê°€ì§€ê³  ìˆëŠ” ëª¨ë“  PETì„ ì„ íƒì„ í‘¼ë‹¤
 BOOL CPetList::DeSelectAllPet()
 {
 	if(g_pUIManager->IsShow(WINDOW_NEW_TAMING))
@@ -382,7 +382,7 @@ BOOL CPetList::DeSelectAllPet()
 	return TRUE;
 }
 
-// ¼±ÅÃµÇ¾îÁø PET¿¡°Ô AI¸¦ Á¤ÇÏ¿© ÁØ´Ù
+// ì„ íƒë˜ì–´ì§„ PETì—ê²Œ AIë¥¼ ì •í•˜ì—¬ ì¤€ë‹¤
 BOOL CPetList::Change_PET_AI(int Type, DWORD di,DWORD gi,DWORD dt,DWORD gt)
 {
 	iterator it;
@@ -439,14 +439,14 @@ BOOL CPetList::Change_PET_AI(int Type, DWORD di,DWORD gi,DWORD dt,DWORD gt)
 		}
 		else
 		{
-			DBG_LogFile( _T("CPetList::Change_PET_AI ½ÇÆĞ"));
+			DBG_LogFile( _T("CPetList::Change_PET_AI ì‹¤íŒ¨"));
 //			return false;
 		}
 	}
 	return TRUE;
 }
 
-// ÇØ´ç PET¿¡°Ô AI¸¦ Á¤ÇÏ¿© ÁØ´Ù
+// í•´ë‹¹ PETì—ê²Œ AIë¥¼ ì •í•˜ì—¬ ì¤€ë‹¤
 BOOL CPetList::Change_PET_AI_Specify(DWORD PetID, int Type, DWORD di,DWORD gi,DWORD dt,DWORD gt)
 {
 	iterator it;
@@ -491,14 +491,14 @@ sPetInfo* CPetList::GetCurrentPet()
 		}
 		else
 		{
-			DBG_LogFile( _T("CPetList::GetCurrentPet ½ÇÆĞ"));
+			DBG_LogFile( _T("CPetList::GetCurrentPet ì‹¤íŒ¨"));
 //			return false;
 		}
 	}
 	return NULL;
 }
 
-// ºĞ½Å°İ PETÀ» ¾ò´Â´Ù
+// ë¶„ì‹ ê²© PETì„ ì–»ëŠ”ë‹¤
 sPetInfo* CPetList::GetBunsinPet()
 {
 	iterator it;
@@ -518,7 +518,7 @@ sPetInfo* CPetList::GetBunsinPet()
 		}
 		else
 		{
-			DBG_LogFile( _T("CPetList::GetBunsinPet ½ÇÆĞ"));
+			DBG_LogFile( _T("CPetList::GetBunsinPet ì‹¤íŒ¨"));
 //			return false;
 		}
 	}

@@ -1,4 +1,4 @@
-
+ï»¿
 #include "Fade.h"
 #include "XiahGame_Intro.h"
 #include "XiahCamera.h"
@@ -10,7 +10,7 @@ extern sString	g_ServerName;
 
 #define FILTER	1966/2
 
-// ÀÌ¸§ ÇÊÅÍ¸µ
+// ì´ë¦„ í•„í„°ë§
 BOOL NameFiltering(sString szNickName)
 {
 	unsigned short filter[1024] = {0,};
@@ -35,7 +35,7 @@ BOOL NameFiltering(sString szNickName)
 	{
 		if(name[i] < 0x7b && name[i] > 0x2f)
 		{
-			// °¡´ÉÇÑ ASCII
+			// ê°€ëŠ¥í•œ ASCII
 			i++;
 			continue;
 		}
@@ -55,7 +55,7 @@ BOOL NameFiltering(sString szNickName)
 }
 
 /**
- * Ä³¸¯ÅÍ »ı¼º
+ * ìºë¦­í„° ìƒì„±
  * \param lParam 
  */
 void ProcessIntroAccount( LPARAM lParam)
@@ -96,7 +96,7 @@ void ProcessIntroAccount( LPARAM lParam)
 				}
 				else
 				{
-					//g_MainCharInfo.PlayInterfaceSound( ISOUND_WARNING); ¾Æ·¡ ¸Ş½ÃÁö Àü´Ş½Ã °æ°í´Â »ç¿îµå Ãâ·ÂÇÔ
+					//g_MainCharInfo.PlayInterfaceSound( ISOUND_WARNING); ì•„ë˜ ë©”ì‹œì§€ ì „ë‹¬ì‹œ ê²½ê³ ëŠ” ì‚¬ìš´ë“œ ì¶œë ¥í•¨
 					g_MainCharInfo.ShowHelpMessage(IT_WARNNIG1,TEXTEFFECT_COLOR_WARNING);
 
 					g_pUIManager->Show(INTRO_ACCOUNT, account_name_edit);
@@ -115,7 +115,7 @@ void ProcessIntroAccount( LPARAM lParam)
 }
 
 /**
- * ÀÎÆ®·Î ¼±ÅÃ ¹öÆ°
+ * ì¸íŠ¸ë¡œ ì„ íƒ ë²„íŠ¼
  * \param lParam 
  */
 void ProcessIntroButtonSet( LPARAM lParam)
@@ -129,10 +129,10 @@ void ProcessIntroButtonSet( LPARAM lParam)
 		{
 			if( g_pIntro && g_pIntro->m_bCharacterSelected)
 			{
-				// Ä³¸¯ÅÍ ¼³¸í Ã¢
+				// ìºë¦­í„° ì„¤ëª… ì°½
 				g_pUIManager->Hide(INTRO_WINDOW01);
 
-				// Ä³¸¯ÅÍ ¸¸µé±â
+				// ìºë¦­í„° ë§Œë“¤ê¸°
 				if( g_pIntro->m_byCharCount < 3 )
 				{
 					g_pUIManager->Show(INTRO_BUTTONSET, INTRO_BUTTON_01);
@@ -142,14 +142,14 @@ void ProcessIntroButtonSet( LPARAM lParam)
 				{
 					g_pUIManager->Hide(INTRO_BUTTONSET, INTRO_BUTTON_01);
 				}
-				// ½ÃÀÛ
+				// ì‹œì‘
 				g_pUIManager->Hide(INTRO_BUTTONSET, INTRO_BUTTON_04);
-				// Ã¤³Î
+				// ì±„ë„
 				g_pUIManager->Show(INTRO_BUTTONSET, INTRO_BUTTON_03);
-				// »Ö¸´½áÊø°´Å¥ÎÄ×Ö
+				// ë¿Ÿë¦¿ì¨ç›£ê°íåŒ¡ä¿š
 				g_pUIManager->SetString(INTRO_BUTTONSET, INTRO_BUTTON_02, IDS_TERMINATE);
 
-				// ±âÁ¸¿¡ ¾Ö´Ï¸ŞÀÌ¼ÇµÇ´Â °ÍÀ» Á¤ÁöÇÑ´Ù.
+				// ê¸°ì¡´ì— ì• ë‹ˆë©”ì´ì…˜ë˜ëŠ” ê²ƒì„ ì •ì§€í•œë‹¤.
 				g_pIntro->m_CharRender[g_pIntro->m_byCurrentCharIndex].SetAnimation( XiahAniType::eLAT_Stand, 0 );
 
 				g_pIntro->m_nCharacterSelectStep = 3;//eCST_ZoomOut;
@@ -159,7 +159,7 @@ void ProcessIntroButtonSet( LPARAM lParam)
 			}
 			else if( g_pIntro->GetCharCount() < CHARACTER_MAX)
 			{
-				// [12/20/2004] ¹è°æÀ½¾Ç º¯°æ
+				// [12/20/2004] ë°°ê²½ìŒì•… ë³€ê²½
 				Stop_BGM();
 				Play_BGM(_T("sound\\bgm\\intro02.mp3"), 1);
 
@@ -177,10 +177,10 @@ void ProcessIntroButtonSet( LPARAM lParam)
 		{
 			g_MainCharInfo.PlayInterfaceSound( ISOUND_GAME_START_BUTTON);
 
-			// [1/6/2005] ¿Á¼Ç
+			// [1/6/2005] ì˜¥ì…˜
 			if(g_pIntro->GetCurrentChar()->m_bAuction == 1)
 			{
-				// 2004.07.20 ÀÌº¥Æ®¿ë ·ÎµùÈ­¸é
+				// 2004.07.20 ì´ë²¤íŠ¸ìš© ë¡œë”©í™”ë©´
 				/*
 				if( rand() % 2 )
 				g_MainCharInfo.OpenFrame( EVENT_LOADING_1 );
@@ -189,9 +189,9 @@ void ProcessIntroButtonSet( LPARAM lParam)
 				*/
 
 				
-				g_MainCharInfo.OpenFrame(LOADING_IMAGE3); //HO_0702_07 µî±ŞÇ¥½Ã : µî±ŞÇ¥½Ã¿Í ÇÔ°Ô ½ºÅ¸Æ®·Îµù°ú °ÔÀÓ·Îµù ºÎºĞÀÌ µ¿ÀÏ ÀÌ¹ÌÁö·Î Ã³¸®µÈ´Ù.
+				g_MainCharInfo.OpenFrame(LOADING_IMAGE3); //HO_0702_07 ë“±ê¸‰í‘œì‹œ : ë“±ê¸‰í‘œì‹œì™€ í•¨ê²Œ ìŠ¤íƒ€íŠ¸ë¡œë”©ê³¼ ê²Œì„ë¡œë”© ë¶€ë¶„ì´ ë™ì¼ ì´ë¯¸ì§€ë¡œ ì²˜ë¦¬ëœë‹¤.
 				
-				//µî±ŞÇ¥½Ã Àû¿ëÀü ÄÚµå ³ªÁß¿¡ Áö¿ö ¹ö¸®ÀÚ ..; µî±ŞÇ¥½Ã Àü¿¡´Â ³ªÀÌ ±¸ºĞÀÌ ÀÖ¾ù´Ù...
+				//ë“±ê¸‰í‘œì‹œ ì ìš©ì „ ì½”ë“œ ë‚˜ì¤‘ì— ì§€ì›Œ ë²„ë¦¬ì ..; ë“±ê¸‰í‘œì‹œ ì „ì—ëŠ” ë‚˜ì´ êµ¬ë¶„ì´ ìˆì—‡ë‹¤...
 				//if(g_AppData.m_bAdult)
 				//	g_MainCharInfo.OpenFrame(LOADING_IMAGE2);
 				//else
@@ -209,7 +209,7 @@ void ProcessIntroButtonSet( LPARAM lParam)
 				g_RainSnow.AllStop();
 
 
-				// ±â
+				// ê¸°
 				for(int i=0;i < 5; ++i)
 				{
 					g_pUIManager->Hide(MAIN_FRAME, main_frame_1_gauge_01 + i);
@@ -221,12 +221,12 @@ void ProcessIntroButtonSet( LPARAM lParam)
 			}			
 		}
 		break;	
-	case INTRO_BUTTON_03:	// Ã¤³Î ¼±ÅÃ
+	case INTRO_BUTTON_03:	// ì±„ë„ ì„ íƒ
 		{
 			g_MainCharInfo.PlayInterfaceSound(ISOUND_SELECT_BUTTON);
 			SendCS_NV_ENDGAME_REQ(1);			
 
-			// [6/14/2004] È¨ÆäÀÌÁö¿¡¼­ »èÁ¦
+			// [6/14/2004] í™ˆí˜ì´ì§€ì—ì„œ ì‚­ì œ
 
 		}
 		break;
@@ -294,7 +294,7 @@ void ProcessIntroCharacterSelect( LPARAM lParam)
 	}
 	else
 	{
-		// ½Ã¾Æ Ä³¸¯ÅÍµéÀ» ·ÎÅ×ÀÌ¼Ç. °Ë¿µ -> ¿¬¶û -> ¹«Åõ -> °Ë¿µ ... 
+		// ì‹œì•„ ìºë¦­í„°ë“¤ì„ ë¡œí…Œì´ì…˜. ê²€ì˜ -> ì—°ë‘ -> ë¬´íˆ¬ -> ê²€ì˜ ... 
 		switch( controlID )
 		{
 		case intro_character_select_right:
@@ -341,7 +341,7 @@ void ProcessIntroWindow( LPARAM lParam)
 }
 
 // login
-// °èÁ¤ ·Î±×ÀÎ
+// ê³„ì • ë¡œê·¸ì¸
 void ProcessLogin1(LPARAM lParam)
 {
 	int controlID = LOWORD(lParam);
@@ -355,7 +355,7 @@ void ProcessLogin1(LPARAM lParam)
 
 			if(!g_pUIManager->IsNotice())
 			{
-				// ÀÓ½Ã
+				// ì„ì‹œ
 				TCHAR strID[64], strPassWord[64];
 				memset(strID, 0, sizeof(strID));
 				memset(strPassWord, 0, sizeof(strPassWord));
@@ -438,7 +438,7 @@ void ProcessLogin1(LPARAM lParam)
 		}
 		break;
 
-		// RS [11/29/2005] ºñ¹Ğ¹øÈ£ º¯°æ Ãß°¡
+		// RS [11/29/2005] ë¹„ë°€ë²ˆí˜¸ ë³€ê²½ ì¶”ê°€
 	case login1_pw_change_button:
 		{
 			g_pUIManager->Hide(LOGIN_1, login1_ok);
@@ -501,7 +501,7 @@ void ProcessLogin1(LPARAM lParam)
 					int nChangePW = _tcslen(strChangePassWord1);
 					if(nChangePW)
 					{
-						// 4ÀÚ¸® ÀÌ»ó
+						// 4ìë¦¬ ì´ìƒ
 						if(nChangePW < 4)
 						{
 							g_pUIManager->ShowNotice(IDS_PW_CHANGE_06);							
@@ -513,14 +513,14 @@ void ProcessLogin1(LPARAM lParam)
 						{
 							if(_tcsicmp(strCurPassWord, strChangePassWord1) == 0)
 							{
-								// TODO: ±âÁ¸ ºñ¹ø°ú »õ ºñ¹øÀÌ °°À½
+								// TODO: ê¸°ì¡´ ë¹„ë²ˆê³¼ ìƒˆ ë¹„ë²ˆì´ ê°™ìŒ
 								g_pUIManager->ShowNotice(IDS_PW_CHANGE_04);
 								return;
 							}
 
 							if(_tcsicmp(strChangePassWord1, strChangePassWord2) != 0)
 							{
-								// TODO: »õ ºñ¹ø°ú ÀçÈ·¶¨ »õ ºñ¹øÀÌ Æ²¸²
+								// TODO: ìƒˆ ë¹„ë²ˆê³¼ ì¬íš…ë• ìƒˆ ë¹„ë²ˆì´ í‹€ë¦¼
 								g_pUIManager->ShowNotice(IDS_PW_CHANGE_05);
 								return;
 							}
@@ -531,19 +531,19 @@ void ProcessLogin1(LPARAM lParam)
 						}
 						else
 						{
-							// TODO: »õ ºñ¹ø ÀçÈ·¶¨
+							// TODO: ìƒˆ ë¹„ë²ˆ ì¬íš…ë•
 							g_pUIManager->ShowNotice(IDS_PW_CHANGE_03);
 						}
 					}
 					else
 					{
-						// TODO: »õ ºñ¹ø
+						// TODO: ìƒˆ ë¹„ë²ˆ
 						g_pUIManager->ShowNotice(IDS_PW_CHANGE_02);
 					}
 				}
 				else
 				{
-					// TODO: ºñ¹Ğ ¹øÈ£ ÀÔ·Â
+					// TODO: ë¹„ë°€ ë²ˆí˜¸ ì…ë ¥
 					g_pUIManager->ShowNotice(IDS_PW_CHANGE_01);
 				}
 			}
@@ -602,7 +602,7 @@ void ProcessLogin1(LPARAM lParam)
 	}
 }
 
-// Ã¤³Î ¼±ÅÃ
+// ì±„ë„ ì„ íƒ
 void ProcessLogin2(LPARAM lParam)
 {
 	int controlID = LOWORD(lParam);

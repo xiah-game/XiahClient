@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "ArrayIndexData.h"
 
@@ -10,7 +10,7 @@ namespace XiahArrayIndex
 	extern CArrayIndexData g_MapFileName;
 	extern CArrayIndexData g_MainCharType;
 	extern CArrayIndexData g_NpcType;
-	// ¼ºÀÎ¼­¹ö¿ë NPC
+	// ì„±ì¸ì„œë²„ìš© NPC
 	extern CArrayIndexData g_NpcType2;
 	extern CArrayIndexData g_MugongTemplate;
 	extern CArrayIndexData g_MugongList;
@@ -33,22 +33,22 @@ namespace XiahArrayIndex
 	extern CArrayIndexData g_QuestItem;
 	extern CArrayIndexData g_QuestScript;
 
-	// µµ¿ì¹Ì ´ëÈ­
+	// ë„ìš°ë¯¸ ëŒ€í™”
 	extern CArrayIndexData g_HelperScript;
 
-	// °¢¼º
+	// ê°ì„±
 	extern CArrayIndexData g_RebirthMugong_List;
 	extern CArrayIndexData g_RebirthMugong_Desc;
 
 	//extern CArrayIndexData g_SkillTiemIndex;
-	extern CArrayIndexData g_QuickIndex;				//HO_0413_07 Äü °¡ÀÌµå ¾÷µ¥ÀÌÆ®
+	extern CArrayIndexData g_QuickIndex;				//HO_0413_07 í€µ ê°€ì´ë“œ ì—…ë°ì´íŠ¸
 
-	//HT_0824 : Äù½ºÆ® µµ¿ì¹Ì Ãß°¡
+	//HT_0824 : í€˜ìŠ¤íŠ¸ ë„ìš°ë¯¸ ì¶”ê°€
 	extern CArrayIndexData g_QuestHelpList;
 	extern CArrayIndexData g_QuestMonList;
 	extern CArrayIndexData g_QuestNPCList;
 
-	// ¿ä³ÑÀº ³­Áß¿¡ Ä³¸¯ÅÍ³ª NPCÃß°¡ µÉ¶§ ¸¶´Ù ´Ã¾î³²
+	// ìš”ë„˜ì€ ë‚œì¤‘ì— ìºë¦­í„°ë‚˜ NPCì¶”ê°€ ë ë•Œ ë§ˆë‹¤ ëŠ˜ì–´ë‚¨
 	extern CArrayIndexData g_AniType[ XIAH_ANITYPE_COUNT];
 
 	extern	BOOL LoadXiahArrayIndex();

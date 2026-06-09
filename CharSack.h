@@ -1,10 +1,10 @@
-#pragma once
+ï»¿#pragma once
 
 #include "sack.h"
 
-#define DEFAULT_CELL_DISTANCE		3		// cell »çÀÌÀÇ °Å¸®
-#define DEFAULT_SACK_XSIZE			6		// °¡·Î cellÀÇ °³¼ö
-#define DEFAULT_SACK_YSIZE			6		// ¼¼·Î cellÀÇ °³¼ö
+#define DEFAULT_CELL_DISTANCE		3		// cell ì‚¬ì´ì˜ ê±°ë¦¬
+#define DEFAULT_SACK_XSIZE			6		// ê°€ë¡œ cellì˜ ê°œìˆ˜
+#define DEFAULT_SACK_YSIZE			6		// ì„¸ë¡œ cellì˜ ê°œìˆ˜
 
 
 /**
@@ -35,7 +35,7 @@ private:
 	LPDIRECT3DVERTEXBUFFER9	m_pMoneyVB;
 	LPDIRECT3DTEXTURE9		m_pMoneyTex;
 
-	// ´©¼ö ¼öÁ¤
+	// ëˆ„ìˆ˜ ìˆ˜ì •
 	virtual void DeleteItem( BYTE bSackPos, bool bDelete = false);
 	virtual BOOL CheckItemUnSelected();
 	virtual void SetVB( BYTE nPosition, XiahItem::sItemInfo* pItem);

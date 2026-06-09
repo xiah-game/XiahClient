@@ -1,4 +1,4 @@
-#include "precompile.h"
+ï»¿#include "precompile.h"
 #include "holditem.h"
 #include "CharacterInfo.h"
 #include "XiahArrayIndex.h"
@@ -344,7 +344,7 @@ void CHoldItem::SetItemBackToSack()
 				g_MainCharInfo.m_pEquipSack->InsertItem( GetHoldItemItem()->m_bSackPos, GetHoldItemItem());
 				break;
 			case SACKTYPE__PC_TRADE_MINE:
-				// ³» »öÀ¸·Î °¡¾ßÁö..
+				// ë‚´ ìƒ‰ìœ¼ë¡œ ê°€ì•¼ì§€..
 				g_MainCharInfo.m_pMySack[g_MainCharInfo.m_byMySackCurrIdx]->InsertItem( GetHoldItemItem()->m_bSackPos, GetHoldItemItem());
 				break;
 			case SACKTYPE__PERSONAL_TRADE_SET:
@@ -355,7 +355,7 @@ void CHoldItem::SetItemBackToSack()
 				if(g_MainCharInfo.m_pPersonalTradeSell)
 					g_MainCharInfo.m_pPersonalTradeSell->InsertItem(GetHoldItemItem()->m_bSackPos, GetHoldItemItem());
 				break;
-			case SACKTYPE__SMELT:	// Á¶ÇÕ
+			case SACKTYPE__SMELT:	// ì¡°í•©
 				{
 					if(g_MainCharInfo.m_pSmeltSack)
 						g_MainCharInfo.m_pSmeltSack->InsertItem(GetHoldItemItem()->m_bSackPos, GetHoldItemItem());
@@ -390,7 +390,7 @@ void CHoldItem::SetItemBackToSack()
 					}
 				}
 				break;
-			case SACKTYPE__COLLECTION:	// ¾ÆÀÌÅÛ ¼öÁý
+			case SACKTYPE__COLLECTION:	// ì•„ì´í…œ ìˆ˜ì§‘
 				{
 					g_MainCharInfo.m_pCollection->InsertItem(GetHoldItemItem()->m_bSackPos, GetHoldItemItem());
 				}
@@ -453,9 +453,9 @@ void CHoldItem::ThrowItem( BYTE byType)
 			float posx = pMainObj->m_Position.x + fix_x;
 			float posz = -pMainObj->m_Position.z + fix_z;
 
-			if(XiahMap::g_Map_Attri.Get_Attr(posx,posz) == 0x01)	// µé¾î°¥¼ö ¾ø´Â°÷ÀÌ¸é ´Ù½Ã!
+			if(XiahMap::g_Map_Attri.Get_Attr(posx,posz) == 0x01)	// ë“¤ì–´ê°ˆìˆ˜ ì—†ëŠ”ê³³ì´ë©´ ë‹¤ì‹œ!
 			{
-				DBG_Put( _T("µé¾î°¥¼ö ¾ø´Â°÷¿¡ ¾ÆÀÌÅÛ µå·Ó!"));
+				DBG_Put( _T("ë“¤ì–´ê°ˆìˆ˜ ì—†ëŠ”ê³³ì— ì•„ì´í…œ ë“œë¡­!"));
 			}
 
 			SendCS_IM_THROW_REQ( GetHoldItemItem()->m_bSackCount+1,

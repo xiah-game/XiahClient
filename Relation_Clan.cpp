@@ -1,4 +1,4 @@
-
+ï»¿
 bool UDgreater( sClanWonInfo* elem1, sClanWonInfo* elem2 )
 {
 	return elem1->m_dwOrderID < elem2->m_dwOrderID;
@@ -161,7 +161,7 @@ void CRelation::RefreshClanContent()
 	if(!g_pUIManager->IsShow(WINDOW_MUNPA))
 		return;
 
-	// ÀÏ´Ü ÇÑ¹ø ½Ï Áö¿öÁÖ°í
+	// ì¼ë‹¨ í•œë²ˆ ì‹¹ ì§€ì›Œì£¼ê³ 
 	for( int k=0; k < MAX_NUM_IN_FRAME_CLAN; ++k)
 	{
 		g_pUIManager->SetString(WINDOW_MUNPA, munpa_window_list_dummy_01 + k, _T(""));
@@ -199,8 +199,8 @@ void CRelation::RefreshClanContent()
 
 		if( pInfo)
 		{
-			// Á¤º¸¼ÂÆÃ
-			// ¾È¾¾ ¿Ö ÀÌ·¸°Ô ºñ±³ÇßÁö? 
+			// ì •ë³´ì…‹íŒ…
+			// ì•ˆì”¨ ì™œ ì´ë ‡ê²Œ ë¹„êµí–ˆì§€? 
 //			if( pInfo->m_dwCharID == g_MainCharInfo.m_dwObjectID)
 //			{
 //				g_pUIManager->SetString(WINDOW_MUNPA, found_window_contents_dummy_001, m_szClanName);
@@ -210,16 +210,16 @@ void CRelation::RefreshClanContent()
 //				g_pUIManager->SetString(WINDOW_MUNPA, found_window_contents_dummy_005, m_vClan.size());
 //			}
 
-			// ÀÌ¸§
+			// ì´ë¦„
 			g_pUIManager->SetString(WINDOW_MUNPA, munpa_window_list_dummy_01 + i, (LPCTSTR)pInfo->m_szCharName);			
 
-			// È£Äª
+			// í˜¸ì¹­
 			g_pUIManager->SetString(WINDOW_MUNPA, munpa_window_list_dummy_09 + i, (LPCTSTR)pInfo->m_szMunpaNickName);
 
-			// Á÷Ã¥
+			// ì§ì±…
 			g_pUIManager->SetString(WINDOW_MUNPA, munpa_window_list_dummy_001 + i, (LPCTSTR)pInfo->m_szOrderName);
 
-			// Á¢¼Ó¿©ºÎ
+			// ì ‘ì†ì—¬ë¶€
 			g_pUIManager->Show(WINDOW_MUNPA, munpa_window_icon_01 + i);
 
 			if( pInfo->m_bState)
@@ -259,7 +259,7 @@ bool CRelation::Am_I_2stLeaderInClan()
 
 	if(pClanInfo)
 	{
-		// ¾Ë¼ö ÀÖ´Â Å¸ÀÔµµ ¾ø±â¿¡ ¼­¹ö¿¡¼­ ¿À´Â ÀÌ¸§À¸·Î ºñ±³ ÁÖÀÇ¿ä¸Á
+		// ì•Œìˆ˜ ìˆëŠ” íƒ€ì…ë„ ì—†ê¸°ì— ì„œë²„ì—ì„œ ì˜¤ëŠ” ì´ë¦„ìœ¼ë¡œ ë¹„êµ ì£¼ì˜ìš”ë§
 		if(stricmp(pClanInfo->m_szOrderName, IDS_BUMUNJU) == 0)
 			return true;
 	}

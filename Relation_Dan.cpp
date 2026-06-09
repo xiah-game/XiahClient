@@ -1,4 +1,4 @@
-#include "XiahMap.h"
+ï»¿#include "XiahMap.h"
 
 ///////////////////////////////////////////////
 // Dan
@@ -6,7 +6,7 @@
 #define DANDRAW_LEFT		250
 #define DANDRAW_TOP			25		
 #define DANDRAW_BOTTOM		20
-#define DANDRAW_GAGETOP		60//HT_0403 : Áö¼ÓÇü ¹«°ø ½ÃÀü ¾ÆÀÌÄÜ( ´Ü °ÔÀÌÁö ¼öÁ¤)
+#define DANDRAW_GAGETOP		60//HT_0403 : ì§€ì†í˜• ë¬´ê³µ ì‹œì „ ì•„ì´ì½˜( ë‹¨ ê²Œì´ì§€ ìˆ˜ì •)
 #define DANDRAW_DISTANCE	20
 #define DANDRAW_LENGTH		80
 
@@ -54,7 +54,7 @@ void CRelation::DrawDanInfo()
 	if( !Am_I_InDan())
 		return;
 	
-	// ´Ü °æÇèÄ¡ ºĞ¹è
+	// ë‹¨ ê²½í—˜ì¹˜ ë¶„ë°°
 
 	for( int i=0; i < m_vDan.size(); ++i)
 	{		
@@ -63,7 +63,7 @@ void CRelation::DrawDanInfo()
 			sRect rtRegion;
 			rtRegion.left	= DANDRAW_LEFT + (DANDRAW_LENGTH + DANDRAW_DISTANCE)*i;
 			rtRegion.right	= rtRegion.left + DANDRAW_LENGTH;
-			rtRegion.top	= DANDRAW_GAGETOP - DANDRAW_TOP;//HT_0403 : Áö¼ÓÇü ¹«°ø ½ÃÀü ¾ÆÀÌÄÜ( ´Ü °ÔÀÌÁö ¼öÁ¤ )
+			rtRegion.top	= DANDRAW_GAGETOP - DANDRAW_TOP;//HT_0403 : ì§€ì†í˜• ë¬´ê³µ ì‹œì „ ì•„ì´ì½˜( ë‹¨ ê²Œì´ì§€ ìˆ˜ì • )
 			rtRegion.bottom = DANDRAW_BOTTOM;
 
 			m_text2D.SetParentRect( &rtRegion);
@@ -75,7 +75,7 @@ void CRelation::DrawDanInfo()
 
 			if( pObject)
 			{
-				// »ı¸í·Â
+				// ìƒëª…ë ¥
 				CXiahCharObject* pCharObject = (CXiahCharObject*)pObject->m_pObject;
 				if( pCharObject)
 				{					
@@ -92,7 +92,7 @@ void CRelation::DrawDanInfo()
 				//if(g_pUIManager->IsShow(WINDOW_DAN) && m_eCurrType == eDAN)
 				if(g_pUIManager->IsShow(WINDOW_DAN_NEW) && m_eCurrType == eDAN)
 				{	
-					// À§Ä¡
+					// ìœ„ì¹˜
 					g_pUIManager->SetString(WINDOW_DAN, dan_window_list_dummy_14 + i, IDS_ABLE);
 				}
 			}
@@ -101,7 +101,7 @@ void CRelation::DrawDanInfo()
 				//if(g_pUIManager->IsShow(WINDOW_DAN) && m_eCurrType == eDAN)
 				if(g_pUIManager->IsShow(WINDOW_DAN_NEW) && m_eCurrType == eDAN)
 				{
-					// À§Ä¡
+					// ìœ„ì¹˜
 					g_pUIManager->SetString(WINDOW_DAN, dan_window_list_dummy_14 + i, IDS_DISABLE);
 				}
 			}
@@ -249,7 +249,7 @@ void CRelation::ClearDan()
 	g_pUIManager->Hide(WINDOW_DAN, dan_window_2button_01);
 	g_pUIManager->Hide(WINDOW_DAN, dan_window_2button_02);
 
-	// ´Ü °æÇèÄ¡ ºĞ¹è
+	// ë‹¨ ê²½í—˜ì¹˜ ë¶„ë°°
 	g_MainCharInfo.CloseFrame(WINDOW_DAN_NEW);
 	g_pUIManager->Show(WINDOW_DAN_NEW, window_dan_new_1button);
 	g_pUIManager->Hide(WINDOW_DAN_NEW, window_dan_new_2button_01);
@@ -287,7 +287,7 @@ void CRelation::SetDanLeader( DWORD dwDanLeader)
 
 	TCHAR content[128] = {0,};
 
-	//HT_0423 : ´ÜÁÖ À§ÀÓ
+	//HT_0423 : ë‹¨ì£¼ ìœ„ì„
 	if(dwDanLeader == g_MainCharInfo.m_dwObjectID)
 		_stprintf( content, IDS_DANCOMMIT_MYSELF);
 	else
@@ -301,11 +301,11 @@ void CRelation::RefreshDanContent()
 	if(!g_pUIManager)
 		return;
 
-	// °æÇèÄ¡ ºĞ¹è
+	// ê²½í—˜ì¹˜ ë¶„ë°°
 	if(/*!g_pUIManager->IsShow(WINDOW_DAN) ||*/ m_eCurrType != eDAN)
 		return;
 
-	// ÀÏ´Ü ÇÑ¹ø ½Ï Áö¿öÁÖ°í
+	// ì¼ë‹¨ í•œë²ˆ ì‹¹ ì§€ì›Œì£¼ê³ 
 	for( int k=0; k < 5; ++k)
 	{
 		g_pUIManager->SetString(WINDOW_DAN, dan_window_list_dummy_04 + k, _T(""));
@@ -317,12 +317,12 @@ void CRelation::RefreshDanContent()
 		g_pUIManager->SetString(WINDOW_DAN_NEW, window_dan_new_list_dummy14 + k, _T(""));
 	}
 
-	// ³»¿ëÀ» Àû¾îÁÖ±â
+	// ë‚´ìš©ì„ ì ì–´ì£¼ê¸°
 	g_pUIManager->SetString(WINDOW_DAN, dan_window_list_dummy_01, IDS_NAME);
 	g_pUIManager->SetString(WINDOW_DAN, dan_window_list_dummy_02, IDS_LEVEL);
 	g_pUIManager->SetString(WINDOW_DAN, dan_window_list_dummy_03, IDS_EXP_SHARE);
 
-	// °æÇèÄ¡ ºĞ¹è
+	// ê²½í—˜ì¹˜ ë¶„ë°°
 	g_pUIManager->SetString(WINDOW_DAN_NEW, window_dan_new_list_dummy1, IDS_NAME);
 	g_pUIManager->SetString(WINDOW_DAN_NEW, window_dan_new_list_dummy2, IDS_LEVEL);
 	g_pUIManager->SetString(WINDOW_DAN_NEW, window_dan_new_list_dummy3, IDS_EXP_SHARE);
@@ -331,17 +331,17 @@ void CRelation::RefreshDanContent()
 	{
 		if( m_vDan[i] && m_vDan[i]->m_dwCharID != g_MainCharInfo.m_dwObjectID)
 		{
-			// ´Ü °æÇèÄ¡ ºĞ¹è
+			// ë‹¨ ê²½í—˜ì¹˜ ë¶„ë°°
 
-			// ÀÌ¸§
+			// ì´ë¦„
 			if( m_dwDanLeader == m_vDan[i]->m_dwCharID)
-				g_pUIManager->SetString(WINDOW_DAN_NEW, window_dan_new_list_dummy4 + i, (LPCTSTR)m_vDan[i]->m_szNickName, 9);//HO_0424_07 ÆÄ¶û»ö ¼öÁ¤ ¿äÃ» ³ë¶û»öÀ¸·Î º¯°æ
+				g_pUIManager->SetString(WINDOW_DAN_NEW, window_dan_new_list_dummy4 + i, (LPCTSTR)m_vDan[i]->m_szNickName, 9);//HO_0424_07 íŒŒë‘ìƒ‰ ìˆ˜ì • ìš”ì²­ ë…¸ë‘ìƒ‰ìœ¼ë¡œ ë³€ê²½
 			//g_pUIManager->SetString(WINDOW_DAN, dan_window_list_dummy_04 + i, (LPCTSTR)m_vDan[i]->m_szNickName, 1);
 			else
 				g_pUIManager->SetString(WINDOW_DAN_NEW, window_dan_new_list_dummy4 + i, (LPCTSTR)m_vDan[i]->m_szNickName);
 			//g_pUIManager->SetString(WINDOW_DAN, dan_window_list_dummy_04 + i, (LPCTSTR)m_vDan[i]->m_szNickName);
 
-			// ·¹º§, 150°©ÀÚ ÃÊ°ú½Ã 
+			// ë ˆë²¨, 150ê°‘ì ì´ˆê³¼ì‹œ 
 			if(m_vDan[i]->m_byLevel < 150)
 			{
                 g_pUIManager->SetString(WINDOW_DAN_NEW, window_dan_new_list_dummy9 + i, m_vDan[i]->m_byLevel);
@@ -352,9 +352,9 @@ void CRelation::RefreshDanContent()
 			}
 			//g_pUIManager->SetString(WINDOW_DAN, dan_window_list_dummy_09 + i, m_vDan[i]->m_byLevel);
 
-			// °æÇèÄ¡ °øÀ¯
+			// ê²½í—˜ì¹˜ ê³µìœ 
 			//XiahObject::CXiahObject* pObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, m_vDan[i]->m_dwCharID, OBJTYPE_PC));
-			// [6/10/2005] ´Ü ¸Ê
+			// [6/10/2005] ë‹¨ ë§µ
 
 			if(XiahMap::g_XiahMap.m_MapInfo.m_dwMapID == m_vDan[i]->m_dwMapID)
 			{

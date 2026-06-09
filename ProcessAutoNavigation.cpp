@@ -1,4 +1,4 @@
-
+ï»¿
 #define MAIN_CHAROBJECT	((CXiahCharObject*)(g_pMainChar->m_pObject))
 
 #define STOP_MAINCHAR	\
@@ -41,7 +41,7 @@ BOOL ProcessAutoNavigation(int mode)
 	WORD angle;
 	float fMoveSpeed;
 	
-	// ¼±ÅÃµÈ ³ÑÀÌ ¾ø¾îÁö¸é ÀÚµ¿ Á¾·á
+	// ì„ íƒëœ ë„˜ì´ ì—†ì–´ì§€ë©´ ìžë™ ì¢…ë£Œ
 	if( dwSelObjectID == 0)
 	{
 		bAutoNavigation = FALSE;
@@ -82,17 +82,17 @@ BOOL ProcessAutoNavigation(int mode)
 		return TRUE;
 	}
 
-	// °Å¸® Ã¼Å©
+	// ê±°ë¦¬ ì²´í¬
 	float fRange = pSelCharObject->GetInteractionDistance( MAIN_CHAROBJECT->m_Position);
 
-	// ¿òÁ÷ÀÏ¶§´Â ¾à°£ ´õ ¾ÈÂÊÀ¸·Î µé¾î°¥ ¼ö ÀÖ°Ô ÇØÁØ´Ù, ±×·¡¾ß ¶³¸®´Â°É ¸·À» ¼ö ÀÖ°Ú´Ù.
+	// ì›€ì§ì¼ë•ŒëŠ” ì•½ê°„ ë” ì•ˆìª½ìœ¼ë¡œ ë“¤ì–´ê°ˆ ìˆ˜ ìžˆê²Œ í•´ì¤€ë‹¤, ê·¸ëž˜ì•¼ ë–¨ë¦¬ëŠ”ê±¸ ë§‰ì„ ìˆ˜ ìžˆê² ë‹¤.
 	if( bMove)
 		fRange += 3;
 
-	// ÀÎÅÍ·º¼Ç °Å¸®°¡ ¹üÀ§¾È¿¡ µé¾î¿À¸é µ¿ÀÛÀ» ½ÃÀÛÇÑ´Ù.
+	// ì¸í„°ë ‰ì…˜ ê±°ë¦¬ê°€ ë²”ìœ„ì•ˆì— ë“¤ì–´ì˜¤ë©´ ë™ìž‘ì„ ì‹œìž‘í•œë‹¤.
 	if( fRange < fInteractionRange)
 	{
-		// ¿òÁ÷ÀÌ´ÂÁßÀÌ¸é ¸ØÃß¾îÁÖ°í
+		// ì›€ì§ì´ëŠ”ì¤‘ì´ë©´ ë©ˆì¶”ì–´ì£¼ê³ 
 		if( bMove)
 		{
 			g_MainChar_PreAttackInfo.nRemainAttackCount	 = 0;
@@ -100,8 +100,8 @@ BOOL ProcessAutoNavigation(int mode)
 			STOP_MAINCHAR;
 		}
 
-		// ÀÎÅÍ·º¼Ç Ã³¸®¸¦ ÇÑ´Ù
-		//HT_CHEAT : Æê ÀÚµ¿ Áß¿¡´Â ¶§¸®Áö ¸»¾Æ¾ßÁö
+		// ì¸í„°ë ‰ì…˜ ì²˜ë¦¬ë¥¼ í•œë‹¤
+		//HT_CHEAT : íŽ« ìžë™ ì¤‘ì—ëŠ” ë•Œë¦¬ì§€ ë§ì•„ì•¼ì§€
 		if(g_bCheat)
 		{
 			if(g_PetList.size() == 0 || g_MainCharInfo.m_bCheat)
@@ -127,7 +127,7 @@ BOOL ProcessAutoNavigation(int mode)
 			{
 				//STOP_MAINCHAR;
 				//STARTMOVE_MAINCHAR;
-				KEEPMOVE_MAINCHAR ;	// ¿òÁ÷ÀÓÀ» À¯ÁöÇØ¾ßÇÑ´Ù. ¾Æ´Ï¸é ²ö±â´Â µ¿ÀÛÀÌ ³ª¿Â´Ù.
+				KEEPMOVE_MAINCHAR ;	// ì›€ì§ìž„ì„ ìœ ì§€í•´ì•¼í•œë‹¤. ì•„ë‹ˆë©´ ëˆê¸°ëŠ” ë™ìž‘ì´ ë‚˜ì˜¨ë‹¤.
 				return TRUE;
 			}
 		}
@@ -144,11 +144,11 @@ BOOL ProcessAutoNavigation(int mode)
 			WORD curAngle;
 			MAIN_CHAROBJECT->GetAngle( curAngle);
 
-			if( ABS( curAngle - desAngle) > 30)	// 30µµ ÀÌ»ó Â÷ÀÌ°¡ ³ª¸é
+			if( ABS( curAngle - desAngle) > 30)	// 30ë„ ì´ìƒ ì°¨ì´ê°€ ë‚˜ë©´
 			{
 				//STOP_MAINCHAR;
 				//STARTMOVE_MAINCHAR;
-				KEEPMOVE_MAINCHAR ;	// ¿òÁ÷ÀÓÀ» À¯ÁöÇØ¾ßÇÑ´Ù. ¾Æ´Ï¸é ²ö±â´Â µ¿ÀÛÀÌ ³ª¿Â´Ù.
+				KEEPMOVE_MAINCHAR ;	// ì›€ì§ìž„ì„ ìœ ì§€í•´ì•¼í•œë‹¤. ì•„ë‹ˆë©´ ëˆê¸°ëŠ” ë™ìž‘ì´ ë‚˜ì˜¨ë‹¤.
 				g_MainChar_PreAttackInfo.nRemainAttackCount	 = 0;
 				g_MainChar_PreAttackInfo.dwLastPreAttackTime = 0;
 			}
