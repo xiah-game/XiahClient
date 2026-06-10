@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <vector>
 #include "XiahObject.h"
@@ -587,12 +587,14 @@ public:
 
 inline void CXiahCharObject::EffectTimeUpdate(_EFFECTPACKAGEPAIR* pEffect, float fLocalFrameScale)
 {
-	if(pEffect)
+	// 排除 NULL 和哨兵值 (_EFFECTPACKAGEPAIR*)1（表示特效分配失败）
+	if(pEffect && pEffect != (_EFFECTPACKAGEPAIR*)1)
 	{
 		pEffect->dwElapsedTime += fLocalFrameScale;
 		pEffect->bIsVisible = false;
 	}
 }
+
 
 // 서버에서 보내준 특정 오브젝트의 액션상의 위치를 체크한다
 // 리턴값이 TRUE일때만 Charinfo나 npcinfo기타 등등을 요청한다

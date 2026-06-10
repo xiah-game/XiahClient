@@ -714,6 +714,20 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 			};
 		}
 		break;
+	case WM_SYSKEYDOWN:
+		{
+			// F10 generates WM_SYSKEYDOWN, not WM_KEYDOWN
+			if (wParam == VK_F10 && g_XiahGameStarted) {
+				extern BOOL g_bCheat;
+				extern BOOL g_bCheatEtc;
+				if (g_bCheat) {
+					g_bCheat = FALSE;
+					g_bCheatEtc = FALSE;
+				}
+				return 0;
+			}
+		}
+		break;
 	case WM_KEYDOWN:
 		{
 			// 게임이 시작되지 않으면 HOT키는 무시다.
@@ -749,9 +763,13 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 
 				case VK_F10:
 					{
-						// Auto-hunt toggle moved to F9 config window button
-						//g_bCheat = !g_bCheat;
-						//g_bCheatEtc = !g_bCheatEtc;	
+						// F10: Stop auto-hunt
+						extern BOOL g_bCheat;
+						extern BOOL g_bCheatEtc;
+						if (g_bCheat) {
+							g_bCheat = FALSE;
+							g_bCheatEtc = FALSE;
+						}
 					}
 					break;
 						// 퀵 슬롯 확장
@@ -1057,27 +1075,15 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 				}
 				break;
 
-			case VK_F11://VK_F10
+			case VK_F10:
 				{
-					WORD wPosX = 0;
-					WORD wPosY = 0;
-
-					CXiahCharObject *pCharObject = (CXiahCharObject*)g_pMainChar->m_pObject;
-					pCharObject->GetPosition( wPosX, wPosY);
-
-					g_MainCharInfo.m_wPosX = wPosX;
-					g_MainCharInfo.m_wPosY = wPosY;
-
-					// Auto-hunt toggle moved to F9 config window button
-					//if(g_bCheat && !g_bCheatEtc)
-					//{
-					//	g_bCheatEtc = !g_bCheatEtc;	
-					//}
-					//else
-					//{
-					//	g_bCheat = !g_bCheat;
-					//	g_bCheatEtc = !g_bCheatEtc;	
-					//}
+					// F10: Stop auto-hunt
+					extern BOOL g_bCheat;
+					extern BOOL g_bCheatEtc;
+					if (g_bCheat) {
+						g_bCheat = FALSE;
+						g_bCheatEtc = FALSE;
+					}
 				}
 				break;
 

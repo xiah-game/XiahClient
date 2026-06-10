@@ -1,4 +1,4 @@
-﻿#include "XiahCheatConfig.h"
+#include "XiahCheatConfig.h"
 /*
 	우웩~~~ 떡대 쟁이 코드 됐다~~
 */
@@ -337,6 +337,12 @@ BOOL ProcessMainChar()
 
 
 //HT_CHEAT : 자동 공격
+	// 挂机中心点初始化：在所有挂机逻辑之前记录，确保是玩家点击“开始挂机”时的真实位置
+	if (g_bCheat && g_bUseHomePoint && g_wHomeX == 0 && g_wHomeY == 0) {
+		pMainChar->GetPosition(g_wHomeX, g_wHomeY);
+		g_dwLastAttackTime = g_dwCurTime;
+		SaveCheatConfig();
+	}
 	// 자동 공격&& g_bCheatEtc&& g_bCheatEtc
 	if(g_bCheatEtc)
 	{
@@ -349,6 +355,7 @@ BOOL ProcessMainChar()
 			if(dwMugongID)
 			{
 				g_dwCheatTime = g_dwCurTime;
+				g_dwLastAttackTime = g_dwCurTime; // 技能施法也算攻击行为，刷新空闲计时器
 
 				// 从渲染对象获取实时坐标（而非 g_MainCharInfo 缓存值）
 				CXiahCharObject *pCharObject = (CXiahCharObject*)g_pMainChar->m_pObject;
@@ -372,18 +379,52 @@ BOOL ProcessMainChar()
 			}
 			else
 			{
-				// 每10秒只提示一次，避免刷屏
-				static DWORD s_dwLastWarnTime = 0;
-				if (g_dwCurTime - s_dwLastWarnTime > 10000) {
-					g_MainCharInfo.ShowHelpMessage(_T("<<请选择武功>>"), TEXTEFFECT_COLOR_WARNING);
-					s_dwLastWarnTime = g_dwCurTime;
-				}
 			}
 		}
 	}
 	else if(g_bCheat  && g_dwCurTime - g_dwCheatTime > 500 && dwSelObjectID == 0 && dwSelObjectType == 0)
 	{
-		ProcessAutoAttack( pMainChar);
+		// 空闲回归中心点检测：当启用中心点且超时未攻击时，自动走回中心点
+		if (g_bUseHomePoint && g_nIdleReturnSec > 0 && g_wHomeX > 0 && g_wHomeY > 0) {
+			DWORD dwIdleMs = (DWORD)g_nIdleReturnSec * 1000;
+			float dx = pMainChar->m_Position.x - (float)g_wHomeX;
+			float dy = (-pMainChar->m_Position.z) - (float)g_wHomeY;
+			float fDistSq = dx*dx + dy*dy;
+			if (!g_bReturningHome && g_dwLastAttackTime > 0 && (g_dwCurTime - g_dwLastAttackTime) > dwIdleMs) {
+				if (fDistSq > 25.0f) {
+					g_bReturningHome = TRUE;
+					// 构造3D目标点（与引擎原生移动流程一致）
+					Vector3 vHome((float)g_wHomeX, 0, -(float)g_wHomeY);
+					WORD angle;
+					pMainChar->SetAngleTarget(vHome);
+					pMainChar->GetAngle(angle);
+					pMainChar->Update(1);
+					pMainChar->SetTargetMove(g_wHomeX, g_wHomeY, eLBP_CharNavigation, 0);
+					pMainChar->SetAnimation(XiahAniType::eLAT_Run, 1);
+					SendCS_NV_STARTMOVE_REQ(g_pMainChar->m_dwServerID,
+						(WORD)pMainChar->m_Position.x, (WORD)(-pMainChar->m_Position.z), (BYTE)pMainChar->m_Position.y,
+						g_wHomeX, g_wHomeY, (BYTE)pMainChar->m_Position.y, (WORD)angle, CHARSTATE_NORMAL, 9);
+				} else {
+					// 已在中心点附近，重置空闲计时器继续寻怪
+					g_dwLastAttackTime = g_dwCurTime;
+				}
+			}
+			// 回归中：检测是否到达中心点
+			if (g_bReturningHome) {
+				if (fDistSq <= 25.0f || !pMainChar->m_bTargetMove) {
+					// 到达中心点或停止移动，重置状态开始重新寻怪
+					g_bReturningHome = FALSE;
+					g_dwLastAttackTime = g_dwCurTime;
+					pMainChar->SetAnimation(XiahAniType::eLAT_Stand, 0);
+					SendCS_NV_ENDMOVE_REQ(g_pMainChar->m_dwServerID, pMainChar->m_Position.x, -pMainChar->m_Position.z, pMainChar->m_Position.y, CHARSTATE_NORMAL);
+				}
+				// 回归路上不找怪，跳过下面的 ProcessAutoAttack
+			} else {
+				ProcessAutoAttack( pMainChar);
+			}
+		} else {
+			ProcessAutoAttack( pMainChar);
+		}
 
 		//펫 자동 먹이 및 야생성 
 		if(g_PetList.size() > 0)
@@ -1185,6 +1226,8 @@ void ProcessAutoAttack( CXiahCharObject *pMainChar)
 ///////////////////////////////////////////////////
 {
 	g_dwCheatTime = g_dwCurTime;
+	// 注意：g_dwLastAttackTime 只在实际找到怪物时才刷新，不在此处刷新
+	// 否则空闲计时器永远不会超时，回中心点功能失效
 
 	XiahObject::CXiahObjectManager::iterator it;
 	CXiahCharObject* pSelCharObject = NULL;
@@ -1219,6 +1262,11 @@ void ProcessAutoAttack( CXiahCharObject *pMainChar)
 			dwSelObjectType = pCharObject->m_bObjType;
 			pSelCharObject = pCharObject;
 		}
+	}
+	
+	// 找到怪物才刷新空闲计时器（没找到不刷新，让空闲超时逻辑可以触发回中心点）
+	if (pSelCharObject) {
+		g_dwLastAttackTime = g_dwCurTime;
 	}
 	
 	//HT_CHEAT : 펫 사냥 처리

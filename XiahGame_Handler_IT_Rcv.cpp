@@ -1,4 +1,4 @@
-﻿
+
 bool g_bFirstCharListAck = true;
 
 /**
@@ -1842,6 +1842,18 @@ int OnCS_IT_IMREADY_ACK( CMsg &msg)
 {
 	g_MainCharInfo.m_bMainCharDie = FALSE;
 	g_MainCharInfo.m_bMainCharMapMoveItemUse = FALSE;
+
+	// 复活完成后恢复死亡前的挂机状态（挂机总开关在死亡时被保存到暂存变量）
+	extern BOOL g_bCheat;
+	extern BOOL g_bCheatEtc;
+	extern BOOL s_bCheatBeforeDeath;
+	extern BOOL s_bCheatEtcBeforeDeath;
+	if (s_bCheatBeforeDeath || s_bCheatEtcBeforeDeath) {
+		g_bCheat = s_bCheatBeforeDeath;
+		g_bCheatEtc = s_bCheatEtcBeforeDeath;
+		s_bCheatBeforeDeath = FALSE;
+		s_bCheatEtcBeforeDeath = FALSE;
+	}
 
 	g_MainCharInfo.m_pHelpMsg->AllDeleteScrMsg();
 

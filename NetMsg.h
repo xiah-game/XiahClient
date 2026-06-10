@@ -1,4 +1,4 @@
-﻿// Msg.h: interface for the CMsg class.
+// Msg.h: interface for the CMsg class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -9,7 +9,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#define MSG_DEFAULT_SIZE	4096
+#define MSG_DEFAULT_SIZE	8192	// 原4096不足以容纳大NPC商店物品列表（如66件装备≈5395字节），扩大到8192
 #define MSG_HEADER_SIZE		4
 #define MSG_INVALID_MSG		65535
 

@@ -1,4 +1,4 @@
-﻿#ifndef __XIAH_CHEAT_CONFIG_H__
+#ifndef __XIAH_CHEAT_CONFIG_H__
 #define __XIAH_CHEAT_CONFIG_H__
 
 #include <windows.h>
@@ -55,6 +55,13 @@ extern BOOL g_bAutoSellAll;
 extern BOOL g_bBanSellFilter;
 extern TCHAR g_szBanSellList[4096];
 BOOL IsBanSellFiltered(const TCHAR* szItemName);
+
+// 挂机中心点 & 空闲回归
+extern BOOL  g_bUseHomePoint;      // 是否启用中心点回归
+extern WORD  g_wHomeX, g_wHomeY;   // 中心点坐标（开始挂机时自动记录，或手动设定）
+extern int   g_nIdleReturnSec;     // 空闲N秒后回中心点（0=禁用）
+extern DWORD g_dwLastAttackTime;   // 运行时：上次攻击/拾取的时间戳
+extern BOOL  g_bReturningHome;     // 运行时：正在回中心点的途中
 
 // Forward declaration of XiahItem::sItemInfo
 namespace XiahItem {

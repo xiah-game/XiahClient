@@ -1,4 +1,4 @@
-﻿#include "cjoystic.h"
+#include "cjoystic.h"
 #include "XiahEnvInfo.h"
 //#include "SkillTime.h"
 
@@ -495,6 +495,10 @@ bool GetHitEffectType(BYTE byDefObjType, BYTE byDefSubType, int &nPosX, int &nPo
 	return true;
 }
 
+// 死亡时暂存挂机状态，复活后自动恢复（需跨编译单元访问，不能是 static）
+BOOL s_bCheatBeforeDeath = FALSE;
+BOOL s_bCheatEtcBeforeDeath = FALSE;
+
 int OnCS_BT_CHANGEMODE_ACK(CMsg &msg)
 {
 	DWORD dwObjectID	=0;
@@ -548,6 +552,14 @@ int OnCS_BT_CHANGEMODE_ACK(CMsg &msg)
 				{
 					// 俳 探 卮
 					g_MainCharInfo.m_IsStarted = TRUE;
+
+					// 复活时恢复死亡前的挂机状态
+					if (s_bCheatBeforeDeath || s_bCheatEtcBeforeDeath) {
+						g_bCheat = s_bCheatBeforeDeath;
+						g_bCheatEtc = s_bCheatEtcBeforeDeath;
+						s_bCheatBeforeDeath = FALSE;
+						s_bCheatEtcBeforeDeath = FALSE;
+					}
 				}
 			}			
 			break;
@@ -577,7 +589,9 @@ int OnCS_BT_CHANGEMODE_ACK(CMsg &msg)
 					//  榭≡?  .     执麓.
 					Fade::StartFade( 0, TRUE, FadeTrigger_MainCharDie, 2000, TRUE );
 
-					//HT_CHEAT :  .
+					// 死亡时保存挂机状态，复活后在 CHARSTATE_NORMAL 分支恢复
+					s_bCheatBeforeDeath = g_bCheat;
+					s_bCheatEtcBeforeDeath = g_bCheatEtc;
 					g_bCheat = FALSE;
 					g_bCheatEtc = FALSE;
 				}

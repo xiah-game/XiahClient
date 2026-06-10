@@ -1,4 +1,4 @@
-﻿#include "precompile.h"
+#include "precompile.h"
 #include "XiahCheatConfig.h"
 #include "resource.h"
 #include "io.h"
@@ -260,20 +260,55 @@ int Decode_Buffer(unsigned char *buffer,int len)
 	return 0;
 }
 
-// 런처로 부터 얻어온 인증서버의 정보 분석
+// 从 Launcher 的命令行参数中解析服务端连接信息和客户端版本号
+// Launcher 传递格式: -auth IP:Port -ver 版本号
+// 如果没有命令行参数（直接双击启动），弹窗提示并拒绝启动
 BOOL ParseInfo_From_Launcher(void)
 {
-	
-	
-	
+	LPTSTR lpCmd = GetCommandLine();
+	if (lpCmd == NULL || strlen(lpCmd) == 0) {
+		MessageBoxW(GetForegroundWindow(), L"\x8BF7\x4ECE\x767B\x5F55\x5668(XiahLauncher)\x542F\x52A8\x6E38\x620F\n\nPlease launch the game from XiahLauncher.", L"\x542F\x52A8\x9519\x8BEF", MB_OK | MB_ICONERROR);
+		return FALSE;
+	}
 
-	char szExePath[MAX_PATH]; GetModuleFileName(NULL, szExePath, MAX_PATH); char* pLastSlash = strrchr(szExePath, '\\'); if (pLastSlash) *(pLastSlash + 1) = '\0'; char szIniFile[MAX_PATH]; strcpy(szIniFile, szExePath); strcat(szIniFile, "xiah.ini"); g_AppData.m_NumAuthserver = 1;
-	
-	char szServerIP[256] = {0};
-	GetPrivateProfileString("SERVER", "AuthIP", "127.0.0.1", szServerIP, sizeof(szServerIP), szIniFile);
-	g_AppData.m_AuthServer[0].m_ServerAddress.printf("%s", szServerIP);
-	
-	g_AppData.m_AuthServer[0].m_ServerPort = GetPrivateProfileInt("SERVER", "AuthPort", 9001, szIniFile);
+	// 查找 -auth 参数
+	char* pAuth = strstr(lpCmd, "-auth");
+	if (pAuth == NULL) {
+		MessageBoxW(GetForegroundWindow(), L"\x8BF7\x4ECE\x767B\x5F55\x5668(XiahLauncher)\x542F\x52A8\x6E38\x620F\n\nPlease launch the game from XiahLauncher.", L"\x542F\x52A8\x9519\x8BEF", MB_OK | MB_ICONERROR);
+		return FALSE;
+	}
+
+	// 解析 -auth IP:Port
+	char szAuthArg[256] = {0};
+	if (sscanf(pAuth, "-auth %255s", szAuthArg) == 1) {
+		// 拆分 IP 和 Port
+		char szIP[128] = {0};
+		int nPort = 9001;
+		char* pColon = strchr(szAuthArg, ':');
+		if (pColon) {
+			int ipLen = (int)(pColon - szAuthArg);
+			if (ipLen > 0 && ipLen < 128) {
+				strncpy(szIP, szAuthArg, ipLen);
+				szIP[ipLen] = '\0';
+			}
+			nPort = atoi(pColon + 1);
+		} else {
+			strncpy(szIP, szAuthArg, 127);
+		}
+
+		g_AppData.m_NumAuthserver = 1;
+		g_AppData.m_AuthServer[0].m_ServerAddress.printf("%s", szIP);
+		g_AppData.m_AuthServer[0].m_ServerPort = nPort;
+	}
+
+	// 解析 -ver 版本号
+	char* pVer = strstr(lpCmd, "-ver");
+	if (pVer) {
+		int nVer = 0;
+		if (sscanf(pVer, "-ver %d", &nVer) == 1 && nVer > 0) {
+			g_info.m_version = nVer;
+		}
+	}
 
 	return TRUE;
 }
@@ -321,7 +356,8 @@ int GetSetttingInfo(void)
 	g_info.m_bFullscreen = TRUE;
 #endif
 
-	g_info.m_version = GetPrivateProfileInt("CONFIG", "VERSION", 1080, szIniFile);
+	// 版本号已从 Launcher 命令行注入，不再从 ini 读取
+	// g_info.m_version 由 ParseInfo_From_Launcher() 设置
 
 	LoadCheatConfig();
 
@@ -562,6 +598,7 @@ LRESULT CALLBACK MainWindowProc(HWND hWnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
 		break;
 */
 	case WM_SYSCHAR:
+	case WM_SYSKEYDOWN:
 	case WM_KEYDOWN:
 	case WM_CHAR:
 	case WM_IME_COMPOSITION:
@@ -793,8 +830,50 @@ BOOL ScreenShot()
 
 	return TRUE;
 }
+// [崩溃转储] 自动生成 .dmp 文件，配合 XiahClient.pdb 用 WinDbg 分析崩溃堆栈
+#include <DbgHelp.h>
+#pragma comment(lib, "dbghelp.lib")
+
+static LONG WINAPI XiahCrashHandler(EXCEPTION_POINTERS* pExceptionInfo)
+{
+    // 生成带时间戳的文件名
+    SYSTEMTIME st;
+    GetLocalTime(&st);
+    char szDumpFile[MAX_PATH];
+    sprintf(szDumpFile, "XiahCrash_%04d%02d%02d_%02d%02d%02d.dmp",
+            st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond);
+
+    HANDLE hFile = CreateFileA(szDumpFile, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+    if (hFile != INVALID_HANDLE_VALUE)
+    {
+        MINIDUMP_EXCEPTION_INFORMATION mdei;
+        mdei.ThreadId = GetCurrentThreadId();
+        mdei.ExceptionPointers = pExceptionInfo;
+        mdei.ClientPointers = FALSE;
+
+        // MiniDumpWithDataSegs 包含全局变量数据，体积小且信息足够
+        MiniDumpWriteDump(GetCurrentProcess(), GetCurrentProcessId(), hFile,
+                          MiniDumpWithDataSegs, &mdei, NULL, NULL);
+        CloseHandle(hFile);
+    }
+
+    // 写一行到日志方便快速确认
+    FILE* fpCrash = fopen("Xiah.log", "a");
+    if (fpCrash) {
+        fprintf(fpCrash, "\n*** CRASH *** ExceptionCode=0x%08X Address=0x%p DumpFile=%s\n",
+                pExceptionInfo->ExceptionRecord->ExceptionCode,
+                pExceptionInfo->ExceptionRecord->ExceptionAddress,
+                szDumpFile);
+        fclose(fpCrash);
+    }
+
+    return EXCEPTION_EXECUTE_HANDLER;
+}
+
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)
 {
+	SetUnhandledExceptionFilter(XiahCrashHandler);
+
 	FILE* fp;
 	if ((fp = _tfopen(_T("Xiah.log"), _T("w"))) != NULL) fclose(fp);
 	if ((fp = _tfopen(_T("Xiah_Close.log"), _T("w"))) != NULL) fclose(fp);
@@ -802,7 +881,10 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
 	if ((fp = _tfopen(_T("XiahClient_d3d9.log"), _T("w"))) != NULL) fclose(fp);
 	if ((fp = _tfopen(_T("XiahClientd_d3d9.log"), _T("w"))) != NULL) fclose(fp);
 
-	ParseInfo_From_Launcher();
+	// 从 Launcher 命令行解析服务端地址和版本号，无参数则拒绝启动
+	if (!ParseInfo_From_Launcher()) {
+		return FALSE;
+	}
 	GetSetttingInfo();
 
 	if ( !InitInstance(hInstance, lpCmdLine) )
@@ -815,3 +897,4 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
 	ExitInstance();
 	return 0;
 }
+

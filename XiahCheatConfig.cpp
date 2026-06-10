@@ -1,4 +1,4 @@
-﻿#include "XiahCheatConfig.h"
+#include "XiahCheatConfig.h"
 #include <tchar.h>
 #include <stdio.h>
 #include <commctrl.h>
@@ -71,6 +71,13 @@ BOOL g_bAutoSellFull = FALSE;
 BOOL g_bAutoSellAll = FALSE;
 BOOL g_bBanSellFilter = TRUE;
 TCHAR g_szBanSellList[4096] = _T("");
+
+// 挂机中心点 & 空闲回归
+BOOL  g_bUseHomePoint   = TRUE;
+WORD  g_wHomeX = 0, g_wHomeY = 0;
+int   g_nIdleReturnSec  = 15;
+DWORD g_dwLastAttackTime = 0;
+BOOL  g_bReturningHome  = FALSE;
 
 // Control tracking arrays
 static HWND g_hTab0Controls[40];
@@ -175,7 +182,11 @@ enum {
     
     ID_BUTTON_TOGGLE,
     ID_BUTTON_SAVE,
-    ID_BUTTON_CANCEL
+    ID_BUTTON_CANCEL,
+    
+    // Home point control IDs
+    ID_CHECK_USEHOME,
+    ID_EDIT_IDLERETURN
 };
 
 // Get path to standalone cheat.ini
@@ -266,6 +277,11 @@ void LoadCheatConfig() {
         }
     }
     g_szBanSellList[dstB] = _T('\0');
+
+    // 挂机中心点 & 空闲回归
+    g_bUseHomePoint  = GetPrivateProfileInt(_T("HOME"), _T("UseHomePoint"), 1, szIniFile);
+    g_nIdleReturnSec = GetPrivateProfileInt(_T("HOME"), _T("IdleReturnSec"), 15, szIniFile);
+    if (g_nIdleReturnSec < 0) g_nIdleReturnSec = 0;
 }
 
 void SaveCheatConfig() {
@@ -371,6 +387,16 @@ void SaveCheatConfig() {
     }
     szRawBanSell[dstB] = _T('\0');
     WritePrivateProfileString(_T("FILTER"), _T("BanSellList"), szRawBanSell, szIniFile);
+
+    // 挂机中心点 & 空闲回归
+    _sntprintf(szVal, 32, _T("%d"), g_bUseHomePoint);
+    WritePrivateProfileString(_T("HOME"), _T("UseHomePoint"), szVal, szIniFile);
+    _sntprintf(szVal, 32, _T("%d"), g_nIdleReturnSec);
+    WritePrivateProfileString(_T("HOME"), _T("IdleReturnSec"), szVal, szIniFile);
+    _sntprintf(szVal, 32, _T("%d"), g_wHomeX);
+    WritePrivateProfileString(_T("HOME"), _T("HomeX"), szVal, szIniFile);
+    _sntprintf(szVal, 32, _T("%d"), g_wHomeY);
+    WritePrivateProfileString(_T("HOME"), _T("HomeY"), szVal, szIniFile);
 }
 
 BOOL IsItemFiltered(const TCHAR* szItemName) {
@@ -569,6 +595,30 @@ LRESULT CALLBACK ConfigWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam
         SetWindowText(hFilterEdit, g_szFilterList);
         g_hTab0Controls[g_nTab0Count++] = hFilterEdit;
         
+        // === 挂机中心点 & 空闲回归设置 ===
+        hCtrl = CreateWindow(_T("BUTTON"), _T("\xb9\xd2\xbb\xfa\xd6\xd0\xd0\xc4\xb5\xe3\xc9\xe8\xd6\xc3"), WS_VISIBLE | WS_CHILD | BS_GROUPBOX, 20, 380, 335, 75, hwnd, NULL, NULL, NULL);
+        SendMessage(hCtrl, WM_SETFONT, (WPARAM)hFont, TRUE);
+        g_hTab0Controls[g_nTab0Count++] = hCtrl;
+        
+        hCtrl = CreateWindow(_T("BUTTON"), _T("\xc6\xf4\xd3\xc3\xbf\xd5\xc8\xd5\xd7\xd4\xb6\xaf\xbb\xd8\xd6\xd0\xd0\xc4\xb5\xe3"), WS_VISIBLE | WS_CHILD | BS_AUTOCHECKBOX, 30, 405, 200, 20, hwnd, (HMENU)ID_CHECK_USEHOME, NULL, NULL);
+        SendMessage(hCtrl, BM_SETCHECK, g_bUseHomePoint ? BST_CHECKED : BST_UNCHECKED, 0);
+        SendMessage(hCtrl, WM_SETFONT, (WPARAM)hFont, TRUE);
+        g_hTab0Controls[g_nTab0Count++] = hCtrl;
+        
+        hCtrl = CreateWindow(_T("STATIC"), _T("\xbf\xd5\xc8\xd5\xb3\xac\xb9\xfd"), WS_VISIBLE | WS_CHILD, 30, 433, 55, 20, hwnd, NULL, NULL, NULL);
+        SendMessage(hCtrl, WM_SETFONT, (WPARAM)hFont, TRUE);
+        g_hTab0Controls[g_nTab0Count++] = hCtrl;
+        
+        HWND hIdleSec = CreateWindow(_T("EDIT"), _T(""), WS_VISIBLE | WS_CHILD | WS_BORDER | ES_NUMBER, 88, 431, 30, 20, hwnd, (HMENU)ID_EDIT_IDLERETURN, NULL, NULL);
+        SendMessage(hIdleSec, WM_SETFONT, (WPARAM)hFont, TRUE);
+        _sntprintf(szTmp, 16, _T("%d"), g_nIdleReturnSec);
+        SetWindowText(hIdleSec, szTmp);
+        g_hTab0Controls[g_nTab0Count++] = hIdleSec;
+        
+        hCtrl = CreateWindow(_T("STATIC"), _T("\xc3\xeb\xce\xb4\xb9\xa5\xbb\xf7\xd7\xd4\xb6\xaf\xbb\xd8\xd6\xd0\xd0\xc4\xb5\xe3\xa3\xa8\xbf\xaa\xca\xbc\xb9\xd2\xbb\xfa\xca\xb1\xd7\xd4\xb6\xaf\xbc\xc7\xc2\xbc\xa3\xa9"), WS_VISIBLE | WS_CHILD, 123, 433, 225, 20, hwnd, NULL, NULL, NULL);
+        SendMessage(hCtrl, WM_SETFONT, (WPARAM)hFont, TRUE);
+        g_hTab0Controls[g_nTab0Count++] = hCtrl;
+        
         
         hCtrl = CreateWindow(_T("BUTTON"), _T("\xd7\xd4\xb6\xaf\xca\xa9\xb7\xa8\xbc\xbc\xc4\xdc\xc9\xe8\xd6\xc3"), WS_VISIBLE | WS_CHILD | BS_GROUPBOX, 20, 40, 575, 330, hwnd, NULL, NULL, NULL);
         SendMessage(hCtrl, WM_SETFONT, (WPARAM)hFont, TRUE);
@@ -732,14 +782,17 @@ LRESULT CALLBACK ConfigWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam
         // Toggle button text based on g_bCheat (master switch)
         extern BOOL g_bCheat;
         LPCTSTR pszToggleText = g_bCheat ? _T("\xbd\xe1\xca\xf8\xb9\xd2\xbb\xfa") : _T("\xbf\xaa\xca\xbc\xb9\xd2\xbb\xfa");
-        HWND hBtnToggle = CreateWindow(_T("BUTTON"), pszToggleText, WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON, 130, 395, 110, 30, hwnd, (HMENU)ID_BUTTON_TOGGLE, NULL, NULL);
+        HWND hBtnToggle = CreateWindow(_T("BUTTON"), pszToggleText, WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON, 130, 470, 110, 30, hwnd, (HMENU)ID_BUTTON_TOGGLE, NULL, NULL);
         SendMessage(hBtnToggle, WM_SETFONT, (WPARAM)hFont, TRUE);
         
-        HWND hBtnSave = CreateWindow(_T("BUTTON"), _T("\xb1\xa3\xb4\xe6\xc9\xe8\xd6\xc3"), WS_VISIBLE | WS_CHILD, 260, 395, 110, 30, hwnd, (HMENU)ID_BUTTON_SAVE, NULL, NULL);
+        HWND hBtnSave = CreateWindow(_T("BUTTON"), _T("\xb1\xa3\xb4\xe6\xc9\xe8\xd6\xc3"), WS_VISIBLE | WS_CHILD, 260, 470, 110, 30, hwnd, (HMENU)ID_BUTTON_SAVE, NULL, NULL);
         SendMessage(hBtnSave, WM_SETFONT, (WPARAM)hFont, TRUE);
         
-        HWND hBtnCancel = CreateWindow(_T("BUTTON"), _T("\xc8\xa1\xcf\xfb"), WS_VISIBLE | WS_CHILD, 390, 395, 110, 30, hwnd, (HMENU)ID_BUTTON_CANCEL, NULL, NULL);
+        HWND hBtnCancel = CreateWindow(_T("BUTTON"), _T("\xc8\xa1\xcf\xfb"), WS_VISIBLE | WS_CHILD, 390, 470, 110, 30, hwnd, (HMENU)ID_BUTTON_CANCEL, NULL, NULL);
         SendMessage(hBtnCancel, WM_SETFONT, (WPARAM)hFont, TRUE);
+        
+        // 启动定时器：每500ms同步按钮文字与 g_bCheat 实际状态（死亡复活后后台恢复挂机时刷新UI）
+        SetTimer(hwnd, 1, 500, NULL);
         break;
     }
     
@@ -843,6 +896,12 @@ LRESULT CALLBACK ConfigWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam
             g_bBanSellFilter = (SendMessage(GetDlgItem(hwnd, ID_CHECK_BANSELL_FILTER), BM_GETCHECK, 0, 0) == BST_CHECKED);
             GetWindowText(GetDlgItem(hwnd, ID_EDIT_BANSELL_LIST), g_szBanSellList, 4096);
             
+            // 读取中心点配置
+            g_bUseHomePoint = (SendMessage(GetDlgItem(hwnd, ID_CHECK_USEHOME), BM_GETCHECK, 0, 0) == BST_CHECKED);
+            GetWindowText(GetDlgItem(hwnd, ID_EDIT_IDLERETURN), szTmp, 32);
+            g_nIdleReturnSec = _ttoi(szTmp);
+            if (g_nIdleReturnSec < 0) g_nIdleReturnSec = 0;
+            
             ApplyCheatConfigToMainChar();
             SaveCheatConfig();
             
@@ -863,6 +922,14 @@ LRESULT CALLBACK ConfigWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam
                         ? _T("\xbd\xe1\xca\xf8\xb9\xd2\xbb\xfa")
                         : _T("\xbf\xaa\xca\xbc\xb9\xd2\xbb\xfa"));
                 }
+                
+                // 开始挂机时设置标记，让主循环第一帧记录中心点坐标
+                if (g_bCheat) {
+                    g_dwLastAttackTime = 0;
+                    g_bReturningHome = FALSE;
+                    g_wHomeX = 0;
+                    g_wHomeY = 0;
+                }
             } else {
                 // Save button: save config, sync mode if hunting, then close
                 extern BOOL g_bCheat;
@@ -880,11 +947,29 @@ LRESULT CALLBACK ConfigWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam
         break;
     }
     
+    case WM_TIMER: {
+        // 定时同步按钮文字：当 g_bCheat 被外部逻辑（如死亡复活恢复）改变时，按钮文字自动刷新
+        extern BOOL g_bCheat;
+        HWND hBtnToggle = GetDlgItem(hwnd, ID_BUTTON_TOGGLE);
+        if (hBtnToggle) {
+            TCHAR szCur[32] = {0};
+            GetWindowText(hBtnToggle, szCur, 32);
+            LPCTSTR pszExpected = g_bCheat
+                ? _T("\xbd\xe1\xca\xf8\xb9\xd2\xbb\xfa")
+                : _T("\xbf\xaa\xca\xbc\xb9\xd2\xbb\xfa");
+            if (_tcscmp(szCur, pszExpected) != 0) {
+                SetWindowText(hBtnToggle, pszExpected);
+            }
+        }
+        break;
+    }
+    
     case WM_CLOSE:
         DestroyWindow(hwnd);
         break;
         
     case WM_DESTROY:
+        KillTimer(hwnd, 1);
         if (hFont) DeleteObject(hFont);
         g_hwndConfig = NULL;
         PostQuitMessage(0);
@@ -917,7 +1002,7 @@ DWORD WINAPI ConfigThreadProc(LPVOID lpParam) {
     RegisterClassEx(&wc);
     
     int w = 630;
-    int h = 480;
+    int h = 555;
     int x = CW_USEDEFAULT;
     int y = CW_USEDEFAULT;
     if (hwndParent) {

@@ -1,4 +1,4 @@
-﻿#include "mail.h"
+#include "mail.h"
 
 
 
@@ -693,7 +693,7 @@ int OnCS_IM_ADDONSACK_ACK(CMsg &msg)
 	msg
 		>> pItem->m_wRebuithValue;
 
-	if( bSackID == SACKTYPE__DEFAULT || bSackID == SACKTYPE__DEFAULT2)
+	if( bSackID == SACKTYPE__DEFAULT || bSackID == SACKTYPE__DEFAULT2 || bSackID == 3)
 	{
 		pItem->m_bSackID = SACKTYPE__DEFAULT;
 		//g_MainCharInfo.m_pMySack[g_MainCharInfo.m_byMySackCurrIdx]->InsertItem( bSackPos, pItem);
