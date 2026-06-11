@@ -1,4 +1,4 @@
-﻿#include "precompile.h"
+#include "precompile.h"
 #include "AppData.h"
 #include "resource.h"
 #include "InterfaceDefine.h"
@@ -767,11 +767,12 @@ void XiahGame_Intro::Init_WindowClanFound()
 
 	g_pUIManager->SetString(WINDOW_MUNPA_FOUND, found_window_center_title_dummy, IDS_CLAN_FOUND);
 
-#ifdef _CHINA_
-	pFrame->GetControl( found_window_bottom_dummy_01)->SetString( "锟届爲斐旐儼帢榻§劕 锛30劕铳锟|铯項轨赴妗儛渼 锛10劕铳锟|澃煖搿ょ棸锛100.000.膦冿锟|澃煖對臁颁护 锛10");
-#else
-	g_pUIManager->SetString(WINDOW_MUNPA_FOUND, found_window_bottom_dummy_01, "氍疙寣 劋毽 牅暅 臧戩瀽 : 30 臧戩瀽 澊儊|殧甑 氇呾劚摫旮 : 10 摫旮 澊儊|唽氇 牍勳毄 : 100,000爠|唽氇 垬牗旃 : 10");
-#endif
+	// 原为韩文硬编码，在中文GBK环境下显示乱码，改用 StringDefine.h 中已翻译的中文宏
+	{
+		TCHAR szClanExplain[256] = {0,};
+		_stprintf(szClanExplain, _T("%s|%s|%s|%s"), IDS_CLAN_EXPLAIN1, IDS_CLAN_EXPLAIN3, IDS_CLAN_EXPLAIN2, IDS_CLAN_EXPLAIN5);
+		g_pUIManager->SetString(WINDOW_MUNPA_FOUND, found_window_bottom_dummy_01, szClanExplain);
+	}
 
 	g_pUIManager->SetString(WINDOW_MUNPA_FOUND, found_window_bottom_dummy_03, IDS_CLAN_EXPLAIN4, 1);
 

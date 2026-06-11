@@ -795,6 +795,7 @@
 
 // [3/2/2004] 门派消息
 #define IDS_CLAN_EXPLAIN4				_T("建立门派所消耗的修炼值在门派关闭|及初始化后不予返还")
+#define IDS_CLAN_EXPLAIN5				_T("\xCF\xFB\xBA\xC4\xD0\xDE\xC1\xB6\xD6\xB5: 10")
 
 // [3/2/2004] 改造资源物品
 #define IDS_SUCCESS_RATIO				_T("额外成功率: %d%%")

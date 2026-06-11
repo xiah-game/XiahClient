@@ -1,4 +1,4 @@
-﻿
+
 bool UDgreater( sClanWonInfo* elem1, sClanWonInfo* elem2 )
 {
 	return elem1->m_dwOrderID < elem2->m_dwOrderID;
@@ -97,7 +97,15 @@ void CRelation::DeleteClan( DWORD dwCharID)
 			{
 				CXiahCharObject* pCharObject = (CXiahCharObject*)pObject->m_pObject;
 				if( pCharObject)
+				{
+					// 清除被踢成员的门派视觉信息
+					pCharObject->m_dwMunpaID = 0;
+					pCharObject->m_szMunpaName = _T("");
+					pCharObject->m_szMunpaNickName = _T("");
+					pCharObject->m_dwMunpaOrder = 0;
+					pCharObject->m_dwMunpaMarkID = 0;
 					pCharObject->RefreshFameColor();
+				}
 			}
 			else
 			{

@@ -1,4 +1,4 @@
-﻿#include "precompile.h"
+#include "precompile.h"
 #include "resource.h"
 #include "AppData.h"
 #include "relation.h"
@@ -414,6 +414,10 @@ void CRelation::SetCurrType( eRELATION_TYPE eType, BYTE byCurrPage)
 				{
 					g_pUIManager->SetString(WINDOW_MUNPA, munpa_window_button_03, IDS_PAMUN);
 					g_pUIManager->SetString(WINDOW_MUNPA, munpa_window_button_04, IDS_CLOSE_CLAN);
+					// 门主：显示全部按钮
+					g_pUIManager->Show(WINDOW_MUNPA, munpa_window_button_01);
+					g_pUIManager->Show(WINDOW_MUNPA, munpa_window_button_02);
+					g_pUIManager->Show(WINDOW_MUNPA, munpa_window_button_04);
 				}
 				else
 				{
@@ -421,11 +425,18 @@ void CRelation::SetCurrType( eRELATION_TYPE eType, BYTE byCurrPage)
 					{
 						g_pUIManager->SetString(WINDOW_MUNPA, munpa_window_button_03, IDS_TALTE);
 						g_pUIManager->SetString(WINDOW_MUNPA, munpa_window_button_04, IDS_PAMUN);
+						// 副门主：显示全部按钮
+						g_pUIManager->Show(WINDOW_MUNPA, munpa_window_button_01);
+						g_pUIManager->Show(WINDOW_MUNPA, munpa_window_button_02);
+						g_pUIManager->Show(WINDOW_MUNPA, munpa_window_button_04);
 					} // if(g_MainCharInfo.m_pRelation->Am_I_2stLeaderInClan())
 					else
 					{
                         g_pUIManager->SetString(WINDOW_MUNPA, munpa_window_button_03, IDS_TALTE);
-						g_pUIManager->SetString(WINDOW_MUNPA, munpa_window_button_04, IDS_CLOSE_CLAN);
+						// 普通成员：隐藏公告、授予称号、关闭门派按钮，只保留退出
+						g_pUIManager->Hide(WINDOW_MUNPA, munpa_window_button_01);
+						g_pUIManager->Hide(WINDOW_MUNPA, munpa_window_button_02);
+						g_pUIManager->Hide(WINDOW_MUNPA, munpa_window_button_04);
 					}
 				}
 			}

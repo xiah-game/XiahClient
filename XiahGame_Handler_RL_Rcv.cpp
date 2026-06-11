@@ -1,4 +1,4 @@
-﻿#include ".\munpamark.h"
+#include ".\munpamark.h"
 
 int OnCS_RL_CREATEMUNPA_ACK( CMsg &msg)
 {
@@ -244,6 +244,17 @@ int OnCS_RL_ADDMUNWON_ACK(CMsg &msg)
 	{
 		g_MainCharInfo.m_pRelation->InsertClan( dwOrderID, szOrderName, dwCharID, szCharName, _T(""), 0, 1, 99);
 
+		// 更新新成员角色对象的门派视觉信息（头顶门派名）
+		XiahObject::CXiahObject* pObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, dwCharID, OBJTYPE_PC));
+		if(pObject && pObject->m_pObject)
+		{
+			CXiahCharObject* pCharObject = (CXiahCharObject*)pObject->m_pObject;
+			pCharObject->m_dwMunpaID = dwMunpaID;
+			pCharObject->m_szMunpaName = g_MainCharInfo.m_pRelation->GetClanName();
+			pCharObject->m_dwMunpaOrder = dwOrderID;
+			pCharObject->RefreshFameColor();
+		}
+
 		// 전서구 (문파 추가) 나를 제외하고 넣자
 		if( dwCharID != g_MainCharInfo.m_dwObjectID)
 			g_Mail.Add_SendList(dwCharID,szCharName,MAIL_MUNPA,(BYTE)dwOrderID);
@@ -319,6 +330,18 @@ int OnCS_RL_DELMUNWON_ACK( CMsg &msg)
 	{
 		g_MainCharInfo.m_pRelation->ClearClan();
 		g_MainCharInfo.ShowHelpMessage( IDS_CLAN_TALTED,TEXTEFFECT_COLOR_WARNING);
+
+		// 清除角色3D对象上的门派视觉信息（头顶名称、光圈等）
+		XiahObject::CXiahObject* pObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, g_MainCharInfo.m_dwObjectID, OBJTYPE_PC));
+		if(pObject && pObject->m_pObject)
+		{
+			CXiahCharObject* pCharObject = (CXiahCharObject*)pObject->m_pObject;
+			pCharObject->m_dwMunpaID = 0;
+			pCharObject->m_szMunpaName = _T("");
+			pCharObject->m_szMunpaNickName = _T("");
+			pCharObject->m_dwMunpaOrder = 0;
+			pCharObject->m_dwMunpaMarkID = 0;
+		}
 
 		g_pUIManager->Hide(WINDOW_MUNPA);
 		g_pUIManager->Show(WINDOW_MUNPA_FOUND);
