@@ -1042,7 +1042,7 @@ int OnCS_IT_CHARINFO_ACK(CMsg &msg)
 		>> bFELevel
 		>> bInstanceCnt;
 
-	if ( dwMapID > 15 || wPosX > 2047 || wPosY > 2047 )
+	if ( dwMapID > 99 || wPosX > 2047 || wPosY > 2047 )
 		return TRUE;
 
 	for(int i=0; i < bInstanceCnt; ++i)
@@ -1356,7 +1356,7 @@ int OnCS_IT_CHARINFO_ACK(CMsg &msg)
 	if(pMugongList)
 		dwTime = pMugongList->GetInt(9);
 
-	pObject->m_KeepUpMugongList.Add(dwMugongID, bFELevel, dwTime);
+	//pObject->m_KeepUpMugongList.Add(dwMugongID, bFELevel, dwTime);
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	if(bPotionEndKeepup == 0)
@@ -1589,7 +1589,7 @@ int OnCS_IT_CHARINFOLIST_ACK(CMsg &msg)
 			>> bPoisonUnderCover
 			>> bwGMMark;					//HT_1023 : 운영자 마크 추가
 
-		if( dwObjectID == 0 || dwMapID > 15 || wPosX > 2047 || wPosY > 2047 )
+		if( dwObjectID == 0 || dwMapID > 99 || wPosX > 2047 || wPosY > 2047 )
 			continue;
 		
 		// 새로운 캐릭터면 첨부터 생성하지만, 존재하는 거라면 데이타를 바꿔준다.
@@ -1805,7 +1805,7 @@ int OnCS_IT_CHARINFOLIST_ACK(CMsg &msg)
 		if(pMugongList)
 			dwTime = pMugongList->GetInt(9);
 
-		pObject->m_KeepUpMugongList.Add(dwMugongID, bFELevel, dwTime);
+		//pObject->m_KeepUpMugongList.Add(dwMugongID, bFELevel, dwTime);
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
 		
 

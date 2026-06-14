@@ -608,6 +608,7 @@ int OnCS_EV_TIME_ACK( CMsg &msg)
 	case 6:
 	case 7:
 	case 15: //HO_0727_07 화염곡추가
+	case 16: // 巫山盆地
 		{
 			dwMapID = 1;
 		}
@@ -786,6 +787,7 @@ int OnCS_EV_WEATHER_ACK( CMsg &msg)
 	case 6:
 	case 7:
 	case 15: //HO_0727_07 화염곡추가
+	case 16: // 巫山盆地
 		{
 			dwMapID = 1;
 		}

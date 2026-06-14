@@ -263,16 +263,24 @@ int Decode_Buffer(unsigned char *buffer,int len)
 // 从 Launcher 的命令行参数中解析服务端连接信息和客户端版本号
 // Launcher 传递格式: -auth IP:Port -ver 版本号
 // 如果没有命令行参数（直接双击启动），弹窗提示并拒绝启动
+// 特殊处理：VS 调试模式（IsDebuggerPresent）下自动使用默认参数
 BOOL ParseInfo_From_Launcher(void)
 {
 	LPTSTR lpCmd = GetCommandLine();
-	if (lpCmd == NULL || strlen(lpCmd) == 0) {
-		MessageBoxW(GetForegroundWindow(), L"\x8BF7\x4ECE\x767B\x5F55\x5668(XiahLauncher)\x542F\x52A8\x6E38\x620F\n\nPlease launch the game from XiahLauncher.", L"\x542F\x52A8\x9519\x8BEF", MB_OK | MB_ICONERROR);
-		return FALSE;
-	}
 
 	// 查找 -auth 参数
 	char* pAuth = strstr(lpCmd, "-auth");
+
+	// 调试器模式：VS F5 启动时没有命令行参数，自动使用本地默认值
+	if (pAuth == NULL && IsDebuggerPresent()) {
+		g_AppData.m_NumAuthserver = 1;
+		g_AppData.m_AuthServer[0].m_ServerAddress.printf("127.0.0.1");
+		g_AppData.m_AuthServer[0].m_ServerPort = 9001;
+		g_info.m_version = 1081;
+		return TRUE;
+	}
+
+	// 非调试模式：没有 -auth 参数则拒绝启动
 	if (pAuth == NULL) {
 		MessageBoxW(GetForegroundWindow(), L"\x8BF7\x4ECE\x767B\x5F55\x5668(XiahLauncher)\x542F\x52A8\x6E38\x620F\n\nPlease launch the game from XiahLauncher.", L"\x542F\x52A8\x9519\x8BEF", MB_OK | MB_ICONERROR);
 		return FALSE;

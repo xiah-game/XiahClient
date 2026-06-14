@@ -1699,9 +1699,7 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 				}
 			}
 			
-			bool hasFE = (m_KeepUpMugongList.IsExist(FIVEELEMENT_FIRE) || m_KeepUpMugongList.IsExist(FIVEELEMENT_WATER)
-						|| m_KeepUpMugongList.IsExist(FIVEELEMENT_TREE) || m_KeepUpMugongList.IsExist(FIVEELEMENT_METAL)
-						|| m_KeepUpMugongList.IsExist(FIVEELEMENT_EARTH));
+			bool hasFE = (m_bFECur != 0);
 			if( hasFE )
 			{
 				if(!m_pFEEffectPP)
@@ -1718,15 +1716,19 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 						case 5:	nEffectType = eFEEarth;		break;
 					}
 
-					nEffectType += (m_bFELevel * 5);					
+					// 特效等级截断防越界：最多只支持 eFEFire3 (即高级维持特效)
+					int levelOffset = m_bFELevel;
+					if(levelOffset > 3) levelOffset = 3;
+					nEffectType += (levelOffset * 5);					
 
 					_EFFECTPACKAGE* pEffectPackage = g_EffectManager.EnqOutGongPersistEffectImmediately(nEffectType);
+					
 					if( pEffectPackage )
 					{
 						m_pFEEffectPP = g_EffectManager.GetCurEffectPackagePair();
 
 						m_pFEEffectPP->pWorldMatrix = (MATRIX*)m_CharRender.GetCharTM();
-						m_pFEEffectPP->dwTotalTime	= m_KeepUpMugongList.GetTime(FIVEELEMENT_FIRE);
+						m_pFEEffectPP->dwTotalTime	= 7200000; // 强制设为 2 小时常驻
 						m_pFEEffectPP->dwElapsedTime = 0;
 					}
 					else

@@ -392,6 +392,8 @@ LPCTSTR GetMapName(DWORD dwMapID)
 		lpStrName = IDS_DUNGEON_4;		break;
 	case 15: // HO_0727_07 화염곡추가
 		lpStrName = IDS_FIRELAND;		break;
+	case 16: // HO_0727_07 화염곡추가
+		lpStrName = IDS_BBBBC;		break;
 	default:
 		lpStrName = _T("?");			break;
 	}
@@ -1409,7 +1411,6 @@ bool ManageExtraItemEffect()
 
 bool ManageExtraEffectEtc()
 {
-	// [12/13/2004] DB 날라가서 이렇게 한다
 	CRes_Character* pChar = GetCharacter(1083);
 
 	if( pChar == NULL )
@@ -1431,7 +1432,8 @@ bool ManageExtraEffectEtc()
 
 		for(int i=0; i < pResAni->effect_count; ++i)
 		{
-			_EFFECT* pEffect = g_EffectManager.GetEffect( pResAni->effect_ptr[i].nEffectID );
+			int nEffectID = pResAni->effect_ptr[i].nEffectID;
+			_EFFECT* pEffect = g_EffectManager.GetEffect( nEffectID );
 
 			if( pEffect != NULL )
 			{
@@ -1451,62 +1453,65 @@ bool ManageExtraEffectEtc()
 				int nY = pResAni->effect_ptr[i].nPosY;
 				int nZ = pResAni->effect_ptr[i].nPosZ;
 
+				// 保持 nEffectID 为 pResAni->effect_ptr[i].nEffectID，防止被 XPE 的原始索引 ID 覆盖
+				// int nEffectID = pEffect->m_EffectID;
+
 				// 이름에 맞는 이펙트를 연결시켜준다.
 
 				// 오행 시전
-				if(_tcscmp(lpEffectName, _T("오행시전_화_gr")) == 0)
+				if(_tcscmp(lpEffectName, _T("오행시전_화_g")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eFEPrepareFire, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("오행시전_수_gr")) == 0)
+				else if(_tcscmp(lpEffectName, _T("오행시전_수_g")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eFEPrepareWater, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("오행시전_목_gr")) == 0)
+				else if(_tcscmp(lpEffectName, _T("오행시전_목_g")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eFEPrepareTree, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("오행시전_금_gr")) == 0)
+				else if(_tcscmp(lpEffectName, _T("오행시전_금_g")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eFEPrepareMetal, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("오행시전_토_gr")) == 0)
+				else if(_tcscmp(lpEffectName, _T("오행시전_토_g")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eFEPrepareEarth, pEffect, nX, nY, nZ );
-				// 오행 기본
-				else if(_tcscmp(lpEffectName, _T("오행_기본_화")) == 0)
+				// 오행 기본 (0级)
+				else if(nEffectID == 1554)
 					g_EffectManager.SetOutGongPersistEffect(eFEFire, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("오행_기본_수")) == 0)
+				else if(nEffectID == 1555)
 					g_EffectManager.SetOutGongPersistEffect(eFEWater, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("오행_기본_목")) == 0)
+				else if(nEffectID == 1556)
 					g_EffectManager.SetOutGongPersistEffect(eFETree, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("오행_기본_금")) == 0)
+				else if(nEffectID == 1557)
 					g_EffectManager.SetOutGongPersistEffect(eFEMetal, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("오행_기본_토")) == 0)
+				else if(nEffectID == 1558)
 					g_EffectManager.SetOutGongPersistEffect(eFEEarth, pEffect, nX, nY, nZ );
-				// 오행 초
-				else if(_tcscmp(lpEffectName, _T("오행_유지_초_화")) == 0)
+				// 오행 초 (1级)
+				else if(nEffectID == 1559)
 					g_EffectManager.SetOutGongPersistEffect(eFEFire1, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("오행_유지_초_수")) == 0)
+				else if(nEffectID == 1563)
 					g_EffectManager.SetOutGongPersistEffect(eFEWater1, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("오행_유지_초_목")) == 0)
+				else if(nEffectID == 1566)
 					g_EffectManager.SetOutGongPersistEffect(eFETree1, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("오행_유지_초_금")) == 0)
+				else if(nEffectID == 1569)
 					g_EffectManager.SetOutGongPersistEffect(eFEMetal1, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("오행_유지_초_토")) == 0)
+				else if(nEffectID == 1572)
 					g_EffectManager.SetOutGongPersistEffect(eFEEarth1, pEffect, nX, nY, nZ );
-				// 오행 중
-				else if(_tcscmp(lpEffectName, _T("오행_유지_중_화")) == 0)
+				// 오행 중 (2级)
+				else if(nEffectID == 1561)
 					g_EffectManager.SetOutGongPersistEffect(eFEFire2, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("오행_유지_중_수")) == 0)
+				else if(nEffectID == 1564)
 					g_EffectManager.SetOutGongPersistEffect(eFEWater2, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("오행_유지_중_목")) == 0)
+				else if(nEffectID == 1567)
 					g_EffectManager.SetOutGongPersistEffect(eFETree2, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("오행_유지_중_금")) == 0)
+				else if(nEffectID == 1570)
 					g_EffectManager.SetOutGongPersistEffect(eFEMetal2, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("오행_유지_중_토")) == 0)
+				else if(nEffectID == 1573)
 					g_EffectManager.SetOutGongPersistEffect(eFEEarth2, pEffect, nX, nY, nZ );
-				// 오행 고
-				else if(_tcscmp(lpEffectName, _T("오행_유지_고_화")) == 0)
+				// 오행 고 (3级)
+				else if(nEffectID == 1562)
 					g_EffectManager.SetOutGongPersistEffect(eFEFire3, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("오행_유지_고_수")) == 0)
+				else if(nEffectID == 1565)
 					g_EffectManager.SetOutGongPersistEffect(eFEWater3, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("오행_유지_고_목")) == 0)
+				else if(nEffectID == 1568)
 					g_EffectManager.SetOutGongPersistEffect(eFETree3, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("오행_유지_고_금")) == 0)
+				else if(nEffectID == 1571)
 					g_EffectManager.SetOutGongPersistEffect(eFEMetal3, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("오행_유지_고_토")) == 0)
+				else if(nEffectID == 1574)
 					g_EffectManager.SetOutGongPersistEffect(eFEEarth3, pEffect, nX, nY, nZ );
 				// 야차 외공
 				else if(_tcscmp( lpEffectName, _T("만독불진_지속2")) == 0)

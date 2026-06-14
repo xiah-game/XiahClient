@@ -364,8 +364,8 @@ int OnCS_CD_CHARUPDATE_ACK( CMsg &msg)
 				if(dwData1)
 				{
 					// 이전것 지우자 (중간에 책읽는사람있다.)
-					for(int i=0; i < 5; ++i)
-						pCharObject->m_KeepUpMugongList.Delete(FIVEELEMENT_FIRE + i);					
+					//for(int i=0; i < 5; ++i)
+					//	pCharObject->m_KeepUpMugongList.Delete(FIVEELEMENT_FIRE + i);					
 
 					if(pCharObject->m_pFEEffectPP)
 					{
@@ -385,7 +385,7 @@ int OnCS_CD_CHARUPDATE_ACK( CMsg &msg)
 					if( pMugongList)
 						dwTime = pMugongList->GetInt(9);
 
-					pCharObject->m_KeepUpMugongList.Add(dwMugongID, pCharObject->m_bFELevel, dwTime);					
+					//pCharObject->m_KeepUpMugongList.Add(dwMugongID, pCharObject->m_bFELevel, dwTime);					
 					
 					// 시전 이펙트
 					int nType;
@@ -447,10 +447,10 @@ int OnCS_CD_CHARUPDATE_ACK( CMsg &msg)
 				}
 				else
 				{
-					for(int i=0; i < 5; ++i)
-					{
-						pCharObject->m_KeepUpMugongList.Delete(FIVEELEMENT_FIRE + i);									//오행 이펙트 제거 
-					}
+					//for(int i=0; i < 5; ++i)
+					//{
+					//	pCharObject->m_KeepUpMugongList.Delete(FIVEELEMENT_FIRE + i);									//오행 이펙트 제거 
+					//}
 
 					pCharObject->m_bFECur   = 0;
 					pCharObject->m_bFELevel = 0;

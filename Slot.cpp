@@ -1,4 +1,4 @@
-﻿
+
 #include "precompile.h"
 #include "slot.h"
 #include "XiahGame_Main.h"
@@ -183,6 +183,23 @@ void CSlot::SetSlot( BYTE bySlotID, DWORD dwID)
 			nResID = pData->GetInt( 1);			
 		}
 
+		if(dwID >= 150 && dwID <= 154)
+		{
+			int resID = 0;
+			if (dwID == 150) resID = 1336;
+			else if (dwID == 151) resID = 1340;
+			else if (dwID == 152) resID = 1344;
+			else if (dwID == 153) resID = 1352;
+			else if (dwID == 154) resID = 1348;
+
+			int bLevel = 1;
+			if (g_MainCharInfo.m_pMugong) {
+				bLevel = g_MainCharInfo.m_pMugong->GetMugongLevelOfLearnedMugong(dwID);
+				if (bLevel <= 0) bLevel = 1;
+			}
+			nResID = resID + bLevel;
+		}
+
 		if(dwID >=161 && dwID <=179)
 		{
 			sArrayData *pData = XiahArrayIndex::g_RebirthMugong_List.GetData(dwID, 1);
@@ -314,6 +331,21 @@ void CSlot::SetSlotToolTip( BYTE bySlotIndex)
 
 		bTemp = true;
 	}
+
+	if(dwID >= 150 && dwID <= 154)
+	{
+		sArrayData *pData = XiahArrayIndex::g_MugongTemplate.GetData( dwID);
+
+		if( !pData)
+		{
+			DBG_LogFile( _T("SetSlotToolTip fail"));
+			return;
+		}
+
+		_tcscpy( szToolTip, pData->GetString( 1));
+
+		bTemp = true;
+	}
 	//아이템
 	else if((dwID >= 20000 && dwID <= 22200) || (dwID == 9301) || (dwID == 9302) || (dwID == 31009))	
 	{					
@@ -367,8 +399,25 @@ void CSlot::SetActiveSlot( BYTE byIndex, DWORD dwID)
 				return;
 			}
 
-			// image
-			nResID = pData->GetInt( 1);
+			if (dwID >= 150 && dwID <= 154)
+			{
+				int resID = 0;
+				if (dwID == 150) resID = 1336;
+				else if (dwID == 151) resID = 1340;
+				else if (dwID == 152) resID = 1344;
+				else if (dwID == 153) resID = 1352;
+				else if (dwID == 154) resID = 1348;
+				int bLevel = 1;
+				if (g_MainCharInfo.m_pMugong) {
+					bLevel = g_MainCharInfo.m_pMugong->GetMugongLevelOfLearnedMugong(dwID);
+					if (bLevel <= 0) bLevel = 1;
+				}
+				nResID = resID + bLevel;
+			}
+			else
+			{
+				nResID = pData->GetInt( 1);
+			}
 		}
 		else if(dwID >=161 && dwID <=179)
 		{

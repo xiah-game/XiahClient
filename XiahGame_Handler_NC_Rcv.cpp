@@ -56,7 +56,7 @@ int OnCS_NC_NPCINFO_ACK(CMsg &msg)
 		>> bOrderID
 		>> bSubType;
 
-	if(dwMapID > 15 || wPosX < 0 || wPosX > 2047 || wPosY < 0 || wPosY > 2047) 
+	if(dwMapID > 99 || wPosX < 0 || wPosX > 2047 || wPosY < 0 || wPosY > 2047) 
 	{
 		DBG_LogFile("Invalid Position in OnCS_NC_NPCINFO_ACK");
 		return TRUE;
@@ -449,7 +449,7 @@ int OnCS_NC_NPCINFOLIST_ACK(CMsg &msg)
 		>> dwMapID
 		>> wObjectNum;
 
-	if ( dwMapID > 15 || wObjectNum > 300 )
+	if ( dwMapID > 99 || wObjectNum > 300 )
 		return TRUE;
 
 	for(int i = 0; i < wObjectNum; ++i)
@@ -1070,7 +1070,7 @@ int OnCS_NC_FUNCTIONALNPCINFO_ACK(CMsg &msg)
 			>> bSizeY
 			>> wNumItem;
 	
-		if ( dwMapID > 15 || wPosX > 2047 || wPosY > 2047 )
+		if ( dwMapID > 99 || wPosX > 2047 || wPosY > 2047 )
 			return TRUE;
 
 		if( XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, dwObjectID,OBJTYPE_FUNCTIONALNPC)) != NULL)

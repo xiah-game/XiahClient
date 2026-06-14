@@ -2121,6 +2121,9 @@
 #define IDS_FIRELAND						_T("火焰谷")
 #define IDS_2TH_REBIRTH_SPACE				_T("行囊空间不足，无法进行真觉醒。")
 
+//HO_0727_07 火焰谷追加 
+#define IDS_BBBBC						_T("巫山盆地")
+
 //HO_0810_07 任务分类功能追加
 #define IDS_QUEST_ALL						_T("全部")
 

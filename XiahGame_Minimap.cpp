@@ -105,7 +105,7 @@ namespace Minimap
 	pIndex += 6;
 
 	// RESPACKER에서 ID를 횅땍하기 바람.
-	long g_MiniMapTextureID[15] = 
+	long g_MiniMapTextureID[16] = 
 	{
 		50003258,	// 기암
 		50003260,	// 화산
@@ -122,9 +122,10 @@ namespace Minimap
 		50003270,	// 광명전
 		50003273,	// 천황전
 		50003283,	// 화염곡 // HO_0727_07 화염곡추가
+		50003285,
 	};
 
-	long g_MiniMapTextureID_text[15] = 
+	long g_MiniMapTextureID_text[16] = 
 	{
 		50003259,	// 기암
 		50003261,	// 화산
@@ -141,6 +142,7 @@ namespace Minimap
 		50003270,	// 광명전
 		50003273,	// 천황전
 		50003284,	// 화염곡 // HO_0727_07 화염곡추가
+		50003286,
 	};
 
 	IDirect3DTexture9* g_pMainTexture = NULL;		// 빽판

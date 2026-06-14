@@ -1,4 +1,4 @@
-﻿#include "precompile.h"
+#include "precompile.h"
 #include "mugong.h"
 #include "XiahGame_Main.h"
 #include "XiahGame_Handler_Sender.h"
@@ -1796,7 +1796,7 @@ void CMugong::DrawKeepUpMugongIcon()
 			sArrayData* pMugongList = XiahArrayIndex::g_RebirthMugong_List.GetData(psKeepUpMugong->m_MugongID, psKeepUpMugong->m_MugongLevel);
 			
 			if(!pMugongList)
-				return;
+				continue;
 			
 			int TotalKeepUpTime = pMugongList->GetInt(27);
 			nResID = pMugongList->GetInt(2);
@@ -1938,20 +1938,28 @@ void CMugong::DrawKeepUpMugongIcon()
 		//일반
 		else 
 		{
-			sArrayData* pMugongList = XiahArrayIndex::g_MugongList.GetData(psKeepUpMugong->m_MugongID, psKeepUpMugong->m_MugongLevel);
-			
-			if(!pMugongList)
-				return;
-			
-			int TotalKeepUpTime = pMugongList->GetInt(31);
-
-
 			sArrayData* pMugongData = XiahArrayIndex::g_MugongTemplate.GetData(psKeepUpMugong->m_MugongID);
-			
 			if(!pMugongData)
-				return;
+			{
+				continue;
+			}
 			
 			nResID = pMugongData->GetInt(1);
+
+			int TotalKeepUpTime = 7200; // default 2 hours
+			sArrayData* pMugongList = XiahArrayIndex::g_MugongList.GetData(psKeepUpMugong->m_MugongID, psKeepUpMugong->m_MugongLevel);
+			if(pMugongList)
+			{
+				TotalKeepUpTime = pMugongList->GetInt(31);
+			}
+			else
+			{
+				// 150-154 allowed without level details
+				if (psKeepUpMugong->m_MugongID < 150 || psKeepUpMugong->m_MugongID > 154)
+				{
+					continue;
+				}
+			}
 			
 			DWORD TempTime = g_dwCurTime;
 
@@ -1979,7 +1987,7 @@ void CMugong::DrawKeepUpMugongIcon()
 			//	}
 			//	++i;
 			//}
-			if(pMugongList) //HO_0529_07 무공사용이미지 동작 변경 : 0.3초동안 보여지고 안보여짐
+			if(pMugongList || (psKeepUpMugong->m_MugongID >= 150 && psKeepUpMugong->m_MugongID <= 154)) //HO_0529_07 무공사용이미지 동작 변경 : 0.3초동안 보여지고 안보여짐
 			{
 				if( (10000 <= ((TotalKeepUpTime * 1000) - (TempTime - psKeepUpMugong->m_CurTime))) && psKeepUpMugong->m_DrawIcon )
 				{
@@ -2044,7 +2052,7 @@ void CMugong::DrawKeepUpMugongIcon()
 			sArrayData* pMugongList = XiahArrayIndex::g_RebirthMugong_List.GetData(psKeepUpMugong->m_MugongID, psKeepUpMugong->m_MugongLevel);
 			
 			if(!pMugongList)
-				return;
+				continue;
 			
 			int TotalKeepUpTime = pMugongList->GetInt(27);
 			nResID = pMugongList->GetInt(2);
@@ -2112,7 +2120,7 @@ void CMugong::DrawKeepUpMugongIcon()
 			sArrayData* pMugongList = XiahArrayIndex::g_MugongList.GetData(psKeepUpMugong->m_MugongID, psKeepUpMugong->m_MugongLevel);
 			
 			if(!pMugongList)
-				return;
+				continue;
 			
 			int TotalKeepUpTime = pMugongList->GetInt(31);
 
@@ -2120,7 +2128,7 @@ void CMugong::DrawKeepUpMugongIcon()
 			sArrayData* pMugongData = XiahArrayIndex::g_MugongTemplate.GetData(psKeepUpMugong->m_MugongID);
 			
 			if(!pMugongData)
-				return;
+				continue;
 			
 			nResID = pMugongData->GetInt(1);
 			

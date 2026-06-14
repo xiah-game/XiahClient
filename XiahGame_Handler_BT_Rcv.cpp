@@ -1385,7 +1385,12 @@ int OnCS_BT_LEARNMUGONG_ACK( CMsg &msg)
 
 			if(pData)
 			{
-				g_MainCharInfo.m_pMugong->InsertMugong( dwMugongID, pData->GetInt( 3), bLevel);
+				BYTE bType = pData->GetInt( 3);
+				if (dwMugongID >= 150 && dwMugongID <= 154)
+				{
+					bType = MUGONGTYPE_FIVEELEMENT;
+				}
+				g_MainCharInfo.m_pMugong->InsertMugong( dwMugongID, bType, bLevel);
 			}
 		}
 
@@ -2487,6 +2492,12 @@ int OnCS_BT_KEEPUPMUGONGSTART_ACK( CMsg &msg)
 		>> dwMugongID
 		>> bMugongLevel;
 
+	// 屏蔽五行技能 (150~154) 的 Buff 图标挂载和本地 Buff 列表记录
+	if (dwMugongID >= 150 && dwMugongID <= 154)
+	{
+		return TRUE;
+	}
+
 	XiahObject::CXiahObject* pObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, dwObjectID,bObjectType));
 
 	if( pObject == NULL)
@@ -2687,6 +2698,12 @@ int OnCS_BT_KEEPUPMUGONGEND_ACK( CMsg &msg)
 		>> bObjectType
 		>> dwMugongID
 		>> bMugongLevel;
+
+	// 屏蔽五行技能 (150~154) 的 Buff 清除包处理
+	if (dwMugongID >= 150 && dwMugongID <= 154)
+	{
+		return TRUE;
+	}
 
 	XiahObject::CXiahObject* pObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, dwObjectID,bObjectType));
 
