@@ -9,6 +9,7 @@
 #include "InterfaceHandler.h"
 #include "AppData.h"
 #include "XiahEnvInfo.h"
+#include "TargetInfoPanel.h"
 
 #pragma comment(lib,"winmm.lib")
 
@@ -183,6 +184,19 @@ BOOL ProcessMainChar()
 			bAutoAttack			= FALSE;
 			bAutoNavigation		= FALSE;
 			bAutoNormalAttack	= FALSE;
+		}
+	}
+
+	// Sync target info panel with current selection
+	if (g_pTargetInfoPanel)
+	{
+		if (dwSelObjectID != 0)
+		{
+			g_pTargetInfoPanel->SetTarget(dwSelObjectID, (BYTE)dwSelObjectType);
+		}
+		else if (g_pTargetInfoPanel->IsActive())
+		{
+			g_pTargetInfoPanel->Clear();
 		}
 	}
 
@@ -624,7 +638,14 @@ BOOL ProcessMainChar()
 		}
 	}
 
-	// 케렉터의 상태를 Update
+	// 龟息大法持续倒地：倒地动画播完后用eLAT_Died(12)保持倒地姿态
+	if( pMainChar->m_KeepUpMugongList.IsExist(OUTGONGID_GYUISIKDAEBUB) &&
+		pMainChar->m_nCurMotionType != XiahAniType::eLAT_Mugong &&
+		pMainChar->m_nCurMotionType != XiahAniType::eLAT_Died )
+	{
+		pMainChar->SetAnimation( XiahAniType::eLAT_Died, 0 );
+	}
+
 	pMainChar->Update(TRUE);
 
 	// Xiah BGM Update

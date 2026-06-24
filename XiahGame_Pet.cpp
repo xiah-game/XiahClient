@@ -1,4 +1,4 @@
-﻿#include "precompile.h"
+#include "precompile.h"
 #include "XiahGame_Pet.h"
 #include "XiahArrayIndex.h"
 #include "XiahGame_Handler_Sender.h"
@@ -85,8 +85,14 @@ BOOL CPetList::AddPet(XiahObject::CXiahObject* pPet)
     pPetInfo->dwLastAITime = 0;
 	pPetInfo->dwAIFrameTime = 600 + rand() % 600;
 	pPetInfo->fFollowRange = pCharObject->m_LocalBound.Size().GetLength();
-	if( pPetInfo->fFollowRange > 20)
+	if (pPetInfo->m_dwIsHwan == 2 || pPetInfo->m_dwIsHwan == 1)
+	{
+		pPetInfo->fFollowRange = 2.0f;
+	}
+	else if( pPetInfo->fFollowRange > 20)
+	{
 		pPetInfo->fFollowRange = 20;
+	}
 
 	pPetInfo->fAttackRange = pPetInfo->fFollowRange * 3.9f;
 

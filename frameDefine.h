@@ -1,4 +1,4 @@
-﻿#define A_HELP 79
+#define A_HELP 79
 	#define help 0 //(STATIC)
 #define DATA_WINDOW 54
 	#define data_window_back 0 //(STATIC)
@@ -1570,6 +1570,19 @@
 	#define pc_trade_window_sub_dummy_03 61 //(STATICDUMMY)
 	#define pc_trade_window_sub_dummy_04 62 //(STATICDUMMY)
 	#define pc_trade_status_dumy 63 //(STATICDUMMY)
+#define WINDOW_TARGET_STATUS 192
+	#define target_status_level 1
+	#define target_status_name 2
+	#define target_status_hp_gauge 4
+	#define target_status_mp_gauge 5
+	#define target_status_hp_text 6
+	#define target_status_mp_text 7
+	#define target_status_debuff_1 8
+	#define target_status_debuff_2 9
+	#define target_status_debuff_3 10
+	#define target_status_debuff_4 11
+	#define target_status_debuff_5 12
+
 #define WINDOW_PET_TRADE 120
 	#define window_pet_trade_back 0 //(STATIC)
 	#define window_pet_trade_dummy_title 18 //(STATICDUMMY)

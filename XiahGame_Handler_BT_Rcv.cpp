@@ -2472,6 +2472,19 @@ int OnCS_BT_MUGONGATTACK_ACK( CMsg &msg)
 		g_MainCharInfo.ShowHelpMessage( IDS_SHORT_LIFE, TEXTEFFECT_COLOR_WARNING);
 		break;
 	}
+	// Client-side debuff icon: when bType=4 skill hits NPC, add icon
+	if (bResult == 2 && bDefType == OBJTYPE_NPC && pDefenderCharObject)
+	{
+		sArrayData* pDbgTemplate = XiahArrayIndex::g_MugongTemplate.GetData(dwMugongID);
+		if (pDbgTemplate && pDbgTemplate->GetInt(3) == 4)
+		{
+			DWORD dwDurMs = 10000;
+			sArrayData* pDbgMList = XiahArrayIndex::g_MugongList.GetData(dwMugongID, bMugongLevel);
+			if (pDbgMList && pDbgMList->GetInt(31) > 0)
+				dwDurMs = pDbgMList->GetInt(31) * 1000;
+			pDefenderCharObject->AddDebuff((WORD)dwMugongID, dwDurMs);
+		}
+	}
 
 	return TRUE;
 }

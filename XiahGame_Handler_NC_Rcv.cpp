@@ -942,7 +942,6 @@ int OnCS_NC_FUNCTIONALNPCINFOLIST_ACK(CMsg &msg)
 	
 		if( XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, dwObjectID,OBJTYPE_FUNCTIONALNPC)) != NULL)
 		{
-			DBG_Put("이미 있는 OBJ %s %d",szName.data(),dwObjectID);
 			continue;
 		}
 
@@ -950,7 +949,6 @@ int OnCS_NC_FUNCTIONALNPCINFOLIST_ACK(CMsg &msg)
 
 		if( pData == NULL)
 		{
-			DBG_Put(_T("넌 누구냐?"));
 			continue;
 		}
 		
@@ -960,7 +958,6 @@ int OnCS_NC_FUNCTIONALNPCINFOLIST_ACK(CMsg &msg)
 
 		if( XiahGameEngine::GetCharacter( nCharID) == NULL)
 		{
-			DBG_Put(_T("푸헐 더 우끼는 넘이네"));
 			continue;
 		}
 
@@ -1080,7 +1077,6 @@ int OnCS_NC_FUNCTIONALNPCINFO_ACK(CMsg &msg)
 
 		if( pData == NULL)
 		{
-			DBG_Put(_T("넌 누구냐?"));
 			return TRUE;
 		}
 		
@@ -2188,10 +2184,21 @@ int OnCS_NC_PETINFO_ACK(CMsg &msg)
 
 	// 2004.08.06 Changth
 	// 오너를 찾는다
+	if( bNpcType >= 251 )
+	{
+		DBG_LogFile( _T("[DEBUG_BUNSIN] OnCS_NC_PETINFO_ACK: received bunsin! dwID=%d, bNpcType=%d, dwOwnerID=%d"), dwID, (int)bNpcType, dwOwnerID );
+	}
+
 	XiahObject::CXiahObject* pOwner = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, dwOwnerID, OBJTYPE_PC));
 
 	if ( !pOwner )
+	{
+		if( bNpcType >= 251 )
+		{
+			DBG_LogFile( _T("[DEBUG_BUNSIN] Owner %d not found in ObjectManager!"), dwOwnerID );
+		}
 		return 0;
+	}
 
     // 새로운 캐릭터면 첨부터 생성하지만, 존재하는 거라면 데이타를 바꿔준다.
 	bool bCreateChar = true;
@@ -2201,14 +2208,34 @@ int OnCS_NC_PETINFO_ACK(CMsg &msg)
 	if( pXiahObject != NULL ) // 캐릭터 데이타가 있으면 new 하지 않고 데이타만 바꿔준다.
 		bCreateChar = false;
 
-	sArrayData* pData = XiahArrayIndex::g_NpcType.GetData( bNpcType);
-	
-	if( pData == NULL)
-		return 0;
+	int nCharID = 0;
+	int nMeshType = 0;
+	int nTextureType = 0;
 
-	int nCharID = pData->GetInt( 1);
-	int nMeshType = pData->GetInt( 2);
-	int nTextureType = pData->GetInt( 3);
+	if( bNpcType >= 251 )
+	{
+		CXiahCharObject* pOwnerChar = (CXiahCharObject*)pOwner->m_pObject;
+		if ( !pOwnerChar )
+		{
+			DBG_LogFile( _T("[DEBUG_BUNSIN] pOwnerChar is NULL!") );
+			return 0;
+		}
+		nCharID = pOwnerChar->m_CharRender.GetCharID();
+		nMeshType = pOwnerChar->m_CharRender.GetMeshType();
+		nTextureType = pOwnerChar->m_CharRender.GetTextureType();
+	}
+	else
+	{
+		sArrayData* pData = XiahArrayIndex::g_NpcType.GetData( bNpcType);
+		
+		if( pData == NULL)
+			return 0;
+
+		nCharID = pData->GetInt( 1);
+		nMeshType = pData->GetInt( 2);
+		nTextureType = pData->GetInt( 3);
+	}
+
 
 	if(bRevolutionStep == 4 && bNpcType == 0) //HT_0621 : 영수둔갑신단 적용)
 	{
@@ -2258,7 +2285,10 @@ int OnCS_NC_PETINFO_ACK(CMsg &msg)
 	
 	pCharObject->Create( nCharID, nMeshType, nTextureType, 1);
 
-	pCharObject->m_pAniType = XiahAniType::GetAniType( OBJTYPE_NPC, 0);
+	if( bNpcType >= 251 )
+		pCharObject->m_pAniType = XiahAniType::GetAniType( OBJTYPE_PC, 0);
+	else
+		pCharObject->m_pAniType = XiahAniType::GetAniType( OBJTYPE_NPC, 0);
 	pCharObject->SetAngle( wDirection);
 	pCharObject->SetPosition( wPosX, wPosY);
 
@@ -2267,6 +2297,9 @@ int OnCS_NC_PETINFO_ACK(CMsg &msg)
 	if(bRevolutionStep == 4 && bNpcType == 0) //HT_0621 : 영수둔갑신단 적용
 		SetupPET_VisualEquipement(pCharObject, wVisualID);
 
+	if( bNpcType >= 251 )
+		SetupPC_VisualEquipement(pCharObject, wVisualID);
+
 
 	// 만약 분신이면
 	// 2004.08.06 Changth
@@ -2274,8 +2307,23 @@ int OnCS_NC_PETINFO_ACK(CMsg &msg)
 	// 그래서 분신이 뛸때는 소리가 없게한다.
 	if( bNpcType == 251 )
 		pCharObject->m_CharRender.EnableAnimationSound(false);
-
-	pCharObject->m_szObjectName = szName;
+	if (bNpcType >= 251)
+	{
+		// [业务设计意图]
+		// 规避 sString 局部变量拼接导致的生命周期和析构野指针 Bug。
+		// 使用栈上的 C 风格缓冲区 szTemp 进行名字的 sprintf 格式化拼接，再赋给 sString 触发其内部深拷贝。
+		// 彻底解决野指针被破坏成“孤”并导致 D3D 渲染多字节字符时吃掉 \0 陷入死循环挂起黑屏的问题。
+		// [潜在风险]
+		// 拼接缓冲区大小设为 128 字节，对于游戏角色名字绰绰有余，c_str() 获取 const char* 指针。
+		char szTemp[128];
+		sprintf(szTemp, "%s\xb5\xc4\xb7\xd6\xc9\xed", pOwner->m_pObject->m_szObjectName.c_str());
+		pCharObject->m_szObjectName = szTemp;
+		szName = szTemp;
+	}
+	else
+	{
+		pCharObject->m_szObjectName = szName;
+	}
 	pCharObject->m_bObjType = OBJTYPE_PET;
 	pCharObject->m_dwCurHP = dwHpCur;
 	pCharObject->m_dwMaxHP = dwHpMax;
@@ -2323,6 +2371,8 @@ int OnCS_NC_PETINFO_ACK(CMsg &msg)
 	// 0=普通宠物, 1=幻龙(환수유), 2=分身(분신격)
 	if( bNpcType == 251 )
 		pPetInfo->m_dwIsHwan = 2;  // 分身
+	else if( bNpcType == 250 )
+		pPetInfo->m_dwIsHwan = 1;  // 幻兽龙
 	else
 		pPetInfo->m_dwIsHwan = 0;  // 普通宠物
 
@@ -2335,8 +2385,8 @@ int OnCS_NC_PETINFO_ACK(CMsg &msg)
 		pCharObject->m_CharRender.SetLocalScale(Vector3(2.0f, 2.0f, 2.0f));
 	}
 
-	// 分身自动加入 g_PetList：owner是自己时注入AI，使分身跟随和攻击
-	if( bNpcType == 251 && bCreateChar && pPetObject != NULL )
+	// 分身或幻兽龙自动加入 g_PetList：owner是自己时注入AI，使分身/龙跟随和攻击
+	if( (bNpcType == 251 || bNpcType == 250) && bCreateChar && pPetObject != NULL )
 	{
 		if( g_pMainChar && g_pMainChar->m_dwServerID == dwOwnerID )
 		{

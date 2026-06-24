@@ -1,4 +1,4 @@
-﻿#include "precompile.h"
+#include "precompile.h"
 #include "XiahObject.h"
 #include "XiahGame_Pet.h"
 
@@ -207,6 +207,11 @@ BOOL CXiahObjectManager::ReleaseXiahObject(CXiahObject *pObject)
 	iterator it = find( pObject->m_ddwObjectID);
 
 	if(it == end()) return FALSE;
+
+	if (pObject->m_pObject && pObject->m_pObject->m_bObjType == OBJTYPE_PET)
+	{
+		g_PetList.DeletePet(pObject->m_dwServerID);
+	}
 
 	erase( it);
 	ReleaseObject( pObject);

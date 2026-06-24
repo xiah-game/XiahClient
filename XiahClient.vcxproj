@@ -235,6 +235,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </CustomBuild>
     <ClInclude Include="Spirit.h" />
+    <ClInclude Include="TargetInfoPanel.h" />
     <ClInclude Include="StringDefine.h" />
     <ClInclude Include="sysutil.h" />
     <CustomBuild Include="XiahArrayIndex.h" />
@@ -462,6 +463,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='MASTER|Win32'">Use</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Spirit.cpp" />
+    <ClCompile Include="TargetInfoPanel.cpp" />
     <ClCompile Include="sysutil.cpp" />
     <ClCompile Include="tracealloc.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

@@ -1,4 +1,4 @@
-﻿#include "precompile.h"
+#include "precompile.h"
 #include "XiahGameObject.h"
 #include "XiahObjectType.h"
 #include "XiahMap.h"
@@ -3721,7 +3721,10 @@ BOOL ValidateObject(BYTE bObjType,DWORD ObjID,WORD wPosX,WORD wPosY)
 		SendCS_NC_NPCINFO_REQ( ObjID);
 		break;
 	case OBJTYPE_PET:
-		SendCS_NC_PETINFO_REQ( ObjID);
+		// [业务设计意图]
+		// 防御性屏蔽宠物/分身在找不到对象时的主动校验拉取。
+		// 避免客户端在玩家死亡或分身释放时，因收到滞后的怪物攻击广播包而强制重建数据残缺的分身，从客户端源头上杜绝幽灵分身镜像与崩溃。
+		// SendCS_NC_PETINFO_REQ( ObjID);
 		break;
 	default:
 		//DBG_Assert( FALSE);

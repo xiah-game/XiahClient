@@ -1,4 +1,4 @@
-﻿#include "precompile.h"
+#include "precompile.h"
 #include "AppData.h"
 #include "frameDefine.h"
 #include "resource.h"
@@ -1389,17 +1389,17 @@ bool ManageExtraItemEffect()
 					}
 
 					// 각성 아이템
-					if(_tcscmp(lpEffectName, _T("기린석발광")) == 0)
+					if(_tcscmp(lpEffectName, _T("\xb1\xe2\xb8\xb0\xbc\xae\xb9\xdf\xb1\xa4")) == 0)
 						g_EffectManager.SetAppearEffect( eRebirthItem1, pEffect);
-					else if(_tcscmp(lpEffectName, _T("봉황석발광")) == 0)
+					else if(_tcscmp(lpEffectName, _T("\xba\xc0\xc8\xb2\xbc\xae\xb9\xdf\xb1\xa4")) == 0)
 						g_EffectManager.SetAppearEffect( eRebirthItem2, pEffect);
-					else if(_tcscmp(lpEffectName, _T("현무석발광")) == 0)
+					else if(_tcscmp(lpEffectName, _T("\xc7\xf6\xb9\xab\xbc\xae\xb9\xdf\xb1\xa4")) == 0)
 						g_EffectManager.SetAppearEffect( eRebirthItem3, pEffect);
-					else if(_tcscmp(lpEffectName, _T("청룡석발광")) == 0)
+					else if(_tcscmp(lpEffectName, _T("\xc3\xbb\xb7\xe6\xbc\xae\xb9\xdf\xb1\xa4")) == 0)
 						g_EffectManager.SetAppearEffect( eRebirthItem4, pEffect);
-					else if(_tcscmp(lpEffectName, _T("건곤석발광")) == 0)
+					else if(_tcscmp(lpEffectName, _T("\xb0\xc7\xb0\xef\xbc\xae\xb9\xdf\xb1\xa4")) == 0)
 						g_EffectManager.SetAppearEffect( eRebirthItem5, pEffect);
-					else if(_tcscmp(lpEffectName, _T("음양석발광")) == 0)
+					else if(_tcscmp(lpEffectName, _T("\xc0\xbd\xbe\xe7\xbc\xae\xb9\xdf\xb1\xa4")) == 0)
 						g_EffectManager.SetAppearEffect( eRebirthItem6, pEffect);
 				}
 			}
@@ -1459,15 +1459,15 @@ bool ManageExtraEffectEtc()
 				// 이름에 맞는 이펙트를 연결시켜준다.
 
 				// 오행 시전
-				if(_tcscmp(lpEffectName, _T("오행시전_화_g")) == 0)
+				if(_tcscmp(lpEffectName, _T("\xbf\xc0\xc7\xe0\xbd\xc3\xc0\xfc\x5f\xc8\xad\x5f\x67")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eFEPrepareFire, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("오행시전_수_g")) == 0)
+				else if(_tcscmp(lpEffectName, _T("\xbf\xc0\xc7\xe0\xbd\xc3\xc0\xfc\x5f\xbc\xf6\x5f\x67")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eFEPrepareWater, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("오행시전_목_g")) == 0)
+				else if(_tcscmp(lpEffectName, _T("\xbf\xc0\xc7\xe0\xbd\xc3\xc0\xfc\x5f\xb8\xf1\x5f\x67")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eFEPrepareTree, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("오행시전_금_g")) == 0)
+				else if(_tcscmp(lpEffectName, _T("\xbf\xc0\xc7\xe0\xbd\xc3\xc0\xfc\x5f\xb1\xdd\x5f\x67")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eFEPrepareMetal, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("오행시전_토_g")) == 0)
+				else if(_tcscmp(lpEffectName, _T("\xbf\xc0\xc7\xe0\xbd\xc3\xc0\xfc\x5f\xc5\xe4\x5f\x67")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eFEPrepareEarth, pEffect, nX, nY, nZ );
 				// 오행 기본 (0级)
 				else if(nEffectID == 1554)
@@ -1514,35 +1514,35 @@ bool ManageExtraEffectEtc()
 				else if(nEffectID == 1574)
 					g_EffectManager.SetOutGongPersistEffect(eFEEarth3, pEffect, nX, nY, nZ );
 				// 야차 외공
-				else if(_tcscmp( lpEffectName, _T("만독불진_지속2")) == 0)
+				else if(_tcscmp( lpEffectName, _T("\xb8\xb8\xb5\xb6\xba\xd2\xc1\xf8\x5f\xc1\xf6\xbc\xd3\x32")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eMandokbuljin, pEffect, nX, nY, nZ );
 				// 성인 서버용 타격
-				else if(_tcscmp(lpEffectName, _T("피튀김1")) == 0)
+				else if(_tcscmp(lpEffectName, _T("\xc7\xc7\xc6\xa2\xb1\xe8\x31")) == 0)
 					g_EffectManager.SetHitEffect(eAdultAttack1, pEffect );
-				else if(_tcscmp(lpEffectName, _T("피튀김2")) == 0)
+				else if(_tcscmp(lpEffectName, _T("\xc7\xc7\xc6\xa2\xb1\xe8\x32")) == 0)
 					g_EffectManager.SetHitEffect(eAdultAttack2, pEffect );
-				else if(_tcscmp(lpEffectName, _T("성인_타격")) == 0)
+				else if(_tcscmp(lpEffectName, _T("\xbc\xba\xc0\xce\x5f\xc5\xb8\xb0\xdd")) == 0)
 					g_EffectManager.SetHitEffect(eAdultAttack3, pEffect );
 				// 오행 몬스터 타격
-				else if(_tcscmp(lpEffectName, _T("염시_타격")) == 0)
+				else if(_tcscmp(lpEffectName, _T("\xbf\xb0\xbd\xc3\x5f\xc5\xb8\xb0\xdd")) == 0)
 					g_EffectManager.SetHitEffect(eFireMonster1, pEffect );
-				else if(_tcscmp(lpEffectName, _T("촉음_타격")) == 0)
+				else if(_tcscmp(lpEffectName, _T("\xc3\xcb\xc0\xbd\x5f\xc5\xb8\xb0\xdd")) == 0)
 					g_EffectManager.SetHitEffect(eWaterMonster1, pEffect );
-				else if(_tcscmp(lpEffectName, _T("원신수_타격")) == 0)
+				else if(_tcscmp(lpEffectName, _T("\xbf\xf8\xbd\xc5\xbc\xf6\x5f\xc5\xb8\xb0\xdd")) == 0)
 					g_EffectManager.SetHitEffect(eTreeMonster1, pEffect );
-				else if(_tcscmp(lpEffectName, _T("당충_타격")) == 0)
+				else if(_tcscmp(lpEffectName, _T("\xb4\xe7\xc3\xe6\x5f\xc5\xb8\xb0\xdd")) == 0)
 					g_EffectManager.SetHitEffect(eMetalMonster1, pEffect );
-				else if(_tcscmp(lpEffectName, _T("비강_타격")) == 0)
+				else if(_tcscmp(lpEffectName, _T("\xba\xf1\xb0\xad\x5f\xc5\xb8\xb0\xdd")) == 0)
 					g_EffectManager.SetHitEffect(eEarthMonster1, pEffect );
 				// 설승단약
-				else if(_tcscmp(lpEffectName, _T("설승단약_시전")) == 0)
+				else if(_tcscmp(lpEffectName, _T("\xbc\xb3\xbd\xc2\xb4\xdc\xbe\xe0\x5f\xbd\xc3\xc0\xfc")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(ePotionBegine, pEffect, nX, nY, nZ );				
-				else if(_tcscmp(lpEffectName, _T("설승단약_지속")) == 0)
+				else if(_tcscmp(lpEffectName, _T("\xbc\xb3\xbd\xc2\xb4\xdc\xbe\xe0\x5f\xc1\xf6\xbc\xd3")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(ePotion, pEffect, nX, nY, nZ );
 				// 기
-				else if(_tcscmp(lpEffectName, _T("기 발동")) == 0)
+				else if(_tcscmp(lpEffectName, _T("\xb1\xe2\x20\xb9\xdf\xb5\xbf")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eSpiritBegine, pEffect, nX, nY, nZ );
-				else if(_tcscmp(lpEffectName, _T("기_03")) == 0)
+				else if(_tcscmp(lpEffectName, _T("\xb1\xe2\x5f\x30\x33")) == 0)
 					g_EffectManager.SetOutGongPersistEffect(eSpirit, pEffect, nX, nY, nZ );
 			}
 		}
@@ -1614,110 +1614,110 @@ BOOL ManageExtraEffect()
 
 				// 이름에 맞는 이펙트를 연결시켜준다.
 				// 타격
-				if( _tcscmp( lpEffectName, _T("검영 타격") ) == 0 )
+				if( _tcscmp( lpEffectName, _T("\xb0\xcb\xbf\xb5\x20\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eGumYung, pEffect );
-				else if( _tcscmp( lpEffectName, _T("연랑 타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xbf\xac\xb6\xfb\x20\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eYunrang, pEffect );
-				else if( _tcscmp( lpEffectName,_T( "야저 타격") ) == 0 )
+				else if( _tcscmp( lpEffectName,_T("\xbe\xdf\xc0\xfa\x20\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eYager, pEffect );
-				else if( _tcscmp( lpEffectName, _T("투우 타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xc5\xf5\xbf\xec\x20\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eTuo, pEffect );
-				else if( _tcscmp( lpEffectName, _T("교 타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb1\xb3\x20\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eGyu, pEffect );
-				else if( _tcscmp( lpEffectName, _T("괴인 타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb1\xab\xc0\xce\x20\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eWestGwyin, pEffect );
-				else if( _tcscmp( lpEffectName, _T("해골귀 타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xc7\xd8\xb0\xf1\xb1\xcd\x20\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eHagolgwuy, pEffect );
-				else if( _tcscmp( lpEffectName, _T("사갈 타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xbb\xe7\xb0\xa5\x20\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eSagal, pEffect );
-				else if( _tcscmp( lpEffectName, _T("요마 타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xbf\xe4\xb8\xb6\x20\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eYuoma, pEffect );
-				else if( _tcscmp( lpEffectName, _T("토충 타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xc5\xe4\xc3\xe6\x20\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eToChung, pEffect );
-				else if( _tcscmp( lpEffectName, _T("알유 타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xbe\xcb\xc0\xaf\x20\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eAlrue, pEffect );
-				else if( _tcscmp( lpEffectName, _T("백랑견 타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb9\xe9\xb6\xfb\xb0\xdf\x20\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eBakranggyun, pEffect );
-				else if( _tcscmp( lpEffectName, _T("빙조타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xba\xf9\xc1\xb6\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eBingjo, pEffect );
-				else if( _tcscmp( lpEffectName,_T( "금와와 타격") ) == 0 )
+				else if( _tcscmp( lpEffectName,_T("\xb1\xdd\xbf\xcd\xbf\xcd\x20\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eGumwawa, pEffect );
-				else if( _tcscmp( lpEffectName, _T("금군수장 타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb1\xdd\xb1\xba\xbc\xf6\xc0\xe5\x20\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eGumgunsujang, pEffect );
-				else if( _tcscmp( lpEffectName, _T("마도닌자 타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb8\xb6\xb5\xb5\xb4\xd1\xc0\xda\x20\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eMadoninja, pEffect );
-				else if( _tcscmp( lpEffectName, _T("맹호 타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb8\xcd\xc8\xa3\x20\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eMangho, pEffect );
-				else if( _tcscmp( lpEffectName, _T("광견 타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb1\xa4\xb0\xdf\x20\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eGwainggyun, pEffect );
-				else if( _tcscmp( lpEffectName, _T("건예자타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb0\xc7\xbf\xb9\xc0\xda\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eGunyeja, pEffect );
-				else if( _tcscmp( lpEffectName, _T("뇌화 타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb3\xfa\xc8\xad\x20\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eNwyhwa, pEffect );
-				else if( _tcscmp( lpEffectName, _T("백강잠시타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb9\xe9\xb0\xad\xc0\xe1\xbd\xc3\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eBackangjamsi, pEffect );
-				else if( _tcscmp( lpEffectName, _T("무투 타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb9\xab\xc5\xf5\x20\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eMooToo, pEffect );
-				else if( _tcscmp( lpEffectName, _T("요희 타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xbf\xe4\xc8\xf1\x20\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eYoihee, pEffect );
-				else if( _tcscmp( lpEffectName, _T("흑사봉타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xc8\xe6\xbb\xe7\xba\xc0\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eHksabong, pEffect );
-				else if( _tcscmp( lpEffectName, _T("저파룡타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xc0\xfa\xc6\xc4\xb7\xe6\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eJuparyuong, pEffect );
-				else if( _tcscmp( lpEffectName, _T("화녀 타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xc8\xad\xb3\xe0\x20\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eHwanyu, pEffect );
-				else if( _tcscmp( lpEffectName, _T("뇌신 타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb3\xfa\xbd\xc5\x20\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eNwysin, pEffect );
-				else if( _tcscmp( lpEffectName, _T("부마도타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xba\xce\xb8\xb6\xb5\xb5\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eBumado, pEffect );
-				else if( _tcscmp( lpEffectName, _T("건곤타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb0\xc7\xb0\xef\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eGungon, pEffect );
-				else if( _tcscmp( lpEffectName, _T("백호 타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb9\xe9\xc8\xa3\x20\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eBakho, pEffect );
-				else if( _tcscmp( lpEffectName, _T("자소타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xc0\xda\xbc\xd2\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eJaso, pEffect );
-				else if( _tcscmp( lpEffectName, _T("관흉인 타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb0\xfc\xc8\xe4\xc0\xce\x20\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eGwanhungin, pEffect );
-				else if( _tcscmp( lpEffectName, _T("타격_반탄강기") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xc5\xb8\xb0\xdd\x5f\xb9\xdd\xc5\xba\xb0\xad\xb1\xe2") ) == 0 )
 					g_EffectManager.SetHitEffect( eBantankangki_Hit, pEffect );
-				else if( _tcscmp( lpEffectName, _T("해골술사타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xc7\xd8\xb0\xf1\xbc\xfa\xbb\xe7\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eHaegolSerize, pEffect );
-				else if( _tcscmp( lpEffectName, _T("산타관흉타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xbb\xea\xc5\xb8\xb0\xfc\xc8\xe4\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eSantaGwanHung, pEffect );
-				else if( _tcscmp( lpEffectName, _T("신조_타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xbd\xc5\xc1\xb6\x5f\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eShinjo, pEffect );
-				else if( _tcscmp( lpEffectName, _T("야곤_타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xbe\xdf\xb0\xef\x5f\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eYagon, pEffect );
-				else if( _tcscmp( lpEffectName, _T("천신술사_타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xc3\xb5\xbd\xc5\xbc\xfa\xbb\xe7\x5f\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eChunshinsulsa, pEffect );
-				else if( _tcscmp( lpEffectName, _T("진모인_타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xc1\xf8\xb8\xf0\xc0\xce\x5f\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eJinmoin, pEffect );
-				else if( _tcscmp( lpEffectName, _T("표_타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xc7\xa5\x5f\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( ePyo, pEffect );
-				else if( _tcscmp( lpEffectName, _T("곤룡자_타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb0\xef\xb7\xe6\xc0\xda\x5f\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eGonlyeongja, pEffect );
-				else if(_tcscmp(lpEffectName, _T("인면수 타격")) == 0)
+				else if(_tcscmp(lpEffectName, _T("\xc0\xce\xb8\xe9\xbc\xf6\x20\xc5\xb8\xb0\xdd")) == 0)
 					g_EffectManager.SetHitEffect( eTreeMonster, pEffect );
-				else if(_tcscmp(lpEffectName, _T("대조귀 타격")) == 0)
+				else if(_tcscmp(lpEffectName, _T("\xb4\xeb\xc1\xb6\xb1\xcd\x20\xc5\xb8\xb0\xdd")) == 0)
 					g_EffectManager.SetHitEffect( eMouseMonster, pEffect );
-				else if(_tcscmp(lpEffectName, _T("혈기린 타격")) == 0)
+				else if(_tcscmp(lpEffectName, _T("\xc7\xf7\xb1\xe2\xb8\xb0\x20\xc5\xb8\xb0\xdd")) == 0)
 					g_EffectManager.SetHitEffect( eFireballTiger, pEffect );
-				else if(_tcscmp(lpEffectName, _T("금강동인 타격")) == 0)
+				else if(_tcscmp(lpEffectName, _T("\xb1\xdd\xb0\xad\xb5\xbf\xc0\xce\x20\xc5\xb8\xb0\xdd")) == 0)
 					g_EffectManager.SetHitEffect( eMetalMonster, pEffect );
-				else if(_tcscmp(lpEffectName, _T("금각거인 타격")) == 0)
+				else if(_tcscmp(lpEffectName, _T("\xb1\xdd\xb0\xa2\xb0\xc5\xc0\xce\x20\xc5\xb8\xb0\xdd")) == 0)
 					g_EffectManager.SetHitEffect( eArmorGiant, pEffect );
-				else if(_tcscmp(lpEffectName, _T("석귀 타격")) == 0)
+				else if(_tcscmp(lpEffectName, _T("\xbc\xae\xb1\xcd\x20\xc5\xb8\xb0\xdd")) == 0)
 					g_EffectManager.SetHitEffect( eGolem, pEffect );
-				else if( _tcscmp( lpEffectName, _T("야차 타격") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xbe\xdf\xc2\xf7\x20\xc5\xb8\xb0\xdd") ) == 0 )
 					g_EffectManager.SetHitEffect( eYacha, pEffect );
 				// 레벨 업
 				else if( _tcscmp( lpEffectName, _T("Level UP") ) == 0 )
 					g_EffectManager.SetLevelUpEffect( LEVELUP_GAPJA, pEffect );
 				else if( _tcscmp( lpEffectName, _T("Level UP2") ) == 0 )
 					g_EffectManager.SetLevelUpEffect( LEVELUP_TP, pEffect );
-				else if( _tcscmp( lpEffectName, _T("수련외공") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xbc\xf6\xb7\xc3\xbf\xdc\xb0\xf8") ) == 0 )
 					g_EffectManager.SetLevelUpEffect( LEVELUP_OUTGONG, pEffect );
-				else if( _tcscmp( lpEffectName, _T("수련내공") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xbc\xf6\xb7\xc3\xb3\xbb\xb0\xf8") ) == 0 )
 					g_EffectManager.SetLevelUpEffect( LEVELUP_INGONG, pEffect );
 				// NPC 등장 이펙트
 				else if( _tcscmp( lpEffectName, _T("NPC_Spawn_s") ) == 0 )
@@ -1727,45 +1727,45 @@ BOOL ManageExtraEffect()
 				else if( _tcscmp( lpEffectName, _T("NPC_Spawn_b") ) == 0 )
 					g_EffectManager.SetAppearEffect( eBig, pEffect );
 				// 경험치 획득 이펙트
-				else if( _tcscmp( lpEffectName, _T("경험치") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb0\xe6\xc7\xe8\xc4\xa1") ) == 0 )
 					g_EffectManager.SetExpAcquireEffect( pEffect );
 				// 바닥에 있는 아이템 이펙트
-				else if( _tcscmp( lpEffectName, _T("바닥아이템_일반") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb9\xd9\xb4\xda\xbe\xc6\xc0\xcc\xc5\xdb\x5f\xc0\xcf\xb9\xdd") ) == 0 )
 					g_EffectManager.SetAppearEffect( eItemGround, pEffect );
 				// 텔레보트 이펙트
-				else if( _tcscmp( lpEffectName, _T("텔레포트") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xc5\xda\xb7\xb9\xc6\xf7\xc6\xae") ) == 0 )
 					g_EffectManager.SetAppearEffect( eTeleport, pEffect );
 				// 물약 이펙트.
-				else if( _tcscmp( lpEffectName, _T("물약_생명") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb9\xb0\xbe\xe0\x5f\xbb\xfd\xb8\xed") ) == 0 )
 					g_EffectManager.SetAppearEffect( eMulYak_HP, pEffect );
-				else if( _tcscmp( lpEffectName, _T("물약_내력") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb9\xb0\xbe\xe0\x5f\xb3\xbb\xb7\xc2") ) == 0 )
 					g_EffectManager.SetAppearEffect( eMulYak_IP, pEffect );
-				else if( _tcscmp( lpEffectName, _T("물약_동시") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb9\xb0\xbe\xe0\x5f\xb5\xbf\xbd\xc3") ) == 0 )
 					g_EffectManager.SetAppearEffect( eMulYak_HPIP, pEffect );
 				// NPC 죽을때 폭발 이펙트
-				else if( _tcscmp( lpEffectName, _T("신조폭파") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xbd\xc5\xc1\xb6\xc6\xf8\xc6\xc4") ) == 0 )
 					g_EffectManager.SetAppearEffect( eShinjo_Explode, pEffect );
 				// 이벤트 아이템 이펙트
-				else if( _tcscmp( lpEffectName, _T("공격계_발동") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb0\xf8\xb0\xdd\xb0\xe8\x5f\xb9\xdf\xb5\xbf") ) == 0 )
 					g_EffectManager.SetAppearEffect( eAttackKindItem_start, pEffect );
-				else if( _tcscmp( lpEffectName, _T("성장계_발동") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xbc\xba\xc0\xe5\xb0\xe8\x5f\xb9\xdf\xb5\xbf") ) == 0 )
 					g_EffectManager.SetAppearEffect( eGrowthKindItem_start, pEffect );
-				else if( _tcscmp( lpEffectName, _T("몬스터계_발동") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb8\xf3\xbd\xba\xc5\xcd\xb0\xe8\x5f\xb9\xdf\xb5\xbf") ) == 0 )
 					g_EffectManager.SetAppearEffect( eMonsterKindItem_start, pEffect );
-				else if( _tcscmp( lpEffectName, _T("경제계_발동") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb0\xe6\xc1\xa6\xb0\xe8\x5f\xb9\xdf\xb5\xbf") ) == 0 )
 					g_EffectManager.SetAppearEffect( eEconomiKindItem_start, pEffect );
-				else if( _tcscmp( lpEffectName, _T("공격계_유지") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb0\xf8\xb0\xdd\xb0\xe8\x5f\xc0\xaf\xc1\xf6") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eAttackKindItem_keepup, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("성장계_유지") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xbc\xba\xc0\xe5\xb0\xe8\x5f\xc0\xaf\xc1\xf6") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eGrowthKindItem_keepup, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("몬스터계_유지") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb8\xf3\xbd\xba\xc5\xcd\xb0\xe8\x5f\xc0\xaf\xc1\xf6") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eMonsterKindItem_keepup, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("경제계_유지") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb0\xe6\xc1\xa6\xb0\xe8\x5f\xc0\xaf\xc1\xf6") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eEconomiKindItem_keepup, pEffect, nX, nY, nZ );
 				// 외공 지속 이펙트 및 무공 이펙트.
 				// 검영 무공, 외공 지속 이펙트
 				else if( _tcscmp( lpEffectName, _T("\xb9\xab\xbc\xf6\xc8\xa5\xc1\xf6\xbc\xd3\xc0\xcc\xc6\xe5\xc6\xae") ) == 0 ||
-						 _tcscmp( lpEffectName, _T("무수혼지속이펙트") ) == 0 ||
+						 _tcscmp( lpEffectName, _T("\xb9\xab\xbc\xf6\xc8\xa5\xc1\xf6\xbc\xd3\xc0\xcc\xc6\xe5\xc6\xae") ) == 0 ||
 						 _tcscmp( lpEffectName, _T("\xce\xe4\xbb\xea\xb3\xd6\xd0\xf8") ) == 0 ||
 						 _tcscmp( lpEffectName, _T("\xce\xe4\xbb\xea\xb3\xd6\xd0\xf8\xcc\xd8\xd0\xa7") ) == 0 )
 				{
@@ -1780,7 +1780,7 @@ BOOL ManageExtraEffect()
 					}
 				}
 				else if( _tcscmp( lpEffectName, _T("\xc6\xf8\xbb\xe7\xc8\xa5\xc1\xf6\xbc\xd3\xc0\xcc\xc6\xe5\xc6\xae") ) == 0 ||
-						 _tcscmp( lpEffectName, _T("폭사혼지속이펙트") ) == 0 ||
+						 _tcscmp( lpEffectName, _T("\xc6\xf8\xbb\xe7\xc8\xa5\xc1\xf6\xbc\xd3\xc0\xcc\xc6\xe5\xc6\xae") ) == 0 ||
 						 _tcscmp( lpEffectName, _T("\xb1\xac\xc9\xe4\xbb\xea\xb3\xd6\xd0\xf8") ) == 0 ||
 						 _tcscmp( lpEffectName, _T("\xb1\xac\xc9\xe4\xbb\xea\xb3\xd6\xd0\xf8\xcc\xd8\xd0\xa7") ) == 0 )
 				{
@@ -1795,7 +1795,7 @@ BOOL ManageExtraEffect()
 					}
 				}
 				else if( _tcscmp( lpEffectName, _T("\xb1\xdd\xb0\xad\xc0\xaf\xc1\xf6") ) == 0 ||
-						 _tcscmp( lpEffectName, _T("금강유지") ) == 0 ||
+						 _tcscmp( lpEffectName, _T("\xb1\xdd\xb0\xad\xc0\xaf\xc1\xf6") ) == 0 ||
 						 _tcscmp( lpEffectName, _T("\xbd\xf0\xb8\xd5\xce\xac\xb3\xd6") ) == 0 ||
 						 _tcscmp( lpEffectName, _T("\xbd\xf0\xb8\xd5\xc1\xa6\xb3\xd6\xd0\xf8") ) == 0 )
 				{
@@ -1809,89 +1809,89 @@ BOOL ManageExtraEffect()
 						}
 					}
 				}
-				else if( _tcscmp( lpEffectName, _T("바닥_일위도강지속2") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb9\xd9\xb4\xda\x5f\xc0\xcf\xc0\xa7\xb5\xb5\xb0\xad\xc1\xf6\xbc\xd3\x32") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eIlyuidogang, pEffect, nX, nY, nZ );
 				// 연랑 무공.
-				else if( _tcscmp( lpEffectName, _T("이광음힐받기") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xc0\xcc\xb1\xa4\xc0\xbd\xc8\xfa\xb9\xde\xb1\xe2") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eLeekwangum_heal_recv, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("전유음받기") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xc0\xfc\xc0\xaf\xc0\xbd\xb9\xde\xb1\xe2") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eJunuoum_recv, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("연우영받기") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xbf\xac\xbf\xec\xbf\xb5\xb9\xde\xb1\xe2") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eYuenoyueng_recv, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("이타생_데미지") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xc0\xcc\xc5\xb8\xbb\xfd\x5f\xb5\xa5\xb9\xcc\xc1\xf6") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eLeetasaeng_damage, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("교감수_받기") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb1\xb3\xb0\xa8\xbc\xf6\x5f\xb9\xde\xb1\xe2") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eKyugamsu_recv, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("원기신강받기") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xbf\xf8\xb1\xe2\xbd\xc5\xb0\xad\xb9\xde\xb1\xe2") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eWonkisingang_recv, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("미혼술받기") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb9\xcc\xc8\xa5\xbc\xfa\xb9\xde\xb1\xe2") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eMihonsul_recv, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("원기신강지속이펙트") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xbf\xf8\xb1\xe2\xbd\xc5\xb0\xad\xc1\xf6\xbc\xd3\xc0\xcc\xc6\xe5\xc6\xae") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eWonkisingang, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("환수유_출현") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xc8\xaf\xbc\xf6\xc0\xaf\x5f\xc3\xe2\xc7\xf6") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eHwansoou_appear, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("연우영지속") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xbf\xac\xbf\xec\xbf\xb5\xc1\xf6\xbc\xd3") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eYuenoyueng, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("교감수_지속") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb1\xb3\xb0\xa8\xbc\xf6\x5f\xc1\xf6\xbc\xd3") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eKyugamsu, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("바닥_유수신영지속2") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb9\xd9\xb4\xda\x5f\xc0\xaf\xbc\xf6\xbd\xc5\xbf\xb5\xc1\xf6\xbc\xd3\x32") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eYuesusinyung, pEffect, nX, nY, nZ );
 				// 무투 무공.
-				else if( _tcscmp( lpEffectName, _T("지속_반탄강기") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xc1\xf6\xbc\xd3\x5f\xb9\xdd\xc5\xba\xb0\xad\xb1\xe2") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eBantankangki, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("지속_적운강기") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xc1\xf6\xbc\xd3\x5f\xc0\xfb\xbf\xee\xb0\xad\xb1\xe2") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eJukwonkangki, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("받기_파천소") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb9\xde\xb1\xe2\x5f\xc6\xc4\xc3\xb5\xbc\xd2") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( ePachunso_recv, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("받기_금나수") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb9\xde\xb1\xe2\x5f\xb1\xdd\xb3\xaa\xbc\xf6") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eKumnasu_recv, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("받기_암흑무") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb9\xde\xb1\xe2\x5f\xbe\xcf\xc8\xe6\xb9\xab") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eAmhukmu_recv, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("받기_탈백인") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb9\xde\xb1\xe2\x5f\xc5\xbb\xb9\xe9\xc0\xce") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eTalbacin_recv, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("받기_마령각") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb9\xde\xb1\xe2\x5f\xb8\xb6\xb7\xc9\xb0\xa2") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eMarulkak_recv, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("바닥_질풍보지속2") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb9\xd9\xb4\xda\x5f\xc1\xfa\xc7\xb3\xba\xb8\xc1\xf6\xbc\xd3\x32") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eJilpungbo, pEffect, nX, nY, nZ );
 				// 야차 무공
-				else if( _tcscmp( lpEffectName, _T("바닥_초상비지속2") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb9\xd9\xb4\xda\x5f\xc3\xca\xbb\xf3\xba\xf1\xc1\xf6\xbc\xd3\x32") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eChosangbi, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("오독침_지속") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xbf\xc0\xb5\xb6\xc4\xa7\x5f\xc1\xf6\xbc\xd3") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eOdokchim, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("독무_가루유지") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb5\xb6\xb9\xab\x5f\xb0\xa1\xb7\xe7\xc0\xaf\xc1\xf6") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eDokmu, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("독혈공_지속") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb5\xb6\xc7\xf7\xb0\xf8\x5f\xc1\xf6\xbc\xd3") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eDokhyulgong, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("독내공_지속") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb5\xb6\xb3\xbb\xb0\xf8\x5f\xc1\xf6\xbc\xd3") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eDoknaegong, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("쌍도수_지속") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xbd\xd6\xb5\xb5\xbc\xf6\x5f\xc1\xf6\xbc\xd3") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eSsangdosu, pEffect, nX, nY, nZ );
 
 				//HT_0523 환생 무공.. '펙'이면 다 '펙'으로 올리지 '팩'은 또 모냐 ㅡㅡ;
-				else if( _tcscmp( lpEffectName, _T("화룡대상이펙트") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xc8\xad\xb7\xe6\xb4\xeb\xbb\xf3\xc0\xcc\xc6\xe5\xc6\xae") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eWha_Dragon, pEffect, nX, nY, nZ );	
-				else if( _tcscmp( lpEffectName, _T("빙룡대상이팩트") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xba\xf9\xb7\xe6\xb4\xeb\xbb\xf3\xc0\xcc\xc6\xd1\xc6\xae") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eBing_Dragon, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("독룡대상이펙트_수정") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb5\xb6\xb7\xe6\xb4\xeb\xbb\xf3\xc0\xcc\xc6\xe5\xc6\xae\x5f\xbc\xf6\xc1\xa4") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eDok_Dragon, pEffect, nX, nY, nZ );
-				else if( _tcscmp( lpEffectName, _T("뇌룡대상이펙트_수정") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb3\xfa\xb7\xe6\xb4\xeb\xbb\xf3\xc0\xcc\xc6\xe5\xc6\xae\x5f\xbc\xf6\xc1\xa4") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect( eNoi_Dragon, pEffect, nX, nY, nZ );
 				
 				// 환생 특화 무공 지속 이펙트
-				else if( _tcscmp( lpEffectName, _T("검영_일기참대상") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb0\xcb\xbf\xb5\x5f\xc0\xcf\xb1\xe2\xc2\xfc\xb4\xeb\xbb\xf3") ) == 0 )
 					g_EffectManager.SetHitEffect(eGumyongSpecial, pEffect);
-				else if( _tcscmp( lpEffectName, _T("무투_강기포권대상") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb9\xab\xc5\xf5\x5f\xb0\xad\xb1\xe2\xc6\xf7\xb1\xc7\xb4\xeb\xbb\xf3") ) == 0 )
 					g_EffectManager.SetHitEffect(eMutuSpecial, pEffect);
-				else if( _tcscmp( lpEffectName, _T("연랑_수신기강대상") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xbf\xac\xb6\xfb\x5f\xbc\xf6\xbd\xc5\xb1\xe2\xb0\xad\xb4\xeb\xbb\xf3") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect(eYunrangSpecial, pEffect, nX, nY, nZ);
 
-				else if( _tcscmp( lpEffectName, _T("연랑_사장신공유지_수정") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xbf\xac\xb6\xfb\x5f\xbb\xe7\xc0\xe5\xbd\xc5\xb0\xf8\xc0\xaf\xc1\xf6\x5f\xbc\xf6\xc1\xa4") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect(eYunSajangsingong, pEffect, nX, nY, nZ);
-				else if( _tcscmp( lpEffectName, _T("무투_기흡강기지속") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xb9\xab\xc5\xf5\x5f\xb1\xe2\xc8\xed\xb0\xad\xb1\xe2\xc1\xf6\xbc\xd3") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect(eMuKihubkangki, pEffect, nX, nY, nZ);
-				else if( _tcscmp( lpEffectName, _T("야차_은신술유지") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xbe\xdf\xc2\xf7\x5f\xc0\xba\xbd\xc5\xbc\xfa\xc0\xaf\xc1\xf6") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect(eYaEunsinsul, pEffect, nX, nY, nZ);
-				else if( _tcscmp( lpEffectName, _T("야차_호정강기유지_수정") ) == 0 )
+				else if( _tcscmp( lpEffectName, _T("\xbe\xdf\xc2\xf7\x5f\xc8\xa3\xc1\xa4\xb0\xad\xb1\xe2\xc0\xaf\xc1\xf6\x5f\xbc\xf6\xc1\xa4") ) == 0 )
 					g_EffectManager.SetOutGongPersistEffect(eYaHojungkangki, pEffect, nX, nY, nZ);					
 			}// if
 			else

@@ -1,4 +1,4 @@
-﻿#include "precompile.h"
+#include "precompile.h"
 #include "Xiahgamemain.h"
 #include "XiahGameObject.h"
 #include "CharacterInfo.h"
@@ -67,6 +67,11 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode);
 
 
 
+// 业务设计意图：战斗状态下宠物/幻兽的最大活动半径与闪回极限值定义，用以控制跟随和防拉扯边界。
+// 为适应大范围战斗与拉怪需求，将活动半径放宽至 60 格（上限贴合九宫格视野同步极限）。
+const float MAX_WARP_DIST_IN_COMBAT = 60.0f;
+const float MAX_FOLLOW_DIST_IN_COMBAT = 60.0f;
+
 // 실제의 AI
 BOOL ProcessPETAI(DWORD dwObjectID,CXiahCharObject* pObject,sPetInfo* pPetInfo,CXiahCharObject* pTargetChar)
 {
@@ -122,19 +127,6 @@ BOOL ProcessPETAI(DWORD dwObjectID,CXiahCharObject* pObject,sPetInfo* pPetInfo,C
 						if( diffAngle > 30)	STOP_PET;
 						STARTMOVE_PET_RUN;
 					}
-				}//HT_CHEAT : 분신 잘 안되넹..ㅡㅡ; 반응 속도가 느리다
-				else if(pPetInfo->m_dwIsHwan == 2)//if( g_dwCurTime - pPetInfo->dwLastAttackTime > pPetInfo->dwAttackDelayTime)
-				{
-					//HT_CHEAT : 분신격은 몬스터 한대만 때리자 ㅡㅡ;;
-					if(pObject->m_dwMaxHP * 0.7 < pObject->m_dwCurHP)
-					{
-						// 대상을 공격해준다
-						SendCS_BT_PREATTACK_REQ( OBJTYPE_PET, dwObjectID, pPetInfo->dwDestType, pPetInfo->dwDestID, pObject->m_Position.x, -pObject->m_Position.z, pObject->m_Position.y, 0);
-						pPetInfo->dwLastAttackTime = g_dwCurTime;	// PreAttack_Ack올때까지 기다려주려면.
-					}
-					//// 대상을 공격해준다 (자기 방어)
-					//SendCS_BT_PREATTACK_REQ( OBJTYPE_PET, dwObjectID, pPetInfo->dwDestType, pPetInfo->dwDestID, pObject->m_Position.x, -pObject->m_Position.z, pObject->m_Position.y, 0);
-					//pPetInfo->dwLastAttackTime = g_dwCurTime;	// PreAttack_Ack올때까지 기다려주려면.
 				}
 				else
 				{
@@ -179,7 +171,10 @@ BOOL ProcessPETAI(DWORD dwObjectID,CXiahCharObject* pObject,sPetInfo* pPetInfo,C
 			// 대상과 Pet과의 거리
 			float fDistance = pTargetChar->GetInteractionDistance( pObject->m_Position);
 
-			if( (fDistance * 1.5f) > pPetInfo->fFollowRange) // 멀리 있다
+			// 业务设计意图：指定攻击判定时，必须使用攻击距离 pPetInfo->fAttackRange (如5.0格)，
+			// 绝对不能误用跟随距离 pPetInfo->fFollowRange (仅2.0格)，否则因怪物碰撞体积阻挡无法贴近到2.0格内，宠物将永远在怪物前跑步而不发起普通攻击。
+			float fTargetRange = (pPetInfo->fAttackRange > 0.0f) ? pPetInfo->fAttackRange : pPetInfo->fFollowRange;
+			if( fDistance > fTargetRange) // 멀리 있다
 			{
 				if(pObject->m_nCurMotionType != XiahAniType::eLAT_Run && pObject->m_nCurMotionType != XiahAniType::eLAT_Walk)
 				{
@@ -405,15 +400,31 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 				// 분신격을 쓴 후, 일반 캐릭터를 클릭하면 분신이 바로 공격한다 이것을 막는다.
 				// 단 비무, 문파전 일땐 클릭이 공격이므로 이때를 제외하곤 분신이 공격을 못하게 한다.
 				// nRemainAttackCount == 1 이면 메인이 공격을 하는 상태다.
-				if( g_MainChar_PreAttackInfo.nRemainAttackCount == 0 )
+				if (pPetInfo->m_dwIsHwan == 2 || pPetInfo->m_dwIsHwan == 1)
 				{
-					pPetInfo->dwDestID = 0;
-					pPetInfo->dwDestType = 0;
+					if (dwSelObjectID != 0 && (dwSelObjectType == OBJTYPE_NPC || dwSelObjectType == OBJTYPE_PC))
+					{
+						pPetInfo->dwDestID = dwSelObjectID;
+						pPetInfo->dwDestType = dwSelObjectType;
+					}
+					else
+					{
+						pPetInfo->dwDestID = 0;
+						pPetInfo->dwDestType = 0;
+					}
 				}
 				else
 				{
-					pPetInfo->dwDestID = dwSelObjectID;
-					pPetInfo->dwDestType = dwSelObjectType;
+					if( g_MainChar_PreAttackInfo.nRemainAttackCount == 0 )
+					{
+						pPetInfo->dwDestID = 0;
+						pPetInfo->dwDestType = 0;
+					}
+					else
+					{
+						pPetInfo->dwDestID = dwSelObjectID;
+						pPetInfo->dwDestType = dwSelObjectType;
+					}
 				}
 			}
 		}
@@ -668,9 +679,19 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 				else*/
 					fFollowRange = pPetInfo->fFollowRange;
 
-				if( fDistance > fFollowRange * dis || pPetInfo->bFollowPC == TRUE ) // 멀리 있다
+				float fWarpDistance = MAX_WARP_DIST_IN_COMBAT;
+				float fMaxFollowDist = fFollowRange * dis;
+				if (pPetInfo->dwDestID != 0)
 				{
-					if(!pPetInfo->bFight)
+					fMaxFollowDist = MAX_FOLLOW_DIST_IN_COMBAT;
+					pPetInfo->bFollowPC = FALSE;
+				}
+
+				if( fDistance > fMaxFollowDist || pPetInfo->bFollowPC == TRUE ) // 멀리 있다
+				{
+					// 业务设计意图：仅在没有攻击目标，或者已远超闪回距离导致拉回时，才允许在非战斗状态清空攻击目标。
+					// 这样能有效阻断分身在中途跑向怪物的过程中（bFight尚为FALSE）因为距离主人的跟随判定而丢失目标。
+					if(!pPetInfo->bFight && (pPetInfo->dwDestID == 0 || fDistance > fWarpDistance))
 					{
 						pPetInfo->bFight		= FALSE;
 						pPetInfo->dwDestID		= 0;
@@ -704,7 +725,7 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 					diffAngle = ABS( curAngle - desAngle);
 
 					// 5배 떨어져 있으면 JUMP 한다
-					if(fDistance > pPetInfo->fFollowRange * 5.0f)
+					if(fDistance > fWarpDistance)
 					{
 						int x = 16 - (rand() % 32);
 						int y = 16 - (rand() % 32);
@@ -787,7 +808,9 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 							// 대상과 Pet과의 거리
 							float fDistance = pTargetChar->GetInteractionDistance( pObject->m_Position);
 
-							if( fDistance > pPetInfo->fFollowRange) // 멀리 있다
+							// 业务设计意图：战斗贴身攻击判定时，必须使用已根据战斗状态正确切换为攻击距离的本地变量 fFollowRange，
+							// 绝对不能误用跟随距离 pPetInfo->fFollowRange (仅2.0格)，否则会导致分身在怪物身旁只跑步不打怪。
+							if( fDistance > fFollowRange) // 멀리 있다
 							{
 								//YS_0810 : PETAI
 								fMoveSpeed = 3.3f;
@@ -803,15 +826,11 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 							//	}
 								
 							}
-							else// if( g_dwCurTime - pPetInfo->dwLastAttackTime > pPetInfo->dwAttackDelayTime)
+							else if( g_dwCurTime - pPetInfo->dwLastAttackTime > pPetInfo->dwAttackDelayTime)
 							{
-								//HT_CHEAT : 분신격은 몬스터 
-								if(pObject->m_dwMaxHP * 0.7 < pObject->m_dwCurHP)
-								{
-									// 대상을 공격해준다
-									SendCS_BT_PREATTACK_REQ( OBJTYPE_PET, dwObjectID, pPetInfo->dwDestType, pPetInfo->dwDestID, pObject->m_Position.x, -pObject->m_Position.z, pObject->m_Position.y, 0);
-									pPetInfo->dwLastAttackTime = g_dwCurTime;	// PreAttack_Ack올때까지 기다려주려면.
-								}
+								// 대상을 공격해준다
+								SendCS_BT_PREATTACK_REQ( OBJTYPE_PET, dwObjectID, pPetInfo->dwDestType, pPetInfo->dwDestID, pObject->m_Position.x, -pObject->m_Position.z, pObject->m_Position.y, 0);
+								pPetInfo->dwLastAttackTime = g_dwCurTime;	// PreAttack_Ack올때까지 기다려주려면.
 							}
 						}
 						else
@@ -843,9 +862,25 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 				else
 					fFollowRange = pPetInfo->fFollowRange;
 
-				if( fDistance > fFollowRange * dis || pPetInfo->bFollowPC == TRUE ) // 멀리 있다
+				float fWarpDistance = pPetInfo->fFollowRange * 5.0f;
+				if (pPetInfo->dwDestID != 0) fWarpDistance = MAX_WARP_DIST_IN_COMBAT;
+
+				float fMaxFollowDist = fFollowRange * dis;
+				if (pPetInfo->dwDestID != 0)
 				{
-					if(!pPetInfo->bFight)
+					fMaxFollowDist = MAX_FOLLOW_DIST_IN_COMBAT;
+					pPetInfo->bFollowPC = FALSE;
+				}
+
+				TCHAR szLog[256];
+				_stprintf(szLog, _T("[PetAI-Dragon] DestID: %d, Distance: %f, MaxFollow: %f, FollowPC: %d"), pPetInfo->dwDestID, fDistance, fMaxFollowDist, pPetInfo->bFollowPC);
+				DBG_LogFile(szLog);
+
+				if( fDistance > fMaxFollowDist || pPetInfo->bFollowPC == TRUE ) // 멀리 있다
+				{
+					// 业务设计意图：仅在没有攻击目标，或者已远超闪回距离导致拉回时，才允许在非战斗状态清空攻击目标。
+					// 这样能有效阻断幻兽龙在中途跑向怪物的过程中（bFight尚为FALSE）因为距离主人的跟随判定而丢失目标。
+					if(!pPetInfo->bFight && (pPetInfo->dwDestID == 0 || fDistance > fWarpDistance))
 					{
 						pPetInfo->bFight		= FALSE;
 						pPetInfo->dwDestID		= 0;
@@ -879,8 +914,16 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 					diffAngle = ABS( curAngle - desAngle);
 
 					// 5배 떨어져 있으면 JUMP 한다
-					if(fDistance > pPetInfo->fFollowRange * 5.0f)
+					TCHAR szWarpLog[256];
+					_stprintf(szWarpLog, _T("[PetAI-Dragon] Checking Warp. Dist: %f, WarpDist: %f"), fDistance, fWarpDistance);
+					DBG_LogFile(szWarpLog);
+
+					if(fDistance > fWarpDistance)
 					{
+						TCHAR szWarpLog2[256];
+						_stprintf(szWarpLog2, _T("[PetAI-Dragon] WARP JUMP EXECUTE! OwnerPos: (%f, %f)"), pMainChar->m_Position.x, pMainChar->m_Position.z);
+						DBG_LogFile(szWarpLog2);
+
 						int x = 16 - (rand() % 32);
 						int y = 16 - (rand() % 32);
 
@@ -960,7 +1003,9 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 						// 대상과 Pet과의 거리
 						float fDistance = pTargetChar->GetInteractionDistance( pObject->m_Position);
 
-						if( fDistance > pPetInfo->fFollowRange) // 멀리 있다
+						// 业务设计意图：战斗贴身攻击判定时，必须使用已根据战斗状态正确切换为攻击距离的本地变量 fFollowRange，
+						// 绝对不能误用跟随距离 pPetInfo->fFollowRange (仅2.0格)，否则会导致幻兽龙在怪物身旁只跑步不打怪。
+						if( fDistance > fFollowRange) // 멀리 있다
 						{
 							//YS_0810 : PETAI
 							fMoveSpeed = 3.3f;
@@ -978,6 +1023,9 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 						}
 						else if( g_dwCurTime - pPetInfo->dwLastAttackTime > pPetInfo->dwAttackDelayTime)
 						{
+							TCHAR szAtkLog[256];
+							_stprintf(szAtkLog, _T("[PetAI-Dragon] PreAttack sent. TargetID: %d, TargetType: %d, CurPos: (%f, %f), DestPos: (%f, %f)"), pPetInfo->dwDestID, pPetInfo->dwDestType, pObject->m_Position.x, pObject->m_Position.z, pTargetChar->m_Position.x, pTargetChar->m_Position.z);
+							DBG_LogFile(szAtkLog);
 							// 대상을 공격해준다
 							SendCS_BT_PREATTACK_REQ( OBJTYPE_PET, dwObjectID, pPetInfo->dwDestType, pPetInfo->dwDestID, pObject->m_Position.x, -pObject->m_Position.z, pObject->m_Position.y, 0);
 							pPetInfo->dwLastAttackTime = g_dwCurTime;	// PreAttack_Ack올때까지 기다려주려면.

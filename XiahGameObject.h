@@ -416,6 +416,46 @@ public:
 	// 효과를 위해
 	CKeepupMugongList	m_KeepUpMugongList;
 
+	// Debuff icons for target info panel (client-side estimation)
+	struct sMonsterDebuff
+	{
+		WORD  wMugongID;
+		DWORD dwExpireTime;   // g_dwCurTime when this debuff expires
+	};
+	std::vector<sMonsterDebuff> m_vDebuffList;
+
+	void AddDebuff(WORD wMugongID, DWORD dwDurationMs)
+	{
+		// Replace existing debuff of same skill, or add new
+		for (size_t i = 0; i < m_vDebuffList.size(); i++)
+		{
+			if (m_vDebuffList[i].wMugongID == wMugongID)
+			{
+				m_vDebuffList[i].dwExpireTime = g_dwCurTime + dwDurationMs;
+				return;
+			}
+		}
+		if (m_vDebuffList.size() < 8)
+		{
+			sMonsterDebuff db;
+			db.wMugongID = wMugongID;
+			db.dwExpireTime = g_dwCurTime + dwDurationMs;
+			m_vDebuffList.push_back(db);
+		}
+	}
+
+	void RemoveExpiredDebuffs()
+	{
+		for (int i = (int)m_vDebuffList.size() - 1; i >= 0; i--)
+		{
+			if (g_dwCurTime > m_vDebuffList[i].dwExpireTime)
+			{
+				m_KeepUpMugongList.Delete(m_vDebuffList[i].wMugongID);
+				m_vDebuffList.erase(m_vDebuffList.begin() + i);
+			}
+		}
+	}
+
 	// 무공 지속 이펙트
 	// 검영
 	_EFFECTPACKAGEPAIR*		m_pMusuhonEffectPP;
