@@ -751,12 +751,29 @@ void CMugong::SetMugongToolTip( int nMugongID, int nFrameID, int nControlID)
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
 		if( nMugongID == 31 || nMugongID == 40)		// 기세배강, 투척무강
 		{
-			SETMUGONGTOOLTIP(13, IDS_D_ATTK_INC_KISE2, 0);
+			data = pMugongList->GetInt(13);
+			if( data) {
+				TCHAR temp[100];
+				_stprintf( temp, IDS_D_ATTK_INC_KISE2, (data + 50)/100);
+				g_pUIManager->AddToolTip(nFrameID, nControlID, (LPCTSTR)temp, 0);
+			}
 		}
 		// 혈선풍, 도화천, 대수인, 박투술, 흑사장, 오독침, 독무, 광마독공
 		else if( nMugongID == 33 || nMugongID == 67 || nMugongID == 97 || nMugongID == 91 || nMugongID == 121 || nMugongID == 122 || nMugongID == 127 ||  nMugongID == 131)
 		{
-			SETMUGONGTOOLTIP(13, IDS_D_ATTK_INC2, 0);
+			if (nMugongID == 91)
+			{
+				data = pMugongList->GetInt(13);
+				if( data) {
+					TCHAR temp[100];
+					_stprintf( temp, IDS_D_ATTK_INC2, (data + 50)/100);
+					g_pUIManager->AddToolTip(nFrameID, nControlID, (LPCTSTR)temp, 0);
+				}
+			}
+			else
+			{
+				SETMUGONGTOOLTIP(13, IDS_D_ATTK_INC2, 0);
+			}
 		}
 		else if( nMugongID == 41)	// 분신격
 		{
@@ -871,7 +888,19 @@ void CMugong::SetMugongToolTip( int nMugongID, int nFrameID, int nControlID)
 			SETMUGONGTOOLTIP(20, IDS_D_LIFE_DEC, 0);		// 생명력 감소율
 		}
 
-		SETMUGONGTOOLTIP(28, IDS_MUGONG_NEW_22, 0);			// 일격술 증가
+		if (nMugongID == 32)
+		{
+			data = pMugongList->GetInt(28);
+			if( data) {
+				TCHAR temp[100];
+				_stprintf( temp, IDS_MUGONG_NEW_22, (data + 50)/100);
+				g_pUIManager->AddToolTip(nFrameID, nControlID, (LPCTSTR)temp, 0);
+			}
+		}
+		else
+		{
+			SETMUGONGTOOLTIP(28, IDS_MUGONG_NEW_22, 0);			// 일격술 증가
+		}
 		SETMUGONGTOOLTIP(31, IDS_MUGONG_NEW_01, 0);			// 유효시간(초)
 
 		if(nMugongID == 92)			// 파천소
@@ -981,12 +1010,29 @@ void CMugong::SetMugongToolTip( int nMugongID, int nFrameID, int nControlID)
 
 			if( nMugongID == 31 || nMugongID == 40)			// 기세배강, 투척무강
 			{
-				SETMUGONGTOOLTIP(13, MUGONG_TIP14, 2);
+				data = pMugongList->GetInt(13);
+				if( data) {
+					TCHAR temp[100];
+					_stprintf( temp, MUGONG_TIP14, (data + 50)/100);
+					g_pUIManager->AddToolTip(nFrameID, nControlID, (LPCTSTR)temp, 2);
+				}
 			}
 			// 혈선풍, 도화천, 대수인, 박투술, 흑사장, 오독침, 독무, 광마독공
 			else if( nMugongID == 33 || nMugongID == 67 || nMugongID == 97 || nMugongID == 91 || nMugongID == 121 || nMugongID == 122 || nMugongID == 127 ||  nMugongID == 131)
 			{
-				SETMUGONGTOOLTIP(13, IDS_D_NEXT_ATTK_INC2, 2);
+				if (nMugongID == 91)
+				{
+					data = pMugongList->GetInt(13);
+					if( data) {
+						TCHAR temp[100];
+						_stprintf( temp, IDS_D_NEXT_ATTK_INC2, (data + 50)/100);
+						g_pUIManager->AddToolTip(nFrameID, nControlID, (LPCTSTR)temp, 2);
+					}
+				}
+				else
+				{
+					SETMUGONGTOOLTIP(13, IDS_D_NEXT_ATTK_INC2, 2);
+				}
 			}
 			else if( nMugongID == 41)		// 분신격
 			{
@@ -1099,7 +1145,19 @@ void CMugong::SetMugongToolTip( int nMugongID, int nFrameID, int nControlID)
 				SETMUGONGTOOLTIP(20, IDS_D_NEXT_LIFE_DEC, 2);		// 생명력 감소율
 			}
 			
-			SETMUGONGTOOLTIP(28, IDS_MUGONG_NEW_22_NEXT, 0);		// 일격술 증가
+			if (nMugongID == 32)
+			{
+				data = pMugongList->GetInt(28);
+				if( data) {
+					TCHAR temp[100];
+					_stprintf( temp, IDS_MUGONG_NEW_22_NEXT, (data + 50)/100);
+					g_pUIManager->AddToolTip(nFrameID, nControlID, (LPCTSTR)temp, 0);
+				}
+			}
+			else
+			{
+				SETMUGONGTOOLTIP(28, IDS_MUGONG_NEW_22_NEXT, 0);		// 일격술 증가
+			}
 			SETMUGONGTOOLTIP(31, IDS_MUGONG_NEW_01_NEXT, 2);		// 유효시간(초)
 
 

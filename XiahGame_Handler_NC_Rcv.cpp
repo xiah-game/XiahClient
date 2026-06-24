@@ -1,4 +1,4 @@
-﻿#include "XiahCheatConfig.h"
+#include "XiahCheatConfig.h"
 #include "cEFFECT_SPOT.h"
 
 #define BOOM_FXSOUND1	50001470
@@ -2318,7 +2318,13 @@ int OnCS_NC_PETINFO_ACK(CMsg &msg)
 	pPetInfo->bSpeed			=	 bSpeed;
 	pPetInfo->dwOwnID			=	 dwOwnerID;
 	pPetInfo->bRevolutionStep	=	 bRevolutionStep;
-	pPetInfo->m_dwIsHwan		= 0;
+
+	// 根据 bNpcType 设置分身/幻龙标记
+	// 0=普通宠物, 1=幻龙(환수유), 2=分身(분신격)
+	if( bNpcType == 251 )
+		pPetInfo->m_dwIsHwan = 2;  // 分身
+	else
+		pPetInfo->m_dwIsHwan = 0;  // 普通宠物
 
 
 	pCharObject->m_pPrivateData = (DWORD)pPetInfo;
@@ -2327,6 +2333,26 @@ int OnCS_NC_PETINFO_ACK(CMsg &msg)
 	if(pCharObject->m_KeepUpMugongList.IsExist(YUN_SUSINKIKANG))
 	{
 		pCharObject->m_CharRender.SetLocalScale(Vector3(2.0f, 2.0f, 2.0f));
+	}
+
+	// 分身自动加入 g_PetList：owner是自己时注入AI，使分身跟随和攻击
+	if( bNpcType == 251 && bCreateChar && pPetObject != NULL )
+	{
+		if( g_pMainChar && g_pMainChar->m_dwServerID == dwOwnerID )
+		{
+			pPetInfo->bAI = TRUE;
+			pPetInfo->AI_Type = PETAI_AUTOATTACK; // 默认自动攻击模式
+			pPetInfo->bSelected = FALSE;
+			pPetInfo->bFight = FALSE;
+			pPetInfo->bFollowPC = FALSE;
+			pPetInfo->bIdle = FALSE;
+			pPetInfo->dwDestID = 0;
+			pPetInfo->dwGuardID = 0;
+			pPetInfo->dwDestType = 0;
+			pPetInfo->dwGuardType = 0;
+			g_PetList.AddPet( pPetObject );
+			DBG_Put("OnCS_NC_PETINFO_ACK: Bunsin added to PetList, ID=%d", dwID);
+		}
 	}
 
 	return 0;
