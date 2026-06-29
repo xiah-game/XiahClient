@@ -1821,6 +1821,37 @@ int OnCS_BT_MUGONGPREATTACK_ACK( CMsg &msg)
 		return TRUE;
 	}
 
+	// [ModernControl] 寸草不生地面 AoE 毒雾持续粒子特效创建逻辑
+	// 当服务端预施法成功应答到达时，如果是寸草不生（OUTGONGID_DOKMU 127），利用预施法包中携带的精确地表目标网格坐标 wTargetPosX/Y，
+	// 构造一个完全静止的 3D 平移矩阵，在此坐标处为 pAttackerCharObject 创建持续 4 秒播放的 eDokmu 地面粒子特效，
+	// 完美攻克地板粒子不持续播放和位置偏移的全部问题。
+	if (dwMugongID == OUTGONGID_DOKMU)
+	{
+		if (pAttackerCharObject->m_pDokmuEffectPP)
+		{
+			g_EffectManager.DeqEffectPackagePair(pAttackerCharObject->m_pDokmuEffectPP);
+			pAttackerCharObject->m_pDokmuEffectPP = NULL;
+		}
+
+		pAttackerCharObject->m_matDokmuWorld._11 = 1.0f; pAttackerCharObject->m_matDokmuWorld._12 = 0.0f; pAttackerCharObject->m_matDokmuWorld._13 = 0.0f; pAttackerCharObject->m_matDokmuWorld._14 = 0.0f;
+		pAttackerCharObject->m_matDokmuWorld._21 = 0.0f; pAttackerCharObject->m_matDokmuWorld._22 = 1.0f; pAttackerCharObject->m_matDokmuWorld._23 = 0.0f; pAttackerCharObject->m_matDokmuWorld._24 = 0.0f;
+		pAttackerCharObject->m_matDokmuWorld._31 = 0.0f; pAttackerCharObject->m_matDokmuWorld._32 = 0.0f; pAttackerCharObject->m_matDokmuWorld._33 = 1.0f; pAttackerCharObject->m_matDokmuWorld._34 = 0.0f;
+		pAttackerCharObject->m_matDokmuWorld._41 = (float)wTargetPosX;
+		pAttackerCharObject->m_matDokmuWorld._42 = pAttackerCharObject->m_Position.y; // 保持高度一致
+		pAttackerCharObject->m_matDokmuWorld._43 = -(float)wTargetPosY;
+		pAttackerCharObject->m_matDokmuWorld._44 = 1.0f;
+
+		_EFFECTPACKAGE* pEffectPackage = g_EffectManager.EnqOutGongPersistEffectImmediately(eDokmu);
+		if (pEffectPackage && pEffectPackage->pEffectRender && pEffectPackage->pEffectRender->pPackagePair)
+		{
+			pEffectPackage->pEffectRender->pPackagePair->pWorldMatrix = &pAttackerCharObject->m_matDokmuWorld;
+			pAttackerCharObject->m_pDokmuEffectPP = pEffectPackage->pEffectRender->pPackagePair;
+
+			DBG_LogFile(_T("[ClientMugongLog] Created ground AoE effect eDokmu for OUTGONGID_DOKMU at grid(%u,%u) -> world(%.2f, %.2f, %.2f)\n"),
+				wTargetPosX, wTargetPosY, pAttackerCharObject->m_matDokmuWorld._41, pAttackerCharObject->m_matDokmuWorld._42, pAttackerCharObject->m_matDokmuWorld._43);
+		}
+	}
+
 	// [Client-side Buff Animation & Attack Lock Bypass Patch]
 	{
 		bool isBuffSkill = dwMugongID == OUTGONGID_UNKIHAENG || dwMugongID == OUTGONGID_MUSUHON || 
@@ -1840,6 +1871,7 @@ int OnCS_BT_MUGONGPREATTACK_ACK( CMsg &msg)
 						   (dwMugongID >= 150 && dwMugongID <= 154);
 		if (isBuffSkill)
 		{
+			DBG_LogFile(_T("[AngleDebug] OnCS_BT_MUGONGPREATTACK_ACK isBuffSkill: dwMugongID=%u, target=(%u,%u)\n"), dwMugongID, wTargetPosX, wTargetPosY);
 			pAttackerCharObject->SetAngleTarget( wTargetPosX, wTargetPosY);
 			
 			// Play the correct casting animation for the buff skill
@@ -1927,6 +1959,7 @@ int OnCS_BT_MUGONGPREATTACK_ACK( CMsg &msg)
 
 					int ani_index = pData->GetInt(2);
 
+					DBG_LogFile(_T("[AngleDebug] OnCS_BT_MUGONGPREATTACK_ACK non-buff: dwMugongID=%u, target=(%u,%u)\n"), dwMugongID, wTargetPosX, wTargetPosY);
 					pAttackerCharObject->SetAngleTarget( wTargetPosX, wTargetPosY);
 
 					// 
@@ -1974,7 +2007,7 @@ int OnCS_BT_MUGONGPREATTACK_ACK( CMsg &msg)
 			break;
 	}
 
-	if( pDefender)	// 贪 鸥 犬叶
+	if( pDefender && pDefender != pAttacker)	// [ModernControl] 修复：当防御者是自己本身时（如寸草不生等无目标/地表技能），不执行无意义的“自己面向自己”转向逻辑，以维持正确的鼠标地表施法朝向
 	{
 		CXiahCharObject* pDefenderCharObject = (CXiahCharObject*) pDefender->m_pObject;
 
@@ -3563,5 +3596,158 @@ int OnCS_BT_ENDPARTYBATTLE_ACK(CMsg &msg)
 	return 0;
 }
 
- 
- 
+
+// 拦截 CS_BT_KEEPUPMUGONGSTART_ACK (0x402C)
+// 彻底解决原版引擎在怪物身上不写入 KeepUpMugongList 的 Bug，强制让怪物也同步 Buff 状态以驱动目标信息面板渲染 Debuff 图标
+int My_OnCS_BT_KEEPUPMUGONGSTART_ACK(CMsg &msg)
+{
+	// 1. 复制一份 CMsg 以防打乱原本解包流程
+	CMsg msgCopy(msg);
+
+	BYTE bResult = 0;
+	DWORD dwObjectID = 0;
+	BYTE bObjectType = 0;
+	DWORD dwMugongID = 0;
+	BYTE bMugongLevel = 0;
+
+	msgCopy >> bResult
+			>> dwObjectID
+			>> bObjectType
+			>> dwMugongID
+			>> bMugongLevel;
+
+	// 用于保存查找到的对象指针，在自建维护中做类型与主角判断
+	XiahObject::CXiahObject* pObject = NULL;
+
+	// 2. 只有原生封包成功时才做内存状态同步与自建渲染维护
+	if (bResult == 0)
+	{
+		pObject = XiahObject::g_XiahObjectManager.FindXiahObject(MAKEOBJECTID(0, dwObjectID, bObjectType));
+		if (pObject && pObject->m_pObject)
+		{
+			CXiahCharObject* pChar = (CXiahCharObject*)pObject->m_pObject;
+			
+			// 从 pc_mugong_list.idx 模板中获取 Buff 持续时间 (31号字段，单位为秒)，默认8秒
+			DWORD dwDurationMs = 8000;
+			sArrayData* pMugongList = XiahArrayIndex::g_MugongList.GetData(dwMugongID, bMugongLevel);
+			if (pMugongList != NULL)
+			{
+				int nSec = pMugongList->GetInt(31);
+				if (nSec > 0)
+				{
+					dwDurationMs = (DWORD)nSec * 1000;
+				}
+			}
+
+			// A. 强制写入对象的状态列表中，保障驱动目标状态面板（WINDOW_TARGET_STATUS 192 窗口）图标渲染
+			pChar->m_KeepUpMugongList.Add(dwMugongID, bMugongLevel, dwDurationMs);
+			pChar->AddDebuff((WORD)dwMugongID, dwDurationMs);
+
+			// B. 如果受击者是主角自己，手动在客户端右上角图标列表中添加/更新，实现 100% 自主安全托管
+			if (pObject == g_pMainChar)
+			{
+				bool bIconExists = false;
+				for (size_t i = 0; i < g_MainCharInfo.m_vkeepUpMugongIconList.size(); i++)
+				{
+					if (g_MainCharInfo.m_vkeepUpMugongIconList[i]->m_MugongID == (WORD)dwMugongID)
+					{
+						// 如果已存在，刷新开始时间戳与等级
+						g_MainCharInfo.m_vkeepUpMugongIconList[i]->m_CurTime = g_dwCurTime;
+						g_MainCharInfo.m_vkeepUpMugongIconList[i]->m_MugongLevel = bMugongLevel;
+						g_MainCharInfo.m_vkeepUpMugongIconList[i]->m_DrawIcon = true;
+						bIconExists = true;
+						break;
+					}
+				}
+
+				if (!bIconExists)
+				{
+					sKEEPUPMUGONGICONLIST* pNewIcon = new sKEEPUPMUGONGICONLIST;
+					pNewIcon->m_MugongID = (WORD)dwMugongID;
+					pNewIcon->m_CurTime = g_dwCurTime;
+					pNewIcon->m_DrawIcon = true;
+					pNewIcon->m_MugongLevel = bMugongLevel;
+					g_MainCharInfo.m_vkeepUpMugongIconList.push_back(pNewIcon);
+				}
+			}
+
+			DBG_LogFile(_T("[DebuffSync] Intercepted MUGONGSTART: Object=%s ID=%u Type=%d, MugongID=%u, Level=%d, Duration=%u\n"),
+				(LPCTSTR)pChar->m_szObjectName, dwObjectID, (int)bObjectType, dwMugongID, (int)bMugongLevel, dwDurationMs);
+
+			DBG_LogFile(_T("[DebuffSync] Compare ID (START): MainCharServerID=%u, dwObjectID=%u, Equal=%d\n"),
+				g_pMainChar ? g_pMainChar->m_dwServerID : 0, dwObjectID, 
+				(g_pMainChar && g_pMainChar->m_dwServerID == dwObjectID) ? 1 : 0);
+		}
+	}
+
+	// 3. 彻底拦截！绝对不回调原版引擎自带的 OnCS_BT_KEEPUPMUGONGSTART_ACK。
+	// 从底层彻底规避并隔离原版引擎在解析 0x402C 时因特效缺失或骨骼指针访问引发的全部空指针/Heap Corruption 崩溃。
+	return 0;
+}
+
+// 拦截 CS_BT_KEEPUPMUGONGEND_ACK (0x402E)
+// 同样强制清除怪物的内存 Buff 状态，同步清除目标面板上的图标
+int My_OnCS_BT_KEEPUPMUGONGEND_ACK(CMsg &msg)
+{
+	CMsg msgCopy(msg);
+
+	BYTE bResult = 0;
+	DWORD dwObjectID = 0;
+	BYTE bObjectType = 0;
+	DWORD dwMugongID = 0;
+	BYTE bMugongLevel = 0;
+
+	msgCopy >> bResult
+			>> dwObjectID
+			>> bObjectType
+			>> dwMugongID
+			>> bMugongLevel;
+
+	if (bResult == 0)
+	{
+		XiahObject::CXiahObject* pObject = XiahObject::g_XiahObjectManager.FindXiahObject(MAKEOBJECTID(0, dwObjectID, bObjectType));
+		if (pObject && pObject->m_pObject)
+		{
+			CXiahCharObject* pChar = (CXiahCharObject*)pObject->m_pObject;
+			
+			// 如果受击者是主角自己，直接手动在客户端右上角图标列表中擦除并释放内存
+			if (pObject == g_pMainChar)
+			{
+				for (auto it = g_MainCharInfo.m_vkeepUpMugongIconList.begin(); it != g_MainCharInfo.m_vkeepUpMugongIconList.end(); )
+				{
+					if ((*it)->m_MugongID == dwMugongID)
+					{
+						delete (*it); // 释放分配的内存，杜绝泄露
+						it = g_MainCharInfo.m_vkeepUpMugongIconList.erase(it);
+						break; // 一次清除包只清除一个对应的 Buff 图标实例
+					}
+					else
+					{
+						++it;
+					}
+				}
+			}
+
+			// 从怪物的状态列表中清除
+			pChar->m_KeepUpMugongList.Delete(dwMugongID);
+			
+			for (int i = (int)pChar->m_vDebuffList.size() - 1; i >= 0; i--)
+			{
+				if (pChar->m_vDebuffList[i].wMugongID == dwMugongID)
+				{
+					pChar->m_vDebuffList.erase(pChar->m_vDebuffList.begin() + i);
+				}
+			}
+
+			DBG_LogFile(_T("[DebuffSync] Intercepted MUGONGEND: Object=%s ID=%u Type=%d, MugongID=%u\n"),
+				(LPCTSTR)pChar->m_szObjectName, dwObjectID, (int)bObjectType, dwMugongID);
+
+			DBG_LogFile(_T("[DebuffSync] Compare ID (END): MainCharServerID=%u, dwObjectID=%u, Equal=%d\n"),
+				g_pMainChar ? g_pMainChar->m_dwServerID : 0, dwObjectID, 
+				(g_pMainChar && g_pMainChar->m_dwServerID == dwObjectID) ? 1 : 0);
+		}
+	}
+
+	extern int OnCS_BT_KEEPUPMUGONGEND_ACK(CMsg &msg);
+	return OnCS_BT_KEEPUPMUGONGEND_ACK(msg);
+}

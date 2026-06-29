@@ -814,6 +814,14 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 				case VK_CONTROL:
 					break;
 
+				case '1':
+				case '2':
+				case '3':
+				case '4':
+				case '5':
+					// 拦截主键盘数字键，防止在非编辑状态下按数字键自动唤起聊天框
+					break;
+
 				default:
 					{
 						if(!g_pUIManager->IsOnEditing())

@@ -1737,6 +1737,23 @@ int OnCS_NC_STATUSCHANGE_ACK(CMsg &msg)
 			break;
 		case NPCSTATUS_DIE:
 			{
+				// 业务设计意图：在被选中的怪物/对象死亡瞬间，客户端立即丢弃该目标，清空选取状态与光环，并关闭目标面板，
+				// 从而根治倒地后长达 3 秒因等待离开视野包而导致的目标滞留不去的卡顿体感。
+				extern DWORD dwSelObjectID;
+				extern DWORD dwSelObjectType;
+				extern BOOL bAutoAttack;
+				extern BOOL bAutoNormalAttack;
+				extern BOOL bAutoNavigation;
+				if (dwSelObjectID == dwObjectID && dwSelObjectType == bObjectType)
+				{
+					dwSelObjectID = 0;
+					dwSelObjectType = 0;
+					bAutoAttack = FALSE;
+					bAutoNormalAttack = FALSE;
+					bAutoNavigation = FALSE;
+					g_MainCharInfo.m_dwPickedObject = 0;
+				}
+
 				// PET 일경우에 Pet list에서 지워준다
 				if(bObjectType == OBJTYPE_PET)
 				{

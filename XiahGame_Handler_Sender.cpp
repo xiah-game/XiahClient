@@ -1,4 +1,4 @@
-﻿#include "precompile.h"
+#include "precompile.h"
 #include "SkillTime.h"
 
 BOOL IsSkillOnCD(DWORD dwMugongID) {
@@ -25,6 +25,8 @@ BOOL IsSkillOnCD(DWORD dwMugongID) {
 #include <mmsystem.h>
 
 #include "XiahGame_Main.h"
+#include "StringDefine.h"
+#include "CharacterInfo.h"
 ////////////////////////////////////////
 // IT
 ////////////////////////////////////////
@@ -988,6 +990,23 @@ void SendCS_BT_MUGONGPREATTACK_REQ(DWORD dwMugongID,BYTE bAttackType,DWORD dwAtt
 		DBG_LogFile("Invalid Position in SendCS_BT_MUGONGPREATTACK_REQ");
 		return;
 	}
+
+	// [ModernControl] 敌方单体 Debuff 技能本地安全拦截机制
+	// 拦截列表：降命中(95)、迷踪/致盲(96)、锁骨/麻痹(98)、大擒拿/定身(100)、化骨(126)、毒血(198)、五毒针(122)、化功/减蓝(125)、擒拿神功/定身(195)、魔灵神功/降命中(196)
+	if (dwMugongID == 95 || dwMugongID == 96 || dwMugongID == 98 || dwMugongID == 100 || 
+		dwMugongID == 122 || dwMugongID == 125 || dwMugongID == 126 || dwMugongID == 195 || 
+		dwMugongID == 196 || dwMugongID == 198)
+	{
+		if (dwDefenseID == 0 || dwDefenseID == dwAttackID)
+		{
+			// 本地直接展示浮动提示“无法指定目标”，并拦截发包
+			g_MainCharInfo.ShowHelpMessage(IDS_CANNOT_TARGET, TEXTEFFECT_COLOR_WARNING);
+			return;
+		}
+	}
+
+	DBG_LogFile(_T("[ClientMugongLog] SendCS_BT_MUGONGPREATTACK_REQ: dwMugongID=%u, AtkPos=(%u,%u), TargetPos=(%u,%u), DefID=%u\n"),
+		dwMugongID, wAttackPosX, wAttackPosY, wTargetPosX, wTargetPosY, dwDefenseID);
 
 	msg.ID(CS_BT_MUGONGPREATTACK_REQ)
 		<< dwMugongID

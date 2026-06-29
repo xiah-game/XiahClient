@@ -1829,10 +1829,55 @@ void CMugong::DrawKeepUpMugongIcon()
 	std::vector<sKEEPUPMUGONGICONLIST*>::iterator iter = g_MainCharInfo.m_vkeepUpMugongIconList.begin();
 	std::vector<sKEEPUPMUGONGICONLIST*>::iterator iter2 = g_MainCharInfo.m_vkeepUpPetMugongIconList.begin();
 
-	for(i=0; iter != g_MainCharInfo.m_vkeepUpMugongIconList.end(); ++iter)
+	int nBuffIdx = 0;    // 增益Buff插槽 (0 ~ 5)
+	int nDebuffIdx = 7;  // 减益Debuff插槽 (7 ~ 12)
+
+	for(; iter != g_MainCharInfo.m_vkeepUpMugongIconList.end(); ++iter)
 	{
-		if(i > 12) //무공 지속 아이콘은 12개를 넘길 수 없다.
-			break;
+		sKEEPUPMUGONGICONLIST *psKeepUpMugong = (*iter);
+
+		// 判断是增益Buff还是减益Debuff
+		bool bIsDebuff = false;
+		if (psKeepUpMugong->m_MugongID >= SUNSINGONG && psKeepUpMugong->m_MugongID <= OUTGONGID_DRAGONSUNGCHEON)
+		{
+			bIsDebuff = false; // 觉醒武功是Buff
+		}
+		else if (psKeepUpMugong->m_MugongID >= 200 && psKeepUpMugong->m_MugongID <= 202)
+		{
+			bIsDebuff = false; // 幻杯道具是Buff
+		}
+		else
+		{
+			sArrayData* pTemplate = XiahArrayIndex::g_MugongTemplate.GetData(psKeepUpMugong->m_MugongID);
+			if (pTemplate != NULL)
+			{
+				int bType = pTemplate->GetInt(3);
+				int bKind = pTemplate->GetInt(4);
+				if (bType == 4)
+				{
+					// 减益 Debuff 包括: 恐惧(8), 致盲(16), 麻痹(17), 定身(18), HP DoT(19), 降命中(20), 攻击DoT(21), 减蓝DoT(22)
+					if (bKind == 8 || bKind == 16 || bKind == 17 || bKind == 18 || bKind == 19 || bKind == 20 || bKind == 21 || bKind == 22)
+					{
+						bIsDebuff = true;
+					}
+				}
+			}
+		}
+
+		// 根据类型分配绘制插槽
+		int nDrawIdx = -1;
+		if (bIsDebuff)
+		{
+			if (nDebuffIdx > 12)
+				continue; // 减益槽位满，跳过绘制
+			nDrawIdx = nDebuffIdx++;
+		}
+		else
+		{
+			if (nBuffIdx > 5)
+				continue; // 增益槽位满，跳过绘制
+			nDrawIdx = nBuffIdx++;
+		}
 
 		g_pDirect3DDevice->SetRenderState( D3DRS_ZENABLE, FALSE);
 		g_pDirect3DDevice->SetRenderState( D3DRS_FOGENABLE, FALSE);
@@ -1845,83 +1890,41 @@ void CMugong::DrawKeepUpMugongIcon()
 		g_pDirect3DDevice->SetSamplerState( 0,  D3DSAMP_ADDRESSU , D3DTADDRESS_CLAMP);
 		g_pDirect3DDevice->SetSamplerState( 0,  D3DSAMP_ADDRESSV , D3DTADDRESS_CLAMP);
 
-		sKEEPUPMUGONGICONLIST *psKeepUpMugong = (*iter);
-
 		//일반 무공과 각성 무공은 다른 리스트를 쓰므로... 
 		//각성 무공
 		if(psKeepUpMugong->m_MugongID >= SUNSINGONG && psKeepUpMugong->m_MugongID <= OUTGONGID_DRAGONSUNGCHEON)
 		{
 			sArrayData* pMugongList = XiahArrayIndex::g_RebirthMugong_List.GetData(psKeepUpMugong->m_MugongID, psKeepUpMugong->m_MugongLevel);
 			
-			if(!pMugongList)
-				continue;
-			
-			int TotalKeepUpTime = pMugongList->GetInt(27);
-			nResID = pMugongList->GetInt(2);
-			DWORD TempTime = g_dwCurTime;
-
-			
-			//if(pMugongList) //HO_0529_07 무공사용이미지 동작 변경 : 적용전코드
-			//{
-			//	if( (5000 <= ((TotalKeepUpTime * 1000) - (TempTime - psKeepUpMugong->m_CurTime))) && psKeepUpMugong->m_DrawIcon )
-			//	{
-			//		g_Device.SetTexture(0, XiahPak::GetTexture(nResID));
-			//		g_Device.SetStreamSource( m_pKeepUpVB[i], sizeof(VT_TLVertex));
-			//		g_Device.SetFVF(D3DFVF_TLVERTEX);
-			//		g_pDirect3DDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 0, 2);
-			//	}
-			//	else
-			//	{
-			//		psKeepUpMugong->m_DrawIcon = false;
-			//		if(psKeepUpMugong->m_CurTime + 500 > g_dwCurTime)
-			//		{
-			//			g_Device.SetTexture(0, XiahPak::GetTexture(nResID));
-			//			g_Device.SetStreamSource( m_pKeepUpVB[i], sizeof(VT_TLVertex));
-			//			g_Device.SetFVF(D3DFVF_TLVERTEX);
-			//			g_pDirect3DDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 0, 2);
-			//		}
-			//		else
-			//		{
-			//			psKeepUpMugong->m_CurTime = g_dwCurTime;
-			//		}
-			//	}
-			//	++i;
-			//}
-			if(pMugongList) //HO_0529_07 무공사용이미지 동작 변경 : 0.3초동안 보여지고 안보여짐
+			if(pMugongList)
 			{
-				if( (10000 <= ((TotalKeepUpTime * 1000) - (TempTime - psKeepUpMugong->m_CurTime))) && psKeepUpMugong->m_DrawIcon )
+				int TotalKeepUpTime = pMugongList->GetInt(27);
+				nResID = pMugongList->GetInt(2);
+
+				int nRemainMs = (TotalKeepUpTime * 1000) - (int)(g_dwCurTime - psKeepUpMugong->m_CurTime);
+
+				if (nRemainMs >= 10000 && psKeepUpMugong->m_DrawIcon)
 				{
 					g_Device.SetTexture(0, XiahPak::GetTexture(nResID));
-					g_Device.SetStreamSource( m_pKeepUpVB[i], sizeof(VT_TLVertex));
+					g_Device.SetStreamSource( m_pKeepUpVB[nDrawIdx], sizeof(VT_TLVertex));
 					g_Device.SetFVF(D3DFVF_TLVERTEX);
 					g_pDirect3DDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 0, 2);
 				}
+				else if (nRemainMs <= 0)
+				{
+					psKeepUpMugong->m_DrawIcon = false;
+				}
 				else
 				{
-					if (((TotalKeepUpTime * 1000) - (TempTime - psKeepUpMugong->m_CurTime)) <= 0)
+					// 10秒以内闪烁期：模运算平滑闪烁，不改写 psKeepUpMugong->m_CurTime
+					if ((nRemainMs / 300) % 2 == 0)
 					{
-						psKeepUpMugong->m_DrawIcon = false;
-					}
-					else
-					{
-						psKeepUpMugong->m_DrawIcon = false;
-						if( (((TotalKeepUpTime * 1000)-300) <= ((TotalKeepUpTime * 1000) - (TempTime - psKeepUpMugong->m_CurTime))) )
-						{
-							g_Device.SetTexture(0, XiahPak::GetTexture(nResID));
-							g_Device.SetStreamSource( m_pKeepUpVB[i], sizeof(VT_TLVertex));
-							g_Device.SetFVF(D3DFVF_TLVERTEX);
-							g_pDirect3DDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 0, 2);
-						}
-						else
-						{							
-							if(psKeepUpMugong->m_CurTime + 600 < g_dwCurTime)
-							{
-								psKeepUpMugong->m_CurTime = g_dwCurTime;
-							}							
-						}
+						g_Device.SetTexture(0, XiahPak::GetTexture(nResID));
+						g_Device.SetStreamSource( m_pKeepUpVB[nDrawIdx], sizeof(VT_TLVertex));
+						g_Device.SetFVF(D3DFVF_TLVERTEX);
+						g_pDirect3DDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 0, 2);
 					}
 				}
-				++i;
 			}
 		}
 		//HO_0404_07 환배 시스템추가(아이템)
@@ -1941,147 +1944,114 @@ void CMugong::DrawKeepUpMugongIcon()
 			}
 			
 			int TotalKeepUpTime = psKeepUpMugong->m_MugongLevel * 60;
-			DWORD TempTime = g_dwCurTime;
+			int nRemainMs = (TotalKeepUpTime * 1000) - (int)(g_dwCurTime - psKeepUpMugong->m_CurTime);
 
-			//if( (5000 <= ((TotalKeepUpTime * 1000) - (TempTime - psKeepUpMugong->m_CurTime))) && psKeepUpMugong->m_DrawIcon ) //HO_0529_07 환배사용이미지 동작 변경 : 아직환배의 구현은 안되었다.. 나중에 빼먹을지 모르니 같은 방식으로 가자
-			//	{
-			//		g_Device.SetTexture(0, XiahPak::GetTexture(nResID));
-			//		g_Device.SetStreamSource( m_pKeepUpVB[i], sizeof(VT_TLVertex));
-			//		g_Device.SetFVF(D3DFVF_TLVERTEX);
-			//		g_pDirect3DDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 0, 2);	
-			//	}
-			//else
-			//{
-			//	psKeepUpMugong->m_DrawIcon = false;
-			//	if(psKeepUpMugong->m_CurTime + 500 > g_dwCurTime)
-			//	{
-			//		g_Device.SetTexture(0, XiahPak::GetTexture(nResID));
-			//		g_Device.SetStreamSource( m_pKeepUpVB[i], sizeof(VT_TLVertex));
-			//		g_Device.SetFVF(D3DFVF_TLVERTEX);
-			//		g_pDirect3DDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 0, 2);
-			//	}
-			//	else
-			//	{
-			//		psKeepUpMugong->m_CurTime = g_dwCurTime;
-			//	}
-			//}
-			//	++i;
-			if( (10000 <= ((TotalKeepUpTime * 1000) - (TempTime - psKeepUpMugong->m_CurTime))) && psKeepUpMugong->m_DrawIcon ) //HO_0529_07 환배사용이미지 동작 변경 : 0.3초동안 보여지고 안보여짐
+			if (nRemainMs >= 10000 && psKeepUpMugong->m_DrawIcon)
 			{
 				g_Device.SetTexture(0, XiahPak::GetTexture(nResID));
-				g_Device.SetStreamSource( m_pKeepUpVB[i], sizeof(VT_TLVertex));
+				g_Device.SetStreamSource( m_pKeepUpVB[nDrawIdx], sizeof(VT_TLVertex));
 				g_Device.SetFVF(D3DFVF_TLVERTEX);
 				g_pDirect3DDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 0, 2);
 			}
-			else
+			else if (nRemainMs <= 0)
 			{
 				psKeepUpMugong->m_DrawIcon = false;
-				if( (((TotalKeepUpTime * 1000)-300) <= ((TotalKeepUpTime * 1000) - (TempTime - psKeepUpMugong->m_CurTime))) )
+			}
+			else
+			{
+				// 10秒以内闪烁期：模运算平滑闪烁，不改写 psKeepUpMugong->m_CurTime
+				if ((nRemainMs / 300) % 2 == 0)
 				{
 					g_Device.SetTexture(0, XiahPak::GetTexture(nResID));
-					g_Device.SetStreamSource( m_pKeepUpVB[i], sizeof(VT_TLVertex));
+					g_Device.SetStreamSource( m_pKeepUpVB[nDrawIdx], sizeof(VT_TLVertex));
 					g_Device.SetFVF(D3DFVF_TLVERTEX);
 					g_pDirect3DDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 0, 2);
 				}
-				else
-				{							
-					if(psKeepUpMugong->m_CurTime + 600 < g_dwCurTime)
-					{
-						psKeepUpMugong->m_CurTime = g_dwCurTime;
-					}							
-				}					
 			}
-			++i;
 		}
 		//일반
 		else 
 		{
 			sArrayData* pMugongData = XiahArrayIndex::g_MugongTemplate.GetData(psKeepUpMugong->m_MugongID);
-			if(!pMugongData)
+			if(pMugongData)
 			{
-				continue;
-			}
-			
-			nResID = pMugongData->GetInt(1);
+				nResID = pMugongData->GetInt(1);
 
-			int TotalKeepUpTime = 7200; // default 2 hours
-			sArrayData* pMugongList = XiahArrayIndex::g_MugongList.GetData(psKeepUpMugong->m_MugongID, psKeepUpMugong->m_MugongLevel);
-			if(pMugongList)
-			{
-				TotalKeepUpTime = pMugongList->GetInt(31);
-			}
-			else
-			{
-				// 150-154 allowed without level details
-				if (psKeepUpMugong->m_MugongID < 150 || psKeepUpMugong->m_MugongID > 154)
+				int TotalKeepUpTime = 7200; // default 2 hours
+				sArrayData* pMugongList = XiahArrayIndex::g_MugongList.GetData(psKeepUpMugong->m_MugongID, psKeepUpMugong->m_MugongLevel);
+				if(pMugongList)
 				{
-					continue;
+					TotalKeepUpTime = pMugongList->GetInt(31);
 				}
-			}
-			
-			DWORD TempTime = g_dwCurTime;
+				else
+				{
+					// 150-154 allowed without level details
+					if (psKeepUpMugong->m_MugongID < 150 || psKeepUpMugong->m_MugongID > 154)
+					{
+						continue;
+					}
+				}
+				
+				int nRemainMs = (TotalKeepUpTime * 1000) - (int)(g_dwCurTime - psKeepUpMugong->m_CurTime);
 
-			//if(pMugongList) //HO_0529_07 무공사용이미지 동작 변경 : 적용전코드
-			//{
-			//	if( (5000 <= ((TotalKeepUpTime * 1000) - (TempTime - psKeepUpMugong->m_CurTime))) && psKeepUpMugong->m_DrawIcon )
-			//	{
-			//		g_Device.SetTexture(0, XiahPak::GetTexture(nResID));
-			//		g_Device.SetStreamSource( m_pKeepUpVB[i], sizeof(VT_TLVertex));
-			//		g_Device.SetFVF(D3DFVF_TLVERTEX);
-			//		g_pDirect3DDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 0, 2);
-			//	}
-			//	else
-			//	{
-			//		psKeepUpMugong->m_DrawIcon = false;
-			//		if(psKeepUpMugong->m_CurTime + 500 > g_dwCurTime)
-			//		{
-			//			g_Device.SetTexture(0, XiahPak::GetTexture(nResID));
-			//			g_Device.SetStreamSource( m_pKeepUpVB[i], sizeof(VT_TLVertex));
-			//			g_Device.SetFVF(D3DFVF_TLVERTEX);
-			//			g_pDirect3DDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 0, 2);
-			//		}
-			//		else
-			//			psKeepUpMugong->m_CurTime = g_dwCurTime;
-			//	}
-			//	++i;
-			//}
-			if(pMugongList || (psKeepUpMugong->m_MugongID >= 150 && psKeepUpMugong->m_MugongID <= 154)) //HO_0529_07 무공사용이미지 동작 변경 : 0.3초동안 보여지고 안보여짐
-			{
-				if( (10000 <= ((TotalKeepUpTime * 1000) - (TempTime - psKeepUpMugong->m_CurTime))) && psKeepUpMugong->m_DrawIcon )
+				if( (10000 <= nRemainMs) && psKeepUpMugong->m_DrawIcon )
 				{
 					g_Device.SetTexture(0, XiahPak::GetTexture(nResID));
-					g_Device.SetStreamSource( m_pKeepUpVB[i], sizeof(VT_TLVertex));
+					g_Device.SetStreamSource( m_pKeepUpVB[nDrawIdx], sizeof(VT_TLVertex));
 					g_Device.SetFVF(D3DFVF_TLVERTEX);
 					g_pDirect3DDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 0, 2);
 				}
 				else
 				{
-					if (((TotalKeepUpTime * 1000) - (TempTime - psKeepUpMugong->m_CurTime)) <= 0)
+					if (nRemainMs <= 0)
 					{
 						psKeepUpMugong->m_DrawIcon = false;
 					}
 					else
 					{
-						psKeepUpMugong->m_DrawIcon = false;
-						if( (((TotalKeepUpTime * 1000)-300) <= ((TotalKeepUpTime * 1000) - (TempTime - psKeepUpMugong->m_CurTime))) )
+						// 10秒以内闪烁期：模运算平滑闪烁，不改写 psKeepUpMugong->m_CurTime
+						if ((nRemainMs / 300) % 2 == 0)
 						{
 							g_Device.SetTexture(0, XiahPak::GetTexture(nResID));
-							g_Device.SetStreamSource( m_pKeepUpVB[i], sizeof(VT_TLVertex));
+							g_Device.SetStreamSource( m_pKeepUpVB[nDrawIdx], sizeof(VT_TLVertex));
 							g_Device.SetFVF(D3DFVF_TLVERTEX);
 							g_pDirect3DDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 0, 2);
 						}
-						else
-						{							
-							if(psKeepUpMugong->m_CurTime + 600 < g_dwCurTime)
-							{
-								psKeepUpMugong->m_CurTime = g_dwCurTime;
-							}							
-						}
 					}
 				}
-				++i;
 			}
 		}		
+	}
+
+	// 物理强退扫描，确保到期或被标记不画的 Buff/Debuff 图标能被彻底清除并释放内存，形成客户端本地物理强杀保险
+	for (auto it = g_MainCharInfo.m_vkeepUpMugongIconList.begin(); it != g_MainCharInfo.m_vkeepUpMugongIconList.end(); )
+	{
+		sKEEPUPMUGONGICONLIST* psMugong = *it;
+		int keepUpSec = 7200;
+		sArrayData* pList = XiahArrayIndex::g_MugongList.GetData(psMugong->m_MugongID, psMugong->m_MugongLevel);
+		if (pList)
+		{
+			keepUpSec = pList->GetInt(31);
+		}
+		else if (psMugong->m_MugongID >= SUNSINGONG && psMugong->m_MugongID <= OUTGONGID_DRAGONSUNGCHEON)
+		{
+			sArrayData* pRebirthList = XiahArrayIndex::g_RebirthMugong_List.GetData(psMugong->m_MugongID, psMugong->m_MugongLevel);
+			if (pRebirthList) keepUpSec = pRebirthList->GetInt(27);
+		}
+		else if (psMugong->m_MugongID >= 200 && psMugong->m_MugongID <= 202)
+		{
+			keepUpSec = psMugong->m_MugongLevel * 60;
+		}
+
+		if (!psMugong->m_DrawIcon || (g_dwCurTime - psMugong->m_CurTime >= (DWORD)keepUpSec * 1000))
+		{
+			delete psMugong; // 物理释放，杜绝内存泄漏
+			it = g_MainCharInfo.m_vkeepUpMugongIconList.erase(it); // 从列表中彻底清除
+		}
+		else
+		{
+			++it;
+		}
 	}
 
 

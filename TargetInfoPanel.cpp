@@ -36,7 +36,7 @@ CTargetInfoPanel::~CTargetInfoPanel()
 
 void CTargetInfoPanel::SetTarget(DWORD dwObjectID, BYTE bObjType)
 {
-	DBG_LogFile(_T("[TargetUI192] SetTarget dwObjectID=%u, bObjType=%d"), dwObjectID, (int)bObjType);
+	// DBG_LogFile(_T("[TargetUI192] SetTarget dwObjectID=%u, bObjType=%d"), dwObjectID, (int)bObjType);
 
 	if (bObjType == OBJTYPE_ITEM || bObjType == OBJTYPE_PET)
 	{
@@ -75,8 +75,8 @@ void CTargetInfoPanel::Update()
 
 	if (pObject == NULL || pObject->m_pObject == NULL)
 	{
-		DBG_LogFile(_T("[TargetUI192] FindXiahObject failed. dwTargetID=%u, bTargetObjType=%d, pObject=%p, m_pObject=%p"),
-			m_dwTargetID, (int)m_bTargetObjType, pObject, pObject ? pObject->m_pObject : NULL);
+		// DBG_LogFile(_T("[TargetUI192] FindXiahObject failed. dwTargetID=%u, bTargetObjType=%d, pObject=%p, m_pObject=%p"),
+		//	m_dwTargetID, (int)m_bTargetObjType, pObject, pObject ? pObject->m_pObject : NULL);
 		Clear();
 		return;
 	}
@@ -307,7 +307,7 @@ void CTargetInfoPanel::UpdateTargetUI192(CXiahCharObject* pTarget)
 	{
 		if (g_pUIManager->IsShow(WINDOW_TARGET_STATUS))
 		{
-			DBG_LogFile(_T("[TargetUI192] pTarget is NULL, Hide 192"));
+			//DBG_LogFile(_T("[TargetUI192] pTarget is NULL, Hide 192"));
 			g_pUIManager->Hide(WINDOW_TARGET_STATUS);
 		}
 		return;
@@ -327,7 +327,7 @@ void CTargetInfoPanel::UpdateTargetUI192(CXiahCharObject* pTarget)
 
 		g_pUIManager->SetPosition(WINDOW_TARGET_STATUS, nX, nY);
 		g_pUIManager->Show(WINDOW_TARGET_STATUS);
-		DBG_LogFile(_T("[TargetUI192] Show WINDOW_TARGET_STATUS at x=%d, y=%d"), nX, nY);
+		//DBG_LogFile(_T("[TargetUI192] Show WINDOW_TARGET_STATUS at x=%d, y=%d"), nX, nY);
 	}
 
 	g_pUIManager->SetString(WINDOW_TARGET_STATUS, target_status_name, pTarget->m_szObjectName);
@@ -390,8 +390,7 @@ void CTargetInfoPanel::CheckAndAddNewDebuffs(CXiahCharObject* pTarget)
 			}
 
 			pTarget->AddDebuff((WORD)dwMugongID, dwDurationMs);
-			DBG_LogFile(_T("[TargetUI192] AddDebuff to target: dwMugongID=%u, level=%d, duration=%u"), 
-				dwMugongID, (int)mugong.bLevel, dwDurationMs);
+			//DBG_LogFile(_T("[TargetUI192] AddDebuff to target: dwMugongID=%u, level=%d, duration=%u"), dwMugongID, (int)mugong.bLevel, dwDurationMs);
 		}
 	}
 }
@@ -485,7 +484,7 @@ void CTargetInfoPanel::UpdateTargetHP(CXiahCharObject* pTarget)
 	TCHAR szHpText[64];
 	_stprintf(szHpText, _T("%d/%d"), pTarget->m_dwCurHP, pTarget->m_dwMaxHP);
 	g_pUIManager->SetString(WINDOW_TARGET_STATUS, target_status_hp_text, szHpText);
-	DBG_LogFile(_T("[TargetUI192] HP set: per=%d, text=%s"), nHpPer, szHpText);
+	//DBG_LogFile(_T("[TargetUI192] HP set: per=%d, text=%s"), nHpPer, szHpText);
 }
 
 void CTargetInfoPanel::UpdateTargetMP(CXiahCharObject* pTarget)
@@ -502,6 +501,89 @@ void CTargetInfoPanel::UpdateTargetMP(CXiahCharObject* pTarget)
 		nIpCur = g_MainCharInfo.m_wIpCur;
 		nIpMax = g_MainCharInfo.m_wIpMax;
 	}
+	else
+	{
+		// [业务设计意图]
+		// 如果目标非主角自己（如怪物或其他玩家），其在客户端 CXiahCharObject 中默认没有初始化 IP 属性。
+		// 在此引入智能弹性兜底与本地 DoT 视觉模拟机制：
+		// 1. 若 m_dwMaxIP 为 0，说明未曾初始化，根据其最大生命上限按比例初始化其内功上限。
+		// 2. 检查目标的 m_vDebuffList 列表，若存在化功术 (ID=125)，通过其已持续的时间，
+		//    在本地动态重算并扣减当前 IP，实现完全无带宽消耗的平滑扣蓝视觉特效。
+		if (pTarget->m_dwMaxIP == 0)
+		{
+			pTarget->m_dwMaxIP = pTarget->m_dwMaxHP / 2;
+			if (pTarget->m_dwMaxIP < 1000) pTarget->m_dwMaxIP = 1000;
+			pTarget->m_dwCurIP = pTarget->m_dwMaxIP;
+		}
+
+		bool bHasMpDot = false;
+		DWORD dwMugongID = 125; // 化功术技能 ID
+		BYTE bLevel = 1;
+		DWORD dwDurationMs = 8000; // 默认持续时间 8 秒
+		DWORD dwExpireTime = 0;
+
+		// 检查 debuff 列表中是否存在化功术且未到期
+		for (size_t i = 0; i < pTarget->m_vDebuffList.size(); i++)
+		{
+			if (pTarget->m_vDebuffList[i].wMugongID == (WORD)dwMugongID)
+			{
+				bHasMpDot = true;
+				dwExpireTime = pTarget->m_vDebuffList[i].dwExpireTime;
+				break;
+			}
+		}
+
+		if (bHasMpDot && dwExpireTime > XiahGameEngine::g_dwCurTime)
+		{
+			// 从目标的 KeepUpMugongList 查找等级与原定时间以确保精确
+			auto iter = pTarget->m_KeepUpMugongList.find(dwMugongID);
+			if (iter != pTarget->m_KeepUpMugongList.end())
+			{
+				bLevel = iter->second.bLevel;
+				dwDurationMs = iter->second.dwTime;
+			}
+
+			// 计算已持续毫秒数
+			DWORD dwElapsedMs = 0;
+			DWORD dwRemainMs = dwExpireTime - XiahGameEngine::g_dwCurTime;
+			if (dwDurationMs > dwRemainMs)
+			{
+				dwElapsedMs = dwDurationMs - dwRemainMs;
+			}
+
+			// 自适应读取每秒扣减量，或者使用等级公式进行高保真估算
+			DWORD dwDrainPerSec = bLevel * 30 + 50; // 等级自增兜底公式
+			sArrayData* pMugongList = XiahArrayIndex::g_MugongList.GetData(dwMugongID, bLevel);
+			if (pMugongList != NULL)
+			{
+				// 尝试提取 nEtc1 扣蓝属性字段 (在此读取整型第 15 号字段)
+				int nVal = pMugongList->GetInt(15);
+				if (nVal > 5 && nVal < 2000)
+				{
+					dwDrainPerSec = (DWORD)nVal;
+				}
+			}
+
+			// 动态重算当前内力值
+			DWORD dwTotalDrain = (dwElapsedMs * dwDrainPerSec) / 1000;
+			if (pTarget->m_dwMaxIP > dwTotalDrain)
+			{
+				pTarget->m_dwCurIP = pTarget->m_dwMaxIP - dwTotalDrain;
+			}
+			else
+			{
+				pTarget->m_dwCurIP = 0;
+			}
+		}
+		else
+		{
+			// 若无化功术或 Buff 到期被移除，IP 恢复为满值
+			pTarget->m_dwCurIP = pTarget->m_dwMaxIP;
+		}
+
+		nIpCur = pTarget->m_dwCurIP;
+		nIpMax = pTarget->m_dwMaxIP;
+	}
 
 	int nMpPer = 0;
 	if (nIpMax > 0)
@@ -515,5 +597,5 @@ void CTargetInfoPanel::UpdateTargetMP(CXiahCharObject* pTarget)
 	TCHAR szMpText[64];
 	_stprintf(szMpText, _T("%d/%d"), nIpCur, nIpMax);
 	g_pUIManager->SetString(WINDOW_TARGET_STATUS, target_status_mp_text, szMpText);
-	DBG_LogFile(_T("[TargetUI192] MP set: per=%d, text=%s"), nMpPer, szMpText);
+	//DBG_LogFile(_T("[TargetUI192] MP set: per=%d, text=%s"), nMpPer, szMpText);
 }

@@ -19,6 +19,9 @@ DWORD		MoveTime = 0;
 DWORD		MoveTime2 = 0;
 DWORD		ClickTime = 0;
 
+// [ModernControl] 全局施法冷却时间戳，由快捷键直发逻辑重置以实现本地施法加速
+DWORD		g_dwLastMugongTime = 0;
+
 Vector3		vPos;
 float		fMoveLength;
 BOOL		bAttackable = FALSE;
@@ -281,6 +284,10 @@ BOOL ProcessMainChar()
 		bCursorOnField = TRUE;
 	}
 
+	// 键盘直发技能与快捷道具检测
+	extern void ProcessKeyboardDirectCast();
+	ProcessKeyboardDirectCast();
+
 	// LButtonUp.버튼 눌림이 끝났을때, 버튼을 띄었을때
 	if( XiahInput::g_bLButtonUp) 
 		ProcessLbuttonUp();
@@ -300,34 +307,134 @@ BOOL ProcessMainChar()
 	if( XiahInput::g_bLButtonOn && bCursorOnField && bAutoNormalAttack && !bAutoAttack && !bMainCharDie)
 		InteractObject( dwSelObjectID, dwSelObjectType, 2);
 
-	// RButtonDown.을 눌렀을때
-	//HT_CHEAT : 게임 패드 삭제
+	// RButtonDown. 右键点击：MOBA式右键移动与智能普通攻击
 	if((XiahInput::g_bRButtonDown) && bCursorOnField && !bMainCharDie)
 	{
 		if(g_IsFocus)
 		{
-			if(GUM_ILKICHAM == g_MainCharInfo.m_pSlot->GetActiveSlot())
+			// [ModernControl] 记录右键点击时的实体状态与鼠标悬停目标信息
+			DBG_LogFile(_T("[ModernControl] RButtonDown: MouseOnObject=%s, MouseOnType=%d, CurSelObjectID=%u\n"),
+				XiahObject::g_pMouseOnObject ? _T("Yes") : _T("No"),
+				bMouseOnObjectType,
+				dwSelObjectID);
+
+			// 1. 智能捕获：如果右键点击时鼠标悬停在有效目标上，则触发普攻与锁定
+			if( XiahObject::g_pMouseOnObject && pMouseOnCharObject )
 			{
-				if(XiahObject::g_pMouseOnObject)
+				dwSelObjectID = XiahObject::g_pMouseOnObject->m_dwServerID;
+				dwSelObjectType = pMouseOnCharObject->m_bObjType;
+
+				// 只有点击怪物（NPC）或敌对PC时才触发普通攻击
+				if( dwSelObjectType == OBJTYPE_NPC || dwSelObjectType == OBJTYPE_PC )
 				{
-					XiahObject::g_pMouseOnObjectSave = XiahObject::g_pMouseOnObject;
+					if( dwSelObjectType == OBJTYPE_NPC )
+						fInteractionRange = g_MainCharInfo.m_wAttackRange;
+					else
+						fInteractionRange = 9;
 
-					dwSelObjectID = XiahObject::g_pMouseOnObject->m_dwServerID;
-					dwSelObjectType = pMouseOnCharObject->m_bObjType;
-
-					g_dwSelectMugongID = GUM_ILKICHAM;					
+					// [ModernControl] 记录右键点击怪物，触发自动普攻和自动锁定
+					DBG_LogFile(_T("[ModernControl] RButtonDown: Click Monster! TargetID=%u, TargetType=%d, Range=%.2f\n"),
+						dwSelObjectID, dwSelObjectType, fInteractionRange);
 
 					bAutoNavigation = TRUE;
+					if( dwSelObjectType == OBJTYPE_NPC )
+					{
+						bAutoNormalAttack = TRUE;
+						bAutoAttack = TRUE;
+					}
+					
+					if( bAutoNavigation )
+					{
+						ProcessAutoNavigation( 0);
+					}
 
-					ProcessAutoNavigation( 0);
+					Vector3 vMainCharSize = pMainChar->m_LocalBound.Size();
+					g_PickCursor.Create( XiahPak::GetTexture( 50000396), pMouseOnCharObject->m_Position.x, pMouseOnCharObject->m_Position.z, 6, COLOR_PICKCURSOR, TRUE, 0, TRUE, pMouseOnCharObject->m_Position.y, vMainCharSize.y, pMainChar->m_Position.y );
+					g_PickCursor.SetRotate(0.03490658f);
 				}
 			}
-			else
+			else // 2. 点击空白地面：触发寻路与移动
 			{
-				g_dwSelectMugongID = 0;
+				XiahMap::g_XiahMap.GetPickPosition(vTarget);
 
-				ProcessRButtonDown( pMainChar, bMouseOnObjectType);	
-			}			
+				// [ModernControl] 记录右键点击空白地面，触发寻路位移
+				DBG_LogFile(_T("[ModernControl] RButtonDown: Click Field! TargetPos=(%.2f, %.2f, %.2f)\n"),
+					vTarget.x, vTarget.y, vTarget.z);
+
+				// 终止当前的某些特殊动作
+				if( pMainChar->m_bTargetMove)
+				{
+					CXiahCharObject* pMainCharObj = (CXiahCharObject*)g_pMainChar->m_pObject;
+					if(pMainCharObj->m_nCurMotionType == XiahAniType::eLAT_Mugong && pMainCharObj->m_nCurAniType == 305)
+					{
+						SendCS_NV_ENDMOVE_REQ( g_pMainChar->m_dwServerID, pMainCharObj->m_Position.x, -pMainCharObj->m_Position.z, pMainCharObj->m_Position.y, CHARSTATE_NORMAL);
+					}
+					ChangingMoving(pMainChar, vTarget);
+					pMainChar->m_bTargetMove = FALSE;
+				}
+
+				bMove = TRUE;
+				Vector3 vMainCharSize = pMainChar->m_LocalBound.Size();
+				g_PickCursor.Create( XiahPak::GetTexture( 50000396), vTarget.x, vTarget.z, 6, COLOR_PICKCURSOR, TRUE, 0, TRUE, vTarget.y, vMainCharSize.y, pMainChar->m_Position.y );
+				g_PickCursor.SetRotate(0.03490658f);
+
+				WORD angle;
+				if(pMainChar->m_nCurMotionType != XiahAniType::eLAT_Run)
+				{
+					if(g_MainCharInfo.m_bFastMove)
+					{
+						pMainChar->SetAnimation( XiahAniType::eLAT_Mugong, g_MainCharInfo.m_nFastIndex, 0.7f);
+					}
+					else
+					{
+						// 如果在鬼息大法的倒地中移动，自动起立
+						if( pMainChar->m_bSubObjType == 4 && pMainChar->m_KeepUpMugongList.IsExist(OUTGONGID_GYUISIKDAEBUB) )
+						{
+							pMainChar->m_KeepUpMugongList.Delete(OUTGONGID_GYUISIKDAEBUB);
+							pMainChar->m_bNowGyuisikdaebub = false;
+							int ani_index;
+							sArrayData* pData = XiahArrayIndex::g_MugongTemplate.GetData(OUTGONGID_GYUISIKDAEBUB);
+							if( pData )
+							{
+								ani_index = pData->GetInt(2);
+								pMainChar->SetAnimation( XiahAniType::eLAT_Mugong, XiahAniType::eLAT_Run, ani_index, 1, 1.0f);
+								pMainChar->m_CharRender.StopEffect();
+								pMainChar->m_CharRender.SetReverseAnimation();
+								pMainChar->m_CharRender.SetLoopAnimation( FALSE);
+								float fMoveSpeed = (float)(g_MainCharInfo.m_bWalkSpeed + g_MainCharInfo.m_bPlusSpeed) / 9.0f;
+								pMainChar->m_CharRender.SetAnimationSpeed( fMoveSpeed );
+							}
+						}
+						else
+						{
+							pMainChar->SetAnimation( XiahAniType::eLAT_Run, 1);
+							float fMoveSpeed = (float)(g_MainCharInfo.m_bWalkSpeed + g_MainCharInfo.m_bPlusSpeed) / 9.0f;
+							pMainChar->m_CharRender.SetAnimationSpeed( fMoveSpeed);
+						}
+					}
+		
+					pMainChar->SetAngleTarget( vTarget);
+					pMainChar->GetAngle( angle);
+					pMainChar->Update(1);
+					pMainChar->SetTargetMove( vTarget.x, -vTarget.z, eLBP_CharNavigation, 0);
+					SendCS_NV_STARTMOVE_REQ( g_pMainChar->m_dwServerID, pMainChar->m_Position.x, -pMainChar->m_Position.z, pMainChar->m_Position.y,
+											vTarget.x, -vTarget.z, vTarget.y, (WORD)angle, CHARSTATE_NORMAL, 9);
+					MoveTime = g_dwCurTime;
+				}
+				else if(pMainChar->m_nCurMotionType == XiahAniType::eLAT_Run)
+				{
+					if(g_MainCharInfo.m_bFastMove)
+					{
+						pMainChar->SetAnimation( XiahAniType::eLAT_Mugong, g_MainCharInfo.m_nFastIndex, 0.7f);
+					}
+
+					pMainChar->SetAngleTarget( vTarget);
+					pMainChar->GetAngle( angle);
+					pMainChar->Update(1);
+					pMainChar->SetTargetMove( vTarget.x, -vTarget.z, eLBP_CharNavigation, 0);
+					ChangingMoving(pMainChar, vTarget);
+				}
+			}
 		}
 	}
 
@@ -854,18 +961,30 @@ void ProcessLButtonDown( CXiahCharObject *pMainChar, CXiahCharObject* pMouseOnCh
 			// ALT를 안누름
 			if(SubProcessCommandAI(dwSelObjectID,dwSelObjectType) == FALSE)
 			{
-				bAutoNavigation = TRUE;
-				if(/* GetAsyncKeyState( VK_CONTROL) < 0 &&*/ dwSelObjectType == OBJTYPE_NPC)	// 원클릭으로 자동 공격
+				// 重构：左键选取目标仅锁定，不跑过去普通攻击
+				if (dwSelObjectType == OBJTYPE_NPC || dwSelObjectType == OBJTYPE_PC)
 				{
-					bAutoAttack = TRUE;
+					// 仅执行锁定，不开启自动攻击或自动寻路
+					bAutoNavigation = FALSE;
+					bAutoAttack = FALSE;
+					bAutoNormalAttack = FALSE;
+
+					// [ModernControl] 记录左键点击怪物/玩家，执行纯锁定
+					DBG_LogFile(_T("[ModernControl] LButtonDown: Click Combat Target! TargetID=%u, TargetType=%d, PureLockOn\n"),
+						dwSelObjectID, dwSelObjectType);
 				}
-				if( dwSelObjectType == OBJTYPE_NPC)	// npc일경우 자동 공격모드전환
+				else
 				{
-					bAutoNormalAttack = TRUE;
-				}
-				if( bAutoNavigation)
-				{
-					ProcessAutoNavigation( 0);
+					// 其他非战斗实体维持原交互寻路
+					bAutoNavigation = TRUE;
+					if( bAutoNavigation)
+					{
+						ProcessAutoNavigation( 0);
+					}
+
+					// [ModernControl] 记录左键点击非战斗目标，执行原版交互
+					DBG_LogFile(_T("[ModernControl] LButtonDown: Click Non-Combat Target! TargetID=%u, TargetType=%d, AutoNav=TRUE\n"),
+						dwSelObjectID, dwSelObjectType);
 				}
 
 				g_PickCursor.Create( XiahPak::GetTexture( 50000396), pMouseOnCharObject->m_Position.x, pMouseOnCharObject->m_Position.z, 6, COLOR_PICKCURSOR);
@@ -959,80 +1078,10 @@ void ProcessLButtonDown( CXiahCharObject *pMainChar, CXiahCharObject* pMouseOnCh
 			}
 			else
 			{
-				bMove = TRUE;
-
-				// POINT를 MARK하고!
-//				g_PickCursor.Create( XiahPak::GetTexture( 50000396), vTarget.x, vTarget.z, 6, COLOR_PICKCURSOR);
-				// 위치 커서가 맵 오브젝트 위에 존재하는지 검사한다.
-				Vector3 vMainCharSize = pMainChar->m_LocalBound.Size();
-				g_PickCursor.Create( XiahPak::GetTexture( 50000396), vTarget.x, vTarget.z, 6, COLOR_PICKCURSOR, TRUE, 0, TRUE, vTarget.y, vMainCharSize.y, pMainChar->m_Position.y );
-				g_PickCursor.SetRotate(0.03490658f); // _PI / 90.0f
-
-				// PC를 움직이도록 한다.
-				if(pMainChar->m_nCurMotionType != XiahAniType::eLAT_Run)
-				{
-					// 멈춰있었다
-					if(g_MainCharInfo.m_bFastMove)
-					{
-						pMainChar->SetAnimation( XiahAniType::eLAT_Mugong, g_MainCharInfo.m_nFastIndex, 0.7f);
-					}
-					else
-					{
-						// 현재 야차가 귀식 대법을 쓰고 있는지 횅땍한다.
-						if( pMainChar->m_bSubObjType == 4 &&
-							pMainChar->m_KeepUpMugongList.IsExist(OUTGONGID_GYUISIKDAEBUB) )
-						{
-							pMainChar->m_KeepUpMugongList.Delete(OUTGONGID_GYUISIKDAEBUB);
-							pMainChar->m_bNowGyuisikdaebub = false;
-
-							int ani_index;
-							sArrayData* pData = XiahArrayIndex::g_MugongTemplate.GetData(OUTGONGID_GYUISIKDAEBUB);
-							if( pData )
-							{
-								ani_index = pData->GetInt(2);
-
-								pMainChar->SetAnimation( XiahAniType::eLAT_Mugong, XiahAniType::eLAT_Run, ani_index, 1, 1.0f);
-								pMainChar->m_CharRender.StopEffect();
-								pMainChar->m_CharRender.SetReverseAnimation();
-								pMainChar->m_CharRender.SetLoopAnimation( FALSE);
-
-								float fMoveSpeed = (float)(g_MainCharInfo.m_bWalkSpeed + g_MainCharInfo.m_bPlusSpeed) / 9.0f;
-								pMainChar->m_CharRender.SetAnimationSpeed( fMoveSpeed );	// 좀 느리네.
-							}
-						}
-						else
-						{
-							pMainChar->SetAnimation( XiahAniType::eLAT_Run, 1);
-							float fMoveSpeed = (float)(g_MainCharInfo.m_bWalkSpeed + g_MainCharInfo.m_bPlusSpeed) / 9.0f;
-							pMainChar->m_CharRender.SetAnimationSpeed( fMoveSpeed);
-						}
-					}
-		
-					pMainChar->SetAngleTarget( vTarget);
-					pMainChar->GetAngle( angle);
-					pMainChar->Update(1);
-					pMainChar->SetTargetMove( vTarget.x, -vTarget.z, eLBP_CharNavigation, 0);
-					SendCS_NV_STARTMOVE_REQ( g_pMainChar->m_dwServerID, pMainChar->m_Position.x, -pMainChar->m_Position.z, pMainChar->m_Position.y,
-											vTarget.x, -vTarget.z, vTarget.y, (WORD)angle, CHARSTATE_NORMAL, 9);
-					MoveTime = g_dwCurTime;
-				}
-				else if(pMainChar->m_nCurMotionType == XiahAniType::eLAT_Run)
-				{
-					if(g_MainCharInfo.m_bFastMove)
-					{
-						pMainChar->SetAnimation( XiahAniType::eLAT_Mugong, g_MainCharInfo.m_nFastIndex, 0.7f);
-					}
-
-					// 달리고 있던중
-					pMainChar->SetAngleTarget( vTarget);
-					pMainChar->GetAngle( angle);
-					pMainChar->Update(1);
-					pMainChar->SetTargetMove( vTarget.x, -vTarget.z, eLBP_CharNavigation, 0);
-					// 움직임을 날려준다.
-					{
-						ChangingMoving(pMainChar,vTarget);
-					}
-				}
+				// 剥离左键普通点击地面的移动逻辑，使其退化为纯选择/取消选择
+				// dwSelObjectID 已经在函数入口置0，点击地面不产生移动，也不生成地面标记
+				// [ModernControl] 记录左键点击空白地面，纯清空目标
+				DBG_LogFile(_T("[ModernControl] LButtonDown: Click Field! Cleared Target.\n"));
 			}
 		}
 	}	
@@ -1085,8 +1134,6 @@ void ProcessRButtonDown( CXiahCharObject *pMainChar, BOOL bMouseOnObjectType)
 	if( g_MainCharInfo.m_bMainCharDie || g_MainCharInfo.m_bMainCharMapMoveItemUse )
 		return;
 
-	static DWORD lastMugongTime = 0;
-
 	DWORD dwMugongID = 0;	// 선택된 무공
 
 	//dwMugongID = 7;// 일단 기세배강으롯!
@@ -1098,7 +1145,12 @@ void ProcessRButtonDown( CXiahCharObject *pMainChar, BOOL bMouseOnObjectType)
 
 	CloseAllWindow();
 
-	if( g_dwCurTime - lastMugongTime > 500)
+	// [ModernControl] 日志：记录施法入口参数与当前冷却差值
+	DBG_LogFile(_T("[ModernControl] ProcessRButtonDown Entrance: MugongID=%u, LastTime=%u, CurTime=%u, Diff=%u\n"),
+		dwMugongID, g_dwLastMugongTime, g_dwCurTime, g_dwCurTime - g_dwLastMugongTime);
+
+	// [ModernControl] 施法本地CD限制（使用全局变量 g_dwLastMugongTime，默认500ms）
+	if( g_dwCurTime - g_dwLastMugongTime > 500)
 	{
 		WORD wPosX;
 		WORD wPosY;
@@ -1120,15 +1172,14 @@ void ProcessRButtonDown( CXiahCharObject *pMainChar, BOOL bMouseOnObjectType)
 		g_PickCursor.Create( XiahPak::GetTexture( 50000396), vPickPos.x, vPickPos.z, 6, COLOR_PICKCURSOR);
 		g_PickCursor.SetRotate(0.03490658f); // _PI / 90.0f
 
-		lastMugongTime = g_dwCurTime;
+		g_dwLastMugongTime = g_dwCurTime;
 
 		wTargetPosX = vPickPos.x;
 		wTargetPosY = -vPickPos.z;
 		bTargetHeight = bAttackHeight;
 
 		// Auto모드 초기화
-		dwSelObjectID = 0;
-		dwSelObjectType = 0;
+		// [ModernControl] 修复：施法时不再清空当前选中的目标，保持目标面板锁定
 		bAutoAttack			= FALSE;
 		bAutoNavigation		= FALSE;
 		bAutoNormalAttack	= FALSE;
@@ -1136,23 +1187,45 @@ void ProcessRButtonDown( CXiahCharObject *pMainChar, BOOL bMouseOnObjectType)
 		g_MainChar_PreAttackInfo.dwLastPreAttackTime = 0;
 
 
-		// 타켓 정보가 있으면 넣어준다
-		if( XiahObject::g_pMouseOnObject)
-		{
-			XiahObject::CXiahObject_Basic *pBasicObject = XiahObject::g_pMouseOnObject->m_pObject;
+		XiahObject::CXiahObject_Basic *pTargetBasic = NULL;
+		DWORD dwTargetServerID = 0;
 
-			if( pBasicObject->IsA( XiahObject::eXOT_CharObject))
+		if (dwMugongID == OUTGONGID_DOKMU)
+		{
+			pTargetBasic = NULL;
+			dwTargetServerID = 0;
+			dwDefID = 0;
+			bDefType = 0;
+		}
+		else if( XiahObject::g_pMouseOnObject )
+		{
+			pTargetBasic = XiahObject::g_pMouseOnObject->m_pObject;
+			dwTargetServerID = XiahObject::g_pMouseOnObject->m_dwServerID;
+		}
+		else if( dwSelObjectID != 0 )
+		{
+			XiahObject::CXiahObject* pSelObj = XiahObject::g_XiahObjectManager.FindXiahObject(MAKEOBJECTID(0, dwSelObjectID, dwSelObjectType));
+			if( pSelObj )
 			{
-				switch( pBasicObject->m_bObjType)
+				pTargetBasic = pSelObj->m_pObject;
+				dwTargetServerID = dwSelObjectID; // 选中的目标ID已经是ServerID
+			}
+		}
+
+		if( pTargetBasic )
+		{
+			if( pTargetBasic->IsA( XiahObject::eXOT_CharObject))
+			{
+				switch( pTargetBasic->m_bObjType)
 				{
 				case OBJTYPE_PC:
 				case OBJTYPE_NPC:
 				case OBJTYPE_PET:
 					{
-						CXiahCharObject *pCharObject = (CXiahCharObject*)pBasicObject;
+						CXiahCharObject *pCharObject = (CXiahCharObject*)pTargetBasic;
 
-						bDefType = pBasicObject->m_bObjType;
-						dwDefID = XiahObject::g_pMouseOnObject->m_dwServerID;
+						bDefType = pTargetBasic->m_bObjType;
+						dwDefID = dwTargetServerID;
 
 						pCharObject->GetPosition( wTargetPosX, wTargetPosY);
 						bTargetHeight = (int)pCharObject->m_Position.y;
@@ -1160,27 +1233,27 @@ void ProcessRButtonDown( CXiahCharObject *pMainChar, BOOL bMouseOnObjectType)
 					break;
 				case OBJTYPE_FUNCTIONALNPC:
 					{
-						CXiahCharObject* pCharObject = (CXiahCharObject*)pBasicObject;
+						CXiahCharObject* pTargetObj = (CXiahCharObject*)pTargetBasic;
 
 						//YS_0811 : BUGFIX
-						if ( pCharObject != NULL )
+						if ( pTargetObj != NULL )
 						{
-							sFunctionalNpcInfo* pInfo = (sFunctionalNpcInfo*)pCharObject->m_pPrivateData;
+							sFunctionalNpcInfo* pInfo = (sFunctionalNpcInfo*)pTargetObj->m_pPrivateData;
 
-							if ( NULL != pInfo && pInfo->m_bKind == 100 )	// 문파 비석일떄
+							if ( NULL != pInfo && pInfo->m_bKind == 100 )	// 상인 텔레포트
 							{
-								bDefType = pBasicObject->m_bObjType;
-								dwDefID = XiahObject::g_pMouseOnObject->m_dwServerID;
+								bDefType = pTargetBasic->m_bObjType;
+								dwDefID = dwTargetServerID;
 
-								pCharObject->GetPosition( wTargetPosX, wTargetPosY);
-								bTargetHeight = (int)pCharObject->m_Position.y;
+								pTargetObj->GetPosition( wTargetPosX, wTargetPosY);
+								bTargetHeight = (int)pTargetObj->m_Position.y;
 							}
 						}
 					}
 					break;
 				}
 			}
-		};
+		}
 
 		// 경공
 		if( dwMugongID == OUTGONGID_ILYUIDOGANG	 || 
@@ -1224,6 +1297,10 @@ void ProcessRButtonDown( CXiahCharObject *pMainChar, BOOL bMouseOnObjectType)
 
 		if( bAttackAvailable )
 		{
+			// [ModernControl] 日志：施法判定通过，发送施法请求
+			DBG_LogFile(_T("[ModernControl] ProcessRButtonDown: Cooldown passed! Sending Mugong Request! TargetID=%u, Type=%d\n"),
+				dwDefID, bDefType);
+
 			SendCS_NV_ENDMOVE_REQ( g_pMainChar->m_dwServerID, pMainChar->m_Position.x, -pMainChar->m_Position.z, pMainChar->m_Position.y,CHARSTATE_NORMAL);
 
 			SendCS_BT_MUGONGPREATTACK_REQ(dwMugongID,
@@ -2141,6 +2218,99 @@ void ProcessAutoCastSkills() {
         }
     }
     g_bIsAutoCasting = FALSE;
+}
+
+// 键盘 1-5 键与 F1-F5 直发技能与快捷道具使用
+void ProcessKeyboardDirectCast()
+{
+	// 0. 窗口焦点防御判定：非前台聚焦的窗口不响应任何按键，彻底防止多开穿透
+	if (!g_IsFocus)
+		return;
+
+	// 1. 基础状态防御判定
+	if (g_MainCharInfo.m_bMainCharDie || g_MainCharInfo.m_bMainCharMapMoveItemUse)
+		return;
+
+	// 2. 聊天输入框焦点判定：如果正在打字，或者输入框处于编辑聚焦状态，则不触发技能
+	if (g_MainCharInfo.m_bChatModeAction || g_pUIManager->IsOnEditing())
+		return;
+
+	int slotIndex = -1;
+	// 同时捕获主键盘 1-5 键与 F1-F5 键
+	if ((GetAsyncKeyState('1') & 0x8000) || (GetAsyncKeyState(VK_F1) & 0x8000)) slotIndex = 0;
+	else if ((GetAsyncKeyState('2') & 0x8000) || (GetAsyncKeyState(VK_F2) & 0x8000)) slotIndex = 1;
+	else if ((GetAsyncKeyState('3') & 0x8000) || (GetAsyncKeyState(VK_F3) & 0x8000)) slotIndex = 2;
+	else if ((GetAsyncKeyState('4') & 0x8000) || (GetAsyncKeyState(VK_F4) & 0x8000)) slotIndex = 3;
+	else if ((GetAsyncKeyState('5') & 0x8000) || (GetAsyncKeyState(VK_F5) & 0x8000)) slotIndex = 4;
+
+	if (slotIndex == -1)
+		return;
+
+	// 3. 按键防粘连施法CD判定（将250ms缩短至120ms，大幅提升连招响应速度）
+	static DWORD lastKeyboardCastTime = 0;
+	if (g_dwCurTime - lastKeyboardCastTime < 120)
+		return;
+
+	// [ModernControl] 日志：捕获按键并开始处理
+	DBG_LogFile(_T("[ModernControl] KeyboardDirectCast: Key detected! SlotIndex=%d\n"), slotIndex);
+
+	// 4. 获取快捷栏内容
+	if (!g_MainCharInfo.m_pSlot)
+		return;
+
+	int realSlotID = slotIndex;
+	if (g_MainCharInfo.m_pSlot->GetCurrentSlotGroup() >= 1)
+	{
+		realSlotID += 5;
+	}
+
+	DWORD dwSlotContentID = g_MainCharInfo.m_pSlot->GetSlotContent(realSlotID);
+	if (dwSlotContentID == 0)
+	{
+		// [ModernControl] 日志：快捷栏该位置内容为空
+		DBG_LogFile(_T("[ModernControl] KeyboardDirectCast: SlotContent is empty! RealSlotID=%d\n"), realSlotID);
+		return;
+	}
+
+	lastKeyboardCastTime = g_dwCurTime;
+
+	// 5. 调用原生 SelectSlot，这会把道具喝掉，或者把技能设为S槽（激活）并触发音效与同步
+	g_MainCharInfo.m_pSlot->SelectSlot(realSlotID);
+
+	// 6. 如果是技能，在切换为激活技能后，立即自动模拟右键释放它！
+	int slotType = g_MainCharInfo.m_pSlot->CheckQuickSlot(realSlotID);
+	// [ModernControl] 日志：成功选择快捷栏，开始解析内容类型
+	DBG_LogFile(_T("[ModernControl] KeyboardDirectCast: SelectSlot Done! SlotContentID=%u, Type=%d\n"), dwSlotContentID, slotType);
+
+	if (slotType == 2) // 2 代表是技能
+	{
+		CXiahCharObject* pMainCharObj = (CXiahCharObject*)g_pMainChar->m_pObject;
+		if (pMainCharObj)
+		{
+			// 计算当前鼠标悬停的类型
+			BYTE bMouseOnObjectType = 255;
+			if( XiahObject::g_pMouseOnObject != NULL)
+			{
+				if( XiahObject::g_pMouseOnObject->m_pObject->IsA( XiahObject::eXOT_CharObject))
+				{
+					CXiahCharObject* pMouseChar = (CXiahCharObject*)XiahObject::g_pMouseOnObject->m_pObject;
+					bMouseOnObjectType = pMouseChar->m_bObjType;
+				}
+			}
+
+			// [ModernControl] 加速重置：在模拟原生右键施法前，强行将全局施法冷却重置为0！
+			// 这会瞬间清除客户端本地500ms的CD限制，使得施法包能以最快速度发送
+			extern DWORD g_dwLastMugongTime;
+			g_dwLastMugongTime = 0;
+
+			// [ModernControl] 日志：强行重置本地施法CD并模拟右键施法
+			DBG_LogFile(_T("[ModernControl] KeyboardDirectCast: Direct casting skill! Resetting g_dwLastMugongTime to 0! MouseObjectType=%d\n"), bMouseOnObjectType);
+
+			// 外部声明并调用原生的高精度右键施法逻辑 ProcessRButtonDown
+			extern void ProcessRButtonDown(CXiahCharObject *pMainChar, BOOL bMouseOnObjectType);
+			ProcessRButtonDown(pMainCharObj, bMouseOnObjectType);
+		}
+	}
 }
 
 #include "XiahCheatConfig.cpp"

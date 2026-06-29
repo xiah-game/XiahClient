@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 // 퀵 슬롯 확장
 #define MAX_SLOT	10 //5
@@ -33,6 +33,7 @@ public:
 	inline DWORD GetActiveSlot();
 	inline BYTE GetCurrentSlot() const;
 	inline BYTE GetCurrentSlotGroup() const;
+	inline DWORD GetSlotContent(int i) const { return (i >= 0 && i < MAX_SLOT) ? m_dwSlot[i] : 0; }
 
 	void SetCurrentSlotIndex( BYTE byIndex) { m_byCurrentSlotIndex = byIndex;};
 	BYTE GetCurrentSlotIndex() { return m_byCurrentSlotIndex;};

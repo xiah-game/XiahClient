@@ -1,4 +1,4 @@
-﻿#include "precompile.h"
+#include "precompile.h"
 #include "XiahNetworkHandler.h"
 #include "XiahSocket.h"
 
@@ -114,8 +114,8 @@ void RegisterNetworkHandler_Main()
 	XiahNetwork::RegisterHandler( CS_BT_SHOT_ACK,					OnCS_BT_SHOT_ACK);
 	XiahNetwork::RegisterHandler( CS_BT_MUGONGPREATTACK_ACK,		OnCS_BT_MUGONGPREATTACK_ACK);
 	XiahNetwork::RegisterHandler( CS_BT_MUGONGATTACK_ACK,			OnCS_BT_MUGONGATTACK_ACK);
-	XiahNetwork::RegisterHandler( CS_BT_KEEPUPMUGONGSTART_ACK,		OnCS_BT_KEEPUPMUGONGSTART_ACK);
-	XiahNetwork::RegisterHandler( CS_BT_KEEPUPMUGONGEND_ACK,		OnCS_BT_KEEPUPMUGONGEND_ACK);
+	XiahNetwork::RegisterHandler( CS_BT_KEEPUPMUGONGSTART_ACK,		My_OnCS_BT_KEEPUPMUGONGSTART_ACK);
+	XiahNetwork::RegisterHandler( CS_BT_KEEPUPMUGONGEND_ACK,		My_OnCS_BT_KEEPUPMUGONGEND_ACK);
 	XiahNetwork::RegisterHandler( CS_BT_KEEPUPMUGONGSTATUS_ACK,		OnCS_BT_KEEPUPMUGONGSTATUS_ACK);
 	XiahNetwork::RegisterHandler( CS_BT_KEEPUPMUGONGSTATUSLIST_ACK,	OnCS_BT_KEEPUPMUGONGSTATUSLIST_ACK);
 

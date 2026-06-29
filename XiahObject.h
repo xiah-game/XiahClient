@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 /*
 	Xiah의 Game용 오브젝트 정의
@@ -48,6 +48,7 @@ namespace XiahObject
 
 			m_bObjType = m_bSubObjType = m_pPrivateData = m_bObjStatus = 0;
 			m_dwCurHP = m_dwMaxHP = 100;	// 일단 처음에는 이렇게 놓고 			
+			m_dwCurIP = m_dwMaxIP = 0;      // 统一非主角实体的内功属性支持
 
 			m_dwXiahObjectID = 0;
 		}
@@ -79,6 +80,8 @@ namespace XiahObject
 
 		DWORD					m_dwCurHP;
 		DWORD					m_dwMaxHP;
+		DWORD					m_dwCurIP; // 统一内功当前值属性
+		DWORD					m_dwMaxIP; // 统一内功最大值属性
 
 		// 명성치
 		DWORD					m_dwFame;
@@ -103,6 +106,7 @@ namespace XiahObject
 			m_bDeleteME				= FALSE;
 			m_bObjType			    = m_bSubObjType = m_pPrivateData = m_bObjStatus = 0;
 			m_dwCurHP				= m_dwMaxHP		= 100;
+			m_dwCurIP				= m_dwMaxIP		= 0;
 			m_dwXiahObjectID		= 0;
 			m_bExSubObjType			= 0;			
 			m_szObjectName			= "";

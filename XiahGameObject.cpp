@@ -15,6 +15,10 @@
 
 #define GRAVITY_PER_FRAME	 1.0f
 
+// [ModernControl] 施法朝向绝对安全锁全局标记，用于保护施法期间鼠标地表朝向不被破坏
+extern BOOL g_bAllowMugongTurn;
+BOOL g_bAllowMugongTurn = FALSE;
+
 // test code
 //#include "XiahGame_Main.h"
 
@@ -86,6 +90,19 @@ void CXiah3DObject::DeleteClass()
 BOOL CXiah3DObject::SetAngle(WORD angle)
 {
 	angle %= 360;
+
+	// [ModernControl] 施法朝向绝对安全锁：如果当前实体是主角自己，并且正处于施法动作状态，
+	// 则只允许我们合法授权的鼠标地表转向通过，拒绝任何其他动作帧或陈旧网络同步包的覆写！
+	if (m_bObjType == OBJTYPE_PC && g_pMainChar != NULL && this == g_pMainChar->m_pObject)
+	{
+		CXiahCharObject* pChar = (CXiahCharObject*)this;
+		if ((pChar->m_nCurMotionType == XiahAniType::eLAT_Mugong || pChar->m_nCurMotionType == XiahAniType::eLAT_MugongException) 
+			&& !g_bAllowMugongTurn)
+		{
+			DBG_LogFile(_T("[AngleDebug] INTERCEPTED invalid SetAngle during casting: angle=%u\n"), angle);
+			return TRUE; // 直接安全拦截，拒绝扭头，锁定正确的鼠标地表朝向！
+		}
+	}
 	
 	float old_angle = m_Angle;
 	m_Angle = (90.0f - (float)angle) * 0.01745329f; // _PI / 180.0f;
@@ -94,6 +111,9 @@ BOOL CXiah3DObject::SetAngle(WORD angle)
 
 	if( m_LocalAngle > _PI)
 		m_LocalAngle = _2_PI - m_LocalAngle;
+
+	DBG_LogFile(_T("[AngleDebug] SetAngle: this=%p ObjType=%d, old_angle=%.4f, new_angle=%.4f (degree=%u)\n"),
+		this, m_bObjType, old_angle, m_Angle, angle);
 
 	return TRUE;
 }
@@ -301,7 +321,14 @@ WORD CXiah3DObject::GetTargetAngle(Vector3 pos)
 
 BOOL CXiah3DObject::SetAngleTarget(WORD wPosX,WORD wPosY)
 {
-	return SetAngleTarget( Vector3( wPosX, 0, -wPosY));
+	DBG_LogFile(_T("[AngleDebug] SetAngleTarget(grid): this=%p ObjType=%d, curPos=(%.2f, %.2f), targetGrid=(%u, %u), targetPos=(%.2f, %.2f)\n"),
+		this, m_bObjType, m_Position.x, m_Position.z, wPosX, wPosY, (float)wPosX, -(float)wPosY);
+	
+	// [ModernControl] 临时开启施法转向授权，允许本次基于鼠标坐标的合法转向通过安全锁
+	g_bAllowMugongTurn = TRUE;
+	BOOL bRet = SetAngleTarget( Vector3( wPosX, 0, -wPosY));
+	g_bAllowMugongTurn = FALSE;
+	return bRet;
 }
 
 BOOL CXiah3DObject::SetAngleTarget(CXiah3DObject* pObject)

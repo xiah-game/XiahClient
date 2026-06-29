@@ -484,6 +484,7 @@ public:
 	_EFFECTPACKAGEPAIR*		m_pSsangdosuEffectPP;
 	_EFFECTPACKAGEPAIR*		m_pMandokbuljinEffectPP;
 	_EFFECTPACKAGEPAIR*		m_pDokmuEffectPP;
+	MATRIX					m_matDokmuWorld;
 	_EFFECTPACKAGEPAIR*		m_pEunsinsulEffectPP;
 	_EFFECTPACKAGEPAIR*		m_pHojungkangkiEffectPP;
 
