@@ -2924,6 +2924,12 @@
 	//IS_0218 : OVERMONEY -- 21억 제한
 	#define ERR_PETTRADE_OVERMONEY					((BYTE) 12)//소지금 초과
 
+#define CS_NC_PET_CONTROL_REQ					(OFFSET_CS_NC + 104)
+#define CS_NC_PET_CONTROL_ACK					(OFFSET_CS_NC + 105)
+
+#define CS_NC_PET_CONTROL_REQ					(OFFSET_CS_NC + 104)
+#define CS_NC_PET_CONTROL_ACK					(OFFSET_CS_NC + 105)
+
 //////////////////////////////////////////////////////////////////////
 //  Error Message
 

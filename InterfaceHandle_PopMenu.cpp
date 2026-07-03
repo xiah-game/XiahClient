@@ -1237,20 +1237,19 @@ void ProcessPopMenuBongInItem( LPARAM lParam)
 
 	// 봉인하려면 펫이 있어야 한다.
 	//YS_0812 : BUGFIX
-	if( g_PetList.size() > controlID )
+	extern std::vector<sPetInfo> g_MyPetList;
+	std::vector<sPetInfo*> restingPets;
+	for (size_t p = 0; p < g_MyPetList.size(); ++p) {
+		sPetInfo& pet = g_MyPetList[p];
+		bool isActive = (g_PetList.Find(pet.dwID) != NULL || g_PetList.Find(pet.dwID + 800000000) != NULL);
+		if (!isActive) {
+			restingPets.push_back(&pet);
+		}
+	}
+
+	if (restingPets.size() > controlID)
 	{		
-		switch( controlID)
-		{
-		case 0:
-			SendCS_NC_PETBONGIN_REQ( g_PetList.GetPetInfoByIndex(0)->dwID, pInfo->m_bSackCount+1, pInfo->m_bSackPos);
-			break;
-		case 1:
-			SendCS_NC_PETBONGIN_REQ( g_PetList.GetPetInfoByIndex(1)->dwID, pInfo->m_bSackCount+1, pInfo->m_bSackPos);
-			break;
-		case 2:
-			SendCS_NC_PETBONGIN_REQ( g_PetList.GetPetInfoByIndex(2)->dwID, pInfo->m_bSackCount+1, pInfo->m_bSackPos);
-			break;
-		}	
+		SendCS_NC_PETBONGIN_REQ(restingPets[controlID]->dwID, pInfo->m_bSackCount+1, pInfo->m_bSackPos);
 	}
 
 	g_pUIManager->DeletePopSubMenu();

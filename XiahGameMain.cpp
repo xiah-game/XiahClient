@@ -550,6 +550,7 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 			case 0x28://'"':
 			case 0x27://';'
 			case 0x14://'T': //HO_0410_07 상서령 가이드 업데이트
+			case 0x2F://'V':
 			case 0x15://'Y': //HT_CHEAT : 펫 상태창 단축키
 			case 0x18:// O
 			case 0x19://'P':
@@ -621,7 +622,22 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 			case 0x14://'T':  //HO_0410_07 상서령 가이드 업데이트
 				ProcessClickHelperButton();
 				break;
-			case 0x15://'Y': //HT_CHEAT : 펫 상태창 단축키
+			case 0x2F://'V': // Hotkey Alt+V
+				{
+					if(g_pUIManager->IsShow(WINDOW_RECOVERY))
+					{
+						g_MainCharInfo.CloseFrame( WINDOW_RECOVERY);
+					}
+					else
+					{
+						g_MainCharInfo.m_nTempValue = -1;
+						g_MainCharInfo.m_dwResItemID = 0;
+						g_MainCharInfo.OpenFrame( WINDOW_RECOVERY);
+						UpdatePetManagerList();
+					}
+				}
+				break;
+			case 0x15://'Y': // Hotkey Alt+Y
 				{
 					if(g_pUIManager->IsShow(WINDOW_NEW_TAMING))
 					{
@@ -1163,6 +1179,7 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 			case 0x28://'"':
 			case 0x27://';'
 			case 0x14://'T': //HO_0410_07 상서령 가이드 업데이트
+			case 0x2F://'V':
 			case 0x15://'Y': //HT_CHEAT : 펫 상태창 단축키
 			case 0x18:// O
 			case 0x19://'P':
@@ -1250,7 +1267,22 @@ LRESULT ProcessXiahWindowMessage(UINT uMsg,WPARAM wParam,LPARAM lParam)
 				break;
 				
 			//HT_CHEAT : 펫 상태창 단축키
-			case 0x15://'Y': 
+			case 0x2F://'V': // Hotkey V
+				{
+					if(g_pUIManager->IsShow(WINDOW_RECOVERY))
+					{
+						g_MainCharInfo.CloseFrame( WINDOW_RECOVERY);
+					}
+					else
+					{
+						g_MainCharInfo.m_nTempValue = -1;
+						g_MainCharInfo.m_dwResItemID = 0;
+						g_MainCharInfo.OpenFrame( WINDOW_RECOVERY);
+						UpdatePetManagerList();
+					}
+				}
+				break;
+			case 0x15://'Y': // Hotkey Y
 				{
 					if(g_pUIManager->IsShow(WINDOW_NEW_TAMING))
 					{

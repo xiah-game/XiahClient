@@ -65,6 +65,7 @@ public:
 
 	int HowManyItem( int nVisualID);
 	D3DCOLOR MoneyUnitColor(DWORD dwAmount);
+	const ItemList& GetItemList() const { return m_vecItem; }
 
 protected:
 

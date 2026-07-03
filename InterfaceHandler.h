@@ -91,7 +91,8 @@ extern void ProcessWindowHelperList(LPARAM lParam); //상서령 대화창
 extern void ProcessWindowHelperScript(LPARAM lParam);//탐랑 대화창
 
 extern void ProcessWindowRecovery(LPARAM lParam);		// 아이템 복구
-extern void ProcessWindowPortal(LPARAM lParam);			// NPC 포탈 이동
+
+extern void UpdatePetManagerList();extern void ProcessWindowPortal(LPARAM lParam);			// NPC 포탈 이동
 extern void ProcessWindowCollection(LPARAM lParam);		// 아이템 수집
 
 extern void ProcessWindowSecretMove(LPARAM lParam);		//HT_0313 : 광명전 & 천황전 (이동)	

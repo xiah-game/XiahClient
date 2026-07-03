@@ -150,6 +150,7 @@ void RegisterNetworkHandler_Main()
 	XiahNetwork::RegisterHandler( CS_NC_PETHP_ACK,					OnCS_NC_PETHP_ACK);
 	XiahNetwork::RegisterHandler( CS_NC_PETBONGIN_ACK,				OnCS_NC_PETBONGIN_ACK);
 	XiahNetwork::RegisterHandler( CS_NC_PETBONGOUT_ACK,				OnCS_NC_PETBONGOUT_ACK);
+	XiahNetwork::RegisterHandler( CS_NC_PET_CONTROL_ACK,			OnCS_NC_PET_CONTROL_ACK);
 	XiahNetwork::RegisterHandler( CS_NC_PETWILDRATE_ACK,			OnCS_NC_PETWILDRATE_ACK);
 	XiahNetwork::RegisterHandler( CS_NC_PETREVOLUTION_ACK,			OnCS_NC_PETREVOLUTION_ACK);
 	XiahNetwork::RegisterHandler( CS_NC_PETSACKLIST_ACK,			OnCS_NC_PETSACKLIST_ACK);

@@ -843,7 +843,10 @@ void ProcessNoticeRecovery2(int nControlID)
 	{
 	case message_window_2_button_01:
 		{
-			SendCS_IM_REWARDGUARANTEE_REQ(1, g_MainCharInfo.m_dwResItemID);
+			if (g_MainCharInfo.m_dwResItemID) {
+				extern void SendCS_NC_PET_CONTROL_REQ(DWORD dwPetID, BYTE bAction);
+				SendCS_NC_PET_CONTROL_REQ(g_MainCharInfo.m_dwResItemID, 2);
+			}
 		}
 		break;
 	case message_window_2_button_02:

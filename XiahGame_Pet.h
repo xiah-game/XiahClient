@@ -134,6 +134,152 @@ struct sPetInfo
 		m_byMySackCurrIdx = 0;
 	}
 
+	sPetInfo(const sPetInfo& other)
+	{
+		dwID = other.dwID;
+		dwOwnID = other.dwOwnID;
+		dwMapID = other.dwMapID;
+		bNpcType = other.bNpcType;
+		szName = other.szName;
+		wLevel = other.wLevel;
+		wPosX = other.wPosX;
+		wPosY = other.wPosY;
+		bHeight = other.bHeight;
+		wDesPosX = other.wDesPosX;
+		wDesPosY = other.wDesPosY;
+		bDesHeight = other.bDesHeight;
+		wDirection = other.wDirection;
+		dwHpMax = other.dwHpMax;
+		dwHpCur = other.dwHpCur;
+		wAtkPwr = other.wAtkPwr;
+		wDefPwr = other.wDefPwr;
+		wAtkRating = other.wAtkRating;
+		wAvoidRatio = other.wAvoidRatio;
+		bSpeed = other.bSpeed;
+		wMeleeAtkRange = other.wMeleeAtkRange;
+		wShotAtkRange = other.wShotAtkRange;
+		bAtkType = other.bAtkType;
+		dwRefNpcID = other.dwRefNpcID;
+		bCurJob = other.bCurJob;
+		i64Exp = other.i64Exp;
+		i64LevelExp = other.i64LevelExp;
+		i64NextLevelUpExp = other.i64NextLevelUpExp;
+		bRevolutionStep = other.bRevolutionStep;
+		bWildRate = other.bWildRate;
+
+		dwMoveTime = other.dwMoveTime;
+		dwLastAITime = other.dwLastAITime;
+		dwAIFrameTime = other.dwAIFrameTime;
+		fFollowRange = other.fFollowRange;
+		dwStartIdleTime = other.dwStartIdleTime;
+		dwIdleStepTime = other.dwIdleStepTime;
+		bIdle = other.bIdle;
+		nIdleStep = other.nIdleStep;
+		dwIdleStepDelay = other.dwIdleStepDelay;
+		fAttackRange = other.fAttackRange;
+		bHwanAttack = other.bHwanAttack;
+		bAI = other.bAI;
+		AI_Type = other.AI_Type;
+		bSelected = other.bSelected;
+		bFight = other.bFight;
+		dwDestID = other.dwDestID;
+		dwDestType = other.dwDestType;
+		dwGuardID = other.dwGuardID;
+		dwGuardType = other.dwGuardType;
+		bFollowPC = other.bFollowPC;
+		dwLastAttackTime = other.dwLastAttackTime;
+		dwAttackDelayTime = other.dwAttackDelayTime;
+		m_byMySackCurrIdx = other.m_byMySackCurrIdx;
+		bAttackType = other.bAttackType;
+		dwAttackID = other.dwAttackID;
+		bDefType = other.bDefType;
+		dwDefID = other.dwDefID;
+		wAttackPosX = other.wAttackPosX;
+		wAttackPosY = other.wAttackPosY;
+		bAttackHeight = other.bAttackHeight;
+		bAttackMode = other.bAttackMode;
+		nRemainAttackCount = other.nRemainAttackCount;
+		m_dwIsHwan = other.m_dwIsHwan;
+
+		pEndTargetMove = new CClassTrigger<sPetInfo>(this, &sPetInfo::OnEndTargetMove, 0);
+		pTimerTrigger  = new CClassTrigger<sPetInfo>(this, &sPetInfo::OnTimerTrigger, 0);
+		for( int i=0; i < PET_SACK_COUNT; ++i)
+			m_pSack[i] = new CCharSack( SACKTYPE__PET, 6, 6);
+		m_pEquipSack = new CEquipSack( SACKTYPE__PET_EQUIP, 6);
+	}
+
+	sPetInfo& operator=(const sPetInfo& other)
+	{
+		if (this == &other) return *this;
+
+		dwID = other.dwID;
+		dwOwnID = other.dwOwnID;
+		dwMapID = other.dwMapID;
+		bNpcType = other.bNpcType;
+		szName = other.szName;
+		wLevel = other.wLevel;
+		wPosX = other.wPosX;
+		wPosY = other.wPosY;
+		bHeight = other.bHeight;
+		wDesPosX = other.wDesPosX;
+		wDesPosY = other.wDesPosY;
+		bDesHeight = other.bDesHeight;
+		wDirection = other.wDirection;
+		dwHpMax = other.dwHpMax;
+		dwHpCur = other.dwHpCur;
+		wAtkPwr = other.wAtkPwr;
+		wDefPwr = other.wDefPwr;
+		wAtkRating = other.wAtkRating;
+		wAvoidRatio = other.wAvoidRatio;
+		bSpeed = other.bSpeed;
+		wMeleeAtkRange = other.wMeleeAtkRange;
+		wShotAtkRange = other.wShotAtkRange;
+		bAtkType = other.bAtkType;
+		dwRefNpcID = other.dwRefNpcID;
+		bCurJob = other.bCurJob;
+		i64Exp = other.i64Exp;
+		i64LevelExp = other.i64LevelExp;
+		i64NextLevelUpExp = other.i64NextLevelUpExp;
+		bRevolutionStep = other.bRevolutionStep;
+		bWildRate = other.bWildRate;
+
+		dwMoveTime = other.dwMoveTime;
+		dwLastAITime = other.dwLastAITime;
+		dwAIFrameTime = other.dwAIFrameTime;
+		fFollowRange = other.fFollowRange;
+		dwStartIdleTime = other.dwStartIdleTime;
+		dwIdleStepTime = other.dwIdleStepTime;
+		bIdle = other.bIdle;
+		nIdleStep = other.nIdleStep;
+		dwIdleStepDelay = other.dwIdleStepDelay;
+		fAttackRange = other.fAttackRange;
+		bHwanAttack = other.bHwanAttack;
+		bAI = other.bAI;
+		AI_Type = other.AI_Type;
+		bSelected = other.bSelected;
+		bFight = other.bFight;
+		dwDestID = other.dwDestID;
+		dwDestType = other.dwDestType;
+		dwGuardID = other.dwGuardID;
+		dwGuardType = other.dwGuardType;
+		bFollowPC = other.bFollowPC;
+		dwLastAttackTime = other.dwLastAttackTime;
+		dwAttackDelayTime = other.dwAttackDelayTime;
+		m_byMySackCurrIdx = other.m_byMySackCurrIdx;
+		bAttackType = other.bAttackType;
+		dwAttackID = other.dwAttackID;
+		bDefType = other.bDefType;
+		dwDefID = other.dwDefID;
+		wAttackPosX = other.wAttackPosX;
+		wAttackPosY = other.wAttackPosY;
+		bAttackHeight = other.bAttackHeight;
+		bAttackMode = other.bAttackMode;
+		nRemainAttackCount = other.nRemainAttackCount;
+		m_dwIsHwan = other.m_dwIsHwan;
+
+		return *this;
+	}
+
 	~sPetInfo()
 	{
 		if(pEndTargetMove)

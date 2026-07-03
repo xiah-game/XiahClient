@@ -2506,121 +2506,44 @@ BOOL CSack::CheckItemSelectedByRButton()
 				m_vecItem[i]->m_wVisualID == 9237)
 			{
 				if( m_vecItem[i]->m_dwNpcID)
+				{
 					SendCS_NC_PETBONGOUT_REQ( m_vecItem[i]->m_bSackCount+1, m_vecItem[i]->m_bSackPos);
+				}
 				else
 				{
 					//?????..
 					//HT_0711 : ??? ?? (??? ?? ??? ??? ??. ?? ? ??? ????~)
-					BYTE bSize = g_PetList.size();
-					
-					switch(bSize)
-					{
-					case 0:
-						g_MainCharInfo.ShowHelpMessage( IDS_NO_PET);
-						break;
-					case 1:
-						{	
-							if((LPCTSTR)g_PetList.GetPetInfoByIndex(0)->m_dwIsHwan == 0)
-							{
-								g_pUIManager->MakePopComboMenu(	100, m_vecItemRt[i]->right, m_vecItemRt[i]->bottom,
-													FRAMEID_BONBINITEM, 3, 
-													TRUE, RESID_COMBO, (LPCTSTR)g_PetList.GetPetInfoByIndex(0)->szName,
-													FALSE, RESID_COMBO, IDS_EMPTY,
-													FALSE, RESID_COMBO, IDS_EMPTY);
+					extern std::vector<sPetInfo> g_MyPetList;
+					std::vector<sPetInfo*> restingPets;
+					std::vector<sPetInfo*> activePets;
 
-								g_MainCharInfo.m_dwCurrentSelectedBongInItem = m_vecItem[i]->m_dwItemID;
-							}
-							else
-								g_MainCharInfo.ShowHelpMessage( IDS_NO_PET);
-
+					for (size_t p = 0; p < g_MyPetList.size(); ++p) {
+						sPetInfo& pet = g_MyPetList[p];
+						bool isActive = (g_PetList.Find(pet.dwID) != NULL || g_PetList.Find(pet.dwID + 800000000) != NULL);
+						if (isActive) {
+							activePets.push_back(&pet);
+						} else {
+							restingPets.push_back(&pet);
 						}
-						break;
-					case 2:
-						{
-							if((LPCTSTR)g_PetList.GetPetInfoByIndex(0)->m_dwIsHwan == 0)
-							{
-								g_pUIManager->MakePopComboMenu(	100, m_vecItemRt[i]->right, m_vecItemRt[i]->bottom,
-													FRAMEID_BONBINITEM, 3, 
-													TRUE, RESID_COMBO, (LPCTSTR)g_PetList.GetPetInfoByIndex(0)->szName,
-													FALSE, RESID_COMBO, IDS_EMPTY,
-													FALSE, RESID_COMBO, IDS_EMPTY);
+					}
 
-								g_MainCharInfo.m_dwCurrentSelectedBongInItem = m_vecItem[i]->m_dwItemID;
-							}
-							else if((LPCTSTR)g_PetList.GetPetInfoByIndex(1)->m_dwIsHwan == 0)
-							{
-								g_pUIManager->MakePopComboMenu(	100, m_vecItemRt[i]->right, m_vecItemRt[i]->bottom,
-													FRAMEID_BONBINITEM, 3, 
-													TRUE, RESID_COMBO, (LPCTSTR)g_PetList.GetPetInfoByIndex(1)->szName,
-													FALSE, RESID_COMBO, IDS_EMPTY,
-													FALSE, RESID_COMBO, IDS_EMPTY);
+					if (g_MyPetList.empty()) {
+						g_MainCharInfo.ShowHelpMessage(IDS_NO_PET);
+					}
+					else if (restingPets.empty()) {
+						g_MainCharInfo.ShowHelpMessage(_T("\xb3\xf6\xd5\xbd\xd6\xd0\xb5\xc4\xb3\xe8\xce\xef\xce\xde\xb7\xa8\xb7\xe2\xd3\xa1\xa3\xac\xc7\xeb\xcf\xc8\xd5\xd9\xbb\xd8"), TEXTEFFECT_COLOR_WARNING);
+					}
+					else {
+						g_pUIManager->MakePopComboMenu(	100, m_vecItemRt[i]->right, m_vecItemRt[i]->bottom,
+											FRAMEID_BONBINITEM, 3, 
+											restingPets.size() > 0, RESID_COMBO, (restingPets.size() > 0 ? (LPCTSTR)restingPets[0]->szName : IDS_EMPTY),
+											restingPets.size() > 1, RESID_COMBO, (restingPets.size() > 1 ? (LPCTSTR)restingPets[1]->szName : IDS_EMPTY),
+											restingPets.size() > 2, RESID_COMBO, (restingPets.size() > 2 ? (LPCTSTR)restingPets[2]->szName : IDS_EMPTY));
 
-								g_MainCharInfo.m_dwCurrentSelectedBongInItem = m_vecItem[i]->m_dwItemID;
-							}
-							else
-								g_MainCharInfo.ShowHelpMessage( IDS_NO_PET);
-						}
-						break;
-					case 3:
-						{
-							if((LPCTSTR)g_PetList.GetPetInfoByIndex(0)->m_dwIsHwan == 0)
-							{
-								g_pUIManager->MakePopComboMenu(	100, m_vecItemRt[i]->right, m_vecItemRt[i]->bottom,
-													FRAMEID_BONBINITEM, 3, 
-													TRUE, RESID_COMBO, (LPCTSTR)g_PetList.GetPetInfoByIndex(0)->szName,
-													FALSE, RESID_COMBO, IDS_EMPTY,
-													FALSE, RESID_COMBO, IDS_EMPTY);
-
-								g_MainCharInfo.m_dwCurrentSelectedBongInItem = m_vecItem[i]->m_dwItemID;
-							}
-							else if((LPCTSTR)g_PetList.GetPetInfoByIndex(1)->m_dwIsHwan == 0)
-							{
-								g_pUIManager->MakePopComboMenu(	100, m_vecItemRt[i]->right, m_vecItemRt[i]->bottom,
-													FRAMEID_BONBINITEM, 3, 
-													TRUE, RESID_COMBO, (LPCTSTR)g_PetList.GetPetInfoByIndex(1)->szName,
-													FALSE, RESID_COMBO, IDS_EMPTY,
-													FALSE, RESID_COMBO, IDS_EMPTY);
-
-								g_MainCharInfo.m_dwCurrentSelectedBongInItem = m_vecItem[i]->m_dwItemID;
-							}
-							else if((LPCTSTR)g_PetList.GetPetInfoByIndex(2)->m_dwIsHwan == 0)
-							{
-								g_pUIManager->MakePopComboMenu(	100, m_vecItemRt[i]->right, m_vecItemRt[i]->bottom,
-													FRAMEID_BONBINITEM, 3, 
-													TRUE, RESID_COMBO, (LPCTSTR)g_PetList.GetPetInfoByIndex(2)->szName,
-													FALSE, RESID_COMBO, IDS_EMPTY,
-													FALSE, RESID_COMBO, IDS_EMPTY);
-
-								g_MainCharInfo.m_dwCurrentSelectedBongInItem = m_vecItem[i]->m_dwItemID;
-							}
-							else
-								g_MainCharInfo.ShowHelpMessage( IDS_NO_PET);
-						}
-						break;
-					//case 2:
-					//	{
-					//		g_pUIManager->MakePopComboMenu(	100, m_vecItemRt[i]->right, m_vecItemRt[i]->bottom,
-					//							FRAMEID_BONBINITEM, 3, 
-					//							TRUE, RESID_COMBO, (LPCTSTR)g_PetList.GetPetInfoByIndex(0)->szName,
-					//							TRUE, RESID_COMBO, (LPCTSTR)g_PetList.GetPetInfoByIndex(1)->szName,
-					//							FALSE, RESID_COMBO, IDS_EMPTY);
-
-					//		g_MainCharInfo.m_dwCurrentSelectedBongInItem = m_vecItem[i]->m_dwItemID;
-					//	}
-					//	break;
-					//case 3:
-					//	{
-					//		g_pUIManager->MakePopComboMenu(	100, m_vecItemRt[i]->right, m_vecItemRt[i]->bottom,
-					//							FRAMEID_BONBINITEM, 3, 
-					//							TRUE, RESID_COMBO, (LPCTSTR)g_PetList.GetPetInfoByIndex(0)->szName,
-					//							TRUE, RESID_COMBO, (LPCTSTR)g_PetList.GetPetInfoByIndex(1)->szName,
-					//							TRUE, RESID_COMBO, (LPCTSTR)g_PetList.GetPetInfoByIndex(2)->szName);
-
-					//		g_MainCharInfo.m_dwCurrentSelectedBongInItem = m_vecItem[i]->m_dwItemID;
-					//	}
-					//	break;
+						g_MainCharInfo.m_dwCurrentSelectedBongInItem = m_vecItem[i]->m_dwItemID;
 					}
 				}
+				return true;
 			}
 			else
 			{

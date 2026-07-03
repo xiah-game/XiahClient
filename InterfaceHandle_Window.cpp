@@ -1,4 +1,4 @@
-﻿#include "mail.h"
+#include "mail.h"
 #include "XiahEnvInfo.h"
 #include "xiahbgmcore.h"
 #include "Helper.h"
@@ -3539,6 +3539,148 @@ void ProcessWindowQuickScript(LPARAM lParam)//HO_0413 : 韤 臧鞚措摐 鞀ろ�
  * 鞎勳澊韰 氤店惮
  * \param lParam 
  */
+#include <vector>
+
+struct sPetDisplayInfo {
+	DWORD dwID;
+	sString szName;
+	WORD wLevel;
+	BOOL isActive;
+	BOOL isFromSack;
+	BYTE bSackID;
+	BYTE bSackPos;
+	BYTE bSackCount;
+};
+
+std::vector<sPetDisplayInfo> g_PetDisplayList;
+
+void ScanSackForPets(CSack* pSack)
+{
+	if (!pSack) return;
+	const ItemList& items = pSack->GetItemList();
+	for (size_t i = 0; i < items.size(); ++i)
+	{
+		XiahItem::sItemInfo* pItem = items[i];
+		if (pItem && pItem->m_bItemType == 9 && pItem->m_bItemKind == 5)
+		{
+			if (pItem->m_dwNpcID > 0 && pItem->m_wTamingLevel > 0)
+			{
+				BOOL alreadyActive = FALSE;
+				for (size_t k = 0; k < g_PetDisplayList.size(); ++k)
+				{
+					if (g_PetDisplayList[k].dwID == pItem->m_dwItemID)
+					{
+						alreadyActive = TRUE;
+						break;
+					}
+				}
+				if (!alreadyActive)
+				{
+					sPetDisplayInfo disp;
+					disp.dwID = pItem->m_dwItemID;
+					disp.szName = pItem->m_szName;
+					disp.wLevel = pItem->m_wLevel;
+					disp.isActive = FALSE;
+					disp.isFromSack = TRUE;
+					disp.bSackID = pItem->m_bSackID;
+					disp.bSackPos = pItem->m_bSackPos;
+					disp.bSackCount = pItem->m_bSackCount;
+					g_PetDisplayList.push_back(disp);
+				}
+			}
+		}
+	}
+}
+
+std::vector<sPetInfo> g_MyPetList;
+
+void RebuildPetDisplayList()
+{
+	g_PetDisplayList.clear();
+
+	int nMySize = g_MyPetList.size();
+	for(int i = 0; i < nMySize; ++i)
+	{
+		sPetInfo& myPet = g_MyPetList[i];
+		sPetDisplayInfo disp;
+		disp.dwID = myPet.dwID;
+		disp.szName = myPet.szName;
+		disp.wLevel = myPet.wLevel;
+		disp.isActive = (g_PetList.Find(myPet.dwID) != NULL || g_PetList.Find(myPet.dwID + 800000000) != NULL);
+		disp.isFromSack = FALSE;
+		disp.bSackID = 0;
+		disp.bSackPos = 0;
+		disp.bSackCount = 0;
+		g_PetDisplayList.push_back(disp);
+	}
+
+	for (int s = 0; s < 3; ++s)
+	{
+		if (g_MainCharInfo.m_pMySack[s])
+		{
+			ScanSackForPets(g_MainCharInfo.m_pMySack[s]);
+		}
+	}
+}
+
+void UpdateRecoveryButtons()
+{
+	int selIdx = g_MainCharInfo.m_nTempValue;
+	int nSize = g_PetDisplayList.size();
+
+	if (selIdx >= 0 && selIdx < nSize)
+	{
+		sPetDisplayInfo& disp = g_PetDisplayList[selIdx];
+		if (disp.isActive)
+		{
+			g_pUIManager->Show(WINDOW_RECOVERY, recovery_window_button01);
+			g_pUIManager->SetString(WINDOW_RECOVERY, recovery_window_button01, _T("\xd5\xd9\xbb\xd8")); // "召回"
+		}
+		else if (disp.isFromSack)
+		{
+			g_pUIManager->Hide(WINDOW_RECOVERY, recovery_window_button01);
+		}
+		else
+		{
+			g_pUIManager->Show(WINDOW_RECOVERY, recovery_window_button01);
+			g_pUIManager->SetString(WINDOW_RECOVERY, recovery_window_button01, _T("\xb3\xf6\xd5\xbd")); // "出战"
+		}
+	}
+	else
+	{
+		g_pUIManager->Hide(WINDOW_RECOVERY, recovery_window_button01);
+	}
+}
+
+void UpdatePetManagerList()
+{
+	if (!g_pUIManager->IsShow(WINDOW_RECOVERY)) return;
+
+	RebuildPetDisplayList();
+
+	for(int i=0; i < 6; ++i)
+	{
+		g_pUIManager->SetString(WINDOW_RECOVERY, recovery_window_back_dummy01+i, _T(" "));
+		g_pUIManager->SetData(WINDOW_RECOVERY, recovery_window_back_dummy01+i, COLOR, 0, 0, D3DCOLOR_XRGB(255, 255, 255));
+	}
+
+	int nSize = g_PetDisplayList.size();
+	for(int i=0; i < nSize && i < 6; ++i)
+	{
+		sPetDisplayInfo& disp = g_PetDisplayList[i];
+		LPCTSTR szStatus = disp.isActive ? _T("[\xb3\xf6\xd5\xbd]") : (disp.isFromSack ? _T("[\xb7\xe2\xd3\xa1\xd6\xd0]") : _T("[\xd0\xdd\xcf\xa2]"));
+		TCHAR szTemp[128] = {0,};
+		_stprintf(szTemp, _T("%s %s   Lv.%d"), szStatus, disp.szName.data(), disp.wLevel);
+		g_pUIManager->SetString(WINDOW_RECOVERY, recovery_window_back_dummy01+i, szTemp);
+	}
+
+	if (g_MainCharInfo.m_nTempValue >= 0 && g_MainCharInfo.m_nTempValue < nSize)
+	{
+		g_pUIManager->SetData(WINDOW_RECOVERY, recovery_window_back_dummy01+g_MainCharInfo.m_nTempValue, COLOR, 0, 0, D3DCOLOR_XRGB(250, 250, 0));
+	}
+	UpdateRecoveryButtons();
+}
+
 void ProcessWindowRecovery(LPARAM lParam)
 {
 	int nControlID = LOWORD(lParam);
@@ -3558,61 +3700,97 @@ void ProcessWindowRecovery(LPARAM lParam)
 			}
 
 			g_MainCharInfo.m_nTempValue = nControlID - recovery_window_back_dummy01;
-			int nSize = g_MainCharInfo.m_vRecoveryItem.size();
+			int nSize = g_PetDisplayList.size();
 
 			if(nSize)
 			{
 				if(g_MainCharInfo.m_nTempValue < nSize)
 				{
 					g_pUIManager->SetData(WINDOW_RECOVERY, recovery_window_back_dummy01+g_MainCharInfo.m_nTempValue, COLOR, 0, 0, D3DCOLOR_XRGB(250, 250, 0));
-
-					g_MainCharInfo.m_dwResItemID = g_MainCharInfo.m_vRecoveryItem[g_MainCharInfo.m_nTempValue];
+					g_MainCharInfo.m_dwResItemID = g_PetDisplayList[g_MainCharInfo.m_nTempValue].dwID;
 				}
 				else
 				{
 					g_MainCharInfo.m_dwResItemID = 0;
 				}
 			}
+			UpdateRecoveryButtons();
 		}
 		break;
 	case recovery_window_button01:
 		{
-			if(g_MainCharInfo.m_dwResItemID && g_MainCharInfo.m_vRecoveryItem.size())
+			if(g_MainCharInfo.m_dwResItemID && g_PetDisplayList.size())
 			{
-				//TCHAR szName[32] = {0,};				
-				//g_pUIManager->GetString(WINDOW_RECOVERY, recovery_window_back_dummy01+g_MainCharInfo.m_nTempValue, szName);
-
-				TCHAR szTemp[128] = {0,};
-				_stprintf(szTemp, IDS_RECOVERY_INFO, g_MainCharInfo.m_vRecoveryItemName[g_MainCharInfo.m_nTempValue].data());
-
-				g_pUIManager->ShowNotice(szTemp, NOTICE_FRAME_OKCANCEL, NOTICE_FRAME_RECOVERY1, XiahInput::g_ptMouse.x - 270, XiahInput::g_ptMouse.y-90);
+				if(g_MainCharInfo.m_nTempValue >= 0 && g_MainCharInfo.m_nTempValue < (int)g_PetDisplayList.size())
+				{
+					sPetDisplayInfo& disp = g_PetDisplayList[g_MainCharInfo.m_nTempValue];
+					if (disp.isActive)
+					{
+						extern void SendCS_NC_PET_CONTROL_REQ(DWORD dwPetID, BYTE bAction);
+						SendCS_NC_PET_CONTROL_REQ(disp.dwID, 0);
+					}
+					else if (disp.isFromSack)
+					{
+						extern void SendCS_NC_PETBONGOUT_REQ(BYTE bSackID, BYTE bSackPos);
+						SendCS_NC_PETBONGOUT_REQ(disp.bSackID, disp.bSackPos);
+					}
+					else
+					{
+						extern void SendCS_NC_PET_CONTROL_REQ(DWORD dwPetID, BYTE bAction);
+						SendCS_NC_PET_CONTROL_REQ(disp.dwID, 1);
+					}
+				}
 			}
 		}
 		break;
 	case recovery_window_button02:
 		{
-			if(g_MainCharInfo.m_dwResItemID && g_MainCharInfo.m_vRecoveryItem.size())
+			if(g_MainCharInfo.m_dwResItemID && g_PetDisplayList.size())
 			{
-				//TCHAR szName[32] = {0,};				
-				//g_pUIManager->GetString(WINDOW_RECOVERY, recovery_window_back_dummy01+g_MainCharInfo.m_nTempValue, szName);
-
-				TCHAR szTemp[128] = {0,};
-				_stprintf(szTemp, IDS_SWEEP_INFO, g_MainCharInfo.m_vRecoveryItemName[g_MainCharInfo.m_nTempValue].data());
-
-				g_pUIManager->ShowNotice(szTemp, NOTICE_FRAME_OKCANCEL, NOTICE_FRAME_RECOVERY2, XiahInput::g_ptMouse.x - 270, XiahInput::g_ptMouse.y-90);
+				if(g_MainCharInfo.m_nTempValue >= 0 && g_MainCharInfo.m_nTempValue < (int)g_PetDisplayList.size())
+				{
+					sPetDisplayInfo& disp = g_PetDisplayList[g_MainCharInfo.m_nTempValue];
+					TCHAR szTemp[256] = {0,};
+					_stprintf(szTemp, _T("\xc8\xb7\xb6\xa8\xd2\xaa\xb7\xc5\xc9\xfa\xd5\xbd\xb3\xe8\x20%s\x20\xc2\xf0\xa3\xbf\xb7\xc5\xc9\xfa\xba\xf3\xbd\xab\xd3\xc0\xd4\xb6\xca\xa7\xc8\xa5\xcb\xfc\xa1\xa3"), disp.szName.data());
+					g_pUIManager->ShowNotice(szTemp, NOTICE_FRAME_OKCANCEL, NOTICE_FRAME_RECOVERY2, XiahInput::g_ptMouse.x - 270, XiahInput::g_ptMouse.y-90);
+				}
 			}
 		}
 		break;
 	case recovery_title_close_button:
-	case recovery_window_button03:
 		{
 			g_MainCharInfo.CloseFrame(WINDOW_RECOVERY);
+		}
+		break;
+	case recovery_window_button03:
+		{
+			if(g_MainCharInfo.m_dwResItemID && g_PetDisplayList.size())
+			{
+				if(g_MainCharInfo.m_nTempValue >= 0 && g_MainCharInfo.m_nTempValue < (int)g_PetDisplayList.size())
+				{
+					sPetDisplayInfo& disp = g_PetDisplayList[g_MainCharInfo.m_nTempValue];
+					if (disp.isActive)
+					{
+						g_pUIManager->SetPosition(WINDOW_NEW_TAMING, 0, 0);
+						g_MainCharInfo.OpenFrame(WINDOW_NEW_TAMING);
+						g_MainCharInfo.ShowSack(SACKTYPE__PET_EQUIP);
+						g_MainCharInfo.RefreshPetInfo();
+					}
+					else
+					{
+						TCHAR szErr[128];
+						_stprintf(szErr, _T("\xd6\xbb\xc4\xdc\xb2\xe9\xbf\xb4\xd2\xd1\xb3\xf6\xd5\xbd\xd5\xbd\xb3\xe8\xb5\xc4\xca\xf4\xd0\xd4"));
+						g_MainCharInfo.ShowHelpMessage(szErr, TEXTEFFECT_COLOR_WARNING);
+					}
+				}
+			}
 		}
 		break;
 	default:
 		break;
 	}
 }
+
 
 /**
 * 雼 瓴巾棙旃 攵勲鞍

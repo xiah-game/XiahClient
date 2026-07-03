@@ -1523,6 +1523,9 @@ int OnCS_IF_PETLIST_ACK(CMsg &msg)
 		>> dwCharID
 		>> bNpcCnt;
 
+	extern std::vector<sPetInfo> g_MyPetList;
+	g_MyPetList.clear();
+
 	g_PetList.Release();
 
 	for(int i=0; i < bNpcCnt; ++i) 
@@ -1597,9 +1600,21 @@ int OnCS_IF_PETLIST_ACK(CMsg &msg)
 			>> wVisualID[4]
 			>> wVisualID[5];
 
+		extern std::vector<sPetInfo> g_MyPetList;
+		sPetInfo myPet;
+		myPet.dwID = dwID;
+		myPet.szName = szName;
+		myPet.wLevel = wLevel;
+		g_MyPetList.push_back(myPet);
+
+		if (wPosX == 0 && wPosY == 0)
+		{
+			continue;
+		}
+
 		// 만들어 주기
 		XiahObject::CXiahObject *pPetObject = NULL;
-		if((pPetObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, dwID, OBJTYPE_PET))) != NULL)
+		if((pPetObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, (dwID + 800000000), OBJTYPE_PET))) != NULL)
 		{	
 			sArrayData* pData = XiahArrayIndex::g_NpcType.GetData( bNpcType);
 
@@ -1665,7 +1680,7 @@ int OnCS_IF_PETLIST_ACK(CMsg &msg)
 			pCharObject = new CXiahCharObject;
 		}
 
-		pPetObject = XiahObject::g_XiahObjectManager.CreateXiahObject( dwID, OBJTYPE_PET, pCharObject);
+		pPetObject = XiahObject::g_XiahObjectManager.CreateXiahObject( dwID + 800000000, OBJTYPE_PET, pCharObject);
 
 		pCharObject->Create( nCharID, nMeshType, nTextureType, 1);
 
@@ -1740,6 +1755,8 @@ int OnCS_IF_PETLIST_ACK(CMsg &msg)
 	}	
 
 	g_PetList.JumpToPlayer();
+	extern void UpdatePetManagerList();
+	UpdatePetManagerList();
 	return 0;	
 }
 

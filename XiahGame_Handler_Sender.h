@@ -56,6 +56,7 @@ extern void SendCS_NC_STATUSCHANGE_REQ(BYTE bObjectType,DWORD dwObjectID,BYTE bS
 extern void SendCS_NC_PETRENAME_REQ( DWORD dwMapID, DWORD dwObjectID, sString szPetName);
 extern void SendCS_NC_PETBONGIN_REQ( DWORD dwObjectID, BYTE bSackID, BYTE bSackPos);
 extern void SendCS_NC_PETBONGOUT_REQ( BYTE bSackID, BYTE bSackPos);
+extern void SendCS_NC_PET_CONTROL_REQ(DWORD dwPetID, BYTE bAction);
 extern void SendCS_NC_PETSACKLIST_REQ( DWORD dwOwnerID, DWORD dwPetID, BYTE bSackID);
 extern void SendCS_NC_PETITEMPUT_REQ( DWORD dwPetID, DWORD dwItemID, BYTE bCharSackID, BYTE bCharSackPos, BYTE bPetSackID, BYTE bPetSackPos);
 extern void SendCS_NC_PETITEMOUT_REQ( DWORD dwPetID, DWORD dwItemID, BYTE bPetSackID, BYTE bPetSackPos, BYTE bCharSackID, BYTE bCharSackPos);

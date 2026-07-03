@@ -3516,3 +3516,14 @@ void SendCS_IF_CHANGEPARTYLEADER_REQ(DWORD dwCurLeaderID, DWORD dwPostLeaderID)
 
 	XiahNetwork::SendNetMsg(msg);
 }
+
+
+void SendCS_NC_PET_CONTROL_REQ(DWORD dwPetID, BYTE bAction)
+{
+	CMsg msg;
+	msg.ID(CS_NC_PET_CONTROL_REQ)
+		<< dwPetID
+		<< bAction;
+	XiahNetwork::SendNetMsg(msg);
+}
+

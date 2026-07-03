@@ -1598,14 +1598,15 @@ void XiahGame_Intro::Init_WindowRecovery()
 {
 	g_pUIManager->SetPosition(WINDOW_RECOVERY, WINDOW_FIRST_XPOS, -2);
 
-	g_pUIManager->SetString(WINDOW_RECOVERY, recovery_title, IDS_RECOVERY_TITLE);
+	g_pUIManager->SetString(WINDOW_RECOVERY, recovery_title, _T("\xb3\xe8\xce\xef\xc1\xd0\xb1\xed"));
 
-	g_pUIManager->SetString(WINDOW_RECOVERY, recovery_window_button01, IDS_RECOVERY);
-	g_pUIManager->SetString(WINDOW_RECOVERY, recovery_window_button02, IDS_SWEEP);
-	g_pUIManager->SetString(WINDOW_RECOVERY, recovery_window_button03, IDS_CANCEL);
-
-	//g_pUIManager->SetData(MAIN_FRAME, main_frame_socket_dummy_02 + i, TYPE, STATICDUMMY);
+	g_pUIManager->SetString(WINDOW_RECOVERY, recovery_window_button01, _T("\xb3\xf6\xd5\xbd\x2f\xd5\xd9\xbb\xd8"));
+	g_pUIManager->SetString(WINDOW_RECOVERY, recovery_window_button02, _T("\xb7\xc5\xc9\xfa"));
+	g_pUIManager->SetString(WINDOW_RECOVERY, recovery_window_button03, _T("\xb2\xe9\xbf\xb4\xca\xf4\xd0\xd4"));
 }
+
+
+
 
 /**
 * 嫧 瓴巾棙旃 攵勲鞍

@@ -1,4 +1,4 @@
-#include "XiahCheatConfig.h"
+﻿#include "XiahCheatConfig.h"
 #include "cEFFECT_SPOT.h"
 
 #define BOOM_FXSOUND1	50001470
@@ -2421,6 +2421,28 @@ int OnCS_NC_PETINFO_ACK(CMsg &msg)
 			DBG_Put("OnCS_NC_PETINFO_ACK: Bunsin added to PetList, ID=%d", dwID);
 		}
 	}
+	// 如果是自己拥有的真实宠物在地图上生成，也必须加入 g_PetList，使列表和控制逻辑生效
+	else if( bNpcType < 250 && bCreateChar && pPetObject != NULL )
+	{
+		if( g_pMainChar && g_pMainChar->m_dwServerID == dwOwnerID )
+		{
+			pPetInfo->bAI = TRUE;
+			pPetInfo->AI_Type = PETAI_AUTOATTACK;
+			pPetInfo->bSelected = FALSE;
+			pPetInfo->bFight = FALSE;
+			pPetInfo->bFollowPC = FALSE;
+			pPetInfo->bIdle = FALSE;
+			pPetInfo->dwDestID = 0;
+			pPetInfo->dwGuardID = 0;
+			pPetInfo->dwDestType = 0;
+			pPetInfo->dwGuardType = 0;
+			g_PetList.AddPet( pPetObject );
+			DBG_Put("OnCS_NC_PETINFO_ACK: Real pet added to PetList, ID=%d", dwID);
+
+			extern void UpdatePetManagerList();
+			UpdatePetManagerList();
+		}
+	}
 
 	return 0;
 }
@@ -3377,6 +3399,9 @@ int OnCS_NC_PETBONGIN_ACK(CMsg &msg)
 	{
 		switch( bResult)
 		{
+		case 10:
+			g_MainCharInfo.ShowHelpMessage(_T("\xb3\xf6\xd5\xbd\xd6\xd0\xb5\xc4\xb3\xe8\xce\xef\xce\xde\xb7\xa8\xb7\xe2\xd3\xa1\xa3\xac\xc7\xeb\xcf\xc8\xd5\xd9\xbb\xd8"), TEXTEFFECT_COLOR_WARNING);
+			break;
 		//봉인할수 없슴
 		case ERR_PETBONGIN_NOTFINDPET:
 			g_MainCharInfo.ShowHelpMessage(IDS_PETBONGIN_NOTFINDPET, TEXTEFFECT_COLOR_WARNING);
@@ -3487,6 +3512,12 @@ int OnCS_NC_PETBONGOUT_ACK(CMsg &msg)
 			>> wVisualID[4]
 			>> wVisualID[5];
 
+		if (wPosX == 0 && wPosY == 0)
+		{
+			g_MainCharInfo.ShowHelpMessage(IDS_PET_BONGOUT);
+			return 0;
+		}
+
 		// 만들어 주기
 		if( XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, dwID, OBJTYPE_PET)) != NULL)
 		{	
@@ -3592,6 +3623,22 @@ int OnCS_NC_PETBONGOUT_ACK(CMsg &msg)
 		if ( pPetObject->m_pObject && pPetObject->m_pObject->m_bPoolClass )
 		{
 			pPetObject->m_pObject->m_bPetPool = true;
+		}
+
+		extern std::vector<sPetInfo> g_MyPetList;
+		bool bExists = false;
+		for (size_t i = 0; i < g_MyPetList.size(); ++i) {
+			if (g_MyPetList[i].dwID == dwID) {
+				bExists = true;
+				break;
+			}
+		}
+		if (!bExists) {
+			sPetInfo myPet;
+			myPet.dwID = dwID;
+			myPet.szName = szName;
+			myPet.wLevel = wLevel;
+			g_MyPetList.push_back(myPet);
 		}
 
 		g_PetList.AddPet( pPetObject);
@@ -5032,3 +5079,45 @@ int OnCS_NC_PETTRADE_ACK(CMsg &msg)
 	return 0;
 }
 
+
+
+int OnCS_NC_PET_CONTROL_ACK(CMsg &msg)
+{
+	DWORD dwPetID = 0;
+	BYTE bAction = 0;
+	BYTE bResult = 0;
+	msg >> dwPetID >> bAction >> bResult;
+
+	if (bResult == 0)
+	{
+		if (bAction == 0)
+		{
+			g_PetList.DeletePet(dwPetID);
+		}
+		else if (bAction == 2)
+		{
+			g_PetList.DeletePet(dwPetID);
+			g_MainCharInfo.m_dwResItemID = 0;
+
+			extern std::vector<sPetInfo> g_MyPetList;
+			DWORD dwTargetPetID = dwPetID;
+			if (dwTargetPetID >= 800000000 && dwTargetPetID < 850000000) dwTargetPetID -= 800000000;
+			for (auto it = g_MyPetList.begin(); it != g_MyPetList.end(); ++it) {
+				if (it->dwID == dwTargetPetID) {
+					g_MyPetList.erase(it);
+					break;
+				}
+			}
+		}
+
+		extern void UpdatePetManagerList();
+		UpdatePetManagerList();
+	}
+	else
+	{
+		TCHAR szErr[64];
+		_stprintf(szErr, _T("\xd5\xbd\xb3\xe8\xb2\xd9\xd7\xf7\xca\xa7\xb0\xdc"));
+		g_MainCharInfo.ShowHelpMessage(szErr, TEXTEFFECT_COLOR_WARNING);
+	}
+	return 0;
+}
