@@ -3550,6 +3550,7 @@ struct sPetDisplayInfo {
 	BYTE bSackID;
 	BYTE bSackPos;
 	BYTE bSackCount;
+	DWORD dwHpCur;
 };
 
 std::vector<sPetDisplayInfo> g_PetDisplayList;
@@ -3585,6 +3586,7 @@ void ScanSackForPets(CSack* pSack)
 					disp.bSackID = pItem->m_bSackID;
 					disp.bSackPos = pItem->m_bSackPos;
 					disp.bSackCount = pItem->m_bSackCount;
+					disp.dwHpCur = 1; // 封印中设为默认非零值
 					g_PetDisplayList.push_back(disp);
 				}
 			}
@@ -3611,6 +3613,7 @@ void RebuildPetDisplayList()
 		disp.bSackID = 0;
 		disp.bSackPos = 0;
 		disp.bSackCount = 0;
+		disp.dwHpCur = myPet.dwHpCur;
 		g_PetDisplayList.push_back(disp);
 	}
 
@@ -3668,10 +3671,18 @@ void UpdatePetManagerList()
 	for(int i=0; i < nSize && i < 6; ++i)
 	{
 		sPetDisplayInfo& disp = g_PetDisplayList[i];
-		LPCTSTR szStatus = disp.isActive ? _T("[\xb3\xf6\xd5\xbd]") : (disp.isFromSack ? _T("[\xb7\xe2\xd3\xa1\xd6\xd0]") : _T("[\xd0\xdd\xcf\xa2]"));
+		LPCTSTR szStatus;
+		D3DCOLOR textColor = D3DCOLOR_XRGB(255, 255, 255);
+		if (disp.dwHpCur == 0 && !disp.isFromSack) {
+			szStatus = _T("[\xcb\xc0\xcd\xf6]"); // "[死亡]"
+			textColor = D3DCOLOR_XRGB(255, 64, 64);
+		} else {
+			szStatus = disp.isActive ? _T("[\xb3\xf6\xd5\xbd]") : (disp.isFromSack ? _T("[\xb7\xe2\xd3\xa1\xd6\xd0]") : _T("[\xd0\xdd\xcf\xa2]"));
+		}
 		TCHAR szTemp[128] = {0,};
 		_stprintf(szTemp, _T("%s %s   Lv.%d"), szStatus, disp.szName.data(), disp.wLevel);
 		g_pUIManager->SetString(WINDOW_RECOVERY, recovery_window_back_dummy01+i, szTemp);
+		g_pUIManager->SetData(WINDOW_RECOVERY, recovery_window_back_dummy01+i, COLOR, 0, 0, textColor);
 	}
 
 	if (g_MainCharInfo.m_nTempValue >= 0 && g_MainCharInfo.m_nTempValue < nSize)

@@ -1605,6 +1605,7 @@ int OnCS_IF_PETLIST_ACK(CMsg &msg)
 		myPet.dwID = dwID;
 		myPet.szName = szName;
 		myPet.wLevel = wLevel;
+		myPet.dwHpCur = dwHpCur;
 		g_MyPetList.push_back(myPet);
 
 		if (wPosX == 0 && wPosY == 0)
@@ -1642,8 +1643,52 @@ int OnCS_IF_PETLIST_ACK(CMsg &msg)
 			
 			CXiahCharObject *pObject = reinterpret_cast<CXiahCharObject*>(pPetObject->m_pObject);
 
-			if(pObject && bRevolutionStep == 4 && bNpcType == 0) //HT_0621 : 영수둔갑신단 적용
-				SetupPET_VisualEquipement(pObject, wVisualID);
+			if(pObject)
+			{
+				if(bRevolutionStep == 4 && bNpcType == 0) //HT_0621 : 영수둔갑신단 적용
+					SetupPET_VisualEquipement(pObject, wVisualID);
+
+				sPetInfo* pPetInfo = (sPetInfo*)pObject->m_pPrivateData;
+				if (!pPetInfo)
+				{
+					pPetInfo = new sPetInfo;
+					pObject->m_pPrivateData = (DWORD)pPetInfo;
+					pObject->m_PrivateDataDestoryer = ReleasePetInfo;
+				}
+				pPetInfo->dwID				= dwID;				
+				pPetInfo->dwOwnID			= dwOwnID;				
+				pPetInfo->dwMapID			= dwMapID;				
+				pPetInfo->bNpcType			= bNpcType;				
+				pPetInfo->szName			= szName;				
+				pPetInfo->wLevel			= wLevel;				
+				pPetInfo->wPosX				= wPosX;				
+				pPetInfo->wPosY				= wPosY;				
+				pPetInfo->bHeight			= bHeight;				
+				pPetInfo->wDesPosX			= wDesPosX;				
+				pPetInfo->wDesPosY			= wDesPosY;				
+				pPetInfo->bDesHeight		= bDesHeight;				
+				pPetInfo->wDirection		= wDirection;				
+				pPetInfo->dwHpMax			= dwHpMax;				
+				pPetInfo->dwHpCur			= dwHpCur;				
+				pPetInfo->wAtkPwr			= wAtkPwr;				
+				pPetInfo->wDefPwr			= wDefPwr;				
+				pPetInfo->wAtkRating		= wAtkRating;
+				pPetInfo->wAvoidRatio		= wAvoidRatio;				
+				pPetInfo->bSpeed			= bSpeed;				
+				pPetInfo->wMeleeAtkRange	= wMeleeAtkRange;				
+				pPetInfo->wShotAtkRange		= wShotAtkRange;				
+				pPetInfo->bAtkType			= bAtkType;				
+				pPetInfo->dwRefNpcID		= dwRefNpcID;				
+				pPetInfo->bCurJob			= bCurJob;				
+				pPetInfo->i64Exp			= i64Exp;
+				pPetInfo->i64LevelExp		= i64LevelExp;
+				pPetInfo->i64NextLevelUpExp	= i64NextLevelUpExp;
+				pPetInfo->bRevolutionStep	= bRevolutionStep;				
+				pPetInfo->bWildRate			= bWildRate;
+				pPetInfo->m_dwIsHwan		= 0;
+			}
+
+			g_PetList.AddPet( pPetObject );
 
 			continue;
 		}

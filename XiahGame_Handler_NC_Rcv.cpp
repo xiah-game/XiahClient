@@ -1,4 +1,4 @@
-﻿#include "XiahCheatConfig.h"
+#include "XiahCheatConfig.h"
 #include "cEFFECT_SPOT.h"
 
 #define BOOM_FXSOUND1	50001470
@@ -3638,6 +3638,7 @@ int OnCS_NC_PETBONGOUT_ACK(CMsg &msg)
 			myPet.dwID = dwID;
 			myPet.szName = szName;
 			myPet.wLevel = wLevel;
+			myPet.dwHpCur = dwHpCur;
 			g_MyPetList.push_back(myPet);
 		}
 
