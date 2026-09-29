@@ -1203,14 +1203,38 @@ int OnCS_NC_STARTMOVE_ACK(CMsg &msg)
 	
 	pObject->m_SyncPosition = Vector3( wPosX,0, -wPosY);
 
-	float target_angle = atan2(((float)wDesPosX - (float)wPosX),((float)wDesPosY - (float)wPosY));
-	short angle = GetServerAngle( target_angle);
-	if( angle < 0)
-		angle += 360;
+	if( bObjectType == OBJTYPE_NPC )
+	{
+		float fDistToServer = pObject->GetDistance( wPosX, wPosY );
+		if( fDistToServer > 15.0f )
+		{
+			pObject->SetPosition( wPosX, wPosY );
+		}
 
-	wDirection = angle;
+		Vector3 vTarget( (float)wDesPosX, pObject->m_Position.y, -(float)wDesPosY );
+		float fDistToDes = pObject->GetDistance( vTarget );
+		if( fDistToDes <= 1.0f )
+		{
+			pObject->m_bTargetMove = FALSE;
+			pObject->SetAnimation( XiahAniType::eLAT_Stand, -1 );
+			return TRUE;
+		}
+		pObject->SetAngleTarget( vTarget );
+	}
+	else
+	{
+		if( wDesPosX != wPosX || wDesPosY != wPosY )
+		{
+			float target_angle = atan2(((float)wDesPosX - (float)wPosX),((float)wDesPosY - (float)wPosY));
+			short angle = GetServerAngle( target_angle);
+			if( angle < 0)
+				angle += 360;
 
-	pObject->SetAngle( wDirection);
+			wDirection = angle;
+		}
+
+		pObject->SetAngle( wDirection);
+	}
 
 	// 2004.08.05 Changth
 	// 음 이런일이 생기다니,, 나의 분신은 내 컴에서 달리는데, 다른 컴에서는 

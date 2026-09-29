@@ -668,6 +668,7 @@ int OnCS_BT_PREATTACK_ACK(CMsg &msg)
 
 	pAttackerCharObject->m_bMoveable = FALSE;
 	pAttackerCharObject->m_bAttack = TRUE;
+	pAttackerCharObject->m_bTargetMove = FALSE;
 
 	if( pDefender)
 	{
@@ -827,9 +828,11 @@ int OnCS_BT_ATTACK_ACK(CMsg &msg)
 			return TRUE;
 		}
 
-		//  指  指 贸  雀挪.
 		if( pDefenderCharObject->m_bTargetMove == FALSE && pDefenderCharObject->m_bRotatable == TRUE)
 			pDefenderCharObject->SetAngleTarget( pAttackerCharObject->m_Position);
+
+		if( pAttackerCharObject->m_bTargetMove == FALSE && pAttackerCharObject->m_bRotatable == TRUE)
+			pAttackerCharObject->SetAngleTarget( pDefenderCharObject->m_Position);
 	}
 
 	//   HP  飘 冒 俨  鼐 .

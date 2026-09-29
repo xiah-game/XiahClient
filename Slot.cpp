@@ -487,11 +487,25 @@ BOOL CSlot::CheckSetItemOnSlot()
 	return FALSE;
 }
 
+void CSlot::ClearActiveSlot()
+{
+	m_byCurrentSlotIndex = 0;
+	g_pUIManager->SetData(MAIN_FRAME, main_frame_socket_dummy_01, TYPE, STATICDUMMY);
+	g_pUIManager->SetData(MAIN_FRAME, main_frame_socket_dummy_01, TEXTURE, 0);
+}
+
 /**
  *
  */
 void CSlot::CheckSlotSelected()
 {
+	// 点击S槽位，主动清空S槽位
+	if (g_pUIManager->IsMouseOn(MAIN_FRAME, main_frame_socket_dummy_01))
+	{
+		ClearActiveSlot();
+		return;
+	}
+
 	for( int i=0; i < 5; ++i)
 	{
 		if( g_pUIManager->IsMouseOn(MAIN_FRAME, main_frame_socket_dummy_02 + i))
@@ -535,26 +549,11 @@ DWORD CSlot::CheckQuickSlot(int i)
  */
 BOOL CSlot::SelectSlot( BYTE bySlotIndex)
 {
-	if( bySlotIndex < 0 || bySlotIndex > 10)
+	if( bySlotIndex < 0 || bySlotIndex >= MAX_SLOT)
 		return FALSE;
 
-	BYTE bType = 1;
-
-	// ITEM 사용
-	if( m_dwSlot[ bySlotIndex] > 10000 || ( m_dwSlot[ bySlotIndex] == 9301 ||  m_dwSlot[ bySlotIndex] == 9302))
-	{
-		//g_MainCharInfo.m_pSlot->SetActiveSlot( bySlotIndex, m_dwSlot[ bySlotIndex]);
-		UseItem( bySlotIndex);
-		return TRUE;
-	}
-	else if(m_dwSlot[ bySlotIndex] != 0)
-	{
-		// 무공사용
-		SendCS_BT_SELMUGONG_REQ( bType, m_dwSlot[ bySlotIndex], bySlotIndex+1);
-		return TRUE;
-	}
-
-	return FALSE;
+	// 统一调用直发逻辑：道具直接使用，技能直接释放，绝不添加技能到S槽位，绝不释放S槽位技能！
+	return DirectCastSlot(bySlotIndex);
 }
 
 /**

@@ -3216,9 +3216,9 @@ int CXiahCharObject::OnTMUpdate(unsigned long frame_delta_tm)
 		return 0;
 	}
 
-	if( m_nCurMotionType == XiahAniType::eLAT_NormalAttack &&
-		m_nCurMotionType == XiahAniType::eLAT_Hit &&
-		m_nCurMotionType == XiahAniType::eLAT_Defend && m_bObjType == OBJTYPE_NPC)
+	if( (m_nCurMotionType == XiahAniType::eLAT_NormalAttack ||
+		m_nCurMotionType == XiahAniType::eLAT_Hit ||
+		m_nCurMotionType == XiahAniType::eLAT_Defend) && m_bObjType == OBJTYPE_NPC)
 	{
 		pFrameDelta->t.x = 0;
 		pFrameDelta->t.z = 0;

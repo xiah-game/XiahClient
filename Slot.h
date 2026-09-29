@@ -28,6 +28,7 @@ public:
 
 	BOOL SelectSlot( BYTE bySlotIndex);
 	void UseItem( BYTE bySlotIndex);
+	void ClearActiveSlot();
 
 	void SetActiveSlot( BYTE byIndex, DWORD dwID);
 	inline DWORD GetActiveSlot();
@@ -66,3 +67,5 @@ inline BYTE CSlot::GetCurrentSlotGroup() const
 {
 	return m_byCurrentSlotGroup;
 };
+
+extern BOOL DirectCastSlot(int realSlotID);
