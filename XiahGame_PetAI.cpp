@@ -457,10 +457,11 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 			case 0 :
 				fMoveSpeed = 1.9f;
 			{
-				float dis = 9.0f;
-			//	if(pPetInfo->m_dwIsHwan == 0) dis = 9.0f; //HT_CHEAT : 펫 사정거리 증가 시키자
-			//	else
-			//	if(pPetInfo->m_dwIsHwan == 1) dis = 1.5f; //환수유용... 
+				// 业务设计意图：跟随距离系数优化。
+				// 原代码由于调试作弊残留 dis = 9.0f，导致距离超过 18 格才移动，而超过 20 格立刻瞬移闪跳，形成严重的“闪跳跟随”。
+				// 将 dis 恢复为 1.5f (维持距离约 3 格)，只要主人离开 3 格宠物立刻平滑奔跑跟随；距离接近到 2 格以内自动停下待命。
+				float dis = 1.5f;
+				float fWarpDistance = 35.0f; // 防卡死拉扯阈值，避免频繁闪现
 
 				// 멀리 있거나 호출
 				if( fDistance > pPetInfo->fFollowRange * dis || pPetInfo->bFollowPC == TRUE || pPetInfo->AI_Type == PETAI_CALLTOME)
@@ -501,11 +502,12 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 					pObject->GetAngle( curAngle);
 					diffAngle = ABS( curAngle - desAngle);
 
-					// 10배 떨어져 있으면 JUMP 한다
-					if(fDistance > pPetInfo->fFollowRange * 10.0f)
+					// 远超拉扯阈值（防卡死/大范围传送）时才 JUMP 拉回到主人身边
+					if(fDistance > fWarpDistance)
 					{
-						int x = 16 - (rand() % 32);
-						int y = 16 - (rand() % 32);
+						// 拉回目标修正为主人的贴身周围(-1~+1格)，杜绝原代码 16-rand()%32 乱飞乱跳
+						int x = (rand() % 3) - 1;
+						int y = (rand() % 3) - 1;
 
 						pObject->SetPosition( pMainChar->m_Position.x + x , -pMainChar->m_Position.z + y);
 						SendCS_NC_MAPENTER_REQ( dwObjectID, XiahMap::g_XiahMap.m_MapInfo.m_dwMapID);
@@ -679,7 +681,7 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 				else*/
 					fFollowRange = pPetInfo->fFollowRange;
 
-				float fWarpDistance = MAX_WARP_DIST_IN_COMBAT;
+				float fWarpDistance = (pPetInfo->dwDestID != 0) ? MAX_WARP_DIST_IN_COMBAT : 35.0f;
 				float fMaxFollowDist = fFollowRange * dis;
 				if (pPetInfo->dwDestID != 0)
 				{
@@ -724,11 +726,11 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 					pObject->GetAngle( curAngle);
 					diffAngle = ABS( curAngle - desAngle);
 
-					// 5배 떨어져 있으면 JUMP 한다
+					// 远超拉扯阈值时才 JUMP 拉回到主人身边
 					if(fDistance > fWarpDistance)
 					{
-						int x = 16 - (rand() % 32);
-						int y = 16 - (rand() % 32);
+						int x = (rand() % 3) - 1;
+						int y = (rand() % 3) - 1;
 
 						pObject->SetPosition( pMainChar->m_Position.x + x , -pMainChar->m_Position.z + y);
 						SendCS_NC_MAPENTER_REQ( dwObjectID, XiahMap::g_XiahMap.m_MapInfo.m_dwMapID);
@@ -862,8 +864,7 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 				else
 					fFollowRange = pPetInfo->fFollowRange;
 
-				float fWarpDistance = pPetInfo->fFollowRange * 5.0f;
-				if (pPetInfo->dwDestID != 0) fWarpDistance = MAX_WARP_DIST_IN_COMBAT;
+				float fWarpDistance = (pPetInfo->dwDestID != 0) ? MAX_WARP_DIST_IN_COMBAT : 35.0f;
 
 				float fMaxFollowDist = fFollowRange * dis;
 				if (pPetInfo->dwDestID != 0)
@@ -913,7 +914,7 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 					pObject->GetAngle( curAngle);
 					diffAngle = ABS( curAngle - desAngle);
 
-					// 5배 떨어져 있으면 JUMP 한다
+					// 远超拉扯阈值时才 JUMP 拉回到主人身边
 					TCHAR szWarpLog[256];
 					_stprintf(szWarpLog, _T("[PetAI-Dragon] Checking Warp. Dist: %f, WarpDist: %f"), fDistance, fWarpDistance);
 					DBG_LogFile(szWarpLog);
@@ -924,8 +925,8 @@ BOOL PetAI(DWORD dwObjectID,CXiahCharObject* pObject)
 						_stprintf(szWarpLog2, _T("[PetAI-Dragon] WARP JUMP EXECUTE! OwnerPos: (%f, %f)"), pMainChar->m_Position.x, pMainChar->m_Position.z);
 						DBG_LogFile(szWarpLog2);
 
-						int x = 16 - (rand() % 32);
-						int y = 16 - (rand() % 32);
+						int x = (rand() % 3) - 1;
+						int y = (rand() % 3) - 1;
 
 						pObject->SetPosition( pMainChar->m_Position.x + x , -pMainChar->m_Position.z + y);
 						SendCS_NC_MAPENTER_REQ( dwObjectID, XiahMap::g_XiahMap.m_MapInfo.m_dwMapID);

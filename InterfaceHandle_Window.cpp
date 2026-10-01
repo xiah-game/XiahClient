@@ -1,4 +1,4 @@
-#include "mail.h"
+﻿#include "mail.h"
 #include "XiahEnvInfo.h"
 #include "xiahbgmcore.h"
 #include "Helper.h"
@@ -1718,6 +1718,14 @@ void ProcessTabNpcTramde4( LPARAM lParam)
 	if( !g_MainCharInfo.m_pNpcSack->IsShow())
 		return;
 	
+	// Fallback if m_dwPickedObject was cleared: recover from currently selected NPC
+	extern DWORD dwSelObjectID;
+	extern DWORD dwSelObjectType;
+	if( g_MainCharInfo.m_dwPickedObject == 0 && dwSelObjectID != 0 && dwSelObjectType == OBJTYPE_FUNCTIONALNPC )
+	{
+		g_MainCharInfo.m_dwPickedObject = dwSelObjectID;
+	}
+
 	XiahObject::CXiahObject* pObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, g_MainCharInfo.m_dwPickedObject, OBJTYPE_FUNCTIONALNPC));
 
 	if( pObject == NULL ) return;

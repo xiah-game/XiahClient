@@ -22,6 +22,7 @@
 #include ".\spirit.h"
 
 #include "SkillTime.h"
+#include "TargetInfoPanel.h"
 
 
 // SUPPORT FMOD LIB
@@ -1578,6 +1579,15 @@ void CharacterInfo::HideSack( BYTE bySackType, BOOL bFlagForModifySack)
 
 						g_pUIManager->Show(DRG_ITEM_WINDOW);
 						g_pUIManager->Show(WINDOW_NPC_TRADE);
+						extern CTargetInfoPanel* g_pTargetInfoPanel;
+						if (g_pTargetInfoPanel)
+						{
+							g_pTargetInfoPanel->Clear();
+						}
+						if (g_pUIManager && g_pUIManager->IsShow(WINDOW_TARGET_STATUS))
+						{
+							g_pUIManager->Hide(WINDOW_TARGET_STATUS);
+						}
 					}
 				}
 			}
@@ -1608,6 +1618,25 @@ void CharacterInfo::HideSack( BYTE bySackType, BOOL bFlagForModifySack)
 void CharacterInfo::OpenFrame( int nFrameID, BYTE byUsageVolumFrame)
 {
 	PlayInterfaceSound( ISOUND_WINDOW_OPEN);
+
+	// Close target status nameplate (window 192) when opening NPC interaction/trade/dialog
+	if (nFrameID == WINDOW_NPC_TRADE || nFrameID == WINDOW_HELPER_SCRIPT || 
+		nFrameID == WINDOW_HELPER_LIST || nFrameID == WINDOW_HELPER_LIST0 ||
+		nFrameID == WINDOW_HELPER_LIST1 || nFrameID == WINDOW_HELPER_LIST2 ||
+		nFrameID == WINDOW_PORTAL || nFrameID == WINDOW_SECRET_CHECK || 
+		nFrameID == WINDOW_RECOVERY || nFrameID == WINDOW_BOK_NUMBER ||
+		nFrameID == WINDOW_PET_TRADE)
+	{
+		extern CTargetInfoPanel* g_pTargetInfoPanel;
+		if (g_pTargetInfoPanel)
+		{
+			g_pTargetInfoPanel->Clear();
+		}
+		if (g_pUIManager && g_pUIManager->IsShow(WINDOW_TARGET_STATUS))
+		{
+			g_pUIManager->Hide(WINDOW_TARGET_STATUS);
+		}
+	}
 	
 	switch(nFrameID)
 	{

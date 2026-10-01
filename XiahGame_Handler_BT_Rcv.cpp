@@ -1326,6 +1326,26 @@ int OnCS_BT_EXECSP_ACK( CMsg &msg)
 	{
 		g_MainCharInfo.ShowHelpMessage(IDS_SHORT_ABILITY, TEXTEFFECT_COLOR_WARNING);
 	}	
+	else
+	{
+		g_MainCharInfo.m_wRemainSp = wRemainSp;
+		switch(bSpType)
+		{
+		case SP_STR:
+			g_MainCharInfo.m_wStr = wResultSpTypeValue;
+			break;
+		case SP_SUS:
+			g_MainCharInfo.m_wSus = wResultSpTypeValue;
+			break;
+		case SP_DEX:
+			g_MainCharInfo.m_wDex = wResultSpTypeValue;
+			break;
+		case SP_VIT:
+			g_MainCharInfo.m_wVit = wResultSpTypeValue;
+			break;
+		}
+		g_MainCharInfo.RefreshChracterInfo();
+	}
 
 	return TRUE;
 }

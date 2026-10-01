@@ -1,8 +1,8 @@
+﻿#include "precompile.h"
 // Target Info Panel implementation
 // Renders target name, level, HP bar at fixed screen position
 // Uses D3D direct rendering (RenderEnergyGauge + CText2D)
 
-#include "precompile.h"
 #include "TargetInfoPanel.h"
 #include "XiahObjectType.h"
 #include "CharacterInfo.h"
@@ -103,6 +103,31 @@ void CTargetInfoPanel::Update()
 
 void CTargetInfoPanel::Render()
 {
+	// Close target info panel window (192) if any NPC dialog or trade window is open
+	bool bNpcDialogOpen = false;
+	if (g_pUIManager)
+	{
+		if (g_pUIManager->IsPopMenu() || g_pUIManager->IsPopSubMenu() ||
+		    g_pUIManager->IsShow(WINDOW_NPC_TRADE) ||
+		    g_pUIManager->IsShow(WINDOW_HELPER_SCRIPT) ||
+		    g_pUIManager->IsShow(WINDOW_HELPER_LIST) ||
+		    g_pUIManager->IsShow(WINDOW_HELPER_LIST1) ||
+		    g_pUIManager->IsShow(WINDOW_HELPER_LIST2) ||
+		    g_pUIManager->IsShow(WINDOW_PORTAL) ||
+		    g_pUIManager->IsShow(WINDOW_SECRET_CHECK) ||
+		    g_pUIManager->IsShow(WINDOW_RECOVERY) ||
+		    g_pUIManager->IsShow(WINDOW_BOK_NUMBER))
+		{
+			bNpcDialogOpen = true;
+		}
+	}
+
+	if (bNpcDialogOpen)
+	{
+		UpdateTargetUI192(NULL);
+		return;
+	}
+
 	if (!m_bActive)
 	{
 		UpdateTargetUI192(NULL);
@@ -298,12 +323,25 @@ D3DCOLOR CTargetInfoPanel::GetNameColor(BYTE bObjType) const
 
 void CTargetInfoPanel::RenderDebuffIcons()
 {
-	// 该功能已完全由窗口 192 数据驱动托管，退役手工渲染
+	// Target UI 192 data driven rendering
 }
 
 void CTargetInfoPanel::UpdateTargetUI192(CXiahCharObject* pTarget)
 {
-	if (pTarget == NULL)
+	// Do not display target info window (192) if target is NULL or any NPC dialog/trade window is open
+	if (pTarget == NULL ||
+	    g_pUIManager->IsPopMenu() ||
+	    g_pUIManager->IsShow(WINDOW_NPC_TRADE) ||
+	    g_pUIManager->IsShow(WINDOW_HELPER_SCRIPT) ||
+	    g_pUIManager->IsShow(WINDOW_HELPER_LIST) ||
+	    g_pUIManager->IsShow(WINDOW_HELPER_LIST0) ||
+	    g_pUIManager->IsShow(WINDOW_HELPER_LIST1) ||
+	    g_pUIManager->IsShow(WINDOW_HELPER_LIST2) ||
+	    g_pUIManager->IsShow(WINDOW_PORTAL) ||
+	    g_pUIManager->IsShow(WINDOW_SECRET_CHECK) ||
+	    g_pUIManager->IsShow(WINDOW_RECOVERY) ||
+	    g_pUIManager->IsShow(WINDOW_BOK_NUMBER) ||
+	    g_pUIManager->IsShow(WINDOW_PET_TRADE))
 	{
 		if (g_pUIManager->IsShow(WINDOW_TARGET_STATUS))
 		{

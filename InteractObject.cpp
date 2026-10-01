@@ -378,6 +378,8 @@ BOOL InteractObject(DWORD dwObjectID,BYTE bObjType,int mode)
 					DBG_LogFile( _T("InteractObject/OBJTYPE_FUNCTIONALNPC NULL값"));
 					break;
 				}
+
+				g_MainCharInfo.m_dwPickedObject = pInfo->m_dwObjectID;
 				
 				BOOL bSuriFlag = FALSE;
 				BOOL bGejoFlag = FALSE;

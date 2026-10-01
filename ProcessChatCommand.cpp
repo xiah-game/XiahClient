@@ -38,6 +38,15 @@ BOOL ProcessChatCommand(LPCTSTR pCommand)
 		token = _tcstok( NULL, delimeter);
 	}
 
+	if( nCommand == 0 ) return FALSE;
+
+	// /信息 与 /info 命令：直接转发至服务端查询经验倍率与暴率
+	if( g_CommandList[ 0] == _T("/信息") || g_CommandList[ 0] == _T("/info") || g_CommandList[ 0] == _T("/INFO") )
+	{
+		SendCS_CH_CHAT_REQ( 0, 0, g_CommandList[ 0], _T(""));
+		return TRUE;
+	}
+
 	if( g_CommandList[ 0] == (char*)CHAT_CHATCOMMAND1 || g_CommandList[ 0] == (char*)CHAT_CHATCOMMAND2)
 	{
 		SendCS_ACTION_REQ(XiahAniType::eLAT_Casual, 1,0);

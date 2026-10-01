@@ -1,4 +1,4 @@
-#include "XiahCheatConfig.h"
+﻿#include "XiahCheatConfig.h"
 /*
 	우웩~~~ 떡대 쟁이 코드 됐다~~
 */
@@ -288,6 +288,64 @@ BOOL ProcessMainChar()
 	extern void ProcessKeyboardDirectCast();
 	ProcessKeyboardDirectCast();
 
+	// [ModernControl] Right click to close NPC dialog and pop menu
+	if( XiahInput::g_bRButtonDown && g_IsFocus && !bMainCharDie )
+	{
+		bool bNpcDialogOpen = false;
+		if( g_pUIManager )
+		{
+			if( g_pUIManager->IsPopMenu() || g_pUIManager->IsPopSubMenu() ||
+			    g_pUIManager->IsShow(WINDOW_NPC_TRADE) ||
+			    g_pUIManager->IsShow(WINDOW_HELPER_SCRIPT) ||
+			    g_pUIManager->IsShow(WINDOW_HELPER_LIST) ||
+			    g_pUIManager->IsShow(WINDOW_HELPER_LIST1) ||
+			    g_pUIManager->IsShow(WINDOW_HELPER_LIST2) ||
+			    g_pUIManager->IsShow(WINDOW_PORTAL) ||
+			    g_pUIManager->IsShow(WINDOW_SECRET_CHECK) )
+			{
+				bNpcDialogOpen = true;
+			}
+		}
+
+		if( bNpcDialogOpen || g_MainCharInfo.m_dwPickedObject != 0 )
+		{
+			if( g_pUIManager )
+			{
+				g_pUIManager->DeletePopMenu();
+				g_pUIManager->DeletePopSubMenu();
+				g_MainCharInfo.CloseFrame(WINDOW_NPC_TRADE);
+				g_MainCharInfo.CloseFrame(WINDOW_HELPER_SCRIPT);
+				g_MainCharInfo.CloseFrame(WINDOW_HELPER_LIST);
+				g_MainCharInfo.CloseFrame(WINDOW_HELPER_LIST1);
+				g_MainCharInfo.CloseFrame(WINDOW_HELPER_LIST2);
+				g_MainCharInfo.CloseFrame(WINDOW_PORTAL);
+				g_MainCharInfo.CloseFrame(WINDOW_SECRET_CHECK);
+				g_MainCharInfo.HideSack(SACKTYPE__NPC_TRADE);
+				g_MainCharInfo.HideSack(SACKTYPE__ITEMMALL);
+				g_MainCharInfo.HideSack(SACKTYPE__DEPOSIT);
+				g_MainCharInfo.HideSack(SACKTYPE__MODIFY);
+				g_MainCharInfo.HideSack(SACKTYPE__QUICKMART);
+				g_MainCharInfo.HideSack(SACKTYPE__SMELT);
+				g_MainCharInfo.HideSack(SACKTYPE__FIVEELEMENT_CONVERT);
+			}
+
+			if( g_MainCharInfo.m_dwPickedObject )
+			{
+				XiahObject::CXiahObject* pPickedObj = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID(0, g_MainCharInfo.m_dwPickedObject, OBJTYPE_FUNCTIONALNPC) );
+				if( pPickedObj && pPickedObj->m_pObject )
+				{
+					CXiahCharObject* pPickedChar = (CXiahCharObject*)pPickedObj->m_pObject;
+					pPickedChar->m_ChatMsg.clear();
+					pPickedChar->SetAnimation( XiahAniType::eLAT_Stand, -1 );
+				}
+				g_MainCharInfo.m_dwPickedObject = 0;
+			}
+
+			// Consume right click to avoid triggering move
+			XiahInput::g_bRButtonDown = FALSE;
+		}
+	}
+
 	// LButtonUp.버튼 눌림이 끝났을때, 버튼을 띄었을때
 	if( XiahInput::g_bLButtonUp) 
 		ProcessLbuttonUp();
@@ -350,7 +408,43 @@ BOOL ProcessMainChar()
 				g_PickCursor.Create( XiahPak::GetTexture( 50000396), pMouseOnCharObject->m_Position.x, pMouseOnCharObject->m_Position.z, 6, COLOR_PICKCURSOR, TRUE, 0, TRUE, pMouseOnCharObject->m_Position.y, vMainCharSize.y, pMainChar->m_Position.y );
 				g_PickCursor.SetRotate(0.03490658f);
 			}
-			else // 2. 点击空白地面（或非战斗目标）：触发寻路与强行移动，立即取消当前锁定与攻击状态
+			// 2. Right click Functional NPC: walk to NPC and interact (direct interact if already in range)
+			else if( XiahObject::g_pMouseOnObject && pMouseOnCharObject && pMouseOnCharObject->m_bObjType == OBJTYPE_FUNCTIONALNPC )
+			{
+				dwSelObjectID = XiahObject::g_pMouseOnObject->m_dwServerID;
+				dwSelObjectType = OBJTYPE_FUNCTIONALNPC;
+				fInteractionRange = 9.0f;
+
+				DBG_LogFile(_T("[ModernControl] RButtonDown: Click Functional NPC! TargetID=%u\n"), dwSelObjectID);
+
+				float fDist = pMouseOnCharObject->GetInteractionDistance(pMainChar->m_Position);
+				if( fDist < fInteractionRange )
+				{
+					if( bMove )
+					{
+						pMainChar->SetAnimation( XiahAniType::eLAT_Stand, 0);
+						SendCS_NV_ENDMOVE_REQ( g_pMainChar->m_dwServerID, pMainChar->m_Position.x, -pMainChar->m_Position.z, pMainChar->m_Position.y, CHARSTATE_NORMAL);
+						bMove = FALSE;
+						pMainChar->m_bTargetMove = FALSE;
+					}
+					bAutoNavigation = FALSE;
+					bAutoAttack = FALSE;
+					bAutoNormalAttack = FALSE;
+					InteractObject( dwSelObjectID, OBJTYPE_FUNCTIONALNPC, 0);
+				}
+				else
+				{
+					bAutoNavigation = TRUE;
+					bAutoAttack = FALSE;
+					bAutoNormalAttack = FALSE;
+					ProcessAutoNavigation( 0);
+				}
+
+				Vector3 vMainCharSize = pMainChar->m_LocalBound.Size();
+				g_PickCursor.Create( XiahPak::GetTexture( 50000396), pMouseOnCharObject->m_Position.x, pMouseOnCharObject->m_Position.z, 6, COLOR_PICKCURSOR, TRUE, 0, TRUE, pMouseOnCharObject->m_Position.y, vMainCharSize.y, pMainChar->m_Position.y );
+				g_PickCursor.SetRotate(0.03490658f);
+			}
+			else // 3. 点击空白地面（或非战斗目标）：触发寻路与强行移动，立即取消当前锁定与攻击状态
 			{
 				// 立即清空选中的实体，解除对怪物的锁定
 				dwSelObjectID = 0;
@@ -976,28 +1070,28 @@ void ProcessLButtonDown( CXiahCharObject *pMainChar, CXiahCharObject* pMouseOnCh
 			// ALT를 안누름
 			if(SubProcessCommandAI(dwSelObjectID,dwSelObjectType) == FALSE)
 			{
-				// 重构：左键选取目标仅锁定，不跑过去普通攻击
-				if (dwSelObjectType == OBJTYPE_NPC || dwSelObjectType == OBJTYPE_PC)
+				// Left click target: lock-on only, do not run or attack
+				if (dwSelObjectType == OBJTYPE_NPC || dwSelObjectType == OBJTYPE_PC || dwSelObjectType == OBJTYPE_FUNCTIONALNPC)
 				{
 					// 仅执行锁定，不开启自动攻击或自动寻路
 					bAutoNavigation = FALSE;
 					bAutoAttack = FALSE;
 					bAutoNormalAttack = FALSE;
 
-					// [ModernControl] 记录左键点击怪物/玩家，执行纯锁定
-					DBG_LogFile(_T("[ModernControl] LButtonDown: Click Combat Target! TargetID=%u, TargetType=%d, PureLockOn\n"),
+					// [ModernControl] LButtonDown: Pure lock-on
+					DBG_LogFile(_T("[ModernControl] LButtonDown: Click Target! TargetID=%u, TargetType=%d, PureLockOn\n"),
 						dwSelObjectID, dwSelObjectType);
 				}
 				else
 				{
-					// 其他非战斗实体维持原交互寻路
+					// Other entities keep navigation (e.g. items)
 					bAutoNavigation = TRUE;
 					if( bAutoNavigation)
 					{
 						ProcessAutoNavigation( 0);
 					}
 
-					// [ModernControl] 记录左键点击非战斗目标，执行原版交互
+					// [ModernControl] LButtonDown: non-combat interaction
 					DBG_LogFile(_T("[ModernControl] LButtonDown: Click Non-Combat Target! TargetID=%u, TargetType=%d, AutoNav=TRUE\n"),
 						dwSelObjectID, dwSelObjectType);
 				}
@@ -1043,20 +1137,7 @@ void ProcessLButtonDown( CXiahCharObject *pMainChar, CXiahCharObject* pMouseOnCh
 	{
 		if(SubProcessCommandAI(dwSelObjectID,dwSelObjectType) == FALSE)
 		{
-			XiahMap::g_XiahMap.GetPickPosition(vTarget);
-			// 그 위치로 이동
-			if( pMainChar->m_bTargetMove)
-			{
-				// 경공중일 경우에 땅을 찍으면 일단 멈추어 서버에 위치를 보정하게 한다
-				CXiahCharObject* pMainChar = (CXiahCharObject*)g_pMainChar->m_pObject;
-				if(pMainChar->m_nCurMotionType == XiahAniType::eLAT_Mugong && pMainChar->m_nCurAniType == 305)
-				{
-					SendCS_NV_ENDMOVE_REQ( g_pMainChar->m_dwServerID, pMainChar->m_Position.x, -pMainChar->m_Position.z, pMainChar->m_Position.y,CHARSTATE_NORMAL);
-				}
-
-				ChangingMoving(pMainChar,vTarget);
-				pMainChar->m_bTargetMove = FALSE;
-			}
+			// Left click field: clear target, do not alter or disrupt current movement
 
 			WORD angle;
 			// ALT를 누르면 애완동물 조정모드
@@ -1093,9 +1174,15 @@ void ProcessLButtonDown( CXiahCharObject *pMainChar, CXiahCharObject* pMouseOnCh
 			}
 			else
 			{
-				// 剥离左键普通点击地面的移动逻辑，使其退化为纯选择/取消选择
+				// Left click field: clear target only
 				// dwSelObjectID 已经在函数入口置0，点击地面不产生移动，也不生成地面标记
-				// [ModernControl] 记录左键点击空白地面，纯清空目标
+				dwSelObjectID = 0;
+				dwSelObjectType = 0;
+				if( g_pTargetInfoPanel && g_pTargetInfoPanel->IsActive() )
+				{
+					g_pTargetInfoPanel->Clear();
+				}
+				// [ModernControl] LButtonDown: Click Field! Cleared Target
 				DBG_LogFile(_T("[ModernControl] LButtonDown: Click Field! Cleared Target.\n"));
 			}
 		}

@@ -244,7 +244,10 @@ void ProcessMainChat( LPARAM lParam)
 
 			if( szContent.find(_T("/")) == 0)
 			{
-				ProcessChatCommand(szContent);
+				if (!ProcessChatCommand(szContent))
+				{
+					SendCS_CH_CHAT_REQ( byChatType, 0, szContent, _T(""));
+				}
 			}
 			else
 			{

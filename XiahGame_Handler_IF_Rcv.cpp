@@ -524,9 +524,9 @@ int OnCS_IF_CHARINFO_ACK( CMsg &msg)
 		g_MainCharInfo.m_pSlot->SetSlotToolTip(i);
 
 	// CG_2005/01/28 : 변종아이템기능추가
-	CXiahCharObject* pObject = (CXiahCharObject*)g_pMainChar->m_pObject;
-	if( pObject )
+	if( g_pMainChar && g_pMainChar->m_pObject )
 	{
+		CXiahCharObject* pObject = (CXiahCharObject*)g_pMainChar->m_pObject;
 		pObject->m_bChangeItemSet = bChangeItemSet;
 		pObject->RefreshFameColor(g_MainCharInfo.m_dwFame);
 		pObject->m_bRebirth = g_MainCharInfo.m_bRebirth;

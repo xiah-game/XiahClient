@@ -1,4 +1,7 @@
 ﻿#include "XiahMap.h"
+#include "XiahGameObject.h"
+
+extern XiahObject::CXiahObject* g_pMainChar;
 
 ///////////////////////////////////////////////
 // Dan
@@ -73,6 +76,8 @@ void CRelation::DrawDanInfo()
 
 			XiahObject::CXiahObject* pObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, m_vDan[i]->m_dwCharID, OBJTYPE_PC));
 
+			bool bShareAble = false;
+
 			if( pObject)
 			{
 				// 생명력
@@ -87,22 +92,36 @@ void CRelation::DrawDanInfo()
 					{
 						RenderEnergyGauge( DANDRAW_LEFT + (DANDRAW_LENGTH + DANDRAW_DISTANCE)*i, DANDRAW_GAGETOP, DANDRAW_LENGTH, m_vDan[i]->m_dwCurHp, m_vDan[i]->m_dwMaxHp, D3DCOLOR_XRGB(255, 125, 255), D3DCOLOR_XRGB(0, 0, 0), 5);
 					}
-				}
 
-				//if(g_pUIManager->IsShow(WINDOW_DAN) && m_eCurrType == eDAN)
-				if(g_pUIManager->IsShow(WINDOW_DAN_NEW) && m_eCurrType == eDAN)
-				{	
-					// 위치
-					g_pUIManager->SetString(WINDOW_DAN, dan_window_list_dummy_14 + i, IDS_ABLE);
+					// 同一张地图且处于 150 格共享范围内
+					if( XiahMap::g_XiahMap.m_MapInfo.m_dwMapID == m_vDan[i]->m_dwMapID )
+					{
+						if( g_pMainChar && g_pMainChar->m_pObject )
+						{
+							CXiahCharObject* pMainCharObj = (CXiahCharObject*)g_pMainChar->m_pObject;
+							float fDist = pMainCharObj->GetDistance(pCharObject->m_Position);
+							if( fDist <= 150.0f )
+							{
+								bShareAble = true;
+							}
+						}
+						else
+						{
+							bShareAble = true;
+						}
+					}
 				}
 			}
-			else
+
+			if(i < 5)
 			{
-				//if(g_pUIManager->IsShow(WINDOW_DAN) && m_eCurrType == eDAN)
 				if(g_pUIManager->IsShow(WINDOW_DAN_NEW) && m_eCurrType == eDAN)
 				{
-					// 위치
-					g_pUIManager->SetString(WINDOW_DAN, dan_window_list_dummy_14 + i, IDS_DISABLE);
+					g_pUIManager->SetString(WINDOW_DAN_NEW, window_dan_new_list_dummy14 + i, bShareAble ? IDS_ABLE : IDS_DISABLE);
+				}
+				if(g_pUIManager->IsShow(WINDOW_DAN) && m_eCurrType == eDAN)
+				{
+					g_pUIManager->SetString(WINDOW_DAN, dan_window_list_dummy_14 + i, bShareAble ? IDS_ABLE : IDS_DISABLE);
 				}
 			}
 		}
@@ -333,36 +352,51 @@ void CRelation::RefreshDanContent()
 		{
 			// 단 경험치 분배
 
-			// 이름
-			if( m_dwDanLeader == m_vDan[i]->m_dwCharID)
-				g_pUIManager->SetString(WINDOW_DAN_NEW, window_dan_new_list_dummy4 + i, (LPCTSTR)m_vDan[i]->m_szNickName, 9);//HO_0424_07 파랑색 수정 요청 노랑색으로 변경
-			//g_pUIManager->SetString(WINDOW_DAN, dan_window_list_dummy_04 + i, (LPCTSTR)m_vDan[i]->m_szNickName, 1);
-			else
-				g_pUIManager->SetString(WINDOW_DAN_NEW, window_dan_new_list_dummy4 + i, (LPCTSTR)m_vDan[i]->m_szNickName);
-			//g_pUIManager->SetString(WINDOW_DAN, dan_window_list_dummy_04 + i, (LPCTSTR)m_vDan[i]->m_szNickName);
+			// 界面控件只有 5 行，超过 5 人的队员仅在顶部 HUD 渲染，防止溢出污染其他控件
+			if(i < 5)
+			{
+				// 이름
+				if( m_dwDanLeader == m_vDan[i]->m_dwCharID)
+					g_pUIManager->SetString(WINDOW_DAN_NEW, window_dan_new_list_dummy4 + i, (LPCTSTR)m_vDan[i]->m_szNickName, 9);//HO_0424_07 파랑색 수정 요청 노랑색으로 변경
+				//g_pUIManager->SetString(WINDOW_DAN, dan_window_list_dummy_04 + i, (LPCTSTR)m_vDan[i]->m_szNickName, 1);
+				else
+					g_pUIManager->SetString(WINDOW_DAN_NEW, window_dan_new_list_dummy4 + i, (LPCTSTR)m_vDan[i]->m_szNickName);
+				//g_pUIManager->SetString(WINDOW_DAN, dan_window_list_dummy_04 + i, (LPCTSTR)m_vDan[i]->m_szNickName);
 
-			// 레벨, 150갑자 초과시 
-			if(m_vDan[i]->m_byLevel < 150)
-			{
-                g_pUIManager->SetString(WINDOW_DAN_NEW, window_dan_new_list_dummy9 + i, m_vDan[i]->m_byLevel);
-			}
-			else
-			{
-				g_pUIManager->SetString(WINDOW_DAN_NEW, window_dan_new_list_dummy9 + i, IDS_BESTLEVEL, 9);
-			}
-			//g_pUIManager->SetString(WINDOW_DAN, dan_window_list_dummy_09 + i, m_vDan[i]->m_byLevel);
+				// 레벨, 150갑자 초과시 
+				if(m_vDan[i]->m_byLevel < 150)
+				{
+					g_pUIManager->SetString(WINDOW_DAN_NEW, window_dan_new_list_dummy9 + i, m_vDan[i]->m_byLevel);
+				}
+				else
+				{
+					g_pUIManager->SetString(WINDOW_DAN_NEW, window_dan_new_list_dummy9 + i, IDS_BESTLEVEL, 9);
+				}
+				//g_pUIManager->SetString(WINDOW_DAN, dan_window_list_dummy_09 + i, m_vDan[i]->m_byLevel);
 
-			// 경험치 공유
-			//XiahObject::CXiahObject* pObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, m_vDan[i]->m_dwCharID, OBJTYPE_PC));
-			// [6/10/2005] 단 맵
+				bool bShareAble = false;
+				if( XiahMap::g_XiahMap.m_MapInfo.m_dwMapID == m_vDan[i]->m_dwMapID )
+				{
+					XiahObject::CXiahObject* pObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, m_vDan[i]->m_dwCharID, OBJTYPE_PC));
+					if( pObject && pObject->m_pObject && g_pMainChar && g_pMainChar->m_pObject )
+					{
+						CXiahCharObject* pCharObject = (CXiahCharObject*)pObject->m_pObject;
+						CXiahCharObject* pMainCharObj = (CXiahCharObject*)g_pMainChar->m_pObject;
+						if( pMainCharObj->GetDistance(pCharObject->m_Position) <= 150.0f )
+						{
+							bShareAble = true;
+						}
+					}
+				}
 
-			if(XiahMap::g_XiahMap.m_MapInfo.m_dwMapID == m_vDan[i]->m_dwMapID)
-			{
-				g_pUIManager->SetString(WINDOW_DAN_NEW, window_dan_new_list_dummy14 + i, IDS_ABLE);
-			}
-			else
-			{
-				g_pUIManager->SetString(WINDOW_DAN_NEW, window_dan_new_list_dummy14 + i, IDS_DISABLE);
+				if(bShareAble)
+				{
+					g_pUIManager->SetString(WINDOW_DAN_NEW, window_dan_new_list_dummy14 + i, IDS_ABLE);
+				}
+				else
+				{
+					g_pUIManager->SetString(WINDOW_DAN_NEW, window_dan_new_list_dummy14 + i, IDS_DISABLE);
+				}
 			}
 		}
 	}

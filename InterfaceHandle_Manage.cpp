@@ -79,8 +79,7 @@ void CloseAllWindow()
 	g_pUIManager->DeletePopSubMenu();
 	g_pUIManager->DeletePopMenu();
 
-	// navigation하려 할때, 캐릭터가 pick한 object 는 0
-	//g_MainCharInfo.m_dwPickedObject = 0;
+
 
 	if( g_MainCharInfo.m_pHoldItem)
 		g_MainCharInfo.m_pHoldItem->SetItemBackToSack();
