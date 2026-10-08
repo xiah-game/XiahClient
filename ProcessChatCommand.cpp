@@ -33,7 +33,7 @@ BOOL ProcessChatCommand(LPCTSTR pCommand)
 
 	while( token != NULL && nCommand < MAX_COMMAND)
 	{
-		g_CommandList[ nCommand] = token;				
+		g_CommandList[ nCommand] = token;
 		nCommand ++;
 		token = _tcstok( NULL, delimeter);
 	}
@@ -44,6 +44,94 @@ BOOL ProcessChatCommand(LPCTSTR pCommand)
 	if( g_CommandList[ 0] == _T("/信息") || g_CommandList[ 0] == _T("/info") || g_CommandList[ 0] == _T("/INFO") )
 	{
 		SendCS_CH_CHAT_REQ( 0, 0, g_CommandList[ 0], _T(""));
+		return TRUE;
+	}
+
+	// /pmh 或 /ah 或 /拍卖行 命令：打开/关闭拍卖行测试窗口 (Frame 193) 与快捷买卖出价
+	if( g_CommandList[ 0] == _T("/pmh") || g_CommandList[ 0] == _T("/ah") || g_CommandList[ 0] == _T("/拍卖行") )
+	{
+		extern void OpenAuctionWindow();
+
+		if (!g_CommandList[1].empty())
+		{
+			sString subCmd = g_CommandList[1];
+			if (subCmd == _T("buy") || subCmd == _T("一口价"))
+			{
+				DWORD targetAuctionID = 0;
+				if (!g_CommandList[2].empty())
+					targetAuctionID = (DWORD)_tstoi((LPCTSTR)g_CommandList[2]);
+				else if (g_nAuctionSelectedIndex >= 0 && g_nAuctionSelectedIndex < (int)g_AuctionClientList.size())
+					targetAuctionID = g_AuctionClientList[g_nAuctionSelectedIndex].dwAuctionID;
+
+				if (targetAuctionID > 0)
+					SendCS_AH_BUYOUT_REQ(targetAuctionID);
+				return TRUE;
+			}
+			else if (subCmd == _T("bid") || subCmd == _T("出价"))
+			{
+				DWORD targetAuctionID = 0;
+				DWORD bidPrice = 0;
+				if (!g_CommandList[3].empty())
+				{
+					targetAuctionID = (DWORD)_tstoi((LPCTSTR)g_CommandList[2]);
+					bidPrice = (DWORD)_tstoi((LPCTSTR)g_CommandList[3]);
+				}
+				else if (!g_CommandList[2].empty())
+				{
+					bidPrice = (DWORD)_tstoi((LPCTSTR)g_CommandList[2]);
+					if (g_nAuctionSelectedIndex >= 0 && g_nAuctionSelectedIndex < (int)g_AuctionClientList.size())
+						targetAuctionID = g_AuctionClientList[g_nAuctionSelectedIndex].dwAuctionID;
+				}
+
+				if (targetAuctionID > 0 && bidPrice > 0)
+					SendCS_AH_BID_REQ(targetAuctionID, bidPrice);
+				return TRUE;
+			}
+			else if (subCmd == _T("cancel") || subCmd == _T("撤销"))
+			{
+				DWORD targetAuctionID = 0;
+				if (!g_CommandList[2].empty())
+					targetAuctionID = (DWORD)_tstoi((LPCTSTR)g_CommandList[2]);
+				else if (g_nAuctionSelectedIndex >= 0 && g_nAuctionSelectedIndex < (int)g_AuctionClientList.size())
+					targetAuctionID = g_AuctionClientList[g_nAuctionSelectedIndex].dwAuctionID;
+
+				if (targetAuctionID > 0)
+					SendCS_AH_CANCEL_REQ(targetAuctionID);
+				return TRUE;
+			}
+			else if (subCmd == _T("sell") || subCmd == _T("上架"))
+			{
+				if (!g_CommandList[2].empty() && !g_CommandList[3].empty())
+				{
+					BYTE bPos = (BYTE)_tstoi((LPCTSTR)g_CommandList[2]);
+					DWORD basicPrice = (DWORD)_tstoi((LPCTSTR)g_CommandList[3]);
+					DWORD onePrice = 0;
+					BYTE durationHours = 24;
+					if (!g_CommandList[4].empty())
+						onePrice = (DWORD)_tstoi((LPCTSTR)g_CommandList[4]);
+					if (!g_CommandList[5].empty())
+						durationHours = (BYTE)_tstoi((LPCTSTR)g_CommandList[5]);
+
+					CSack* pSack = g_MainCharInfo.m_pMySack[0];
+					if (pSack)
+					{
+						XiahItem::sItemInfo* pItem = pSack->FindSackItemByPos(bPos);
+						if (pItem)
+						{
+							SendCS_AH_SELL_REQ(SACKTYPE__DEFAULT, bPos, pItem->m_dwItemID, basicPrice, onePrice, durationHours);
+						}
+					}
+				}
+				return TRUE;
+			}
+			else if (subCmd == _T("list") || subCmd == _T("刷新"))
+			{
+				SendCS_AH_QUERY_REQ(0, 0, _T(""));
+				return TRUE;
+			}
+		}
+
+		OpenAuctionWindow();
 		return TRUE;
 	}
 
@@ -69,7 +157,7 @@ BOOL ProcessChatCommand(LPCTSTR pCommand)
 	}
 
 #ifndef MASTER
-	// 일단 하나다
+	// 일단 하나만
 	if( g_CommandList[ 0] == _T("/portal_move"))
 	{
 		int wPosX = _tstoi( (LPCTSTR)g_CommandList[ 1]);
@@ -78,7 +166,7 @@ BOOL ProcessChatCommand(LPCTSTR pCommand)
 		CXiahCharObject* pMainChar = (CXiahCharObject*)g_pMainChar->m_pObject;
 
 		pMainChar->SetPosition( wPosX, wPosY);
-		
+
 		CXiahGame_Main *pGameMainStep = (CXiahGame_Main*)g_GameStep[ GAMESTEP_GAME];
 
 		pGameMainStep->m_VisibleXiahObjectListNoAlpha.clear();
@@ -93,12 +181,12 @@ BOOL ProcessChatCommand(LPCTSTR pCommand)
 
 		XiahMap::g_XiahMap.Update();
 
-		SendCS_NV_PORTALMOVE_REQ( g_pMainChar->m_dwServerID, 
-								pMainChar->m_Position.x, 
-								-pMainChar->m_Position.z,
-								pMainChar->m_Position.y,CHARSTATE_NORMAL);
+		SendCS_NV_PORTALMOVE_REQ( g_pMainChar->m_dwServerID,
+			pMainChar->m_Position.x,
+			-pMainChar->m_Position.z,
+			pMainChar->m_Position.y,CHARSTATE_NORMAL);
 	}
-	#ifdef _DEBUG_CHEAT
+#ifdef _DEBUG_CHEAT
 	else if( g_CommandList[ 0] == _T("/auto_battle"))
 	{
 		if( g_CommandList[ 1] == _T("-1"))
@@ -123,7 +211,7 @@ BOOL ProcessChatCommand(LPCTSTR pCommand)
 			g_bCheatEtc = FALSE;
 		}
 	}
-	#endif
+#endif
 
 #endif
 

@@ -1,4 +1,4 @@
-
+﻿
 bool UDgreater( sClanWonInfo* elem1, sClanWonInfo* elem2 )
 {
 	return elem1->m_dwOrderID < elem2->m_dwOrderID;

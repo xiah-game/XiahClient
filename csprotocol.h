@@ -3427,4 +3427,47 @@
 	#define ERR_DEVILMOVE_NOTENOUGHLEVEL			((BYTE)4)
 	#define ERR_DEVILMOVE_INTERNAL					((BYTE)5)
 
+// =========================================================================
+// 拍卖行系统 (Auction House System) 协议族
+// =========================================================================
+#define OFFSET_CS_AH                            (OFFSET_CS_SH + 0x0020) // 0x3121
+
+#define CS_AH_QUERY_REQ                         (OFFSET_CS_AH + 0)      // 0x3121
+#define CS_AH_QUERY_ACK                         (OFFSET_CS_AH + 1)      // 0x3122
+
+#define CS_AH_BID_REQ                           (OFFSET_CS_AH + 2)      // 0x3123
+#define CS_AH_BID_ACK                           (OFFSET_CS_AH + 3)      // 0x3124
+	#define ERR_AH_BID_SUCCESS                  ((BYTE)0)
+	#define ERR_AH_BID_NOT_FOUND                ((BYTE)1)
+	#define ERR_AH_BID_NOT_ENOUGH_MONEY         ((BYTE)2)
+	#define ERR_AH_BID_PRICE_TOO_LOW            ((BYTE)3)
+	#define ERR_AH_BID_CANNOT_BID_OWN           ((BYTE)4)
+	#define ERR_AH_BID_INTERNAL_ERROR           ((BYTE)5)
+
+#define CS_AH_BUYOUT_REQ                        (OFFSET_CS_AH + 4)      // 0x3125
+#define CS_AH_BUYOUT_ACK                        (OFFSET_CS_AH + 5)      // 0x3126
+	#define ERR_AH_BUYOUT_SUCCESS               ((BYTE)0)
+	#define ERR_AH_BUYOUT_NOT_FOUND             ((BYTE)1)
+	#define ERR_AH_BUYOUT_NOT_ENOUGH_MONEY      ((BYTE)2)
+	#define ERR_AH_BUYOUT_CANNOT_BUY_OWN        ((BYTE)3)
+	#define ERR_AH_BUYOUT_MALL_FULL             ((BYTE)4)
+	#define ERR_AH_BUYOUT_INTERNAL_ERROR        ((BYTE)5)
+
+#define CS_AH_SELL_REQ                          (OFFSET_CS_AH + 6)      // 0x3127
+#define CS_AH_SELL_ACK                          (OFFSET_CS_AH + 7)      // 0x3128
+	#define ERR_AH_SELL_SUCCESS                 ((BYTE)0)
+	#define ERR_AH_SELL_ITEM_NOT_FOUND          ((BYTE)1)
+	#define ERR_AH_SELL_INVALID_PRICE           ((BYTE)2)
+	#define ERR_AH_SELL_DEPOSIT_NOT_ENOUGH      ((BYTE)3)
+	#define ERR_AH_SELL_INTERNAL_ERROR          ((BYTE)4)
+
+#define CS_AH_CANCEL_REQ                        (OFFSET_CS_AH + 8)      // 0x3129
+#define CS_AH_CANCEL_ACK                        (OFFSET_CS_AH + 9)      // 0x312A
+	#define ERR_AH_CANCEL_SUCCESS               ((BYTE)0)
+	#define ERR_AH_CANCEL_NOT_FOUND             ((BYTE)1)
+	#define ERR_AH_CANCEL_NOT_OWNER             ((BYTE)2)
+	#define ERR_AH_CANCEL_ALREADY_BID           ((BYTE)3)
+	#define ERR_AH_CANCEL_MALL_FULL             ((BYTE)4)
+	#define ERR_AH_CANCEL_INTERNAL_ERROR        ((BYTE)5)
+
 #endif//_CSPROTOCOL_H_

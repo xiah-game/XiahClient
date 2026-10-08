@@ -1,4 +1,4 @@
-#define A_HELP 79
+﻿#define A_HELP 79
 	#define help 0 //(STATIC)
 #define DATA_WINDOW 54
 	#define data_window_back 0 //(STATIC)
@@ -1856,3 +1856,28 @@
 	#define volume_window_down 5 //(BUTTON)
 	#define volume_window_title_button_01 6 //(BUTTON)
 	#define volume_window_title_button_02 7 //(BUTTON)
+
+#define WINDOW_AUCTION 193
+	#define auction_window_back 1 //(STATIC)
+	#define auction_window_list_01 2 //(STATICLIST)
+	#define auction_window_col_icon 3 //(STATIC)
+	#define auction_window_col_name 4 //(STATICDUMMY)
+	#define auction_window_col_level 5 //(STATICDUMMY)
+	#define auction_window_col_expire 6 //(STATICDUMMY)
+	#define auction_window_col_bidder 7 //(STATICDUMMY)
+	#define auction_window_col_bid_price 8 //(STATICDUMMY)
+	#define auction_window_col_buyout_price 9 //(STATICDUMMY)
+	#define auction_window_type_filter 10 //(STATICLIST/BUTTON 物品类型分类)
+	#define auction_window_money 12 //(STATICDUMMY 显示当前角色金币数量)
+	#define auction_window_bid_label 13 //(STATIC 竞价文字标签)
+	#define auction_window_bid_edit 14 //(EDITBOX 可以输入竞价金额)
+	#define auction_window_btn_bid 15 //(BUTTON 竞价按钮)
+	#define auction_window_btn_buyout 16 //(BUTTON 一口价按钮)
+	#define auction_window_btn_prev_page 17 //(BUTTON 列表上一页)
+	#define auction_window_btn_next_page 18 //(BUTTON 列表下一页)
+	#define auction_window_filter_0 10 //(BUTTON 分类: 全部物品)
+	#define auction_window_filter_1 19 //(BUTTON 分类: 武器装备)
+	#define auction_window_filter_2 20 //(BUTTON 分类: 防具防具)
+	#define auction_window_filter_3 21 //(BUTTON 分类: 首饰宝物)
+	#define auction_window_filter_4 22 //(BUTTON 分类: 药品秘籍)
+	#define auction_window_filter_5 23 //(BUTTON 分类: 其它物品)

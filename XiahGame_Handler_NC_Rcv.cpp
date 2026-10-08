@@ -1159,150 +1159,164 @@ int OnCS_NC_FUNCTIONALNPCINFO_ACK(CMsg &msg)
 //---------------------------------------------------------------------------------------
 int OnCS_NC_STARTMOVE_ACK(CMsg &msg)
 {
-	BYTE	bResult		=0;	
-	BYTE	bObjectType	=0;
-	BYTE	bHeight		=0;
-	BYTE	bStatus		=0;
-	BYTE	bSpeed		=0;
-	BYTE	bDesHeight	=0;
-	WORD	wPosX		=0;
-	WORD	wPosY		=0;	
-	WORD	wDesPosX	=0;
-	WORD	wDesPosY	=0;	
-	WORD	wDirection	=0;
-	DWORD	dwObjectID	=0;
-
-	msg
-		>> bResult
-		>> dwObjectID
-		>> bObjectType
-		>> wPosX
-		>> wPosY
-		>> bHeight
-		>> wDesPosX
-		>> wDesPosY
-		>> bDesHeight
-		>> wDirection
-		>> bStatus
-		>> bSpeed;
-
-	XiahObject::CXiahObject *pXiahObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, dwObjectID,bObjectType));
-	if( pXiahObject == NULL)
+	try
 	{
-		ValidateObject( bObjectType, dwObjectID, wPosX, wPosY);
-		return TRUE;
-	}
+		BYTE	bResult		=0;	
+		BYTE	bObjectType	=0;
+		BYTE	bHeight		=0;
+		BYTE	bStatus		=0;
+		BYTE	bSpeed		=0;
+		BYTE	bDesHeight	=0;
+		WORD	wPosX		=0;
+		WORD	wPosY		=0;	
+		WORD	wDesPosX	=0;
+		WORD	wDesPosY	=0;	
+		WORD	wDirection	=0;
+		DWORD	dwObjectID	=0;
 
-	if( g_PetList.Find( dwObjectID) != NULL)
-	{
-		// 내 Pet는 무시
-		return TRUE;
-	}
+		msg
+			>> bResult
+			>> dwObjectID
+			>> bObjectType
+			>> wPosX
+			>> wPosY
+			>> bHeight
+			>> wDesPosX
+			>> wDesPosY
+			>> bDesHeight
+			>> wDirection
+			>> bStatus
+			>> bSpeed;
 
-	CXiahCharObject *pObject = reinterpret_cast<CXiahCharObject*>(pXiahObject->m_pObject);
-	
-	pObject->m_SyncPosition = Vector3( wPosX,0, -wPosY);
-
-	if( bObjectType == OBJTYPE_NPC )
-	{
-		float fDistToServer = pObject->GetDistance( wPosX, wPosY );
-		if( fDistToServer > 15.0f )
+		XiahObject::CXiahObject *pXiahObject = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID( 0, dwObjectID,bObjectType));
+		if( pXiahObject == NULL)
 		{
-			pObject->SetPosition( wPosX, wPosY );
-		}
-
-		Vector3 vTarget( (float)wDesPosX, pObject->m_Position.y, -(float)wDesPosY );
-		float fDistToDes = pObject->GetDistance( vTarget );
-		if( fDistToDes <= 1.0f )
-		{
-			pObject->m_bTargetMove = FALSE;
-			pObject->SetAnimation( XiahAniType::eLAT_Stand, -1 );
+			ValidateObject( bObjectType, dwObjectID, wPosX, wPosY);
 			return TRUE;
 		}
-		pObject->SetAngleTarget( vTarget );
-	}
-	else
-	{
-		if( wDesPosX != wPosX || wDesPosY != wPosY )
-		{
-			float target_angle = atan2(((float)wDesPosX - (float)wPosX),((float)wDesPosY - (float)wPosY));
-			short angle = GetServerAngle( target_angle);
-			if( angle < 0)
-				angle += 360;
 
-			wDirection = angle;
+		if( g_PetList.Find( dwObjectID) != NULL)
+		{
+			// 내 Pet는 무시
+			return TRUE;
 		}
 
-		pObject->SetAngle( wDirection);
-	}
+		CXiahCharObject *pObject = reinterpret_cast<CXiahCharObject*>(pXiahObject->m_pObject);
+		if (!pObject)
+			return TRUE;
+		
+		pObject->m_SyncPosition = Vector3( wPosX,0, -wPosY);
 
-	// 2004.08.05 Changth
-	// 음 이런일이 생기다니,, 나의 분신은 내 컴에서 달리는데, 다른 컴에서는 
-	// 느리거 걷다가 점프를 하는군. 이걸 클라이언트가 간단한 방법으로 해결하자.
-	// 펫의 캐릭터아이디가 검영이면 캐릭터가 달리는 것과 동일하게 해준다. ^^
-	bool bBunsin = false;
-	if( bObjectType == OBJTYPE_PET && bStatus == NPCSTATUS_RUN )
-	{
-		if(pObject->m_CharRender.GetCharID() == 790 )
-			bBunsin = true;
-	}
-
-	if( bStatus == NPCSTATUS_WALK)
-	{
-		// 动画防重入：已在 Walk 状态时不重置动画帧，避免小碎步
-		if( pObject->m_nCurMotionType != XiahAniType::eLAT_Walk)
-			pObject->SetAnimation( XiahAniType::eLAT_Walk, 0);
-	}
-	else if( bStatus == NPCSTATUS_RUN)
-	{
-		if( bBunsin )
+		if( bObjectType == OBJTYPE_NPC )
 		{
-			if( pObject->m_nCurMotionType != XiahAniType::eLAT_Run)
-				pObject->SetAnimation( XiahAniType::eLAT_Run, 1 );
+			float fDistToServer = pObject->GetDistance( wPosX, wPosY );
+			if( fDistToServer > 15.0f )
+			{
+				pObject->SetPosition( wPosX, wPosY );
+			}
+
+			Vector3 vTarget( (float)wDesPosX, pObject->m_Position.y, -(float)wDesPosY );
+			float fDistToDes = pObject->GetDistance( vTarget );
+			if( fDistToDes <= 1.0f )
+			{
+				pObject->m_bTargetMove = FALSE;
+				pObject->SetAnimation( XiahAniType::eLAT_Stand, -1 );
+				return TRUE;
+			}
+			pObject->SetAngleTarget( vTarget );
 		}
 		else
 		{
-			if( pObject->m_nCurMotionType != XiahAniType::eLAT_Run)
-				pObject->SetAnimation( XiahAniType::eLAT_Run, 0);
+			if( wDesPosX != wPosX || wDesPosY != wPosY )
+			{
+				float target_angle = atan2(((float)wDesPosX - (float)wPosX),((float)wDesPosY - (float)wPosY));
+				short angle = GetServerAngle( target_angle);
+				if( angle < 0)
+					angle += 360;
+
+				wDirection = angle;
+			}
+
+			pObject->SetAngle( wDirection);
 		}
+
+		// 2004.08.05 Changth
+		// 음 이런일이 생기다니,, 나의 분신은 내 컴에서 달리는데, 다른 컴에서는 
+		// 느리거 걷다가 점프를 하는군. 이걸 클라이언트가 간단한 방법으로 해결하자.
+		// 펫의 캐릭터아이디가 검영이면 캐릭터가 달리는 것과 동일하게 해준다. ^^
+		bool bBunsin = false;
+		if( bObjectType == OBJTYPE_PET && bStatus == NPCSTATUS_RUN )
+		{
+			if(pObject->m_CharRender.GetCharID() == 790 )
+				bBunsin = true;
+		}
+
+		if( bStatus == NPCSTATUS_WALK)
+		{
+			// 动画防重入：已在 Walk 状态时不重置动画帧，避免小碎步
+			if( pObject->m_nCurMotionType != XiahAniType::eLAT_Walk)
+				pObject->SetAnimation( XiahAniType::eLAT_Walk, 0);
+		}
+		else if( bStatus == NPCSTATUS_RUN)
+		{
+			if( bBunsin )
+			{
+				if( pObject->m_nCurMotionType != XiahAniType::eLAT_Run)
+				{
+					if (!pObject->SetAnimation( XiahAniType::eLAT_Run, 1 ))
+						pObject->SetAnimation( XiahAniType::eLAT_Walk, 1 );
+				}
+			}
+			else
+			{
+				if( pObject->m_nCurMotionType != XiahAniType::eLAT_Run)
+				{
+					if (!pObject->SetAnimation( XiahAniType::eLAT_Run, 0 ))
+						pObject->SetAnimation( XiahAniType::eLAT_Walk, 0 );
+				}
+			}
+		}
+		
+		if( bObjectType == OBJTYPE_PET)
+		{
+			float fMoveSpeed = (float)bSpeed / 9.0f;
+			if( fMoveSpeed > 2.0f)
+				fMoveSpeed = 2.0f;
+
+			if( bBunsin )
+				fMoveSpeed *= 3.0f;
+
+			pObject->m_CharRender.SetAnimationSpeed( fMoveSpeed );
+		}
+
+		pObject->m_LastNavigationTime = g_dwCurTime;
+		pObject->SetTargetMove( wDesPosX, wDesPosY, eLBP_CharNavigation, 100);
+
+		WORD wCurPosX, wCurPosY;
+		WORD wAngle;
+		pObject->GetAngle( wAngle);
+		pObject->GetPosition( wCurPosX, wCurPosY);
+
+		Vector3 scPos;
+		sRect rcRect;
+		if( g_pCurrentCamera )
+		{
+			scPos = g_pCurrentCamera->WorldToScreen( pObject->m_Position + Vector3( 0, pObject->m_LocalBound.m_vMax.y, 0));
+			rcRect.left = scPos.x;
+			rcRect.top	= scPos.y;
+		}
+		else
+		{
+			rcRect.left = pObject->m_rcObjectScreenPos.left;
+			rcRect.top	= pObject->m_rcObjectScreenPos.top;
+		}
+
+		return TRUE;
 	}
-	
-	if( bObjectType == OBJTYPE_PET)
+	catch(...)
 	{
-		float fMoveSpeed = (float)bSpeed / 9.0f;
-		if( fMoveSpeed > 2.0f)
-			fMoveSpeed = 2.0f;
-
-		if( bBunsin )
-			fMoveSpeed *= 3.0f;
-
-		pObject->m_CharRender.SetAnimationSpeed( fMoveSpeed );
+		return TRUE;
 	}
-
-	pObject->m_LastNavigationTime = g_dwCurTime;
-	pObject->SetTargetMove( wDesPosX, wDesPosY, eLBP_CharNavigation, 0);
-
-	WORD wCurPosX, wCurPosY;
-	WORD wAngle;
-	pObject->GetAngle( wAngle);
-	pObject->GetPosition( wCurPosX, wCurPosY);
-
-
-	Vector3 scPos;
-	sRect rcRect;
-	if( g_pCurrentCamera )
-	{
-		scPos = g_pCurrentCamera->WorldToScreen( pObject->m_Position + Vector3( 0, pObject->m_LocalBound.m_vMax.y, 0));
-		rcRect.left = scPos.x;
-		rcRect.top	= scPos.y;
-	}
-	else
-	{
-		rcRect.left = pObject->m_rcObjectScreenPos.left;
-		rcRect.top	= pObject->m_rcObjectScreenPos.top;
-	}
-
-	return TRUE;
 }
 
 //---------------------------------------------------------------------------------------

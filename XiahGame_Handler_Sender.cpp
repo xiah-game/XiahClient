@@ -1005,8 +1005,8 @@ void SendCS_BT_MUGONGPREATTACK_REQ(DWORD dwMugongID,BYTE bAttackType,DWORD dwAtt
 		}
 	}
 
-	DBG_LogFile(_T("[ClientMugongLog] SendCS_BT_MUGONGPREATTACK_REQ: dwMugongID=%u, AtkPos=(%u,%u), TargetPos=(%u,%u), DefID=%u\n"),
-		dwMugongID, wAttackPosX, wAttackPosY, wTargetPosX, wTargetPosY, dwDefenseID);
+	// DBG_LogFile(_T("[ClientMugongLog] SendCS_BT_MUGONGPREATTACK_REQ: dwMugongID=%u, AtkPos=(%u,%u), TargetPos=(%u,%u), DefID=%u\n"),
+	// 	dwMugongID, wAttackPosX, wAttackPosY, wTargetPosX, wTargetPosY, dwDefenseID);
 
 	msg.ID(CS_BT_MUGONGPREATTACK_REQ)
 		<< dwMugongID
@@ -3526,4 +3526,56 @@ void SendCS_NC_PET_CONTROL_REQ(DWORD dwPetID, BYTE bAction)
 		<< bAction;
 	XiahNetwork::SendNetMsg(msg);
 }
+
+// =========================================================================
+// 拍卖行系统 (Auction House) 发送函数实现
+// =========================================================================
+void SendCS_AH_QUERY_REQ(WORD wPageIndex, BYTE bFilterType, sString strKeyword)
+{
+	CMsg msg;
+	msg.ID(CS_AH_QUERY_REQ)
+		<< wPageIndex
+		<< bFilterType
+		<< strKeyword;
+	XiahNetwork::SendNetMsg(msg);
+}
+
+void SendCS_AH_BID_REQ(DWORD dwAuctionID, DWORD dwBidPrice)
+{
+	CMsg msg;
+	msg.ID(CS_AH_BID_REQ)
+		<< dwAuctionID
+		<< dwBidPrice;
+	XiahNetwork::SendNetMsg(msg);
+}
+
+void SendCS_AH_BUYOUT_REQ(DWORD dwAuctionID)
+{
+	CMsg msg;
+	msg.ID(CS_AH_BUYOUT_REQ)
+		<< dwAuctionID;
+	XiahNetwork::SendNetMsg(msg);
+}
+
+void SendCS_AH_SELL_REQ(BYTE bSackID, BYTE bSackPos, DWORD dwItemID, DWORD dwBasicPrice, DWORD dwOnePrice, BYTE bDurationHours)
+{
+	CMsg msg;
+	msg.ID(CS_AH_SELL_REQ)
+		<< bSackID
+		<< bSackPos
+		<< dwItemID
+		<< dwBasicPrice
+		<< dwOnePrice
+		<< bDurationHours;
+	XiahNetwork::SendNetMsg(msg);
+}
+
+void SendCS_AH_CANCEL_REQ(DWORD dwAuctionID)
+{
+	CMsg msg;
+	msg.ID(CS_AH_CANCEL_REQ)
+		<< dwAuctionID;
+	XiahNetwork::SendNetMsg(msg);
+}
+
 

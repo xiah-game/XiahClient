@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 /*
 	Xiah의 Game용 오브젝트 정의

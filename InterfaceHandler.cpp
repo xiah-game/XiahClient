@@ -163,7 +163,10 @@ void RegisterInterfaceHandler()
 	RegistInterfaceHandler(WINDOW_COLLECTION,		ProcessWindowCollection);		// 아이템 수집
 
 	RegistInterfaceHandler(WINDOW_SECRET_CHECK,		ProcessWindowSecretMove);		//HT_0313 : 광명전 & 천황전 (이동)	
-	RegistInterfaceHandler(WINDOW_SECRET_INFORMATION,		ProcessWindowSecretApplication);		//HT_0313 : 광명전 & 천황전 (참여)	
+	RegistInterfaceHandler(WINDOW_SECRET_INFORMATION,		ProcessWindowSecretApplication);	//HT_0313 : 광명전 & 천황전 (참여)
+
+	// AUCTION (Frame 193 拍卖行)
+	RegistInterfaceHandler(WINDOW_AUCTION,				ProcessWindowAuction);	
 
 
 	// NOTICE

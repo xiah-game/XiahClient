@@ -1894,7 +1894,7 @@ int OnCS_BT_MUGONGPREATTACK_ACK( CMsg &msg)
 						   (dwMugongID >= 150 && dwMugongID <= 154);
 		if (isBuffSkill)
 		{
-			DBG_LogFile(_T("[AngleDebug] OnCS_BT_MUGONGPREATTACK_ACK isBuffSkill: dwMugongID=%u, target=(%u,%u)\n"), dwMugongID, wTargetPosX, wTargetPosY);
+			// DBG_LogFile(_T("[AngleDebug] OnCS_BT_MUGONGPREATTACK_ACK isBuffSkill: dwMugongID=%u, target=(%u,%u)\n"), dwMugongID, wTargetPosX, wTargetPosY);
 			pAttackerCharObject->SetAngleTarget( wTargetPosX, wTargetPosY);
 			
 			// Play the correct casting animation for the buff skill
@@ -1982,7 +1982,7 @@ int OnCS_BT_MUGONGPREATTACK_ACK( CMsg &msg)
 
 					int ani_index = pData->GetInt(2);
 
-					DBG_LogFile(_T("[AngleDebug] OnCS_BT_MUGONGPREATTACK_ACK non-buff: dwMugongID=%u, target=(%u,%u)\n"), dwMugongID, wTargetPosX, wTargetPosY);
+					// DBG_LogFile(_T("[AngleDebug] OnCS_BT_MUGONGPREATTACK_ACK non-buff: dwMugongID=%u, target=(%u,%u)\n"), dwMugongID, wTargetPosX, wTargetPosY);
 					pAttackerCharObject->SetAngleTarget( wTargetPosX, wTargetPosY);
 
 					// 

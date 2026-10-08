@@ -1,4 +1,4 @@
-#include "precompile.h"
+﻿#include "precompile.h"
 #include "XiahGame_Pet.h"
 #include "XiahArrayIndex.h"
 #include "XiahGame_Handler_Sender.h"

@@ -1,4 +1,4 @@
-#include "precompile.h"
+﻿#include "precompile.h"
 #include "XiahNetworkHandler.h"
 #include "XiahSocket.h"
 
@@ -386,6 +386,13 @@ void RegisterNetworkHandler_Main()
 	XiahNetwork::RegisterHandler( CS_SH_ADDONSHOP_ACK,			OnCS_SH_ADDONSHOP_ACK);
 	XiahNetwork::RegisterHandler( CS_SH_REMOVEFROMSHOP_ACK,		OnCS_SH_REMOVEFROMSHOP_ACK);
 	XiahNetwork::RegisterHandler( CS_SH_SHOPINFOCHANGE_ACK,		OnCS_SH_SHOPINFOCHANGE_ACK);
+
+	// 拍卖行系统 (Auction House Handlers)
+	XiahNetwork::RegisterHandler( CS_AH_QUERY_ACK,				OnCS_AH_QUERY_ACK);
+	XiahNetwork::RegisterHandler( CS_AH_BID_ACK,				OnCS_AH_BID_ACK);
+	XiahNetwork::RegisterHandler( CS_AH_BUYOUT_ACK,				OnCS_AH_BUYOUT_ACK);
+	XiahNetwork::RegisterHandler( CS_AH_SELL_ACK,				OnCS_AH_SELL_ACK);
+	XiahNetwork::RegisterHandler( CS_AH_CANCEL_ACK,				OnCS_AH_CANCEL_ACK);
 
 //	XiahNetwork::RegisterHandler( CS_IM_MAKEUNIONITEM_REQ,		OnCS_IM_MAKEUNIONITEM_REQ);
 	XiahNetwork::RegisterHandler( CS_IM_MAKEUNIONITEM_ACK,		OnCS_IM_MAKEUNIONITEM_ACK);

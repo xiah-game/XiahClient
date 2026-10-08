@@ -1,4 +1,4 @@
-﻿#include "precompile.h"
+#include "precompile.h"
 // Target Info Panel implementation
 // Renders target name, level, HP bar at fixed screen position
 // Uses D3D direct rendering (RenderEnergyGauge + CText2D)
@@ -145,7 +145,7 @@ void CTargetInfoPanel::Render()
 	// 1. 获取目标对象并刷新 192 窗口数据
 	XiahObject::CXiahObject* pObject = XiahObject::g_XiahObjectManager.FindXiahObject(
 		MAKEOBJECTID(0, m_dwTargetID, m_bTargetObjType));
-	if (pObject && pObject->m_pObject)
+	if (pObject && pObject->m_pObject && pObject->m_pObject->IsA(XiahObject::eXOT_CharObject))
 	{
 		CXiahCharObject* pChar = reinterpret_cast<CXiahCharObject*>(pObject->m_pObject);
 		UpdateTargetUI192(pChar);
@@ -351,8 +351,8 @@ void CTargetInfoPanel::UpdateTargetUI192(CXiahCharObject* pTarget)
 		return;
 	}
 
-	DBG_LogFile(_T("[TargetUI192] target=%s, level=%d, maxHP=%d, curHP=%d"), 
-		(LPCTSTR)pTarget->m_szObjectName, pTarget->m_wLevel, pTarget->m_dwMaxHP, pTarget->m_dwCurHP);
+	// DBG_LogFile(_T("[TargetUI192] target=%s, level=%d, maxHP=%d, curHP=%d"), 
+	// 	(LPCTSTR)pTarget->m_szObjectName, pTarget->m_wLevel, pTarget->m_dwMaxHP, pTarget->m_dwCurHP);
 
 	if (!g_pUIManager->IsShow(WINDOW_TARGET_STATUS))
 	{
@@ -383,14 +383,20 @@ void CTargetInfoPanel::UpdateTargetDebuffs(CXiahCharObject* pTarget)
 {
 	if (pTarget == NULL || pTarget->m_bObjType == OBJTYPE_PET) return;
 
-	// 1. 每帧主动调用目标的 Debuff 清理，让过期的 Debuff 消失并同步清除 m_KeepUpMugongList 里的残留
-	pTarget->RemoveExpiredDebuffs();
+	try
+	{
+		// 1. 每帧主动调用目标的 Debuff 清理，让过期的 Debuff 消失并同步清除 m_KeepUpMugongList 里的残留
+		pTarget->RemoveExpiredDebuffs();
 
-	// 2. 检测 m_KeepUpMugongList 中的新 Debuff 并录入 m_vDebuffList
-	CheckAndAddNewDebuffs(pTarget);
+		// 2. 检测 m_KeepUpMugongList 中的新 Debuff 并录入 m_vDebuffList
+		CheckAndAddNewDebuffs(pTarget);
 
-	// 3. 渲染当前生效的 Debuff 图标并处理倒计时闪烁
-	RenderActiveDebuffs(pTarget);
+		// 3. 渲染当前生效的 Debuff 图标并处理倒计时闪烁
+		RenderActiveDebuffs(pTarget);
+	}
+	catch (...)
+	{
+	}
 }
 
 void CTargetInfoPanel::CheckAndAddNewDebuffs(CXiahCharObject* pTarget)

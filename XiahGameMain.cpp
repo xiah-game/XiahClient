@@ -1,4 +1,4 @@
-#include "precompile.h"
+﻿#include "precompile.h"
 #include "AppData.h"
 #include "frameDefine.h"
 #include "resource.h"

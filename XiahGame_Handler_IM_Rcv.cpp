@@ -1,4 +1,4 @@
-#include "mail.h"
+﻿#include "mail.h"
 
 
 
@@ -844,14 +844,16 @@ int OnCS_IM_MOVE_ACK( CMsg &msg)
 			pHoldItem->m_bSackID = SACKTYPE__EQUIPMENT;
 			g_MainCharInfo.m_pEquipSack->InsertItem( bDesSackPos, pHoldItem);
 
-			if(pHoldItem->m_bItemType == ITEMTYPE_SOCKET)
-				g_MainCharInfo.m_bPortalMove = false;
+			// 移除活动道具禁止移动的限制，不开启任何移动限制活动
+			// if(pHoldItem->m_bItemType == ITEMTYPE_SOCKET)
+			// 	g_MainCharInfo.m_bPortalMove = false;
 		}		
 		else if( bSrcSackID == SACKTYPE__EQUIPMENT && bDesSackID == SACKTYPE__DEFAULT)
 		{
 			pHoldItem->m_bSackID = SACKTYPE__DEFAULT;
 			pHoldItem->m_bSackCount = g_MainCharInfo.m_byMySackCurrIdx;
 			g_MainCharInfo.m_pMySack[g_MainCharInfo.m_byMySackCurrIdx]->InsertItem( bDesSackPos, pHoldItem);
+			g_MainCharInfo.m_bPortalMove = true;
 		}
 		else if( bSrcSackID == SACKTYPE__DEFAULT && bDesSackID == SACKTYPE__DEFAULT)
 		{

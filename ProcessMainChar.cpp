@@ -1,4 +1,4 @@
-﻿#include "XiahCheatConfig.h"
+#include "XiahCheatConfig.h"
 /*
 	우웩~~~ 떡대 쟁이 코드 됐다~~
 */
@@ -70,6 +70,7 @@ int light_mode = 0;
 // AUTO TARGET용
 static BOOL	g_AutoTarget = FALSE;
 static XiahObject::CXiahObject* AutoTargetObj = NULL;
+static DWORD s_dwLastSelectedTargetID = 0; // 当前选中的目标ID（用于单击查看、再次点击/双击攻击）
 
 // HP 관련하여 진동
 static	DWORD	LastRumble = 0;
@@ -103,6 +104,59 @@ void ProcessUseHPMP();		// HP,MP 사용(PAD용)
 void ProcessRumble();		// 진동!
 void ProcessMenu();			// PAD로 메뉴 호출
 void LIghtSetup();
+
+// [ModernControl] 辅助函数：关闭所有打开的 NPC 对话框与相关窗口
+static void CloseNpcDialogAndFrames()
+{
+	if( g_pUIManager )
+	{
+		g_pUIManager->DeletePopMenu();
+		g_pUIManager->DeletePopSubMenu();
+		g_MainCharInfo.CloseFrame(WINDOW_NPC_TRADE);
+		g_MainCharInfo.CloseFrame(WINDOW_HELPER_SCRIPT);
+		g_MainCharInfo.CloseFrame(WINDOW_HELPER_LIST);
+		g_MainCharInfo.CloseFrame(WINDOW_HELPER_LIST0);
+		g_MainCharInfo.CloseFrame(WINDOW_HELPER_LIST1);
+		g_MainCharInfo.CloseFrame(WINDOW_HELPER_LIST2);
+		g_MainCharInfo.CloseFrame(WINDOW_PORTAL);
+		g_MainCharInfo.CloseFrame(WINDOW_SECRET_CHECK);
+		g_MainCharInfo.HideSack(SACKTYPE__NPC_TRADE);
+		g_MainCharInfo.HideSack(SACKTYPE__ITEMMALL);
+		g_MainCharInfo.HideSack(SACKTYPE__DEPOSIT);
+		g_MainCharInfo.HideSack(SACKTYPE__MODIFY);
+		g_MainCharInfo.HideSack(SACKTYPE__QUICKMART);
+		g_MainCharInfo.HideSack(SACKTYPE__SMELT);
+		g_MainCharInfo.HideSack(SACKTYPE__FIVEELEMENT_CONVERT);
+	}
+
+	if( g_MainCharInfo.m_dwPickedObject )
+	{
+		XiahObject::CXiahObject* pPickedObj = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID(0, g_MainCharInfo.m_dwPickedObject, OBJTYPE_FUNCTIONALNPC) );
+		if( pPickedObj && pPickedObj->m_pObject )
+		{
+			CXiahCharObject* pPickedChar = (CXiahCharObject*)pPickedObj->m_pObject;
+			pPickedChar->m_ChatMsg.clear();
+			pPickedChar->SetAnimation( XiahAniType::eLAT_Stand, -1 );
+		}
+		g_MainCharInfo.m_dwPickedObject = 0;
+	}
+}
+
+// [ModernControl] 辅助函数：检测当前是否有 NPC 对话框或弹窗处于打开状态
+static bool IsNpcDialogOpen()
+{
+	if( !g_pUIManager ) return false;
+	return g_pUIManager->IsPopMenu() || g_pUIManager->IsPopSubMenu() ||
+	       g_pUIManager->IsShow(WINDOW_NPC_TRADE) ||
+	       g_pUIManager->IsShow(WINDOW_HELPER_SCRIPT) ||
+	       g_pUIManager->IsShow(WINDOW_HELPER_LIST) ||
+	       g_pUIManager->IsShow(WINDOW_HELPER_LIST0) ||
+	       g_pUIManager->IsShow(WINDOW_HELPER_LIST1) ||
+	       g_pUIManager->IsShow(WINDOW_HELPER_LIST2) ||
+	       g_pUIManager->IsShow(WINDOW_PORTAL) ||
+	       g_pUIManager->IsShow(WINDOW_SECRET_CHECK) ||
+	       (g_MainCharInfo.m_dwPickedObject != 0);
+}
 
 /*************************************************************************************************************
 ..............................................................................................................
@@ -288,73 +342,29 @@ BOOL ProcessMainChar()
 	extern void ProcessKeyboardDirectCast();
 	ProcessKeyboardDirectCast();
 
-	// [ModernControl] Right click to close NPC dialog and pop menu
-	if( XiahInput::g_bRButtonDown && g_IsFocus && !bMainCharDie )
-	{
-		bool bNpcDialogOpen = false;
-		if( g_pUIManager )
-		{
-			if( g_pUIManager->IsPopMenu() || g_pUIManager->IsPopSubMenu() ||
-			    g_pUIManager->IsShow(WINDOW_NPC_TRADE) ||
-			    g_pUIManager->IsShow(WINDOW_HELPER_SCRIPT) ||
-			    g_pUIManager->IsShow(WINDOW_HELPER_LIST) ||
-			    g_pUIManager->IsShow(WINDOW_HELPER_LIST1) ||
-			    g_pUIManager->IsShow(WINDOW_HELPER_LIST2) ||
-			    g_pUIManager->IsShow(WINDOW_PORTAL) ||
-			    g_pUIManager->IsShow(WINDOW_SECRET_CHECK) )
-			{
-				bNpcDialogOpen = true;
-			}
-		}
-
-		if( bNpcDialogOpen || g_MainCharInfo.m_dwPickedObject != 0 )
-		{
-			if( g_pUIManager )
-			{
-				g_pUIManager->DeletePopMenu();
-				g_pUIManager->DeletePopSubMenu();
-				g_MainCharInfo.CloseFrame(WINDOW_NPC_TRADE);
-				g_MainCharInfo.CloseFrame(WINDOW_HELPER_SCRIPT);
-				g_MainCharInfo.CloseFrame(WINDOW_HELPER_LIST);
-				g_MainCharInfo.CloseFrame(WINDOW_HELPER_LIST1);
-				g_MainCharInfo.CloseFrame(WINDOW_HELPER_LIST2);
-				g_MainCharInfo.CloseFrame(WINDOW_PORTAL);
-				g_MainCharInfo.CloseFrame(WINDOW_SECRET_CHECK);
-				g_MainCharInfo.HideSack(SACKTYPE__NPC_TRADE);
-				g_MainCharInfo.HideSack(SACKTYPE__ITEMMALL);
-				g_MainCharInfo.HideSack(SACKTYPE__DEPOSIT);
-				g_MainCharInfo.HideSack(SACKTYPE__MODIFY);
-				g_MainCharInfo.HideSack(SACKTYPE__QUICKMART);
-				g_MainCharInfo.HideSack(SACKTYPE__SMELT);
-				g_MainCharInfo.HideSack(SACKTYPE__FIVEELEMENT_CONVERT);
-			}
-
-			if( g_MainCharInfo.m_dwPickedObject )
-			{
-				XiahObject::CXiahObject* pPickedObj = XiahObject::g_XiahObjectManager.FindXiahObject( MAKEOBJECTID(0, g_MainCharInfo.m_dwPickedObject, OBJTYPE_FUNCTIONALNPC) );
-				if( pPickedObj && pPickedObj->m_pObject )
-				{
-					CXiahCharObject* pPickedChar = (CXiahCharObject*)pPickedObj->m_pObject;
-					pPickedChar->m_ChatMsg.clear();
-					pPickedChar->SetAnimation( XiahAniType::eLAT_Stand, -1 );
-				}
-				g_MainCharInfo.m_dwPickedObject = 0;
-			}
-
-			// Consume right click to avoid triggering move
-			XiahInput::g_bRButtonDown = FALSE;
-		}
-	}
 
 	// LButtonUp.버튼 눌림이 끝났을때, 버튼을 띄었을때
 	if( XiahInput::g_bLButtonUp) 
 		ProcessLbuttonUp();
 
-	//if((XiahInput::g_bLButtonDown || XiahInput::g_Attack_Button_On) && bCursorOnField && !bMainCharDie && !g_AutoTarget)
-	//HT_CHEAT : 게임 패드 삭제
+	// LButtonDown.
 	if((XiahInput::g_bLButtonDown ) && bCursorOnField && !bMainCharDie && !g_AutoTarget)
 	{
 		g_dwSelectMugongID = 0;
+
+		// [ModernControl] 需求4：关闭 NPC 对话/窗口使用鼠标左键
+		// 当有 NPC 对话/窗口处于打开状态，玩家用左键点击非该 NPC 区域（空白地面等）时立即关闭 NPC 对话/窗口
+		if( g_IsFocus && IsNpcDialogOpen() )
+		{
+			bool bClickCurrentNpc = (XiahObject::g_pMouseOnObject && 
+			                         pMouseOnCharObject && 
+			                         pMouseOnCharObject->m_bObjType == OBJTYPE_FUNCTIONALNPC && 
+			                         XiahObject::g_pMouseOnObject->m_dwServerID == g_MainCharInfo.m_dwPickedObject);
+			if( !bClickCurrentNpc )
+			{
+				CloseNpcDialogAndFrames();
+			}
+		}
 
 		if(g_IsFocus)
 			ProcessLButtonDown( pMainChar, pMouseOnCharObject);
@@ -365,18 +375,18 @@ BOOL ProcessMainChar()
 	if( XiahInput::g_bLButtonOn && bCursorOnField && bAutoNormalAttack && !bAutoAttack && !bMainCharDie)
 		InteractObject( dwSelObjectID, dwSelObjectType, 2);
 
-	// RButtonDown. 右键点击：MOBA式右键移动与智能普通攻击
+	// RButtonDown. 需求1与需求2：角色移动使用鼠标右键，普通攻击使用鼠标右键
 	if((XiahInput::g_bRButtonDown) && bCursorOnField && !bMainCharDie)
 	{
 		if(g_IsFocus)
 		{
-			// [ModernControl] 记录右键点击时的实体状态与鼠标悬停目标信息
-			DBG_LogFile(_T("[ModernControl] RButtonDown: MouseOnObject=%s, MouseOnType=%d, CurSelObjectID=%u\n"),
-				XiahObject::g_pMouseOnObject ? _T("Yes") : _T("No"),
-				bMouseOnObjectType,
-				dwSelObjectID);
+			// 玩家按右键移动，若之前打开过 NPC 对话框，顺理成章关闭它（走开），且绝不消费右键，角色正常执行移动
+			if( IsNpcDialogOpen() )
+			{
+				CloseNpcDialogAndFrames();
+			}
 
-			// 1. 智能捕获：如果右键点击时鼠标悬停在有效怪物或敌对PC上，则触发普攻与锁定
+			// 1. 普通攻击：如果右键点击时鼠标悬停在有效怪物或敌对PC上，则触发普攻与锁定
 			if( XiahObject::g_pMouseOnObject && pMouseOnCharObject &&
 			    (pMouseOnCharObject->m_bObjType == OBJTYPE_NPC || pMouseOnCharObject->m_bObjType == OBJTYPE_PC) )
 			{
@@ -387,10 +397,6 @@ BOOL ProcessMainChar()
 					fInteractionRange = g_MainCharInfo.m_wAttackRange;
 				else
 					fInteractionRange = 9;
-
-				// [ModernControl] 记录右键点击怪物，触发自动普攻和自动锁定
-				DBG_LogFile(_T("[ModernControl] RButtonDown: Click Monster! TargetID=%u, TargetType=%d, Range=%.2f\n"),
-					dwSelObjectID, dwSelObjectType, fInteractionRange);
 
 				bAutoNavigation = TRUE;
 				if( dwSelObjectType == OBJTYPE_NPC )
@@ -408,47 +414,12 @@ BOOL ProcessMainChar()
 				g_PickCursor.Create( XiahPak::GetTexture( 50000396), pMouseOnCharObject->m_Position.x, pMouseOnCharObject->m_Position.z, 6, COLOR_PICKCURSOR, TRUE, 0, TRUE, pMouseOnCharObject->m_Position.y, vMainCharSize.y, pMainChar->m_Position.y );
 				g_PickCursor.SetRotate(0.03490658f);
 			}
-			// 2. Right click Functional NPC: walk to NPC and interact (direct interact if already in range)
-			else if( XiahObject::g_pMouseOnObject && pMouseOnCharObject && pMouseOnCharObject->m_bObjType == OBJTYPE_FUNCTIONALNPC )
-			{
-				dwSelObjectID = XiahObject::g_pMouseOnObject->m_dwServerID;
-				dwSelObjectType = OBJTYPE_FUNCTIONALNPC;
-				fInteractionRange = 9.0f;
-
-				DBG_LogFile(_T("[ModernControl] RButtonDown: Click Functional NPC! TargetID=%u\n"), dwSelObjectID);
-
-				float fDist = pMouseOnCharObject->GetInteractionDistance(pMainChar->m_Position);
-				if( fDist < fInteractionRange )
-				{
-					if( bMove )
-					{
-						pMainChar->SetAnimation( XiahAniType::eLAT_Stand, 0);
-						SendCS_NV_ENDMOVE_REQ( g_pMainChar->m_dwServerID, pMainChar->m_Position.x, -pMainChar->m_Position.z, pMainChar->m_Position.y, CHARSTATE_NORMAL);
-						bMove = FALSE;
-						pMainChar->m_bTargetMove = FALSE;
-					}
-					bAutoNavigation = FALSE;
-					bAutoAttack = FALSE;
-					bAutoNormalAttack = FALSE;
-					InteractObject( dwSelObjectID, OBJTYPE_FUNCTIONALNPC, 0);
-				}
-				else
-				{
-					bAutoNavigation = TRUE;
-					bAutoAttack = FALSE;
-					bAutoNormalAttack = FALSE;
-					ProcessAutoNavigation( 0);
-				}
-
-				Vector3 vMainCharSize = pMainChar->m_LocalBound.Size();
-				g_PickCursor.Create( XiahPak::GetTexture( 50000396), pMouseOnCharObject->m_Position.x, pMouseOnCharObject->m_Position.z, 6, COLOR_PICKCURSOR, TRUE, 0, TRUE, pMouseOnCharObject->m_Position.y, vMainCharSize.y, pMainChar->m_Position.y );
-				g_PickCursor.SetRotate(0.03490658f);
-			}
-			else // 3. 点击空白地面（或非战斗目标）：触发寻路与强行移动，立即取消当前锁定与攻击状态
+			else // 2. 角色移动：点击空白地面（或功能NPC等非战斗目标）：触发寻路与强行移动，立即取消当前锁定与攻击状态
 			{
 				// 立即清空选中的实体，解除对怪物的锁定
 				dwSelObjectID = 0;
 				dwSelObjectType = 0;
+				s_dwLastSelectedTargetID = 0;
 				if( g_pTargetInfoPanel && g_pTargetInfoPanel->IsActive() )
 				{
 					g_pTargetInfoPanel->Clear();
@@ -472,8 +443,8 @@ BOOL ProcessMainChar()
 				XiahMap::g_XiahMap.GetPickPosition(vTarget);
 
 				// [ModernControl] 记录右键点击空白地面，触发寻路位移与取消攻击锁定
-				DBG_LogFile(_T("[ModernControl] RButtonDown: Click Field! TargetPos=(%.2f, %.2f, %.2f), Cancelled Combat LockOn\n"),
-					vTarget.x, vTarget.y, vTarget.z);
+				// DBG_LogFile(_T("[ModernControl] RButtonDown: Click Field! TargetPos=(%.2f, %.2f, %.2f), Cancelled Combat LockOn\n"),
+				// 	vTarget.x, vTarget.y, vTarget.z);
 
 				// 如果处于轻功位移中，发送停步包结束轻功状态
 				CXiahCharObject* pMainCharObj = (CXiahCharObject*)g_pMainChar->m_pObject;
@@ -614,46 +585,102 @@ BOOL ProcessMainChar()
 	}
 	else if(g_bCheat  && g_dwCurTime - g_dwCheatTime > 500 && dwSelObjectID == 0 && dwSelObjectType == 0 && !bMove && !pMainChar->m_bTargetMove)
 	{
-		// 空闲回归中心点检测：当启用中心点且超时未攻击时，自动走回中心点
-		if (g_bUseHomePoint && g_nIdleReturnSec > 0 && g_wHomeX > 0 && g_wHomeY > 0) {
-			DWORD dwIdleMs = (DWORD)g_nIdleReturnSec * 1000;
+		// 中心点回归检测：
+		// 1. 超出挂机活动半径（打死怪脱战后，若超出范围，立即返回中心点）
+		// 2. 空闲超时未攻击（兜底回归）
+		// 3. 返回时完整带入装备/坐骑速度、A* 航路点避障
+		// 4. 身边若有怪贴身攻击，自卫反击打死后再继续返回
+		extern int g_nHomeRadius;
+		if (g_bUseHomePoint && g_wHomeX > 0 && g_wHomeY > 0) {
 			float dx = pMainChar->m_Position.x - (float)g_wHomeX;
 			float dy = (-pMainChar->m_Position.z) - (float)g_wHomeY;
 			float fDistSq = dx*dx + dy*dy;
-			if (!g_bReturningHome && g_dwLastAttackTime > 0 && (g_dwCurTime - g_dwLastAttackTime) > dwIdleMs) {
-				if (fDistSq > 25.0f) {
+			float fRadiusSq = (float)(g_nHomeRadius * g_nHomeRadius);
+
+			DWORD dwIdleMs = (g_nIdleReturnSec > 0) ? ((DWORD)g_nIdleReturnSec * 1000) : 0xFFFFFFFF;
+			bool bExceededRadius = (g_nHomeRadius > 0 && fDistSq > fRadiusSq);
+			bool bIdleTimeout = (g_nIdleReturnSec > 0 && g_dwLastAttackTime > 0 && (g_dwCurTime - g_dwLastAttackTime) > dwIdleMs);
+
+			// 触发返回：打死怪超出活动半径，或者空闲超时
+			if (!g_bReturningHome && (bExceededRadius || bIdleTimeout)) {
+				if (fDistSq > 16.0f) {
 					g_bReturningHome = TRUE;
-					// 构造3D目标点（与引擎原生移动流程一致）
-					Vector3 vHome((float)g_wHomeX, 0, -(float)g_wHomeY);
+					int curX = (int)pMainChar->m_Position.x;
+					int curY = (int)(-pMainChar->m_Position.z);
+					int wpX = g_wHomeX, wpY = g_wHomeY;
+					if (!FindNextWaypoint(curX, curY, g_wHomeX, g_wHomeY, wpX, wpY)) {
+						wpX = g_wHomeX;
+						wpY = g_wHomeY;
+					}
+
+					Vector3 vTargetPos((float)wpX, pMainChar->m_Position.y, -(float)wpY);
 					WORD angle;
-					pMainChar->SetAngleTarget(vHome);
+					pMainChar->SetAngleTarget(vTargetPos);
 					pMainChar->GetAngle(angle);
 					pMainChar->Update(1);
-					pMainChar->SetTargetMove(g_wHomeX, g_wHomeY, eLBP_CharNavigation, 0);
-					pMainChar->SetAnimation(XiahAniType::eLAT_Run, 1);
+					pMainChar->SetTargetMove((WORD)wpX, (WORD)wpY, eLBP_CharNavigation, 0);
+
+					// 完整带入坐骑、疾跑、装备跑鞋的所有速度加成！
+					if (g_MainCharInfo.m_bFastMove)
+					{
+						pMainChar->SetAnimation(XiahAniType::eLAT_Mugong, g_MainCharInfo.m_nFastIndex, 0.7f);
+					}
+					else
+					{
+						pMainChar->SetAnimation(XiahAniType::eLAT_Run, 1);
+						float fMoveSpeed = (float)(g_MainCharInfo.m_bWalkSpeed + g_MainCharInfo.m_bPlusSpeed) / 9.0f;
+						pMainChar->m_CharRender.SetAnimationSpeed(fMoveSpeed);
+					}
+
+					bMove = TRUE;
+					MoveTime = g_dwCurTime;
 					SendCS_NV_STARTMOVE_REQ(g_pMainChar->m_dwServerID,
 						(WORD)pMainChar->m_Position.x, (WORD)(-pMainChar->m_Position.z), (BYTE)pMainChar->m_Position.y,
-						g_wHomeX, g_wHomeY, (BYTE)pMainChar->m_Position.y, (WORD)angle, CHARSTATE_NORMAL, 9);
+						(WORD)wpX, (WORD)wpY, (BYTE)vTargetPos.y, (WORD)angle, CHARSTATE_NORMAL, 0);
 				} else {
-					// 已在中心点附近，重置空闲计时器继续寻怪
 					g_dwLastAttackTime = g_dwCurTime;
 				}
 			}
-			// 回归中：检测是否到达中心点
+
+			// 回归途中状态与自卫反击处理
 			if (g_bReturningHome) {
-				if (fDistSq <= 25.0f || !pMainChar->m_bTargetMove) {
-					// 到达中心点或停止移动，重置状态开始重新寻怪
+				if (fDistSq <= 16.0f || !pMainChar->m_bTargetMove) {
+					// 已安全到达中心点（4码内）或停止移动
 					g_bReturningHome = FALSE;
 					g_dwLastAttackTime = g_dwCurTime;
+					bMove = FALSE;
 					pMainChar->SetAnimation(XiahAniType::eLAT_Stand, 0);
 					SendCS_NV_ENDMOVE_REQ(g_pMainChar->m_dwServerID, pMainChar->m_Position.x, -pMainChar->m_Position.z, pMainChar->m_Position.y, CHARSTATE_NORMAL);
+				} else {
+					// 回归途中自卫反击检测：检测身边 4.5 码内是否有活动的贴身怪
+					bool bHasCloseMonster = false;
+					XiahObject::CXiahObjectManager::iterator itM;
+					for (itM = XiahObject::g_XiahObjectManager.begin(); itM != XiahObject::g_XiahObjectManager.end(); ++itM) {
+						XiahObject::CXiahObject* pObj = itM->second;
+						CXiahCharObject* pChar = pObj ? (CXiahCharObject*)pObj->m_pObject : NULL;
+						if (pChar && pChar->m_bObjType == OBJTYPE_NPC && pChar->m_nCurMotionType != XiahAniType::eLAT_Die) {
+							float fDis = pChar->GetInteractionDistance(pMainChar->m_Position);
+							if (fDis <= 4.5f) {
+								bHasCloseMonster = true;
+								break;
+							}
+						}
+					}
+					if (bHasCloseMonster) {
+						// 身边有怪拦路攻击，立即就地自卫击杀！打死后下一帧继续飞奔回中心点
+						g_bReturningHome = FALSE;
+						bMove = FALSE;
+						pMainChar->m_bTargetMove = FALSE;
+						pMainChar->SetAnimation(XiahAniType::eLAT_Stand, 0);
+						SendCS_NV_ENDMOVE_REQ(g_pMainChar->m_dwServerID, pMainChar->m_Position.x, -pMainChar->m_Position.z, pMainChar->m_Position.y, CHARSTATE_NORMAL);
+						ProcessAutoAttack(pMainChar);
+					}
 				}
-				// 回归路上不找怪，跳过下面的 ProcessAutoAttack
 			} else {
-				ProcessAutoAttack( pMainChar);
+				ProcessAutoAttack(pMainChar);
 			}
 		} else {
-			ProcessAutoAttack( pMainChar);
+			ProcessAutoAttack(pMainChar);
 		}
 
 		//펫 자동 먹이 및 야생성 
@@ -1035,8 +1062,8 @@ void ProcessLButtonDown( CXiahCharObject *pMainChar, CXiahCharObject* pMouseOnCh
 	g_MainChar_PreAttackInfo.dwLastPreAttackTime = 0;
 	g_MainChar_PreAttackInfo.nRemainAttackCount = 0;
 
-	// 0.3초 안에 클릭을 막는다!
-	if(g_dwCurTime - ClickTime < 300) return;
+	// 防抖节流：150ms 既能防止连点器抖动，又能流畅支持玩家快速双击
+	if(g_dwCurTime - ClickTime < 150) return;
 	ClickTime = g_dwCurTime;
 
 	 // 커서가 오브젝트를 가리키고 있을때
@@ -1070,17 +1097,76 @@ void ProcessLButtonDown( CXiahCharObject *pMainChar, CXiahCharObject* pMouseOnCh
 			// ALT를 안누름
 			if(SubProcessCommandAI(dwSelObjectID,dwSelObjectType) == FALSE)
 			{
-				// Left click target: lock-on only, do not run or attack
-				if (dwSelObjectType == OBJTYPE_NPC || dwSelObjectType == OBJTYPE_PC || dwSelObjectType == OBJTYPE_FUNCTIONALNPC)
+				// 需求3：与功能 NPC 交互使用鼠标左键
+				if (dwSelObjectType == OBJTYPE_FUNCTIONALNPC)
 				{
-					// 仅执行锁定，不开启自动攻击或自动寻路
-					bAutoNavigation = FALSE;
-					bAutoAttack = FALSE;
-					bAutoNormalAttack = FALSE;
+					fInteractionRange = 9.0f;
+					float fDist = pMouseOnCharObject->GetInteractionDistance(pMainChar->m_Position);
+					if( fDist < fInteractionRange )
+					{
+						if( bMove )
+						{
+							pMainChar->SetAnimation( XiahAniType::eLAT_Stand, 0);
+							SendCS_NV_ENDMOVE_REQ( g_pMainChar->m_dwServerID, pMainChar->m_Position.x, -pMainChar->m_Position.z, pMainChar->m_Position.y, CHARSTATE_NORMAL);
+							bMove = FALSE;
+							pMainChar->m_bTargetMove = FALSE;
+						}
+						bAutoNavigation = FALSE;
+						bAutoAttack = FALSE;
+						bAutoNormalAttack = FALSE;
+						InteractObject( dwSelObjectID, OBJTYPE_FUNCTIONALNPC, 0);
+					}
+					else
+					{
+						bAutoNavigation = TRUE;
+						bAutoAttack = FALSE;
+						bAutoNormalAttack = FALSE;
+						ProcessAutoNavigation( 0);
+					}
 
-					// [ModernControl] LButtonDown: Pure lock-on
-					DBG_LogFile(_T("[ModernControl] LButtonDown: Click Target! TargetID=%u, TargetType=%d, PureLockOn\n"),
-						dwSelObjectID, dwSelObjectType);
+					Vector3 vMainCharSize = pMainChar->m_LocalBound.Size();
+					g_PickCursor.Create( XiahPak::GetTexture( 50000396), pMouseOnCharObject->m_Position.x, pMouseOnCharObject->m_Position.z, 6, COLOR_PICKCURSOR, TRUE, 0, TRUE, pMouseOnCharObject->m_Position.y, vMainCharSize.y, pMainChar->m_Position.y );
+					g_PickCursor.SetRotate(0.03490658f);
+				}
+				else if (dwSelObjectType == OBJTYPE_NPC || dwSelObjectType == OBJTYPE_PC)
+				{
+					DWORD dwClickedID = XiahObject::g_pMouseOnObject->m_dwServerID;
+
+					// 单击查看与双击/再次点击平砍机制：
+					// 1. 若当前已经选中了该怪物（再次点击或快速双击）：发起普通攻击并追击平砍
+					// 2. 若当前未选中该怪物（第1次点击）：仅选中查看目标血条/信息，角色原地不动，绝不追上去砍
+					if (s_dwLastSelectedTargetID != 0 && s_dwLastSelectedTargetID == dwClickedID)
+					{
+						bAutoNavigation = TRUE;
+						if (dwSelObjectType == OBJTYPE_NPC)
+						{
+							bAutoNormalAttack = TRUE;
+							bAutoAttack = TRUE;
+						}
+
+						if (bAutoNavigation)
+						{
+							ProcessAutoNavigation(0);
+						}
+					}
+					else
+					{
+						// 第1次点击：安全锁定并查看怪物信息，绝不追上去砍
+						bAutoNavigation = FALSE;
+						bAutoAttack = FALSE;
+						bAutoNormalAttack = FALSE;
+
+						s_dwLastSelectedTargetID = dwClickedID;
+					}
+
+					Vector3 vMainCharSize = pMainChar->m_LocalBound.Size();
+					g_PickCursor.Create( XiahPak::GetTexture( 50000396), pMouseOnCharObject->m_Position.x, pMouseOnCharObject->m_Position.z, 6, COLOR_PICKCURSOR, TRUE, 0, TRUE, pMouseOnCharObject->m_Position.y, vMainCharSize.y, pMainChar->m_Position.y );
+					g_PickCursor.SetRotate(0.03490658f);
+
+					if( dwSelObjectType == OBJTYPE_PC)
+					{
+						InteractObject( XiahObject::g_pMouseOnObject->m_dwServerID, OBJTYPE_PC, 1);	 // OBJTYPE_PC
+					}
 				}
 				else
 				{
@@ -1091,21 +1177,13 @@ void ProcessLButtonDown( CXiahCharObject *pMainChar, CXiahCharObject* pMouseOnCh
 						ProcessAutoNavigation( 0);
 					}
 
-					// [ModernControl] LButtonDown: non-combat interaction
-					DBG_LogFile(_T("[ModernControl] LButtonDown: Click Non-Combat Target! TargetID=%u, TargetType=%d, AutoNav=TRUE\n"),
-						dwSelObjectID, dwSelObjectType);
-				}
+					g_PickCursor.Create( XiahPak::GetTexture( 50000396), pMouseOnCharObject->m_Position.x, pMouseOnCharObject->m_Position.z, 6, COLOR_PICKCURSOR);
+					g_PickCursor.SetRotate(0.03490658f); // _PI / 90.0f => 0.03490658f
 
-				g_PickCursor.Create( XiahPak::GetTexture( 50000396), pMouseOnCharObject->m_Position.x, pMouseOnCharObject->m_Position.z, 6, COLOR_PICKCURSOR);
-				g_PickCursor.SetRotate(0.03490658f); // _PI / 90.0f => 0.03490658f
-
-				if( dwSelObjectType == OBJTYPE_PC)
-				{
-					InteractObject( XiahObject::g_pMouseOnObject->m_dwServerID, OBJTYPE_PC, 1);	 // OBJTYPE_PC
-				}
-				else if( dwSelObjectType == OBJTYPE_PET && g_PetList.Find( XiahObject::g_pMouseOnObject->m_dwServerID))
-				{
-					InteractObject( XiahObject::g_pMouseOnObject->m_dwServerID, OBJTYPE_PET, 1);	
+					if( dwSelObjectType == OBJTYPE_PET && g_PetList.Find( XiahObject::g_pMouseOnObject->m_dwServerID))
+					{
+						InteractObject( XiahObject::g_pMouseOnObject->m_dwServerID, OBJTYPE_PET, 1);	
+					}
 				}
 			}
 		}
@@ -1178,12 +1256,16 @@ void ProcessLButtonDown( CXiahCharObject *pMainChar, CXiahCharObject* pMouseOnCh
 				// dwSelObjectID 已经在函数入口置0，点击地面不产生移动，也不生成地面标记
 				dwSelObjectID = 0;
 				dwSelObjectType = 0;
+				s_dwLastSelectedTargetID = 0;
 				if( g_pTargetInfoPanel && g_pTargetInfoPanel->IsActive() )
 				{
 					g_pTargetInfoPanel->Clear();
 				}
-				// [ModernControl] LButtonDown: Click Field! Cleared Target
-				DBG_LogFile(_T("[ModernControl] LButtonDown: Click Field! Cleared Target.\n"));
+				// [ModernControl] 需求4：左键点击地面空白处清空目标并关闭 NPC 对话
+				if( IsNpcDialogOpen() )
+				{
+					CloseNpcDialogAndFrames();
+				}
 			}
 		}
 	}	
@@ -1248,8 +1330,8 @@ void ProcessRButtonDown( CXiahCharObject *pMainChar, BOOL bMouseOnObjectType, DW
 	CloseAllWindow();
 
 	// [ModernControl] 日志：记录施法入口参数与当前冷却差值
-	DBG_LogFile(_T("[ModernControl] ProcessRButtonDown Entrance: MugongID=%u, LastTime=%u, CurTime=%u, Diff=%u\n"),
-		dwMugongID, g_dwLastMugongTime, g_dwCurTime, g_dwCurTime - g_dwLastMugongTime);
+	// DBG_LogFile(_T("[ModernControl] ProcessRButtonDown Entrance: MugongID=%u, LastTime=%u, CurTime=%u, Diff=%u\n"),
+	// 	dwMugongID, g_dwLastMugongTime, g_dwCurTime, g_dwCurTime - g_dwLastMugongTime);
 
 	// [ModernControl] 施法本地CD限制（使用全局变量 g_dwLastMugongTime，默认500ms）
 	if( g_dwCurTime - g_dwLastMugongTime > 500)
@@ -1400,8 +1482,8 @@ void ProcessRButtonDown( CXiahCharObject *pMainChar, BOOL bMouseOnObjectType, DW
 		if( bAttackAvailable )
 		{
 			// [ModernControl] 日志：施法判定通过，发送施法请求
-			DBG_LogFile(_T("[ModernControl] ProcessRButtonDown: Cooldown passed! Sending Mugong Request! TargetID=%u, Type=%d\n"),
-				dwDefID, bDefType);
+			// DBG_LogFile(_T("[ModernControl] ProcessRButtonDown: Cooldown passed! Sending Mugong Request! TargetID=%u, Type=%d\n"),
+			// 	dwDefID, bDefType);
 
 			SendCS_NV_ENDMOVE_REQ( g_pMainChar->m_dwServerID, pMainChar->m_Position.x, -pMainChar->m_Position.z, pMainChar->m_Position.y,CHARSTATE_NORMAL);
 
@@ -1432,8 +1514,10 @@ void ProcessAutoAttack( CXiahCharObject *pMainChar)
 	XiahObject::CXiahObjectManager::iterator it;
 	CXiahCharObject* pSelCharObject = NULL;
 
-	float fDistance = 70;
-	
+	float fBestScore = 9999.0f;
+	int px = (int)pMainChar->m_Position.x;
+	int py = (int)(-pMainChar->m_Position.z);
+
 	for(it = XiahObject::g_XiahObjectManager.begin(); it != XiahObject::g_XiahObjectManager.end(); it++)
 	{
 		XiahObject::CXiahObject* pObject = it->second;
@@ -1451,13 +1535,53 @@ void ProcessAutoAttack( CXiahCharObject *pMainChar)
 
 		if( pCharObject->m_bObjType == OBJTYPE_NPC && pCharObject->m_bExSubObjType != 255) //파괴용 NPC 삭제
 			continue;
-		
-		
+
+		// 1. 过滤卡墙黑名单中的怪物
+		if( IsMonsterStuck( pObject->m_dwServerID ) )
+			continue;
+
 		float fDis_Temp = pCharObject->GetInteractionDistance( pMainChar->m_Position);
-		
-		if( fDis_Temp < fDistance )
+		if( fDis_Temp >= 70.0f )
+			continue;
+
+		// 定点攻击模式：站原地不动，仅锁定周围攻击/群攻范围内的怪物，超出范围不选
+		extern BOOL g_bFixedPointAttack;
+		if( g_bFixedPointAttack )
 		{
-			fDistance = fDis_Temp;
+			float fMaxFixedRange = (float)g_MainCharInfo.m_wAttackRange;
+			if( fMaxFixedRange < 20.0f ) fMaxFixedRange = 20.0f;
+			if( fDis_Temp > fMaxFixedRange )
+				continue;
+		}
+
+		int mx = (int)pCharObject->m_Position.x;
+		int my = (int)(-pCharObject->m_Position.z);
+
+		// 挂机活动半径限制：启用中心点时，怪物绝不能超出设定的活动半径，防止角色越追越远
+		extern int g_nHomeRadius;
+		if (g_bUseHomePoint && g_wHomeX > 0 && g_wHomeY > 0 && g_nHomeRadius > 0)
+		{
+			float dxH = (float)mx - (float)g_wHomeX;
+			float dyH = (float)my - (float)g_wHomeY;
+			if ((dxH*dxH + dyH*dyH) > (float)(g_nHomeRadius * g_nHomeRadius))
+				continue;
+		}
+
+		// 2. 检测直线视线是否被墙体遮挡
+		bool bHasLOS = CheckMapLineOfSight(px, py, mx, my);
+
+		// 3. 视线优先评分机制：
+		// 如果无阻挡，直接按直线距离评分；
+		// 如果隔着墙，施加阻挡惩罚 (+30 码)，优先让位给看得见可直达的怪；
+		// 并且隔着墙的怪如果距离过远（> 45 码），则不考虑，防止跨墙长途被卡
+		if( !bHasLOS && fDis_Temp > 45.0f )
+			continue;
+
+		float fScore = bHasLOS ? fDis_Temp : (fDis_Temp + 30.0f);
+
+		if( fScore < fBestScore )
+		{
+			fBestScore = fScore;
 			dwSelObjectID = pObject->m_dwServerID;
 			dwSelObjectType = pCharObject->m_bObjType;
 			pSelCharObject = pCharObject;
@@ -2381,12 +2505,12 @@ BOOL DirectCastSlot(int realSlotID)
 	DWORD dwSlotContentID = g_MainCharInfo.m_pSlot->GetSlotContent(realSlotID);
 	if (dwSlotContentID == 0)
 	{
-		DBG_LogFile(_T("[ModernControl] DirectCastSlot: SlotContent is empty! RealSlotID=%d\n"), realSlotID);
+		// DBG_LogFile(_T("[ModernControl] DirectCastSlot: SlotContent is empty! RealSlotID=%d\n"), realSlotID);
 		return FALSE;
 	}
 
 	int slotType = g_MainCharInfo.m_pSlot->CheckQuickSlot(realSlotID);
-	DBG_LogFile(_T("[ModernControl] DirectCastSlot: RealSlotID=%d, ContentID=%u, Type=%d\n"), realSlotID, dwSlotContentID, slotType);
+	// DBG_LogFile(_T("[ModernControl] DirectCastSlot: RealSlotID=%d, ContentID=%u, Type=%d\n"), realSlotID, dwSlotContentID, slotType);
 
 	if (slotType == 1) // 1 代表是道具
 	{
@@ -2412,7 +2536,7 @@ BOOL DirectCastSlot(int realSlotID)
 			extern DWORD g_dwLastMugongTime;
 			g_dwLastMugongTime = 0;
 
-			DBG_LogFile(_T("[ModernControl] DirectCastSlot: Direct casting skill MugongID=%u! MouseObjectType=%d\n"), dwSlotContentID, bMouseOnObjectType);
+			// DBG_LogFile(_T("[ModernControl] DirectCastSlot: Direct casting skill MugongID=%u! MouseObjectType=%d\n"), dwSlotContentID, bMouseOnObjectType);
 
 			// 直接释放按键槽位对应的技能（传入 dwSlotContentID），绝不释放S槽位技能，也不添加技能到S槽位！
 			ProcessRButtonDown(pMainCharObj, bMouseOnObjectType, dwSlotContentID);

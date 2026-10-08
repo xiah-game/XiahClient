@@ -96,7 +96,9 @@ extern void UpdatePetManagerList();extern void ProcessWindowPortal(LPARAM lParam
 extern void ProcessWindowCollection(LPARAM lParam);		// 아이템 수집
 
 extern void ProcessWindowSecretMove(LPARAM lParam);		//HT_0313 : 광명전 & 천황전 (이동)	
-extern void ProcessWindowSecretApplication(LPARAM lParam);		//HT_0313 : 광명전 & 천황전 (참여)	
+extern void ProcessWindowSecretApplication(LPARAM lParam);	//HT_0313 : 광명전 & 천황전 (참여)
+extern void ProcessWindowAuction(LPARAM lParam);				// 拍卖行窗口 (Frame 193)
+extern void OpenAuctionWindow();								// 打开/切换拍卖行窗口	
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 // Notice

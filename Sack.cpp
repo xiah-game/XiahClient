@@ -2738,13 +2738,13 @@ BOOL CSack::CheckItemSelectedByRButton()
 
 				if(m_vecItem[i]->m_bItemType == ITEMTYPE_PORTAL && !g_MainCharInfo.m_bPortalMove)
 				{
-					// ? ?????? ?? ?? ???
+					// 仅在门派战对决期间无法使用传送符
 					if( pMainChar->m_dwPartyID && pMainChar->m_dwEnemyPartyID )
+					{
 						g_MainCharInfo.ShowHelpMessage(IDS_NOTPORTALMOVE_INDANBATTLE);
-					else	// ??? ???? ?? ?? ???
-						g_MainCharInfo.ShowHelpMessage(IDS_NOTPORTALMOVE);
-
-					return true;
+						return true;
+					}
+					// 移除活动物品无法移动限制，允许正常使用回城符与传送符
 				}
 
 				// ???, ???

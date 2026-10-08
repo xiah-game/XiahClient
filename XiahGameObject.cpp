@@ -99,7 +99,7 @@ BOOL CXiah3DObject::SetAngle(WORD angle)
 		if ((pChar->m_nCurMotionType == XiahAniType::eLAT_Mugong || pChar->m_nCurMotionType == XiahAniType::eLAT_MugongException) 
 			&& !g_bAllowMugongTurn)
 		{
-			DBG_LogFile(_T("[AngleDebug] INTERCEPTED invalid SetAngle during casting: angle=%u\n"), angle);
+			// DBG_LogFile(_T("[AngleDebug] INTERCEPTED invalid SetAngle during casting: angle=%u\n"), angle);
 			return TRUE; // 直接安全拦截，拒绝扭头，锁定正确的鼠标地表朝向！
 		}
 	}
@@ -112,8 +112,8 @@ BOOL CXiah3DObject::SetAngle(WORD angle)
 	if( m_LocalAngle > _PI)
 		m_LocalAngle = _2_PI - m_LocalAngle;
 
-	DBG_LogFile(_T("[AngleDebug] SetAngle: this=%p ObjType=%d, old_angle=%.4f, new_angle=%.4f (degree=%u)\n"),
-		this, m_bObjType, old_angle, m_Angle, angle);
+	// DBG_LogFile(_T("[AngleDebug] SetAngle: this=%p ObjType=%d, old_angle=%.4f, new_angle=%.4f (degree=%u)\n"),
+	// 	this, m_bObjType, old_angle, m_Angle, angle);
 
 	return TRUE;
 }
@@ -203,13 +203,27 @@ BOOL CXiah3DObject::SetTargetMove( WORD wPosX, WORD wPosY,int Type,int lifetime)
 	m_TargetLifeTime	= lifetime;
 
 	Vector3 dir = m_TargetPosition - m_Position;
+	dir.y = 0;
 
-	float speed = dir.GetLength() * 33.0f / (float)lifetime;
+	float fDist = dir.GetLength();
+	if( lifetime <= 0 )
+	{
+		m_fTargetMoveSpeed = 0.0f;
+	}
+	else
+	{
+		m_fTargetMoveSpeed = fDist * 33.0f / (float)lifetime;
+	}
 
-	m_fTargetMoveSpeed = speed;
-
-	dir.Normalize();
-	m_TargetDir = dir;
+	if( fDist > 0.0001f )
+	{
+		dir.Normalize();
+		m_TargetDir = dir;
+	}
+	else
+	{
+		m_TargetDir = Vector3(0, 0, 0);
+	}
 
 	return TRUE;
 }
@@ -321,8 +335,8 @@ WORD CXiah3DObject::GetTargetAngle(Vector3 pos)
 
 BOOL CXiah3DObject::SetAngleTarget(WORD wPosX,WORD wPosY)
 {
-	DBG_LogFile(_T("[AngleDebug] SetAngleTarget(grid): this=%p ObjType=%d, curPos=(%.2f, %.2f), targetGrid=(%u, %u), targetPos=(%.2f, %.2f)\n"),
-		this, m_bObjType, m_Position.x, m_Position.z, wPosX, wPosY, (float)wPosX, -(float)wPosY);
+	// DBG_LogFile(_T("[AngleDebug] SetAngleTarget(grid): this=%p ObjType=%d, curPos=(%.2f, %.2f), targetGrid=(%u, %u), targetPos=(%.2f, %.2f)\n"),
+	// 	this, m_bObjType, m_Position.x, m_Position.z, wPosX, wPosY, (float)wPosX, -(float)wPosY);
 	
 	// [ModernControl] 临时开启施法转向授权，允许本次基于鼠标坐标的合法转向通过安全锁
 	g_bAllowMugongTurn = TRUE;
@@ -2673,6 +2687,18 @@ BOOL CXiahCharObject::SetAnimation(int nCurMotionType,int nNextMotionType,int nC
 	m_nCurAniType = m_pAniType->GetAniType( nCurMotionType, nCurIndex);
 	m_nNextAniType = m_pAniType->GetAniType( nNextMotionType, nNextIndex);
 
+	if (m_nCurAniType == -1)
+	{
+		if (nCurMotionType == XiahAniType::eLAT_Run)
+			m_nCurAniType = m_pAniType->GetAniType( XiahAniType::eLAT_Walk, 0);
+		if (m_nCurAniType == -1)
+			m_nCurAniType = m_pAniType->GetAniType( XiahAniType::eLAT_Stand, 0);
+	}
+	if (m_nNextAniType == -1)
+	{
+		m_nNextAniType = m_nCurAniType;
+	}
+
 	if( m_nCurMotionType == XiahAniType::eLAT_Stand)
 	{
 		m_bTargetMove = FALSE;
@@ -2759,8 +2785,19 @@ BOOL CXiahCharObject::SetAnimation(int nMotionType,int nIndex,float fAnimationSp
 	if( m_pAniType == NULL)
 		return FALSE;
 
+	int nTargetAniType = m_pAniType->GetAniType( nMotionType, nIndex);
+	if (nTargetAniType == -1)
+	{
+		if (nMotionType == XiahAniType::eLAT_Run)
+			nTargetAniType = m_pAniType->GetAniType( XiahAniType::eLAT_Walk, 0);
+		if (nTargetAniType == -1)
+			nTargetAniType = m_pAniType->GetAniType( XiahAniType::eLAT_Stand, 0);
+		if (nTargetAniType == -1)
+			return FALSE;
+	}
+
 	m_nCurMotionType = m_nNextMotionType = nMotionType;
-	m_nCurAniType = m_nNextAniType = m_pAniType->GetAniType( nMotionType, nIndex);
+	m_nCurAniType = m_nNextAniType = nTargetAniType;
 
 	m_nCurAniIndex = m_nNextAniIndex = nIndex;
 

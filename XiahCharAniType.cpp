@@ -1,4 +1,4 @@
-﻿#include "precompile.h"
+#include "precompile.h"
 #include "XiahCharAniType.h"
 
 #include "XiahArrayIndex.h"
@@ -90,23 +90,31 @@ namespace XiahAniType
 	//---------------------------------------------------------------------------------------
 	int  CXiahChar_LogicalAnimationType::GetAniType(int nType,int index)
 	{
-		DBG_Assert( nType >= 0 && nType < size());
-
-		ANITYPE_LIST* pList = operator [] (nType);
-
-		if(pList == NULL)
+		try
 		{
-			DBG_LogFile( _T("CXiahChar_LogicalAnimationType::GetAniType 실패"));
+			if( nType < 0 || nType >= (int)size() )
+				return -1;
+
+			ANITYPE_LIST* pList = operator [] (nType);
+
+			if(pList == NULL)
+			{
+				DBG_LogFile( _T("CXiahChar_LogicalAnimationType::GetAniType 실패"));
+				return -1;
+			}
+
+			if( pList->empty() )
+				return -1;
+
+			if( index == -1 || index >= (int)pList->size() || index < 0 )
+				index = rand() % (int)pList->size();
+
+			return (*pList)[index];
+		}
+		catch(...)
+		{
 			return -1;
 		}
-
-		if( pList->size() == 0)
-			return -1;
-
-		if( index == -1)
-			index = rand() % pList->size();
-
-		return pList->operator [] (index);
 	}
 
 	/*************************************************************************************************************

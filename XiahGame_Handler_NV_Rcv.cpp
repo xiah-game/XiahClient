@@ -1,4 +1,4 @@
-﻿#include "xiahbgmcore.h"
+#include "xiahbgmcore.h"
 
 extern BOOL FadeTrigger_MainCharMapEnterAfterDie(DWORD nIndex);
 
@@ -486,26 +486,11 @@ int OnCS_NV_ENDMOVE_ACK( CMsg &msg)
 	CXiahCharObject *pObject = reinterpret_cast<CXiahCharObject*>(pXiahObject->m_pObject);
 	if(pObject == NULL) return TRUE;
 
-	// === Smooth EndMove: walk to final position instead of teleporting ===
-	if( pObject->GetDistance( wPosX, wPosY) > 30.0f)
-	{
-		// Extreme: hard snap
-		pObject->SetPosition( wPosX, wPosY);
-		pObject->Update();
-		pObject->SetAnimation( XiahAniType::eLAT_Stand, 0);
-	}
-	else if( pObject->GetDistance( wPosX, wPosY) > 1.5f)
-	{
-		// Walk smoothly to final position; arrival detection auto-triggers Stand
-		pObject->SetTargetMove( wPosX, wPosY, eLBP_CharNavigation, 0);
-		pObject->m_CharRender.SetAnimationSpeed( 1.5f);
-	}
-	else
-	{
-		// Already close enough, just stop
-		pObject->SetPosition( wPosX, wPosY);
-		pObject->SetAnimation( XiahAniType::eLAT_Stand, 0);
-	}
+	// === 移动同步终结：立即急刹站立并对齐真实坐标，彻底消除 1.5~2 秒的补跑延迟 ===
+	pObject->m_bTargetMove = FALSE;
+	pObject->SetPosition( wPosX, wPosY );
+	pObject->Update();
+	pObject->SetAnimation( XiahAniType::eLAT_Stand, 0 );
 
 	return TRUE;
 }
@@ -1221,6 +1206,34 @@ int OnCS_NV_CHARPREMIUM_ACK(CMsg &msg)
 			{
 				nResID = 1414;
 				_stprintf(szTip, IDS_PREMIUM_ITEM_02, 400, bEndDay, bEndHour, bEndMin); 
+			}
+			break;
+		// 自定义扩展与防漏：千寿杯 / 万寿杯 / 五行阵 / 灵物牌
+		case 22500: // 千寿杯 (200%)
+			{
+				nResID = 1416;
+				_stprintf(szTip, IDS_PREMIUM_ITEM_01, 200, bEndDay, bEndHour, bEndMin); 
+			}
+			break;
+		case 22:
+		case 24:
+		case 22501: // 万寿杯(极) (400%)
+		case 22504: // 万寿杯 (400%)
+			{
+				nResID = 1416;
+				_stprintf(szTip, IDS_PREMIUM_ITEM_01, 400, bEndDay, bEndHour, bEndMin); 
+			}
+			break;
+		case 22502: // 五行阵 (200%)
+			{
+				nResID = 1414;
+				_stprintf(szTip, IDS_PREMIUM_ITEM_02, 200, bEndDay, bEndHour, bEndMin); 
+			}
+			break;
+		case 22503: // 灵物牌 (200%)
+			{
+				nResID = 1413;
+				_stprintf(szTip, IDS_PREMIUM_ITEM_03, 200, bEndDay, bEndHour, bEndMin); 
 			}
 			break;
 		//HO_0803_07 천수배 오행진 중복가능 끝

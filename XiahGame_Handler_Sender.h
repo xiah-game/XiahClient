@@ -241,3 +241,36 @@ extern void SendCS_NV_DEVILADVENTURE_REQ();
 
 //HT_0423 : 단주 위임
 extern void SendCS_IF_CHANGEPARTYLEADER_REQ(DWORD dwCurLeaderID, DWORD dwPostLeaderID);
+
+// 拍卖行系统 (Auction House) 发送函数与数据结构
+struct sAuctionClientItem {
+	DWORD dwAuctionID;
+	DWORD dwItemID;
+	WORD wRefID;
+	BYTE bType;
+	BYTE bKind;
+	WORD wVisualID;
+	WORD wLevel;
+	DWORD dwBasicPrice;
+	DWORD dwCutPrice;
+	DWORD dwOnePrice;
+	DWORD dwRemainSeconds;
+	sString strItemName;
+	sString strSellerName;
+	sString strBidderName;
+};
+
+extern std::vector<sAuctionClientItem> g_AuctionClientList;
+extern int g_nAuctionSelectedIndex;
+extern WORD g_wAuctionTotalCount;
+extern WORD g_wAuctionCurrentPage;
+extern BYTE g_bAuctionFilterType;
+extern sString g_strAuctionKeyword;
+extern void RefreshAuctionWindowDisplay();
+
+extern void SendCS_AH_QUERY_REQ(WORD wPageIndex = 0, BYTE bFilterType = 0, sString strKeyword = _T(""));
+extern void SendCS_AH_BID_REQ(DWORD dwAuctionID, DWORD dwBidPrice);
+extern void SendCS_AH_BUYOUT_REQ(DWORD dwAuctionID);
+extern void SendCS_AH_SELL_REQ(BYTE bSackID, BYTE bSackPos, DWORD dwItemID, DWORD dwBasicPrice, DWORD dwOnePrice, BYTE bDurationHours = 24);
+extern void SendCS_AH_CANCEL_REQ(DWORD dwAuctionID);
+

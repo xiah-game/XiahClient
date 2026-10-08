@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 // 퀵 슬롯 확장
 #define MAX_SLOT	10 //5

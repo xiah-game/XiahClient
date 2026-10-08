@@ -1,4 +1,4 @@
-#include "csprotocol.h"
+﻿#include "csprotocol.h"
 #include "mail.h"
 
 #include ".\spirit.h"
@@ -1279,14 +1279,20 @@ int OnCS_IF_DESTROYPARTY_ACK( CMsg &msg)
 	msg
 		>> dwPartyID;
 
-	g_MainCharInfo.m_pRelation->ClearDan();
+	if( g_MainCharInfo.m_pRelation)
+		g_MainCharInfo.m_pRelation->ClearDan();
 
 	// 나의 단 정보는 내가
-	CXiahCharObject* pMainChar = (CXiahCharObject*)g_pMainChar->m_pObject;
-
-	pMainChar->m_dwPartyID = 0;
-	pMainChar->m_dwPartyLeaderID = 0;
-	pMainChar->m_dwEnemyPartyID = 0;
+	if( g_pMainChar )
+	{
+		CXiahCharObject* pMainChar = (CXiahCharObject*)g_pMainChar->m_pObject;
+		if( pMainChar )
+		{
+			pMainChar->m_dwPartyID = 0;
+			pMainChar->m_dwPartyLeaderID = 0;
+			pMainChar->m_dwEnemyPartyID = 0;
+		}
+	}
 	
 	return 0;
 }

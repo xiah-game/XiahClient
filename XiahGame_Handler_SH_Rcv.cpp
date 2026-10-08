@@ -692,6 +692,241 @@ int OnCS_SH_SHOPINFOCHANGE_ACK(CMsg &msg)
 
 	return true;
 }
+
+// =========================================================================
+// 拍卖行系统 (Auction House) 接收响应实现
+// =========================================================================
+
+#include "XiahArrayIndex.h"
+#include "XiahGame_Handler_Sender.h"
+
+std::vector<sAuctionClientItem> g_AuctionClientList;
+int g_nAuctionSelectedIndex = -1;
+WORD g_wAuctionTotalCount = 0;
+WORD g_wAuctionCurrentPage = 0;
+BYTE g_bAuctionFilterType = 0;
+sString g_strAuctionKeyword = _T("");
+
+const TCHAR* g_szAuctionFilterNames[] = {
+	_T("全部物品"),
+	_T("武器装备"),
+	_T("防具防具"),
+	_T("首饰宝物"),
+	_T("药品秘籍"),
+	_T("其它物品")
+};
+const int g_nAuctionFilterCount = sizeof(g_szAuctionFilterNames) / sizeof(g_szAuctionFilterNames[0]);
+
+void RefreshAuctionWindowDisplay()
+{
+	if (!g_pUIManager || !g_pUIManager->IsShow(WINDOW_AUCTION)) return;
+
+	// 实例 12: 显示当前角色金币数量
+	g_pUIManager->SetString(WINDOW_AUCTION, auction_window_money, MoneyCommaStr(g_MainCharInfo.m_dwMoney).c_str(), g_MainCharInfo.MoneyUnitColor(g_MainCharInfo.m_dwMoney));
+
+	// 实例 10, 19~23: 显示左侧全部分类按钮文字
+	g_pUIManager->SetString(WINDOW_AUCTION, auction_window_filter_0, _T("全部物品"));
+	g_pUIManager->SetString(WINDOW_AUCTION, auction_window_filter_1, _T("武器装备"));
+	g_pUIManager->SetString(WINDOW_AUCTION, auction_window_filter_2, _T("防具防具"));
+	g_pUIManager->SetString(WINDOW_AUCTION, auction_window_filter_3, _T("首饰宝物"));
+	g_pUIManager->SetString(WINDOW_AUCTION, auction_window_filter_4, _T("药品秘籍"));
+	g_pUIManager->SetString(WINDOW_AUCTION, auction_window_filter_5, _T("其它物品"));
+
+	// 实例 13: 竞价文字标签
+	g_pUIManager->SetString(WINDOW_AUCTION, auction_window_bid_label, _T("竞价"));
+
+	// 实例 15, 16: 设置竞价和一口价按钮上的文字
+	g_pUIManager->SetString(WINDOW_AUCTION, auction_window_btn_bid, _T("竞价"));
+	g_pUIManager->SetString(WINDOW_AUCTION, auction_window_btn_buyout, _T("一口价"));
+
+	if (g_AuctionClientList.empty() || g_nAuctionSelectedIndex < 0 || g_nAuctionSelectedIndex >= (int)g_AuctionClientList.size())
+	{
+		g_pUIManager->SetData(WINDOW_AUCTION, auction_window_list_01, CURRENT_INDEX, 0);
+		g_pUIManager->SetData(WINDOW_AUCTION, auction_window_col_icon, TEXTURE, 0);
+		g_pUIManager->SetString(WINDOW_AUCTION, auction_window_col_name, _T("当前暂无拍卖物品"));
+		g_pUIManager->SetString(WINDOW_AUCTION, auction_window_col_level, _T("-"));
+		g_pUIManager->SetString(WINDOW_AUCTION, auction_window_col_expire, _T("-"));
+		g_pUIManager->SetString(WINDOW_AUCTION, auction_window_col_bidder, _T("-"));
+		g_pUIManager->SetString(WINDOW_AUCTION, auction_window_col_bid_price, _T("0"));
+		g_pUIManager->SetString(WINDOW_AUCTION, auction_window_col_buyout_price, _T("0"));
+		// 实例 14: editbox 输入框清空
+		g_pUIManager->SetString(WINDOW_AUCTION, auction_window_bid_edit, _T(""));
+		return;
+	}
+
+	sAuctionClientItem& it = g_AuctionClientList[g_nAuctionSelectedIndex];
+
+	// 选中高亮状态 (实例 2: 1)
+	g_pUIManager->SetData(WINDOW_AUCTION, auction_window_list_01, CURRENT_INDEX, 1);
+
+	// 实例 3: 物品图标
+	int nResID = 0;
+	sArrayData* pData = XiahArrayIndex::g_ItemType.GetData(it.wVisualID);
+	if (pData)
+	{
+		nResID = pData->GetInt(1);
+	}
+	g_pUIManager->SetData(WINDOW_AUCTION, auction_window_col_icon, TEXTURE, nResID);
+
+	// 实例 4: 物品名称
+	g_pUIManager->SetString(WINDOW_AUCTION, auction_window_col_name, it.strItemName.c_str());
+
+	// 实例 5: 等级
+	TCHAR szLvl[16];
+	_stprintf(szLvl, _T("%d"), it.wLevel);
+	g_pUIManager->SetString(WINDOW_AUCTION, auction_window_col_level, szLvl);
+
+	// 实例 6: 计算时效
+	TCHAR szExpire[32];
+	DWORD h = it.dwRemainSeconds / 3600;
+	DWORD m = (it.dwRemainSeconds % 3600) / 60;
+	if (h > 0)
+		_stprintf(szExpire, _T("%d小时%d分"), h, m);
+	else
+		_stprintf(szExpire, _T("%d分钟"), m > 0 ? m : 1);
+	g_pUIManager->SetString(WINDOW_AUCTION, auction_window_col_expire, szExpire);
+
+	// 实例 7: 出价者
+	TCHAR szBidder[64];
+	if (!it.strBidderName.empty())
+		_tcscpy(szBidder, it.strBidderName.c_str());
+	else
+		_tcscpy(szBidder, _T("暂无"));
+	g_pUIManager->SetString(WINDOW_AUCTION, auction_window_col_bidder, szBidder);
+
+	// 实例 8: 竞价
+	g_pUIManager->SetString(WINDOW_AUCTION, auction_window_col_bid_price, MoneyCommaStr(it.dwCutPrice > 0 ? it.dwCutPrice : it.dwBasicPrice).c_str());
+
+	// 实例 9: 一口价
+	g_pUIManager->SetString(WINDOW_AUCTION, auction_window_col_buyout_price, MoneyCommaStr(it.dwOnePrice).c_str());
+
+	// 实例 14: editbox 预填推荐最低竞价金额 (当前价+1 或起拍底价)
+	DWORD dwRecommendBid = (it.dwCutPrice > 0 ? it.dwCutPrice + 1 : it.dwBasicPrice);
+	TCHAR szRecommendBid[32];
+	_stprintf(szRecommendBid, _T("%u"), dwRecommendBid);
+	g_pUIManager->SetString(WINDOW_AUCTION, auction_window_bid_edit, szRecommendBid);
+}
+
+int OnCS_AH_QUERY_ACK(CMsg &msg)
+{
+	WORD wTotalCount = 0;
+	WORD wCurrentPage = 0;
+	BYTE bItemCount = 0;
+
+	msg >> wTotalCount >> wCurrentPage >> bItemCount;
+
+	g_wAuctionTotalCount = wTotalCount;
+	g_wAuctionCurrentPage = wCurrentPage;
+	g_AuctionClientList.clear();
+	g_nAuctionSelectedIndex = -1;
+
+	for (BYTE i = 0; i < bItemCount; ++i)
+	{
+		sAuctionClientItem it;
+		msg >> it.dwAuctionID
+			>> it.dwItemID
+			>> it.wRefID
+			>> it.bType
+			>> it.bKind
+			>> it.wVisualID
+			>> it.wLevel
+			>> it.dwBasicPrice
+			>> it.dwCutPrice
+			>> it.dwOnePrice
+			>> it.dwRemainSeconds
+			>> it.strItemName
+			>> it.strSellerName
+			>> it.strBidderName;
+
+		g_AuctionClientList.push_back(it);
+	}
+
+	if (!g_AuctionClientList.empty())
+	{
+		g_nAuctionSelectedIndex = 0;
+	}
+
+	RefreshAuctionWindowDisplay();
+	return true;
+}
+
+int OnCS_AH_BID_ACK(CMsg &msg)
+{
+	BYTE bResult = 0;
+	DWORD dwAuctionID = 0;
+	DWORD dwNewPrice = 0;
+	msg >> bResult >> dwAuctionID >> dwNewPrice;
+
+	if (bResult == 0)
+	{
+		g_MainCharInfo.ShowHelpMessage(_T("出价竞拍成功！"));
+	}
+	else
+	{
+		g_MainCharInfo.ShowHelpMessage(_T("出价竞拍失败，请检查金额或拍卖状态"), TEXTEFFECT_COLOR_WARNING);
+	}
+
+	SendCS_AH_QUERY_REQ(g_wAuctionCurrentPage, g_bAuctionFilterType, g_strAuctionKeyword);
+	return true;
+}
+
+int OnCS_AH_BUYOUT_ACK(CMsg &msg)
+{
+	BYTE bResult = 0;
+	DWORD dwAuctionID = 0;
+	msg >> bResult >> dwAuctionID;
+
+	if (bResult == 0)
+	{
+		g_MainCharInfo.ShowHelpMessage(_T("一口价购买成功！物品已发往主城商城保管箱"));
+	}
+	else
+	{
+		g_MainCharInfo.ShowHelpMessage(_T("购买失败，物品可能已售出或金币不足"), TEXTEFFECT_COLOR_WARNING);
+	}
+
+	SendCS_AH_QUERY_REQ(g_wAuctionCurrentPage, g_bAuctionFilterType, g_strAuctionKeyword);
+	return true;
+}
+
+int OnCS_AH_SELL_ACK(CMsg &msg)
+{
+	BYTE bResult = 0;
+	DWORD dwAuctionID = 0;
+	msg >> bResult >> dwAuctionID;
+
+	if (bResult == 0)
+	{
+		g_MainCharInfo.ShowHelpMessage(_T("物品上架寄售成功！"));
+	}
+	else
+	{
+		g_MainCharInfo.ShowHelpMessage(_T("物品上架寄售失败"), TEXTEFFECT_COLOR_WARNING);
+	}
+
+	SendCS_AH_QUERY_REQ(g_wAuctionCurrentPage, g_bAuctionFilterType, g_strAuctionKeyword);
+	return true;
+}
+
+int OnCS_AH_CANCEL_ACK(CMsg &msg)
+{
+	BYTE bResult = 0;
+	DWORD dwAuctionID = 0;
+	msg >> bResult >> dwAuctionID;
+
+	if (bResult == 0)
+	{
+		g_MainCharInfo.ShowHelpMessage(_T("拍卖已撤销，物品已退回主城商城保管箱"));
+	}
+	else
+	{
+		g_MainCharInfo.ShowHelpMessage(_T("撤销失败，已有玩家竞拍或已到期"), TEXTEFFECT_COLOR_WARNING);
+	}
+
+	SendCS_AH_QUERY_REQ(g_wAuctionCurrentPage, g_bAuctionFilterType, g_strAuctionKeyword);
+	return true;
+}
+
 //..UNITSVR->CLIENT
 //dwMoney										//현재 SHOP에 저장되어 있는 금액 
 //wRemainShop									//현재 SHOP을 위해 사용되는 아이템의 내구력 

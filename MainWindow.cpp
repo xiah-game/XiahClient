@@ -615,70 +615,40 @@ LRESULT CALLBACK MainWindowProc(HWND hWnd,UINT uMsg,WPARAM wParam,LPARAM lParam)
 			g_pUIManager && g_pUIManager->ProcessIME( hWnd, uMsg, wParam, lParam);
 			ProcessXiahWindowMessage( uMsg, wParam, lParam);
 
-			// 조합중인 문자 출력
-			if(g_pUIManager)
+			// 隐藏旧版固定在右下角的伪候选框，避免遮挡聊天界面与视觉残留
+			if (g_pUIManager && g_GameWork.m_GameStep_0 != GAMESTEP_INTRO)
 			{
-				if(g_GameWork.m_GameStep_0 != GAMESTEP_INTRO)
-				{
-					TCHAR strSrcCanText[MAX_STRING];
-					memset(strSrcCanText, 0, MAX_STRING);
-			
-					g_pUIManager->GetString(MAIN_CHAT, main_chat_edit, strSrcCanText, GET_CAN_STRING);
+				g_pUIManager->Hide(SMALL_MESSENGER, small_messenger_mixture);
+				g_pUIManager->SetString(SMALL_MESSENGER, small_messenger_mixture, "");
 
-					if(strSrcCanText[0] != 0)
-					{
-						TCHAR strCanText[MAX_STRING];
-
-						TCHAR *pStrCanText = strCanText;
-						TCHAR *pStrSrcCanText = strSrcCanText;
-						TCHAR *strNum = {"1:2:3:4:5:6:7:8:9:"};
-
-						memset( strCanText, 0, MAX_STRING);
-
-						int nStrLen = strlen(strSrcCanText)/2;
-
-						for(int i=1; i <= nStrLen; i++)
-						{
-							strncat(pStrCanText,strNum,2);
-							pStrCanText+=2, strNum+=2;
-							strncat(pStrCanText,pStrSrcCanText,2);
-							pStrCanText+=2,	pStrSrcCanText+=2;
-							strcat(pStrCanText," ");
-							pStrCanText++;
-						}
-
-						g_pUIManager->Show(SMALL_MESSENGER, small_messenger_mixture);
-						g_pUIManager->SetString(SMALL_MESSENGER, small_messenger_mixture, strCanText, 3);
-
-						g_pUIManager->Show(LARGE_MESSENGER, large_messenger_mixture);
-						g_pUIManager->SetString(LARGE_MESSENGER, large_messenger_mixture, strCanText, 3);
-					}
-					else
-					{
-						g_pUIManager->Hide(SMALL_MESSENGER, small_messenger_mixture);
-						g_pUIManager->SetString(SMALL_MESSENGER, small_messenger_mixture, "");
-
-						g_pUIManager->Hide(LARGE_MESSENGER, large_messenger_mixture);
-						g_pUIManager->SetString(LARGE_MESSENGER, large_messenger_mixture, "");
-					}
-				} // if(g_GameWork.m_GameStep_0 != GAMESTEP_INTRO)
-			} // if(g_pUIManager)
-
-			// 한문이나 특수문자 선택창 막기
-			if(uMsg == WM_IME_NOTIFY && IMN_OPENCANDIDATE == wParam )
-				return 1;
+				g_pUIManager->Hide(LARGE_MESSENGER, large_messenger_mixture);
+				g_pUIManager->SetString(LARGE_MESSENGER, large_messenger_mixture, "");
+			}
 		}
 		break;
+
+	// 阻止系统默认白底拼写小方框（韩服原版逻辑）
+	case WM_IME_STARTCOMPOSITION:
+		{
+			if (g_pUIManager)
+				g_pUIManager->ProcessIME(hWnd, uMsg, wParam, lParam);
+			return 1;
+		}
+		break;
+
+	case WM_IME_SETCONTEXT:
+		{
+			// 屏蔽系统默认的白底拼写组合框（游戏自绘输入预览），仅显示候选词列表窗口
+			lParam &= ~ISC_SHOWUICOMPOSITIONWINDOW;
+			return DefWindowProc(hWnd, uMsg, wParam, lParam);
+		}
+		break;
+
 	case WM_PAINT:
 		{
 			HDC hdc = GetDC( g_AppData.m_hWnd);
 			ReleaseDC( g_AppData.m_hWnd, hdc);
 		}
-		break;
-
-	// 한글 조합창 막기
-	case WM_IME_STARTCOMPOSITION:
-		return 1;
 		break;
 }
 	return DefWindowProc( hWnd, uMsg, wParam, lParam);	// Default Window Message Procedure호출
@@ -851,6 +821,9 @@ static LONG WINAPI XiahCrashHandler(EXCEPTION_POINTERS* pExceptionInfo)
     sprintf(szDumpFile, "XiahCrash_%04d%02d%02d_%02d%02d%02d.dmp",
             st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond);
 
+    BOOL bDumpSuccess = FALSE;
+    DWORD dwDumpErr = 0;
+
     HANDLE hFile = CreateFileA(szDumpFile, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
     if (hFile != INVALID_HANDLE_VALUE)
     {
@@ -859,19 +832,29 @@ static LONG WINAPI XiahCrashHandler(EXCEPTION_POINTERS* pExceptionInfo)
         mdei.ExceptionPointers = pExceptionInfo;
         mdei.ClientPointers = FALSE;
 
-        // MiniDumpWithDataSegs 包含全局变量数据，体积小且信息足够
-        MiniDumpWriteDump(GetCurrentProcess(), GetCurrentProcessId(), hFile,
-                          MiniDumpWithDataSegs, &mdei, NULL, NULL);
+        // 优先使用包含间接引用内存的转储，若失败则安全回退到基础转储，杜绝生成 0 字节 dmp
+        bDumpSuccess = MiniDumpWriteDump(GetCurrentProcess(), GetCurrentProcessId(), hFile,
+                          (MINIDUMP_TYPE)(MiniDumpWithIndirectlyReferencedMemory | MiniDumpScanMemory), &mdei, NULL, NULL);
+        if (!bDumpSuccess)
+        {
+            dwDumpErr = GetLastError();
+            SetFilePointer(hFile, 0, NULL, FILE_BEGIN);
+            SetEndOfFile(hFile);
+            bDumpSuccess = MiniDumpWriteDump(GetCurrentProcess(), GetCurrentProcessId(), hFile,
+                              MiniDumpNormal, &mdei, NULL, NULL);
+            if (!bDumpSuccess)
+                dwDumpErr = GetLastError();
+        }
         CloseHandle(hFile);
     }
 
     // 写一行到日志方便快速确认
     FILE* fpCrash = fopen("Xiah.log", "a");
     if (fpCrash) {
-        fprintf(fpCrash, "\n*** CRASH *** ExceptionCode=0x%08X Address=0x%p DumpFile=%s\n",
+        fprintf(fpCrash, "\n*** CRASH *** ExceptionCode=0x%08X Address=0x%p DumpFile=%s DumpSuccess=%d DumpErr=0x%08X\n",
                 pExceptionInfo->ExceptionRecord->ExceptionCode,
                 pExceptionInfo->ExceptionRecord->ExceptionAddress,
-                szDumpFile);
+                szDumpFile, (int)bDumpSuccess, dwDumpErr);
         fclose(fpCrash);
     }
 
