@@ -1878,39 +1878,38 @@ int OnCS_BT_MUGONGPREATTACK_ACK( CMsg &msg)
 	// [Client-side Buff Animation & Attack Lock Bypass Patch]
 	{
 		bool isBuffSkill = dwMugongID == OUTGONGID_UNKIHAENG || dwMugongID == OUTGONGID_MUSUHON || 
-						   dwMugongID == OUTGONGID_ILYUIDOGANG || dwMugongID == OUTGONGID_POKSAHON || 
+						   dwMugongID == OUTGONGID_POKSAHON || 
 						   dwMugongID == OUTGONGID_KUMKANGLUK || dwMugongID == OUTGONGID_BUSIN || 
 						   dwMugongID == OUTGONGID_JOSIKSUL || dwMugongID == OUTGONGID_JUNYUUM || 
-						   dwMugongID == OUTGONGID_YUESUSINYUNG || dwMugongID == OUTGONGID_KYOKANSU || 
+						   dwMugongID == OUTGONGID_KYOKANSU || 
 						   dwMugongID == OUTGONGID_W0NKISINKANG || dwMugongID == OUTGONGID_WHANSUYUO || 
-						   dwMugongID == OUTGONGID_KIYOESUL || dwMugongID == OUTGONGID_JILPUNGBO || 
+						   dwMugongID == OUTGONGID_KIYOESUL || 
 						   dwMugongID == OUTGONGID_AMHUKMU || dwMugongID == OUTGONGID_TALBAKIN || 
 						   dwMugongID == OUTGONGID_JUKUNKANGKI || dwMugongID == OUTGONGID_KUMNASU || 
 						   dwMugongID == OUTGONGID_BANTANKANGKI || dwMugongID == OUTGONGID_ODOKCHIM || 
-						   dwMugongID == OUTGONGID_CHOSANGBI || dwMugongID == OUTGONGID_DOKNAEGONG || 
+						   dwMugongID == OUTGONGID_DOKNAEGONG || 
 						   dwMugongID == OUTGONGID_DOKHYULGONG || dwMugongID == OUTGONGID_DOKMU || 
 						   dwMugongID == OUTGONGID_MANDOKBULJIN || dwMugongID == OUTGONGID_GYUISIKDAEBUB || 
 						   dwMugongID == OUTGONGID_GWANGMADOKGONG || 
-						   (dwMugongID >= 150 && dwMugongID <= 154);
+						   (dwMugongID >= 150 && dwMugongID <= 154) ||
+						   IsFastMoveMugong(dwMugongID);
 		if (isBuffSkill)
 		{
 			// DBG_LogFile(_T("[AngleDebug] OnCS_BT_MUGONGPREATTACK_ACK isBuffSkill: dwMugongID=%u, target=(%u,%u)\n"), dwMugongID, wTargetPosX, wTargetPosY);
 			pAttackerCharObject->SetAngleTarget( wTargetPosX, wTargetPosY);
 			
 			// Play the correct casting animation for the buff skill
-			if (dwMugongID == OUTGONGID_ILYUIDOGANG || dwMugongID == OUTGONGID_YUESUSINYUNG || 
-				dwMugongID == OUTGONGID_JILPUNGBO || dwMugongID == OUTGONGID_CHOSANGBI)
+			if (IsFastMoveMugong(dwMugongID))
 			{
 				sArrayData* pData = XiahArrayIndex::g_MugongTemplate.GetData(dwMugongID);
+				int ani_index = 4;
 				if (pData != NULL)
 				{
-					int ani_index = pData->GetInt(2);
-					g_MainCharInfo.m_nFastIndex = ani_index;
-					if (!pAttackerCharObject->m_KeepUpMugongList.IsExist(dwMugongID))
-					{
-						pAttackerCharObject->SetAnimation(XiahAniType::eLAT_Mugong, XiahAniType::eLAT_Stand, 12, -1, 1.0f);
-					}
+					int rawAni = pData->GetInt(2);
+					if (rawAni > 0) ani_index = rawAni;
 				}
+				g_MainCharInfo.m_nFastIndex = ani_index;
+				pAttackerCharObject->SetAnimation(XiahAniType::eLAT_Mugong, XiahAniType::eLAT_Stand, 12, -1, 1.0f);
 			}
 			else
 			{
@@ -2160,10 +2159,11 @@ int OnCS_BT_MUGONGATTACK_ACK( CMsg &msg)
 		return TRUE;
 	}	 
 
-	// [6/18/2004]
+	// [6/18/2004] Buff 类技能直接 return，避免干扰施法动作与产生受击/防御转向
 	if( dwMugongID == OUTGONGID_UNKIHAENG || 
 		dwMugongID == OUTGONGID_JOSIKSUL  || 
-		dwMugongID == OUTGONGID_KIYOESUL )
+		dwMugongID == OUTGONGID_KIYOESUL  ||
+		IsFastMoveMugong(dwMugongID) )
 		return TRUE;	//  
 
 	CXiahCharObject* pDefenderCharObject = (CXiahCharObject*) pDefender->m_pObject;	
@@ -2726,27 +2726,38 @@ int OnCS_BT_KEEPUPMUGONGSTART_ACK( CMsg &msg)
 		}	
 	}
 	
-	switch(dwMugongID)
+	if (IsFastMoveMugong(dwMugongID))
 	{
-	case OUTGONGID_ILYUIDOGANG:
-	case OUTGONGID_YUESUSINYUNG:
-	case OUTGONGID_JILPUNGBO:
-	case OUTGONGID_CHOSANGBI:
+		if (g_MainCharInfo.m_nFastIndex == 0)
 		{
-			// 
-			if(g_pMainChar->m_dwServerID == dwObjectID)
+			sArrayData* pData = XiahArrayIndex::g_MugongTemplate.GetData(dwMugongID);
+			int ani_index = 4;
+			if (pData != NULL)
 			{
-				g_MainCharInfo.m_bFastMove = true;
+				int rawAni = pData->GetInt(2);
+				if (rawAni > 0) ani_index = rawAni;
+			}
+			g_MainCharInfo.m_nFastIndex = ani_index;
+		}
+
+		if(g_pMainChar->m_dwServerID == dwObjectID)
+		{
+			g_MainCharInfo.m_bFastMove = true;
+			// 如果主角此时已经在移动/跑动中，立即切换为轻功奔跑动作！
+			if(pCharObject->m_nCurMotionType == XiahAniType::eLAT_Run || pCharObject->m_bTargetMove)
+			{
+				pCharObject->SetAnimation(XiahAniType::eLAT_Mugong, g_MainCharInfo.m_nFastIndex, 0.7f);
 			}
 			else
 			{
-				// 2004_06_22 Changth   执碳 甙蔷.
-				//  某桶   执细碳 .
-				// 饧?12  12掳 赘   执细碳檀. AniType = 315
-				pCharObject->SetAnimation( XiahAniType::eLAT_Mugong, XiahAniType::eLAT_Stand, 12, -1, 1.0f);
+				// 如果是静止状态，播放轻功施展姿态 (12) 并过渡到 Stand
+				pCharObject->SetAnimation(XiahAniType::eLAT_Mugong, XiahAniType::eLAT_Stand, 12, -1, 1.0f);
 			}
 		}
-		break;
+		else
+		{
+			pCharObject->SetAnimation( XiahAniType::eLAT_Mugong, XiahAniType::eLAT_Stand, 12, -1, 1.0f);
+		}
 	}
 
 	return TRUE;
@@ -3027,9 +3038,11 @@ int OnCS_BT_KEEPUPMUGONGEND_ACK( CMsg &msg)
 	case OUTGONGID_ILYUIDOGANG:
 	case OUTGONGID_YUESUSINYUNG:
 	case OUTGONGID_JILPUNGBO:
+	case OUTGONGID_CHOSANGBI:
 		if( pCharObject->m_pGyungGongEffectPP )
 		{
-			g_EffectManager.DeqEffectPackagePair( pCharObject->m_pGyungGongEffectPP );
+			if( pCharObject->m_pGyungGongEffectPP != (_EFFECTPACKAGEPAIR*)1 )
+				g_EffectManager.DeqEffectPackagePair( pCharObject->m_pGyungGongEffectPP );
 			pCharObject->m_pGyungGongEffectPP = NULL;
 		}
 		break;
@@ -3192,18 +3205,27 @@ int OnCS_BT_KEEPUPMUGONGEND_ACK( CMsg &msg)
 		}
 	}
 
-	// 
+	// 移动类武功结束
 	if(g_pMainChar->m_dwServerID == dwObjectID)
 	{
-		switch(dwMugongID)
+		if( IsFastMoveMugong(dwMugongID) )
 		{
-		case OUTGONGID_ILYUIDOGANG:
-		case OUTGONGID_YUESUSINYUNG:
-		case OUTGONGID_JILPUNGBO:
-		case OUTGONGID_CHOSANGBI:
 			g_MainCharInfo.m_bFastMove = false;
-			break;
+			// 如果轻功结束时玩家正在移动，切回普通跑步动作
+			if(pCharObject->m_nCurMotionType == XiahAniType::eLAT_Mugong)
+			{
+				pCharObject->SetAnimation( XiahAniType::eLAT_Run, 1);
+				float fMoveSpeed = (float)(g_MainCharInfo.m_bWalkSpeed + g_MainCharInfo.m_bPlusSpeed) / 9.0f;
+				pCharObject->m_CharRender.SetAnimationSpeed( fMoveSpeed);
+			}
 		}
+	}
+
+	if( IsFastMoveMugong(dwMugongID) && pCharObject->m_pGyungGongEffectPP )
+	{
+		if( pCharObject->m_pGyungGongEffectPP != (_EFFECTPACKAGEPAIR*)1 )
+			g_EffectManager.DeqEffectPackagePair( pCharObject->m_pGyungGongEffectPP );
+		pCharObject->m_pGyungGongEffectPP = NULL;
 	}
 
 	if(dwMugongID == YA_EUNSINSUL)

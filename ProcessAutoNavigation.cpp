@@ -2,7 +2,9 @@
 
 #define STOP_MAINCHAR	\
 							MAIN_CHAROBJECT->SetAnimation( XiahAniType::eLAT_Stand, 0);\
-							SendCS_NV_ENDMOVE_REQ( g_pMainChar->m_dwServerID, MAIN_CHAROBJECT->m_Position.x, -MAIN_CHAROBJECT->m_Position.z, MAIN_CHAROBJECT->m_Position.y, CHARSTATE_NORMAL);
+							SendCS_NV_ENDMOVE_REQ( g_pMainChar->m_dwServerID, MAIN_CHAROBJECT->m_Position.x, -MAIN_CHAROBJECT->m_Position.z, MAIN_CHAROBJECT->m_Position.y, CHARSTATE_NORMAL);\
+							bMove = FALSE;\
+							MAIN_CHAROBJECT->m_bTargetMove = FALSE;
 
 // 执行向目标（或其拐角航路点）移动
 static inline bool DoMoveMainChar(CXiahCharObject* pSelCharObject, bool bKeepMove)
@@ -33,19 +35,39 @@ static inline bool DoMoveMainChar(CXiahCharObject* pSelCharObject, bool bKeepMov
 		SendCS_NV_ENDMOVE_REQ( g_pMainChar->m_dwServerID, MAIN_CHAROBJECT->m_Position.x, -MAIN_CHAROBJECT->m_Position.z, MAIN_CHAROBJECT->m_Position.y, CHARSTATE_NORMAL);
 	}
 
-	WORD angle;
+	WORD angle = 0;
 	bMove = TRUE;
 	MoveTime = g_dwCurTime;
-	MAIN_CHAROBJECT->SetAnimation( XiahAniType::eLAT_Run, 1);
+
+	// 关键修复：设置目标朝向与更新物理导航，获取真实服务器朝向角，彻底杜绝栈野值和反向乱跑！
 	MAIN_CHAROBJECT->SetAngleTarget( vMoveTarget );
 	MAIN_CHAROBJECT->GetAngle( angle );
-	MAIN_CHAROBJECT->SetTargetMove( (WORD)wpX, (WORD)wpY, eLBP_CharNavigation, 0);
-	float fMoveSpeed = (float)(g_MainCharInfo.m_bWalkSpeed + g_MainCharInfo.m_bPlusSpeed) / 9.0f;
-	MAIN_CHAROBJECT->m_CharRender.SetAnimationSpeed( fMoveSpeed );
+	MAIN_CHAROBJECT->Update( 1 );
+	MAIN_CHAROBJECT->SetTargetMove( (WORD)wpX, (WORD)wpY, eLBP_CharNavigation, 0 );
+
+	if (g_MainCharInfo.m_bFastMove)
+	{
+		int fastIdx = (g_MainCharInfo.m_nFastIndex > 0) ? g_MainCharInfo.m_nFastIndex : 4;
+		if (MAIN_CHAROBJECT->m_nCurMotionType != XiahAniType::eLAT_Mugong || MAIN_CHAROBJECT->m_nCurAniIndex != fastIdx)
+		{
+			MAIN_CHAROBJECT->SetAnimation( XiahAniType::eLAT_Mugong, fastIdx, 0.7f);
+		}
+	}
+	else
+	{
+		if (MAIN_CHAROBJECT->m_nCurMotionType != XiahAniType::eLAT_Run)
+		{
+			MAIN_CHAROBJECT->SetAnimation( XiahAniType::eLAT_Run, 1);
+		}
+		float fMoveSpeed = (float)(g_MainCharInfo.m_bWalkSpeed + g_MainCharInfo.m_bPlusSpeed) / 9.0f;
+		MAIN_CHAROBJECT->m_CharRender.SetAnimationSpeed( fMoveSpeed );
+	}
 	SendCS_NV_STARTMOVE_REQ( g_pMainChar->m_dwServerID, MAIN_CHAROBJECT->m_Position.x, -MAIN_CHAROBJECT->m_Position.z, MAIN_CHAROBJECT->m_Position.y, \
 		(WORD)wpX, (WORD)wpY, (BYTE)vMoveTarget.y, (WORD)angle, CHARSTATE_NORMAL, 0 );
-	g_PickCursor.Create( XiahPak::GetTexture( 50000396), pSelCharObject->m_Position.x, pSelCharObject->m_Position.z, 6, COLOR_PICKCURSOR);
-	g_PickCursor.SetRotate( _PI / 90.0f);
+
+	Vector3 vMainCharSize = MAIN_CHAROBJECT->m_LocalBound.Size();
+	g_PickCursor.Create( XiahPak::GetTexture( 50000396), pSelCharObject->m_Position.x, pSelCharObject->m_Position.z, 6, COLOR_PICKCURSOR, TRUE, 0, TRUE, pSelCharObject->m_Position.y, vMainCharSize.y, MAIN_CHAROBJECT->m_Position.y );
+	g_PickCursor.SetRotate( 0.03490658f );
 
 	return true;
 }
@@ -154,8 +176,8 @@ BOOL ProcessAutoNavigation(int mode)
 			}
 		}
 
-		// 追踪同一只怪超过 8 秒未命中：拉黑放弃
-		if (dwNow - s_dwTrackingStartTime > 8000) {
+		// 追踪同一只怪超过 8 秒未命中：拉黑放弃（仅限怪物，绝不拉黑功能NPC）
+		if (dwSelObjectType == OBJTYPE_NPC && dwNow - s_dwTrackingStartTime > 8000) {
 			AddStuckMonster(dwSelObjectID, 25000);
 			dwSelObjectID = 0;
 			dwSelObjectType = 0;
@@ -192,23 +214,42 @@ BOOL ProcessAutoNavigation(int mode)
 				s_dwDetourUntil = dwNow + (stepMode == 0 ? 950 : 1200);
 
 				Vector3 vSideTarget((float)sideX, pSelCharObject->m_Position.y, -(float)sideY);
-				WORD angle;
+				WORD angle = 0;
 				bMove = TRUE;
 				MoveTime = g_dwCurTime;
-				MAIN_CHAROBJECT->SetAnimation(XiahAniType::eLAT_Run, 1);
-				MAIN_CHAROBJECT->SetAngleTarget(vSideTarget);
-				MAIN_CHAROBJECT->GetAngle(angle);
-				MAIN_CHAROBJECT->SetTargetMove((WORD)sideX, (WORD)sideY, eLBP_CharNavigation, 0);
-				float fMoveSpeed = (float)(g_MainCharInfo.m_bWalkSpeed + g_MainCharInfo.m_bPlusSpeed) / 9.0f;
-				MAIN_CHAROBJECT->m_CharRender.SetAnimationSpeed(fMoveSpeed);
+
+				MAIN_CHAROBJECT->SetAngleTarget( vSideTarget );
+				MAIN_CHAROBJECT->GetAngle( angle );
+				MAIN_CHAROBJECT->Update( 1 );
+				MAIN_CHAROBJECT->SetTargetMove( (WORD)sideX, (WORD)sideY, eLBP_CharNavigation, 0 );
+
+				if (g_MainCharInfo.m_bFastMove)
+				{
+					int fastIdx = (g_MainCharInfo.m_nFastIndex > 0) ? g_MainCharInfo.m_nFastIndex : 4;
+					if (MAIN_CHAROBJECT->m_nCurMotionType != XiahAniType::eLAT_Mugong || MAIN_CHAROBJECT->m_nCurAniIndex != fastIdx)
+					{
+						MAIN_CHAROBJECT->SetAnimation(XiahAniType::eLAT_Mugong, fastIdx, 0.7f);
+					}
+				}
+				else
+				{
+					if (MAIN_CHAROBJECT->m_nCurMotionType != XiahAniType::eLAT_Run)
+					{
+						MAIN_CHAROBJECT->SetAnimation(XiahAniType::eLAT_Run, 1);
+					}
+					float fMoveSpeed = (float)(g_MainCharInfo.m_bWalkSpeed + g_MainCharInfo.m_bPlusSpeed) / 9.0f;
+					MAIN_CHAROBJECT->m_CharRender.SetAnimationSpeed(fMoveSpeed);
+				}
 				SendCS_NV_STARTMOVE_REQ(g_pMainChar->m_dwServerID,
 					MAIN_CHAROBJECT->m_Position.x, -MAIN_CHAROBJECT->m_Position.z, MAIN_CHAROBJECT->m_Position.y,
 					(WORD)sideX, (WORD)sideY, (BYTE)vSideTarget.y, (WORD)angle, CHARSTATE_NORMAL, 0);
 				return TRUE;
 			}
 		} else {
-			// 连续多次尝试脱困依然无法动弹，判定为大树死角，拉黑该怪 30 秒换怪！
-			AddStuckMonster(dwSelObjectID, 30000);
+			// 连续多次尝试脱困依然无法动弹，判定为大树死角，仅对怪物拉黑换怪！
+			if (dwSelObjectType == OBJTYPE_NPC) {
+				AddStuckMonster(dwSelObjectID, 30000);
+			}
 			dwSelObjectID = 0;
 			dwSelObjectType = 0;
 			bAutoNavigation = FALSE;
@@ -253,8 +294,8 @@ BOOL ProcessAutoNavigation(int mode)
 	// 거리 체크
 	float fRange = pSelCharObject->GetInteractionDistance( MAIN_CHAROBJECT->m_Position);
 
-	// 움직일때는 약간 더 안쪽으로 들어갈 수 있게 해준다, 그래야 떨리는걸 막을 수 있겠다.
-	if( bMove)
+	// 追怪移动时预留3码防抖；但功能NPC为固定目标，不需要加3码，使角色能正常走到9码交互范围内
+	if( bMove && dwSelObjectType != OBJTYPE_FUNCTIONALNPC)
 		fRange += 3;
 
 	// 인터렉션 거리가 범위안에 들어오면 동작을 시작한다.

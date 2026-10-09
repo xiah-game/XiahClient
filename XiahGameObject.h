@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <vector>
 #include "XiahObject.h"
@@ -153,6 +153,10 @@ public:
 #define FIVEELEMENT_TREE			152
 #define FIVEELEMENT_METAL			153
 #define FIVEELEMENT_EARTH			154
+
+// 判断是否为移动类武功（轻功/经功，bType=4 and bKind=6）
+bool IsFastMoveMugong(DWORD dwMugongID);
+
 
 // 각성 
 #define SUNSINGONG					161

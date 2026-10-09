@@ -1216,13 +1216,6 @@ int OnCS_NC_STARTMOVE_ACK(CMsg &msg)
 			}
 
 			Vector3 vTarget( (float)wDesPosX, pObject->m_Position.y, -(float)wDesPosY );
-			float fDistToDes = pObject->GetDistance( vTarget );
-			if( fDistToDes <= 1.0f )
-			{
-				pObject->m_bTargetMove = FALSE;
-				pObject->SetAnimation( XiahAniType::eLAT_Stand, -1 );
-				return TRUE;
-			}
 			pObject->SetAngleTarget( vTarget );
 		}
 		else
@@ -1287,6 +1280,11 @@ int OnCS_NC_STARTMOVE_ACK(CMsg &msg)
 				fMoveSpeed *= 3.0f;
 
 			pObject->m_CharRender.SetAnimationSpeed( fMoveSpeed );
+		}
+		else
+		{
+			// 普通怪物/NPC：保持 1.0f 标准奔跑速率，彻底消灭 bSpeed/9 导致的慢动作追击与滞后闪跳
+			pObject->m_CharRender.SetAnimationSpeed( 1.0f );
 		}
 
 		pObject->m_LastNavigationTime = g_dwCurTime;
@@ -1493,28 +1491,61 @@ int OnCS_NC_ENDMOVE_ACK(CMsg &msg)
 
 	if( bObjectType == OBJTYPE_PET)
 	{
-		if( pObject->GetDistance( wPosX, wPosY) > ADJUST_SYNCMOVE_THRESOLD)
+		float fDistToEnd = pObject->GetDistance( wPosX, wPosY );
+		if( fDistToEnd <= 0.8f )
 		{
-			pObject->SetPosition( wPosX, wPosY);
+			pObject->SetPosition( wPosX, wPosY );
+			pObject->m_bTargetMove = FALSE;
+			pObject->m_CharRender.SetAnimationSpeed( 1.0f );
+			pObject->SetAnimation( XiahAniType::eLAT_Stand, 0 );
 		}
-
-		pObject->SetAnimation( XiahAniType::eLAT_Stand, 0);
-	}
-	else
-	{
-		if( pObject->GetDistance( wPosX, wPosY) > ADJUST_SYNCMOVE_THRESOLD * 4)
+		else if( fDistToEnd <= 8.0f )
 		{
-			pObject->SetPosition( wPosX, wPosY);
-			pObject->SetAnimation( XiahAniType::eLAT_Stand, 0);
-		}
-		else if (pObject->GetDistance( wPosX, wPosY) > ADJUST_SYNCMOVE_THRESOLD * 2)
-		{
-			pObject->SetAnimation( XiahAniType::eLAT_Walk, 0);
-			pObject->SetTargetMove( wPosX, wPosY, eLBP_CharNavigation, 0);
+			pObject->SetAnimation( XiahAniType::eLAT_Run, 0 );
+			pObject->SetTargetMove( wPosX, wPosY, eLBP_CharNavigation, 0 );
+			float fSnapSpeed = fDistToEnd / 0.15f / 9.0f;
+			if( fSnapSpeed < 2.0f ) fSnapSpeed = 2.0f;
+			if( fSnapSpeed > 4.5f ) fSnapSpeed = 4.5f;
+			pObject->m_CharRender.SetAnimationSpeed( fSnapSpeed );
 		}
 		else
 		{
-			pObject->SetAnimation( XiahAniType::eLAT_Stand, 0);
+			pObject->SetPosition( wPosX, wPosY );
+			pObject->m_bTargetMove = FALSE;
+			pObject->m_CharRender.SetAnimationSpeed( 1.0f );
+			pObject->SetAnimation( XiahAniType::eLAT_Stand, 0 );
+		}
+	}
+	else
+	{
+		// 怪物与NPC停步：双阶平滑吸附停步
+		float fDistToEnd = pObject->GetDistance( wPosX, wPosY );
+		if( fDistToEnd <= 1.5f )
+		{
+			// 1.5 格以内近身射程误差：无感直接吸附对齐立定，动画恢复 1.0f，彻底消除未对齐与隔空出刀
+			pObject->SetPosition( wPosX, wPosY );
+			pObject->m_bTargetMove = FALSE;
+			pObject->m_CharRender.SetAnimationSpeed( 1.0f );
+			pObject->SetAnimation( XiahAniType::eLAT_Stand, -1 );
+		}
+		else if( fDistToEnd <= 8.0f )
+		{
+			// 1.5 ~ 8.0 格中等滞后：在 150ms 内极速急刹滑步到位
+			if (!pObject->SetAnimation( XiahAniType::eLAT_Run, 0 ))
+				pObject->SetAnimation( XiahAniType::eLAT_Walk, 0 );
+			pObject->SetTargetMove( wPosX, wPosY, eLBP_CharNavigation, 0 );
+			float fSnapSpeed = fDistToEnd / 0.15f / 9.0f;
+			if( fSnapSpeed < 1.5f ) fSnapSpeed = 1.5f;
+			if( fSnapSpeed > 3.5f ) fSnapSpeed = 3.5f;
+			pObject->m_CharRender.SetAnimationSpeed( fSnapSpeed );
+		}
+		else
+		{
+			// 超大距离异常：安全瞬间校准并站定，动画速度恢复 1.0f
+			pObject->SetPosition( wPosX, wPosY );
+			pObject->m_bTargetMove = FALSE;
+			pObject->m_CharRender.SetAnimationSpeed( 1.0f );
+			pObject->SetAnimation( XiahAniType::eLAT_Stand, -1 );
 		}
 	}
 

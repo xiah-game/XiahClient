@@ -408,17 +408,17 @@ int OnCS_NV_SYNCMOVE_ACK( CMsg &msg)
 		pObject->SetAngle( wDirection);
 		pObject->Update();
 
-		// 3. Ensure Run animation is playing (avoid resetting if already running)
-		if( pObject->m_nCurMotionType != XiahAniType::eLAT_Run)
+		// 3. Ensure Run / Lightfoot animation is playing (avoid resetting if already running)
+		if( pObject->m_nCurMotionType != XiahAniType::eLAT_Run && pObject->m_nCurMotionType != XiahAniType::eLAT_Mugong)
 		{
 			pObject->SetAnimation( XiahAniType::eLAT_Run, 1);
 		}
 
-		// 4. Speed correction: behind = speed up, close = normal speed
-		if( fError > 3.0f)
+		// 4. 平滑自适应追赶：微小偏差实时微调，奔跑中动态消除滞后
+		if( fError > 0.6f )
 		{
-			float fCorrectionFactor = 1.0f + (fError - 3.0f) * 0.03f;
-			if( fCorrectionFactor > 1.6f) fCorrectionFactor = 1.6f;
+			float fCorrectionFactor = 1.0f + (fError - 0.6f) * 0.08f;
+			if( fCorrectionFactor > 1.35f) fCorrectionFactor = 1.35f;
 			pObject->m_CharRender.SetAnimationSpeed( fBaseSpeed * fCorrectionFactor);
 		}
 		else
@@ -486,11 +486,34 @@ int OnCS_NV_ENDMOVE_ACK( CMsg &msg)
 	CXiahCharObject *pObject = reinterpret_cast<CXiahCharObject*>(pXiahObject->m_pObject);
 	if(pObject == NULL) return TRUE;
 
-	// === 移动同步终结：立即急刹站立并对齐真实坐标，彻底消除 1.5~2 秒的补跑延迟 ===
-	pObject->m_bTargetMove = FALSE;
-	pObject->SetPosition( wPosX, wPosY );
-	pObject->Update();
-	pObject->SetAnimation( XiahAniType::eLAT_Stand, 0 );
+	// === 移动同步终结：平滑急刹归位与立即站立 ===
+	float fDist = pObject->GetDistance( wPosX, wPosY );
+	if( fDist <= 0.8f )
+	{
+		// 偏差在半步以内：肉眼无感，直接落位站立，零闪跳零延迟
+		pObject->m_bTargetMove = FALSE;
+		pObject->SetPosition( wPosX, wPosY );
+		pObject->Update();
+		pObject->SetAnimation( XiahAniType::eLAT_Stand, 0 );
+	}
+	else if( fDist <= 12.0f )
+	{
+		// 正常网络延迟偏差（1~3格）：在 0.15 秒（150ms）内以急刹速度平滑滑步归位，彻底消除瞬间闪跳
+		pObject->SetTargetMove( wPosX, wPosY, eLBP_CharNavigation, 0 );
+		// 计算 0.15 秒走完剩余距离的急刹速度（限制在 2.0f ~ 5.0f 之间，眨眼间平滑刹停）
+		float fSnapSpeed = (fDist / 0.15f) / 9.0f;
+		if( fSnapSpeed < 2.0f ) fSnapSpeed = 2.0f;
+		if( fSnapSpeed > 5.0f ) fSnapSpeed = 5.0f;
+		pObject->m_CharRender.SetAnimationSpeed( fSnapSpeed );
+	}
+	else
+	{
+		// 严重脱节（> 12格）：瞬间强制拉回
+		pObject->m_bTargetMove = FALSE;
+		pObject->SetPosition( wPosX, wPosY );
+		pObject->Update();
+		pObject->SetAnimation( XiahAniType::eLAT_Stand, 0 );
+	}
 
 	return TRUE;
 }

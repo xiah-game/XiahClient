@@ -10,10 +10,32 @@
 #include "InterfaceDefine.h"
 #include "XiahEnvInfo.h"
 #include "functionalnpcinfo.h"
+#include "XiahArrayIndex.h"
 
 #include <assert.h>
 
 #define GRAVITY_PER_FRAME	 1.0f
+
+// 判断是否为移动类武功（轻功/经功，bType=4 and bKind=6）
+bool IsFastMoveMugong(DWORD dwMugongID)
+{
+	if (dwMugongID == OUTGONGID_ILYUIDOGANG || 
+		dwMugongID == OUTGONGID_YUESUSINYUNG || 
+		dwMugongID == OUTGONGID_JILPUNGBO || 
+		dwMugongID == OUTGONGID_CHOSANGBI)
+	{
+		return true;
+	}
+
+	sArrayData* pData = XiahArrayIndex::g_MugongTemplate.GetData(dwMugongID);
+	if (pData != NULL)
+	{
+		// pc_mugong_template.idx: GetInt(3) == bType, GetInt(4) == bKind
+		if (pData->GetInt(3) == 4 && pData->GetInt(4) == 6)
+			return true;
+	}
+	return false;
+}
 
 // [ModernControl] 施法朝向绝对安全锁全局标记，用于保护施法期间鼠标地表朝向不被破坏
 extern BOOL g_bAllowMugongTurn;
@@ -96,8 +118,9 @@ BOOL CXiah3DObject::SetAngle(WORD angle)
 	if (m_bObjType == OBJTYPE_PC && g_pMainChar != NULL && this == g_pMainChar->m_pObject)
 	{
 		CXiahCharObject* pChar = (CXiahCharObject*)this;
+		bool isFastMoving = (g_MainCharInfo.m_bFastMove || (pChar->m_nCurMotionType == XiahAniType::eLAT_Mugong && pChar->m_nCurAniIndex == 4));
 		if ((pChar->m_nCurMotionType == XiahAniType::eLAT_Mugong || pChar->m_nCurMotionType == XiahAniType::eLAT_MugongException) 
-			&& !g_bAllowMugongTurn)
+			&& !g_bAllowMugongTurn && !isFastMoving)
 		{
 			// DBG_LogFile(_T("[AngleDebug] INTERCEPTED invalid SetAngle during casting: angle=%u\n"), angle);
 			return TRUE; // 直接安全拦截，拒绝扭头，锁定正确的鼠标地表朝向！
@@ -313,7 +336,10 @@ BOOL CXiah3DObject::SetAngleTarget(Vector3 position)
 	float angle = atan2( vEnd.x, -vEnd.z);
 	short server_angle = GetServerAngle( angle);
 
-	return SetAngle( server_angle);
+	g_bAllowMugongTurn = TRUE;
+	BOOL bRet = SetAngle( server_angle);
+	g_bAllowMugongTurn = FALSE;
+	return bRet;
 }
 
 WORD CXiah3DObject::GetTargetAngle(Vector3 pos)
@@ -1096,27 +1122,10 @@ void CXiahCharObject::PersistEffect(_EFFECTPACKAGEPAIR** ppEffect, DWORD dwMugon
 	{
 		if(!*ppEffect)
 		{
-			if( g_pMainChar && this == (CXiahCharObject*)g_pMainChar->m_pObject )
-			{
-				char buf[256];
-				sprintf(buf, "[Buff Debug] Buff %d exists! Spawning persist effect type %d...", dwMugongID, nType);
-				g_MainCharInfo.ShowHelpMessage(buf, TEXTEFFECT_COLOR_GAIN);
-			}
-
 			g_EffectManager.MakeSharedPackagePair( 0, 0, 0 );
 
 			_EFFECTPACKAGE* pEffectPackage = g_EffectManager.EnqOutGongPersistEffectImmediately( nType );
 
-			if( g_pMainChar && this == (CXiahCharObject*)g_pMainChar->m_pObject )
-			{
-				char buf2[256];
-				if( pEffectPackage ) {
-					sprintf(buf2, "[Buff Debug] Effect package created! Pointer: %p", pEffectPackage);
-				} else {
-					sprintf(buf2, "[Buff Debug] FAILED to create effect package! (pEffectPackage IS NULL)");
-				}
-				g_MainCharInfo.ShowHelpMessage(buf2, pEffectPackage ? TEXTEFFECT_COLOR_GAIN : TEXTEFFECT_COLOR_WARNING);
-			}
 			// matrix
 			if( pEffectPackage )
 			{
@@ -1693,27 +1702,38 @@ BOOL CXiahCharObject::Update(BOOL bVisible)
 			//PersistEffect(&m_pGwangmasingongEffectPP, REBRITH_GWANGMASINGONG, eKuymgangruk, fLocalFrameScale);
 			
 			
-			// ?挫牅 瓴疥车?措嫟.
-						bool hasGyungGong = ( m_KeepUpMugongList.IsExist(OUTGONGID_ILYUIDOGANG ) ||
-								  m_KeepUpMugongList.IsExist(OUTGONGID_YUESUSINYUNG) ||
-								  m_KeepUpMugongList.IsExist(OUTGONGID_JILPUNGBO)    ||
-								  m_KeepUpMugongList.IsExist(OUTGONGID_CHOSANGBI) );
+			// 轻功脚下持续特效：遍历 KeepUpMugongList 检测是否有轻功
+			bool hasGyungGong = false;
+			int nFastEffectType = eIlyuidogang;
+			for (CKeepupMugongList::iterator it = m_KeepUpMugongList.begin(); it != m_KeepUpMugongList.end(); ++it)
+			{
+				if (IsFastMoveMugong(it->first))
+				{
+					hasGyungGong = true;
+					DWORD mID = it->first;
+					if (mID == OUTGONGID_ILYUIDOGANG) nFastEffectType = eIlyuidogang;
+					else if (mID == OUTGONGID_YUESUSINYUNG) nFastEffectType = eYuesusinyung;
+					else if (mID == OUTGONGID_JILPUNGBO) nFastEffectType = eJilpungbo;
+					else if (mID == OUTGONGID_CHOSANGBI) nFastEffectType = eChosangbi;
+					else
+					{
+						// 根据角色职业兜底
+						if (m_bSubObjType == 1) nFastEffectType = eIlyuidogang;
+						else if (m_bSubObjType == 2) nFastEffectType = eYuesusinyung;
+						else if (m_bSubObjType == 3) nFastEffectType = eJilpungbo;
+						else if (m_bSubObjType == 4) nFastEffectType = eChosangbi;
+					}
+					break;
+				}
+			}
 			if( hasGyungGong )
 			{
 				if( !m_pGyungGongEffectPP )
 				{
-					int nEffectType = eIlyuidogang;
-
-					if( m_KeepUpMugongList.IsExist(OUTGONGID_ILYUIDOGANG) )
-						nEffectType = eIlyuidogang;
-					else if( m_KeepUpMugongList.IsExist(OUTGONGID_YUESUSINYUNG) )
-						nEffectType = eYuesusinyung;
-					else if( m_KeepUpMugongList.IsExist(OUTGONGID_JILPUNGBO) )
-						nEffectType = eJilpungbo;
-					else if( m_KeepUpMugongList.IsExist(OUTGONGID_CHOSANGBI) )
-						nEffectType = eChosangbi;
+					int nEffectType = nFastEffectType;
 
 					g_EffectManager.MakeSharedPackagePair( 0, 0, 0 );
+
 
 					_EFFECTPACKAGE* pEffectPackage = g_EffectManager.EnqOutGongPersistEffectImmediately( nEffectType );
 					if( pEffectPackage )

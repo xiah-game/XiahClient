@@ -154,8 +154,7 @@ static bool IsNpcDialogOpen()
 	       g_pUIManager->IsShow(WINDOW_HELPER_LIST1) ||
 	       g_pUIManager->IsShow(WINDOW_HELPER_LIST2) ||
 	       g_pUIManager->IsShow(WINDOW_PORTAL) ||
-	       g_pUIManager->IsShow(WINDOW_SECRET_CHECK) ||
-	       (g_MainCharInfo.m_dwPickedObject != 0);
+	       g_pUIManager->IsShow(WINDOW_SECRET_CHECK);
 }
 
 /*************************************************************************************************************
@@ -459,13 +458,19 @@ BOOL ProcessMainChar()
 				g_PickCursor.SetRotate(0.03490658f);
 
 				WORD angle;
-				if(pMainChar->m_nCurMotionType != XiahAniType::eLAT_Run)
+				if(g_MainCharInfo.m_bFastMove)
 				{
-					if(g_MainCharInfo.m_bFastMove)
+					int fastIdx = (g_MainCharInfo.m_nFastIndex > 0) ? g_MainCharInfo.m_nFastIndex : 4;
+					// 仅在当前动作不是轻功移动动作时切换，绝不每帧重复重置动画
+					if(pMainChar->m_nCurMotionType != XiahAniType::eLAT_Mugong || pMainChar->m_nCurAniIndex != fastIdx)
 					{
-						pMainChar->SetAnimation( XiahAniType::eLAT_Mugong, g_MainCharInfo.m_nFastIndex, 0.7f);
+						pMainChar->SetAnimation( XiahAniType::eLAT_Mugong, fastIdx, 0.7f);
 					}
-					else
+				}
+				else
+				{
+					// 仅在当前动作不是普通跑步动作时切换
+					if(pMainChar->m_nCurMotionType != XiahAniType::eLAT_Run)
 					{
 						// 如果在鬼息大法的倒地中移动，自动起立
 						if( pMainChar->m_bSubObjType == 4 && pMainChar->m_KeepUpMugongList.IsExist(OUTGONGID_GYUISIKDAEBUB) )
@@ -492,28 +497,24 @@ BOOL ProcessMainChar()
 							pMainChar->m_CharRender.SetAnimationSpeed( fMoveSpeed);
 						}
 					}
+				}
 
-					pMainChar->SetAngleTarget( vTarget);
-					pMainChar->GetAngle( angle);
-					pMainChar->Update(1);
-					pMainChar->SetTargetMove( vTarget.x, -vTarget.z, eLBP_CharNavigation, 0);
+				pMainChar->SetAngleTarget( vTarget);
+				pMainChar->GetAngle( angle);
+				pMainChar->Update(1);
+				pMainChar->SetTargetMove( vTarget.x, -vTarget.z, eLBP_CharNavigation, 0);
+
+				if(!bMove)
+				{
 					SendCS_NV_STARTMOVE_REQ( g_pMainChar->m_dwServerID, pMainChar->m_Position.x, -pMainChar->m_Position.z, pMainChar->m_Position.y,
 											vTarget.x, -vTarget.z, vTarget.y, (WORD)angle, CHARSTATE_NORMAL, 9);
 					MoveTime = g_dwCurTime;
 				}
-				else if(pMainChar->m_nCurMotionType == XiahAniType::eLAT_Run)
+				else
 				{
-					if(g_MainCharInfo.m_bFastMove)
-					{
-						pMainChar->SetAnimation( XiahAniType::eLAT_Mugong, g_MainCharInfo.m_nFastIndex, 0.7f);
-					}
-
-					pMainChar->SetAngleTarget( vTarget);
-					pMainChar->GetAngle( angle);
-					pMainChar->Update(1);
-					pMainChar->SetTargetMove( vTarget.x, -vTarget.z, eLBP_CharNavigation, 0);
 					ChangingMoving(pMainChar, vTarget);
 				}
+
 			}
 		}
 	}
@@ -526,8 +527,9 @@ BOOL ProcessMainChar()
 	if( (g_PickCursor.IsValid() && pMainChar->m_bTargetMove) | g_AutoTarget)
 		XiahMap::g_XiahMap.m_pMapRender->AddVisibalMapDecal( &g_PickCursor);
 
-	// 움직이는 도중이라면 서버에 SyncMove를 보내줌
-	if( g_dwCurTime - MoveTime > 1400 && bMove && pMainChar->m_nCurMotionType != XiahAniType::eLAT_Mugong)
+	// 奔跑中移动心跳同步：将原版 1400ms 优化为 250ms，大幅减少网络滞后误差，消除停步位置差（支持轻功移动）
+	bool isCurrentlyMoving = (pMainChar->m_nCurMotionType == XiahAniType::eLAT_Run || (pMainChar->m_nCurMotionType == XiahAniType::eLAT_Mugong && g_MainCharInfo.m_bFastMove));
+	if( g_dwCurTime - MoveTime > 250 && bMove && isCurrentlyMoving)
 	{
 		ProcessCharIsMoving( pMainChar);
 	}
@@ -623,13 +625,20 @@ BOOL ProcessMainChar()
 					// 完整带入坐骑、疾跑、装备跑鞋的所有速度加成！
 					if (g_MainCharInfo.m_bFastMove)
 					{
-						pMainChar->SetAnimation(XiahAniType::eLAT_Mugong, g_MainCharInfo.m_nFastIndex, 0.7f);
+						int fastIdx = (g_MainCharInfo.m_nFastIndex > 0) ? g_MainCharInfo.m_nFastIndex : 4;
+						if (pMainChar->m_nCurMotionType != XiahAniType::eLAT_Mugong || pMainChar->m_nCurAniIndex != fastIdx)
+						{
+							pMainChar->SetAnimation(XiahAniType::eLAT_Mugong, fastIdx, 0.7f);
+						}
 					}
 					else
 					{
-						pMainChar->SetAnimation(XiahAniType::eLAT_Run, 1);
-						float fMoveSpeed = (float)(g_MainCharInfo.m_bWalkSpeed + g_MainCharInfo.m_bPlusSpeed) / 9.0f;
-						pMainChar->m_CharRender.SetAnimationSpeed(fMoveSpeed);
+						if (pMainChar->m_nCurMotionType != XiahAniType::eLAT_Run)
+						{
+							pMainChar->SetAnimation(XiahAniType::eLAT_Run, 1);
+							float fMoveSpeed = (float)(g_MainCharInfo.m_bWalkSpeed + g_MainCharInfo.m_bPlusSpeed) / 9.0f;
+							pMainChar->m_CharRender.SetAnimationSpeed(fMoveSpeed);
+						}
 					}
 
 					bMove = TRUE;
@@ -1020,6 +1029,10 @@ BOOL SubProcessCommandAI(DWORD dwSelObjectID,DWORD dwSelObjectType)
 void ProcessLButtonDown( CXiahCharObject *pMainChar, CXiahCharObject* pMouseOnCharObject)
 /////////////////////////////////////////////////////////////////////////////////////////
 {
+	// 防抖节流：120ms 既能防止连点器抖动，又能流畅支持玩家快速双击
+	if(g_dwCurTime - ClickTime < 120) return;
+	ClickTime = g_dwCurTime;
+
 	// 메인 캐릭이 금나수에 걸려서 움직일 수 없는 상태다.
 	if( pMainChar->m_KeepUpMugongList.IsExist(OUTGONGID_KUMNASU) )
 	{
@@ -1061,10 +1074,6 @@ void ProcessLButtonDown( CXiahCharObject *pMainChar, CXiahCharObject* pMouseOnCh
 	dwSelObjectType = 0;
 	g_MainChar_PreAttackInfo.dwLastPreAttackTime = 0;
 	g_MainChar_PreAttackInfo.nRemainAttackCount = 0;
-
-	// 防抖节流：150ms 既能防止连点器抖动，又能流畅支持玩家快速双击
-	if(g_dwCurTime - ClickTime < 150) return;
-	ClickTime = g_dwCurTime;
 
 	 // 커서가 오브젝트를 가리키고 있을때
 	if( XiahObject::g_pMouseOnObject && pMouseOnCharObject)
@@ -1229,13 +1238,20 @@ void ProcessLButtonDown( CXiahCharObject *pMainChar, CXiahCharObject* pMouseOnCh
 					// RS [7/5/2005] 버그 수정
 					if(g_MainCharInfo.m_bFastMove)
 					{
-						pMainChar->SetAnimation( XiahAniType::eLAT_Mugong, g_MainCharInfo.m_nFastIndex, 0.7f);
+						int fastIdx = (g_MainCharInfo.m_nFastIndex > 0) ? g_MainCharInfo.m_nFastIndex : 4;
+						if (pMainChar->m_nCurMotionType != XiahAniType::eLAT_Mugong || pMainChar->m_nCurAniIndex != fastIdx)
+						{
+							pMainChar->SetAnimation( XiahAniType::eLAT_Mugong, fastIdx, 0.7f);
+						}
 					}
 					else
 					{
-						pMainChar->SetAnimation( XiahAniType::eLAT_Run, 1);
-						float fMoveSpeed = (float)(g_MainCharInfo.m_bWalkSpeed + g_MainCharInfo.m_bPlusSpeed) / 9.0f;
-						pMainChar->m_CharRender.SetAnimationSpeed( fMoveSpeed);
+						if (pMainChar->m_nCurMotionType != XiahAniType::eLAT_Run)
+						{
+							pMainChar->SetAnimation( XiahAniType::eLAT_Run, 1);
+							float fMoveSpeed = (float)(g_MainCharInfo.m_bWalkSpeed + g_MainCharInfo.m_bPlusSpeed) / 9.0f;
+							pMainChar->m_CharRender.SetAnimationSpeed( fMoveSpeed);
+						}
 					}
 
 					// 달리고 있던중
@@ -1260,6 +1276,17 @@ void ProcessLButtonDown( CXiahCharObject *pMainChar, CXiahCharObject* pMouseOnCh
 				if( g_pTargetInfoPanel && g_pTargetInfoPanel->IsActive() )
 				{
 					g_pTargetInfoPanel->Clear();
+				}
+				// 关键补充：如果角色正处于自动寻路或奔跑移动中，左键点击地面空白处立即急停刹车，彻底移交控制权！
+				if( bAutoNavigation || bMove )
+				{
+					bAutoNavigation = FALSE;
+					bAutoAttack = FALSE;
+					bAutoNormalAttack = FALSE;
+					pMainChar->SetAnimation( XiahAniType::eLAT_Stand, 0);
+					SendCS_NV_ENDMOVE_REQ( g_pMainChar->m_dwServerID, pMainChar->m_Position.x, -pMainChar->m_Position.z, pMainChar->m_Position.y, CHARSTATE_NORMAL);
+					bMove = FALSE;
+					pMainChar->m_bTargetMove = FALSE;
 				}
 				// [ModernControl] 需求4：左键点击地面空白处清空目标并关闭 NPC 对话
 				if( IsNpcDialogOpen() )
@@ -1439,11 +1466,8 @@ void ProcessRButtonDown( CXiahCharObject *pMainChar, BOOL bMouseOnObjectType, DW
 			}
 		}
 
-		// 경공
-		if( dwMugongID == OUTGONGID_ILYUIDOGANG	 || 
-			dwMugongID == OUTGONGID_YUESUSINYUNG || 
-			dwMugongID == OUTGONGID_JILPUNGBO	 ||
-			dwMugongID == OUTGONGID_CHOSANGBI      )
+		// 移动类武功（轻功/经功，bType=4 and bKind=6）无需锁定目标朝向
+		if( IsFastMoveMugong(dwMugongID) )
 		{
 
 		}
@@ -1455,7 +1479,8 @@ void ProcessRButtonDown( CXiahCharObject *pMainChar, BOOL bMouseOnObjectType, DW
 		if( dwMugongID == OUTGONGID_UNKIHAENG ||	 // 운기행
 			dwMugongID == OUTGONGID_JOSIKSUL ||		// 조식술
 			dwMugongID == OUTGONGID_WHANSUYUO ||	// 환수유
-			dwMugongID == OUTGONGID_KIYOESUL )		// 기요술
+			dwMugongID == OUTGONGID_KIYOESUL ||		// 기요술
+			IsFastMoveMugong(dwMugongID) )			// 移动类武功(轻功/经功，bType=4 and bKind=6)
 		{
 			bDefType = OBJTYPE_PC;
 			dwDefID = g_pMainChar->m_dwServerID;
